@@ -2,6 +2,10 @@ import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
+// import { useDispatch, useSelector } from "react-redux";
+// import { setAuthState } from "@/app/redux/authSlice";
+
+// const dispatch = useDispatch();
 
 export const options: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -28,6 +32,8 @@ export const options: NextAuthOptions = {
                 const {data, errors}  = await getClient().mutate({
                     mutation: gql`mutation Login {
                         login(userData: {email: "${credentials?.email}", password: "${credentials?.password}"}) {
+                            id
+                            email
                             token
                         }
                       }`
@@ -37,9 +43,9 @@ export const options: NextAuthOptions = {
                 
                 console.log(data, errors)
                 
-              const user = data.login
+                const user = data.login;
                 if (user) { 
-                    // Any object returned will be saved in `user` property of the JWT
+                    
                     return user
                 } else {
                     // If you return null or false then the credentials will be rejected
@@ -52,6 +58,23 @@ export const options: NextAuthOptions = {
             }
           })
     ],
+    session: {
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
+
+    callbacks: {
+        async jwt({token, user}) {
+            return {...token, ...user}
+        },
+
+        async session({session, token}) {
+            session.user = token as any;
+            return session
+        }
+
+
+    }
     // pages: {
     //     signIn: "/auth/signin",
     //     signOut: "/auth/signout",

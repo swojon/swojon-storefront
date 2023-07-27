@@ -1,7 +1,8 @@
-"use client";
-import { gql } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import React from "react";
+'use client';
+import { gql, useQuery } from "@apollo/client";
+// import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 
 const query = gql`
   query GetUsers {
@@ -14,31 +15,40 @@ const query = gql`
 
 interface Response {
   getUsers: { id: number; email: string }[];
+  loading: boolean;
+error: any;
+
 }
 
 export default function ListUsers() {
-  const [count, setCount] = React.useState(0);
-  const { data, error } = useSuspenseQuery<Response>(query);
+  const {data:session} = useSession();
+  // const {da} = getSession();
+  
+  useEffect(() => {}, [session]);
 
-  return (
+  const { loading, error, data } = useQuery(query, {
+    context: {
+      accessToken: session?.user?.token,
+    },
+    skip: !session?.user?.token,
+  });
+   
+      return (
+
     <main style={{ maxWidth: 1200, marginInline: "auto", padding: 20 }}>
       <div style={{ marginBottom: "4rem", textAlign: "center" }}>
-        <h4 style={{ marginBottom: 16 }}>{count}</h4>
-        <button onClick={() => setCount((prev) => prev + 1)}>increment</button>
-        <button
-          onClick={() => setCount((prev) => prev - 1)}
-          style={{ marginInline: 16 }}
-        >
-          decrement
-        </button>
-        <button onClick={() => setCount(0)}>reset</button>
-      </div>
-
+        {session?.user ? 
+        (<>
+        <h5>logged in as: {session?.user?.email}</h5>
+            <button onClick={() => signOut()}>Sign out</button>
+        </>      
+        ): <button onClick={() => signIn()}>Sign in</button>}
+        </div>
       {error ? (
         <p>Oh no, there was an error</p>
-      ) : !data ? (
+      ) : !data?.getUsers ? (
         <p>Loading...</p>
-      ) : data ? (
+      ) : data?.getUsers ? (
         <div
           style={{
             display: "grid",

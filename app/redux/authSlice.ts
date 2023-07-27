@@ -6,12 +6,14 @@ import { HYDRATE } from "next-redux-wrapper";
 
 // Type for our state
 export interface AuthState {
-  authState: boolean;
+  isAuthenticated: boolean;
+  token?: string;
 }
 
 // Initial state
 const initialState: AuthState = {
-  authState: false,
+  isAuthenticated: false,
+  token: ""
 };
 
 // Actual Slice
@@ -21,23 +23,16 @@ export const authSlice = createSlice({
   reducers: {
     // Action to set the authentication status
     setAuthState(state, action) {
-      state.authState = action.payload;
+      // state.authState = action.payload;
+      state.isAuthenticated = action.payload.isAuthenticated;
+      state.token = action.payload.token;
     },
-  },
-
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.auth,
-      };
-    },
-  },
+  }
+  
 });
 
 export const { setAuthState } = authSlice.actions;
 
-export const selectAuthState = (state: AppState) => state.auth.authState;
+// export const selectAuthState = (state: AppState) => state.auth.authState;
 
 export default authSlice.reducer;
