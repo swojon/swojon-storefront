@@ -1,4 +1,11 @@
 .hero-container {
-  padding: 0 100px;
+  padding: 100px 100px;
   background-color: #ffeaea;
+  .left {
+    h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 72.8px;
+    }
+  }
 }
