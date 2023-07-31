@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import { getClient } from "@/lib/client";
 
 import { gql } from "@apollo/client";
+import HeroSection from "../components/heroSection/HeroSection";
 
 const query = gql`
   query Now {
@@ -14,9 +15,9 @@ const query = gql`
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1>hello</h1>
-    </div>
+    <section>
+      <HeroSection />
+    </section>
   );
 };
 
