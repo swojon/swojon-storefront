@@ -22,15 +22,12 @@ error: any;
 
 export default function ListUsers() {
   const {data:session} = useSession();
-  // const {da} = getSession();
-  
+
+
   useEffect(() => {}, [session]);
 
   const { loading, error, data } = useQuery(query, {
-    context: {
-      accessToken: session?.user?.token,
-    },
-    skip: !session?.user?.token,
+    skip: !session?.user,
   });
    
       return (
@@ -56,7 +53,7 @@ export default function ListUsers() {
             gap: 20,
           }}
         >
-          {data?.getUsers.map((user) => (
+          {data?.getUsers.map((user:any) => (
             <div
               key={user.id}
               style={{ border: "1px solid #ccc", textAlign: "center" }}

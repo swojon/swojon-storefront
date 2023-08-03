@@ -23,5 +23,6 @@ export const { getClient } = registerApolloClient(() => {
     link: new HttpLink({
       uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     }),
+    credentials: 'include'
   });
 });
