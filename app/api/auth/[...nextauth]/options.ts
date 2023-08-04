@@ -42,7 +42,9 @@ export const options: NextAuthOptions = {
                 
                 
                 console.log(data, errors)
-                
+                // const cookies = response.headers['set-cookie']
+
+                // res.setHeader('Set-Cookie', cookies)
                 const user = data.login;
                 if (user) { 
                     
@@ -58,23 +60,27 @@ export const options: NextAuthOptions = {
             }
           })
     ],
-    session: {
-        strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60, // 30 days
-    },
+    // session: {
+    //     strategy: "jwt",
+    //     maxAge: 30 * 24 * 60 * 60, // 30 days
+    // },
+    // session: {
+    //     strategy: "session",
+    //     maxAge: 30 * 24 * 60 * 60, // 30 days
+    // },
 
-    callbacks: {
-        async jwt({token, user}) {
-            return {...token, ...user}
-        },
+    // callbacks: {
+    //     async jwt({token, user}) {
+    //         return {...token, ...user}
+    //     },
 
-        async session({session, token}) {
-            session.user = token as any;
-            return session
-        }
+    //     async session({session, token}) {
+    //         session.user = token as any;
+    //         return session
+    //     }
 
 
-    }
+    // }
     // pages: {
     //     signIn: "/auth/signin",
     //     signOut: "/auth/signout",

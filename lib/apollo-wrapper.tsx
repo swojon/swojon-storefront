@@ -5,6 +5,7 @@ import { getToken } from "next-auth/jwt";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from '@apollo/client/link/context';
 import { useSession } from "next-auth/react";
+import { request } from "http";
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_URL 
 // const accessToken = getToken({ req, secret: process.env.JWT_SECRET });
@@ -19,6 +20,7 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
   function makeClient() {
     const httpLink = new HttpLink({
       uri: GRAPHQL_ENDPOINT,
+      credentials: 'include'
   });
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -32,16 +34,17 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
     if (networkError) console.log(`[Network error]: ${networkError}`);
   });
 
-  const authLink = setContext((_, context) => {
+  const authLink = setContext((_, context, ) => {
     console.log("Access Token", context)
     const { accessToken } = context;
 
     // const lstoken = typeof window !== 'undefined'? localStorage.getItem('token') : "";
-    
+    // console.log("context headers", context.headers.cookie)
     return {
       headers: {
         ...context.headers,
         authorization: accessToken ? `Bearer ${accessToken}` : "",
+        // cookies: typeof window !== 'undefined'? document.cookie : "",
       },
     };
   });
@@ -49,6 +52,7 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
 
   // console.log(session)
   return new NextSSRApolloClient({
+    credentials: 'include',
     cache: new NextSSRInMemoryCache(),
     link:
       typeof window === "undefined"
