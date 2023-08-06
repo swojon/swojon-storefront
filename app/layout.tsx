@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { NextAuthProvider } from "./providers";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import SignIn from "./auth/signin/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children, session }: Iprops) {
           <NextAuthProvider session={session}>
             <ApolloWrapper>
               <div className="">
+                {/* <SignIn /> */}
                 <Navbar />
                 {children}
                 <Footer />
