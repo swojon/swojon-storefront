@@ -1,0 +1,80 @@
+"use client";
+import React from "react";
+import signup from "../../../public/signup.svg";
+import Image from "next/image";
+import Link from "next/link";
+
+const page = () => {
+  return (
+    <div className=" w-full min-h-screen flex items-center bg-white absolute top-0 left-0 ">
+      <div className="w-1/2 min-h-screen flex items-center bg-slate-100">
+        <div className="w-2/3 h-1/3 m-auto ">
+          <Image src={signup} alt="" className="w-full  h-full" />
+        </div>
+      </div>
+      <div className=" bg-white w-1/2  p-4 text-center">
+        <div className=" pb-4 w-full  ">
+          <h1 className="text-3xl font-bold text-[#cc0000]	">zwapto</h1>
+        </div>
+        <form className="space-y-4 pt-5 w-2/3 mx-auto">
+          <h2 className="text-center text-xl font-semibold ">Sign up</h2>
+
+          <div className="flex  gap-6">
+            <div className="relative h-10 w-full ">
+              <input
+                className="peer h-full w-full rounded-[7px] border border-blue-gray-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-500 placeholder-shown:border-t-blue-gray-500 focus:border-2 focus:border-[#cc0000] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 shadow-lg"
+                placeholder=" "
+                type="email"
+              />
+              <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-grey-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#cc0000]peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-[#cc0000] peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-[#cc0000] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Email
+              </label>
+            </div>
+          </div>
+
+          <div className="flex  gap-6">
+            <div className="relative h-10 w-full ">
+              <input
+                className="peer h-full w-full rounded-[7px] border border-blue-gray-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-500 placeholder-shown:border-t-blue-gray-500 focus:border-2 focus:border-[#cc0000] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 shadow-lg"
+                type="password"
+                placeholder=""
+              />
+              <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-grey-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#cc0000]peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-[#cc0000] peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-[#cc0000] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Password
+              </label>
+            </div>
+          </div>
+
+          <div className="flex  gap-6">
+            <div className="relative h-10 w-full ">
+              <input
+                className="peer h-full w-full rounded-[7px] border border-blue-gray-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-500 placeholder-shown:border-t-blue-gray-500 focus:border-2 focus:border-[#cc0000] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 shadow-lg"
+                type="password"
+                placeholder=""
+              />
+              <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-grey-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#cc0000]peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-[#cc0000] peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-[#cc0000] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Repeat Password
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="py-3 border border-[#cc0000] w-full rounded "
+          >
+            sign up
+          </button>
+        </form>
+        <h6 className="pt-4 text-gray-400">
+          {" "}
+          already have an account !{" "}
+          <Link href="/auth/signin">
+            <span className="text-[#cc0000e0]">sign in</span>
+          </Link>
+        </h6>
+      </div>
+    </div>
+  );
+};
+
+export default page;

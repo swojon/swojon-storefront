@@ -1,60 +1,24 @@
-'use client';
-
+"use client";
 
 import type { NextPage } from "next";
 
 import { getClient } from "@/lib/client";
 
 import { gql } from "@apollo/client";
+import HeroSection from "../components/heroSection/HeroSection";
 
-const query = gql`query Now {
+const query = gql`
+  query Now {
     now(id: "1")
-}`;
-
+  }
+`;
 
 const Home: NextPage = () => {
-  // const { data } = await getClient().query({ query });
-  // const authState = useSelector(selectAuthState);
-  // const dispatch = useDispatch();
-  // return <main>{data.now}</main>;
   return (
-    <div>
-      {/* <div>{authState ? "Logged in" : "Not Logged In"}</div>
-      <button
-        onClick={() =>
-          authState
-            ? dispatch(setAuthState(false))
-            : dispatch(setAuthState(true))
-        }
-      >
-        {authState ? "Logout" : "LogIn"}
-      </button> */}
-
-
-    </div>
+    <section>
+      <HeroSection />
+    </section>
   );
 };
 
-// export async function getStaticProps() {
-//   const { data } = await getClient().query({
-//     query: gql`
-//       query NextLaunch {
-//         launchNext {
-//           mission_name
-//           launch_date_local
-//           launch_site {
-//             site_name_long
-//           }
-//         }
-//       }
-//     `,
-//   });
-//   return {
-//     props: {
-//       nextLaunch: data.launchNext,
-//     },
-//  };
-// }
-
 export default Home;
-
