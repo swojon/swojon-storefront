@@ -36,6 +36,7 @@
     "urql": "^4.0.5"
   },
   "devDependencies": {
+    "@types/set-cookie-parser": "^2.4.3",
     "sass": "^1.64.2"
   }
 }

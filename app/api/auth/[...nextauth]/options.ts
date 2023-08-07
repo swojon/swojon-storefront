@@ -1,14 +1,10 @@
-import { getClient } from "@/lib/client";
-import { gql } from "@apollo/client";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getCookieParser } from "next/dist/server/api-utils";
-// import { useDispatch, useSelector } from "react-redux";
-// import { setAuthState } from "@/app/redux/authSlice";
+
 import {cookies} from 'next/headers';
 import setCookie from 'set-cookie-parser';
 
-// const dispatch = useDispatch();
+
 
 export const options: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -16,37 +12,25 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: { label: "Email", type: "text", placeholder: "x@example.com" },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials, req) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
+        const res : any = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
 
-        const {data, error} = await res.json();
         let res_cookies = setCookie.parse(res, {})
+        const {data, error} = await res.json();
         res_cookies.forEach((cookie: any) => {
-            // console.log(cookie)
-            // if (cookie.name === 'qsid') {
               cookies().set(cookie)
         })
 
-
-        // const cookies = response.headers['set-cookie']
-
-        // res.setHeader('Set-Cookie', cookies)
-        // console.log(data)
         const user = data.login;
-        // console.log(user)
 
         if (user) { 
             

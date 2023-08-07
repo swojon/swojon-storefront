@@ -82,6 +82,9 @@ dependencies:
     version: 4.0.5(graphql@16.7.1)(react@18.2.0)
 
 devDependencies:
+  '@types/set-cookie-parser':
+    specifier: ^2.4.3
+    version: 2.4.3
   sass:
     specifier: ^1.64.2
     version: 1.64.2
@@ -435,7 +438,6 @@ packages:
 
   /@types/node@20.4.4:
     resolution: {integrity: sha512-CukZhumInROvLq3+b5gLev+vgpsIqC2D0deQr/yS1WnxvmYLlJXZpaQrQiseMY+6xusl79E04UjWoqyr+t1/Ew==}
-    dev: false
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -458,6 +460,12 @@ packages:
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
     dev: false
+
+  /@types/set-cookie-parser@2.4.3:
+    resolution: {integrity: sha512-7QhnH7bi+6KAhBB+Auejz1uV9DHiopZqu7LfR/5gZZTkejJV5nYeZZpgfFoE0N8aDsXuiYpfKyfyMatCwQhyTQ==}
+    dependencies:
+      '@types/node': 20.4.4
+    dev: true
 
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
