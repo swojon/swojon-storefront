@@ -1,10 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import {cookies} from 'next/headers';
-import setCookie from 'set-cookie-parser';
-
-
+import { cookies } from "next/headers";
+import setCookie from "set-cookie-parser";
 
 export const options: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -18,37 +16,38 @@ export const options: NextAuthOptions = {
       },
 
       async authorize(credentials, req) {
-        const res : any = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
+        const res: any = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
+          {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-        let res_cookies = setCookie.parse(res, {})
-        const {data, error} = await res.json();
+        let res_cookies = setCookie.parse(res, {});
+        const { data, error } = await res.json();
         res_cookies.forEach((cookie: any) => {
-              cookies().set(cookie)
-        })
+          cookies().set(cookie);
+        });
 
         const user = data.login;
 
-        if (user) { 
-            
-            return user
+        if (user) {
+          return user;
         } else {
-            // If you return null or false then the credentials will be rejected
-            return null
-            // You can also Reject this callback with an Error or with a URL:
-            // throw new Error('error message') // Redirect to error page
-            // throw '/path/to/redirect'        // Redirect to a URL
+          // If you return null or false then the credentials will be rejected
+          return null;
+          // You can also Reject this callback with an Error or with a URL:
+          // throw new Error('error message') // Redirect to error page
+          // throw '/path/to/redirect'        // Redirect to a URL
         }
-        
-    }
+      },
     }),
   ],
   session: {
-      strategy: "jwt",
-      maxAge: 30 * 24 * 60 * 60, // 30 days
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   // session: {
   //     strategy: "session",

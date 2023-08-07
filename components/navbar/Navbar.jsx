@@ -33,11 +33,11 @@ const Navbar = () => {
   });
 
   return (
-    <nav className=" w-full  nav-container">
+    <nav className=" w-full  nav-container border-b border-slate-300">
       <div className="nav-box flex justify-between items-center">
         <ul className=" w-2/6 flex gap-x-8 text-base">
           <li>
-            <Link href="/">Category</Link>
+            <Link href="/pages/category">Category</Link>
           </li>
           <li>
             <Link href="/">Brands</Link>
