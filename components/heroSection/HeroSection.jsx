@@ -30,7 +30,7 @@ const HeroSection = () => {
             </div>
 
             <button
-              class="relative z-[2] flex items-center rounded-lg bg-primary px-6 py-2.5 text-xs font-medium  leading-tight bg-[#cc0000] shadow-md transition duration-150 ease-in-out hover:bg-primary-700  focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+              className="relative z-[2] flex items-center rounded-lg bg-primary px-6 py-2.5 text-xs font-medium  leading-tight bg-[#cc0000] shadow-md transition duration-150 ease-in-out hover:bg-primary-700  focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
               type="button"
               id="button-addon1"
               data-te-ripple-init
