@@ -21,7 +21,7 @@ const HeroSection = () => {
             <div className="relative">
               <input
                 type="search"
-                class=" m-0  block   flex-auto rounded-l-xl  bg-white bg-clip-padding pl-9 py-[0.7rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700  focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-100 dark:focus:border-primary"
+                className=" m-0  block   flex-auto rounded-l-xl  bg-white bg-clip-padding pl-9 py-[0.7rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700  focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-100 dark:focus:border-primary"
                 placeholder="lets search together"
                 aria-label="Search"
                 aria-describedby="button-addon1"
@@ -30,7 +30,7 @@ const HeroSection = () => {
             </div>
 
             <button
-              class="relative z-[2] flex items-center rounded-lg bg-primary px-6 py-2.5 text-xs font-medium  leading-tight bg-[#cc0000] shadow-md transition duration-150 ease-in-out hover:bg-primary-700  focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+              className="relative z-[2] flex items-center rounded-lg bg-primary px-6 py-2.5 text-xs font-medium  leading-tight bg-[#cc0000] shadow-md transition duration-150 ease-in-out hover:bg-primary-700  focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
               type="button"
               id="button-addon1"
               data-te-ripple-init

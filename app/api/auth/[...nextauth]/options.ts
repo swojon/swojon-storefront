@@ -1,11 +1,10 @@
-import { getClient } from "@/lib/client";
-import { gql } from "@apollo/client";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import { useDispatch, useSelector } from "react-redux";
-// import { setAuthState } from "@/app/redux/authSlice";
 
-// const dispatch = useDispatch();
+import {cookies} from 'next/headers';
+import setCookie from 'set-cookie-parser';
+
+
 
 export const options: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -13,53 +12,44 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: { label: "Email", type: "text", placeholder: "x@example.com" },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials, req) {
-        // console.log("I am here")
-        // Add logic here to look up the user from the credentials supplied
-        interface Response {
-          login: { id?: number; token?: string; email?: string };
-        }
-
-        const { data, errors } = await getClient().mutate({
-          mutation: gql`mutation Login {
-                        login(userData: {email: "${credentials?.email}", password: "${credentials?.password}"}) {
-                            id
-                            email
-                            token
-                        }
-                      }`,
+        const res : any = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" },
         });
 
-        console.log(data, errors);
-        // const cookies = response.headers['set-cookie']
+        let res_cookies = setCookie.parse(res, {})
+        const {data, error} = await res.json();
+        res_cookies.forEach((cookie: any) => {
+              cookies().set(cookie)
+        })
 
-        // res.setHeader('Set-Cookie', cookies)
         const user = data.login;
-        if (user) {
-          return user;
+
+        if (user) { 
+            
+            return user
         } else {
-          // If you return null or false then the credentials will be rejected
-          return null;
-          // You can also Reject this callback with an Error or with a URL:
-          // throw new Error('error message') // Redirect to error page
-          // throw '/path/to/redirect'        // Redirect to a URL
+            // If you return null or false then the credentials will be rejected
+            return null
+            // You can also Reject this callback with an Error or with a URL:
+            // throw new Error('error message') // Redirect to error page
+            // throw '/path/to/redirect'        // Redirect to a URL
         }
-      },
+        
+    }
     }),
   ],
-  // session: {
-  //     strategy: "jwt",
-  //     maxAge: 30 * 24 * 60 * 60, // 30 days
-  // },
+  session: {
+      strategy: "jwt",
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   // session: {
   //     strategy: "session",
   //     maxAge: 30 * 24 * 60 * 60, // 30 days
