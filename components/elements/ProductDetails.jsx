@@ -5,7 +5,7 @@ const ProductDetails = ({ data, height }) => {
   return (
     <section className="w-full bg-[#f6f5f5ea] hover:shadow-lg rounded">
       <div
-        className="m-2  bg-[#F1F1F1] flex items-center justify-center border transition duration-700 ease-in-out"
+        className="m-2  bg-[#F1F1F1] flex items-center justify-center  transition duration-700 ease-in-out"
         style={{ height: `${height}` }}
       >
         <Image src={data.img} alt="product img" className="w-full " />
