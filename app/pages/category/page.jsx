@@ -1,11 +1,13 @@
 import React from "react";
 import SearchBanner from "../../../components/searchBanner/SearchBanner";
 import CategoryCart from "../../../components/elements/CategoryCart";
+import ProductDetails from "../../../components/elements/ProductDetails";
 import laptop from "../../../public/laptop.png";
 import monitor from "../../../public/monitor.png";
 import console from "../../../public/console.png";
 import dress from "../../../public/dress.png";
 import smartphone from "../../../public/smartphone.png";
+import data2 from "../../../data/data";
 
 const Category = () => {
   const data = [
@@ -24,6 +26,20 @@ const Category = () => {
         <div className="flex justify-between py-9">
           {data.map((data) => (
             <CategoryCart key={data.id} data={data} height={"200px"} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-xl capitalize font-semibold">
+          Shop Certified Mobiles
+        </h3>
+        <p>
+          Browse inspected phones and tablets, with 7-day money back guarantee
+        </p>
+        <div className="flex justify-between py-9 gap-x-2">
+          {data2.map((item) => (
+            <ProductDetails key={item.id} data={item} height={"220px"} />
           ))}
         </div>
       </div>

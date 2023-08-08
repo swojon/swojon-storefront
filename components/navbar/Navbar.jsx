@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const query = gql`
   query GetUsers {
@@ -17,11 +18,13 @@ const query = gql`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const location = usePathname();
+
   const Links = [
-    { name: "HOME", link: "/", id: 1 },
-    { name: "SERVICE", link: "/", id: 2 },
-    { name: "ABOUT", link: "/", id: 3 },
-    { name: "CONTACT", link: "/", id: 4 },
+    { name: "Category", link: "/pages/category", id: 1 },
+    { name: "Brands", link: "/pages/brands", id: 2 },
+    { name: "New", link: "/pages/new", id: 3 },
+    { name: "Services", link: "/pages/services", id: 4 },
   ];
 
   const { data: session } = useSession();
@@ -33,24 +36,20 @@ const Navbar = () => {
   });
 
   return (
-    <nav className=" w-full  nav-container border-b border-slate-300">
-      <div className="nav-box flex justify-between items-center">
+    <nav className=" w-full  nav-container border-b border-slate-300 sticky h-[70px] top-0 flex  items-center">
+      <div className="nav-box flex justify-between items-center  w-full">
         <ul className=" w-2/6 flex gap-x-8 text-base">
-          <li>
-            <Link href="/pages/category">Category</Link>
-          </li>
-          <li>
-            <Link href="/">Brands</Link>
-          </li>
-          <li>
-            <Link href="/">New</Link>
-          </li>
-          <li>
-            <Link href="/">Services</Link>
-          </li>
+          {Links.map((link) => (
+            <li
+              key={link.id}
+              className={location == `${link.link}` && "text-[#CC0000]"}
+            >
+              <Link href={link.link}>{link.name}</Link>
+            </li>
+          ))}
         </ul>
 
-        <div className="w-1/6 font-bold text-center app-name ">
+        <div className="w-1/6 font-bold text-center text-[#cc0000] text-[40px] font-black	">
           <Link href="/">zwapto</Link>
         </div>
 

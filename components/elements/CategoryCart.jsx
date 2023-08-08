@@ -5,7 +5,7 @@ const CategoryCart = ({ data, height }) => {
   return (
     <section className="w-full  flex flex-col items-center">
       <div
-        className="bg-[#F1F1F1] p-7 w-full rounded-full flex items-center justify-center"
+        className="bg-[#F1F1F1] p-7 w-full rounded-full flex items-center justify-center hover:-translate-y-2 transition duration-700 ease-in-out"
         style={({ height: `${height}` }, { width: `${height}` })}
       >
         <Image src={data.img} alt="" className="w-full " />
