@@ -89,7 +89,7 @@ const Navbar = () => {
           )}
 
           {/* <!-- Dropdown menu --> */}
-          <div className="w-[40px] h-[40px] ">
+          <div className="w-[40px] h-[40px] border border-[#cc0000] rounded-full">
             <Image
               src={profile}
               alt="profile"
