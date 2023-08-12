@@ -9,12 +9,10 @@ const config: CodegenConfig = {
     "gql/": {
       preset: "client",
       plugins: [
-        // "typescript-urql"
       ]
     },
     "apollograph/generated.ts":{
       plugins:[
-        // "typescript-urql"
         "typescript-react-apollo"
       ]
     },

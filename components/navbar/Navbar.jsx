@@ -48,7 +48,7 @@ const Navbar = () => {
             {Links.map((link) => (
               <li
                 key={link.id}
-                className={location == `${link.link}` && "text-[#CC0000]"}
+                className={location == `${link.link}`?"text-[#CC0000]" : "text-[#000000]"}
               >
                 <Link href={link.link}>{link.name}</Link>
               </li>

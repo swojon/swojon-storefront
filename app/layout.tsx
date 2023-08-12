@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
-import { SessionProvider } from "next-auth/react";
 import { NextAuthProvider } from "./providers";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import Demo from "../components/navbar/Demo";
+import { Session } from "next-auth";
+import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,22 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children, session }: Iprops) {
+async function getSession(cookie: string): Promise<Session> {
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/session`, {
+    headers: {
+      cookie,
+    },
+  });
+
+  const session = await response.json();
+  console.log("session", session)
+  return Object.keys(session).length > 0 ? session : null;
+}
+
+
+export default async function RootLayout({ children }: Iprops) {
+  const session = await getSession(headers().get('cookie') ?? '');
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -30,11 +45,11 @@ export default function RootLayout({ children, session }: Iprops) {
             <ApolloWrapper>
               <div className="">
                 <Navbar />
-                {/* <Demo /> */}
                 {children}
                 <Footer />
               </div>
             </ApolloWrapper>
+
           </NextAuthProvider>
         </Providers>
       </body>
