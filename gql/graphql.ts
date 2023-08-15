@@ -20,13 +20,13 @@ export type Scalars = {
 
 export type Categories = {
   __typename?: 'Categories';
-  count: Scalars['Float']['output'];
   items: Array<Category>;
 };
 
 export type Category = {
   __typename?: 'Category';
   banner?: Maybe<Scalars['String']['output']>;
+  children?: Maybe<Array<Category>>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved?: Maybe<Scalars['Boolean']['output']>;
