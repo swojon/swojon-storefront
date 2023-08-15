@@ -45,7 +45,11 @@ const Navbar = () => {
     <div className="relative">
       <nav className=" w-full relative nav-container  bg-white border-slate-300  h-[60px] top-0 flex  items-center transition ease-in-out delay-150">
         <div className="nav-box flex justify-between items-center  w-full">
-          <div className="hidden lg:block  w-3/6">
+          <div className=" font-bold  text-[#cc0000] text-[25px] lg:text-[40px]	">
+            <Link href="/">zwapto</Link>
+          </div>
+
+          <div className="hidden lg:block ">
             <ul className=" flex gap-x-8 text-base h-full">
               {Links.map((link) => (
                 <li
@@ -71,11 +75,7 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <div className="w-1/6 font-bold  text-[#cc0000] text-[25px] lg:text-[40px]	">
-            <Link href="/">zwapto</Link>
-          </div>
-
-          <div className="w-2/6 flex items-center	justify-end gap-x-3">
+          <div className=" flex items-center	justify-end gap-x-3">
             <Link href="/" className="hidden lg:block">
               <div className="text-[#cc0000] text-2xl ">
                 <AiOutlineHeart />
