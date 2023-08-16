@@ -32,7 +32,7 @@ export default function RootLayout({ children, session }: Iprops) {
                 <Navbar />
                 {/* <Demo /> */}
                 {children}
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </ApolloWrapper>
           </NextAuthProvider>

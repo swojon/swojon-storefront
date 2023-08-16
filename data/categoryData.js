@@ -28,6 +28,81 @@ const categoryData = {
                   name: "Asus",
                   slug: "premium",
                 },
+                {
+                  id: 1114,
+                  name: "Lenovo",
+                  slug: "premium",
+                },
+                {
+                  id: 1115,
+                  name: "Dell",
+                  slug: "premium",
+                },
+                {
+                  id: 1116,
+                  name: "Asus",
+                  slug: "premium",
+                },
+                {
+                  id: 117,
+                  name: "Lenovo",
+                  slug: "premium",
+                },
+                {
+                  id: 1118,
+                  name: "Dell",
+                  slug: "premium",
+                },
+                {
+                  id: 1119,
+                  name: "Asus",
+                  slug: "premium",
+                },
+                {
+                  id: 1120,
+                  name: "Lenovo",
+                  slug: "premium",
+                },
+                {
+                  id: 1121,
+                  name: "Dell",
+                  slug: "premium",
+                },
+                {
+                  id: 1122,
+                  name: "Asus",
+                  slug: "premium",
+                },
+                {
+                  id: 11123,
+                  name: "Lenovo",
+                  slug: "premium",
+                },
+                {
+                  id: 1112342,
+                  name: "Dell",
+                  slug: "premium",
+                },
+                {
+                  id: 1113342,
+                  name: "Asus",
+                  slug: "premium",
+                },
+                {
+                  id: 111143,
+                  name: "Lenovo",
+                  slug: "premium",
+                },
+                {
+                  id: 111243,
+                  name: "Dell",
+                  slug: "premium",
+                },
+                {
+                  id: 11134,
+                  name: "As3us",
+                  slug: "premium",
+                },
               ],
             },
             {
