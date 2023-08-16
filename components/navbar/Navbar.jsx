@@ -42,7 +42,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className="relative">
+    <div className="relative border-b">
       <nav className=" w-full relative nav-container  bg-white border-slate-300  h-[60px] top-0 flex  items-center transition ease-in-out delay-150">
         <div className="nav-box flex justify-between items-center  w-full">
           <div className=" font-bold  text-[#cc0000] text-[25px] lg:text-[40px]	">
