@@ -12,6 +12,8 @@ import { FiLogOut } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import profile from "../../public/profile.jpg";
 import MegaMenu from "../MegaMenu/MegaMenu";
+import { BiSearch } from "react-icons/bi";
+import MegaMenu2 from "../MegaMenu/MegaMenu2";
 
 const query = gql`
   query GetUsers {
@@ -50,20 +52,21 @@ const Navbar = () => {
           </div>
 
           <div className="hidden lg:block ">
-            <ul className=" flex gap-x-8 text-base h-full">
+            <ul className=" flex gap-x-7 text-base items-center h-full">
               {Links.map((link) => (
                 <li
                   key={link.id}
                   className={
-                    location == `${link.link}` ? "text-[#CC0000] " : "py-4"
+                    location == `${link.link}` ? "text-[#CC0000] py-4" : "py-4 "
                   }
                 >
                   <Link href={link.link}>{link.name}</Link>
                 </li>
               ))}
-              <li className="all-category py-4">
+              {/* mega menu */}
+              {/* <li className="all-category py-4">
                 <Link href="/">All category</Link>
-                {/* mega menu */}
+
                 <div className="absolute left-0  w-full megamenu-container ">
                   <div className="bg-white">
                     <div className="custom-container">
@@ -71,7 +74,13 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
+              </li> */}
+              <li className=" py-4">
+                <MegaMenu2 />
               </li>
+              <div className=" py-4">
+                <BiSearch className=" text-[#cc0000] text-xl" />
+              </div>
             </ul>
           </div>
 
@@ -113,7 +122,7 @@ const Navbar = () => {
             </div>
 
             <Link href="/" className="hidden lg:block">
-              <button className="flex items-center bg-[#cc0000] border border-[#cc0000] rounded-md gap-x-2  text-white  transition ease-in-out delay-150  hover:shadow-md hover:shadow-red-500/20 ">
+              <button className="flex items-center bg-[#cc0000] border border-[#cc0000] rounded-md gap-x-2  text-white  transition ease-in-out delay-150  hover:shadow-md hover:shadow-red-500/20 md:px-[15px] md:py-[5px] px-[8px] py-[5px]">
                 <span className="text-sm ">Sell</span>
               </button>
             </Link>
