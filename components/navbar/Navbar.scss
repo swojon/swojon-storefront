@@ -1,8 +1,19 @@
 .nav-container {
   padding: 0 4vw;
   .nav-box {
-    button {
-      padding: 5px 15px;
-    }
+    // button {
+    //   padding: 5px 15px;
+    // }
   }
+}
+.all-category:hover .megamenu-container {
+  visibility: visible;
+}
+.megamenu-container {
+  height: calc(100vh - 60px);
+  background: #f4f3f3d0;
+  z-index: 1000;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  top: 60px;
 }

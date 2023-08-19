@@ -46,7 +46,7 @@ export default async function RootLayout({ children }: Iprops) {
               <div className="">
                 <Navbar />
                 {children}
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </ApolloWrapper>
 
