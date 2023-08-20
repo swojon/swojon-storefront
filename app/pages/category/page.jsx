@@ -9,6 +9,7 @@ import dress from "../../../public/dress.png";
 import smartphone from "../../../public/smartphone.png";
 import data2 from "../../../data/data";
 import brand from "../../../data/brand";
+import Brands from "../brands/Brands";
 
 const Category = () => {
   const data = [
@@ -31,13 +32,8 @@ const Category = () => {
         </div>
       </div>
 
-      <div>
-        <h3 className="text-xl capitalize font-semibold">Popular brands</h3>
-        <div className="flex justify-between py-9">
-          {brand.map((data) => (
-            <CategoryCart key={data.id} data={data} height={"100px"} />
-          ))}
-        </div>
+      <div className="px-3">
+        <Brands data={brand} />
       </div>
 
       <div>

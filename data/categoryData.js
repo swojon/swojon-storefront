@@ -1,3 +1,8 @@
+import cartImg from "../public/cat1.jpg";
+import cartImg2 from "../public/cat2.jpg";
+import cartImg3 from "../public/cat3.jpg";
+import cartImg4 from "../public/cat4.jpg";
+
 const categoryData = {
   data: {
     listCategories: {
@@ -7,6 +12,8 @@ const categoryData = {
           name: "Electronics",
           slug: "Electronics",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg,
           children: [
             {
               id: 111,
@@ -310,6 +317,8 @@ const categoryData = {
           name: "Car",
           slug: "Car",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg2,
           children: [
             {
               id: 121,
@@ -336,6 +345,8 @@ const categoryData = {
           name: "Mobile",
           slug: "Mobile",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg3,
           children: [
             {
               id: 131,
@@ -378,6 +389,8 @@ const categoryData = {
           name: "Electronics",
           slug: "Electronics",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg4,
           children: [
             {
               id: 1114,
@@ -502,6 +515,8 @@ const categoryData = {
           name: "Car",
           slug: "Car",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg,
           children: [
             {
               id: 1217,
@@ -528,6 +543,8 @@ const categoryData = {
           name: "Mobile",
           slug: "Mobile",
           parentCategory: null,
+          banner: "",
+          cardImg: cartImg2,
           children: [
             {
               id: 1314,

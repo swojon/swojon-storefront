@@ -12,5 +12,12 @@ const Brand = [
   { id: 7, item: "apple", img: brand },
   { id: 8, item: "nintendo", img: brand2 },
   { id: 9, item: "oppo", img: brand3 },
+  { id: 94, item: "oppo", img: brand3 },
+  { id: 92, item: "oppo", img: brand3 },
+  { id: 95, item: "oppo", img: brand3 },
+  { id: 945, item: "oppo", img: brand3 },
+  { id: 92, item: "oppo", img: brand3 },
+  { id: 77, item: "apple", img: brand },
+  { id: 84, item: "nintendo", img: brand2 },
 ];
 export default Brand;

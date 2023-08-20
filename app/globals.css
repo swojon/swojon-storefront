@@ -33,6 +33,11 @@ a {
 .custom-container {
   padding: 15px 4vw;
 }
-/* .nav-container .nav-box button {
-  padding: 0;
-} */
+
+.slick-prev:before,
+.slick-next:before {
+  color: #636363 !important;
+  box-shadow: 7px 6px 35px 0px rgba(112, 112, 112, 0.8);
+  -webkit-box-shadow: 7px 6px 35px 0px rgba(112, 112, 112, 0.8);
+  -moz-box-shadow: 7px 6px 35px 0px rgba(112, 112, 112, 0.8);
+}
