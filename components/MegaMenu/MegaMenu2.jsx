@@ -2,14 +2,17 @@
 import { Fragment, useEffect, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { useListCategoriesQuery } from "@/apollograph/generated";
 
-import categoryData from "@/data/categoryData";
+// import categoryData from "@/data/categoryData";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function MegaMenu2() {
+  const {data, loading, error} = useListCategoriesQuery();
+
   const [hoveredItem, setHoveredItem] = useState("item1");
 
   useEffect(() => {
@@ -68,7 +71,10 @@ export default function MegaMenu2() {
                   <div className="w-3/4 bg-gray-50" />
                 </div>
                 <div className=" w-full  relative">
-                  {categoryData.data.listCategories.items.map((item) => (
+                  {loading? "Loading" : ""}
+                  {error? error: "" }
+
+                  {data && data.listCategories.items.map((item) => (
                     <div
                       className="category-items  pl-[4vw]"
                       onMouseEnter={() => handleItemHover(item.id)}
@@ -76,7 +82,7 @@ export default function MegaMenu2() {
                       key={item.id}
                     >
                       <h2
-                        className={`  px-3 py-2 w-[25%] rounded-sm text-lg font-medium ${
+                        className={`px-3 py-2 w-[25%] rounded-sm text-lg font-medium ${
                           hoveredItem === item.id && " megamenu-heading"
                         }`}
                       >

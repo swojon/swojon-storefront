@@ -18,6 +18,47 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type Brand = {
+  __typename?: 'Brand';
+  categories?: Maybe<Array<Category>>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  parentCategory?: Maybe<Category>;
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type BrandCategoryInput = {
+  brandId: Scalars['Float']['input'];
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
+export type BrandCreateDto = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+};
+
+export type BrandUpdateDto = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Brands = {
+  __typename?: 'Brands';
+  count: Scalars['Float']['output'];
+  items: Array<Brand>;
+};
+
 export type Categories = {
   __typename?: 'Categories';
   items: Array<Category>;
@@ -218,12 +259,16 @@ export type MemberCommunityList = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Add category of brand */
+  addBrandCategory: Brand;
   /** Follow user */
   addFollow: Follow;
   /** User update role */
   addUserRole: User;
   /** Add user to community */
   addUserToCommunity: CommunityMember;
+  /** Create Category */
+  createBrand: Brand;
   /** Create Category */
   createCategory: Category;
   /** Create Community */
@@ -244,8 +289,10 @@ export type Mutation = {
   login: TokenUserData;
   /** User logout */
   logout: User;
+  /** Remove category of brand */
+  removeBrandCategory: Brand;
   /** Remove Category */
-  removeCategory: Category;
+  removeCategory: Brand;
   /** Unfollow user */
   removeFollow: Follow;
   /** Remove user from community */
@@ -256,6 +303,8 @@ export type Mutation = {
   sendChatMessage: Chat;
   /** User signup */
   signup: User;
+  /** Update Brand */
+  updateBrand: Brand;
   /** Update Category */
   updateCategory: Category;
   /** Update Community */
@@ -266,6 +315,11 @@ export type Mutation = {
   updateProfile: Profile;
   /** User update */
   updateUser: User;
+};
+
+
+export type MutationAddBrandCategoryArgs = {
+  inputData: BrandCategoryInput;
 };
 
 
@@ -283,6 +337,11 @@ export type MutationAddUserRoleArgs = {
 
 export type MutationAddUserToCommunityArgs = {
   communityData: CommunityMemberCreateDto;
+};
+
+
+export type MutationCreateBrandArgs = {
+  brandData: BrandCreateDto;
 };
 
 
@@ -332,8 +391,13 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationRemoveBrandCategoryArgs = {
+  inputData: BrandCategoryInput;
+};
+
+
 export type MutationRemoveCategoryArgs = {
-  categoryId: Scalars['Float']['input'];
+  brandId: Scalars['Float']['input'];
 };
 
 
@@ -361,6 +425,12 @@ export type MutationSendChatMessageArgs = {
 
 export type MutationSignupArgs = {
   userData: CreateUserDto;
+};
+
+
+export type MutationUpdateBrandArgs = {
+  brandData: BrandUpdateDto;
+  brandId: Scalars['Float']['input'];
 };
 
 
@@ -430,6 +500,8 @@ export type Query = {
   getUserById: User;
   /** User find list */
   getUsers: Array<User>;
+  /** List All Brands */
+  listBrands: Brands;
   /** List All Categories */
   listCategories: Categories;
   /** List All Chat Messages */
@@ -574,6 +646,11 @@ export type GetChatMessageQueryVariables = Exact<{
 
 export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
 
+export type ListCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', items: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null }> | null }> | null }> | null }> } };
+
 export type SendChatMessageMutationVariables = Exact<{
   input: CreateMessageDto;
 }>;
@@ -591,5 +668,6 @@ export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMess
 
 export const ListChatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"listChats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listChatRooms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chatName"}},{"kind":"Field","name":{"kind":"Name","value":"messages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ListChatsQuery, ListChatsQueryVariables>;
 export const GetChatMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getChatMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listChatMessages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatRoomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetChatMessageQuery, GetChatMessageQueryVariables>;
+export const ListCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}}]} as unknown as DocumentNode<ListCategoriesQuery, ListCategoriesQueryVariables>;
 export const SendChatMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SendChatMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateMessageDTO"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendChatMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatData"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]} as unknown as DocumentNode<SendChatMessageMutation, SendChatMessageMutationVariables>;
 export const NewMessageAddedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"NewMessageAdded"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newMessageAdded"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatRoomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>;
