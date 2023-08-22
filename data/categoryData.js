@@ -10,7 +10,7 @@ const categoryData = {
         {
           id: 11,
           name: "Electronics",
-          slug: "Electronics",
+          slug: "electronics",
           parentCategory: null,
           banner: "",
           cardImg: cartImg,
@@ -315,7 +315,7 @@ const categoryData = {
         {
           id: 12,
           name: "Car",
-          slug: "Car",
+          slug: "car",
           parentCategory: null,
           banner: "",
           cardImg: cartImg2,
@@ -343,7 +343,7 @@ const categoryData = {
         {
           id: 13,
           name: "Mobile",
-          slug: "Mobile",
+          slug: "mobile",
           parentCategory: null,
           banner: "",
           cardImg: cartImg3,
@@ -386,8 +386,8 @@ const categoryData = {
         },
         {
           id: 14,
-          name: "Electronics",
-          slug: "Electronics",
+          name: "Dress",
+          slug: "dress",
           parentCategory: null,
           banner: "",
           cardImg: cartImg4,
@@ -512,8 +512,8 @@ const categoryData = {
         },
         {
           id: 127,
-          name: "Car",
-          slug: "Car",
+          name: "property",
+          slug: "property",
           parentCategory: null,
           banner: "",
           cardImg: cartImg,
@@ -532,50 +532,6 @@ const categoryData = {
                 {
                   id: 675,
                   name: "Premium ",
-                  slug: "premium",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 137,
-          name: "Mobile",
-          slug: "Mobile",
-          parentCategory: null,
-          banner: "",
-          cardImg: cartImg2,
-          children: [
-            {
-              id: 1314,
-              name: "Iphone",
-              slug: "Iphone",
-              children: [
-                {
-                  id: 13114,
-                  name: "Iphone 14 ",
-                  slug: "premium",
-                },
-                {
-                  id: 13124,
-                  name: "Iphone 13 ",
-                  slug: "premium",
-                },
-              ],
-            },
-            {
-              id: 1324,
-              name: "Samsung",
-              slug: "Samsung",
-              children: [
-                {
-                  id: 13215,
-                  name: "Galaxy Z Flip",
-                  slug: "premium",
-                },
-                {
-                  id: 13225,
-                  name: "Galaxy Z Fold",
                   slug: "premium",
                 },
               ],

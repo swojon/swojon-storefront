@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 import categoryData from "../../data/categoryData";
 import "./CategoryCard.css";
 import Image from "next/image";
@@ -8,7 +8,8 @@ const CategoryCard = () => {
   return (
     <div className="custom-container grid grid-cols-5 gap-5">
       {categoryData.data.listCategories.items.map((item) => (
-        <div
+        <Link
+          href={`/categories/${item.slug}`}
           key={item.id}
           className=" relative h-[250px] shadow rounded-lg category-item"
         >
@@ -33,7 +34,7 @@ const CategoryCard = () => {
               <ImArrowRight2 className="text-xl ]" />
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

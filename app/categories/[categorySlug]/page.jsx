@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
 import SearchBanner from "../../../components/searchBanner/SearchBanner";
 import CategoryCart from "../../../components/elements/CategoryCart";
 import ProductDetails from "../../../components/elements/ProductDetails";
@@ -9,24 +11,34 @@ import dress from "../../../public/dress.png";
 import smartphone from "../../../public/smartphone.png";
 import data2 from "../../../data/data";
 import brand from "../../../data/brand";
-import Brands from "../brands/Brands";
+import Brands from "../../pages/brands/Brands";
+import categoryData from "../../../data/categoryData";
 
-const Category = () => {
-  const data = [
-    { id: 1, item: "laptop", img: laptop, title: "100000+ listing" },
-    { id: 2, item: "monitor", img: monitor, title: "100000+ listing" },
-    { id: 3, item: "console", img: console, title: "100000+ listing" },
-    { id: 4, item: "dress", img: dress, title: "100000+ listing" },
-    { id: 5, item: "smartphone", img: smartphone, title: "100000+ listing" },
-  ];
+const data = [
+  { id: 1, item: "laptop", img: laptop, title: "100000+ listing" },
+  { id: 2, item: "monitor", img: monitor, title: "100000+ listing" },
+  { id: 3, item: "console", img: console, title: "100000+ listing" },
+  { id: 4, item: "dress", img: dress, title: "100000+ listing" },
+  { id: 5, item: "smartphone", img: smartphone, title: "100000+ listing" },
+];
+
+const CategoryDetail = ({ params }) => {
+  const categoryItem = params.categorySlug;
+
+  const selectedCategory = categoryData.data.listCategories.items.find(
+    (item) => item.slug === categoryItem
+  );
+
   return (
     <div className="custom-container">
-      <SearchBanner />
+      <SearchBanner img={selectedCategory.cardImg} />
 
       <div>
-        <h3 className="text-xl capitalize font-semibold">shop by category</h3>
+        <h3 className="text-xl capitalize font-semibold">
+          {selectedCategory.name}
+        </h3>
         <div className="flex justify-between py-9">
-          {data.map((data) => (
+          {selectedCategory?.children.map((data) => (
             <CategoryCart key={data.id} data={data} height={"200px"} />
           ))}
         </div>
@@ -53,4 +65,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryDetail;
