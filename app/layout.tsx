@@ -44,9 +44,9 @@ export default async function RootLayout({ children }: Iprops) {
           <NextAuthProvider session={session}>
             <ApolloWrapper>
               <div className="">
-                <Navbar />
+                {/* <Navbar /> */}
                 {children}
-                {/* <Footer /> */}
+                <Footer />
               </div>
             </ApolloWrapper>
           </NextAuthProvider>

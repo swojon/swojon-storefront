@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   return (
     <section>
       <HeroSection />
-      <CategoryCard />
+      {/* <CategoryCard /> */}
     </section>
   );
 };
