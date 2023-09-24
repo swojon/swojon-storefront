@@ -11,9 +11,9 @@ const HeroSection = () => {
     <section className="w-full min-h-screen bg-[#fdf7df] h-full  hero-container ">
       <Navbar />
 
-      <div className="sm:flex hero-height items-center md:pl-[6vw] px-5 py-4 md:py-0  space-y-3 md:space-x-0  ">
+      <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
         <div className="flex-1  space-y-1 md:space-y-4 ">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl heading-font font-semibold flex flex-col space-y-1">
+          <h1 className="lg:text-6xl heading-font md:text-4xl text-3xl heading-font font-semibold flex flex-col space-y-1">
             <span>Find your all </span>
             <span>solution in one place</span>
           </h1>
@@ -32,11 +32,11 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="flex-1 w-full  md:h-auto ">
+        <div className="flex-1 w-full ">
           <Image
             src={Hero1}
             alt="hero-img"
-            className="sm:w-full w-[80%] mx-auto h-full pb-3"
+            className="sm:w-full w-[78%] mx-auto  "
           />
         </div>
       </div>
