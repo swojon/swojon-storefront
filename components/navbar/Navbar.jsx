@@ -45,7 +45,7 @@ const Navbar = () => {
 
   return (
     <div className="relative ">
-      <nav className=" w-full relative nav-container  bg-  h-[60px] top-0 flex  items-center transition ease-in-out delay-150">
+      <nav className=" w-full relative nav-container  bg-  h-[60px] top-0 flex  items-center transition ease-in-out delay-150 font-lexed">
         <div className="nav-box flex justify-between items-center  w-full">
           <div className=" font-bold  text-activeColor text-[25px] lg:text-[40px]	">
             <Link href="/">Swojon</Link>

@@ -18,6 +18,11 @@ module.exports = {
         activeColor: "#BB2649",
         whiteColor: "#FFFAFA",
       },
+      fontFamily: {
+        sans: ["Poppins", "sans"],
+        lexed: ["Lexend", "sans"],
+        // You can also add 'Lexend' here if needed
+      },
     },
   },
   plugins: [],

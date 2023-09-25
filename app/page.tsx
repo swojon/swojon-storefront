@@ -7,14 +7,16 @@ import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import HeroSection from "../components/heroSection/HeroSection";
 import categoryData from "../data/categoryData";
-import CategoryCard from "@/components/CategoryCard/CategoryCard";
+import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
+import Products from "@/components/Products/Products";
 
 const Home: NextPage = () => {
-  console.log(categoryData.data.listCategories.items);
+  // console.log(categoryData.data.listCategories.items);
   return (
-    <section>
+    <section className="">
       <HeroSection />
-      {/* <CategoryCard /> */}
+      <CategoryCard2 />
+      <Products />
     </section>
   );
 };

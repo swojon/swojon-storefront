@@ -13,7 +13,7 @@ const HeroSection = () => {
 
       <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
         <div className="flex-1  space-y-1 md:space-y-4 ">
-          <h1 className="lg:text-6xl heading-font md:text-4xl text-3xl heading-font font-semibold flex flex-col space-y-1">
+          <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2">
             <span>Find your all </span>
             <span>solution in one place</span>
           </h1>
@@ -22,7 +22,7 @@ const HeroSection = () => {
             <span> Buy from a trustable source and get relax.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5 heading-font font-medium md:text-base text-sm">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5 font-lexed font-medium md:text-base text-sm">
             <button className="border border-activeColor py-2 px-3 rounded bg-activeColor text-whiteColor ">
               Sell Your Product
             </button>
