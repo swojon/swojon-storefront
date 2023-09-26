@@ -32,12 +32,12 @@ const CategoryCard2 = () => {
         {card.map((item) => (
           <div
             key={item.id}
-            className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative"
+            className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
           >
             <Image
               src={item.banner}
               alt="category image"
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-cover rounded-lg hover:scale-110 transition ease-in-out delay-150 duration-300"
             />
             <div className="absolute top-0 md:p-4 p-2 text-whiteColor leading-3">
               <h6 className="md:text-lg sm:text-base text-sm capitalize font-lexed font-semibold">

@@ -6,19 +6,19 @@ import user from "@/public/user1.jpg";
 
 const ProductCard = ({ card }) => {
   return (
-    <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5">
-      <div className="md:h-[210px] h-[150px] relative">
+    <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+      <div className="md:h-[210px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Image
           src={card.banner}
           alt="product banner"
-          className="h-full w-full object-cover rounded-tl-md  rounded-tr-md"
+          className="h-full w-full object-cover rounded-tl-md  rounded-tr-md hover:scale-110 transition ease-in-out delay-150 duration-300 "
         />
-        <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor">
+        <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
           <Image src={icon1} alt="heart icon" />
         </div>
       </div>
 
-      <div className="md:pt-3 pt-1 flex md:flex-row flex-col justify-between items-center font-lexed ">
+      <div className="md:pt-3 pt-1 flex flex-row  justify-between items-center font-lexed ">
         <h6 className="md:text-lg text-base font-semibold text-primaryColor capitalize">
           {card.title}
         </h6>
@@ -44,11 +44,11 @@ const ProductCard = ({ card }) => {
         </span>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-2">
-        <div className="border border-activeColor text-activeColor rounded-md py-1 text-center md:text-base text-sm">
+      <div className="grid grid-cols-2 gap-2">
+        <div className="border border-activeColor text-activeColor rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
           OFFER PRICE
         </div>
-        <div className="border border-activeColor text-whiteColor bg-activeColor rounded-md py-1 text-center md:text-base text-sm">
+        <div className="border border-activeColor text-whiteColor bg-activeColor rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
           Chat Now
         </div>
       </div>

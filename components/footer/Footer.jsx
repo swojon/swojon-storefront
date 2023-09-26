@@ -13,7 +13,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <section className="bg-[#ffffff] custom-container py-5">
+    <footer className="bg-[#ffffff] custom-container py-5">
       <div className="grid lg:grid-cols-6 md:grid-cols-2 gap-4 py-9">
         <div className=" col-span-2 space-y-4 ">
           <span className="text-2xl text-activeColor font-medium">Swojon</span>
@@ -24,12 +24,12 @@ const Footer = () => {
             <Image
               src={googleImg}
               alt="googleimg"
-              className="lg:w-[35%] md:w-[25%] "
+              className="lg:w-[35%] md:w-[25%] w-[45%]"
             />
             <Image
               src={appStoreImg}
               alt="appStoreImg"
-              className="lg:w-[35%] md:w-[25%]"
+              className="lg:w-[35%] md:w-[25%] w-[45%]"
             />
           </div>
 
@@ -173,7 +173,10 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </section>
+      <div className="border-t border-[#E6E6E6] pt-5 text-center text-secondColor text-sm">
+        © 2023 Swojon, All Rights Reserved
+      </div>
+    </footer>
   );
 };
 

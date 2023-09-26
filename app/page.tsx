@@ -9,6 +9,8 @@ import HeroSection from "../components/heroSection/HeroSection";
 import categoryData from "../data/categoryData";
 import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
 import Products from "@/components/Products/Products";
+import Community from "@/components/Community/Community";
+import ActionBanner from "@/components/ActionBanner/ActionBanner";
 
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
@@ -17,6 +19,8 @@ const Home: NextPage = () => {
       <HeroSection />
       <CategoryCard2 />
       <Products />
+      <Community />
+      <ActionBanner />
     </section>
   );
 };
