@@ -3,3 +3,65 @@
     height: calc(100vh - 60px);
   }
 }
+
+.animate {
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+}
+
+.animate.animate--infinite {
+  animation-iteration-count: infinite;
+}
+
+.animate.animate--delay-1s {
+  animation-delay: 0.2s;
+}
+
+.animate.animate--fast {
+  animation-duration: 0.6s;
+}
+
+.animate.animate--slow {
+  animation-duration: 3s;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-300px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLeft2 {
+  from {
+    transform: translateX(-700px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slideInLeft {
+  animation-name: slideInLeft;
+  animation-timing-function: ease-in;
+}
+.slideInLeft2 {
+  animation-name: slideInLeft2;
+  animation-timing-function: ease-in;
+  animation-duration: 1.5s;
+}
+
+.primary-btn {
+  .btn-design {
+    display: none;
+  }
+  &:hover {
+    .btn-design {
+      display: block;
+    }
+  }
+}

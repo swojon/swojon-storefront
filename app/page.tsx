@@ -11,6 +11,8 @@ import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
 import Products from "@/components/Products/Products";
 import Community from "@/components/Community/Community";
 import ActionBanner from "@/components/ActionBanner/ActionBanner";
+import ActionBanner2 from "@/components/ActionBanner2/ActionBanner2";
+import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
@@ -21,6 +23,8 @@ const Home: NextPage = () => {
       <Products />
       <Community />
       <ActionBanner />
+      <SellBuyArea />
+      <ActionBanner2 />
     </section>
   );
 };
