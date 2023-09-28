@@ -27,7 +27,7 @@ const SellBuyArea = () => {
         <div className=" p-3 space-y-2  w-56 h-48 flex flex-col justify-center items-center text-center">
           <div className=" relative  w-16 h-16 bg-[#fff8dd] rounded-full flex justify-center items-center">
             <Image src={substract} alt="" />
-            <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#fff8dd] rounded-full"></div>
+            <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#fff8dd] rounded-full 	"></div>
           </div>
           <h6 className="text-lg font-lexed font-medium text-primaryColor">
             Best Deal

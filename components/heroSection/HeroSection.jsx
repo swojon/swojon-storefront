@@ -4,12 +4,12 @@ import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 import Hero1 from "../../public/assets/hero1.png";
 
-import Navbar from "../navbar/Navbar";
+import Navbar2 from "../navbar/Navbar2";
 
 const HeroSection = () => {
   return (
     <section className="w-full min-h-screen bg-[#fdf7df] h-full  hero-container ">
-      <Navbar />
+      <Navbar2 />
 
       <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
         <div className="flex-1  space-y-1 md:space-y-4 ">
@@ -23,11 +23,10 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5 font-lexed font-medium md:text-base text-sm">
-            <button className="border border-activeColor py-2 px-3 rounded bg-activeColor text-whiteColor relative primary-btn transition ease-in-out delay-150 duration-300">
+            <button className="border border-activeColor py-2 px-3 rounded bg-activeColor text-whiteColor hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300">
               Sell Your Product
-              <div className="absolute -bottom-1.5 left-1.5 border border-activeColor  rounded w-full h-full shadow btn-design "></div>
             </button>
-            <button className="border border-activeColor py-2 px-3 rounded  text-activeColor ">
+            <button className="border border-activeColor py-2 px-3 rounded  text-activeColor hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
               All Categories
             </button>
           </div>

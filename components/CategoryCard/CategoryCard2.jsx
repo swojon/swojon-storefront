@@ -23,7 +23,7 @@ const CategoryCard2 = () => {
         <h2 className="lg:text-4xl text-2xl font-lexed text-primaryColor font-semiBold">
           Browse Our Category
         </h2>
-        <button className="border border-activeColor md:py-2 md:px-3 py-1 px-2 rounded  text-activeColor lg:text-base text-sm font-lexed">
+        <button className="border border-activeColor md:py-2 md:px-3 py-1 px-2 rounded  text-activeColor lg:text-base text-sm font-lexed hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
           See All Categories
         </button>
       </div>
