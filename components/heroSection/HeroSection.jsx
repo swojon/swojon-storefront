@@ -2,17 +2,26 @@ import React from "react";
 import "./HeroSection.scss";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
-import Hero1 from "../../public/assets/hero1.png";
+import Hero1 from "../../public/assets/shoppingBanner.png";
 
 import Navbar2 from "../navbar/Navbar2";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen bg-[#fdf7df] h-full  hero-container ">
+    <section className="w-full min-h-screen bg-[#FAC523] h-full  hero-container relative ">
       <Navbar2 />
+      <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
+        <div className="md:w-[50%] w-full h-full  flex justify-center lg:items-end md:items-center">
+          <Image
+            src={Hero1}
+            alt="hero-img"
+            className="sm:w-[80%] md:[85%] w-full mx-auto  z-0"
+          />
+        </div>
+      </div>
 
       <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
-        <div className="flex-1  space-y-1 md:space-y-4 ">
+        <div className="flex-1  space-y-1 md:space-y-4 z-10">
           <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate  slideInLeft">
             <span>Find your all </span>
             <span>solution in one place</span>
@@ -22,7 +31,7 @@ const HeroSection = () => {
             <span> Buy from a trustable source and get relax.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5 font-lexed font-medium md:text-base text-sm">
+          <div className="flex  space-x-3 sm:space-x-5 font-lexed font-medium md:text-base text-sm">
             <button className="border border-activeColor py-2 px-3 rounded bg-activeColor text-whiteColor hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300">
               Sell Your Product
             </button>
@@ -32,13 +41,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="flex-1 w-full ">
-          <Image
-            src={Hero1}
-            alt="hero-img"
-            className="sm:w-full w-[78%] mx-auto  "
-          />
-        </div>
+        <div className="flex-1 w-full h-f"></div>
       </div>
     </section>
   );

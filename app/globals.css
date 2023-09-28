@@ -23,6 +23,7 @@ body {
   overflow-x: hidden;
   background-color: #ffffff;
   color: #000000;
+  scroll-behavior: smooth;
 }
 
 a {

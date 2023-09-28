@@ -18,12 +18,12 @@ export default function Navbar2() {
       {({ open }) => (
         <>
           <div className="mx-auto    sm:px-[3vw] lg:px-[6vw]">
-            <div className="flex h-16 justify-between">
+            <div className="flex h-16 justify-between items-center">
               <div className="flex px-2 lg:px-0">
                 <div className="flex flex-shrink-0 items-center font-lexend text-activeColor font-semibold text-2xl">
                   Swojon
                 </div>
-                <div className="hidden lg:ml-6 lg:flex lg:space-x-4 ">
+                <div className="hidden lg:ml-6 lg:flex lg:space-x-2 xl:space-x-4">
                   <Link
                     href="#"
                     className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 font-lexend hover:border-activeColor hover:text-gray-700"
@@ -44,28 +44,27 @@ export default function Navbar2() {
                   </Link>
                 </div>
               </div>
-              <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
-                <div className="w-full max-w-lg lg:max-w-xs">
-                  <label htmlFor="search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative ">
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
-                      <MagnifyingGlassIcon
-                        className="h-7 w-7 text-gray-400 p-1.5 bg-[#fccc1c] rounded-full mr-1 "
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <input
-                      id="search"
-                      name="search"
-                      className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-                      placeholder="Search"
-                      type="search"
+              <div className="w-full max-w-lg lg:max-w-xs ">
+                <label htmlFor="search" className="sr-only">
+                  Search
+                </label>
+                <div className="relative ">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
+                    <MagnifyingGlassIcon
+                      className="h-7 w-7 text-gray-400 p-1.5 bg-[#fccc1c] rounded-full mr-1 "
+                      aria-hidden="true"
                     />
                   </div>
+                  <input
+                    id="search"
+                    name="search"
+                    className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+                    placeholder="Search"
+                    type="search"
+                  />
                 </div>
               </div>
+              <div className="flex  items-center justify-center px-2 lg:ml-6 lg:justify-end"></div>
               <div className="flex items-center lg:hidden">
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
