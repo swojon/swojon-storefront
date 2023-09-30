@@ -3,17 +3,17 @@ import bgSearch from "../../public/bgSearch.jpg";
 import Image from "next/image";
 import { BiSearch } from "react-icons/bi";
 
-const SearchBanner = () => {
+const SearchBanner = ({ img }) => {
   return (
     <section className=" my-5 ">
       <div className="w-full h-[70vh]  relative rounded-lg">
         <Image
-          src={bgSearch}
+          src={img}
           alt=""
-          className="w-full h-full object-bottom opacity-75 rounded-lg"
+          className="w-full h-full object-cover opacity-75 rounded-lg"
         />
         <div className="bg-[#1b1b1b74] absolute w-full h-full left-0 top-0 rounded-lg">
-          <div className="flex px-[90px] items-center h-full">
+          <div className="flex px-[9vw] items-center h-full">
             <div className="text-white font-medium w-full">
               <h2 className="text-3xl">
                 Every kinda thing, for every kinda person

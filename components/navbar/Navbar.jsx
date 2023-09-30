@@ -44,11 +44,11 @@ const Navbar = () => {
   });
 
   return (
-    <div className="relative border-b">
-      <nav className=" w-full relative nav-container  bg-white border-slate-300  h-[60px] top-0 flex  items-center transition ease-in-out delay-150">
+    <div className="relative ">
+      <nav className=" w-full relative nav-container  bg-  h-[60px] top-0 flex  items-center transition ease-in-out delay-150 font-lexed">
         <div className="nav-box flex justify-between items-center  w-full">
-          <div className=" font-bold  text-[#cc0000] text-[25px] lg:text-[40px]	">
-            <Link href="/">zwapto</Link>
+          <div className=" font-bold  text-activeColor text-[25px] lg:text-[40px]	">
+            <Link href="/">Swojon</Link>
           </div>
 
           <div className="hidden lg:block ">
@@ -57,7 +57,9 @@ const Navbar = () => {
                 <li
                   key={link.id}
                   className={
-                    location == `${link.link}` ? "text-[#CC0000] py-4" : "py-4 "
+                    location == `${link.link}`
+                      ? "text-activeColor py-4"
+                      : "py-4 "
                   }
                 >
                   <Link href={link.link}>{link.name}</Link>
@@ -79,14 +81,14 @@ const Navbar = () => {
                 <MegaMenu2 />
               </li>
               <div className=" py-4">
-                <BiSearch className=" text-[#cc0000] text-xl" />
+                <BiSearch className=" text-activeColor text-xl" />
               </div>
             </ul>
           </div>
 
           <div className=" flex items-center	justify-end gap-x-3">
             <Link href="/" className="hidden lg:block">
-              <div className="text-[#cc0000] text-2xl ">
+              <div className="text-activeColor text-2xl ">
                 <AiOutlineHeart />
               </div>
             </Link>
