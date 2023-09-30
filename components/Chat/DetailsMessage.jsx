@@ -6,7 +6,9 @@ import { useSession } from "next-auth/react";
 
 const DetailsMessage = ( {msg} ) => {
   const {data:session} = useSession();
-  const currentUserId = session.user.email;
+  let currentUserId = session?.user.email;
+  if (!currentUserId) currentUserId = "iqbal@test.com"
+  
 
   console.log(msg.sender.email , session, "sender")
   if (msg.sender.email === currentUserId) return (
