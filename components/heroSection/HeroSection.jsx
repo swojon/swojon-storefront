@@ -2,7 +2,7 @@ import React from "react";
 import "./HeroSection.scss";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
-import Hero1 from "../../public/assets/shoppingBanner.png";
+// import Hero1 from "../../public/assets/bannerHeadPhone.jpg";
 
 import Navbar2 from "../navbar/Navbar2";
 
@@ -10,15 +10,15 @@ const HeroSection = () => {
   return (
     <section className="w-full min-h-screen bg-[#FAC523] h-full  hero-container relative ">
       <Navbar2 />
-      <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
-        <div className="md:w-[50%] w-full h-full  flex justify-center lg:items-end md:items-center">
+      {/* <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
+        <div className=" w-full h-full  flex justify-center lg:items-end md:items-center">
           <Image
             src={Hero1}
             alt="hero-img"
             className="sm:w-[80%] md:[85%] w-full mx-auto  z-0"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
         <div className="flex-1  space-y-1 md:space-y-4 z-10">
@@ -26,7 +26,7 @@ const HeroSection = () => {
             <span>Find your all </span>
             <span>solution in one place</span>
           </h1>
-          <p className="lg:text-lg md:text-base text-sm  lg:flex lg:flex-col  text-secondColor  animate--delay-1s slideInLeft2">
+          <p className="lg:text-lg md:text-base text-sm  lg:flex lg:flex-col  text-whiteColor  animate--delay-1s slideInLeft2">
             <span> Get everything, that you need with always relaxation. </span>
             <span> Buy from a trustable source and get relax.</span>
           </p>

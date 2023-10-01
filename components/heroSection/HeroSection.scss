@@ -1,4 +1,7 @@
 .hero-container {
+  background: url("../../public/assets/ban3.jpg");
+  background-position: center;
+  background-size: cover;
   .hero-height {
     height: calc(100vh - 60px);
   }
