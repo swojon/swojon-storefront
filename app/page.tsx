@@ -13,11 +13,18 @@ import Community from "@/components/Community/Community";
 import ActionBanner from "@/components/ActionBanner/ActionBanner";
 import ActionBanner2 from "@/components/ActionBanner2/ActionBanner2";
 import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
+import { useState } from "react";
+import Drawer from "react-modern-drawer";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
   return (
-    <section className="">
+    <main className="">
       <HeroSection />
       <CategoryCard2 />
       <Products />
@@ -25,7 +32,15 @@ const Home: NextPage = () => {
       <ActionBanner />
       <SellBuyArea />
       <ActionBanner2 />
-    </section>
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction="right"
+        className="bla bla bla"
+      >
+        <div>Hello World</div>
+      </Drawer>
+    </main>
   );
 };
 
