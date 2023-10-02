@@ -1,18 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import SearchBanner from "../../../components/searchBanner/SearchBanner";
-import CategoryCart from "../../../components/elements/CategoryCart";
-import ProductDetails from "../../../components/elements/ProductDetails";
+import SearchBanner from "../../../../components/searchBanner/SearchBanner";
+import CategoryCart from "../../../../components/elements/CategoryCart";
+import ProductDetails from "../../../../components/elements/ProductDetails";
 import laptop from "../../../public/laptop.png";
 import monitor from "../../../public/monitor.png";
 import console from "../../../public/console.png";
 import dress from "../../../public/dress.png";
 import smartphone from "../../../public/smartphone.png";
-import data2 from "../../../data/data";
-import brand from "../../../data/brand";
-import Brands from "../../pages/brands/Brands";
-import categoryData from "../../../data/categoryData";
+import data2 from "../../../../data/data";
+import brand from "../../../../data/brand";
+import Brands from "../../../pages/brands/Brands";
+import categoryData from "../../../../data/categoryData";
 
 const data = [
   { id: 1, item: "laptop", img: laptop, title: "100000+ listing" },

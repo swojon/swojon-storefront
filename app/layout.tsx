@@ -62,17 +62,7 @@ export default async function RootLayout({ children }: Iprops) {
         <Providers>
           <NextAuthProvider session={session}>
             <ApolloWrapper>
-              <div className="font-sans">
-                {activePath === "/" ? (
-                  <></>
-                ) : (
-                  <>
-                    <Navbar2 />
-                  </>
-                )}
-                <div className="min-h-[80vh]">{children}</div>
-                <Footer />
-              </div>
+              {children}
             </ApolloWrapper>
           </NextAuthProvider>
         </Providers>
