@@ -1,3 +1,4 @@
+"use client";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
@@ -141,19 +142,19 @@ export default function Navbar2() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-                <button className="border border-activeColor py-1.5 px-3 rounded  text-activeColor text-sm flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
+                <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor text-sm flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
                   <PiChatsCircleFill /> <span> Chat</span>
                 </button>
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 text-sm hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
+                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 text-sm hover:shadow-lg hover:-translate-y-1  ">
                   Sell Your Product
                 </button>
               </div>
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden bg-white">
+          {/* <Disclosure.Panel className="lg:hidden bg-white">
             <div className="space-y-1 pt-2 pb-3">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" */}
+             
               <Disclosure.Button
                 as="a"
                 href="#"
@@ -232,7 +233,7 @@ export default function Navbar2() {
                 </Disclosure.Button>
               </div>
             </div>
-          </Disclosure.Panel>
+          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>

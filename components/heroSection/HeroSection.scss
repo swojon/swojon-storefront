@@ -1,4 +1,9 @@
 .hero-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../../public/assets/ban3.jpg");
+  background-position: bottom;
+  background-size: cover;
+  background-color: rgba(0, 35, 82, 0.7);
   .hero-height {
     height: calc(100vh - 60px);
   }

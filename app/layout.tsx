@@ -4,11 +4,14 @@ import { Inter } from "next/font/google";
 import { Providers } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
-import Navbar from "../components/navbar/Navbar";
+import Navbar2 from "@/components/navbar/Navbar2";
 import Footer from "../components/footer/Footer";
 
 import { Session } from "next-auth";
 import { headers } from "next/headers";
+
+import Drawer from "react-modern-drawer";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,8 +51,9 @@ export default async function RootLayout({ children }: Iprops) {
           <NextAuthProvider session={session}>
             <ApolloWrapper>
               <div className="font-sans">
-                {/* <Navbar /> */}
-                {children}
+                {/* <Navbar2 /> */}
+                <div className="min-h-[80vh]">{children}</div>
+
                 <Footer />
               </div>
             </ApolloWrapper>
