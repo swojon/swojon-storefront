@@ -21,9 +21,12 @@ export default function Navbar2() {
           <div className="mx-auto    sm:px-[3vw] lg:px-[6vw]">
             <div className="flex h-16 justify-between items-center">
               <div className="flex px-2 lg:px-0">
-                <div className="flex flex-shrink-0 items-center font-lexend text-activeColor font-semibold text-2xl">
+                <Link
+                  href="/"
+                  className="flex flex-shrink-0 items-center font-lexend text-activeColor font-semibold text-2xl"
+                >
                   Swojon
-                </div>
+                </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-2 xl:space-x-4">
                   <Link
                     href="#"

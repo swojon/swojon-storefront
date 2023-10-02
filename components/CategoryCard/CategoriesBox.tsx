@@ -1,20 +1,26 @@
 import React from "react";
-import img1 from "@/public/assets/cat1.png";
-import img2 from "@/public/assets/cat2.png";
-import img3 from "@/public/assets/cat3.png";
-import img4 from "@/public/assets/cat4.png";
-import img5 from "@/public/assets/cat5.png";
-import img6 from "@/public/assets/cat6.png";
 import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";
 
 const card = [
-  { id: 13, banner: img1, title: "Furniture" },
-  { id: 14, banner: img2, title: "Electronics" },
-  { id: 123, banner: img3, title: "Gym Accessories" },
-  { id: 12235, banner: img4, title: "instructive" },
-  { id: 146, banner: img5, title: "Fashion" },
-  { id: 123, banner: img6, title: "Home Alliances" },
+  { id: 13, banner: "/assets/cat1.png", title: "Furniture" },
+  { id: 14, banner: "/assets/cat2.png", title: "Electronics" },
+  {
+    id: 123,
+    banner: "/assets/cat3.png",
+    title: "Gym Accessories",
+  },
+  {
+    id: 9712235,
+    banner: "/assets/cat4.png",
+    title: "instructive",
+  },
+  { id: 99146, banner: "/assets/cat5.png", title: "Fashion" },
+  {
+    id: 3465123,
+    banner: "/assets/cat6.png",
+    title: "Home Alliances",
+  },
 ];
 
 const CategoriesBox = () => {

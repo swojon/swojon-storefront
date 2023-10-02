@@ -10,6 +10,8 @@ const ProductCard = ({ card }) => {
       <div className="md:h-[210px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Image
           src={card.banner}
+          width={500}
+          height={500}
           alt="product banner"
           className="h-full w-full object-cover rounded-tl-md  rounded-tr-md hover:scale-110 transition ease-in-out delay-150 duration-300 "
         />

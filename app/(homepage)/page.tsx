@@ -28,14 +28,14 @@ const Home: NextPage = () => {
       <ActionBanner />
       <SellBuyArea />
       <ActionBanner2 />
-      <Drawer
+      {/* <Drawer
         open={isOpen}
         onClose={toggleDrawer}
         direction="right"
         className="bla bla bla"
       >
         <div>Hello World</div>
-      </Drawer>
+      </Drawer> */}
     </main>
   );
 };
