@@ -13,6 +13,7 @@ import {
   ShieldCheckIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const company = [
   { name: "About", href: "#", icon: InformationCircleIcon },
@@ -48,7 +49,7 @@ const blogPosts = [
   },
 ];
 
-function classNames(...classes) {
+function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -156,7 +157,7 @@ export default function Example() {
                               className="-m-3 flex rounded-lg p-3 transition duration-150 ease-in-out hover:bg-gray-100"
                             >
                               <div className="hidden flex-shrink-0 sm:block">
-                                <img
+                                <Image
                                   className="h-20 w-32 rounded-md object-cover"
                                   src={post.imageUrl}
                                   alt=""

@@ -3,7 +3,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "http://localhost:3005/graphql",
+  schema: "http://143.244.162.209:3005/graphql",
   documents: "graphql/**/*.graphql",
   generates: {
     "gql/": {
@@ -13,7 +13,7 @@ const config: CodegenConfig = {
     },
     "apollograph/generated.ts":{
       plugins:[
-        "typescript-react-apollo"
+        "typescript-react-apollo", 'typescript', 'typescript-operations'
       ]
     },
     "./graphql.schema.json": {
