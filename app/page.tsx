@@ -1,7 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
-
+import { usePathname } from "next/navigation";
 import { getClient } from "@/lib/client";
 
 import { gql } from "@apollo/client";
@@ -17,16 +17,19 @@ import { useState } from "react";
 import Drawer from "react-modern-drawer";
 import { RxHamburgerMenu } from "react-icons/rx";
 
+import CategoriesBox from "@/components/CategoryCard/CategoriesBox";
+
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
+
   return (
     <main className="">
       <HeroSection />
-      <CategoryCard2 />
+      <CategoriesBox />
       <Products />
       <Community />
       <ActionBanner />

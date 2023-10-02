@@ -12,12 +12,14 @@ import { headers } from "next/headers";
 
 import Drawer from "react-modern-drawer";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Swojon | Bangladesh's trusted marketplace",
-  description: "Swojon is the perfect place to declutter your home and make some extra money, or to find the perfect used item at a fraction of the price of new",
+  description:
+    "Swojon is the perfect place to declutter your home and make some extra money, or to find the perfect used item at a fraction of the price of new",
 };
 
 interface Iprops {
@@ -26,22 +28,32 @@ interface Iprops {
 }
 
 async function getSession(cookie: string): Promise<null> {
-  try{
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`, {
-      headers: {
-        cookie,
-      },
-    });
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`,
+      {
+        headers: {
+          cookie,
+        },
+      }
+    );
     const session = await response.json();
-    console.log("Got Session", session)
+    console.log("Got Session", session);
     return Object.keys(session).length > 0 ? session : null;
-  }catch{
-    return null
+  } catch {
+    return null;
   }
- 
 }
 
 export default async function RootLayout({ children }: Iprops) {
+  // const router = useRouter();
+  // const { pathname, query } = router;
+
+  // const params = query.params;
+  const headersList = headers();
+  const activePath = headersList.get("x-invoke-path");
+
+  console.log("Current URL", activePath);
   const session = await getSession(headers().get("cookie") ?? "");
 
   return (
@@ -51,9 +63,14 @@ export default async function RootLayout({ children }: Iprops) {
           <NextAuthProvider session={session}>
             <ApolloWrapper>
               <div className="font-sans">
-                {/* <Navbar2 /> */}
+                {activePath === "/" ? (
+                  <></>
+                ) : (
+                  <>
+                    <Navbar2 />
+                  </>
+                )}
                 <div className="min-h-[80vh]">{children}</div>
-
                 <Footer />
               </div>
             </ApolloWrapper>
