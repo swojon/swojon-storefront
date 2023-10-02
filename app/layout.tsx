@@ -22,16 +22,20 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-async function getSession(cookie: string): Promise<Session> {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/session`, {
-    headers: {
-      cookie,
-    },
-  });
-
-  const session = await response.json();
-  console.log("session", session);
-  return Object.keys(session).length > 0 ? session : null;
+async function getSession(cookie: string): Promise<null> {
+  try{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`, {
+      headers: {
+        cookie,
+      },
+    });
+    const session = await response.json();
+    console.log("Got Session", session)
+    return Object.keys(session).length > 0 ? session : null;
+  }catch{
+    return null
+  }
+ 
 }
 
 export default async function RootLayout({ children }: Iprops) {
