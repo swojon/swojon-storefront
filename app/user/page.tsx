@@ -2,6 +2,7 @@
 import { gql, useQuery } from "@apollo/client";
 // import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const query = gql`
@@ -58,7 +59,7 @@ export default function ListUsers() {
               key={user.id}
               style={{ border: "1px solid #ccc", textAlign: "center" }}
             >
-              <img
+              <Image
                 src={`https://robohash.org/${user.id}?set=set2&size=180x180`}
                 alt={user.email}
                 style={{ height: 180, width: 180 }}

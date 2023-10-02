@@ -7,6 +7,7 @@ import { signOut, useSession } from "next-auth/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { gql, useQuery } from "@apollo/client";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const query = gql`
   query GetUsers {
@@ -44,7 +45,7 @@ const Demo = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <img
+                <Image
                   className="h-8 w-8"
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                   alt="Workflow"

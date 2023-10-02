@@ -79,8 +79,7 @@ const SignIn: NextPage = (): JSX.Element => {
           </button>
         </form>
         <h6 className="pt-4 text-gray-400">
-          {" "}
-          Don't have an account yet?{" "}
+          {"Don't have an account yet? "}
           <Link href="/auth/signup">
             <span className="text-[#cc0000e0]">Create account</span>
           </Link>

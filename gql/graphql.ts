@@ -18,8 +18,53 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type Brand = {
+  __typename?: 'Brand';
+  categories?: Maybe<Array<Category>>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type BrandCategoryInput = {
+  brandId: Scalars['Float']['input'];
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
+export type BrandCreateDto = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+};
+
+export type BrandRemoveDto = {
+  brandIds: Array<Scalars['Float']['input']>;
+};
+
+export type BrandUpdateDto = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Brands = {
+  __typename?: 'Brands';
+  hasMore: Scalars['Boolean']['output'];
+  items: Array<Brand>;
+};
+
 export type Categories = {
   __typename?: 'Categories';
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
   items: Array<Category>;
 };
 
@@ -30,13 +75,14 @@ export type Category = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved?: Maybe<Scalars['Boolean']['output']>;
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
   isFeatured?: Maybe<Scalars['Boolean']['output']>;
   isGlobal?: Maybe<Scalars['Boolean']['output']>;
-  isLive?: Maybe<Scalars['Boolean']['output']>;
   isSponsored?: Maybe<Scalars['Boolean']['output']>;
   name: Scalars['String']['output'];
   parentCategory?: Maybe<Category>;
   slug?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Status>;
 };
 
 export type CategoryCreateDto = {
@@ -47,17 +93,21 @@ export type CategoryCreateDto = {
   slug: Scalars['String']['input'];
 };
 
+export type CategoryRemoveDto = {
+  categoryIds: Array<Scalars['Float']['input']>;
+};
+
 export type CategoryUpdateDto = {
   banner?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   isApproved?: InputMaybe<Scalars['Boolean']['input']>;
   isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
-  isLive?: InputMaybe<Scalars['Boolean']['input']>;
   isSponsored?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   parentCategoryId?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Status>;
 };
 
 export type Chat = {
@@ -106,20 +156,18 @@ export type Communities = {
 
 export type Community = {
   __typename?: 'Community';
-  createdBy: User;
-  dateCreated: Scalars['DateTime']['output'];
-  dateUpdated: Scalars['DateTime']['output'];
+  banner?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isDeleted: Scalars['Boolean']['output'];
+  isFeatured: Scalars['Boolean']['output'];
   latitude?: Maybe<Scalars['String']['output']>;
-  location?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Location>;
   longitude?: Maybe<Scalars['String']['output']>;
   memberCount?: Maybe<Scalars['Float']['output']>;
   members?: Maybe<Array<CommunityMember>>;
-  name: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
-  updatedBy: User;
 };
 
 export type CommunityCreateDto = {
@@ -128,7 +176,7 @@ export type CommunityCreateDto = {
   isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   isLive?: InputMaybe<Scalars['Boolean']['input']>;
   latitude?: InputMaybe<Scalars['String']['input']>;
-  location?: InputMaybe<Scalars['String']['input']>;
+  locationId?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
@@ -170,7 +218,7 @@ export type CommunityUpdateDto = {
   isSponsored?: InputMaybe<Scalars['Boolean']['input']>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
   latitude?: InputMaybe<Scalars['String']['input']>;
-  location?: InputMaybe<Scalars['String']['input']>;
+  locationId?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -193,6 +241,28 @@ export type CreateRoleDto = {
 export type CreateUserDto = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type Favorite = {
+  __typename?: 'Favorite';
+  dateCreated: Scalars['DateTime']['output'];
+  id: Scalars['Float']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  listing?: Maybe<Listing>;
+  user?: Maybe<User>;
+};
+
+export type FavoriteListings = {
+  __typename?: 'FavoriteListings';
+  count?: Maybe<Scalars['Float']['output']>;
+  items: Array<Listing>;
+};
+
+export type FavoritedUsers = {
+  __typename?: 'FavoritedUsers';
+  count?: Maybe<Scalars['Float']['output']>;
+  items: Array<User>;
 };
 
 export type Follow = {
@@ -210,6 +280,100 @@ export type Followers = {
   items: Array<User>;
 };
 
+export type Listing = {
+  __typename?: 'Listing';
+  brand?: Maybe<Brand>;
+  category?: Maybe<Category>;
+  communities: Array<Community>;
+  dateCreated?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  isApproved?: Maybe<Scalars['Boolean']['output']>;
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  isLive?: Maybe<Scalars['Boolean']['output']>;
+  isSold?: Maybe<Scalars['Boolean']['output']>;
+  latitude?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Location>;
+  longitude?: Maybe<Scalars['String']['output']>;
+  price: Scalars['Float']['output'];
+  title: Scalars['String']['output'];
+  user: User;
+};
+
+export type ListingCommunityInputDto = {
+  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  listingId: Scalars['Float']['input'];
+};
+
+export type ListingCreateDto = {
+  brandId?: InputMaybe<Scalars['Float']['input']>;
+  categoryId: Scalars['Float']['input'];
+  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  latitude?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  longitude?: InputMaybe<Scalars['String']['input']>;
+  mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
+  price: Scalars['Float']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type ListingUpdateDto = {
+  brandId?: InputMaybe<Scalars['Float']['input']>;
+  categoryId?: InputMaybe<Scalars['Float']['input']>;
+  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  longitude?: InputMaybe<Scalars['Float']['input']>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Listings = {
+  __typename?: 'Listings';
+  count: Scalars['Float']['output'];
+  items: Array<Listing>;
+};
+
+export type Location = {
+  __typename?: 'Location';
+  banner?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  isLive?: Maybe<Scalars['Boolean']['output']>;
+  name: Scalars['String']['output'];
+  parentLocation?: Maybe<Location>;
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type LocationCreateDto = {
+  banner?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  parentLocationId?: InputMaybe<Scalars['Float']['input']>;
+  slug: Scalars['String']['input'];
+};
+
+export type LocationUpdateDto = {
+  banner?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  isLive?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  parentLocationId?: InputMaybe<Scalars['Float']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Locations = {
+  __typename?: 'Locations';
+  items: Array<Location>;
+};
+
 export type MemberCommunityList = {
   __typename?: 'MemberCommunityList';
   count?: Maybe<Scalars['Float']['output']>;
@@ -218,16 +382,32 @@ export type MemberCommunityList = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Add category of brand */
+  addBrandCategory: Brand;
+  /** Add Communities to listing */
+  addCommunityToListing: Listing;
+  /** Add Favorite to Listing */
+  addFavorite: Favorite;
   /** Follow user */
   addFollow: Follow;
+  /** Add Point */
+  addPoint: Point;
   /** User update role */
   addUserRole: User;
   /** Add user to community */
   addUserToCommunity: CommunityMember;
+  /** Create Brand */
+  createBrand: Brand;
   /** Create Category */
   createCategory: Category;
   /** Create Community */
   createCommunity: Community;
+  /** Create Listing */
+  createListing: Listing;
+  /** Add Review to a listing */
+  createListingReview: Review;
+  /** Create Location */
+  createLocation: Location;
   /** Profile create */
   createProfile: Profile;
   /** Role Create */
@@ -236,18 +416,28 @@ export type Mutation = {
   createUser: User;
   /** User delete */
   deleteUser: User;
-  /** List All Followerer */
-  listFollowers: Followers;
-  /** List All Following */
-  listFollowing: Followers;
-  /** User login */
-  login: TokenUserData;
-  /** User logout */
-  logout: User;
+  /** Remove Brand */
+  removeBrand: Brand;
+  /** Remove category of brand */
+  removeBrandCategory: Brand;
+  /** Remove Categories */
+  removeBrands: Brands;
+  /** Remove Categories */
+  removeCategories: Categories;
   /** Remove Category */
   removeCategory: Category;
+  /** Remove Communities from listing */
+  removeCommunityToListing: Listing;
+  /** Remove Favorite From Listing */
+  removeFavorite: Favorite;
   /** Unfollow user */
   removeFollow: Follow;
+  /** Remove Listing */
+  removeListing: Listing;
+  /** Remove Listing/Seller Review */
+  removeListingReview: Review;
+  /** Remove Location */
+  removeLocation: Location;
   /** Remove user from community */
   removeUserFromCommunity: CommunityMember;
   /** User remove role */
@@ -256,12 +446,22 @@ export type Mutation = {
   sendChatMessage: Chat;
   /** User signup */
   signup: User;
+  /** Deduct Point */
+  subtractPoint: Point;
+  /** Update Brand */
+  updateBrand: Brand;
   /** Update Category */
   updateCategory: Category;
   /** Update Community */
   updateCommunity: Community;
   /** Update Community Member */
   updateCommunityMember: CommunityMember;
+  /** Update Listing */
+  updateListing: Listing;
+  /** Update Listing/Seller Review */
+  updateListingReview: Review;
+  /** Update Location */
+  updateLocation: Location;
   /** Profiile update */
   updateProfile: Profile;
   /** User update */
@@ -269,9 +469,30 @@ export type Mutation = {
 };
 
 
+export type MutationAddBrandCategoryArgs = {
+  inputData: BrandCategoryInput;
+};
+
+
+export type MutationAddCommunityToListingArgs = {
+  inputData: ListingCommunityInputDto;
+};
+
+
+export type MutationAddFavoriteArgs = {
+  listingId: Scalars['Float']['input'];
+  userId: Scalars['Float']['input'];
+};
+
+
 export type MutationAddFollowArgs = {
   followedUserId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
+};
+
+
+export type MutationAddPointArgs = {
+  pointData: PointCreateDto;
 };
 
 
@@ -286,6 +507,11 @@ export type MutationAddUserToCommunityArgs = {
 };
 
 
+export type MutationCreateBrandArgs = {
+  brandData: BrandCreateDto;
+};
+
+
 export type MutationCreateCategoryArgs = {
   categoryData: CategoryCreateDto;
 };
@@ -293,6 +519,21 @@ export type MutationCreateCategoryArgs = {
 
 export type MutationCreateCommunityArgs = {
   communityData: CommunityCreateDto;
+};
+
+
+export type MutationCreateListingArgs = {
+  listingData: ListingCreateDto;
+};
+
+
+export type MutationCreateListingReviewArgs = {
+  reviewData: ReviewCreateDto;
+};
+
+
+export type MutationCreateLocationArgs = {
+  locationData: LocationCreateDto;
 };
 
 
@@ -317,18 +558,23 @@ export type MutationDeleteUserArgs = {
 };
 
 
-export type MutationListFollowersArgs = {
-  userId: Scalars['Float']['input'];
+export type MutationRemoveBrandArgs = {
+  brandId: Scalars['Float']['input'];
 };
 
 
-export type MutationListFollowingArgs = {
-  userId: Scalars['Float']['input'];
+export type MutationRemoveBrandCategoryArgs = {
+  inputData: BrandCategoryInput;
 };
 
 
-export type MutationLoginArgs = {
-  userData: CreateUserDto;
+export type MutationRemoveBrandsArgs = {
+  brandData: BrandRemoveDto;
+};
+
+
+export type MutationRemoveCategoriesArgs = {
+  categoryData: CategoryRemoveDto;
 };
 
 
@@ -337,9 +583,35 @@ export type MutationRemoveCategoryArgs = {
 };
 
 
+export type MutationRemoveCommunityToListingArgs = {
+  inputData: ListingCommunityInputDto;
+};
+
+
+export type MutationRemoveFavoriteArgs = {
+  listingId: Scalars['Float']['input'];
+  userId: Scalars['Float']['input'];
+};
+
+
 export type MutationRemoveFollowArgs = {
   followedUserId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveListingArgs = {
+  listingId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveListingReviewArgs = {
+  reviewId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveLocationArgs = {
+  locationId: Scalars['Float']['input'];
 };
 
 
@@ -364,6 +636,17 @@ export type MutationSignupArgs = {
 };
 
 
+export type MutationSubtractPointArgs = {
+  pointData: PointDeductDto;
+};
+
+
+export type MutationUpdateBrandArgs = {
+  brandData: BrandUpdateDto;
+  brandId: Scalars['Float']['input'];
+};
+
+
 export type MutationUpdateCategoryArgs = {
   categoryData: CategoryUpdateDto;
   categoryId: Scalars['Float']['input'];
@@ -382,6 +665,24 @@ export type MutationUpdateCommunityMemberArgs = {
 };
 
 
+export type MutationUpdateListingArgs = {
+  listingData: ListingUpdateDto;
+  listingId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateListingReviewArgs = {
+  reviewData: ReviewUpdateDto;
+  reviewId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateLocationArgs = {
+  locationData: LocationUpdateDto;
+  locationId: Scalars['Float']['input'];
+};
+
+
 export type MutationUpdateProfileArgs = {
   profileData: UpdateProfileDto;
   profileId: Scalars['Float']['input'];
@@ -391,6 +692,37 @@ export type MutationUpdateProfileArgs = {
 export type MutationUpdateUserArgs = {
   userData: UpdateUserDto;
   userId: Scalars['Float']['input'];
+};
+
+export type Point = {
+  __typename?: 'Point';
+  amount: Scalars['Float']['output'];
+  consumed: Scalars['Float']['output'];
+  description: Scalars['String']['output'];
+  expireAt: Scalars['DateTime']['output'];
+  id: Scalars['Float']['output'];
+  isBlocked: Scalars['Boolean']['output'];
+  isPlus: Scalars['Boolean']['output'];
+  type: Transaction_Type;
+  user: User;
+};
+
+export type PointCreateDto = {
+  amount: Scalars['Float']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['Float']['input'];
+};
+
+export type PointDeductDto = {
+  amount: Scalars['Float']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['Float']['input'];
+};
+
+export type Points = {
+  __typename?: 'Points';
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
+  items: Array<Point>;
 };
 
 export type Profile = {
@@ -422,24 +754,54 @@ export type Query = {
   getCategory: Category;
   /** Get Community by Id, slug or name */
   getCommunity: Community;
+  /** Get Location by Id, slug or name */
+  getLocation: Location;
   /** Profile find by id */
   getProfileById: Profile;
-  /** List ALl Role */
+  /** List All Role */
   getRoles: Array<Role>;
   /** User find by id */
-  getUserById: User;
-  /** User find list */
-  getUsers: Array<User>;
+  getUserById: UserWithMeta;
+  /** List All Brands */
+  listBrands: Brands;
   /** List All Categories */
   listCategories: Categories;
   /** List All Chat Messages */
   listChatMessages: Chats;
   /** List All Chat Rooms of a User with message */
   listChatRooms: ChatRoomsWithMessage;
+  /** List All Chat Rooms of a User with message */
+  listChatRoomsAdmin: ChatRoomsWithMessage;
   /** List All Communities */
   listCommunities: Communities;
+  /** List All Favorited Listing of User */
+  listFavoriteListing: FavoriteListings;
+  /** List All Favorited Listing of User */
+  listFavoritedUser: FavoritedUsers;
+  /** List All Followerer */
+  listFollowers: Followers;
+  /** List All Following */
+  listFollowing: Followers;
+  /** List All Reviews of a Listing */
+  listListingReviews: Reviews;
+  /** List All Listings */
+  listListings: Listings;
+  /** List All Locations */
+  listLocations: Locations;
+  /** List All Point History */
+  listPointsHistory: Points;
+  /** List All Reviews of a seller */
+  listSellerReviews: Reviews;
   /** List all communities a user is member of */
   listUserCommunity: MemberCommunityList;
+  /** List All Reviews of a user */
+  listUserReviews: Reviews;
+  /** List All Users */
+  listUsers: Array<UserWithMeta>;
+  /** User login */
+  login: TokenUserData;
+  /** User logout */
+  logout: User;
 };
 
 
@@ -462,6 +824,13 @@ export type QueryGetCommunityArgs = {
 };
 
 
+export type QueryGetLocationArgs = {
+  id?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryGetProfileByIdArgs = {
   profileId: Scalars['Float']['input'];
 };
@@ -469,6 +838,20 @@ export type QueryGetProfileByIdArgs = {
 
 export type QueryGetUserByIdArgs = {
   userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListBrandsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryListCategoriesArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -483,8 +866,85 @@ export type QueryListChatRoomsArgs = {
 };
 
 
+export type QueryListFavoriteListingArgs = {
+  userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListFavoritedUserArgs = {
+  listingId: Scalars['Float']['input'];
+};
+
+
+export type QueryListFollowersArgs = {
+  userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListFollowingArgs = {
+  userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListListingReviewsArgs = {
+  listingId: Scalars['Float']['input'];
+};
+
+
+export type QueryListPointsHistoryArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryListSellerReviewsArgs = {
+  userId: Scalars['Float']['input'];
+};
+
+
 export type QueryListUserCommunityArgs = {
   userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListUserReviewsArgs = {
+  userId: Scalars['Float']['input'];
+};
+
+
+export type QueryLoginArgs = {
+  userData: CreateUserDto;
+};
+
+export type Review = {
+  __typename?: 'Review';
+  dateCreated: Scalars['DateTime']['output'];
+  id: Scalars['Float']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  listing: Listing;
+  rating: Scalars['Float']['output'];
+  review?: Maybe<Scalars['String']['output']>;
+  reviewer: User;
+  seller: User;
+};
+
+export type ReviewCreateDto = {
+  listingId: Scalars['Float']['input'];
+  rating: Scalars['Float']['input'];
+  review?: InputMaybe<Scalars['String']['input']>;
+  reviewerId: Scalars['Float']['input'];
+};
+
+export type ReviewUpdateDto = {
+  rating: Scalars['Float']['input'];
+  review?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Reviews = {
+  __typename?: 'Reviews';
+  count: Scalars['Float']['output'];
+  items: Array<Review>;
 };
 
 export type Role = {
@@ -496,6 +956,13 @@ export type Role = {
   name: Scalars['String']['output'];
 };
 
+/** ENUM for Category Status */
+export enum Status {
+  Approved = 'APPROVED',
+  Pending = 'PENDING',
+  Rejected = 'REJECTED'
+}
+
 export type Subscription = {
   __typename?: 'Subscription';
   newMessageAdded: Chat;
@@ -506,6 +973,15 @@ export type SubscriptionNewMessageAddedArgs = {
   chatRoomId: Scalars['Float']['input'];
 };
 
+/** ENUM for point Transaction Type */
+export enum Transaction_Type {
+  Expense = 'EXPENSE',
+  Expired = 'EXPIRED',
+  Referral = 'REFERRAL',
+  Refill = 'REFILL',
+  Reward = 'REWARD'
+}
+
 export type TokenUserData = {
   __typename?: 'TokenUserData';
   email: Scalars['String']['output'];
@@ -515,12 +991,12 @@ export type TokenUserData = {
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
   isStaff: Scalars['Boolean']['output'];
-  password: Scalars['String']['output'];
   profile?: Maybe<Profile>;
   roles?: Maybe<Array<Role>>;
   sessionId?: Maybe<Scalars['String']['output']>;
   sessionMaxAge?: Maybe<Scalars['Float']['output']>;
   token: Scalars['String']['output'];
+  username?: Maybe<Scalars['String']['output']>;
 };
 
 export type UpdateProfileDto = {
@@ -543,10 +1019,11 @@ export type UpdateProfileDto = {
 };
 
 export type UpdateUserDto = {
-  isApproved: Scalars['Boolean']['input'];
-  isStaff: Scalars['Boolean']['input'];
-  isSuperAdmin: Scalars['Boolean']['input'];
-  password: Scalars['String']['input'];
+  isApproved?: InputMaybe<Scalars['Boolean']['input']>;
+  isStaff?: InputMaybe<Scalars['Boolean']['input']>;
+  isSuperAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
@@ -557,39 +1034,34 @@ export type User = {
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
   isStaff: Scalars['Boolean']['output'];
-  password: Scalars['String']['output'];
   profile?: Maybe<Profile>;
   roles?: Maybe<Array<Role>>;
+  username?: Maybe<Scalars['String']['output']>;
 };
 
-export type ListChatsQueryVariables = Exact<{ [key: string]: never; }>;
+export type UserWithMeta = {
+  __typename?: 'UserWithMeta';
+  communities?: Maybe<Array<Community>>;
+  createdAt: Scalars['DateTime']['output'];
+  email: Scalars['String']['output'];
+  facebookId: Scalars['String']['output'];
+  followerCount?: Maybe<Scalars['Float']['output']>;
+  followingCount?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['Float']['output'];
+  isApproved: Scalars['Boolean']['output'];
+  isEmailVerified: Scalars['Boolean']['output'];
+  isStaff: Scalars['Boolean']['output'];
+  listingCount?: Maybe<Scalars['Float']['output']>;
+  pointBalance?: Maybe<Scalars['Float']['output']>;
+  profile?: Maybe<Profile>;
+  roles?: Maybe<Array<Role>>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+export type ListCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', id: number, chatName?: string | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
-
-export type GetChatMessageQueryVariables = Exact<{
-  chatRoomId: Scalars['Float']['input'];
-}>;
+export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', items: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null }> | null }> | null }> | null }> } };
 
 
-export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
-
-export type SendChatMessageMutationVariables = Exact<{
-  input: CreateMessageDto;
-}>;
-
-
-export type SendChatMessageMutation = { __typename?: 'Mutation', sendChatMessage: { __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } } };
-
-export type NewMessageAddedSubscriptionVariables = Exact<{
-  chatRoomId: Scalars['Float']['input'];
-}>;
-
-
-export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMessageAdded: { __typename?: 'Chat', content?: string | null, dateSent?: any | null, id: number, sender: { __typename?: 'User', email: string, id: number } } };
-
-
-export const ListChatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"listChats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listChatRooms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chatName"}},{"kind":"Field","name":{"kind":"Name","value":"messages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ListChatsQuery, ListChatsQueryVariables>;
-export const GetChatMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getChatMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listChatMessages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatRoomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetChatMessageQuery, GetChatMessageQueryVariables>;
-export const SendChatMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SendChatMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateMessageDTO"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendChatMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatData"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]} as unknown as DocumentNode<SendChatMessageMutation, SendChatMessageMutationVariables>;
-export const NewMessageAddedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"NewMessageAdded"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newMessageAdded"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chatRoomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chatRoomId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"dateSent"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>;
+export const ListCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}}]} as unknown as DocumentNode<ListCategoriesQuery, ListCategoriesQueryVariables>;
