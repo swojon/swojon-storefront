@@ -47,10 +47,10 @@ const ProductCard = ({ card }) => {
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <div className="border border-activeColor text-activeColor rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+        <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
           OFFER PRICE
         </div>
-        <div className="border border-activeColor text-whiteColor bg-activeColor rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+        <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
           Chat Now
         </div>
       </div>
