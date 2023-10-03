@@ -55,7 +55,7 @@ const CommunityFilter = () => {
                   </Disclosure.Button>
                 </h3>
                 <Disclosure.Panel className="pt-4">
-                  <div className="space-y-4">
+                  <div className="space-y-4 h-[150px]  overflow-y-auto small-scroll">
                     {section.options.map((option, optionIdx) => (
                       <div key={option.value} className="flex items-center">
                         <input
