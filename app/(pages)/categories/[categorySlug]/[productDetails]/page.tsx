@@ -1,20 +1,6 @@
 import React from "react";
 
-import ProductCard from "@/components/Products/ProductCard";
-import ProductTabs from "@/components/Products/ProductTabs";
-
 const card = [
-  { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
-  { id: 14, banner: "/assets/pro2.png", title: "partex delux bed" },
-  { id: 123, banner: "/assets/pro3.png", title: "partex delux bed" },
-  { id: 12235, banner: "/assets/pro4.png", title: "partex delux bed" },
-  { id: 146, banner: "/assets/pro5.png", title: "partex delux bed" },
-  { id: 123, banner: "/assets/pro6.png", title: "partex delux bed" },
-  { id: 124388, banner: "/assets/pro1.png", title: "partex delux bed" },
-  { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
-];
-
-const category = [
   {
     id: 13,
     banner: "/assets/cat1.png",
@@ -23,6 +9,10 @@ const category = [
       { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
       { id: 14, banner: "/assets/pro2.png", title: "partex delux bed" },
       { id: 123, banner: "/assets/pro3.png", title: "partex delux bed" },
+      { id: 12443, banner: "/assets/pro4.png", title: "partex delux bed" },
+      { id: 124388, banner: "/assets/pro5.png", title: "partex delux bed" },
+      { id: 12783, banner: "/assets/pro6.png", title: "partex delux bed" },
+      { id: 12784443, banner: "/assets/pro6.png", title: "partex delux bed" },
     ],
   },
   {
@@ -113,28 +103,20 @@ const category = [
   },
 ];
 
-const Products = () => {
+const ProductDetails = ({ params }) => {
+  const categoryProductItem = parseInt(params.productDetails, 10);
+  console.log(categoryProductItem);
+
+  const selectedProductItem = card.find(
+    (item) => item.id === categoryProductItem
+  );
+
+  console.log(selectedProductItem);
   return (
-    <section className="mt-20  custom-container bg-[#f9f9f9]">
-      <div className="py-14">
-        <h2 className="lg:text-4xl text-2xl font-lexed text-center text-primaryColor font-semiBold">
-          Best Deals Products
-        </h2>
-
-        <div className="py-5 flex justify-center items-center flex-wrap gap-3">
-          {category.map((tab) => (
-            <ProductTabs key={tab.id} tabItem={tab} />
-          ))}
-        </div>
-
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
-          {card.map((card) => (
-            <ProductCard key={card.id} card={card} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div>
+      <h2>{selectedProductItem?.title}</h2>ProductDetails
+    </div>
   );
 };
 
-export default Products;
+export default ProductDetails;

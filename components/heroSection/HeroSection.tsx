@@ -10,7 +10,7 @@ const HeroSection = () => {
   return (
     <section className="w-full min-h-screen h-full  hero-container relative ">
       <div className="hidden md:block">
-        <Navbar2 />
+        <Navbar2 border="none" />
       </div>
       {/* <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
         <div className=" w-full h-full  flex justify-center lg:items-end md:items-center">

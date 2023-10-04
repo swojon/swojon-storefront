@@ -5,6 +5,9 @@ import LocationFilter from "./LocationFilter";
 import "./FilterCss.css";
 import CommunityFilter from "./CommunityFilter";
 import StatusFilter from "./StatusFilter";
+import BrandFilter from "./BrandFilter";
+
+import CategoriesFilter from "./CategoriesFilter";
 
 const filters = [
   {
@@ -46,7 +49,7 @@ const filters = [
 
 const FilterBar = () => {
   return (
-    <section className="min-w-[300px] border rounded-md min-h-screen  h-full sticky">
+    <section className="min-w-[300px] border rounded-md min-h-screen  overflow-y-auto">
       <div className="flex justify-between items-center p-3 border-b ">
         <h6 className="text-lg font-lexed text-primaryColor">Filter by:</h6>
         <span className="text-activeColor  relative  leading-0">
@@ -74,11 +77,19 @@ const FilterBar = () => {
       </div>
 
       <div className="px-3">
+        <CategoriesFilter />
+      </div>
+
+      <div className="px-3">
         <CommunityFilter />
       </div>
 
       <div className="px-3">
         <StatusFilter />
+      </div>
+
+      <div className="px-3">
+        <BrandFilter />
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ interface Iprops {
 function layout({ children }: Iprops) {
   return (
     <>
-      <Navbar2 />
+      <Navbar2 border="border" />
       {children}
     </>
   );

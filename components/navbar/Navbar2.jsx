@@ -13,9 +13,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar2() {
+export default function Navbar2({border}) {
   return (
-    <Disclosure as="nav" className=" ">
+    <Disclosure
+      as="nav"
+      className={` py-1 ] ${
+        border === "border" ? "border-b border-[#E6E6E6" : "border-0"
+      }`}
+    >
       {({ open }) => (
         <>
           <div className="mx-auto    sm:px-[3vw] lg:px-[6vw]">
@@ -23,14 +28,14 @@ export default function Navbar2() {
               <div className="flex px-2 lg:px-0">
                 <Link
                   href="/"
-                  className="flex flex-shrink-0 items-center font-lexend text-activeColor font-semibold text-2xl"
+                  className="flex flex-shrink-0 items-center font-lexed text-activeColor font-semibold text-2xl"
                 >
                   Swojon
                 </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-2 xl:space-x-4">
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 font-lexend hover:border-activeColor hover:text-gray-700"
+                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-700"
                   >
                     <MegaMenu2 />
                   </Link>

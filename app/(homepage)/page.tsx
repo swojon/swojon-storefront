@@ -1,7 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
-import HeroSection from "../../components/heroSection/HeroSection";
+import HeroSection from "@/components/heroSection/HeroSection";
 import Products from "@/components/Products/Products";
 import Community from "@/components/Community/Community";
 import ActionBanner from "@/components/ActionBanner/ActionBanner";
