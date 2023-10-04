@@ -123,7 +123,7 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const CategoryDetail = ({ params }) => {
+const CategoryDetail = ({ params: any }) => {
   const categoryItem = parseInt(params.categorySlug, 10);
   console.log(categoryItem);
 

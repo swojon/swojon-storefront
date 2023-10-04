@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const card = [
@@ -103,18 +106,10 @@ const card = [
   },
 ];
 
-const ProductDetails = ({ params }) => {
-  const categoryProductItem = parseInt(params.productDetails, 10);
-  console.log(categoryProductItem);
-
-  const selectedProductItem = card.find(
-    (item) => item.id === categoryProductItem
-  );
-
-  console.log(selectedProductItem);
+const ProductDetails = () => {
   return (
     <div>
-      <h2>{selectedProductItem?.title}</h2>ProductDetails
+      <h2></h2>ProductDetails
     </div>
   );
 };
