@@ -6,6 +6,7 @@ import icon2 from "@/public/assets/heartIcon.png";
 import ProductDetailsImage from "@/components/ProductDetails/ProductDetailsImage";
 import ProductInfo from "@/components/ProductDetails/ProductInfo";
 import SellerBox from "@/components/ProductDetails/SellerBox";
+import SafetyTips from "@/components/SafetyTips/SafetyTips";
 
 const card2 = [
   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
@@ -63,11 +64,14 @@ const ProductDEtails = ({ params }) => {
       <div className="flex items-start gap-4">
         <div className="w-[70%] ">
           <ProductInfo />
+          <SafetyTips />
         </div>
         <div className="w-[30%] ">
           <SellerBox />
         </div>
       </div>
+
+      <div></div>
     </section>
   );
 };

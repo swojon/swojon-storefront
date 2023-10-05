@@ -13,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar2({border}) {
+export default function Navbar2({ border }) {
   return (
     <Disclosure
       as="nav"
@@ -60,7 +60,7 @@ export default function Navbar2({border}) {
                 <div className="relative ">
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
                     <MagnifyingGlassIcon
-                      className="h-7 w-7 text-gray-400 p-1.5 bg-[#fccc1c] rounded-full mr-1 "
+                      className="h-7 w-7  p-1.5 bg-activeColor text-white rounded-full mr-1 "
                       aria-hidden="true"
                     />
                   </div>

@@ -44,7 +44,7 @@ const ProductInfo = () => {
         </div>
       </div>
 
-      <div className="border-b pb-5">
+      <div className="border-b pb-8">
         <h5 className="text-2xl text-primaryColor font-lexed font-medium pb-4">
           Description
         </h5>
