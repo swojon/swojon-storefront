@@ -19,7 +19,7 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const ProductDEtails = ({ params }) => {
+const ProductDetails = ({ params }: { params: { productDetails: string }}) => {
   const productItem = parseInt(params.productDetails, 10);
   const selectedProduct = card2.find((item) => item.id === productItem);
 
@@ -76,4 +76,4 @@ const ProductDEtails = ({ params }) => {
   );
 };
 
-export default ProductDEtails;
+export default ProductDetails;

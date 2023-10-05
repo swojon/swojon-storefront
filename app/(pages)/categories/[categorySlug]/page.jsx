@@ -152,7 +152,7 @@ const CategoryDetail = ({ params }) => {
         <div>
           <FilterBar />
         </div>
-        <div className="grid g xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
+        <div className="grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
           {card2.map((card) => (
             <ProductCard card={card} key={card.id} />
           ))}
