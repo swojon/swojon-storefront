@@ -123,7 +123,7 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const CategoryDetail = ({ params: any }) => {
+const CategoryDetail = ({ params }) => {
   const categoryItem = parseInt(params.categorySlug, 10);
   console.log(categoryItem);
 
@@ -153,10 +153,8 @@ const CategoryDetail = ({ params: any }) => {
           <FilterBar />
         </div>
         <div className="grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
-          {selectedCategory.children.map((card) => (
-            <Link href={`/categories/${categoryItem}/${card.id}`} key={card.id}>
-              <ProductCard card={card} />
-            </Link>
+          {card2.map((card) => (
+            <ProductCard card={card} key={card.id} />
           ))}
         </div>
       </div>

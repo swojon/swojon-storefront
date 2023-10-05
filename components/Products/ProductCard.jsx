@@ -3,10 +3,14 @@ import React from "react";
 import icon1 from "@/public/assets/heartIcon.png";
 import time from "@/public/assets/time.png";
 import user from "@/public/user1.jpg";
+import Link from "next/link";
 
 const ProductCard = ({ card }) => {
   return (
-    <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+    <Link
+      href={`/products/${card.id}`}
+      className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+    >
       <div className="md:h-[210px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Image
           src={card.banner}
@@ -54,7 +58,7 @@ const ProductCard = ({ card }) => {
           Chat Now
         </div>
       </div>
-    </section>
+    </Link>
   );
 };
 
