@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { GoStack } from "react-icons/go";
 
-const ProductDetailsImage = ({ product }) => {
+const ProductDetailsImage = ({ product }: {product: any}) => {
   return (
     <div className="h-[430px]  grid grid-cols-2 gap-3 relative">
       <div className="w-full h-full rounded-lg">
