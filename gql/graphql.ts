@@ -64,6 +64,7 @@ export type Brands = {
 
 export type Categories = {
   __typename?: 'Categories';
+  count?: Maybe<Scalars['Float']['output']>;
   hasMore?: Maybe<Scalars['Boolean']['output']>;
   items: Array<Category>;
 };
@@ -91,6 +92,10 @@ export type CategoryCreateDto = {
   name: Scalars['String']['input'];
   parentCategoryId?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
+};
+
+export type CategoryFilterInput = {
+  isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
 export type CategoryRemoveDto = {
@@ -180,6 +185,11 @@ export type CommunityCreateDto = {
   longitude?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
+};
+
+export type CommunityFilterInput = {
+  locationId?: InputMaybe<Scalars['Float']['input']>;
+  userIds?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
 export type CommunityMember = {
@@ -312,7 +322,7 @@ export type ListingCreateDto = {
   communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['String']['input']>;
-  location?: InputMaybe<Scalars['String']['input']>;
+  locationId?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['String']['input']>;
   mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   price: Scalars['Float']['input'];
@@ -850,6 +860,7 @@ export type QueryListBrandsArgs = {
 
 export type QueryListCategoriesArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<CategoryFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
@@ -863,6 +874,11 @@ export type QueryListChatMessagesArgs = {
 export type QueryListChatRoomsArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryListCommunitiesArgs = {
+  filters?: InputMaybe<CommunityFilterInput>;
 };
 
 
@@ -1058,10 +1074,14 @@ export type UserWithMeta = {
   username?: Maybe<Scalars['String']['output']>;
 };
 
-export type ListCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ListCategoriesQueryVariables = Exact<{
+  filters?: InputMaybe<CategoryFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+}>;
 
 
-export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', items: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null, children?: Array<{ __typename?: 'Category', id: number, description?: string | null, name: string, slug?: string | null, banner?: string | null }> | null }> | null }> | null }> } };
+export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null, banner?: string | null, description?: string | null, status?: Status | null, isSponsored?: boolean | null, isFeatured?: boolean | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null }> } };
 
 
-export const ListCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}}]}}]}}]}}]} as unknown as DocumentNode<ListCategoriesQuery, ListCategoriesQueryVariables>;
+export const ListCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CategoryFilterInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startingAfter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listCategories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"starting_after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startingAfter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasMore"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"banner"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"isSponsored"}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"parentCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ListCategoriesQuery, ListCategoriesQueryVariables>;

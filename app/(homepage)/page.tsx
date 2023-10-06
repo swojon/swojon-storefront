@@ -10,7 +10,7 @@ import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 import { useState } from "react";
 import Drawer from "react-modern-drawer";
 
-import CategoriesBox from "@/components/CategoryCard/CategoriesBox";
+import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
 
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   return (
     <main className="">
       <HeroSection />
-      <CategoriesBox />
+      <FeaturedCategoriesBox />
       <Products />
       <Community />
       <ActionBanner />

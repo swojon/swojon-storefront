@@ -1,6 +1,7 @@
 import React from "react";
 import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";
+import { useListCategoriesQuery } from "@/apollograph/generated";
 
 const card = [
   { id: 13, banner: "/assets/cat1.png", title: "Furniture" },
@@ -23,7 +24,22 @@ const card = [
   },
 ];
 
-const CategoriesBox = () => {
+const FeaturedCategoriesBox = () => {
+  const { data, loading, error, networkStatus } =
+  useListCategoriesQuery({
+    variables: {
+      limit: 8,
+      filters: {
+        isFeatured: [true]
+      }
+    },
+    notifyOnNetworkStatusChange: true,
+    nextFetchPolicy: "cache-first",
+  });
+
+  console.log(data?.listCategories.items)
+
+
   return (
     <div className="mt-20  custom-container space-y-10">
       <div className="flex md:flex-row flex-col justify-between items-center space-y-2 md:space-x-0">
@@ -38,12 +54,14 @@ const CategoriesBox = () => {
       </div>
 
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
-        {card.map((item) => (
-          <CategoryCard2 item={item} key={item.id} />
-        ))}
+        {loading && <p>Loading</p>}
+        {data && data.listCategories.items.map((category) => 
+          <CategoryCard2 item={category} key={category.id} />
+        )}
+    
       </div>
     </div>
   );
 };
 
-export default CategoriesBox;
+export default FeaturedCategoriesBox;

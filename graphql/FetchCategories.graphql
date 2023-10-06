@@ -1,0 +1,22 @@
+query ListCategories ($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {
+  listCategories (filters: $filters, limit: $limit, starting_after: $startingAfter){
+    hasMore
+    count
+    items {
+      id
+      name
+      slug
+      banner
+      description
+      status
+      isSponsored
+      isFeatured
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+  }
+}
+

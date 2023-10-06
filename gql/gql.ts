@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query ListCategories {\n  listCategories {\n    items {\n      children {\n        id\n        description\n        name\n        slug\n        banner\n        children {\n          id\n          description\n          name\n          slug\n          banner\n          children {\n            id\n            description\n            name\n            slug\n            banner\n          }\n        }\n      }\n      id\n      description\n      name\n      slug\n      banner\n    }\n  }\n}": types.ListCategoriesDocument,
+    "query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {\n  listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {\n    hasMore\n    count\n    items {\n      id\n      name\n      slug\n      banner\n      description\n      status\n      isSponsored\n      isFeatured\n      parentCategory {\n        id\n        name\n        slug\n      }\n    }\n  }\n}": types.ListCategoriesDocument,
 };
 
 /**
@@ -33,7 +33,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ListCategories {\n  listCategories {\n    items {\n      children {\n        id\n        description\n        name\n        slug\n        banner\n        children {\n          id\n          description\n          name\n          slug\n          banner\n          children {\n            id\n            description\n            name\n            slug\n            banner\n          }\n        }\n      }\n      id\n      description\n      name\n      slug\n      banner\n    }\n  }\n}"): (typeof documents)["query ListCategories {\n  listCategories {\n    items {\n      children {\n        id\n        description\n        name\n        slug\n        banner\n        children {\n          id\n          description\n          name\n          slug\n          banner\n          children {\n            id\n            description\n            name\n            slug\n            banner\n          }\n        }\n      }\n      id\n      description\n      name\n      slug\n      banner\n    }\n  }\n}"];
+export function graphql(source: "query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {\n  listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {\n    hasMore\n    count\n    items {\n      id\n      name\n      slug\n      banner\n      description\n      status\n      isSponsored\n      isFeatured\n      parentCategory {\n        id\n        name\n        slug\n      }\n    }\n  }\n}"): (typeof documents)["query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {\n  listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {\n    hasMore\n    count\n    items {\n      id\n      name\n      slug\n      banner\n      description\n      status\n      isSponsored\n      isFeatured\n      parentCategory {\n        id\n        name\n        slug\n      }\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -1,7 +1,10 @@
-import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
-import React from "react";
+'use client';
 
+import { useListCategoriesQuery } from "@/apollograph/generated";
+import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
+import { Waypoint } from "react-waypoint";
 import { MdKeyboardArrowRight } from "react-icons/md";
+
 const card = [
   {
     id: 13,
@@ -106,6 +109,43 @@ const card = [
 ];
 
 const Categories = () => {
+  const { data, loading, error, fetchMore, networkStatus } =
+    useListCategoriesQuery({
+      variables: {
+        limit: 30
+      },
+      notifyOnNetworkStatusChange: true,
+      nextFetchPolicy: "cache-first",
+    });
+
+  const loadMore = () => {
+    fetchMore({
+      variables: {
+        limit: 10,
+        startingAfter:
+          data?.listCategories.items[data.listCategories.items.length - 1].id,
+      },
+      updateQuery: (
+        prev: any,
+        { fetchMoreResult }: any
+      ) => {
+        if (!fetchMoreResult.listCategories.items)
+          return prev;
+        return {
+          listCategories: {
+            items: [
+              ...prev.listCategories.items,
+              ...fetchMoreResult.listCategories.items,
+            ],
+            hasMore:
+              fetchMoreResult.listCategories.hasMore,
+            count: fetchMoreResult.listCategories.count,
+          },
+        };
+      },
+    });
+  }
+
   return (
     <main className="custom-container">
       <div className="mt-10 text-center font-lexed space-y-3">
@@ -119,10 +159,17 @@ const Categories = () => {
         </h5>
       </div>
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-4 pt-10">
-        {card.map((item) => (
-          <CategoryCard2 item={item} key={item.id} />
+        {loading && <p>Loading</p>}
+        {data && data?.listCategories.items.map((category) => (
+          <CategoryCard2 item={category} key={category.id} />
         ))}
       </div>
+      {data?.listCategories.hasMore && 
+      <div>
+        
+        <button onClick={loadMore}>Load More</button>
+        
+      </div>}
     </main>
   );
 };
