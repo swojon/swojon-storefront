@@ -13,6 +13,7 @@ import { headers } from "next/headers";
 import Drawer from "react-modern-drawer";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
+import Modal from "@/components/Modal/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -63,7 +64,9 @@ export default async function RootLayout({ children }: Iprops) {
           <NextAuthProvider session={session}>
             <ApolloWrapper>
               <div className="min-h-[50vh]">{children}</div>
-
+              
+              <Modal/>
+              
               <Footer />
             </ApolloWrapper>
           </NextAuthProvider>

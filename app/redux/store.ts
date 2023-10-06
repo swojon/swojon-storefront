@@ -4,6 +4,7 @@
 import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
+import { modalSlice } from "./modalSlice";
 // import { chatSlice } from "./chatSlice";
 // import { persistReducer, persistStore } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
@@ -11,6 +12,7 @@ import { createWrapper } from "next-redux-wrapper";
 const rootReducer = combineReducers({
   [authSlice.name]: authSlice.reducer,
   // [chatSlice.name]: chatSlice.reducer,
+  [modalSlice.name] : modalSlice.reducer,
 });
 
 
