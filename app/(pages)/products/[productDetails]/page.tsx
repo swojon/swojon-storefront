@@ -7,6 +7,7 @@ import ProductDetailsImage from "@/components/ProductDetails/ProductDetailsImage
 import ProductInfo from "@/components/ProductDetails/ProductInfo";
 import SellerBox from "@/components/ProductDetails/SellerBox";
 import SafetyTips from "@/components/SafetyTips/SafetyTips";
+import Link from "next/link";
 
 const card2 = [
   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
@@ -19,7 +20,7 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const ProductDetails = ({ params }: { params: { productDetails: string }}) => {
+const ProductDetails = ({ params }: { params: { productDetails: string } }) => {
   const productItem = parseInt(params.productDetails, 10);
   const selectedProduct = card2.find((item) => item.id === productItem);
 
@@ -67,7 +68,9 @@ const ProductDetails = ({ params }: { params: { productDetails: string }}) => {
           <SafetyTips />
         </div>
         <div className="w-[30%] ">
-          <SellerBox />
+          <Link href="/seller/1">
+            <SellerBox />
+          </Link>
         </div>
       </div>
 
