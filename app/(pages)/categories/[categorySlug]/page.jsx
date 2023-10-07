@@ -149,13 +149,16 @@ const CategoryDetail = ({ params }) => {
         </div>
       </div>
       <div className="flex  space-x-3 pt-5">
-        <div>
+        <div className="w-[25%] md:block hidden">
           <FilterBar />
         </div>
-        <div className="grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
-          {card2.map((card) => (
-            <ProductCard card={card} key={card.id} />
-          ))}
+        <div className="w-[75%]">
+          {" "}
+          <div className="grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+            {card2.map((card) => (
+              <ProductCard card={card} key={card.id} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

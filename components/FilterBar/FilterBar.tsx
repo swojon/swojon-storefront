@@ -49,7 +49,7 @@ const filters = [
 
 const FilterBar = () => {
   return (
-    <section className="min-w-[300px] border rounded-md min-h-screen  overflow-y-auto">
+    <section className="sticky top-0 h-auto border rounded-md min-h-screen  ">
       <div className="flex justify-between items-center p-3 border-b ">
         <h6 className="text-lg font-lexed text-primaryColor">Filter by:</h6>
         <span className="text-activeColor  relative  leading-0">
