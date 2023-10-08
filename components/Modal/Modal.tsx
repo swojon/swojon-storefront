@@ -10,6 +10,7 @@ import { setModalClose } from "@/app/redux/modalSlice";
 
 import "./Modal.scss";
 import SendOfferModal from "./SendOfferModal";
+import NavbarModal from "./NavbarModal";
 const SENDOFFERMODAL = "sendOfferModal";
 
 export default function Modal() {
@@ -23,13 +24,16 @@ export default function Modal() {
 
   const cancelButtonRef = useRef(null);
 
+
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className="relative z-1000"
         onClose={() => dispatch(setModalClose(true))}
       >
+       
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -42,7 +46,9 @@ export default function Modal() {
           <div className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto ">
+        <div className="fixed inset-0 z-1000 overflow-y-auto ">
+        { modalStack[modalStack.length - 1]?.body === "navbar" ? <NavbarModal/> : 
+        
           <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
             <Transition.Child
               as={Fragment}
@@ -101,8 +107,11 @@ export default function Modal() {
               </Dialog.Panel>
             </Transition.Child>
           </div>
+          }
         </div>
+        
       </Dialog>
     </Transition.Root>
+      
   );
 }
