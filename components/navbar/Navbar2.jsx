@@ -8,12 +8,15 @@ import { PiChatsCircleFill } from "react-icons/pi";
 import user from "@/public/user1.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar2({ border }) {
+  const dispatch = useDispatch()
   return (
     <Disclosure
       as="nav"
@@ -80,7 +83,7 @@ export default function Navbar2({ border }) {
               <div className="flex  items-center justify-center px-2 lg:ml-6 lg:justify-end"></div>
               <div className="flex items-center lg:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Disclosure.Button onClick={dispatch(setModalOpen({body: "navbar", title: "title"}))} className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
