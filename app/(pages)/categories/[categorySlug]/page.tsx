@@ -123,13 +123,13 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const CategoryDetail = ({ params }) => {
+const CategoryDetail = ({ params } : {params: any}) => {
   const categoryItem = parseInt(params.categorySlug, 10);
-  console.log(categoryItem);
-
+  console.log("re Rendered")
   const selectedCategory = card.find((item) => item.id === categoryItem);
-
+  const appliedFilter = []
   console.log(selectedCategory);
+
 
   return (
     <section className="custom-container py-10">

@@ -85,7 +85,7 @@ const FilterBar = () => {
       </div>
 
       <div className="px-3">
-        <StatusFilter />
+        <StatusFilter initial={[]} />
       </div>
 
       <div className="px-3">

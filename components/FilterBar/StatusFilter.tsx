@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const filters = [
   {
-    id: "color",
-    name: "Color",
+    id: "condition",
+    name: "condition",
     options: [
       { value: "used", label: "used", checked: true },
       { value: "new", label: "new", checked: false },
@@ -17,7 +18,33 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const StatusFilter = () => {
+
+
+const StatusFilter = ({initial} : {initial: any[]}) => {
+
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()!
+
+  const [conditions, setConditions] = useState(initial)
+  
+  const handleChange = (val: any) => {
+    console.log("input cchanged", val.target.name, val.target.value, val.target.checked)
+    if (val.target.checked) setConditions([...conditions, val.target.value])
+    else  setConditions(conditions.filter(item => item !== val.target.value))
+    // conso setConditions([...conditions, val.target.value])le.log(val.target.name)
+  }  
+
+  
+  // Get a new searchParams string by merging the current
+  
+  useEffect(()=>{
+      const params = new URLSearchParams(searchParams.toString())
+      params.set("condition", conditions.join(','))
+      router.push(pathname + '?' + params.toString())
+
+  }, [conditions])
+  console.log("applied conditions", conditions)
   return (
     <div>
       <form className=" ">
@@ -58,13 +85,14 @@ const StatusFilter = () => {
                           name={`${section.id}[]`}
                           defaultValue={option.value}
                           type="checkbox"
-                          defaultChecked={option.checked}
+                          defaultChecked={conditions.includes(option.value)}
+                          onChange={handleChange}
                           className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                         />
                         <label
                           htmlFor={`filter-${section.id}-${optionIdx}`}
                           className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium ${
-                            option.checked
+                            conditions.includes(option.value)
                               ? "text-activeColor"
                               : "text-primaryColor"
                           }`}
