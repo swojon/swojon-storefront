@@ -23,8 +23,8 @@ const HeroSection = () => {
         </div>
       </div> */}
 
-      <div className="flex  hero-height items-center md:pl-[6vw] px-5  md:py-0   md:space-x-0  justify-center ">
-        <div className="text-center  space-y-1 md:space-y-4 z-10">
+      <div className="flex  hero-height items-center       justify-center ">
+        <div className="text-center  space-y-2 md:space-y-4 ">
           <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
             <span>Find your all </span>
             <span>solution in one place</span>
