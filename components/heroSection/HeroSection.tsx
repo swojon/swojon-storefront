@@ -5,11 +5,12 @@ import Image from "next/image";
 // import Hero1 from "../../public/assets/bannerHeadPhone.jpg";
 
 import Navbar2 from "../navbar/Navbar2";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const HeroSection = () => {
   return (
     <section className="w-full min-h-screen h-full  hero-container relative ">
-      <div className="hidden md:block">
+      <div className="">
         <Navbar2 border="none" />
       </div>
       {/* <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
@@ -22,8 +23,8 @@ const HeroSection = () => {
         </div>
       </div> */}
 
-      <div className="flex flex-col-reverse md:flex-row hero-height items-center md:pl-[6vw] px-5 my-4 md:py-0   md:space-x-0  ">
-        <div className="flex-1  space-y-1 md:space-y-4 z-10">
+      <div className="flex  hero-height items-center md:pl-[6vw] px-5  md:py-0   md:space-x-0  justify-center ">
+        <div className="text-center  space-y-1 md:space-y-4 z-10">
           <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
             <span>Find your all </span>
             <span>solution in one place</span>
@@ -33,17 +34,27 @@ const HeroSection = () => {
             <span> Buy from a trustable source and get relax.</span>
           </p>
 
-          <div className="flex  space-x-3 sm:space-x-5 font-lexed font-medium md:text-base text-sm">
-            <button className="border border-activeColor py-2 px-3 rounded bg-activeColor text-whiteColor hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300">
-              Sell Your Product
-            </button>
-            <button className="border border-activeColor py-2 px-3 rounded text-activeColor hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
-              All Categories
-            </button>
+          <div className="w-full md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
+            <label htmlFor="search" className="sr-only">
+              Search
+            </label>
+            <div className="relative ">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
+                <MagnifyingGlassIcon
+                  className="h-7 w-7  p-1.5 bg-activeColor text-white rounded-full mr-1 "
+                  aria-hidden="true"
+                />
+              </div>
+              <input
+                id="search"
+                name="search"
+                className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+                placeholder="Search"
+                type="search"
+              />
+            </div>
           </div>
         </div>
-
-        <div className="flex-1 w-full h-f"></div>
       </div>
     </section>
   );

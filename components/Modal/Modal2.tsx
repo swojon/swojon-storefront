@@ -8,12 +8,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
 
-import "./Modal.scss";
-import SendOfferModal from "./SendOfferModal";
-const SENDOFFERMODAL = "sendOfferModal";
-
-export default function Modal() {
+const Modal2 = () => {
   const open = useSelector((state: any) => state.modal.open);
+  const body = useSelector((state: any) => state.modal.body);
+  const title = useSelector((state: any) => state.modal.title);
   const modalStack = useSelector((state: any) => state.modal.stack);
 
   //   const body = useSelector((state: any) => state.modal.body);
@@ -22,7 +20,6 @@ export default function Modal() {
   const dispatch = useDispatch();
 
   const cancelButtonRef = useRef(null);
-
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -43,7 +40,7 @@ export default function Modal() {
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto ">
-          <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
+          {/* <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -100,9 +97,12 @@ export default function Modal() {
                 </div>
               </Dialog.Panel>
             </Transition.Child>
-          </div>
+          </div> */}
+          {body}
         </div>
       </Dialog>
     </Transition.Root>
   );
-}
+};
+
+export default Modal2;
