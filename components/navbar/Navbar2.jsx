@@ -8,16 +8,20 @@ import { PiChatsCircleFill } from "react-icons/pi";
 import user from "@/public/user1.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setNavOpen } from "@/app/redux/navSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar2({ border }) {
+  const dispatch = useDispatch();
+
   return (
     <Disclosure
       as="nav"
-      className={` py-1 ] ${
+      className={` py-1  ${
         border === "border" ? "border-b border-[#E6E6E6" : "border-0"
       }`}
     >
@@ -28,32 +32,33 @@ export default function Navbar2({ border }) {
               <div className="flex px-2 lg:px-0">
                 <Link
                   href="/"
-                  className="flex flex-shrink-0 items-center font-lexed text-activeColor font-semibold text-2xl"
+                  className="flex flex-shrink-0 items-center font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base"
                 >
                   Swojon
                 </Link>
-                <div className="hidden lg:ml-6 lg:flex lg:space-x-2 xl:space-x-4">
-                  <Link
-                    href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-700"
-                  >
+                <div className="hidden lg:ml-6 lg:flex lg:space-x-1 xl:space-x-4">
+                  <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-200">
                     <MegaMenu2 />
-                  </Link>
+                  </span>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 font-lexend hover:border-activeColor hover:text-gray-700"
+                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
                   >
                     All Ads
                   </Link>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 font-lexend hover:border-activeColor hover:text-gray-700"
+                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
                   >
                     Community
                   </Link>
                 </div>
               </div>
-              <div className="w-full max-w-lg lg:max-w-xs ">
+              <div
+                className={` "w-full  lg:w-56 xl:w-[300px] ${
+                  border === "border" ? "block" : "hidden"
+                }`}
+              >
                 <label htmlFor="search" className="sr-only">
                   Search
                 </label>
@@ -73,16 +78,15 @@ export default function Navbar2({ border }) {
                   />
                 </div>
               </div>
-              <div className="flex  items-center justify-center px-2 lg:ml-6 lg:justify-end"></div>
+
               <div className="flex items-center lg:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Disclosure.Button
+                  onClick={() => dispatch(setNavOpen())}
+                  className="inline-flex items-center justify-center rounded-md p-2 text-activeColor  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor"
+                >
                   <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
+
+                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
               <div className="hidden  lg:flex lg:items-center space-x-3">
@@ -150,11 +154,11 @@ export default function Navbar2({ border }) {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-                <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor text-sm flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
+                <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
                   <PiChatsCircleFill /> <span> Chat</span>
                 </button>
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 text-sm hover:shadow-lg hover:-translate-y-1  ">
-                  Sell Your Product
+                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1  ">
+                  Sell Product
                 </button>
               </div>
             </div>

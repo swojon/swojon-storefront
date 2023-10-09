@@ -8,13 +8,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
 
-import "./Modal.scss";
-import SendOfferModal from "./SendOfferModal";
-import NavbarModal from "./NavbarModal";
-const SENDOFFERMODAL = "sendOfferModal";
-
-export default function Modal() {
+const Modal2 = () => {
   const open = useSelector((state: any) => state.modal.open);
+  const body = useSelector((state: any) => state.modal.body);
+  const title = useSelector((state: any) => state.modal.title);
   const modalStack = useSelector((state: any) => state.modal.stack);
 
   //   const body = useSelector((state: any) => state.modal.body);
@@ -23,17 +20,13 @@ export default function Modal() {
   const dispatch = useDispatch();
 
   const cancelButtonRef = useRef(null);
-
-
-
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-1000"
+        className="relative z-10"
         onClose={() => dispatch(setModalClose(true))}
       >
-       
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -46,10 +39,8 @@ export default function Modal() {
           <div className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-1000 overflow-y-auto ">
-        { modalStack[modalStack.length - 1]?.body === "navbar" ? <NavbarModal/> : 
-        
-          <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
+        <div className="fixed inset-0 z-10 overflow-y-auto ">
+          {/* <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -106,12 +97,12 @@ export default function Modal() {
                 </div>
               </Dialog.Panel>
             </Transition.Child>
-          </div>
-          }
+          </div> */}
+          {body}
         </div>
-        
       </Dialog>
     </Transition.Root>
-      
   );
-}
+};
+
+export default Modal2;
