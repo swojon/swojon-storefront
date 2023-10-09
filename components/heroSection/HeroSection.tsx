@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen h-full  hero-container relative ">
+    <section className="w-full min-h-screen h-full  hero-container custom-container relative ">
       <div className="">
         <Navbar2 border="none" />
       </div>
@@ -29,12 +29,12 @@ const HeroSection = () => {
             <span>Find your all </span>
             <span>solution in one place</span>
           </h1>
-          <p className="text-gray-300 lg:text-lg md:text-base text-sm  lg:flex lg:flex-col    animate--delay-1s slideInLeft2">
+          <p className="text-gray-300 lg:text-lg md:text-base text-sm  lg:flex md:flex-col    animate--delay-1s slideInLeft2">
             <span> Get everything, that you need with always relaxation. </span>
             <span> Buy from a trustable source and get relax.</span>
           </p>
 
-          <div className="w-full md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
+          <div className="w-full sm:[250px] md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
             <label htmlFor="search" className="sr-only">
               Search
             </label>
