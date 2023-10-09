@@ -5,12 +5,16 @@ import "./Navbar.scss";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { setNavOpen } from "@/app/redux/navSlice";
 
 const ResNavbar = () => {
+  const dispatch = useDispatch()
+
   return (
     <div className="fixed top-0 left-0 resNavbar-container  w-full h-screen z-50 ">
       <div className="w-[60%] bg-white h-screen opacity-100 py-7 pl-6 pr-20 relative">
-        <button className="absolute right-0 top-0 border p-3 m-2 rounded-sm">
+        <button onClick={() => dispatch(setNavOpen())}  className="absolute right-0 top-0 border p-3 m-2 rounded-sm">
           {" "}
           <AiOutlineClose className="text-2xl" />
         </button>
