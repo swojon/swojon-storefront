@@ -5,23 +5,50 @@ import { FormEventHandler, useState } from "react";
 import login from "../../../public/login.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface Props {}
 
 const SignIn: NextPage = (): JSX.Element => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const [error, setError] = useState<string|null>(null)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const redirect = searchParams.get('redirect') === "true"
+  const next_url = searchParams.get('next')
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // validate your userinfo
-    e.preventDefault();
+   
+      // validate your userinfo
+      e.preventDefault();
+      console.log("email: ", userInfo.email, "password", userInfo.password);
+      setError(null)
+      const res = await fetch( `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
+        method: "POST",
+        body: JSON.stringify({
+          username : userInfo.email,
+          password : userInfo.password,
+        }),
+        headers: {
+          "Content-Type":  "application/json"
+        },
+        credentials: 'include',
+        redirect: 'follow'
+      });
+      if (res.status != 200) {
+        console.log("Failed to login")
+        setError("Something Went Wrong")
+      }
+      else {
+        // toast.success("Successfully Logged in")
+        console.log("Log in Successfull")
+        if (redirect)
+          router.push(next_url? next_url : '/')
 
-    const res = await signIn("credentials", {
-      email: userInfo.email,
-      password: userInfo.password,
-      redirect: true,
-      callbackUrl: "/",
-    });
+      }
 
-    console.log(res);
+    
   };
   return (
     <div className=" w-full min-h-screen flex items-center bg-white absolute top-0 left-0 ">
@@ -70,7 +97,11 @@ const SignIn: NextPage = (): JSX.Element => {
               </label>
             </div>
           </div>
-
+          {error && 
+            <div className="text-center text-red-500">
+                <p>{error}</p>
+            </div>  
+          }
           <button
             type="submit"
             className="py-3 border border-[#cc0000] w-full rounded "
