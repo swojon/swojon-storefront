@@ -43,9 +43,7 @@ const NavbarModal = () => {
             </button>
           </div>
 
-          <div>
-            hello there
-          </div>
+          <div>hello there</div>
         </Dialog.Panel>
       </Transition.Child>
     </div>

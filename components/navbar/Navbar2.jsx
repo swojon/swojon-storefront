@@ -16,7 +16,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar2({ border }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <Disclosure
       as="nav"
@@ -77,9 +77,11 @@ export default function Navbar2({ border }) {
                   />
                 </div>
               </div>
-              <div className="flex  items-center justify-center px-2 lg:ml-6 lg:justify-end"></div>
-              <div className="flex items-center lg:hidden">
-                {/* Mobile menu button */}
+              <div className="flex  items-center justify-center px-2 lg:ml-6 lg:justify-end text-red-600">
+                btn
+              </div>
+              {/* <div className="flex items-center lg:hidden">
+              
                 <Disclosure.Button onClick={dispatch(setModalOpen({body: "navbar", title: "title"}))} className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -88,7 +90,7 @@ export default function Navbar2({ border }) {
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-              </div>
+              </div> */}
               <div className="hidden  lg:flex lg:items-center space-x-3">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 flex-shrink-0">
