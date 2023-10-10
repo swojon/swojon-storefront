@@ -15,7 +15,7 @@ export default function MegaMenu2() {
   const { data, loading, error } = useListCategoriesQuery();
   console.log("mega", data);
 
-  const [clickedItem, setClickedItem] = useState(false);
+  const [clickedItem, setClickedItem] = useState([null, null, null]);
 
   // useEffect(() => {
   //   setHoveredItem("item1");
@@ -28,6 +28,9 @@ export default function MegaMenu2() {
   // const handleItemLeave = () => {
   //   setHoveredItem(null);
   // };
+
+  const categories = data?.listCategories.items;
+  console.log("Clicked Item", clickedItem)
   return (
     <div className="">
       <Popover className=" z-0">
@@ -68,13 +71,13 @@ export default function MegaMenu2() {
                   <div className="flex ">
                     <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
                       {data &&
-                        data.listCategories.items.map((item) => (
+                        categories.filter(item => item.parentCategory == null ).map((item) => (
                           <div
                             className="flex items-center w-full justify-between border-b cursor-pointer"
                             // onMouseEnter={() => handleItemHover(item.id)}
                             // onMouseLeave={handleItemLeave}
                             key={item.id}
-                            onClick={() => setClickedItem(!clickedItem)}
+                            onClick={() => setClickedItem([item.id, null, null])}
                           >
                             <h2
                               className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
@@ -108,18 +111,67 @@ export default function MegaMenu2() {
                           </div>
                         ))}
                     </div>
-                    {clickedItem && (
+                    
+
+                    {clickedItem[0] && 
                       <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                        <div className="flex items-center w-full justify-between border-b small-scroll">
+                        {categories?.filter(item => item.parentCategory?.id === clickedItem[0]).map(item => (
+                        <div 
+                        className="flex items-center w-full justify-between border-b small-scroll"
+                        key={item.id}
+                        onClick={() => setClickedItem([clickedItem[0], item.id, null])}
+                        
+                        >
                           <h2
                             className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
                           >
-                            hello
+                            {item?.name}
                           </h2>
                           <MdKeyboardArrowRight className="text-lg text-primaryColor" />
                         </div>
+                        ))}
+                      </div>
+                    }
+
+                    {clickedItem[1] && (
+                      <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
+                        {categories?.filter(item => item.parentCategory?.id === clickedItem[1]).map(item => (
+                        <div 
+                        className="flex items-center w-full justify-between border-b small-scroll"
+                        key={item.id}
+                        onClick={() => setClickedItem([clickedItem[0], clickedItem[1], item.id])}
+                        
+                        >
+                          <h2
+                            className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                          >
+                            {item?.name}
+                          </h2>
+                          <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                        </div>
+                        ))}
                       </div>
                     )}
+
+                    {clickedItem[2] && (
+                      <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
+                        {categories?.filter(item => item.parentCategory?.id === clickedItem[1]).map(item => (
+                        <div 
+                        className="flex items-center w-full justify-between border-b small-scroll"
+                        key={item.id}                        
+                        >
+                          <h2
+                            className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                          >
+                            {item?.name}
+                          </h2>
+                          <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                        </div>
+                        ))}
+                      </div>
+                    )}
+
+
                   </div>
                 </div>
               </Popover.Panel>

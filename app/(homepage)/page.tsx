@@ -25,8 +25,8 @@ const Home: NextPage = () => {
       <FeaturedCategoriesBox />
       <Products />
       <Community />
-      <ActionBanner />
-      <SellBuyArea />
+      {/* <ActionBanner />
+      <SellBuyArea /> */}
       <ActionBanner2 />
       {/* <Drawer
         open={isOpen}

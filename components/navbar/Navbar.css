@@ -1,0 +1,19 @@
+.nav-container {
+  padding: 0 4vw;
+}
+.all-category:hover .megamenu-container {
+  visibility: visible;
+}
+
+.megamenu-container {
+  height: calc(100vh - 60px);
+  background: rgba(244, 243, 243, 0.8156862745);
+  z-index: 1000;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  top: 60px;
+}
+
+.resNavbar-container {
+  background: rgba(34, 34, 34, 0.4274509804);
+}/*# sourceMappingURL=Navbar.css.map */

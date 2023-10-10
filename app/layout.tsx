@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -8,13 +9,14 @@ import Navbar2 from "@/components/navbar/Navbar2";
 import Footer from "../components/footer/Footer";
 
 import { Session } from "next-auth";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 import Drawer from "react-modern-drawer";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
 import ResNavbar from "@/components/navbar/ResNavbar";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,22 +31,23 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-async function getSession(cookie: string): Promise<null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`,
-      {
-        headers: {
-          cookie,
-        },
-      }
-    );
-    const session = await response.json();
-    console.log("Got Session", session);
-    return Object.keys(session).length > 0 ? session : null;
-  } catch {
+async function getSession(cookie: string): Promise<Session|null> {
+  // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
+  // console.log("cookies", cookie)
+  // try{
+  //   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`, {
+  //     headers: {
+  //       Cookie: cookies().toString(),
+  //     },
+  //     credentials: 'include'
+  //     });
+        
+  //   const session = await response.json();
+  //   console.log("Got Session", session);
+  //   return Object.keys(session).length > 0 ? session : null;
+  // } catch {
     return null;
-  }
+  // }
 }
 
 export default async function RootLayout({ children }: Iprops) {
@@ -52,11 +55,12 @@ export default async function RootLayout({ children }: Iprops) {
   // const { pathname, query } = router;
 
   // const params = query.params;
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
+  // const headersList = headers();
+  // const activePath = headersList.get("x-invoke-path");
 
-  console.log("Current URL", activePath);
-  const session = await getSession(headers().get("cookie") ?? "");
+  // console.log("Current URL", activePath);
+
+  const session : Session|null = await getSession(headers().get("cookie") ?? "");
 
   return (
     <html lang="en">
