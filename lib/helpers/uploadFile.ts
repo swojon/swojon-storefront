@@ -20,9 +20,9 @@ export const uploadFile = async (
       {
         onUploadProgress: (progressEvent) => {
           // Calculate and update the progress percentage
-          const progress = Math.round(
-            (progressEvent.loaded / progressEvent.total) * 100
-          );
+          const progress = progressEvent.total ?  Math.round(
+            (progressEvent.loaded / progressEvent.total!) * 100
+          ): 0;
           setUploadProgress(progress);
         },
       }

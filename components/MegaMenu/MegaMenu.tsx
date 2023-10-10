@@ -7,15 +7,15 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 // import categoryData from "@/data/categoryData";
 
-function classNames(...classes) {
+function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function MegaMenu2() {
+export default function MegaMenu() {
   const { data, loading, error } = useListCategoriesQuery();
   console.log("mega", data);
 
-  const [clickedItem, setClickedItem] = useState([null, null, null]);
+  const [clickedItem, setClickedItem] = useState<any[]>([null, null, null]);
 
   // useEffect(() => {
   //   setHoveredItem("item1");
@@ -65,19 +65,18 @@ export default function MegaMenu2() {
             >
               <Popover.Panel className="absolute h-[70vh]  bg-white top-[61px] inline  z-[1000] transform shadow-lg p-3 text-primaryColor rounded ">
                 <div className=" relative h-full ">
-                  {loading ? "Loading" : ""}
-                  {error ? error : ""}
+                  {loading && <p> Loading </p>}
+                  {error &&  <p> error </p>  }
 
                   <div className="flex ">
                     <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                      {data &&
-                        categories.filter(item => item.parentCategory == null ).map((item) => (
+                      {data && categories?.filter(item => item.parentCategory == null ).map((item) => (
                           <div
                             className="flex items-center w-full justify-between border-b cursor-pointer"
                             // onMouseEnter={() => handleItemHover(item.id)}
                             // onMouseLeave={handleItemLeave}
                             key={item.id}
-                            onClick={() => setClickedItem([item.id, null, null])}
+                            onClick={() => setClickedItem([item?.id, null, null])}
                           >
                             <h2
                               className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
@@ -155,7 +154,7 @@ export default function MegaMenu2() {
 
                     {clickedItem[2] && (
                       <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                        {categories?.filter(item => item.parentCategory?.id === clickedItem[1]).map(item => (
+                        {categories?.filter(item => item.parentCategory?.id === clickedItem[2]).map(item => (
                         <div 
                         className="flex items-center w-full justify-between border-b small-scroll"
                         key={item.id}                        

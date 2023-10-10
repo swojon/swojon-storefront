@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import MegaMenu2 from "../MegaMenu/MegaMenu2";
+import MegaMenu from "../MegaMenu/MegaMenu";
 import { PiChatsCircleFill } from "react-icons/pi";
 import user from "@/public/user1.jpg";
 import Image from "next/image";
@@ -11,11 +11,11 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setNavOpen } from "@/app/redux/navSlice";
 
-function classNames(...classes) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar2({ border }) {
+export default function Navbar2({ border }: {border: any}) {
   const dispatch = useDispatch();
 
   return (
@@ -38,7 +38,7 @@ export default function Navbar2({ border }) {
                 </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-1 xl:space-x-4">
                   <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-200">
-                    <MegaMenu2 />
+                    <MegaMenu />
                   </span>
                   <Link
                     href="#"
