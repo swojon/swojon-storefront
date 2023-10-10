@@ -49,17 +49,17 @@ const safetyTips = [
 const SafetyTips = () => {
   return (
     <section className="pt-7">
-      <h5 className="text-2xl font-lexed text-primaryColor font-medium pb-4">
+      <h5 className="lg:text-2xl md:text-lg text-base font-lexed text-primaryColor font-medium pb-4">
         Safety Tips
       </h5>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-6">
         {safetyTips.map((item) => (
-          <div className="space-y-3" key={item.id}>
+          <div className="lg:space-y-3 md:space-y-2 space-y-1" key={item.id}>
             <Image src={item.icon} alt="icon" />
-            <h6 className="text-lg font-medium font-lexed text-primaryColor">
+            <h6 className="lg:text-lg text-base font-medium font-lexed text-primaryColor">
               {item.title}
             </h6>
-            <p className="text-sm text-secondColor">{item.desc}</p>
+            <p className="lg:text-sm text-xs text-secondColor">{item.desc}</p>
           </div>
         ))}
       </div>

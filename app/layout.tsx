@@ -1,4 +1,3 @@
-
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -11,12 +10,12 @@ import Footer from "../components/footer/Footer";
 import { Session } from "next-auth";
 import { cookies, headers } from "next/headers";
 
-import Drawer from "react-modern-drawer";
+import "swiper/css";
+import "swiper/css/pagination";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
 import ResNavbar from "@/components/navbar/ResNavbar";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +30,7 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-async function getSession(cookie: string): Promise<Session|null> {
+async function getSession(cookie: string): Promise<Session | null> {
   // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
   // console.log("cookies", cookie)
   // try{
@@ -41,12 +40,12 @@ async function getSession(cookie: string): Promise<Session|null> {
   //     },
   //     credentials: 'include'
   //     });
-        
+
   //   const session = await response.json();
   //   console.log("Got Session", session);
   //   return Object.keys(session).length > 0 ? session : null;
   // } catch {
-    return null;
+  return null;
   // }
 }
 
@@ -60,7 +59,9 @@ export default async function RootLayout({ children }: Iprops) {
 
   // console.log("Current URL", activePath);
 
-  const session : Session|null = await getSession(headers().get("cookie") ?? "");
+  const session: Session | null = await getSession(
+    headers().get("cookie") ?? ""
+  );
 
   return (
     <html lang="en">

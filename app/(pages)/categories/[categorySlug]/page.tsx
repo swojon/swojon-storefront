@@ -123,17 +123,16 @@ const card2 = [
   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
 ];
 
-const CategoryDetail = ({ params } : {params: any}) => {
+const CategoryDetail = ({ params }: { params: any }) => {
   const categoryItem = parseInt(params.categorySlug, 10);
-  console.log("re Rendered")
+  console.log("re Rendered");
   const selectedCategory = card.find((item) => item.id === categoryItem);
-  const appliedFilter = []
+  const appliedFilter = [];
   console.log(selectedCategory);
-
 
   return (
     <section className="custom-container py-10">
-      <div className="flex items-center justify-between">
+      <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
           <h6 className="">Home</h6>
           <MdKeyboardArrowRight />
@@ -144,16 +143,16 @@ const CategoryDetail = ({ params } : {params: any}) => {
           </h6>
         </div>
 
-        <div className="w-[200px]">
+        <div className="lg:w-[200px] md:w-[130px]">
           <SortDropDown />
         </div>
       </div>
-      <div className="flex  space-x-3 pt-5">
-        <div className="w-[25%] md:block hidden">
+      <div className="flex  gap-3 pt-5">
+        <div className="w-[25%] lg:block hidden">
           <FilterBar />
         </div>
-        <div className="w-[75%]">
-          <div className="grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+        <div className="lg:w-[75%] w-full">
+          <div className="grid xl:grid-cols-3 lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
             {card2.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}

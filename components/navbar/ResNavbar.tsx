@@ -15,25 +15,24 @@ const ResNavbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0  w-full h-screen z-50 transition delay-200 duration-700 ease-in-out ${
-        isNavOpen ? "block lg:hidden  resNavbar-container" : "hidden "
+      className={`fixed top-0 lg:hidden   w-full h-screen z-50 transition delay-200 duration-700 ease-in-out ${
+        isNavOpen ? "translate-x-0  resNavbar-container" : "-translate-x-full "
       }`}
     >
       <div
-        className={`w-[280px] md:w-[400px] bg-white h-screen opacity-100 py-7 pl-6 pr-20 relative transition duration-700 ease-in-out delay-200 ${
-          isNavOpen ? "left-0" : "-left-[400px]"
-        }`}
-        onClick={() => dispatch(setNavClose())}
+        className={`w-[280px] md:w-[400px] bg-white h-screen opacity-100 py-7 pl-6 pr-16 relative transition duration-700 ease-in-out delay-200 `}
       >
-        <button className="absolute right-0 top-0 border p-3 m-2 rounded-sm">
-          {" "}
+        <button
+          className="absolute right-0 top-0 border p-2 m-2 rounded-sm text-activeColor"
+          onClick={() => dispatch(setNavClose())}
+        >
           <AiOutlineClose className="text-lg" />
         </button>
         <div className=" ">
           <div className="space-y-1 pt-2 pb-3">
             <Link
               href="/"
-              className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+              className="block border-l-4 border-activeColor bg-red-200 py-2 pl-3 pr-4 text-base font-medium text-primaryColor"
             >
               Dashboard
             </Link>

@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen h-full  hero-container relative ">
+    <section className="w-full   hero-container relative ">
       <div className="">
         <Navbar2 border="none" />
       </div>

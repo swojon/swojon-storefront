@@ -7,7 +7,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 // import categoryData from "@/data/categoryData";
 
-function classNames(...classes:any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -30,7 +30,7 @@ export default function MegaMenu() {
   // };
 
   const categories = data?.listCategories.items;
-  console.log("Clicked Item", clickedItem)
+  console.log("Clicked Item", clickedItem);
   return (
     <div className="">
       <Popover className=" z-0">
@@ -66,26 +66,31 @@ export default function MegaMenu() {
               <Popover.Panel className="absolute h-[70vh]  bg-white top-[61px] inline  z-[1000] transform shadow-lg p-3 text-primaryColor rounded ">
                 <div className=" relative h-full ">
                   {loading && <p> Loading </p>}
-                  {error &&  <p> error </p>  }
+                  {error && <p> error </p>}
 
                   <div className="flex ">
                     <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                      {data && categories?.filter(item => item.parentCategory == null ).map((item) => (
-                          <div
-                            className="flex items-center w-full justify-between border-b cursor-pointer"
-                            // onMouseEnter={() => handleItemHover(item.id)}
-                            // onMouseLeave={handleItemLeave}
-                            key={item.id}
-                            onClick={() => setClickedItem([item?.id, null, null])}
-                          >
-                            <h2
-                              className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                      {data &&
+                        categories
+                          ?.filter((item) => item.parentCategory == null)
+                          .map((item) => (
+                            <div
+                              className="flex items-center w-full justify-between border-b cursor-pointer px-1 hover:bg-slate-200"
+                              // onMouseEnter={() => handleItemHover(item.id)}
+                              // onMouseLeave={handleItemLeave}
+                              key={item.id}
+                              onClick={() =>
+                                setClickedItem([item?.id, null, null])
+                              }
                             >
-                              {item?.name}
-                            </h2>
-                            <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                              <h2
+                                className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate `}
+                              >
+                                {item?.name}
+                              </h2>
+                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
 
-                            {/* {hoveredItem === item.id && (
+                              {/* {hoveredItem === item.id && (
                           <div className="category-sub-items px-4  w-[70%]  h-[60vh] grid grid-cols-4 overflow-auto gap-2	">
                             {item?.children.map((sub) => (
                               <div className="sub-item " key={sub.id}>
@@ -107,70 +112,85 @@ export default function MegaMenu() {
                             ))}
                           </div>
                         )} */}
-                          </div>
-                        ))}
+                            </div>
+                          ))}
                     </div>
-                    
 
-                    {clickedItem[0] && 
+                    {clickedItem[0] && (
                       <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                        {categories?.filter(item => item.parentCategory?.id === clickedItem[0]).map(item => (
-                        <div 
-                        className="flex items-center w-full justify-between border-b small-scroll"
-                        key={item.id}
-                        onClick={() => setClickedItem([clickedItem[0], item.id, null])}
-                        
-                        >
-                          <h2
-                            className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
-                          >
-                            {item?.name}
-                          </h2>
-                          <MdKeyboardArrowRight className="text-lg text-primaryColor" />
-                        </div>
-                        ))}
+                        {categories
+                          ?.filter(
+                            (item) => item.parentCategory?.id === clickedItem[0]
+                          )
+                          .map((item) => (
+                            <div
+                              className="flex items-center w-full justify-between border-b small-scroll"
+                              key={item.id}
+                              onClick={() =>
+                                setClickedItem([clickedItem[0], item.id, null])
+                              }
+                            >
+                              <h2
+                                className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                              >
+                                {item?.name}
+                              </h2>
+                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                            </div>
+                          ))}
                       </div>
-                    }
+                    )}
 
                     {clickedItem[1] && (
                       <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                        {categories?.filter(item => item.parentCategory?.id === clickedItem[1]).map(item => (
-                        <div 
-                        className="flex items-center w-full justify-between border-b small-scroll"
-                        key={item.id}
-                        onClick={() => setClickedItem([clickedItem[0], clickedItem[1], item.id])}
-                        
-                        >
-                          <h2
-                            className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
-                          >
-                            {item?.name}
-                          </h2>
-                          <MdKeyboardArrowRight className="text-lg text-primaryColor" />
-                        </div>
-                        ))}
+                        {categories
+                          ?.filter(
+                            (item) => item.parentCategory?.id === clickedItem[1]
+                          )
+                          .map((item) => (
+                            <div
+                              className="flex items-center w-full justify-between border-b small-scroll"
+                              key={item.id}
+                              onClick={() =>
+                                setClickedItem([
+                                  clickedItem[0],
+                                  clickedItem[1],
+                                  item.id,
+                                ])
+                              }
+                            >
+                              <h2
+                                className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                              >
+                                {item?.name}
+                              </h2>
+                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                            </div>
+                          ))}
                       </div>
                     )}
 
                     {clickedItem[2] && (
                       <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
-                        {categories?.filter(item => item.parentCategory?.id === clickedItem[2]).map(item => (
-                        <div 
-                        className="flex items-center w-full justify-between border-b small-scroll"
-                        key={item.id}                        
-                        >
-                          <h2
-                            className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
-                          >
-                            {item?.name}
-                          </h2>
-                          <MdKeyboardArrowRight className="text-lg text-primaryColor" />
-                        </div>
-                        ))}
+                        {categories
+                          ?.filter(
+                            (item) => item.parentCategory?.id === clickedItem[2]
+                          )
+                          .map((item) => (
+                            <div
+                              className="flex items-center w-full justify-between border-b small-scroll"
+                              key={item.id}
+                            >
+                              <h2
+                                className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                              >
+                                {item?.name}
+                              </h2>
+                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                            </div>
+                          ))}
                       </div>
                     )}
-
-
                   </div>
                 </div>
               </Popover.Panel>

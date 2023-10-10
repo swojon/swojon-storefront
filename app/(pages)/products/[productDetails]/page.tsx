@@ -8,6 +8,7 @@ import ProductInfo from "@/components/ProductDetails/ProductInfo";
 import SellerBox from "@/components/ProductDetails/SellerBox";
 import SafetyTips from "@/components/SafetyTips/SafetyTips";
 import Link from "next/link";
+import ProductImageSlider from "@/components/ProductDetails/ProductImageSlider";
 
 const card2 = [
   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
@@ -26,7 +27,7 @@ const ProductDetails = ({ params }: { params: { productDetails: string } }) => {
 
   return (
     <section className="custom-container py-10 space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
           <h6 className="">Home</h6>
           <MdKeyboardArrowRight />
@@ -58,16 +59,21 @@ const ProductDetails = ({ params }: { params: { productDetails: string } }) => {
         </div>
       </div>
 
-      <div>
+      <div className="hidden md:block">
         <ProductDetailsImage product={selectedProduct?.banner} />
       </div>
 
-      <div className="flex items-start gap-4">
-        <div className="w-[70%] ">
+      <div className="block md:hidden md:h-[350px] sm:h-[300px] h-[280px]">
+        {" "}
+        <ProductImageSlider />
+      </div>
+
+      <div className="flex lg:flex-row flex-col items-start gap-4">
+        <div className="lg:w-[70%] w-full">
           <ProductInfo />
           <SafetyTips />
         </div>
-        <div className="w-[30%] ">
+        <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0">
           <Link href="/seller/1">
             <SellerBox />
           </Link>

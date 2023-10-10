@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import React from "react";
 import icon1 from "@/public/assets/heartIcon.png";
@@ -13,7 +13,7 @@ const ProductCard = ({ card }: { card: any }) => {
 
   return (
     <div className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[210px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
+      <div className="lg:h-[210px] md:h-[170px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Link href={`/products/${card.id}`}>
           <Image
             src={card.banner}

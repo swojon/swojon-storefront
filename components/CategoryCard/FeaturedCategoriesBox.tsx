@@ -2,6 +2,7 @@ import React from "react";
 import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
+import CategoryCardLoader from "../Loader/CategoryCardLoader";
 
 const card = [
   { id: 13, banner: "/assets/cat1.png", title: "Furniture" },
@@ -25,20 +26,18 @@ const card = [
 ];
 
 const FeaturedCategoriesBox = () => {
-  const { data, loading, error, networkStatus } =
-  useListCategoriesQuery({
+  const { data, loading, error, networkStatus } = useListCategoriesQuery({
     variables: {
       limit: 8,
       filters: {
-        isFeatured: [true]
-      }
+        isFeatured: [true],
+      },
     },
     notifyOnNetworkStatusChange: true,
     nextFetchPolicy: "cache-first",
   });
 
-  console.log(data?.listCategories.items)
-
+  console.log(data?.listCategories.items);
 
   return (
     <div className="mt-20  custom-container space-y-10">
@@ -52,13 +51,17 @@ const FeaturedCategoriesBox = () => {
           </button>
         </Link>
       </div>
-
-      <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
-        {loading && <p>Loading</p>}
-        {data && data.listCategories.items.map((category) => 
-          <CategoryCard2 item={category} key={category.id} />
-        )}
-    
+      {loading && (
+        <div className="w-full">
+          {" "}
+          <CategoryCardLoader />
+        </div>
+      )}
+      <div className="w-full grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
+        {data &&
+          data.listCategories.items.map((category) => (
+            <CategoryCard2 item={category} key={category.id} />
+          ))}
       </div>
     </div>
   );

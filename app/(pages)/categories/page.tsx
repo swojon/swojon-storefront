@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
 import { Waypoint } from "react-waypoint";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import CategoryCardLoader from "@/components/Loader/CategoryCardLoader";
 
 const card = [
   {
@@ -112,7 +113,7 @@ const Categories = () => {
   const { data, loading, error, fetchMore, networkStatus } =
     useListCategoriesQuery({
       variables: {
-        limit: 30
+        limit: 30,
       },
       notifyOnNetworkStatusChange: true,
       nextFetchPolicy: "cache-first",
@@ -125,26 +126,21 @@ const Categories = () => {
         startingAfter:
           data?.listCategories.items[data.listCategories.items.length - 1].id,
       },
-      updateQuery: (
-        prev: any,
-        { fetchMoreResult }: any
-      ) => {
-        if (!fetchMoreResult.listCategories.items)
-          return prev;
+      updateQuery: (prev: any, { fetchMoreResult }: any) => {
+        if (!fetchMoreResult.listCategories.items) return prev;
         return {
           listCategories: {
             items: [
               ...prev.listCategories.items,
               ...fetchMoreResult.listCategories.items,
             ],
-            hasMore:
-              fetchMoreResult.listCategories.hasMore,
+            hasMore: fetchMoreResult.listCategories.hasMore,
             count: fetchMoreResult.listCategories.count,
           },
         };
       },
     });
-  }
+  };
 
   return (
     <main className="custom-container">
@@ -158,18 +154,23 @@ const Categories = () => {
           Browse All Category
         </h5>
       </div>
+      {loading && (
+        <div className="w-full pt-10">
+          {" "}
+          <CategoryCardLoader />
+        </div>
+      )}
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-4 pt-10">
-        {loading && <p>Loading</p>}
-        {data && data?.listCategories.items.map((category) => (
-          <CategoryCard2 item={category} key={category.id} />
-        ))}
+        {data &&
+          data?.listCategories.items.map((category) => (
+            <CategoryCard2 item={category} key={category.id} />
+          ))}
       </div>
-      {data?.listCategories.hasMore && 
-      <div>
-        
-        <button onClick={loadMore}>Load More</button>
-        
-      </div>}
+      {data?.listCategories.hasMore && (
+        <div>
+          <button onClick={loadMore}>Load More</button>
+        </div>
+      )}
     </main>
   );
 };
