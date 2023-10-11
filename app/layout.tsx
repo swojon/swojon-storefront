@@ -69,7 +69,7 @@ export default async function RootLayout({ children }: Iprops) {
         <Providers>
           <NextAuthProvider session={session}>
             <ApolloWrapper>
-              <div className="min-h-[50vh] relative">
+              <div className="min-h-[30vh] relative">
                 <ResNavbar />
 
                 {children}
