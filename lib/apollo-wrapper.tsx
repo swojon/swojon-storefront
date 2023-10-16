@@ -9,6 +9,7 @@ import { request } from "http";
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from "@apollo/client/utilities";
+import { getCookie } from "cookies-next";
 
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_URL 
@@ -56,14 +57,15 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
 
     const authLink = setContext((_, context, ) => {
       console.log("Access Token", context)
-      const { accessToken } = context;
-
+      // const { accessToken } = context;
+      console.log("authoriztion", getCookie('authorization'))
       // const lstoken = typeof window !== 'undefined'? localStorage.getItem('token') : "";
       // console.log("context headers", context.headers.cookie)
       return {
         headers: {
           ...context.headers,
-          authorization: accessToken ? `Bearer ${accessToken}` : "",
+          // authorization: `Bearer ${cookies().get('authorization')?.value}`,
+          Authorization: `Bearer ${getCookie('authorization')}`,
           // cookies: typeof window !== 'undefined'? document.cookie : "",
         },
       };
