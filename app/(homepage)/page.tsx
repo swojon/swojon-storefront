@@ -10,10 +10,13 @@ import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 import { useState } from "react";
 
 import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
+import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   // console.log(categoryData.data.listCategories.items);
-
+  const {data: session} = useSession()
+  console.log("session", session)
+  
   return (
     <main className="">
       <HeroSection />

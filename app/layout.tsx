@@ -16,6 +16,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
 import ResNavbar from "@/components/navbar/ResNavbar";
+import { getCookie } from "cookies-next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,21 +33,22 @@ interface Iprops {
 
 async function getSession(cookie: string): Promise<Session | null> {
   // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
-  // console.log("cookies", cookie)
-  // try{
-  //   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/session`, {
-  //     headers: {
-  //       Cookie: cookies().toString(),
-  //     },
-  //     credentials: 'include'
-  //     });
+  // console.log("cookies", cookies().get('authorization').value)
 
-  //   const session = await response.json();
-  //   console.log("Got Session", session);
-  //   return Object.keys(session).length > 0 ? session : null;
-  // } catch {
-  return null;
-  // }
+  try{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/profile`, {
+      headers: {
+        Authorization : `Bearer ${cookies().get('authorization')?.value}`
+      },
+      credentials: 'include'
+      });
+
+    const session = await response.json();
+    console.log("Got Session", session);
+    return Object.keys(session).length > 0 ? session : null;
+  } catch {
+    return null;
+  }
 }
 
 export default async function RootLayout({ children }: Iprops) {
@@ -57,7 +59,7 @@ export default async function RootLayout({ children }: Iprops) {
   // const headersList = headers();
   // const activePath = headersList.get("x-invoke-path");
 
-  // console.log("Current URL", activePath);
+  console.log("Current URL", headers().get("cookie"));
 
   const session: Session | null = await getSession(
     headers().get("cookie") ?? ""

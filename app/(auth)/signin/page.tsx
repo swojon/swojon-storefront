@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
+import { setCookie } from "cookies-next";
 
 interface Props {}
 
@@ -40,15 +41,27 @@ const SignIn: NextPage = (): JSX.Element => {
         redirect: "follow",
       }
     );
+    const data = await res.json()
     if (res.status != 200) {
       console.log("Failed to login");
       setError("Something Went Wrong");
     } else {
       // toast.success("Successfully Logged in")
       console.log("Log in Successfull");
+      // console.log(res.json())
+
+      console.log(data)
+      // cookies().set('authorization', data["token"], {secure: true})
+      setCookie('authorization', data.token, {secure:true })
       if (redirect) router.push(next_url ? next_url : "/");
     }
   };
+
+  const handleChange = (e:any) => {
+      if (e.target.name === "email") setUserInfo({email: e.target.value, password: userInfo.password })
+      if (e.target.name === "password") setUserInfo({email: userInfo.email, password: e.target.value })
+
+  }
   return (
     <div className=" w-full min-h-screen h-full flex items-center bg-white fixed top-0 left-0 ">
       <div className="flex-1 min-h-screen flex items-center bg-activeColor relative">
@@ -74,7 +87,7 @@ const SignIn: NextPage = (): JSX.Element => {
             Shwjon
           </Link>
 
-          <form className="space-y-4  mx-auto">
+          <form className="space-y-4  mx-auto" onSubmit={handleSubmit} >
             <div>
               <h2 className=" text-2xl font-semibold font-lexed">Log in</h2>
               <p className="text-base text-secondColor">
@@ -94,6 +107,7 @@ const SignIn: NextPage = (): JSX.Element => {
                   type="email"
                   name="email"
                   id="email"
+                  onChange={handleChange}
                   className="block w-full rounded-md border border-[#717171] pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor sm:text-sm p-2.5"
                   placeholder="Enter your email"
                 />
@@ -112,6 +126,7 @@ const SignIn: NextPage = (): JSX.Element => {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={handleChange}
                   className="block w-full rounded-md border border-[#717171] pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor sm:text-sm p-2.5"
                   placeholder="***"
                 />
