@@ -4,7 +4,13 @@ import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { MdLocationPin } from "react-icons/md";
 
-const ChatMessage = () => {
+const ChatMessage = ({
+  sideProfile,
+  setSideProfile,
+}: {
+  sideProfile: any;
+  setSideProfile: any;
+}) => {
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center">
@@ -28,7 +34,10 @@ const ChatMessage = () => {
             </div>
           </div>
         </div>
-        <div className="text-lg text-primaryColor">
+        <div
+          className="text-lg text-primaryColor cursor"
+          onClick={() => setSideProfile(!sideProfile)}
+        >
           <BsThreeDots />
         </div>
       </div>
@@ -57,8 +66,19 @@ const ChatMessage = () => {
           </span>
         </div>
       </div>
-      <div className="border chatBox px-3 pb-8  w-full relative overflow-y-auto">
-        <div className="absolute bottom-0 left-0  px-3 pb-5  w-full space-y-3">
+      <div className=" chatBox px-3 pb-8 flex items-end  w-full relative overflow-y-auto">
+        <div className="max-h-full w-full space-y-3 ">
+          <div className="relative w-full flex justify-end">
+            <div className="w-1/2  flex justify-end p-2 relative">
+              <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
+                hello
+              </span>
+              <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
+                just now
+              </span>
+            </div>
+          </div>
+
           <div className="relative w-full flex justify-end">
             <div className="w-1/2  flex justify-end p-2 relative">
               <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">

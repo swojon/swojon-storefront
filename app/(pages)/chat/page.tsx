@@ -7,11 +7,12 @@ import "@/components/ChatComponents/Chat.css";
 const Chats = () => {
   return (
     <section className="px-6 pt-6">
+      {/* <div className="w-full min-h-screen fixed left-0 top-0 bg-red-500 z-[100]"></div> */}
       <div className="flex w-full h-[87vh] border rounded-md">
-        <div className="w-[22%]  h-full sticky">
+        <div className="w-[22%]  h-full sticky hidden lg:block">
           <ChatLists />
         </div>
-        <div className="w-[78%]  h-full sticky">
+        <div className="lg:w-[78%] w-full h-full sticky">
           <ChatArea />
         </div>
       </div>

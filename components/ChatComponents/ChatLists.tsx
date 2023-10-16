@@ -3,15 +3,15 @@ import React from "react";
 
 const ChatLists = () => {
   return (
-    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto">
+    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto ">
       <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
         Chat List
       </h5>
 
       <div className="space-y-2.5">
-        <div className="p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+        <div className="xl:p-2 lg:p-1 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
           <div className="w-[18%] ">
-            <div className="w-8 h-8 rounded-full relative">
+            <div className="xl:w-8 lg:w-5 w-5  xl:h-8 lg:h-5 h-5 rounded-full relative">
               <Image
                 src="/user1.jpg"
                 alt="user"
@@ -23,24 +23,26 @@ const ChatLists = () => {
             </div>
           </div>
           <div className="w-[82%] flex justify-between">
-            <div className="pr-3 space-y-1">
-              <h5 className="text-sm text-primaryColor font-lexed truncate">
+            <div className="pr-3 space-y-1 w-[80%] ">
+              <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
                 Ibrahim K. Sakib
               </h5>
-              <p className="text-xs text-primaryColor">I need a Furniture!</p>
+              <p className="text-xs text-primaryColor truncate">
+                I need a Furniture!
+              </p>
             </div>
-            <div className="flex flex-col space-y-1 items-end justify-center">
-              <span className="text-xs ">7:30 PM</span>
-              <span className="w-4 h-4 rounded-full bg-green-400 text-xs text-white flex justify-center items-center">
+            <div className="flex flex-col space-y-1 items-end justify-center w-[20%] ">
+              <span className="xl:text-xs text-[9px] truncate">7:30 PM</span>
+              <span className="xl:w-4 w-3 xl:h-4 h-3 rounded-full bg-green-400 xl:text-xs text-[9px] text-white flex justify-center items-center">
                 2
               </span>
             </div>
           </div>
         </div>
 
-        <div className="p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+        <div className="xl:p-2 lg:p-1 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
           <div className="w-[18%] ">
-            <div className="w-8 h-8 rounded-full relative">
+            <div className="xl:w-8 lg:w-5 w-5  xl:h-8 lg:h-5 h-5 rounded-full relative">
               <Image
                 src="/user1.jpg"
                 alt="user"
@@ -52,15 +54,19 @@ const ChatLists = () => {
             </div>
           </div>
           <div className="w-[82%] flex justify-between">
-            <div className="pr-3 space-y-1">
-              <h5 className="text-sm text-primaryColor font-lexed truncate">
+            <div className="pr-3 space-y-1 w-[80%] ">
+              <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
                 Ibrahim K. Sakib
               </h5>
-              <p className="text-xs text-secondColor">I need a Furniture!</p>
+              <p className="text-xs text-primaryColor truncate">
+                I need a Furniture!
+              </p>
             </div>
-            <div className="flex flex-col space-y-1 items-end ">
-              <span className="text-xs text-gray-300">2 hours</span>
-              {/* <span className="  text-xs text-gray-300 "> away</span> */}
+            <div className="flex flex-col space-y-1 items-end justify-center w-[20%]  ">
+              <span className="xl:text-xs text-[9px] truncate">7:30 PM</span>
+              <span className="xl:w-4 w-3 xl:h-4 h-3 rounded-full bg-green-400 xl:text-xs text-[9px] text-white flex justify-center items-center">
+                2
+              </span>
             </div>
           </div>
         </div>

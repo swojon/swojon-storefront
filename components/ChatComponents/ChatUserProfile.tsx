@@ -18,7 +18,7 @@ const ChatUserProfile = () => {
           />
           <span className="absolute right-1 bottom-0 w-3 h-3 border rounded-full bg-green-400"></span>
         </div>
-        <h5 className=" lg:text-lg text-base font-lexed font-medium text-primaryColor">
+        <h5 className="xl:text-lg lg:text-base text-base font-lexed font-medium text-primaryColor">
           Cameron Williamson
         </h5>
         <div className="flex items-center gap-5	">
@@ -49,16 +49,28 @@ const ChatUserProfile = () => {
 
       <div className="space-y-2 py-4 border-b">
         <div>
-          <h6 className="text-base font-lexed text-primaryColor">Phone</h6>
-          <p className="text-sm text-secondColor">+123 456 789 98</p>
+          <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
+            Phone
+          </h6>
+          <p className="xl:text-sm lg:text-xs text-secondColor">
+            +123 456 789 98
+          </p>
         </div>
         <div>
-          <h6 className="text-base font-lexed text-primaryColor">Email</h6>
-          <p className="text-sm text-secondColor">xyzabc@gmail.com</p>
+          <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
+            Email
+          </h6>
+          <p className="xl:text-sm lg:text-xs text-secondColor">
+            xyzabc@gmail.com
+          </p>
         </div>
         <div>
-          <h6 className="text-base font-lexed text-primaryColor">Type</h6>
-          <p className="text-sm text-secondColor">Verified Seller</p>
+          <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
+            Type
+          </h6>
+          <p className="xl:text-sm lg:text-xs text-secondColor">
+            Verified Seller
+          </p>
         </div>
       </div>
       <div className="pt-4 space-y-3">
@@ -68,16 +80,18 @@ const ChatUserProfile = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-1">
             <div className="w-6 h-6 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
-              <TbFileText />
+              <TbFileText className="xl:text-sm lg:text-xs" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm text-primaryColor font-lexed">
+              <span className="xl:text-sm lg:text-xs text-primaryColor font-lexed">
                 Product image.abc
               </span>
               <span className="text-xs text-secondColor">02 Jan, 2022</span>
             </div>
           </div>
-          <span className="text-primaryColor text-sm font-lexed">1.1 MB</span>
+          <span className="text-primaryColor xl:text-sm lg:text-xs font-lexed">
+            1.1 MB
+          </span>
         </div>
       </div>
     </div>

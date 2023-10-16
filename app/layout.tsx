@@ -16,6 +16,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
 import ResNavbar from "@/components/navbar/ResNavbar";
+import ResFilter from "@/components/FilterBar/ResFilter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -71,7 +72,7 @@ export default async function RootLayout({ children }: Iprops) {
             <ApolloWrapper>
               <div className="min-h-[30vh] relative">
                 <ResNavbar />
-
+                <ResFilter />
                 {children}
               </div>
 

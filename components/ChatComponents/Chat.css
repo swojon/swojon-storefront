@@ -1,3 +1,4 @@
 .chatBox {
+  max-height: calc(87vh - 208px);
   height: calc(87vh - 208px);
 }

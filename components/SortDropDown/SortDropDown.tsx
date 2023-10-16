@@ -19,8 +19,8 @@ const SortDropDown = () => {
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
-          <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-10 text-left shadow-sm focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm">
+          <div className="relative ">
+            <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-10 text-left shadow-sm focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor md:text-sm text-xs">
               <span className="block truncate">{selected.name}</span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronUpDownIcon

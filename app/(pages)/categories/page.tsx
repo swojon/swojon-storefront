@@ -5,6 +5,7 @@ import CategoryCard2 from "@/components/CategoryCard/CategoryCard2";
 import { Waypoint } from "react-waypoint";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import CategoryCardLoader from "@/components/Loader/CategoryCardLoader";
+import ResFilter from "@/components/FilterBar/ResFilter";
 
 const card = [
   {
@@ -143,7 +144,8 @@ const Categories = () => {
   };
 
   return (
-    <main className="custom-container">
+    <main className="custom-container relative">
+      
       <div className="mt-10 text-center font-lexed space-y-3">
         <div className="flex items-center space-x-1 justify-center text-secondColor">
           <h1 className="text-base">Home</h1>

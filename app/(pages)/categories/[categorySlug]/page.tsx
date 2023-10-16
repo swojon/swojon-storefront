@@ -8,6 +8,9 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import ProductCard from "@/components/Products/ProductCard";
 import SortDropDown from "@/components/SortDropDown/SortDropDown";
 import Link from "next/link";
+import { FiFilter } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { setFilterOpen } from "@/app/redux/filterSlice";
 
 const card = [
   {
@@ -130,6 +133,8 @@ const CategoryDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
   console.log(selectedCategory);
 
+  const dispatch = useDispatch();
+
   return (
     <section className="custom-container py-10">
       <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
@@ -143,8 +148,16 @@ const CategoryDetail = ({ params }: { params: any }) => {
           </h6>
         </div>
 
-        <div className="lg:w-[200px] md:w-[130px]">
-          <SortDropDown />
+        <div className=" flex justify-between items-center gap-3 ">
+          <span
+            onClick={() => dispatch(setFilterOpen())}
+            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor block lg:hidden"
+          >
+            <FiFilter />
+          </span>
+          <div className="lg:w-[200px] md:w-[130px]">
+            <SortDropDown />
+          </div>
         </div>
       </div>
       <div className="flex  gap-3 pt-5">
