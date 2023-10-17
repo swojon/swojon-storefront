@@ -1,8 +1,10 @@
+import { setUserProfileOpen } from "@/app/redux/userProfileSlice";
 import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { MdLocationPin } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 const ChatMessage = ({
   sideProfile,
@@ -11,6 +13,7 @@ const ChatMessage = ({
   sideProfile: any;
   setSideProfile: any;
 }) => {
+  const dispatch = useDispatch();
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center">
@@ -35,7 +38,13 @@ const ChatMessage = ({
           </div>
         </div>
         <div
-          className="text-lg text-primaryColor cursor"
+          className="text-lg text-primaryColor cursor block lg:hidden"
+          onClick={() => dispatch(setUserProfileOpen())}
+        >
+          <BsThreeDots />
+        </div>
+        <div
+          className="text-lg text-primaryColor cursor lg:block hidden"
           onClick={() => setSideProfile(!sideProfile)}
         >
           <BsThreeDots />

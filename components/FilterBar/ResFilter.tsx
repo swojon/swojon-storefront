@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";

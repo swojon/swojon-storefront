@@ -16,11 +16,11 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar2({ border }: {border: any}) {
+export default function Navbar2({ border }: { border: any }) {
   const dispatch = useDispatch();
-  const {data: session} = useSession()
+  const { data: session } = useSession();
 
-  console.log("session", session)
+  console.log("session", session);
   return (
     <Disclosure
       as="nav"
@@ -115,20 +115,21 @@ export default function Navbar2({ border }: {border: any}) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {session && <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                           user {session.username!}
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      }
+                      {session && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              user {session.username!}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
 
                       <Menu.Item>
                         {({ active }) => (
@@ -172,9 +173,12 @@ export default function Navbar2({ border }: {border: any}) {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-                <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
-                  <PiChatsCircleFill /> <span> Chat</span>
-                </button>
+                <Link href="/chat">
+                  <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
+                    <PiChatsCircleFill /> <span> Chat</span>
+                  </button>
+                </Link>
+
                 <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1  ">
                   Sell Product
                 </button>
