@@ -46,9 +46,9 @@ export default function MegaMenu() {
                 >
                   <span>All Category</span>
                   {open ? (
-                    <IoMdArrowDropup className="pl-1 text-[#cc0000] text-xl" />
+                    <IoMdArrowDropup className="pl-1 text-activeColor text-xl" />
                   ) : (
-                    <IoMdArrowDropdown className="pl-1 text-[#cc0000] text-xl" />
+                    <IoMdArrowDropdown className="pl-1 text-activeColor text-xl" />
                   )}
                 </Popover.Button>
               </div>
@@ -63,19 +63,19 @@ export default function MegaMenu() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 -translate-y-1"
             >
-              <Popover.Panel className="absolute h-[70vh]  bg-white top-[61px] inline  z-[1000] transform shadow-lg p-3 text-primaryColor rounded ">
+              <Popover.Panel className="absolute h-[80vh]  bg-white top-[61px] inline  z-30 transform shadow-lg border py-3 text-primaryColor rounded ">
                 <div className=" relative h-full ">
                   {loading && <p> Loading </p>}
                   {error && <p> error </p>}
 
                   <div className="flex ">
-                    <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
+                    <div className="sticky top-0   h-[75vh] overflow-y-auto small-scroll w-[250px]">
                       {data &&
                         categories
                           ?.filter((item) => item.parentCategory == null)
                           .map((item) => (
                             <div
-                              className="flex items-center w-full justify-between border-b cursor-pointer px-1 hover:bg-slate-200"
+                              className="flex items-center hover:bg-slate-200 w-full justify-between cursor-pointer px-3 "
                               // onMouseEnter={() => handleItemHover(item.id)}
                               // onMouseLeave={handleItemLeave}
                               key={item.id}
@@ -84,11 +84,11 @@ export default function MegaMenu() {
                               }
                             >
                               <h2
-                                className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate `}
+                                className={` py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-sm font-medium truncate `}
                               >
                                 {item?.name}
                               </h2>
-                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
+                              <MdKeyboardArrowRight className="text-sm text-primaryColor" />
 
                               {/* {hoveredItem === item.id && (
                           <div className="category-sub-items px-4  w-[70%]  h-[60vh] grid grid-cols-4 overflow-auto gap-2	">
@@ -117,25 +117,24 @@ export default function MegaMenu() {
                     </div>
 
                     {clickedItem[0] && (
-                      <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll w-[300px]">
+                      <div className="sticky top-0 px-2 h-[65vh] overflow-y-auto small-scroll min-w-[300px] grid grid-cols-2 gap-3">
                         {categories
                           ?.filter(
                             (item) => item.parentCategory?.id === clickedItem[0]
                           )
                           .map((item) => (
                             <div
-                              className="flex items-center w-full justify-between border-b small-scroll"
+                              className=" w-full  border h-[150px]"
                               key={item.id}
                               onClick={() =>
                                 setClickedItem([clickedItem[0], item.id, null])
                               }
                             >
                               <h2
-                                className={`px-3 py-2 text-activeColor w-[85%] capitalize font-lexed rounded-sm text-lg font-medium truncate hover:bg-slate-200`}
+                                className={`px-3 py-2 text-primaryColor  capitalize font-lexed rounded-sm text-sm font-medium truncate `}
                               >
                                 {item?.name}
                               </h2>
-                              <MdKeyboardArrowRight className="text-lg text-primaryColor" />
                             </div>
                           ))}
                       </div>

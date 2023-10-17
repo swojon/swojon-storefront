@@ -18,7 +18,8 @@ const SignIn: NextPage = (): JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const redirect = searchParams.get("redirect") === "true";
+  // const redirect = searchParams.get("redirect") === "true";
+  const redirect = true;
   const next_url = searchParams.get("next");
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -84,7 +85,7 @@ const SignIn: NextPage = (): JSX.Element => {
             href="/"
             className="text-lg font-bold text-activeColor	font-lexed"
           >
-            Shwjon
+            Swojon
           </Link>
 
           <form className="space-y-4  mx-auto" onSubmit={handleSubmit} >

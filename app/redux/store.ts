@@ -1,11 +1,16 @@
+"use client";
 
-'use client';
-
-import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
 import { modalSlice } from "./modalSlice";
 import { navSlice } from "./navSlice";
+import { filterSlice } from "./filterSlice";
 // import { chatSlice } from "./chatSlice";
 // import { persistReducer, persistStore } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
@@ -13,10 +18,10 @@ import { navSlice } from "./navSlice";
 const rootReducer = combineReducers({
   [authSlice.name]: authSlice.reducer,
   // [chatSlice.name]: chatSlice.reducer,
-  [modalSlice.name] : modalSlice.reducer,
-  [navSlice.name]: navSlice.reducer
+  [modalSlice.name]: modalSlice.reducer,
+  [navSlice.name]: navSlice.reducer,
+  [filterSlice.name]: filterSlice.reducer,
 });
-
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -27,7 +32,6 @@ export const store = configureStore({
 // export type AppState = ReturnType<AppStore["getState"]>;
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 
 // const makeConfiguredStore = () =>
 //   configureStore({
