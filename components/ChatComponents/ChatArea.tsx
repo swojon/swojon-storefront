@@ -5,10 +5,14 @@ import ChatUserProfile from "./ChatUserProfile";
 import "./Chat.css";
 
 const ChatArea = () => {
-  const [sideProfile, setSideProfile] = useState(true);
+  const [sideProfile, setSideProfile] = useState(false);
   return (
     <div className="w-full flex h-full">
-      <div className="w-full h-full ">
+      <div
+        className={`w-full  h-full lg:block ${
+          sideProfile ? "hidden " : "block"
+        }`}
+      >
         <ChatMessage
           sideProfile={sideProfile}
           setSideProfile={setSideProfile}
@@ -16,11 +20,14 @@ const ChatArea = () => {
       </div>
 
       <div
-        className={`xl:w-[35%] lg:w-[40%] h-full hidden transition ease-in-out delay-150 ${
-          sideProfile ? "lg:block" : "lg:hidden"
+        className={`xl:w-[35%] lg:w-[40%] w-full  h-full  transition ease-in-out delay-150 ${
+          sideProfile ? " block " : "hidden"
         }`}
       >
-        <ChatUserProfile />
+        <ChatUserProfile
+          sideProfile={sideProfile}
+          setSideProfile={setSideProfile}
+        />
       </div>
     </div>
   );

@@ -37,14 +37,14 @@ const ChatMessage = ({
             </div>
           </div>
         </div>
-        <div
+        {/* <div
           className="text-lg text-primaryColor cursor block lg:hidden"
           onClick={() => dispatch(setUserProfileOpen())}
         >
           <BsThreeDots />
-        </div>
+        </div> */}
         <div
-          className="text-lg text-primaryColor cursor lg:block hidden"
+          className="text-lg text-primaryColor cursor block "
           onClick={() => setSideProfile(!sideProfile)}
         >
           <BsThreeDots />
