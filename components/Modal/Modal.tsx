@@ -24,8 +24,6 @@ export default function Modal() {
 
   const cancelButtonRef = useRef(null);
 
-
-
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -33,7 +31,6 @@ export default function Modal() {
         className="relative z-1000"
         onClose={() => dispatch(setModalClose(true))}
       >
-       
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,71 +44,70 @@ export default function Modal() {
         </Transition.Child>
 
         <div className="fixed inset-0 z-1000 overflow-y-auto ">
-        { modalStack[modalStack.length - 1]?.body === "navbar" ? <NavbarModal/> : 
-        
-          <div className="flex min-h-full   items-center	 p-4 text-center  sm:p-0 ">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel
-                className={`relative transform overflow-hidden rounded-lg bg-white   pb-4 text-left shadow-xl transition-all sm:my-5   h-auto ${
-                  modalStack[modalStack.length - 1]?.title ===
-                  "Delete the information?"
-                    ? "sm:w-2/6"
-                    : "sm:w-4/6"
-                }`}
+          {modalStack[modalStack.length - 1]?.body === "navbar" ? (
+            <NavbarModal />
+          ) : (
+            <div className="flex min-h-full   items-center	 p-2 text-center  sm:p-0 ">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
-                  <button
-                    type="button"
-                    className={`rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-100  focus:ring-offset-2 ${
-                      modalStack[modalStack.length - 1]?.title ===
-                      "Delete the information?"
-                        ? " focus:ring-red-500"
-                        : "focus:ring-indigo-500"
-                    }`}
-                    onClick={() => dispatch(setModalClose(true))}
-                  >
-                    <span className="sr-only">Close</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
-
-                <div className=" px-4 sm:flex sm:items-start  w-full h-full overflow-auto form-scrollbar">
-                  <div className="  w-full  sm:mx-2 my-4 sm:text-left">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-base font-medium leading-6 text-gray-700"
+                <Dialog.Panel
+                  className={`relative transform overflow-hidden rounded-lg bg-white  text-left shadow-xl transition-all sm:my-5 mx-auto  h-auto ${
+                    modalStack[modalStack.length - 1]?.title ===
+                    "Delete the information?"
+                      ? "sm:w-2/6"
+                      : "lg:w-[25%] md:w-[55%] w-[80%]"
+                  }`}
+                >
+                  {/* <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
+                    <button
+                      type="button"
+                      className={`rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-100  focus:ring-offset-2 ${
+                        modalStack[modalStack.length - 1]?.title ===
+                        "Delete the information?"
+                          ? " focus:ring-red-500"
+                          : "focus:ring-indigo-500"
+                      }`}
+                      onClick={() => dispatch(setModalClose(true))}
                     >
-                      {modalStack[modalStack.length - 1]?.title}
-                    </Dialog.Title>
-                    {modalStack[modalStack.length - 1]?.body ===
-                      SENDOFFERMODAL && (
-                      <SendOfferModal
-                        props={modalStack[modalStack.length - 1]?.props}
-                      />
-                    )}
-                    {modalStack[modalStack.length - 1]?.body ? (
-                      <></>
-                    ) : (
-                      <div className="mt-8  w-full h-full  ">Empty</div>
-                    )}
+                      <span className="sr-only">Close</span>
+                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div> */}
+
+                  <div className="  sm:flex sm:items-start  w-full h-full overflow-auto form-scrollbar">
+                    <div className="  w-full  p-2">
+                      {/* <Dialog.Title
+                        as="h3"
+                        className="text-base font-medium leading-6 text-gray-700"
+                      >
+                        {modalStack[modalStack.length - 1]?.title}
+                      </Dialog.Title> */}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        SENDOFFERMODAL && (
+                        <SendOfferModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ? (
+                        <></>
+                      ) : (
+                        <div className=" w-full h-full  ">Empty</div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-          }
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          )}
         </div>
-        
       </Dialog>
     </Transition.Root>
-      
   );
 }
