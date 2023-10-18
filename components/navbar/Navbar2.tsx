@@ -23,7 +23,7 @@ function classNames(...classes: any) {
 
 export default function Navbar2({ border }: { border: any }) {
   const dispatch = useDispatch();
-  const authState = useSelector((state:any) => state.auth)
+  const authState = useSelector((state: any) => state.auth)
   const handleSignOut = () => {
     dispatch(setUserLogout(true))
     deleteCookie('authorization')
@@ -32,9 +32,8 @@ export default function Navbar2({ border }: { border: any }) {
   return (
     <Disclosure
       as="nav"
-      className={` py-1  ${
-        border === "border" ? "border-b border-[#E6E6E6" : "border-0"
-      }`}
+      className={` py-1  ${border === "border" ? "border-b border-[#E6E6E6" : "border-0"
+        }`}
     >
       {({ open }) => (
         <>
@@ -119,7 +118,7 @@ export default function Navbar2({ border }: { border: any }) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {session && (
+                      {authState.isAuthenticated && (
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -129,7 +128,7 @@ export default function Navbar2({ border }: { border: any }) {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              user {session.username!}
+                              user {authState.user.username!}
                             </Link>
                           )}
                         </Menu.Item>
@@ -177,78 +176,80 @@ export default function Navbar2({ border }: { border: any }) {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>
-                <Link href="/chat">
-                  <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
-                    <PiChatsCircleFill /> <span> Chat</span>
-                  </button>
-                </Link>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Your Profile
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Settings
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Sign out
-                            </Link>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                )}
-
-                {session === null ? (
-                  <Link href="/signin">
-                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
-                    </button>
-                  </Link>
-                ) : (
+                
                   <Link href="/chat">
-                    <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
                       <PiChatsCircleFill /> <span> Chat</span>
                     </button>
                   </Link>
-                )}
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Your Profile
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Settings
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Sign out
+                      </Link>
+                    )}
+                  </Menu.Item>
+                        
+                  </Menu>
 
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
-                  Sell Product
-                </button>
+                  {authState.isAuthenticated === false ? (
+                    <Link href="/signin">
+                      <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                        <CiLogin /> <span> login</span>
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link href="/chat">
+                      <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                        <PiChatsCircleFill /> <span> Chat</span>
+                      </button>
+                    </Link>
+                  )}
+
+                  <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
+                    Sell Product
+                  </button>
+               
               </div>
             </div>
           </div>
+        </>
+      )}
+      
 
-          {/* <Disclosure.Panel className="lg:hidden bg-white">
+  {/* <Disclosure.Panel className="lg:hidden bg-white">
             <div className="space-y-1 pt-2 pb-3">
              
               <Disclosure.Button
@@ -330,8 +331,7 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
             </div>
           </Disclosure.Panel> */}
-        </>
-      )}
+    
     </Disclosure>
   );
 }

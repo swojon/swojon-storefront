@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
-import Navbar2 from "@/components/navbar/Navbar2";
 import Footer from "../components/footer/Footer";
 
 import { Session } from "next-auth";
