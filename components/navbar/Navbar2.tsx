@@ -8,26 +8,32 @@ import { PiChatsCircleFill } from "react-icons/pi";
 import user from "@/public/user1.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNavOpen } from "@/app/redux/navSlice";
 import { useSession } from "next-auth/react";
 import { CiLogin } from "react-icons/ci";
+import { setUserLogout } from "@/app/redux/authSlice";
+import { deleteCookie } from "cookies-next";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
+
+
 export default function Navbar2({ border }: { border: any }) {
   const dispatch = useDispatch();
-  const { data: session } = useSession();
-
-  console.log("session", session);
+  const authState = useSelector((state: any) => state.auth)
+  const handleSignOut = () => {
+    dispatch(setUserLogout(true))
+    deleteCookie('authorization')
+  }
+  console.log("session", user);
   return (
     <Disclosure
       as="nav"
-      className={` py-1  ${
-        border === "border" ? "border-b border-[#E6E6E6" : "border-0"
-      }`}
+      className={` py-1  ${border === "border" ? "border-b border-[#E6E6E6" : "border-0"
+        }`}
     >
       {({ open }) => (
         <>
@@ -91,123 +97,159 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
               <div className="hidden  lg:flex lg:items-center space-x-3">
                 {/* Profile dropdown */}
-                {session === null ? (
-                  <Link href="/signup">
-                    <button
-                      className={`py-1.5 px-2 leading-0 font-lexed font-medium   lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 ${
-                        border === "border" ? "text-primaryColor" : "text-white"
-                      }`}
-                    >
-                      sign up
-                    </button>
-                  </Link>
-                ) : (
-                  <Menu
-                    as="div"
-                    className="relative ml-3 flex-shrink-0 font-lexed font-medium "
+                <Menu as="div" className="relative ml-3 flex-shrink-0">
+                  <div>
+                    <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none ">
+                      <span className="sr-only">Open user menu</span>
+                      <Image
+                        className="h-8 w-8 rounded-full"
+                        src={user}
+                        alt=""
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
                   >
-                    <div>
-                      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none ">
-                        <span className="sr-only">Open user menu</span>
-                        <Image
-                          className="h-8 w-8 rounded-full"
-                          src={user}
-                          alt=""
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {session && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="#"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                user: {session.username!}
-                              </Link>
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {authState.isAuthenticated && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              user {authState.user.username!}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
+
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
                             )}
-                          </Menu.Item>
+                          >
+                            Your Profile
+                          </Link>
                         )}
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Your Profile
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Settings
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Sign out
-                            </Link>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                )}
-
-                {session === null ? (
-                  <Link href="/signin">
-                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
-                    </button>
-                  </Link>
-                ) : (
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Settings
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                            onClick={handleSignOut}
+                          >
+                            Sign out
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                
                   <Link href="/chat">
-                    <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">
                       <PiChatsCircleFill /> <span> Chat</span>
                     </button>
                   </Link>
-                )}
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Your Profile
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Settings
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Sign out
+                      </Link>
+                    )}
+                  </Menu.Item>
+                        
+                  </Menu>
 
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
-                  Sell Product
-                </button>
+                  {authState.isAuthenticated === false ? (
+                    <Link href="/signin">
+                      <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                        <CiLogin /> <span> login</span>
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link href="/chat">
+                      <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                        <PiChatsCircleFill /> <span> Chat</span>
+                      </button>
+                    </Link>
+                  )}
+
+                  <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
+                    Sell Product
+                  </button>
+               
               </div>
             </div>
           </div>
+        </>
+      )}
+      
 
-          {/* <Disclosure.Panel className="lg:hidden bg-white">
+  {/* <Disclosure.Panel className="lg:hidden bg-white">
             <div className="space-y-1 pt-2 pb-3">
              
               <Disclosure.Button
@@ -289,8 +331,7 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
             </div>
           </Disclosure.Panel> */}
-        </>
-      )}
+    
     </Disclosure>
   );
 }
