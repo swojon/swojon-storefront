@@ -34,7 +34,7 @@ const HeroSection = () => {
             <span> Buy from a trustable source and get relax.</span>
           </p>
 
-          <div className="w-full sm:[250px] md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
+          {/* <div className="w-full sm:[250px] md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
             <label htmlFor="search" className="sr-only">
               Search
             </label>
@@ -53,7 +53,7 @@ const HeroSection = () => {
                 type="search"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

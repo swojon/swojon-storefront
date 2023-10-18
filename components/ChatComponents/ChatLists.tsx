@@ -1,17 +1,27 @@
 import Image from "next/image";
 import React from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
-const ChatLists = () => {
+const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
   return (
     <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto ">
-      <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
-        Chat List
-      </h5>
+      <div className="flex justify-between items-center">
+        <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
+          Chat List
+        </h5>
+
+        <div
+          className="block lg:hidden text-primaryColor  cursor-pointer"
+          onClick={() => setSideProfile("")}
+        >
+          <AiOutlineClose />
+        </div>
+      </div>
 
       <div className="space-y-2.5">
-        <div className="xl:p-2 lg:p-1 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
-          <div className="w-[18%] ">
-            <div className="xl:w-8 lg:w-5 w-5  xl:h-8 lg:h-5 h-5 rounded-full relative">
+        <div className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+          <div className="lg:w-[18%] w-[12%] ">
+            <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
               <Image
                 src="/user1.jpg"
                 alt="user"
@@ -22,7 +32,7 @@ const ChatLists = () => {
               <span className="absolute right-0 bottom-0 w-2 h-2 rounded-full bg-green-400"></span>
             </div>
           </div>
-          <div className="w-[82%] flex justify-between">
+          <div className="lg:w-[82%] w-[88%] flex justify-between">
             <div className="pr-3 space-y-1 w-[80%] ">
               <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
                 Ibrahim K. Sakib
@@ -40,9 +50,9 @@ const ChatLists = () => {
           </div>
         </div>
 
-        <div className="xl:p-2 lg:p-1 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
-          <div className="w-[18%] ">
-            <div className="xl:w-8 lg:w-5 w-5  xl:h-8 lg:h-5 h-5 rounded-full relative">
+        <div className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+          <div className="lg:w-[18%] w-[12%]  ">
+            <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
               <Image
                 src="/user1.jpg"
                 alt="user"
@@ -53,7 +63,7 @@ const ChatLists = () => {
               <span className="absolute right-0 bottom-0 w-2 h-2 rounded-full bg-gray-300"></span>
             </div>
           </div>
-          <div className="w-[82%] flex justify-between">
+          <div className="lg:w-[82%] w-[88%] flex justify-between">
             <div className="pr-3 space-y-1 w-[80%] ">
               <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
                 Ibrahim K. Sakib

@@ -8,18 +8,12 @@ import {
 import { MdLocalPhone } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 
-const ChatUserProfile = ({
-  sideProfile,
-  setSideProfile,
-}: {
-  sideProfile: any;
-  setSideProfile: any;
-}) => {
+const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
   return (
     <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
       <div
         className="absolute right-1 top-1 text-primaryColor  p-2 cursor-pointer"
-        onClick={() => setSideProfile(false)}
+        onClick={() => setSideProfile("")}
       >
         <AiOutlineClose />
       </div>

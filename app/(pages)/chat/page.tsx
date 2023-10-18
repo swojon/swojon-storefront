@@ -7,17 +7,10 @@ import ResUserProfile from "@/components/ChatComponents/ResUserProfile";
 
 const Chats = () => {
   return (
-    <section className="">
+    <section>
       {/* <ResUserProfile /> */}
-      <div className="px-6 pt-6">
-        <div className="flex w-full h-[87vh] border rounded-md">
-          <div className="w-[22%]  h-full sticky hidden lg:block">
-            <ChatLists />
-          </div>
-          <div className="lg:w-[78%] w-full h-full sticky">
-            <ChatArea />
-          </div>
-        </div>
+      <div className="px-6 pt-6 sticky w-full h-[87vh] border rounded-md">
+        <ChatArea />
       </div>
     </section>
   );

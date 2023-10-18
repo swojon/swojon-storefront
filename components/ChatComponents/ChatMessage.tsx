@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
+import { HiUsers } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
@@ -18,6 +19,13 @@ const ChatMessage = ({
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center">
         <div className="flex items-center gap-2">
+          <button
+            className="p-1.5 border border-activeColor me-1 rounded-md block lg:hidden"
+            onClick={() => setSideProfile("chatlist")}
+          >
+            <HiUsers className="text-primaryColor" />
+          </button>
+
           <div className="w-8 h-8 rounded-full ">
             <Image
               src="/user1.jpg"
@@ -37,18 +45,13 @@ const ChatMessage = ({
             </div>
           </div>
         </div>
-        {/* <div
-          className="text-lg text-primaryColor cursor block lg:hidden"
-          onClick={() => dispatch(setUserProfileOpen())}
+
+        <button
+          className="text-lg text-primaryColor cursor-pointer block "
+          onClick={() => setSideProfile("profile")}
         >
           <BsThreeDots />
-        </div> */}
-        <div
-          className="text-lg text-primaryColor cursor block "
-          onClick={() => setSideProfile(!sideProfile)}
-        >
-          <BsThreeDots />
-        </div>
+        </button>
       </div>
       <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
         <div className="h-20 w-32 border rounded-md ">

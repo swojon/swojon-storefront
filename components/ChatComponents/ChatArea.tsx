@@ -3,14 +3,22 @@ import React, { useState } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatUserProfile from "./ChatUserProfile";
 import "./Chat.css";
+import ChatLists from "./ChatLists";
 
 const ChatArea = () => {
-  const [sideProfile, setSideProfile] = useState(false);
+  const [sideProfile, setSideProfile] = useState("");
   return (
     <div className="w-full flex h-full">
       <div
+        className={` lg:w-[25%] w-full    h-full   lg:block ${
+          sideProfile === "chatlist" ? "block" : " hidden"
+        }`}
+      >
+        <ChatLists setSideProfile={setSideProfile} />
+      </div>
+      <div
         className={`w-full  h-full lg:block ${
-          sideProfile ? "hidden " : "block"
+          sideProfile === "" ? "block" : " hidden"
         }`}
       >
         <ChatMessage
@@ -21,14 +29,12 @@ const ChatArea = () => {
 
       <div
         className={`xl:w-[35%] lg:w-[40%] w-full  h-full  transition-opacity ease-in-out delay-150 ${
-          sideProfile ? "opacity-100" : "opacity-0 hidden pointer-events-none"
+          sideProfile === "profile"
+            ? "opacity-100"
+            : "opacity-0 hidden pointer-events-none"
         }`}
-      
       >
-        <ChatUserProfile
-          sideProfile={sideProfile}
-          setSideProfile={setSideProfile}
-        />
+        <ChatUserProfile setSideProfile={setSideProfile} />
       </div>
     </div>
   );
