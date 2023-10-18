@@ -1,12 +1,28 @@
 import Image from "next/image";
 import React from "react";
-import { AiFillMessage, AiFillMinusCircle } from "react-icons/ai";
+import {
+  AiFillMessage,
+  AiFillMinusCircle,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { MdLocalPhone } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 
-const ChatUserProfile = () => {
+const ChatUserProfile = ({
+  sideProfile,
+  setSideProfile,
+}: {
+  sideProfile: any;
+  setSideProfile: any;
+}) => {
   return (
-    <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-visible">
+    <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
+      <div
+        className="absolute right-1 top-1 text-primaryColor  p-2 cursor-pointer"
+        onClick={() => setSideProfile(false)}
+      >
+        <AiOutlineClose />
+      </div>
       <div className="flex flex-col items-center space-y-3 border-b pb-4">
         <div className="w-14 h-14 rounded-full relative">
           <Image
