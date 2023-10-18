@@ -16,9 +16,10 @@ const ChatArea = () => {
       </div>
 
       <div
-        className={`xl:w-[35%] lg:w-[40%] h-full hidden transition ease-in-out delay-150 ${
-          sideProfile ? "lg:block" : "lg:hidden"
+        className={`xl:w-[35%] lg:w-[40%] h-full transition ease-in-out delay-150 ${
+          sideProfile ? "block" : "hidden"
         }`}
+      
       >
         <ChatUserProfile />
       </div>

@@ -13,10 +13,7 @@ import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesB
 import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
-  // console.log(categoryData.data.listCategories.items);
-  const {data: session} = useSession()
-  console.log("session", session)
-  
+  // console.log(categoryData.data.listCategories.items);  
   return (
     <main className="">
       <HeroSection />

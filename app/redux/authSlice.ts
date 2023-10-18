@@ -8,12 +8,19 @@ import { HYDRATE } from "next-redux-wrapper";
 export interface AuthState {
   isAuthenticated: boolean;
   token?: string;
+  user?: null | {
+    id?: number,
+    email?: string,
+    username?: string,
+    roles?: string[],
+  }
 }
 
 // Initial state
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: ""
+  token: "",
+  user: null
 };
 
 // Actual Slice
@@ -24,14 +31,22 @@ export const authSlice = createSlice({
     // Action to set the authentication status
     setAuthState(state, action) {
       // state.authState = action.payload;
-      state.isAuthenticated = action.payload.isAuthenticated;
-      state.token = action.payload.token;
+      console.log("got action", action)
+      state.isAuthenticated = !!action.payload
+      state.token = action.payload?.token ?? null;
+      state.user = action.payload?.user ?? null
+
     },
+    setUserLogout(state, action){
+      state.isAuthenticated = false
+      state.token = ""
+      state.user = null
+    }    
   }
   
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setAuthState, setUserLogout } = authSlice.actions;
 
 // export const selectAuthState = (state: AppState) => state.auth.authState;
 

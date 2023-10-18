@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Providers } from "./redux/provider";
+import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
 import Navbar2 from "@/components/navbar/Navbar2";
@@ -18,6 +18,8 @@ import Modal from "@/components/Modal/Modal";
 import ResNavbar from "@/components/navbar/ResNavbar";
 import { getCookie } from "cookies-next";
 import ResFilter from "@/components/FilterBar/ResFilter";
+import { store } from "./redux/store";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,11 +34,12 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-async function getSession(cookie: string): Promise<Session | null> {
+async function getSession(): Promise<any> {
   // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
   // console.log("cookies", cookies().get('authorization').value)
 
   try{
+  
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/profile`, {
       headers: {
         Authorization : `Bearer ${cookies().get('authorization')?.value}`
@@ -46,10 +49,12 @@ async function getSession(cookie: string): Promise<Session | null> {
 
     const session = await response.json();
     console.log("Got Session", session);
-    return Object.keys(session).length > 0 ? session : null;
+    return Object.keys(session).length > 0 ? {user: session, token: cookies().get('authorization')?.value } : null
+     
   } catch {
-    return null;
+    return null
   }
+
 }
 
 export default async function RootLayout({ children }: Iprops) {
@@ -62,15 +67,13 @@ export default async function RootLayout({ children }: Iprops) {
 
   console.log("Current URL", headers().get("cookie"));
 
-  const session: Session | null = await getSession(
-    headers().get("cookie") ?? ""
-  );
+  const session: Session | null = await getSession();
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <NextAuthProvider session={session}>
+        <ReduxProviders session={session}>
+          {/* <NextAuthProvider session={session}> */}
             <ApolloWrapper>
               <div className="min-h-[30vh] relative">
                 <ResNavbar />
@@ -82,8 +85,8 @@ export default async function RootLayout({ children }: Iprops) {
 
               <Footer />
             </ApolloWrapper>
-          </NextAuthProvider>
-        </Providers>
+          {/* </NextAuthProvider> */}
+        </ReduxProviders>
       </body>
     </html>
   );

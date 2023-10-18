@@ -8,7 +8,7 @@ import ResUserProfile from "@/components/ChatComponents/ResUserProfile";
 const Chats = () => {
   return (
     <section className="">
-      <ResUserProfile />
+      {/* <ResUserProfile /> */}
       <div className="px-6 pt-6">
         <div className="flex w-full h-[87vh] border rounded-md">
           <div className="w-[22%]  h-full sticky hidden lg:block">

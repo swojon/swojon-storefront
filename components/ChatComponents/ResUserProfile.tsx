@@ -18,9 +18,11 @@ import { MdLocalPhone } from "react-icons/md";
 const ResUserProfile = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state: any) => state.userProfile.open);
+  console.log("isOpen", isOpen)
   return (
-    <section
-      className={`fixed top-0 lg:hidden right-0  w-full h-screen z-50 transition delay-200 duration-700 ease-in-out ${
+    <>
+    {isOpen && <section
+      className={`fixed top-0 lg:hidden right-0  w-full h-screen z-20000 transition delay-200 duration-700 ease-in-out ${
         isOpen ? "translate-x-0  bg-[#9392926d]" : "-translate-x-full "
       }`}
     >
@@ -131,7 +133,9 @@ const ResUserProfile = () => {
           </div>
         </section>
       </div>
-    </section>
+    </section>}
+    </>
+    
   );
 };
 

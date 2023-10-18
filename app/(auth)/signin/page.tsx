@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { FormEventHandler, useState } from "react";
 import login from "@/public/assets/loginBanner.png";
 import Image from "next/image";
@@ -9,6 +9,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { setAuthState } from "@/app/redux/authSlice";
 
 interface Props {}
 
@@ -17,6 +19,8 @@ const SignIn: NextPage = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch()
+
 
   // const redirect = searchParams.get("redirect") === "true";
   const redirect = true;
@@ -53,7 +57,9 @@ const SignIn: NextPage = (): JSX.Element => {
 
       console.log(data)
       // cookies().set('authorization', data["token"], {secure: true})
+      dispatch(setAuthState(data))
       setCookie('authorization', data.token, {secure:true })
+
       if (redirect) router.push(next_url ? next_url : "/");
     }
   };
