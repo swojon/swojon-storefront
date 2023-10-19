@@ -74,9 +74,7 @@ const ProductDetails = ({ params }: { params: { productDetails: string } }) => {
           <SafetyTips />
         </div>
         <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0">
-          <Link href="/seller/1">
-            <SellerBox />
-          </Link>
+          <SellerBox />
         </div>
       </div>
 

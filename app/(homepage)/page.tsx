@@ -11,12 +11,27 @@ import { useState } from "react";
 
 import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "../redux/modalSlice";
 
 const Home: NextPage = () => {
-  // console.log(categoryData.data.listCategories.items);  
+  const dispatch = useDispatch();
+  // console.log(categoryData.data.listCategories.items);
   return (
     <main className="">
       <HeroSection />
+      {/* <h5
+        onClick={() =>
+          dispatch(
+            setModalOpen({
+              title: "this is a modal",
+              body: "loginModal",
+            })
+          )
+        }
+      >
+        LoginBtn
+      </h5> */}
       <FeaturedCategoriesBox />
       <Products />
       <Community />

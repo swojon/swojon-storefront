@@ -19,8 +19,7 @@ const SignIn: NextPage = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   // const redirect = searchParams.get("redirect") === "true";
   const redirect = true;
@@ -46,7 +45,7 @@ const SignIn: NextPage = (): JSX.Element => {
         redirect: "follow",
       }
     );
-    const data = await res.json()
+    const data = await res.json();
     if (res.status != 200) {
       console.log("Failed to login");
       setError("Something Went Wrong");
@@ -55,20 +54,21 @@ const SignIn: NextPage = (): JSX.Element => {
       console.log("Log in Successfull");
       // console.log(res.json())
 
-      console.log(data)
+      console.log(data);
       // cookies().set('authorization', data["token"], {secure: true})
-      dispatch(setAuthState(data))
-      setCookie('authorization', data.token, {secure:true })
+      dispatch(setAuthState(data));
+      setCookie("authorization", data.token, { secure: true });
 
       if (redirect) router.push(next_url ? next_url : "/");
     }
   };
 
-  const handleChange = (e:any) => {
-      if (e.target.name === "email") setUserInfo({email: e.target.value, password: userInfo.password })
-      if (e.target.name === "password") setUserInfo({email: userInfo.email, password: e.target.value })
-
-  }
+  const handleChange = (e: any) => {
+    if (e.target.name === "email")
+      setUserInfo({ email: e.target.value, password: userInfo.password });
+    if (e.target.name === "password")
+      setUserInfo({ email: userInfo.email, password: e.target.value });
+  };
   return (
     <div className=" w-full min-h-screen h-full flex items-center bg-white fixed top-0 left-0 ">
       <div className="flex-1 min-h-screen flex items-center bg-activeColor relative">
@@ -94,7 +94,7 @@ const SignIn: NextPage = (): JSX.Element => {
             Swojon
           </Link>
 
-          <form className="space-y-4  mx-auto" onSubmit={handleSubmit} >
+          <form className="space-y-4  mx-auto" onSubmit={handleSubmit}>
             <div>
               <h2 className=" text-2xl font-semibold font-lexed">Log in</h2>
               <p className="text-base text-secondColor">

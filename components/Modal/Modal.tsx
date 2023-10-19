@@ -11,7 +11,11 @@ import { setModalClose } from "@/app/redux/modalSlice";
 import "./Modal.scss";
 import SendOfferModal from "./SendOfferModal";
 import NavbarModal from "./NavbarModal";
+import ChatModal from "./ChatModal";
+import LoginModal from "./LoginModal";
 const SENDOFFERMODAL = "sendOfferModal";
+const CHATMODAL = "chatModal";
+const LOGINMODAL = "loginModal";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -47,7 +51,7 @@ export default function Modal() {
           {modalStack[modalStack.length - 1]?.body === "navbar" ? (
             <NavbarModal />
           ) : (
-            <div className="flex min-h-full   items-center	 p-2 text-center  sm:p-0 ">
+            <div className="flex min-h-full   items-center	text-center  sm:p-0 ">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -62,7 +66,7 @@ export default function Modal() {
                     modalStack[modalStack.length - 1]?.title ===
                     "Delete the information?"
                       ? "sm:w-2/6"
-                      : "lg:w-[25%] md:w-[55%] w-[80%]"
+                      : "lg:w-[35%] md:w-[55%] w-[80%]"
                   }`}
                 >
                   {/* <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
@@ -82,7 +86,7 @@ export default function Modal() {
                   </div> */}
 
                   <div className="  sm:flex sm:items-start  w-full h-full overflow-auto form-scrollbar">
-                    <div className="  w-full  p-2">
+                    <div className="  w-full ">
                       {/* <Dialog.Title
                         as="h3"
                         className="text-base font-medium leading-6 text-gray-700"
@@ -92,6 +96,18 @@ export default function Modal() {
                       {modalStack[modalStack.length - 1]?.body ===
                         SENDOFFERMODAL && (
                         <SendOfferModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        CHATMODAL && (
+                        <ChatModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        LOGINMODAL && (
+                        <LoginModal
                           props={modalStack[modalStack.length - 1]?.props}
                         />
                       )}

@@ -2,13 +2,14 @@ import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import React from "react";
 import { MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function SendOfferModal({ props }: { props: any }) {
   const dispatch = useDispatch();
+  const authState = useSelector((state: any) => state.auth);
 
   return (
-    <section className="  w-full h-full  space-y-3 lg:space-y-4">
+    <section className="  w-full h-full  space-y-3 lg:space-y-4 p-4">
       <div className="w-full h-[140px]  relative">
         <Image
           src="/assets/pro4.png"
@@ -18,7 +19,7 @@ function SendOfferModal({ props }: { props: any }) {
           className="w-full h-full object-cover rounded-tl-md rounded-tr-md"
         />
         <button
-          className="absolute right-0 top-0 p-1 border border-white text-primaryColor rounded-md"
+          className="absolute right-0 top-0 rounded-full bg-activeColor p-1 border  text-white"
           onClick={() => dispatch(setModalClose(true))}
         >
           <MdClose />
@@ -57,14 +58,30 @@ function SendOfferModal({ props }: { props: any }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <button className="bg-[#C0C0C0] w-full py-2 text-primaryColor rounded font-medium text-center">
-          <span className="text-sm">Cancel</span>
+      {authState.isAuthenticated === false ? (
+        <button
+          className="bg-[#C0C0C0] w-full py-2 text-primaryColor rounded font-medium text-center"
+          onClick={() =>
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "loginModal",
+              })
+            )
+          }
+        >
+          <span className="text-sm">Login to Continue</span>
         </button>
-        <button className="bg-[#C0C0C0] w-full py-2 text-white rounded font-medium text-center">
-          <span className="text-sm">Send offer</span>
-        </button>
-      </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2">
+          <button className="bg-[#C0C0C0] w-full py-2 text-primaryColor rounded font-medium text-center">
+            <span className="text-sm">Cancel</span>
+          </button>
+          <button className="bg-[#C0C0C0] w-full py-2 text-white rounded font-medium text-center">
+            <span className="text-sm">Send offer</span>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
