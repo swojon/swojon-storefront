@@ -14,6 +14,12 @@ import { setAuthState } from "@/app/redux/authSlice";
 
 interface Props {}
 
+const handleGoogleClick = () => {
+  window.open(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/google`, '_self')
+  // window.open(`http://localhost:3005/auth/google`, '_self')
+
+}
+
 const SignIn: NextPage = (): JSX.Element => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
@@ -170,15 +176,15 @@ const SignIn: NextPage = (): JSX.Element => {
           </form>
 
           <div className="space-y-2">
-            <Link
-              href="/"
+            <button
+              onClick={handleGoogleClick}
               className="py-2 flex justify-center items-center space-x-2 border border-[#E6E6E6]  text-sm text-primaryColor w-full rounded font-lexed"
             >
               <span>
                 <FcGoogle />
               </span>
               <span>Continue with Google</span>
-            </Link>
+            </button>
             <Link
               href="/"
               className="py-2 flex justify-center items-center space-x-2 border border-[#E6E6E6]  text-sm text-primaryColor w-full rounded font-lexed"

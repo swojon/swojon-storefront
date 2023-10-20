@@ -176,6 +176,7 @@ export default function Navbar2({ border }: { border: any }) {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
+                              onClick={handleSignOut}
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",

@@ -11,9 +11,21 @@ import { useState } from "react";
 
 import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
 import { useSession } from "next-auth/react";
+import { setCookie } from "cookies-next";
+import { redirect } from "next/navigation";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
   // console.log(categoryData.data.listCategories.items);  
+  console.log("Got token", searchParams!.token)
+  if (searchParams!.token){
+    setCookie('authorization', searchParams!.token, {secure:true })
+    redirect('/')
+  }
+  
   return (
     <main className="">
       <HeroSection />
