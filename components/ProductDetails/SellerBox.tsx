@@ -1,11 +1,16 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import user from "@/public/userMale.png";
 import { FaStar } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 const SellerBox = () => {
+  const dispatch = useDispatch();
   return (
     <section className="shadow-md rounded-lg border">
       <div className="p-3 bg-[#F1F7FF] border-b">
@@ -14,15 +19,18 @@ const SellerBox = () => {
         </span>
       </div>
       <div className="px-3 py-5">
-        <div className="h-20 w-20  rounded-full">
-          <Image
-            src={user}
-            width={400}
-            height={400}
-            alt="user"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <Link href="/seller/1">
+          <div className="h-20 w-20  rounded-full">
+            <Image
+              src={user}
+              width={400}
+              height={400}
+              alt="user"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </Link>
+
         <div className="py-3 border-b space-y-1">
           <h6 className="text-base font-lexed font-medium text-primaryColor">
             Mr. Ananto Jalil
@@ -66,12 +74,22 @@ const SellerBox = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
-          <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+          <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
             OFFER PRICE
-          </div>
-          <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+          </button>
+          <button
+            onClick={() =>
+              dispatch(
+                setModalOpen({
+                  title: "this is a modal",
+                  body: "chatModal",
+                })
+              )
+            }
+            className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+          >
             Chat Now
-          </div>
+          </button>
         </div>
       </div>
     </section>

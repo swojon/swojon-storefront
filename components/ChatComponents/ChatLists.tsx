@@ -1,8 +1,27 @@
+import { useListChatsQuery } from "@/apollograph/generated";
+import { setActiveChatRoom } from "@/app/redux/chatSlice";
 import Image from "next/image";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
+  const authState = useSelector((state:any) => state.auth)
+  const dispatch = useDispatch()
+  const {data, error, loading} = useListChatsQuery({
+    variables:{
+      userId: authState.user.id
+    },
+    skip: !authState.user.id
+  })
+
+  if (error) {
+    return <div>error...</div>
+  }
+  if (loading) {
+    return <div>loading...</div>
+  }
+
   return (
     <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto ">
       <div className="flex justify-between items-center">
@@ -19,7 +38,8 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
       </div>
 
       <div className="space-y-2.5">
-        <div className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+        {data?.listChatRooms.items && data.listChatRooms.items.map(chatroom => (
+          <div onClick={e => dispatch(setActiveChatRoom(chatroom.id))} key={`chatroom${chatroom.id}`} className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
           <div className="lg:w-[18%] w-[12%] ">
             <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
               <Image
@@ -35,10 +55,10 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
           <div className="lg:w-[82%] w-[88%] flex justify-between">
             <div className="pr-3 space-y-1 w-[80%] ">
               <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
-                Ibrahim K. Sakib
+                {chatroom.chatName}
               </h5>
               <p className="text-xs text-primaryColor truncate">
-                I need a Furniture!
+                {chatroom.messages!.slice(-1)[0]? chatroom.messages!.slice(-1)[0].content: ""}
               </p>
             </div>
             <div className="flex flex-col space-y-1 items-end justify-center w-[20%] ">
@@ -49,7 +69,9 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
             </div>
           </div>
         </div>
-
+        ))}
+        
+{/* 
         <div className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
           <div className="lg:w-[18%] w-[12%]  ">
             <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
@@ -79,7 +101,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -29,6 +29,18 @@ const Home: NextPage = ({
   return (
     <main className="">
       <HeroSection />
+      {/* <h5
+        onClick={() =>
+          dispatch(
+            setModalOpen({
+              title: "this is a modal",
+              body: "loginModal",
+            })
+          )
+        }
+      >
+        LoginBtn
+      </h5> */}
       <FeaturedCategoriesBox />
       <Products />
       <Community />

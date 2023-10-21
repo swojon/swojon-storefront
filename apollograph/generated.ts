@@ -62,6 +62,214 @@ export function useListCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type ListCategoriesQueryHookResult = ReturnType<typeof useListCategoriesQuery>;
 export type ListCategoriesLazyQueryHookResult = ReturnType<typeof useListCategoriesLazyQuery>;
 export type ListCategoriesQueryResult = Apollo.QueryResult<ListCategoriesQuery, ListCategoriesQueryVariables>;
+export const ListFeaturedCategoriesDocument = gql`
+    query ListFeaturedCategories($filters: CategoryFilterInput, $limit: Float) {
+  listCategories(filters: $filters, limit: $limit) {
+    items {
+      id
+      name
+      isFeatured
+    }
+    hasMore
+    count
+  }
+}
+    `;
+
+/**
+ * __useListFeaturedCategoriesQuery__
+ *
+ * To run a query within a React component, call `useListFeaturedCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFeaturedCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFeaturedCategoriesQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListFeaturedCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>(ListFeaturedCategoriesDocument, options);
+      }
+export function useListFeaturedCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>(ListFeaturedCategoriesDocument, options);
+        }
+export type ListFeaturedCategoriesQueryHookResult = ReturnType<typeof useListFeaturedCategoriesQuery>;
+export type ListFeaturedCategoriesLazyQueryHookResult = ReturnType<typeof useListFeaturedCategoriesLazyQuery>;
+export type ListFeaturedCategoriesQueryResult = Apollo.QueryResult<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>;
+export const ListChatsDocument = gql`
+    query listChats($userId: Float) {
+  listChatRooms(userId: $userId) {
+    items {
+      chatName
+      id
+      isDeleted
+      messages {
+        id
+        content
+        dateSent
+        sender {
+          id
+          email
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListChatsQuery__
+ *
+ * To run a query within a React component, call `useListChatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListChatsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListChatsQuery(baseOptions?: Apollo.QueryHookOptions<ListChatsQuery, ListChatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListChatsQuery, ListChatsQueryVariables>(ListChatsDocument, options);
+      }
+export function useListChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListChatsQuery, ListChatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListChatsQuery, ListChatsQueryVariables>(ListChatsDocument, options);
+        }
+export type ListChatsQueryHookResult = ReturnType<typeof useListChatsQuery>;
+export type ListChatsLazyQueryHookResult = ReturnType<typeof useListChatsLazyQuery>;
+export type ListChatsQueryResult = Apollo.QueryResult<ListChatsQuery, ListChatsQueryVariables>;
+export const GetChatMessageDocument = gql`
+    query getChatMessage($chatRoomId: Float!) {
+  listChatMessages(chatRoomId: $chatRoomId) {
+    items {
+      id
+      content
+      dateSent
+      sender {
+        id
+        email
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetChatMessageQuery__
+ *
+ * To run a query within a React component, call `useGetChatMessageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetChatMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetChatMessageQuery({
+ *   variables: {
+ *      chatRoomId: // value for 'chatRoomId'
+ *   },
+ * });
+ */
+export function useGetChatMessageQuery(baseOptions: Apollo.QueryHookOptions<GetChatMessageQuery, GetChatMessageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetChatMessageQuery, GetChatMessageQueryVariables>(GetChatMessageDocument, options);
+      }
+export function useGetChatMessageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetChatMessageQuery, GetChatMessageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetChatMessageQuery, GetChatMessageQueryVariables>(GetChatMessageDocument, options);
+        }
+export type GetChatMessageQueryHookResult = ReturnType<typeof useGetChatMessageQuery>;
+export type GetChatMessageLazyQueryHookResult = ReturnType<typeof useGetChatMessageLazyQuery>;
+export type GetChatMessageQueryResult = Apollo.QueryResult<GetChatMessageQuery, GetChatMessageQueryVariables>;
+export const SendChatMessageDocument = gql`
+    mutation SendChatMessage($input: CreateMessageDTO!) {
+  sendChatMessage(chatData: $input) {
+    id
+    content
+    dateSent
+    sender {
+      id
+      email
+    }
+  }
+}
+    `;
+export type SendChatMessageMutationFn = Apollo.MutationFunction<SendChatMessageMutation, SendChatMessageMutationVariables>;
+
+/**
+ * __useSendChatMessageMutation__
+ *
+ * To run a mutation, you first call `useSendChatMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendChatMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendChatMessageMutation, { data, loading, error }] = useSendChatMessageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSendChatMessageMutation(baseOptions?: Apollo.MutationHookOptions<SendChatMessageMutation, SendChatMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendChatMessageMutation, SendChatMessageMutationVariables>(SendChatMessageDocument, options);
+      }
+export type SendChatMessageMutationHookResult = ReturnType<typeof useSendChatMessageMutation>;
+export type SendChatMessageMutationResult = Apollo.MutationResult<SendChatMessageMutation>;
+export type SendChatMessageMutationOptions = Apollo.BaseMutationOptions<SendChatMessageMutation, SendChatMessageMutationVariables>;
+export const NewMessageAddedDocument = gql`
+    subscription NewMessageAdded($chatRoomId: Float!) {
+  newMessageAdded(chatRoomId: $chatRoomId) {
+    content
+    dateSent
+    id
+    sender {
+      email
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useNewMessageAddedSubscription__
+ *
+ * To run a query within a React component, call `useNewMessageAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewMessageAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewMessageAddedSubscription({
+ *   variables: {
+ *      chatRoomId: // value for 'chatRoomId'
+ *   },
+ * });
+ */
+export function useNewMessageAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>(NewMessageAddedDocument, options);
+      }
+export type NewMessageAddedSubscriptionHookResult = ReturnType<typeof useNewMessageAddedSubscription>;
+export type NewMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewMessageAddedSubscription>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -1136,3 +1344,39 @@ export type ListCategoriesQueryVariables = Exact<{
 
 
 export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null, banner?: string | null, description?: string | null, status?: Status | null, isSponsored?: boolean | null, isFeatured?: boolean | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null }> } };
+
+export type ListFeaturedCategoriesQueryVariables = Exact<{
+  filters?: InputMaybe<CategoryFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type ListFeaturedCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, isFeatured?: boolean | null }> } };
+
+export type ListChatsQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id: number, isDeleted?: boolean | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
+
+export type GetChatMessageQueryVariables = Exact<{
+  chatRoomId: Scalars['Float']['input'];
+}>;
+
+
+export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
+
+export type SendChatMessageMutationVariables = Exact<{
+  input: CreateMessageDto;
+}>;
+
+
+export type SendChatMessageMutation = { __typename?: 'Mutation', sendChatMessage: { __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } } };
+
+export type NewMessageAddedSubscriptionVariables = Exact<{
+  chatRoomId: Scalars['Float']['input'];
+}>;
+
+
+export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMessageAdded: { __typename?: 'Chat', content?: string | null, dateSent?: any | null, id: number, sender: { __typename?: 'User', email: string, id: number } } };

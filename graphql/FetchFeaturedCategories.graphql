@@ -1,4 +1,4 @@
-query ListCategories($filters: CategoryFilterInput, $limit: Float) {
+query ListFeaturedCategories($filters: CategoryFilterInput, $limit: Float) {
   listCategories(filters: $filters, limit: $limit) {
     items {
       id

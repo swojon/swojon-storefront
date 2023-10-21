@@ -1,11 +1,14 @@
+import { GetChatMessageQuery, NewMessageAddedDocument, useGetChatMessageQuery } from "@/apollograph/generated";
 import { setUserProfileOpen } from "@/app/redux/userProfileSlice";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { HiUsers } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ChatInputSend from "./ChatInputSend";
+
 
 const ChatMessage = ({
   sideProfile,
@@ -15,6 +18,68 @@ const ChatMessage = ({
   setSideProfile: any;
 }) => {
   const dispatch = useDispatch();
+  const authState = useSelector((state:any) => state.auth)
+  const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
+
+  
+  const {data, loading, error, subscribeToMore } = useGetChatMessageQuery({
+    variables: {
+      chatRoomId: activeChat
+    },
+    skip: !activeChat,
+  })
+
+  const more = () => subscribeToMore({
+    document: NewMessageAddedDocument ,
+    variables: {
+      chatRoomId: activeChat
+    },
+    updateQuery: (prev: { listChatMessages: { items: any; }; }, { subscriptionData }: any) => {
+      if (!subscriptionData.data) return prev;
+      console.log(subscriptionData.data)
+      console.log("previous data", prev)
+    
+      // const { mutation, node } = subscriptionData.data.Message.node;
+
+      // console.log(node)
+      // if (mutation !== 'CREATED') return prev;
+      return Object.assign({}, prev, {
+        listChatMessages: {
+          items: [subscriptionData.data, ...prev.listChatMessages.items],
+        }
+      });
+    },
+  });
+
+  
+  if (!activeChat) {
+    return (<p>please select a chat to start</p>)
+  }
+
+  // const chatMessages = activeChatWithMessages.find((chat) => chat.id === activeChat.id)
+  // const messages = chatMessages?.messages;
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  if (error) {
+    return <div>{error.message}</div>
+  }
+
+  return (
+    <MessageAreaData
+    sideProfile={sideProfile}
+    setSideProfile={setSideProfile}
+    data={data!}  
+    subscribeToMore={more}/>
+  );
+
+}
+
+const MessageAreaData = ({data, subscribeToMore, setSideProfile, sideProfile}: {data:GetChatMessageQuery, subscribeToMore: any, sideProfile:any, setSideProfile:any}) => {
+    useEffect(() => {
+      subscribeToMore()
+    }, [])
+    
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center">
@@ -80,80 +145,58 @@ const ChatMessage = ({
       </div>
       <div className=" chatBox px-3 pb-8 flex items-end  w-full relative overflow-y-auto">
         <div className="max-h-full w-full space-y-3 ">
-          <div className="relative w-full flex justify-end">
-            <div className="w-1/2  flex justify-end p-2 relative">
-              <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
-                hello
-              </span>
-              <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-                just now
-              </span>
-            </div>
-          </div>
-
-          <div className="relative w-full flex justify-end">
-            <div className="w-1/2  flex justify-end p-2 relative">
-              <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
-                hello
-              </span>
-              <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-                just now
-              </span>
-            </div>
-          </div>
-          <div className="relative w-full flex justify-start">
-            <div className="w-1/2  flex justify-start items-center p-2  space-x-2">
-              <div className="w-7 h-7 rounded-full">
-                <Image
-                  src="/user1.jpg"
-                  width={100}
-                  height={100}
-                  className="w-full h-full object-cover rounded-full"
-                  alt="user"
-                />
-              </div>
-              <div className="relative w-full">
-                <span className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
-                  Sure Sir
-                </span>
-                <span className="absolute left-0 -bottom-6 text-[#979696] text-xs block">
-                  02 min ago
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="relative w-full flex justify-end">
-            <div className="w-1/2  flex justify-end p-2 relative">
-              <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
-                I want to buy a furniture
-              </span>
-              <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-                just now
-              </span>
-            </div>
-          </div>
+        { data.listChatMessages.items.map(msg => (
+          <MessageDetail msg={msg} key={msg.id} />
+        ))}
         </div>
       </div>
 
-      <div className="absolute  bottom-0 left-0 h-14 px-3 border-t w-full bg-[#F1F7FF] flex items-center space-x-2">
-        <div className=" flex rounded-lg shadow-sm w-full">
-          <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">
-            <FiPaperclip />
-          </span>
-          <input
-            type="text"
-            name="company-website"
-            id="company-website"
-            className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border border-gray-300 px-3 py-2 focus:border-activeColor focus:ring-activeColor sm:text-sm"
-            placeholder="Please type your message"
-          />
-        </div>
-        <button className="p-1 rounded-full bg-activeColor">
-          <Image src="/assets/Send.png" alt="plane" width={30} height={30} />
-        </button>
-      </div>
+      
+        <ChatInputSend />
+
     </section>
   );
 };
+const MessageDetail = ({msg}: {msg:any}) => {
+  const authState = useSelector((state: any) => state.auth)
+  
+  if (msg.sender.id === authState.user.id) return (
+
+    <div className="relative w-full flex justify-end">
+    <div className="w-1/2  flex justify-end p-2 relative">
+      <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
+        {msg.content}
+      </span>
+      <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
+        {msg.dateSent}
+      </span>
+    </div>
+  </div>
+  ) 
+  else return (
+    <div className="relative w-full flex justify-start">
+        <div className="w-1/2  flex justify-start items-center p-2  space-x-2">
+          <div className="w-7 h-7 rounded-full">
+            <Image
+              src="/user1.jpg"
+              width={100}
+              height={100}
+              className="w-full h-full object-cover rounded-full"
+              alt="user"
+            />
+          </div>
+          <div className="relative w-full">
+            <span className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
+              {msg.content}
+            </span>
+            <span className="absolute left-0 -bottom-6 text-[#979696] text-xs block">
+              {msg.dateSent}
+            </span>
+          </div>
+        </div>
+      </div>
+  )
+  
+}
 
 export default ChatMessage;
