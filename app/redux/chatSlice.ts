@@ -1,6 +1,6 @@
 // import { Chat } from "@/gql/graphql";
 
-// import { useListChatsQuery } from "@/apollograph/generated";
+import { useListChatsQuery } from "@/apollograph/generated";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export interface ChatRoom{
@@ -42,14 +42,14 @@ export interface ChatState{
     messages: Chat[]
 }
 
-// export const getChatRoomWithMessageAsync = createAsyncThunk(
-    // "chat/getChatRoomWithMessage",
-    // async (thunkAPI) => {
-    //     console.log("getChatRoomWithMessageAsync called")
-    //     const {data, loading, error} = useListChatsQuery();
+export const getChatRoomWithMessageAsync = createAsyncThunk(
+    "chat/getChatRoomWithMessage",
+    async (thunkAPI) => {
+        console.log("getChatRoomWithMessageAsync called")
+        const {data, loading, error} = useListChatsQuery();
 
-    //     return {data, loading, error};
-    // })
+        return {data, loading, error};
+    })
 
 export const initialState: ChatState = {
     activeChatRoom: null,
@@ -83,28 +83,28 @@ export const chatSlice = createSlice({
             state.chatRoomsWithMessage = action.payload.items;
         }
     },
-    // extraReducers: (builder) => {
-    //     builder.addCase(getChatRoomWithMessageAsync.pending, (state, action) => {
-    //         state.loading = true;
-    //     });
-    //     builder.addCase(getChatRoomWithMessageAsync.fulfilled, (state, action) => {
-    //         console.log("finished")
-    //         console.log(action.payload.data.listChats.items, "finished")
-    //         state.loading = false;
-    //         state.chatRooms = action.payload.data.listChats.items.map((chatRoom:any) => {
-    //             return {
-    //                 id: chatRoom.id,
-    //                 chatName: chatRoom.chatName,
-    //                 lastMessage: chatRoom.messages.items[0],
-    //             }});
-    //         state.chatRoomsWithMessage = action.payload.data.listChats.items;
-    //     });
-    //     builder.addCase(getChatRoomWithMessageAsync.rejected, (state, action) => {
-    //         state.loading = false;
-    //         state.error = action.error.message? action.error.message : null;
-    //     });
+    extraReducers: (builder) => {
+        builder.addCase(getChatRoomWithMessageAsync.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(getChatRoomWithMessageAsync.fulfilled, (state, action) => {
+            console.log("finished")
+            console.log(action.payload.data.listChats.items, "finished")
+            state.loading = false;
+            state.chatRooms = action.payload.data.listChats.items.map((chatRoom:any) => {
+                return {
+                    id: chatRoom.id,
+                    chatName: chatRoom.chatName,
+                    lastMessage: chatRoom.messages.items[0],
+                }});
+            state.chatRoomsWithMessage = action.payload.data.listChats.items;
+        });
+        builder.addCase(getChatRoomWithMessageAsync.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message? action.error.message : null;
+        });
 
-    // }
+    }
 })
 
 

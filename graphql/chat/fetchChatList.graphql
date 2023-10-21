@@ -1,8 +1,9 @@
-query listChats{
-  listChatRooms{
-    items{
-      id
+query listChats ($userId: Float){
+  listChatRooms(userId: $userId) {
+    items {
       chatName
+      id
+      isDeleted
       messages{
         id
         content

@@ -12,13 +12,13 @@ import { modalSlice } from "./modalSlice";
 import { navSlice } from "./navSlice";
 import { filterSlice } from "./filterSlice";
 import { userProfileSlice } from "./userProfileSlice";
-// import { chatSlice } from "./chatSlice";
+import { chatSlice } from "./chatSlice";
 // import { persistReducer, persistStore } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   [authSlice.name]: authSlice.reducer,
-  // [chatSlice.name]: chatSlice.reducer,
+  [chatSlice.name]: chatSlice.reducer,
   [modalSlice.name]: modalSlice.reducer,
   [navSlice.name]: navSlice.reducer,
   [filterSlice.name]: filterSlice.reducer,
