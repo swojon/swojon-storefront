@@ -8,7 +8,7 @@ import ChatLists from "./ChatLists";
 const ChatArea = () => {
   const [sideProfile, setSideProfile] = useState("");
   return (
-    <div className="w-full flex h-full">
+    <div className="w-full flex h-full border rounded-md">
       <div
         className={` lg:w-[25%] w-full    h-full   lg:block ${
           sideProfile === "chatlist" ? "block" : " hidden"

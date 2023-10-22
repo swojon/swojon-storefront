@@ -1,14 +1,18 @@
-import { GetChatMessageQuery, NewMessageAddedDocument, useGetChatMessageQuery } from "@/apollograph/generated";
+import {
+  GetChatMessageQuery,
+  NewMessageAddedDocument,
+  useGetChatMessageQuery,
+} from "@/apollograph/generated";
 import { setUserProfileOpen } from "@/app/redux/userProfileSlice";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { HiUsers } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChatInputSend from "./ChatInputSend";
-
+import ChatMessageLoader from "../Loader/ChatMessageLoader";
 
 const ChatMessage = ({
   sideProfile,
@@ -18,74 +22,134 @@ const ChatMessage = ({
   setSideProfile: any;
 }) => {
   const dispatch = useDispatch();
-  const authState = useSelector((state:any) => state.auth)
-  const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
+  const authState = useSelector((state: any) => state.auth);
+  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
 
-  
-  const {data, loading, error, subscribeToMore } = useGetChatMessageQuery({
+  const { data, loading, error, subscribeToMore } = useGetChatMessageQuery({
     variables: {
-      chatRoomId: activeChat
+      chatRoomId: activeChat,
     },
     skip: !activeChat,
-  })
-
-  const more = () => subscribeToMore({
-    document: NewMessageAddedDocument ,
-    variables: {
-      chatRoomId: activeChat
-    },
-    updateQuery: (prev: { listChatMessages: { items: any; }; }, { subscriptionData }: any) => {
-      if (!subscriptionData.data) return prev;
-      console.log(subscriptionData.data)
-      console.log("previous data", prev)
-    
-      // const { mutation, node } = subscriptionData.data.Message.node;
-
-      // console.log(node)
-      // if (mutation !== 'CREATED') return prev;
-      return Object.assign({}, prev, {
-        listChatMessages: {
-          items: [subscriptionData.data, ...prev.listChatMessages.items],
-        }
-      });
-    },
   });
 
-  
+  const more = () =>
+    subscribeToMore({
+      document: NewMessageAddedDocument,
+      variables: {
+        chatRoomId: activeChat,
+      },
+      updateQuery: (
+        prev: { listChatMessages: { items: any } },
+        { subscriptionData }: any
+      ) => {
+        if (!subscriptionData.data) return prev;
+        console.log(subscriptionData.data);
+        console.log("previous data", prev);
+
+        // const { mutation, node } = subscriptionData.data.Message.node;
+
+        // console.log(node)
+        // if (mutation !== 'CREATED') return prev;
+        return Object.assign({}, prev, {
+          listChatMessages: {
+            items: [subscriptionData.data, ...prev.listChatMessages.items],
+          },
+        });
+      },
+    });
+
   if (!activeChat) {
-    return (<p>please select a chat to start</p>)
+    return (
+      <section className="h-full w-full relative border-l">
+        <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center border-b">
+          <div className="flex items-center gap-2">
+            <button
+              className="p-1.5 border border-activeColor me-1 rounded-md block "
+              onClick={() => setSideProfile("chatlist")}
+            >
+              <HiUsers className="text-primaryColor" />
+            </button>
+          </div>
+
+          <button
+            className="text-lg text-primaryColor cursor-pointer block "
+            onClick={() => setSideProfile("profile")}
+          >
+            <BsThreeDots />
+          </button>
+        </div>
+        <div className=" chatDefault flex flex-col justify-center items-center">
+          <div className="w-[25%] h-[20%] flex  justify-center items-center">
+            <Image
+              src="/assets/textDefault.svg"
+              alt="message"
+              width={500}
+              height={500}
+              className="w-full h-full "
+            />
+          </div>
+          <p className="text-base text-secondColor font-lexed font-medium pt-4">
+            Select chat to start a conversation
+          </p>
+        </div>
+      </section>
+    );
   }
 
   // const chatMessages = activeChatWithMessages.find((chat) => chat.id === activeChat.id)
   // const messages = chatMessages?.messages;
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <>
+        <ChatMessageLoader />
+      </>
+    );
   }
   if (error) {
-    return <div>{error.message}</div>
+    return <div>{error.message}</div>;
   }
 
   return (
     <MessageAreaData
-    sideProfile={sideProfile}
-    setSideProfile={setSideProfile}
-    data={data!}  
-    subscribeToMore={more}/>
+      sideProfile={sideProfile}
+      setSideProfile={setSideProfile}
+      data={data!}
+      subscribeToMore={more}
+    />
   );
+};
 
-}
+const MessageAreaData = ({
+  data,
+  subscribeToMore,
+  setSideProfile,
+  sideProfile,
+}: {
+  data: GetChatMessageQuery;
+  subscribeToMore: any;
+  sideProfile: any;
+  setSideProfile: any;
+}) => {
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
-const MessageAreaData = ({data, subscribeToMore, setSideProfile, sideProfile}: {data:GetChatMessageQuery, subscribeToMore: any, sideProfile:any, setSideProfile:any}) => {
-    useEffect(() => {
-      subscribeToMore()
-    }, [])
-    
+  // Function to keep the chat scroll at the bottom
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    subscribeToMore();
+    scrollToBottom();
+  }, [data.listChatMessages.items]);
+
   return (
     <section className="h-full w-full relative border-l">
-      <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center">
+      <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center ">
         <div className="flex items-center gap-2">
           <button
-            className="p-1.5 border border-activeColor me-1 rounded-md block lg:hidden"
+            className="p-1.5 border border-activeColor me-1 rounded-md block "
             onClick={() => setSideProfile("chatlist")}
           >
             <HiUsers className="text-primaryColor" />
@@ -143,38 +207,40 @@ const MessageAreaData = ({data, subscribeToMore, setSideProfile, sideProfile}: {
           </span>
         </div>
       </div>
-      <div className=" chatBox px-3 pb-8 flex items-end  w-full relative overflow-y-auto">
+      <div
+        className=" chatBox px-3  flex items-end  w-full relative overflow-y-auto"
+        ref={chatContainerRef}
+      >
         <div className="max-h-full w-full space-y-3 ">
-        { data.listChatMessages.items.map(msg => (
-          <MessageDetail msg={msg} key={msg.id} />
-        ))}
+          {data.listChatMessages.items.map((msg) => (
+            <MessageDetail msg={msg} key={msg.id} />
+          ))}
         </div>
       </div>
 
-      
-        <ChatInputSend />
-
+      <ChatInputSend />
     </section>
   );
 };
-const MessageDetail = ({msg}: {msg:any}) => {
-  const authState = useSelector((state: any) => state.auth)
-  
-  if (msg.sender.id === authState.user.id) return (
+const MessageDetail = ({ msg }: { msg: any }) => {
+  const authState = useSelector((state: any) => state.auth);
 
-    <div className="relative w-full flex justify-end">
-    <div className="w-1/2  flex justify-end p-2 relative">
-      <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
-        {msg.content}
-      </span>
-      <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-        {msg.dateSent}
-      </span>
-    </div>
-  </div>
-  ) 
-  else return (
-    <div className="relative w-full flex justify-start">
+  if (msg.sender.id === authState.user.id)
+    return (
+      <div className="relative w-full flex justify-end">
+        <div className="w-1/2  flex justify-end p-2 relative">
+          <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
+            {msg.content}
+          </span>
+          <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
+            {msg.dateSent}
+          </span>
+        </div>
+      </div>
+    );
+  else
+    return (
+      <div className="relative w-full flex justify-start">
         <div className="w-1/2  flex justify-start items-center p-2  space-x-2">
           <div className="w-7 h-7 rounded-full">
             <Image
@@ -195,8 +261,7 @@ const MessageDetail = ({msg}: {msg:any}) => {
           </div>
         </div>
       </div>
-  )
-  
-}
+    );
+};
 
 export default ChatMessage;
