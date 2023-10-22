@@ -8,6 +8,7 @@ import { HiUsers } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChatInputSend from "./ChatInputSend";
+import { timeAgo } from "@/lib/helpers/timeAgo";
 
 
 const ChatMessage = ({
@@ -24,7 +25,7 @@ const ChatMessage = ({
   
   const {data, loading, error, subscribeToMore } = useGetChatMessageQuery({
     variables: {
-      chatRoomId: activeChat
+      chatRoomId: activeChat?.id
     },
     skip: !activeChat,
   })
@@ -32,7 +33,7 @@ const ChatMessage = ({
   const more = () => subscribeToMore({
     document: NewMessageAddedDocument ,
     variables: {
-      chatRoomId: activeChat
+      chatRoomId: activeChat?.id
     },
     updateQuery: (prev: { listChatMessages: { items: any; }; }, { subscriptionData }: any) => {
       if (!subscriptionData.data) return prev;
@@ -168,7 +169,7 @@ const MessageDetail = ({msg}: {msg:any}) => {
         {msg.content}
       </span>
       <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-        {msg.dateSent}
+        {timeAgo(msg.dateSent)}
       </span>
     </div>
   </div>
@@ -190,7 +191,7 @@ const MessageDetail = ({msg}: {msg:any}) => {
               {msg.content}
             </span>
             <span className="absolute left-0 -bottom-6 text-[#979696] text-xs block">
-              {msg.dateSent}
+            {timeAgo(msg.dateSent)}
             </span>
           </div>
         </div>

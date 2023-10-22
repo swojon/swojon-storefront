@@ -39,7 +39,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
 
       <div className="space-y-2.5">
         {data?.listChatRooms.items && data.listChatRooms.items.map(chatroom => (
-          <div onClick={e => dispatch(setActiveChatRoom(chatroom.id))} key={`chatroom${chatroom.id}`} className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
+          <div onClick={e => dispatch(setActiveChatRoom(chatroom))} key={`chatroom${chatroom.id}`} className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor">
           <div className="lg:w-[18%] w-[12%] ">
             <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
               <Image

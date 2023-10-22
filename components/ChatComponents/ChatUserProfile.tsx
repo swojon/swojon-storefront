@@ -7,8 +7,11 @@ import {
 } from "react-icons/ai";
 import { MdLocalPhone } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
+import { useSelector } from "react-redux";
 
 const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
+  const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
+  console.log("active chat", activeChat)
   return (
     <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
       <div

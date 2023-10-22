@@ -43,7 +43,7 @@ const ChatInputSend = () => {
                 variables: {
                     input :{
                         message: msgText,
-                        chatRoomId: activeChat,
+                        chatRoomId: activeChat.id,
                         senderId: authState.user.id
                     } 
                 },
