@@ -47,25 +47,25 @@ const ChatInputSend = () => {
                         senderId: authState.user.id
                     } 
                 },
-                update: (cache, {data}) => {
-                    const {listChatMessages}:any = cache.readQuery({
-                        query: GetChatMessageDocument,
-                        variables: {
-                            chatRoomId: activeChat
-                        }})
-                    console.log("list Chat Message", listChatMessages)
-                    cache.writeQuery({
-                        query: GetChatMessageDocument,
-                        variables: {
-                            chatRoomId: activeChat
-                        },
-                        data : {
-                            listChatMessages: {
-                                items: [...listChatMessages.items, data?.sendChatMessage]
-                            }
-                        }
-                    })
-                }
+                // update: (cache, {data}) => {
+                //     const {listChatMessages}:any = cache.readQuery({
+                //         query: GetChatMessageDocument,
+                //         variables: {
+                //             chatRoomId: activeChat
+                //         }})
+                //     console.log("list Chat Message", listChatMessages)
+                //     cache.writeQuery({
+                //         query: GetChatMessageDocument,
+                //         variables: {
+                //             chatRoomId: activeChat
+                //         },
+                //         data : {
+                //             listChatMessages: {
+                //                 items: [...listChatMessages.items, data?.sendChatMessage]
+                //             }
+                //         }
+                //     })
+                // }
             
             }
 )

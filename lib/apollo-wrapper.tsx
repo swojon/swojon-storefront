@@ -29,6 +29,20 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
   
     const wsLink = new GraphQLWsLink(createClient({
       url:  GRAPHQL_WS_ENDPOINT || "",
+      on: {
+        connected: (socket) => (console.log("Connected to ws")),
+      },
+      connectionParams: () => {
+        console.log("passing headers",`Bearer ${getCookie('authorization')}`)
+        return {
+          headers: {
+            // authorization: `Bearer ${cookies().get('authorization')?.value}`,
+            Authorization: `Bearer ${getCookie('authorization')}`,
+            // cookies: typeof window !== 'undefined'? document.cookie : "",
+          },
+        };
+      },
+      
     }));
 
     const splitLink = split(

@@ -83,28 +83,28 @@ export const chatSlice = createSlice({
             state.chatRoomsWithMessage = action.payload.items;
         }
     },
-    extraReducers: (builder) => {
-        builder.addCase(getChatRoomWithMessageAsync.pending, (state, action) => {
-            state.loading = true;
-        });
-        builder.addCase(getChatRoomWithMessageAsync.fulfilled, (state, action) => {
-            console.log("finished")
-            console.log(action.payload.data.listChats.items, "finished")
-            state.loading = false;
-            state.chatRooms = action.payload.data.listChats.items.map((chatRoom:any) => {
-                return {
-                    id: chatRoom.id,
-                    chatName: chatRoom.chatName,
-                    lastMessage: chatRoom.messages.items[0],
-                }});
-            state.chatRoomsWithMessage = action.payload.data.listChats.items;
-        });
-        builder.addCase(getChatRoomWithMessageAsync.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message? action.error.message : null;
-        });
+    // extraReducers: (builder) => {
+    //     builder.addCase(getChatRoomWithMessageAsync.pending, (state, action) => {
+    //         state.loading = true;
+    //     });
+    //     builder.addCase(getChatRoomWithMessageAsync.fulfilled, (state, action) => {
+    //         console.log("finished")
+    //         console.log(action.payload.data.listChats.items, "finished")
+    //         state.loading = false;
+    //         state.chatRooms = action.payload.data.listChats.items.map((chatRoom:any) => {
+    //             return {
+    //                 id: chatRoom.id,
+    //                 chatName: chatRoom.chatName,
+    //                 lastMessage: chatRoom.messages.items[0],
+    //             }});
+    //         state.chatRoomsWithMessage = action.payload.data.listChats.items;
+    //     });
+    //     builder.addCase(getChatRoomWithMessageAsync.rejected, (state, action) => {
+    //         state.loading = false;
+    //         state.error = action.error.message? action.error.message : null;
+    //     });
 
-    }
+    // }
 })
 
 
