@@ -32,19 +32,35 @@ export default function Navbar2({ border }: { border: any }) {
     <Disclosure
       as="nav"
       className={` py-1  ${
-        border === "border" ? "border-b border-[#E6E6E6" : "border-0"
+        border === "border" ? "border-b border-[#E6E6E6]" : "border-0"
       }`}
     >
       {({ open }) => (
         <>
-          <div className="mx-auto    sm:px-[3vw] lg:px-[6vw]">
+          <div className="mx-auto    sm:px-[3vw] lg:px-[5vw]">
             <div className="flex h-16 justify-between items-center">
               <div className="flex px-2 lg:px-0">
                 <Link
                   href="/"
-                  className="flex flex-shrink-0 items-center font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base"
+                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base w-32 h-9  justify-center items-center`}
                 >
-                  Swojon
+                  {border === "border" ? (
+                    <Image
+                      src="/assets/swojon_Logo_-01-cropped.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full h-full"
+                    />
+                  ) : (
+                    <Image
+                      src="/assets/swojon_logo_inverted.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full h-full"
+                    />
+                  )}
                 </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-1 xl:space-x-4">
                   <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-200">
@@ -52,13 +68,21 @@ export default function Navbar2({ border }: { border: any }) {
                   </span>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
+                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border"
+                        ? " text-secondColor"
+                        : "text-slate-950"
+                    }`}
                   >
                     All Ads
                   </Link>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
+                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border"
+                        ? " text-secondColor"
+                        : "text-slate-950"
+                    }`}
                   >
                     Community
                   </Link>
