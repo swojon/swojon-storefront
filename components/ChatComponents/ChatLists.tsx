@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ChatListsModal from "../Loader/ChatListsLoader";
 
 const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
+  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const authState = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
   const { data, error, loading } = useListChatsQuery({
@@ -28,14 +29,14 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
   }
 
   return (
-    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto ">
+    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto relative">
       <div className="flex justify-between items-center">
         <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
           Chat List
         </h5>
 
         <div
-          className="block lg:hidden text-primaryColor  cursor-pointer"
+          className=" text-primaryColor  cursor-pointer"
           onClick={() => setSideProfile("")}
         >
           <AiOutlineClose />
@@ -48,7 +49,11 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
             <div
               onClick={(e) => dispatch(setActiveChatRoom(chatroom.id))}
               key={`chatroom${chatroom.id}`}
-              className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md border border-transparent hover:border-activeColor"
+              className={`xl:p-2 lg:p-1 p-2 w-full flex items-center  rounded-md border  hover:border-activeColor cursor-pointer ${
+                activeChat === chatroom.id
+                  ? "bg-gray-200 border-gray-300"
+                  : "bg-white border-transparent"
+              }`}
             >
               <div className="lg:w-[18%] w-[12%] ">
                 <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">

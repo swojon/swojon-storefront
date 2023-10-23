@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 import { CiLogin } from "react-icons/ci";
 import { setUserLogout } from "@/app/redux/authSlice";
 import { deleteCookie } from "cookies-next";
+import SearchField from "../SearchField/SearchField";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -64,24 +65,7 @@ export default function Navbar2({ border }: { border: any }) {
                 </div>
               </div>
               <div className={` w-full  lg:w-56 xl:w-[300px] `}>
-                <label htmlFor="search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative ">
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
-                    <MagnifyingGlassIcon
-                      className="h-7 w-7  p-1.5 bg-activeColor text-white rounded-full mr-1 "
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <input
-                    id="search"
-                    name="search"
-                    className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-                    placeholder="Search"
-                    type="search"
-                  />
-                </div>
+                <SearchField />
               </div>
 
               <div className="flex items-center lg:hidden">

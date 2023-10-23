@@ -79,7 +79,7 @@ const ChatMessage = ({
           </button>
         </div>
         <div className=" chatDefault flex flex-col justify-center items-center">
-          <div className="w-[25%] h-[20%] flex  justify-center items-center">
+          <div className="w-[75%] h-[60%] flex  justify-center items-center">
             <Image
               src="/assets/textDefault.svg"
               alt="message"
