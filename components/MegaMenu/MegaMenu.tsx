@@ -32,8 +32,8 @@ export default function MegaMenu() {
   const categories = data?.listCategories.items;
   console.log("Clicked Item", clickedItem);
   return (
-    <div className="">
-      <Popover className=" z-0">
+    <>
+      <Popover className=" z-20">
         {({ open }) => (
           <>
             <div className="relative z-10 ">
@@ -197,6 +197,6 @@ export default function MegaMenu() {
           </>
         )}
       </Popover>
-    </div>
+    </>
   );
 }

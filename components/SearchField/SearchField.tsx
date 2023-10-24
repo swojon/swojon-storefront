@@ -1,7 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { FaUsers } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdLocationPin } from "react-icons/md";
+import LocationDropDown from "../LocationDropDown/LocationDropDown";
 
 const SearchField = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,16 +74,15 @@ const SearchField = () => {
               <div className="flex justify-center items-center border-r gap-2">
                 <MdLocationPin className="text-activeColor" />
                 <span className="text-primaryColor font-lexed text-sm font-medium  ">
-                  Location
-                </span>{" "}
-                <IoIosArrowDown className="text-sm" />
+                  <LocationDropDown />
+                </span>
               </div>
               <div className="flex justify-center items-center gap-2">
-                <MdLocationPin className="text-activeColor" />
+                <FaUsers className="text-activeColor" />
                 <span className="text-primaryColor font-lexed text-sm font-medium  ">
-                  Location
-                </span>{" "}
-                <IoIosArrowDown className="text-sm" />
+                  Community
+                </span>
+                <IoIosArrowDown className="text-sm text-activeColor" />
               </div>
             </div>
           </div>
