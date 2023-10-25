@@ -12,14 +12,14 @@ export const middleware = (request: NextRequest) => {
     const authToken = request.nextUrl.searchParams.get('token');
     if (authToken){
         console.log("token is set. ")
-        setCookie("authorization", authToken, {secure:true })
+        // setCookie("authorization", authToken, {secure:true })
         let query = ""
         request.nextUrl.searchParams.delete('token')
         const res = NextResponse.redirect(request.nextUrl)
-        res.cookies.set("aurhoriza", authToken)
+        res.cookies.set("authorization", authToken)
         return res
     }
-    console.log("pathName", request.nextUrl.pathname)
+    // console.log("pathName", request.nextUrl.pathname)
 
     protectedRoutes.forEach((route) => {
         if (!!request.nextUrl.pathname.match(route)){
