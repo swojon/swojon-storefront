@@ -15,6 +15,8 @@ import { CiLogin } from "react-icons/ci";
 import { setUserLogout } from "@/app/redux/authSlice";
 import { deleteCookie } from "cookies-next";
 import SearchField from "../SearchField/SearchField";
+import burgerIcon from "@/public/assets/nav-hamburger.png";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -70,8 +72,8 @@ export default function Navbar2({ border }: { border: any }) {
                     href="#"
                     className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
-                        ? " text-secondColor"
-                        : "text-slate-950"
+                        ? "  text-primaryColor"
+                        : "text-secondColor"
                     }`}
                   >
                     All Ads
@@ -80,8 +82,8 @@ export default function Navbar2({ border }: { border: any }) {
                     href="#"
                     className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
-                        ? " text-secondColor"
-                        : "text-slate-950"
+                        ? "  text-primaryColor"
+                        : "text-secondColor"
                     }`}
                   >
                     Community
@@ -104,6 +106,35 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
               <div className="hidden  lg:flex lg:items-center space-x-3">
                 {/* Profile dropdown */}
+
+                {authState.isAuthenticated === false ? (
+                  <Link href="/signin">
+                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                      <CiLogin /> <span> login</span>
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/chat">
+                    <button className="border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                      <PiChatsCircleFill /> <span> Chat</span>
+                    </button>
+                  </Link>
+                )}
+
+                <button
+                  onClick={() =>
+                    dispatch(
+                      setModalOpen({
+                        title: "this is a modal",
+                        body: "sellProduct",
+                      })
+                    )
+                  }
+                  className="border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
+                >
+                  Sell Product
+                </button>
+
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
@@ -120,12 +151,17 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative ml-3 flex-shrink-0 font-lexed font-medium "
                   >
                     <div>
-                      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none ">
-                        <span className="sr-only">Open user menu</span>
+                      <Menu.Button className="flex items-center bg-activeColor text-sm focus:outline-none  p-1 rounded-3xl gap-1">
                         <Image
-                          className="h-8 w-8 rounded-full"
+                          className="h-7 w-7 rounded-full"
                           src={user}
-                          alt=""
+                          alt="user"
+                        />
+
+                        <Image
+                          className="h-7 w-7 rounded-full"
+                          src={burgerIcon}
+                          alt="bar"
                         />
                       </Menu.Button>
                     </div>
@@ -138,22 +174,22 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
-                        {authState.isAuthenticated && (
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
+                        {/* {authState.isAuthenticated && (
                           <Menu.Item>
                             {({ active }) => (
                               <Link
                                 href="#"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-1 text-sm text-gray-700"
                                 )}
                               >
                                 user: {authState.user.username!}
                               </Link>
                             )}
                           </Menu.Item>
-                        )}
+                        )} */}
 
                         <Menu.Item>
                           {({ active }) => (
@@ -161,10 +197,10 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              My Account
                             </Link>
                           )}
                         </Menu.Item>
@@ -174,10 +210,57 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1.5 text-sm text-gray-700"
                               )}
                             >
-                              Settings
+                              Followers
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              Following
+                            </Link>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          <div className="my-2 border"></div>
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              onClick={handleSignOut}
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              Help Center
+                            </Link>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              onClick={handleSignOut}
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              FAQ
                             </Link>
                           )}
                         </Menu.Item>
@@ -188,7 +271,7 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
                               Sign out
@@ -199,24 +282,6 @@ export default function Navbar2({ border }: { border: any }) {
                     </Transition>
                   </Menu>
                 )}
-
-                {authState.isAuthenticated === false ? (
-                  <Link href="/signin">
-                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
-                    </button>
-                  </Link>
-                ) : (
-                  <Link href="/chat">
-                    <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
-                      <PiChatsCircleFill /> <span> Chat</span>
-                    </button>
-                  </Link>
-                )}
-
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
-                  Sell Product
-                </button>
               </div>
             </div>
           </div>

@@ -13,9 +13,11 @@ import SendOfferModal from "./SendOfferModal";
 import NavbarModal from "./NavbarModal";
 import ChatModal from "./ChatModal";
 import LoginModal from "./LoginModal";
+import SellProductModal from "./SellProductModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
+const SELLPRODUCT = "sellProduct";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -102,6 +104,12 @@ export default function Modal() {
                       {modalStack[modalStack.length - 1]?.body ===
                         CHATMODAL && (
                         <ChatModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        SELLPRODUCT && (
+                        <SellProductModal
                           props={modalStack[modalStack.length - 1]?.props}
                         />
                       )}

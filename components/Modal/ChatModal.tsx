@@ -11,7 +11,7 @@ function ChatModal({ props }: { props: any }) {
   return (
     <section className="  w-full h-full  space-y-3 lg:space-y-4 pb-4">
       <div className="flex justify-between p-4 bg-[#F1F7FF] items-center">
-        <h5 className="font-lexed text-base lg;text-lg text-primaryColor">
+        <h5 className="font-lexed text-base lg:text-lg text-primaryColor">
           Chat with Mr. Ananta Jalil
         </h5>
         <button
