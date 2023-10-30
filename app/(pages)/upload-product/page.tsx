@@ -1,4 +1,4 @@
-import UploadForm from "@/components/Form/UploadForm";
+import UploadForm from "@/components/uploadForm/UploadForm";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 

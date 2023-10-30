@@ -6,7 +6,7 @@ import { MdLocationPin } from "react-icons/md";
 
 const people = [
   { id: 1, name: "Mirpur" },
-  { id: 2, name: "Arlene Mccoy" },
+  { id: 2, name: "Arlene Mccoysdf" },
   { id: 3, name: "Devon Webb" },
   { id: 4, name: "Tom Cook" },
 ];
@@ -21,16 +21,16 @@ const LocationDropDown = () => {
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
-          <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-10 text-left shadow-sm flex items-center justify-between focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm">
-              <div className="flex items-center">
+          <div className="relative ">
+            <Listbox.Button className="relative w-full  rounded-md border border-gray-300 bg-white py-2 px-2 text-left shadow-sm flex items-center focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm cursor-pointer">
+              <div className="flex items-center  w-[80%]">
                 <MdLocationPin className="text-activeColor text-base pe-1" />
                 <span className=" truncate  ">{selected.name}</span>
               </div>
 
-              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <div className="pointer-events-none w-[20%] flex items-center justify-end">
                 <FaAngleDown />
-              </span>
+              </div>
             </Listbox.Button>
 
             <Transition
