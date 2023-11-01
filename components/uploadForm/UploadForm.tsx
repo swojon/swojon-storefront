@@ -10,8 +10,11 @@ import Descriptions from "./Descriptions";
 import Price from "./Price";
 import AddImage from "./AddImage";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 const UploadForm = () => {
+  const dispatch = useDispatch();
   return (
     <section className="mt-8 border rounded-md xl:p-16 lg:p-10 md:p-6 sm:p-3 p-2 bg-[#f9f9f9]">
       <div className="flex ">
@@ -27,7 +30,17 @@ const UploadForm = () => {
           <div className="w-[120px]">
             <CategoryDropDown />
           </div>
-          <button className="px-2.5 py-2 bg-activeColor text-white text-sm rounded-md">
+          <button
+            onClick={() =>
+              dispatch(
+                setModalOpen({
+                  title: "this is a modal",
+                  body: "success",
+                })
+              )
+            }
+            className="px-2.5 py-2 bg-activeColor text-white text-sm rounded-md"
+          >
             Modify Search
           </button>
         </div>
