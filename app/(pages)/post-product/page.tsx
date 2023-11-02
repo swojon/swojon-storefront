@@ -14,7 +14,7 @@ const PostproductDetails = () => {
   const [clickBtn, setClickBtn] = useState("On going AD");
   return (
     <main className="custom-container py-10">
-      <div className="flex flex-col items-center space-y-2">
+      <div className="flex flex-col items-center space-y-3">
         <div className="flex items-center space-x-1  text-sm text-secondColor">
           <h6>Home</h6>
           <MdKeyboardArrowRight />

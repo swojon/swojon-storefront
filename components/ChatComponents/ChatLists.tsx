@@ -5,6 +5,7 @@ import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import ChatListsModal from "../Loader/ChatListsLoader";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
   const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
@@ -41,6 +42,22 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
         >
           <AiOutlineClose />
         </div>
+      </div>
+
+      <div className="relative ">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center  ">
+          <MagnifyingGlassIcon
+            className="h-7 w-7  p-1.5  text-primaryColor mr-1 "
+            aria-hidden="true"
+          />
+        </div>
+        <input
+          id="search"
+          name="search"
+          className="block w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-9 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+          placeholder="Search"
+          type="search"
+        />
       </div>
 
       <div className="space-y-2.5">
