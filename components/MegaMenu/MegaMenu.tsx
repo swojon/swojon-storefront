@@ -32,15 +32,15 @@ export default function MegaMenu() {
   const categories = data?.listCategories.items;
   console.log("Clicked Item", clickedItem);
   return (
-    <div className="">
-      <Popover className=" z-0">
+    <>
+      <Popover className=" z-20">
         {({ open }) => (
           <>
             <div className="relative z-10 ">
               <div className=" flex ">
                 <Popover.Button
                   className={classNames(
-                    open ? "text-secondColor" : "text-black",
+                    open ? "  text-primaryColor" : "text-secondColor",
                     "group inline-flex items-center rounded-md   font-medium  focus:outline-none   "
                   )}
                 >
@@ -197,6 +197,6 @@ export default function MegaMenu() {
           </>
         )}
       </Popover>
-    </div>
+    </>
   );
 }

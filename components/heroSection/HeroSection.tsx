@@ -10,9 +10,8 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 const HeroSection = () => {
   return (
     <section className="w-full   hero-container relative ">
-      <div className="">
-        <Navbar2 border="none" />
-      </div>
+      <Navbar2 border="none" />
+
       {/* <div className="absolute  left-0 top-0 w-full h-full z-0 flex md:justify-end items-end">
         <div className=" w-full h-full  flex justify-center lg:items-end md:items-center">
           <Image
@@ -23,7 +22,7 @@ const HeroSection = () => {
         </div>
       </div> */}
 
-      <div className="flex  hero-height items-center  custom-container      justify-center ">
+      <div className="flex  hero-height items-center  custom-container   justify-center ">
         <div className="text-center  space-y-2 md:space-y-4 ">
           <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
             <span>Find your all </span>

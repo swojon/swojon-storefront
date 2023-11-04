@@ -21,9 +21,9 @@
 }
 
 .custom-checkedInput[type="checkbox"]:checked {
-  background-color: #bb2649;
+  background-color: #3b51a4;
   opacity: 1;
-  border: 1px solid #bb2649;
+  border: 1px solid #3b51a4;
 }
 
 .custom-checkedInput[type="checkbox"]:before {

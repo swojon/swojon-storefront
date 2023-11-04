@@ -14,6 +14,9 @@ import { useSession } from "next-auth/react";
 import { CiLogin } from "react-icons/ci";
 import { setUserLogout } from "@/app/redux/authSlice";
 import { deleteCookie } from "cookies-next";
+import SearchField from "../SearchField/SearchField";
+import burgerIcon from "@/public/assets/nav-hamburger.png";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -31,19 +34,35 @@ export default function Navbar2({ border }: { border: any }) {
     <Disclosure
       as="nav"
       className={` py-1  ${
-        border === "border" ? "border-b border-[#E6E6E6" : "border-0"
+        border === "border" ? "border-b border-[#E6E6E6]" : "border-0"
       }`}
     >
       {({ open }) => (
         <>
-          <div className="mx-auto    sm:px-[3vw] lg:px-[6vw]">
+          <div className="mx-auto    sm:px-[3vw] lg:px-[5vw]">
             <div className="flex h-16 justify-between items-center">
               <div className="flex px-2 lg:px-0">
                 <Link
                   href="/"
-                  className="flex flex-shrink-0 items-center font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base"
+                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base w-32 h-9  justify-center items-center`}
                 >
-                  Swojon
+                  {border === "border" ? (
+                    <Image
+                      src="/assets/swojon_Logo_-01-cropped.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full h-full"
+                    />
+                  ) : (
+                    <Image
+                      src="/assets/swojon_logo_inverted.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full h-full"
+                    />
+                  )}
                 </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-1 xl:space-x-4">
                   <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-200">
@@ -51,37 +70,28 @@ export default function Navbar2({ border }: { border: any }) {
                   </span>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
+                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border"
+                        ? "  text-primaryColor"
+                        : "text-secondColor"
+                    }`}
                   >
                     All Ads
                   </Link>
                   <Link
                     href="#"
-                    className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200"
+                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border"
+                        ? "  text-primaryColor"
+                        : "text-secondColor"
+                    }`}
                   >
                     Community
                   </Link>
                 </div>
               </div>
-              <div className={` w-full  lg:w-56 xl:w-[300px] `}>
-                <label htmlFor="search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative ">
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
-                    <MagnifyingGlassIcon
-                      className="h-7 w-7  p-1.5 bg-activeColor text-white rounded-full mr-1 "
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <input
-                    id="search"
-                    name="search"
-                    className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-                    placeholder="Search"
-                    type="search"
-                  />
-                </div>
+              <div className={` w-full  lg:w-56 xl:w-[380px] `}>
+                <SearchField />
               </div>
 
               <div className="flex items-center lg:hidden">
@@ -96,6 +106,38 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
               <div className="hidden  lg:flex lg:items-center space-x-3">
                 {/* Profile dropdown */}
+
+                {authState.isAuthenticated === false ? (
+                  <Link href="/signin">
+                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                      <CiLogin /> <span> login</span>
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/chat">
+                    <button className="border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                      <PiChatsCircleFill /> <span> Chat</span>
+                    </button>
+                  </Link>
+                )}
+
+                <Link href="/post-product">
+                  {" "}
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        setModalOpen({
+                          title: "this is a modal",
+                          body: "sellProduct",
+                        })
+                      )
+                    }
+                    className="border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
+                  >
+                    Sell Product
+                  </button>
+                </Link>
+
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
@@ -112,12 +154,17 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative ml-3 flex-shrink-0 font-lexed font-medium "
                   >
                     <div>
-                      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none ">
-                        <span className="sr-only">Open user menu</span>
+                      <Menu.Button className="flex items-center bg-activeColor text-sm focus:outline-none  p-1 rounded-3xl gap-1">
                         <Image
-                          className="h-8 w-8 rounded-full"
+                          className="h-7 w-7 rounded-full"
                           src={user}
-                          alt=""
+                          alt="user"
+                        />
+
+                        <Image
+                          className="h-7 w-7 rounded-full"
+                          src={burgerIcon}
+                          alt="bar"
                         />
                       </Menu.Button>
                     </div>
@@ -130,22 +177,22 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
-                        {authState.isAuthenticated && (
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
+                        {/* {authState.isAuthenticated && (
                           <Menu.Item>
                             {({ active }) => (
                               <Link
                                 href="#"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-1 text-sm text-gray-700"
                                 )}
                               >
                                 user: {authState.user.username!}
                               </Link>
                             )}
                           </Menu.Item>
-                        )}
+                        )} */}
 
                         <Menu.Item>
                           {({ active }) => (
@@ -153,10 +200,10 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              My Account
                             </Link>
                           )}
                         </Menu.Item>
@@ -166,10 +213,57 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1.5 text-sm text-gray-700"
                               )}
                             >
-                              Settings
+                              Followers
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              Following
+                            </Link>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          <div className="my-2 border"></div>
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              onClick={handleSignOut}
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              Help Center
+                            </Link>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              onClick={handleSignOut}
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-1 text-sm text-gray-700"
+                              )}
+                            >
+                              FAQ
                             </Link>
                           )}
                         </Menu.Item>
@@ -180,7 +274,7 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
                               Sign out
@@ -191,112 +285,11 @@ export default function Navbar2({ border }: { border: any }) {
                     </Transition>
                   </Menu>
                 )}
-
-                {authState.isAuthenticated === false ? (
-                  <Link href="/signin">
-                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
-                    </button>
-                  </Link>
-                ) : (
-                  <Link href="/chat">
-                    <button className="border font-lexed border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
-                      <PiChatsCircleFill /> <span> Chat</span>
-                    </button>
-                  </Link>
-                )}
-
-                <button className="border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium ">
-                  Sell Product
-                </button>
               </div>
             </div>
           </div>
         </>
       )}
-
-      {/* <Disclosure.Panel className="lg:hidden bg-white">
-            <div className="space-y-1 pt-2 pb-3">
-             
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
-              >
-                Calendar
-              </Disclosure.Button>
-            </div>
-            <div className="border-t border-gray-200 pt-4 pb-3">
-              <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
-                  <Image
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">
-                    Tom Cook
-                  </div>
-                  <div className="text-sm font-medium text-gray-500">
-                    tom@example.com
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-              </div>
-              <div className="mt-3 space-y-1">
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Your Profile
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Sign out
-                </Disclosure.Button>
-              </div>
-            </div>
-          </Disclosure.Panel> */}
     </Disclosure>
   );
 }

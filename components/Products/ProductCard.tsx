@@ -71,9 +71,19 @@ const ProductCard = ({ card }: { card: any }) => {
         >
           Offer Price
         </button>
-        <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+        <button
+          onClick={() =>
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "chatModal",
+              })
+            )
+          }
+          className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+        >
           Chat Now
-        </div>
+        </button>
       </div>
     </div>
   );

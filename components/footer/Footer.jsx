@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.scss";
 import googleImg from "@/public/assets/googlePlay.png";
+import logo from "@/public/assets/swojon_Logo_-01-cropped.svg";
 import appStoreImg from "@/public/assets/appStore.png";
 import Image from "next/image";
 import {
@@ -15,8 +16,17 @@ const Footer = () => {
   return (
     <footer className="bg-[#ffffff] custom-container py-5">
       <div className="grid lg:grid-cols-6 md:grid-cols-2 gap-4 py-9">
-        <div className=" col-span-2 space-y-4 ">
-          <span className="text-2xl text-activeColor font-medium">Swojon</span>
+        <div className=" col-span-2 space-y-4  ">
+          <Link
+            href="/"
+            className={`flex  font-lexed text-activeColor font-semibold  justify-start    items-center`}
+          >
+            <Image
+              src={logo}
+              alt="logo"
+              className=" lg:w-[35%] md:w-[25%] w-[45%] "
+            />
+          </Link>
           <p className="text-sm text-secondColor">
             Download our mobile app. Get all <br /> service at a glance.
           </p>

@@ -13,15 +13,14 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primaryColor: "#0C0707",
-        secondColor: "#717171",
-        activeColor: "#BB2649",
+        primaryColor: "#606568",
+        secondColor: "#b6b7ba",
+        activeColor: "#3b51a4",
         whiteColor: "#FFFAFA",
       },
       fontFamily: {
         sans: ["Poppins", "sans"],
         lexed: ["Lexend", "sans"],
-        // You can also add 'Lexend' here if needed
       },
     },
   },
