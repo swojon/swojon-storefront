@@ -14,10 +14,22 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Model = () => {
+const Model = ({
+  values,
+  setFieldValue,
+}: {
+  values: any;
+  setFieldValue: any;
+}) => {
   const [selected, setSelected] = useState(people[0]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(value) => {
+        setSelected(value);
+        setFieldValue("model", value);
+      }}
+    >
       {({ open }) => (
         <>
           <div className="relative ">

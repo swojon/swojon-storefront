@@ -12,10 +12,22 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Genuine = () => {
+const Genuine = ({
+  values,
+  setFieldValue,
+}: {
+  values: any;
+  setFieldValue: any;
+}) => {
   const [selected, setSelected] = useState(people[0]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(value) => {
+        setSelected(value);
+        setFieldValue("genuine", value);
+      }}
+    >
       {({ open }) => (
         <>
           <div className="relative ">

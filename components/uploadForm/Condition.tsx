@@ -12,10 +12,23 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Condition = () => {
+const Condition = ({
+  values,
+  setFieldValue,
+}: {
+  values: any;
+  setFieldValue: any;
+}) => {
   const [selected, setSelected] = useState(people[0]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(value) => {
+        setSelected(value);
+        setFieldValue("condition", value);
+      }}
+      // onChange={(value) => setSelected ;setFieldValue("condition", value)}
+    >
       {({ open }) => (
         <>
           <div className="relative ">
@@ -23,7 +36,7 @@ const Condition = () => {
               <div className="flex items-center  w-[80%]">
                 <span
                   className={` truncate ${
-                    selected.name[0]
+                    selected.name === "select your condition"
                       ? "text-secondColor cursor-none"
                       : "text-primaryColor cursor-pointer"
                   }`}

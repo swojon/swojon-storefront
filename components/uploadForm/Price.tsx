@@ -1,11 +1,12 @@
 import React from "react";
 
-const Price = () => {
+const Price = ({ values, onChange }: { values: any; onChange: any }) => {
   return (
     <section className="space-y-2">
       <input
         type="text"
-        name=""
+        name="price"
+        onChange={onChange}
         id=""
         placeholder="write your price"
         className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-white"
