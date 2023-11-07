@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import * as Yup from "yup";
 import axios from "axios";
+import { uploadFile } from "@/lib/helpers/uploadFile";
+import { useState } from "react";
 
 const formSchema = Yup.object({
   name: Yup.string().min(2).required("Name is required"),
@@ -31,7 +33,7 @@ const formSchema = Yup.object({
   brand: Yup.object().required("Brand is required"),
   genuine: Yup.object().required("Genuine is required"),
   model: Yup.object().required("Model is required"),
-  banner: Yup.mixed()
+  banners: Yup.mixed()
     .nullable()
     .test(
       "FILE_SIZE",
@@ -47,12 +49,14 @@ const formSchema = Yup.object({
         ? file && ["image/png", "image/jpeg", "image/jpg"].includes(file.type)
         : true;
     }),
+    imageUrls: Yup.array().of(Yup.string().required()).notRequired()
 });
 
 const UploadForm = () => {
   const initialValues = {
     name: "",
     description: "",
+    images: [],
     banner: [],
     slug: "",
     condition: "",
@@ -64,9 +68,13 @@ const UploadForm = () => {
     contact: "",
     location: "",
     category: "",
+    imageUrls: [],
   };
   const dispatch = useDispatch();
-
+  const [uploading, setUploading] = useState(false)
+  const [uploadDone, setUploadDone] = useState(false)
+  const [uploadError, setUploadError] = useState(false)
+  const [uploadProgress, setUploadProgress]  = useState(0)
   const {
     values,
     errors,
@@ -80,17 +88,16 @@ const UploadForm = () => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
-      const formData = new FormData();
+      console.log("submitting the  form with values")
 
       try {
         for (let i = 0; i < values.banner.length; i++) {
-          formData.append("file", values.banner[i]);
-          formData.append("upload_preset", "melz52ez");
-          const res = await axios.post(
-            "https://api.cloudinary.com/v1_1/ddu8yxsoo/image/upload",
-            formData
-          );
-          console.log(`Image heloo ${i + 1} url: ${res.data.url}`);
+          const url = await uploadFile(values.banner[i],
+                 setUploadDone, setUploading, setUploadError, setUploadProgress )
+
+          console.log(`Image heloo ${i + 1} url: ${url}`);
+          // @ts-ignore:next-line
+          values.imageUrls.push(url)
         }
       } catch (error) {
         console.log(error);
@@ -99,7 +106,8 @@ const UploadForm = () => {
       console.log("values after submitting", values);
     },
   });
-  // console.log(values, "values");
+  console.log(values, "values");
+  console.log(errors, "ërrors")
   return (
     <section className="mt-8 border rounded-md xl:p-16 lg:p-10 md:p-6 sm:p-3 p-2 bg-[#f9f9f9]">
       <div className="flex ">
