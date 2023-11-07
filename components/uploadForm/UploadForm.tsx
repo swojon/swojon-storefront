@@ -14,11 +14,23 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import * as Yup from "yup";
+import axios from "axios";
 
 const formSchema = Yup.object({
   name: Yup.string().min(2).required("Name is required"),
   description: Yup.string().min(5).required("Description is required"),
+  price: Yup.number().positive().integer().required("Min price needed"),
+  contact: Yup.number()
+    .min(11)
+    .typeError("That doesn't look like a phone number")
+    .positive("A phone number can't start with a minus")
+    .integer("A phone number can't include a decimal point")
+    .required("Provide your contact number"),
   slug: Yup.string(),
+  condition: Yup.object().required("Condition is required"),
+  brand: Yup.object().required("Brand is required"),
+  genuine: Yup.object().required("Genuine is required"),
+  model: Yup.object().required("Model is required"),
   banner: Yup.mixed()
     .nullable()
     .test(
@@ -41,7 +53,7 @@ const UploadForm = () => {
   const initialValues = {
     name: "",
     description: "",
-    banner: "",
+    banner: [],
     slug: "",
     condition: "",
     genuine: "",
@@ -50,6 +62,8 @@ const UploadForm = () => {
     features: "",
     price: "",
     contact: "",
+    location: "",
+    category: "",
   };
   const dispatch = useDispatch();
 
@@ -64,11 +78,28 @@ const UploadForm = () => {
     setFieldValue,
   } = useFormik({
     initialValues,
-    // validationSchema: formSchema,
+    validationSchema: formSchema,
     onSubmit: async (values, action) => {
-      console.log(values, "values");
+      const formData = new FormData();
+
+      try {
+        for (let i = 0; i < values.banner.length; i++) {
+          formData.append("file", values.banner[i]);
+          formData.append("upload_preset", "melz52ez");
+          const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/ddu8yxsoo/image/upload",
+            formData
+          );
+          console.log(`Image heloo ${i + 1} url: ${res.data.url}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      console.log("values after submitting", values);
     },
   });
+  // console.log(values, "values");
   return (
     <section className="mt-8 border rounded-md xl:p-16 lg:p-10 md:p-6 sm:p-3 p-2 bg-[#f9f9f9]">
       <div className="flex ">
@@ -79,7 +110,10 @@ const UploadForm = () => {
         </div>
         <div className="flex-1 flex justify-end items-center  gap-3">
           <div className="w-[120px]">
-            <LocationDropDown />
+            <LocationDropDown
+              values={values.location}
+              setFieldValue={setFieldValue}
+            />
           </div>
           <div className="w-[120px]">
             <CategoryDropDown />
@@ -102,7 +136,7 @@ const UploadForm = () => {
 
       <div className="pt-8">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
             <div>
               <label
                 htmlFor="country"
@@ -115,6 +149,11 @@ const UploadForm = () => {
                   values={values.condition}
                   setFieldValue={setFieldValue}
                 />
+                {errors.condition && touched.condition ? (
+                  <p className="text-red-400	pt-1  text-xs">
+                    {errors.condition}
+                  </p>
+                ) : null}
               </div>
             </div>
 
@@ -130,6 +169,9 @@ const UploadForm = () => {
                   values={values.genuine}
                   setFieldValue={setFieldValue}
                 />
+                {errors.genuine && touched.genuine ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.genuine}</p>
+                ) : null}
               </div>
             </div>
 
@@ -142,6 +184,9 @@ const UploadForm = () => {
               </label>
               <div className="mt-2">
                 <Brand values={values.brand} setFieldValue={setFieldValue} />
+                {errors.brand && touched.brand ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
+                ) : null}
               </div>
             </div>
 
@@ -154,6 +199,9 @@ const UploadForm = () => {
               </label>
               <div className="mt-2">
                 <Model values={values.model} setFieldValue={setFieldValue} />
+                {errors.model && touched.model ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.model}</p>
+                ) : null}
               </div>
             </div>
 
@@ -178,6 +226,12 @@ const UploadForm = () => {
               </label>
               <div className="mt-2">
                 <Descriptions values={values} onChange={handleChange} />
+
+                {errors.description && touched.description ? (
+                  <p className="text-red-400	pt-1 text-xs">
+                    {errors.description}
+                  </p>
+                ) : null}
               </div>
             </div>
 
@@ -190,6 +244,10 @@ const UploadForm = () => {
               </label>
               <div className="mt-2">
                 <Price values={values} onChange={handleChange} />
+
+                {errors.price && touched.price ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.price}</p>
+                ) : null}
               </div>
             </div>
           </div>
@@ -203,7 +261,11 @@ const UploadForm = () => {
               <span className="text-secondColor text-xs ps-1">(Maximum 5)</span>
             </label>
             <div className="mt-2">
-              <AddImage />
+              <AddImage
+                setFieldValue={setFieldValue}
+                name="banner"
+                values={values.banner}
+              />
             </div>
           </div>
 
@@ -228,6 +290,9 @@ const UploadForm = () => {
                   onChange={handleChange}
                   className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-white"
                 />
+                {errors.name && touched.name ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.name}</p>
+                ) : null}
               </div>
             </div>
 
@@ -247,7 +312,10 @@ const UploadForm = () => {
                   onChange={handleChange}
                   className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-white"
                 />
-                <div className="flex items-center space-x-2">
+                {errors.contact && touched.contact ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.contact}</p>
+                ) : null}
+                <div className="flex items-center space-x-2 pt-4">
                   <input
                     id=""
                     name="comments"
@@ -268,7 +336,10 @@ const UploadForm = () => {
             </div>
 
             <div className="pt-5 flex justify-center">
-              <button className="px-3 py-2 bg-activeColor text-white text-sm rounded-md">
+              <button
+                type="submit"
+                className="px-3 py-2 bg-activeColor text-white text-sm rounded-md"
+              >
                 Post your product
               </button>
             </div>

@@ -5,7 +5,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
 
 const people = [
-  { id: 1, name: "Mirpur" },
+  { id: 1, name: "location" },
   { id: 2, name: "Arlene Mccoysdf" },
   { id: 3, name: "Devon Webb" },
   { id: 4, name: "Tom Cook" },
@@ -15,10 +15,22 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const LocationDropDown = () => {
+const LocationDropDown = ({
+  values,
+  setFieldValue,
+}: {
+  values: any;
+  setFieldValue: any;
+}) => {
   const [selected, setSelected] = useState(people[0]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(value) => {
+        setSelected(value);
+        setFieldValue("condition", value);
+      }}
+    >
       {({ open }) => (
         <>
           <div className="relative ">

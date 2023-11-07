@@ -27,7 +27,6 @@ const Condition = ({
         setSelected(value);
         setFieldValue("condition", value);
       }}
-      // onChange={(value) => setSelected ;setFieldValue("condition", value)}
     >
       {({ open }) => (
         <>
