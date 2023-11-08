@@ -16,7 +16,7 @@ const Category = [
   { id: 9, item: "fitness sports", img: "/assets/dumbbell 1.png" },
 ];
 
-const SellProductModal = () => {
+const SellProductModal = ({}: {props: any}) => {
   const dispatch = useDispatch();
   return (
     <section className="  w-full h-full  space-y-3 lg:space-y-4 pb-4">

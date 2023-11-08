@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AiFillCheckCircle } from "react-icons/ai";
 
-const SuccessModal = () => {
+const SuccessModal = ({}: any) => {
   return (
     <section className="  w-full h-full  space-y-3 lg:space-y-4 p-7">
       <div className="flex justify-center">

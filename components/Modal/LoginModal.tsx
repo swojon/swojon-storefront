@@ -14,7 +14,7 @@ import { setAuthState } from "@/app/redux/authSlice";
 
 interface Props {}
 
-const LoginModal = () => {
+const LoginModal = ({}: any) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
