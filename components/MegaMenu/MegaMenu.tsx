@@ -63,13 +63,13 @@ export default function MegaMenu() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 -translate-y-1"
             >
-              <Popover.Panel className="absolute h-[80vh]  bg-white top-[61px] inline  z-30 transform shadow-lg border py-3 text-primaryColor rounded ">
+              <Popover.Panel className="absolute h-[70vh] w-[100vw] border-red-400  bg-white top-[61px] inline  z-30 transform shadow-lg border py-3 text-primaryColor rounded left-0">
                 <div className=" relative h-full ">
                   {loading && <p> Loading </p>}
                   {error && <p> error </p>}
 
                   <div className="flex ">
-                    <div className="sticky top-0   h-[75vh] overflow-y-auto small-scroll w-[250px]">
+                    <div className="sticky top-0   h-[65vh] overflow-y-auto small-scroll w-[250px]">
                       {data &&
                         categories
                           ?.filter((item) => item.parentCategory == null)
