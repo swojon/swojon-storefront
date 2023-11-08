@@ -9,6 +9,68 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 
+export const CreateListingDocument = gql`
+    mutation CreateListing($listingData: ListingCreateDTO!) {
+  createListing(listingData: $listingData) {
+    brand {
+      id
+      name
+    }
+    category {
+      id
+      name
+      slug
+    }
+    communities {
+      id
+      name
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    location {
+      id
+      name
+    }
+    price
+    title
+    user {
+      email
+      id
+    }
+  }
+}
+    `;
+export type CreateListingMutationFn = Apollo.MutationFunction<CreateListingMutation, CreateListingMutationVariables>;
+
+/**
+ * __useCreateListingMutation__
+ *
+ * To run a mutation, you first call `useCreateListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createListingMutation, { data, loading, error }] = useCreateListingMutation({
+ *   variables: {
+ *      listingData: // value for 'listingData'
+ *   },
+ * });
+ */
+export function useCreateListingMutation(baseOptions?: Apollo.MutationHookOptions<CreateListingMutation, CreateListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateListingMutation, CreateListingMutationVariables>(CreateListingDocument, options);
+      }
+export type CreateListingMutationHookResult = ReturnType<typeof useCreateListingMutation>;
+export type CreateListingMutationResult = Apollo.MutationResult<CreateListingMutation>;
+export type CreateListingMutationOptions = Apollo.BaseMutationOptions<CreateListingMutation, CreateListingMutationVariables>;
 export const ListCategoriesDocument = gql`
     query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {
   listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {
@@ -316,6 +378,71 @@ export function useListBrandsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type ListBrandsQueryHookResult = ReturnType<typeof useListBrandsQuery>;
 export type ListBrandsLazyQueryHookResult = ReturnType<typeof useListBrandsLazyQuery>;
 export type ListBrandsQueryResult = Apollo.QueryResult<ListBrandsQuery, ListBrandsQueryVariables>;
+export const ListListingsDocument = gql`
+    query ListListings {
+  listListings {
+    items {
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListListingsQuery__
+ *
+ * To run a query within a React component, call `useListListingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListListingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListListingsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListListingsQuery(baseOptions?: Apollo.QueryHookOptions<ListListingsQuery, ListListingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListListingsQuery, ListListingsQueryVariables>(ListListingsDocument, options);
+      }
+export function useListListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListListingsQuery, ListListingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListListingsQuery, ListListingsQueryVariables>(ListListingsDocument, options);
+        }
+export type ListListingsQueryHookResult = ReturnType<typeof useListListingsQuery>;
+export type ListListingsLazyQueryHookResult = ReturnType<typeof useListListingsLazyQuery>;
+export type ListListingsQueryResult = Apollo.QueryResult<ListListingsQuery, ListListingsQueryVariables>;
 export const ListLocationsDocument = gql`
     query ListLocations {
   listLocations {
@@ -1129,6 +1256,8 @@ export type Query = {
   /** User find by id */
   getUserById: UserWithMeta;
   /** List All Brands */
+  listBrandOptions: Brands;
+  /** List All Brands */
   listBrands: Brands;
   /** List All Categories */
   listCategories: Categories;
@@ -1204,6 +1333,11 @@ export type QueryGetProfileByIdArgs = {
 
 export type QueryGetUserByIdArgs = {
   userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListBrandOptionsArgs = {
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
 
@@ -1430,6 +1564,13 @@ export type UserWithMeta = {
   username?: Maybe<Scalars['String']['output']>;
 };
 
+export type CreateListingMutationVariables = Exact<{
+  listingData: ListingCreateDto;
+}>;
+
+
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number } } };
+
 export type ListCategoriesQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
@@ -1479,6 +1620,11 @@ export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ListBrandsQuery = { __typename?: 'Query', listBrands: { __typename?: 'Brands', items: Array<{ __typename?: 'Brand', description?: string | null, name: string, logo?: string | null, slug?: string | null, isFeatured?: boolean | null, id: number, categories?: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null }> | null }> } };
+
+export type ListListingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number } }> } };
 
 export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 

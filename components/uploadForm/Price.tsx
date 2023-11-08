@@ -4,7 +4,7 @@ const Price = ({ values, onChange }: { values: any; onChange: any }) => {
   return (
     <section className="space-y-2">
       <input
-        type="text"
+        type="number"
         name="price"
         onChange={onChange}
         id=""

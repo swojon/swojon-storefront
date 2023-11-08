@@ -2,6 +2,7 @@ import React from "react";
 
 import ProductCard from "@/components/Products/ProductCard";
 import ProductTabs from "@/components/Products/ProductTabs";
+import { useListListingsQuery } from "@/apollograph/generated";
 
 const card = [
   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
@@ -114,6 +115,9 @@ const category = [
 ];
 
 const Products = () => {
+  const {data, loading, error} = useListListingsQuery()
+  const featuredProduct = data?.listListings.items;
+
   return (
     <section className="mt-20  custom-container bg-[#f9f9f9]">
       <div className="py-14">
@@ -128,8 +132,8 @@ const Products = () => {
         </div>
 
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
-          {card.map((card) => (
-            <ProductCard key={card.id} card={card} />
+          {featuredProduct?.map((product) => (
+            <ProductCard key={product.id} card={product} />
           ))}
         </div>
       </div>

@@ -17,6 +17,8 @@ import axios from "axios";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 import { useState } from "react";
 import BrandDropdown from "./BrandDropdown";
+import { useSession } from "next-auth/react";
+import { useCreateListingMutation } from "@/apollograph/generated";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -58,6 +60,8 @@ const formSchema = Yup.object({
 });
 
 const UploadForm = () => {
+  // const {data:session} = useSession()
+
   const initialValues = {
     title: "",
     brandId: null,
@@ -79,6 +83,7 @@ const UploadForm = () => {
     imageUrls: [],
   };
   const dispatch = useDispatch();
+  const [createListing, {error:createError, data: createData}]  = useCreateListingMutation()
   const [uploading, setUploading] = useState(false)
   const [uploadDone, setUploadDone] = useState(false)
   const [uploadError, setUploadError] = useState(false)
@@ -97,6 +102,7 @@ const UploadForm = () => {
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
       console.log("submitting the  form with values")
+ 
 
       try {
         for (let i = 0; i < values.banner.length; i++) {
@@ -111,6 +117,31 @@ const UploadForm = () => {
         console.log(error);
       }
 
+      let listingData: any = {
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        mediaUrls: values.imageUrls,
+        locationId: values.locationId,
+        categoryId: values.categoryId,
+        brandId: values.brandId
+      }
+
+      createListing({
+        variables: {
+          listingData: listingData
+        },
+      });
+      // setUploadProgress(null);
+
+      if (createError)
+        console.log("Failed to create listing", createError)
+        // .error("Failed to Create Category, Please Try again.");
+      if (createData) {
+        // toast.success("Category Created Successfully");
+        action.resetForm();
+        console.log("Success in creating product")
+      }
       console.log("values after submitting", values);
     },
   });
@@ -284,6 +315,8 @@ const UploadForm = () => {
                 setFieldValue={setFieldValue}
                 name="banner"
                 values={values.banner}
+                uploading={uploading}
+                uploadProgress={uploadProgress}
               />
             </div>
           </div>

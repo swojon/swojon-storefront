@@ -6,10 +6,14 @@ const AddImage = ({
   setFieldValue,
   name,
   values,
+  uploading,
+  uploadProgress
 }: {
-  setFieldValue: any;
-  name: any;
-  values: any;
+  setFieldValue: any,
+  name: any,
+  values: any,
+  uploading: boolean,
+  uploadProgress: any
 }) => {
   const handleFileChange = (e: any) => {
     const files = e.currentTarget.files;
@@ -65,7 +69,27 @@ const AddImage = ({
       </div>
       <span className="text-xs text-secondColor">
         Upload at least one image{" "}
+
       </span>
+      
+      {uploading && (
+          <div className="self-end">
+            <div className="relative pt-1 w-[150px]">
+              <span className="text-xs font-semibold inline-block text-green-600">
+                {uploadProgress}% Complete
+              </span>
+
+              <div className="relative pt-1">
+                <div className="overflow-hidden h-2 mb-2 text-xs flex rounded bg-green-200">
+                  <div
+                    style={{ width: `${uploadProgress}%` }}
+                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
     </section>
   );
 };

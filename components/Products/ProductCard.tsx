@@ -16,7 +16,7 @@ const ProductCard = ({ card }: { card: any }) => {
       <div className="lg:h-[210px] md:h-[170px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Link href={`/products/${card.id}`}>
           <Image
-            src={card.banner}
+            src={"/assets/pro1.png"}
             width={500}
             height={500}
             alt="product banner"

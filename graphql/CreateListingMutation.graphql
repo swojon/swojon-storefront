@@ -1,0 +1,36 @@
+
+mutation CreateListing($listingData: ListingCreateDTO!) {
+  createListing(listingData: $listingData) {
+    brand {
+      id
+      name
+    }
+    category {
+      id
+      name
+      slug
+    }
+    communities {
+      id
+      name
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    location {
+      id
+      name
+    }
+    price
+    title
+    user {
+      email
+      id
+    }
+
+  }
+}
