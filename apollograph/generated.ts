@@ -270,6 +270,100 @@ export function useNewMessageAddedSubscription(baseOptions: Apollo.SubscriptionH
       }
 export type NewMessageAddedSubscriptionHookResult = ReturnType<typeof useNewMessageAddedSubscription>;
 export type NewMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewMessageAddedSubscription>;
+export const ListBrandsDocument = gql`
+    query ListBrands {
+  listBrands {
+    items {
+      categories {
+        id
+        name
+        slug
+      }
+      description
+      name
+      logo
+      slug
+      isFeatured
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useListBrandsQuery__
+ *
+ * To run a query within a React component, call `useListBrandsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListBrandsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListBrandsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListBrandsQuery(baseOptions?: Apollo.QueryHookOptions<ListBrandsQuery, ListBrandsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListBrandsQuery, ListBrandsQueryVariables>(ListBrandsDocument, options);
+      }
+export function useListBrandsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListBrandsQuery, ListBrandsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListBrandsQuery, ListBrandsQueryVariables>(ListBrandsDocument, options);
+        }
+export type ListBrandsQueryHookResult = ReturnType<typeof useListBrandsQuery>;
+export type ListBrandsLazyQueryHookResult = ReturnType<typeof useListBrandsLazyQuery>;
+export type ListBrandsQueryResult = Apollo.QueryResult<ListBrandsQuery, ListBrandsQueryVariables>;
+export const ListLocationsDocument = gql`
+    query ListLocations {
+  listLocations {
+    items {
+      banner
+      description
+      id
+      isDeleted
+      isFeatured
+      isLive
+      name
+      parentLocation {
+        slug
+        name
+        id
+      }
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useListLocationsQuery__
+ *
+ * To run a query within a React component, call `useListLocationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListLocationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListLocationsQuery(baseOptions?: Apollo.QueryHookOptions<ListLocationsQuery, ListLocationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListLocationsQuery, ListLocationsQueryVariables>(ListLocationsDocument, options);
+      }
+export function useListLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListLocationsQuery, ListLocationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListLocationsQuery, ListLocationsQueryVariables>(ListLocationsDocument, options);
+        }
+export type ListLocationsQueryHookResult = ReturnType<typeof useListLocationsQuery>;
+export type ListLocationsLazyQueryHookResult = ReturnType<typeof useListLocationsLazyQuery>;
+export type ListLocationsQueryResult = Apollo.QueryResult<ListLocationsQuery, ListLocationsQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -1380,3 +1474,13 @@ export type NewMessageAddedSubscriptionVariables = Exact<{
 
 
 export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMessageAdded: { __typename?: 'Chat', content?: string | null, dateSent?: any | null, id: number, sender: { __typename?: 'User', email: string, id: number } } };
+
+export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListBrandsQuery = { __typename?: 'Query', listBrands: { __typename?: 'Brands', items: Array<{ __typename?: 'Brand', description?: string | null, name: string, logo?: string | null, slug?: string | null, isFeatured?: boolean | null, id: number, categories?: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null }> | null }> } };
+
+export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null, parentLocation?: { __typename?: 'Location', slug?: string | null, name: string, id: number } | null }> } };

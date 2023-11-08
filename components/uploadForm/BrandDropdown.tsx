@@ -1,34 +1,30 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleDown } from "react-icons/fa6";
-import { HiSquare3Stack3D } from "react-icons/hi2";
 import { BiSearch } from "react-icons/bi";
-
-const people = [
-  { id: 1, name: "select your brand" },
-  { id: 2, name: "Arlene Mccoysdf" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-];
+import { useListBrandsQuery } from "@/apollograph/generated";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Brand = ({
+const BrandDropdown = ({
   values,
   setFieldValue,
 }: {
   values: any;
   setFieldValue: any;
 }) => {
-  const [selected, setSelected] = useState(people[0]);
+  const {data, loading, error} = useListBrandsQuery()
+  const brands = data?.listBrands.items;
+
+  const [selected, setSelected] = useState(brands?.find(idx => idx.id === values));
   return (
     <Listbox
       value={selected}
       onChange={(value) => {
         setSelected(value);
-        setFieldValue("brand", value);
+        setFieldValue("brandId", value!.id);
       }}
     >
       {({ open }) => (
@@ -39,12 +35,12 @@ const Brand = ({
                 <BiSearch className="text-secondColor text-lg pe-1" />
                 <span
                   className={` truncate ${
-                    selected.name[0]
+                    selected?.name[0]
                       ? "text-secondColor cursor-none"
                       : "text-primaryColor cursor-pointer"
                   }`}
                 >
-                  {selected.name}
+                  {selected?.name}
                 </span>
               </div>
 
@@ -61,9 +57,9 @@ const Brand = ({
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {people.map((person) => (
+                {brands?.map((brand) => (
                   <Listbox.Option
-                    key={person.id}
+                    key={brand.id}
                     className={({ active }) =>
                       classNames(
                         active
@@ -72,7 +68,7 @@ const Brand = ({
                         "relative cursor-default select-none py-1.5 pl-3 pr-9"
                       )
                     }
-                    value={person}
+                    value={brand}
                   >
                     {({ selected, active }) => (
                       <>
@@ -82,7 +78,7 @@ const Brand = ({
                             "block truncate"
                           )}
                         >
-                          {person.name}
+                          {brand.name}
                         </span>
                       </>
                     )}
@@ -97,4 +93,4 @@ const Brand = ({
   );
 };
 
-export default Brand;
+export default BrandDropdown;

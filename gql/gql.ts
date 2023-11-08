@@ -19,6 +19,8 @@ const documents = {
     "query getChatMessage($chatRoomId: Float!) {\n  listChatMessages(chatRoomId: $chatRoomId) {\n    items {\n      id\n      content\n      dateSent\n      sender {\n        id\n        email\n      }\n    }\n  }\n}": types.GetChatMessageDocument,
     "mutation SendChatMessage($input: CreateMessageDTO!) {\n  sendChatMessage(chatData: $input) {\n    id\n    content\n    dateSent\n    sender {\n      id\n      email\n    }\n  }\n}": types.SendChatMessageDocument,
     "subscription NewMessageAdded($chatRoomId: Float!) {\n  newMessageAdded(chatRoomId: $chatRoomId) {\n    content\n    dateSent\n    id\n    sender {\n      email\n      id\n    }\n  }\n}": types.NewMessageAddedDocument,
+    "query ListBrands {\n  listBrands {\n    items {\n      categories {\n        id\n        name\n        slug\n      }\n      description\n      name\n      logo\n      slug\n      isFeatured\n      id\n    }\n  }\n}": types.ListBrandsDocument,
+    "query ListLocations {\n  listLocations {\n    items {\n      banner\n      description\n      id\n      isDeleted\n      isFeatured\n      isLive\n      name\n      parentLocation {\n        slug\n        name\n        id\n      }\n      slug\n    }\n  }\n}": types.ListLocationsDocument,
 };
 
 /**
@@ -59,6 +61,14 @@ export function graphql(source: "mutation SendChatMessage($input: CreateMessageD
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "subscription NewMessageAdded($chatRoomId: Float!) {\n  newMessageAdded(chatRoomId: $chatRoomId) {\n    content\n    dateSent\n    id\n    sender {\n      email\n      id\n    }\n  }\n}"): (typeof documents)["subscription NewMessageAdded($chatRoomId: Float!) {\n  newMessageAdded(chatRoomId: $chatRoomId) {\n    content\n    dateSent\n    id\n    sender {\n      email\n      id\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ListBrands {\n  listBrands {\n    items {\n      categories {\n        id\n        name\n        slug\n      }\n      description\n      name\n      logo\n      slug\n      isFeatured\n      id\n    }\n  }\n}"): (typeof documents)["query ListBrands {\n  listBrands {\n    items {\n      categories {\n        id\n        name\n        slug\n      }\n      description\n      name\n      logo\n      slug\n      isFeatured\n      id\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ListLocations {\n  listLocations {\n    items {\n      banner\n      description\n      id\n      isDeleted\n      isFeatured\n      isLive\n      name\n      parentLocation {\n        slug\n        name\n        id\n      }\n      slug\n    }\n  }\n}"): (typeof documents)["query ListLocations {\n  listLocations {\n    items {\n      banner\n      description\n      id\n      isDeleted\n      isFeatured\n      isLive\n      name\n      parentLocation {\n        slug\n        name\n        id\n      }\n      slug\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

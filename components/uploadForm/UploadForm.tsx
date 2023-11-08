@@ -1,5 +1,4 @@
 "use client";
-import Brand from "./Brand";
 import { useFormik } from "formik";
 import CategoryDropDown from "./CategoryDropDown";
 import Condition from "./Condition";
@@ -17,22 +16,28 @@ import * as Yup from "yup";
 import axios from "axios";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 import { useState } from "react";
+import BrandDropdown from "./BrandDropdown";
 
 const formSchema = Yup.object({
-  name: Yup.string().min(2).required("Name is required"),
+  title: Yup.string().min(2).required("Title is required"),
+  brandId: Yup.number().positive().notRequired(),
+  categoryId: Yup.number().positive().notRequired(),
   description: Yup.string().min(5).required("Description is required"),
+  locationId: Yup.number().positive().required(),
   price: Yup.number().positive().integer().required("Min price needed"),
-  contact: Yup.number()
-    .min(11)
-    .typeError("That doesn't look like a phone number")
-    .positive("A phone number can't start with a minus")
-    .integer("A phone number can't include a decimal point")
-    .required("Provide your contact number"),
-  slug: Yup.string(),
-  condition: Yup.object().required("Condition is required"),
-  brand: Yup.object().required("Brand is required"),
-  genuine: Yup.object().required("Genuine is required"),
-  model: Yup.object().required("Model is required"),
+  
+  // name: Yup.string().min(2).required("Name is required"),
+  // contact: Yup.number()
+  //   .min(11)
+  //   .typeError("That doesn't look like a phone number")
+  //   .positive("A phone number can't start with a minus")
+  //   .integer("A phone number can't include a decimal point")
+  //   .required("Provide your contact number"),
+  // slug: Yup.string(),
+  // condition: Yup.object().required("Condition is required"),
+  // brand: Yup.object().required("Brand is required"),
+  // genuine: Yup.object().required("Genuine is required"),
+  // model: Yup.object().required("Model is required"),
   banners: Yup.mixed()
     .nullable()
     .test(
@@ -54,7 +59,10 @@ const formSchema = Yup.object({
 
 const UploadForm = () => {
   const initialValues = {
-    name: "",
+    title: "",
+    brandId: null,
+    locationId: null,
+    categoryId: null,
     description: "",
     images: [],
     banner: [],
@@ -119,12 +127,15 @@ const UploadForm = () => {
         <div className="flex-1 flex justify-end items-center  gap-3">
           <div className="w-[120px]">
             <LocationDropDown
-              values={values.location}
+              values={values.locationId}
               setFieldValue={setFieldValue}
             />
           </div>
           <div className="w-[120px]">
-            <CategoryDropDown />
+            <CategoryDropDown 
+              values={values.categoryId}
+              setFieldValue={setFieldValue}
+              />
           </div>
           <button
             onClick={() =>
@@ -145,7 +156,7 @@ const UploadForm = () => {
       <div className="pt-8">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
-            <div>
+            {/* <div>
               <label
                 htmlFor="country"
                 className="block text-base font-medium text-primaryColor font-lexed"
@@ -163,9 +174,9 @@ const UploadForm = () => {
                   </p>
                 ) : null}
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label
                 htmlFor="genuine"
                 className="block text-base font-medium text-primaryColor font-lexed"
@@ -181,7 +192,7 @@ const UploadForm = () => {
                   <p className="text-red-400	pt-1  text-xs">{errors.genuine}</p>
                 ) : null}
               </div>
-            </div>
+            </div> */}
 
             <div>
               <label
@@ -191,14 +202,14 @@ const UploadForm = () => {
                 Brand
               </label>
               <div className="mt-2">
-                <Brand values={values.brand} setFieldValue={setFieldValue} />
+                <BrandDropdown values={values.brandId} setFieldValue={setFieldValue} />
                 {errors.brand && touched.brand ? (
                   <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
                 ) : null}
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <label
                 htmlFor="model"
                 className="block text-base font-medium text-primaryColor font-lexed"
@@ -211,9 +222,9 @@ const UploadForm = () => {
                   <p className="text-red-400	pt-1  text-xs">{errors.model}</p>
                 ) : null}
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label
                 htmlFor="features"
                 className="block text-base font-medium text-primaryColor font-lexed"
@@ -223,7 +234,7 @@ const UploadForm = () => {
               <div className="mt-2">
                 <Features />
               </div>
-            </div>
+            </div> */}
 
             <div>
               <label
@@ -292,18 +303,18 @@ const UploadForm = () => {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="name"
-                  id="name"
+                  name="title"
+                  id="title"
                   placeholder="John Doe"
                   onChange={handleChange}
                   className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-white"
                 />
-                {errors.name && touched.name ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.name}</p>
+                {errors.title && touched.title ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.title}</p>
                 ) : null}
               </div>
             </div>
-
+{/* 
             <div className="w-[50%]">
               <label
                 htmlFor="contact"
@@ -341,7 +352,7 @@ const UploadForm = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="pt-5 flex justify-center">
               <button
