@@ -12,7 +12,8 @@ const Features = () => {
           <BiMinus />
         </button>
       </div>
-      <form className="flex gap-3 items-center">
+
+      <div className="flex gap-3 items-center">
         <input
           type="text"
           name=""
@@ -23,7 +24,7 @@ const Features = () => {
         <button className="bg-activeColor p-3 rounded-md text-white">
           <BiPlus />
         </button>
-      </form>
+      </div>
     </section>
   );
 };

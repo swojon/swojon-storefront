@@ -13,7 +13,7 @@ const safetyTips = [
   {
     id: 188,
     title: "Account Settings",
-    desc: "Adjust settings, manage notifications, learn about name change and mroe",
+    desc: "Adjust settings, manage notifications, learn about name change and more",
     icon: icon1,
   },
   {
@@ -24,26 +24,26 @@ const safetyTips = [
   },
   {
     id: 718,
-    title: "Fake payment services",
-    desc: "Meet the seller in person and check the item before you make a payment. Where available, use",
+    title: "Privacy and Policy",
+    desc: "Adjust settings, manage notifications, learn about name change and more",
     icon: icon3,
   },
   {
     id: 187,
-    title: "Use common sense",
-    desc: "Meet the seller in person and check the item before you make a payment. Where available, use",
+    title: "FAQ",
+    desc: "Adjust settings, manage notifications, learn about name change and more",
     icon: icon4,
   },
   {
     id: 145,
-    title: "Fake information requests",
-    desc: "Meet the seller in person and check the item before you make a payment. Where available, use",
+    title: "Community",
+    desc: "Fix login issues and learn how to change or reset your password",
     icon: icon5,
   },
   {
     id: 178,
-    title: "Information sharing",
-    desc: "Meet the seller in person and check the item before you make a payment. Where available, use",
+    title: "Category",
+    desc: "Adjust settings, manage notifications, learn about name change and more",
     icon: icon6,
   },
 ];
@@ -106,6 +106,51 @@ const HelpCenter = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-10 bg-[#F9F9F9] p-8 flex flex-col items-center">
+        <div className="relative flex pb-5">
+          <div className="w-8 h-8 border-2 border-white rounded-full z-0 ">
+            <Image
+              src="/profile.jpg"
+              width={200}
+              height={200}
+              alt="member"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+
+          <div className="relative w-8 h-8 border-2 border-white rounded-full -left-2 -top-0.5">
+            {" "}
+            <Image
+              src="/user1.jpg"
+              width={200}
+              height={200}
+              alt="member"
+              className="w-full h-full object-cover rounded-full z-20"
+            />
+          </div>
+          <div className="w-8 h-8 border-2 border-white rounded-full  relative -left-4 ">
+            <Image
+              src="/profile.jpg"
+              width={200}
+              height={200}
+              alt="member"
+              className="w-full h-full object-cover rounded-full z-10"
+            />
+          </div>
+        </div>
+
+        <span className="block text-primaryColor font-lexed text-sm">
+          Still have questions?
+        </span>
+        <span className="block text-secondColor text-sm">
+          Can’t find the answer you’re looking for? Please chat to our friendly
+          team.
+        </span>
+        <button className="bg-activeColor px-3 py-2 text-sm text-white rounded-md mt-5">
+          Get in touch
+        </button>
       </div>
     </section>
   );
