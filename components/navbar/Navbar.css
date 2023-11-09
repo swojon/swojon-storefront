@@ -1,5 +1,5 @@
 .nav-container {
-  padding: 0 4vw;
+  padding: 0 5vw;
 }
 .all-category:hover .megamenu-container {
   visibility: visible;
@@ -15,5 +15,5 @@
 }
 
 .resNavbar-container {
-  background: rgba(34, 34, 34, 0.4274509804);
-}/*# sourceMappingURL=Navbar.css.map */
+  background: rgba(34, 34, 34, 0.106);
+} /*# sourceMappingURL=Navbar.css.map */

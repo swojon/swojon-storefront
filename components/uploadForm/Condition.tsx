@@ -2,10 +2,12 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleDown } from "react-icons/fa6";
 
-const people = [
-  { id: 4, name: "select your condition" },
-  { id: 1, name: "Old" },
-  { id: 2, name: "New" },
+const condition = [
+  { id: 4, name: "Brand new" },
+  { id: 1, name: "Like new" },
+  { id: 2, name: "Lightly Used" },
+  { id: 24, name: "Well Used" },
+  { id: 25, name: "Heavily Used" },
 ];
 
 function classNames(...classes: any[]) {
@@ -19,77 +21,39 @@ const Condition = ({
   values: any;
   setFieldValue: any;
 }) => {
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState("");
   return (
-    <Listbox
-      value={selected}
-      onChange={(value) => {
-        setSelected(value);
-        setFieldValue("condition", value);
-      }}
-    >
-      {({ open }) => (
-        <>
-          <div className="relative ">
-            <Listbox.Button className="relative w-full  rounded-md border border-gray-300 bg-white py-2 px-3 text-left shadow-sm flex items-center focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm cursor-pointer">
-              <div className="flex items-center  w-[80%]">
-                <span
-                  className={` truncate ${
-                    selected.name === "select your condition"
-                      ? "text-secondColor cursor-none"
-                      : "text-primaryColor cursor-pointer"
-                  }`}
-                >
-                  {selected.name}
-                </span>
-              </div>
-
-              <div className="pointer-events-none w-[20%] flex items-center justify-end">
-                <FaAngleDown />
-              </div>
-            </Listbox.Button>
-
-            <Transition
-              show={open}
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {people.map((person) => (
-                  <Listbox.Option
-                    key={person.id}
-                    className={({ active }) =>
-                      classNames(
-                        active
-                          ? "text-white bg-activeColor"
-                          : "text-primaryColor",
-                        "relative cursor-default select-none py-1.5 pl-3 pr-9"
-                      )
-                    }
-                    value={person}
-                  >
-                    {({ selected, active }) => (
-                      <>
-                        <span
-                          className={classNames(
-                            selected ? "font-semibold" : "font-normal",
-                            "block truncate"
-                          )}
-                        >
-                          {person.name}
-                        </span>
-                      </>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Transition>
+    <>
+      <div className="flex flex-wrap items-center gap-2">
+        {condition.map((item) => (
+          <div
+            onClick={() => setSelected(item.name)}
+            className="border p-2 rounded-2xl text-sm capitalize text-secondColor cursor-pointer hover:border-primaryColor
+            "
+            key={item.id}
+          >
+            {item.name}
           </div>
-        </>
-      )}
-    </Listbox>
+        ))}
+      </div>
+
+      <div className="pt-3">
+        <label
+          htmlFor="brand"
+          className="block text-xs font-lexed pb-2 text-secondColor"
+        >
+          Notes on condition (Optional)
+        </label>
+        <textarea
+          id="optional"
+          name="optional"
+          rows={4}
+          className="block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm"
+          defaultValue={""}
+          placeholder="Details about the condition"
+        />
+      </div>
+    </>
   );
 };
 

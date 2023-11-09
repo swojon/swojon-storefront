@@ -32,8 +32,8 @@ a {
 }
 
 .custom-container {
-  padding-left: 6vw;
-  padding-right: 6vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
 }
 
 .padding-left {
@@ -54,17 +54,19 @@ a {
 
 /* Track */
 .small-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  /* background: #f1f1f1; */
 }
 
 /* Handle */
 .small-scroll::-webkit-scrollbar-thumb {
-  background: #a4a3a3;
-  border-radius: 5px;
+  opacity: 0;
+  background: #cdcccc;
+  border-radius: 4px;
 }
 
 /* Handle on hover */
 .small-scroll::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
   background: #555;
 }
 .swiper {

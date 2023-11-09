@@ -17,26 +17,31 @@ function classNames(...classes: any[]) {
 
 const CategoryDropDown = ({
   values,
-  setFieldValue
+  setFieldValue,
 }: {
-  values: any,
-  setFieldValue: any
+  values: any;
+  setFieldValue: any;
 }) => {
-  const {data, loading, error} = useListCategoriesQuery()
+  const { data, loading, error } = useListCategoriesQuery();
   const categories = data?.listCategories.items;
 
-  const [selected, setSelected] = useState(categories?.find(idx => idx.id === values ) ?? null);
+  const [selected, setSelected] = useState(
+    categories?.find((idx) => idx.id === values) ?? null
+  );
   return (
-    <Listbox value={selected} onChange={(value) => {
-      setSelected(value);
-      setFieldValue("categoryId", value!.id)
-    }}>
+    <Listbox
+      value={selected}
+      onChange={(value) => {
+        setSelected(value);
+        setFieldValue("categoryId", value!.id);
+      }}
+    >
       {({ open }) => (
         <>
           <div className="relative ">
             <Listbox.Button className="relative w-full  rounded-md border border-gray-300 bg-white py-2 px-2 text-left shadow-sm flex items-center focus:border-activeColor focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm cursor-pointer">
               <div className="flex items-center  w-[80%]">
-                <HiSquare3Stack3D className="text-activeColor text-base pe-1" />
+                <HiSquare3Stack3D className="text-activeColor text-lg me-3" />
                 <span className=" truncate  ">{selected?.name}</span>
               </div>
 
