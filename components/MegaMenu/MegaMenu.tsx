@@ -9,6 +9,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import Image from "next/image";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { current } from "@reduxjs/toolkit";
+import Link from "next/link";
 
 // import categoryData from "@/data/categoryData";
 
@@ -116,16 +117,25 @@ export default function MegaMenu() {
                       <div className="flex flex-wrap gap-5 py-4">
                          {/* View All card */}
                          <div  className="w-20   ">
-                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
-                              <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                            </div>
-                            <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                              <span className="truncate pr-1">View All</span>
-                            </span>
+                          <Link
+                              href={`/categories/${currentCategory.slug}`}
+                              className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                            >
+                              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                                <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
+                              </div>
+                              <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                <span className="truncate pr-1">View All</span>
+                              </span>
+                            </Link>
                           </div>
 
                         { categories!.filter(item => item.parentCategory?.id === currentCategory.id).map((item: any) => (
                           <div key={item.id} className="w-20   ">
+                            <Link
+                              href={`/categories/${item.slug}`}
+                              className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                            >
                             <div className="w-full h-20  relative hover:scale-105">
                               <Image
                                 src={item.banner?? ""}
@@ -140,6 +150,7 @@ export default function MegaMenu() {
                             <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
                               <span className="truncate pr-1">{item.name}</span>
                             </span>
+                            </Link>
                           </div>
                         ))}
                       </div>
@@ -159,17 +170,27 @@ export default function MegaMenu() {
                              
                                 {/* View All card */}
                                 <div  className="w-20   ">
+                                <Link
+                                    href={`/categories/${item.slug}`}
+                                    className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                                  >
                                     <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
                                       <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
                                     </div>
                                     <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
                                       <span className="truncate pr-1">View All</span>
                                     </span>
+                                  </Link>
                                   </div>
 
                                 { categories!.filter(cat => cat.parentCategory?.id === item.id).map((subItem: any) => (
                                   <div  className="w-20   " key={subItem.id}>
-                                    <div className="w-full h-20  relative hover:scale-105">
+                                    
+                                    <Link
+                                      href={`/categories/${subItem.slug}`}
+                                      className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                                    >
+                                      <div className="w-full h-20  relative hover:scale-105">
                                       <Image
                                         src={subItem.banner?? ""}
                                         height={300}
@@ -183,6 +204,7 @@ export default function MegaMenu() {
                                     <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
                                       <span className="truncate pr-1">{subItem.name}</span>
                                     </span>
+                                    </Link>
                                   </div>
                                 ))}
                               </div>
