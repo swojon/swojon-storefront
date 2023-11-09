@@ -1,5 +1,5 @@
-query ListListings {
-  listListings {
+query ListListings($filters: ListingFilterInput) {
+  listListings(filters: $filters) {
     items{
         brand {
         id

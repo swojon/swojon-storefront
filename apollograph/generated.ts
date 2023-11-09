@@ -170,6 +170,50 @@ export function useListFeaturedCategoriesLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ListFeaturedCategoriesQueryHookResult = ReturnType<typeof useListFeaturedCategoriesQuery>;
 export type ListFeaturedCategoriesLazyQueryHookResult = ReturnType<typeof useListFeaturedCategoriesLazyQuery>;
 export type ListFeaturedCategoriesQueryResult = Apollo.QueryResult<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>;
+export const AddFavoriteDocument = gql`
+    mutation AddFavorite($listingId: Float!, $userId: Float!) {
+  addFavorite(listingId: $listingId, userId: $userId) {
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+    user {
+      email
+      id
+      username
+    }
+  }
+}
+    `;
+export type AddFavoriteMutationFn = Apollo.MutationFunction<AddFavoriteMutation, AddFavoriteMutationVariables>;
+
+/**
+ * __useAddFavoriteMutation__
+ *
+ * To run a mutation, you first call `useAddFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFavoriteMutation, { data, loading, error }] = useAddFavoriteMutation({
+ *   variables: {
+ *      listingId: // value for 'listingId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<AddFavoriteMutation, AddFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(AddFavoriteDocument, options);
+      }
+export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
+export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
+export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
 export const ListChatsDocument = gql`
     query listChats($userId: Float) {
   listChatRooms(userId: $userId) {
@@ -383,8 +427,8 @@ export type ListBrandsQueryHookResult = ReturnType<typeof useListBrandsQuery>;
 export type ListBrandsLazyQueryHookResult = ReturnType<typeof useListBrandsLazyQuery>;
 export type ListBrandsQueryResult = Apollo.QueryResult<ListBrandsQuery, ListBrandsQueryVariables>;
 export const ListListingsDocument = gql`
-    query ListListings {
-  listListings {
+    query ListListings($filters: ListingFilterInput) {
+  listListings(filters: $filters) {
     items {
       brand {
         id
@@ -437,6 +481,7 @@ export const ListListingsDocument = gql`
  * @example
  * const { data, loading, error } = useListListingsQuery({
  *   variables: {
+ *      filters: // value for 'filters'
  *   },
  * });
  */
@@ -821,6 +866,17 @@ export type ListingCreateDto = {
   title: Scalars['String']['input'];
 };
 
+export type ListingFilterInput = {
+  brandIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  categorySlug?: InputMaybe<Scalars['String']['input']>;
+  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  locationId?: InputMaybe<Scalars['Float']['input']>;
+  locationIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  userIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
 export type ListingMedia = {
   __typename?: 'ListingMedia';
   isPrimary: Scalars['Boolean']['output'];
@@ -842,6 +898,7 @@ export type ListingUpdateDto = {
 export type Listings = {
   __typename?: 'Listings';
   count: Scalars['Float']['output'];
+  hasMore: Scalars['Boolean']['output'];
   items: Array<Listing>;
 };
 
@@ -1412,6 +1469,14 @@ export type QueryListListingReviewsArgs = {
 };
 
 
+export type QueryListListingsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
 export type QueryListPointsHistoryArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
@@ -1603,6 +1668,14 @@ export type ListFeaturedCategoriesQueryVariables = Exact<{
 
 export type ListFeaturedCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, isFeatured?: boolean | null }> } };
 
+export type AddFavoriteMutationVariables = Exact<{
+  listingId: Scalars['Float']['input'];
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type AddFavoriteMutation = { __typename?: 'Mutation', addFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
+
 export type ListChatsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['Float']['input']>;
 }>;
@@ -1636,7 +1709,9 @@ export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListBrandsQuery = { __typename?: 'Query', listBrands: { __typename?: 'Brands', items: Array<{ __typename?: 'Brand', description?: string | null, name: string, logo?: string | null, slug?: string | null, isFeatured?: boolean | null, id: number, categories?: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null }> | null }> } };
 
-export type ListListingsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ListListingsQueryVariables = Exact<{
+  filters?: InputMaybe<ListingFilterInput>;
+}>;
 
 
 export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };

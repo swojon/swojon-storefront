@@ -7,6 +7,7 @@ import user from "@/public/user1.jpg";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
+import { timeAgo } from "@/lib/helpers/timeAgo";
 
 const ProductCard = ({ card }: { card: any }) => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const ProductCard = ({ card }: { card: any }) => {
 
       <div className="flex items-center  text-secondColor">
         <Image src={time} alt="time icon" />
-        <span className="text-xs font-lexed ps-1">{card.dateCreated}</span>
+        <span className="text-xs font-lexed ps-1">{timeAgo(card.dateCreated)}</span>
       </div>
 
       <div className="flex items-center md:space-x-2 space-x-1 md:py-4 py-2">
