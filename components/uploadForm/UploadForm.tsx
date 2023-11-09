@@ -204,6 +204,16 @@ const UploadForm = () => {
                 setFieldValue={setFieldValue}
               />
             </div>
+            <div className="w-full shadow-lg p-5 rounded-md border-gray-50">
+              <h6 className="text-lg font-lexed pb-3 text-primaryColor">
+                Location
+              </h6>
+              <LocationDropDown
+                values={values.locationId}
+                setFieldValue={setFieldValue}
+              />
+            </div>
+
 
             <div className="w-full shadow-lg p-5 rounded-md border-gray-50 space-y-3">
               <h6 className="text-lg font-lexed  text-primaryColor">
@@ -289,7 +299,23 @@ const UploadForm = () => {
                   <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
                 ) : null}
               </div>
+            {/* Price Input */}
+            <div>
+              <label
+                htmlFor="price"
+                className="block text-base font-medium text-primaryColor font-lexed"
+              >
+                Price
+              </label>
+                <div className="mt-2">
+                  <Price values={values} onChange={handleChange} />
 
+                  {errors.price && touched.price ? (
+                    <p className="text-red-400	pt-1  text-xs">{errors.price}</p>
+                  ) : null}
+              </div>
+            </div>
+                  {/*  */}
               <div>
                 <label
                   htmlFor="model"
@@ -297,7 +323,10 @@ const UploadForm = () => {
                 >
                   Description
                 </label>
+                
+                <Descriptions values={values} onChange={handleChange} />
 
+{/*              
                 <textarea
                   id="productDescription"
                   name="productDescription"
@@ -305,10 +334,11 @@ const UploadForm = () => {
                   className="block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm"
                   defaultValue={""}
                   placeholder="Write the description"
-                />
+
+                /> */}
                 {/* <Model values={values.model} setFieldValue={setFieldValue} /> */}
-                {errors.model && touched.model ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.model}</p>
+                {errors.description && touched.description ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.description}</p>
                 ) : null}
               </div>
             </div>
@@ -395,6 +425,9 @@ const UploadForm = () => {
                 setFieldValue={setFieldValue}
                 name="banner"
                 values={values.banner}
+                uploading={uploading}
+                uploadProgress={uploadProgress}
+
               />
             </div>
 
@@ -503,61 +536,7 @@ const UploadForm = () => {
               ) : null}
             </div>
           </div> */}
-        </div>
-      </form>
-                {errors.price && touched.price ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.price}</p>
-                ) : null}
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="country"
-              className="block text-base font-medium text-primaryColor font-lexed"
-            >
-              Add your image
-              <span className="text-secondColor text-xs ps-1">(Maximum 5)</span>
-            </label>
-            <div className="mt-2">
-              <AddImage
-                setFieldValue={setFieldValue}
-                name="banner"
-                values={values.banner}
-                uploading={uploading}
-                uploadProgress={uploadProgress}
-              />
-            </div>
-          </div>
-
-          <div className="border-t pt-8 space-y-6 ">
-            <h5 className="text-2xl font-lexed font-medium text-primaryColor">
-              Your details
-            </h5>
-
-            <div className="w-[50%]">
-              <label
-                htmlFor="name"
-                className="block text-base font-medium text-primaryColor font-lexed"
-              >
-                Your Name
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="title"
-                  id="title"
-                  placeholder="John Doe"
-                  onChange={handleChange}
-                  className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-white"
-                />
-                {errors.title && touched.title ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.title}</p>
-                ) : null}
-              </div>
-            </div>
-{/* 
+          {/* 
             <div className="w-[50%]">
               <label
                 htmlFor="contact"
@@ -597,17 +576,12 @@ const UploadForm = () => {
               </div>
             </div> */}
 
-            <div className="pt-5 flex justify-center">
-              <button
-                type="submit"
-                className="px-3 py-2 bg-activeColor text-white text-sm rounded-md"
-              >
-                Post your product
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+
+
+
+          
+        </div>
+      </form>
     </section>
   );
 };

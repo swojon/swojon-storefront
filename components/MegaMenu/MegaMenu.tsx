@@ -8,6 +8,7 @@ import "./MegaMenu.css";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import Image from "next/image";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
+import { current } from "@reduxjs/toolkit";
 
 // import categoryData from "@/data/categoryData";
 
@@ -33,21 +34,23 @@ export const getCategoryTree = (categories: any[], target: any): any[] => {
 };
 
 export default function MegaMenu() {
-  const { data, loading, error } = useListCategoriesQuery();
-  console.log("mega", data);
-  const [currentCategory, setCurrentCategory] = useState(null);
+  const { data, loading, error } = useListCategoriesQuery(); 
+  const categories = data?.listCategories.items;
+  const parentCategories = categories?.filter((item) => item.parentCategory == null)
+  
+  const [currentCategory, setCurrentCategory] = useState<any>(null);
+  const [subCategories, setSubCategories] = useState<any>([])
 
   const handleMouseEnter = (category: any) => {
+    console.log("category hovered", category)
     setCurrentCategory(category);
   };
-
-  const categories = data?.listCategories.items;
-
-  const hoveredData =
-    currentCategory &&
-    getCategoryTree(categories, currentCategory).map((item) => item);
-
-  console.log("Clicked Item");
+  
+  if (currentCategory === null && !!parentCategories){
+    console.log("Setting initial selected categtory")
+    setCurrentCategory(parentCategories[0])
+  }
+  console.log("sub categories", subCategories)
   return (
     <>
       <Popover className=" z-20">
@@ -84,12 +87,10 @@ export default function MegaMenu() {
                 <div className=" relative py-3 w-full border bg-white h-[80%] flex custom-container gap-4">
                   {loading && <p> Loading </p>}
                   {error && <p> error </p>}
-
+                  
+                  {/* First Panel Start Here */}
                   <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
-                    {data &&
-                      categories
-                        ?.filter((item) => item.parentCategory == null)
-                        .map((item) => (
+                    {parentCategories?.map((item) => (
                           <div
                             className="flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer "
                             key={item.id}
@@ -98,27 +99,36 @@ export default function MegaMenu() {
                             <h2
                               className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate  `}
                             >
-                              {item?.name}
+                              {item.name}
                             </h2>
                             <MdKeyboardArrowRight className="text-sm text-gray-400" />
                           </div>
-                        ))}
+                    ))}
                   </div>
+                    
+                    {/* Second Panel Start Here.  */}
                   <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[35%] pe-3  sticky meg-menu-items ">
                     <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
                       <BsFillGrid3X3GapFill className="me-2" /> Shop by category
                     </h6>
 
-                    {hoveredData && (
+                    {currentCategory && (
                       <div className="flex flex-wrap gap-5 py-4">
-                        <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                          <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                        </div>
-                        {hoveredData.map((item) => (
+                         {/* View All card */}
+                         <div  className="w-20   ">
+                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                              <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
+                            </div>
+                            <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                              <span className="truncate pr-1">View All</span>
+                            </span>
+                          </div>
+
+                        { categories!.filter(item => item.parentCategory?.id === currentCategory.id).map((item: any) => (
                           <div key={item.id} className="w-20   ">
                             <div className="w-full h-20  relative hover:scale-105">
                               <Image
-                                src={item.banner}
+                                src={item.banner?? ""}
                                 height={300}
                                 width={300}
                                 alt="banner"
@@ -132,167 +142,57 @@ export default function MegaMenu() {
                             </span>
                           </div>
                         ))}
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
                       </div>
                     )}
                   </div>
+
+                  {/* Third Panel Start Here */}
                   <div className=" top-0  h-full overflow-y-auto  w-[45%] pe-3  sticky small-scroll ">
-                    <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
-                      <BsFillGrid3X3GapFill className="me-2" /> Shop by category
-                    </h6>
+                    
+                    {currentCategory && categories!.filter(item => item.parentCategory?.id === currentCategory.id).map((item: any) => (
+                          <Fragment key={item.id}>
+                            
+                              <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
+                                <BsFillGrid3X3GapFill className="me-2" /> {item.name}
+                              </h6> 
+                              <div className="flex flex-wrap gap-5 py-4">
+                             
+                                {/* View All card */}
+                                <div  className="w-20   ">
+                                    <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                                      <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
+                                    </div>
+                                    <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                      <span className="truncate pr-1">View All</span>
+                                    </span>
+                                  </div>
 
-                    {hoveredData && (
-                      <div className="flex flex-wrap gap-5 py-4">
-                        <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                          <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                        </div>
-                        {hoveredData.map((item) => (
-                          <div key={item.id} className="w-20   ">
-                            <div className="w-full h-20  relative hover:scale-105">
-                              <Image
-                                src={item.banner}
-                                height={300}
-                                width={300}
-                                alt="banner"
-                                className="w-full h-full object-cover rounded-full "
-                              />{" "}
-                              <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                            </div>
+                                { categories!.filter(cat => cat.parentCategory?.id === item.id).map((subItem: any) => (
+                                  <div  className="w-20   " key={subItem.id}>
+                                    <div className="w-full h-20  relative hover:scale-105">
+                                      <Image
+                                        src={subItem.banner?? ""}
+                                        height={300}
+                                        width={300}
+                                        alt="banner"
+                                        className="w-full h-full object-cover rounded-full "
+                                      />{" "}
+                                      <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
+                                    </div>
 
-                            <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                              <span className="truncate pr-1">{item.name}</span>
-                            </span>
-                          </div>
+                                    <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                      <span className="truncate pr-1">{subItem.name}</span>
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                          </Fragment>
+                          
+                    
                         ))}
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                        <div className="w-20   ">
-                          <div className="w-full h-20  relative hover:scale-105">
-                            <Image
-                              src="/assets/pro2.png"
-                              height={300}
-                              width={300}
-                              alt="banner"
-                              className="w-full h-full object-cover rounded-full "
-                            />{" "}
-                            <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                          </div>
-
-                          <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                            <span className="truncate pr-1">Furniture</span>
-                          </span>
-                        </div>
-                      </div>
-                    )}
+                       
+                     
+                    
                   </div>
                 </div>
               </Popover.Panel>
