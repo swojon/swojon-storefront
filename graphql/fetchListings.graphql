@@ -2,35 +2,40 @@ query ListListings {
   listListings {
     items{
         brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
       id
-      name
-    }
-    category {
-      id
-      name
-      slug
-    }
-    communities {
-      id
-      name
-    }
-    dateCreated
-    description
-    id
-    isApproved
-    isFeatured
-    isLive
-    isSold
-    location {
-      id
-      name
-    }
-    price
-    title
-    user {
-      email
-      id
-    }
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media{
+        url
+        isPrimary
+      }
+      
     }
    
   }

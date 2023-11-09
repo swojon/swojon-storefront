@@ -42,6 +42,10 @@ export const CreateListingDocument = gql`
       email
       id
     }
+    media {
+      url
+      isPrimary
+    }
   }
 }
     `;
@@ -411,6 +415,10 @@ export const ListListingsDocument = gql`
       user {
         email
         id
+      }
+      media {
+        url
+        isPrimary
       }
     }
   }
@@ -789,6 +797,7 @@ export type Listing = {
   latitude?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Location>;
   longitude?: Maybe<Scalars['String']['output']>;
+  media: Array<ListingMedia>;
   price: Scalars['Float']['output'];
   title: Scalars['String']['output'];
   user: User;
@@ -810,6 +819,12 @@ export type ListingCreateDto = {
   mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   price: Scalars['Float']['input'];
   title: Scalars['String']['input'];
+};
+
+export type ListingMedia = {
+  __typename?: 'ListingMedia';
+  isPrimary: Scalars['Boolean']['output'];
+  url: Scalars['String']['output'];
 };
 
 export type ListingUpdateDto = {
@@ -1569,7 +1584,7 @@ export type CreateListingMutationVariables = Exact<{
 }>;
 
 
-export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number } } };
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
 
 export type ListCategoriesQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
@@ -1624,7 +1639,7 @@ export type ListBrandsQuery = { __typename?: 'Query', listBrands: { __typename?:
 export type ListListingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number } }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 

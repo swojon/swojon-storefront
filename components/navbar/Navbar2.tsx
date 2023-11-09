@@ -121,19 +121,18 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 )}
 
-                <Link href="/post-product">
-                  {" "}
+                <Link href="/upload-product">
                   <button
-                    onClick={() =>
-                      dispatch(
-                        setModalOpen({
-                          title: "this is a modal",
-                          body: "sellProduct",
-                        })
-                      )
-                    }
+                    // onClick={() =>
+                    //   dispatch(
+                    //     setModalOpen({
+                    //       title: "this is a modal",
+                    //       body: "sellProduct",
+                    //     })
+                    //   )
+                    // }
                     className="border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
-                  >
+                  > 
                     Sell Product
                   </button>
                 </Link>

@@ -16,7 +16,7 @@ const ProductCard = ({ card }: { card: any }) => {
       <div className="lg:h-[210px] md:h-[170px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Link href={`/products/${card.id}`}>
           <Image
-            src={"/assets/pro1.png"}
+            src={card.media.length > 0 ? card.media[0].url : "/assets/pro1.png"}
             width={500}
             height={500}
             alt="product banner"
@@ -34,12 +34,12 @@ const ProductCard = ({ card }: { card: any }) => {
             {card.title}
           </h6>
         </Link>
-        <span className="text-activeColor md:text-base text-sm">TK, 7000</span>
+        <span className="text-activeColor md:text-base text-sm">TK, {card.price}</span>
       </div>
 
       <div className="flex items-center  text-secondColor">
         <Image src={time} alt="time icon" />
-        <span className="text-xs font-lexed ps-1">10 mnt ago</span>
+        <span className="text-xs font-lexed ps-1">{card.dateCreated}</span>
       </div>
 
       <div className="flex items-center md:space-x-2 space-x-1 md:py-4 py-2">
@@ -52,7 +52,7 @@ const ProductCard = ({ card }: { card: any }) => {
         </div>
         <span className="text-xs text-secondColor ">Ad by</span>
         <span className="text-primaryColor md:text-base text-xs font-medium">
-          Ibrahim K. Sakib
+          {card.user.username ?? card.user.email}
         </span>
       </div>
 
@@ -63,7 +63,7 @@ const ProductCard = ({ card }: { card: any }) => {
               setModalOpen({
                 title: "this is a modal",
                 body: "sendOfferModal",
-                props: { productId: card.id },
+                props: { productId: card.id, product: card },
               })
             )
           }
@@ -77,6 +77,7 @@ const ProductCard = ({ card }: { card: any }) => {
               setModalOpen({
                 title: "this is a modal",
                 body: "chatModal",
+                props: { productId: card.id, product: card },
               })
             )
           }

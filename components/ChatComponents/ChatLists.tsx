@@ -64,7 +64,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
         {data?.listChatRooms.items &&
           data.listChatRooms.items.map((chatroom) => (
             <div
-              onClick={(e) => dispatch(setActiveChatRoom(chatroom.id))}
+              onClick={(e) => dispatch(setActiveChatRoom(chatroom))}
               key={`chatroom${chatroom.id}`}
               className={`xl:p-2 lg:p-1 p-2 w-full flex items-center  rounded-md border  hover:border-activeColor cursor-pointer ${
                 activeChat === chatroom.id

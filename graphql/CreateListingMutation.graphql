@@ -31,6 +31,10 @@ mutation CreateListing($listingData: ListingCreateDTO!) {
       email
       id
     }
+    media{
+      url
+      isPrimary
+    }
 
   }
 }

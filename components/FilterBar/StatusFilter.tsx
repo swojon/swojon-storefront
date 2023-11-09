@@ -41,7 +41,7 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
   useEffect(()=>{
       const params = new URLSearchParams(searchParams.toString())
       params.set("condition", conditions.join(','))
-      router.push(pathname + '?' + params.toString())
+      // router.push(pathname + '?' + params.toString())
 
   }, [conditions])
   console.log("applied conditions", conditions)

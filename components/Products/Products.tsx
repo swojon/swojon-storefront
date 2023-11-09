@@ -4,16 +4,6 @@ import ProductCard from "@/components/Products/ProductCard";
 import ProductTabs from "@/components/Products/ProductTabs";
 import { useListListingsQuery } from "@/apollograph/generated";
 
-const card = [
-  { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
-  { id: 14, banner: "/assets/pro2.png", title: "partex delux bed" },
-  { id: 123, banner: "/assets/pro3.png", title: "partex delux bed" },
-  { id: 12235, banner: "/assets/pro4.png", title: "partex delux bed" },
-  { id: 146, banner: "/assets/pro5.png", title: "partex delux bed" },
-  { id: 123, banner: "/assets/pro6.png", title: "partex delux bed" },
-  { id: 124388, banner: "/assets/pro1.png", title: "partex delux bed" },
-  { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
-];
 
 const category = [
   {

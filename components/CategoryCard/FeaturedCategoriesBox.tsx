@@ -4,27 +4,6 @@ import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import CategoryCardLoader from "../Loader/CategoryCardLoader";
 
-const card = [
-  { id: 13, banner: "/assets/cat1.png", title: "Furniture" },
-  { id: 14, banner: "/assets/cat2.png", title: "Electronics" },
-  {
-    id: 123,
-    banner: "/assets/cat3.png",
-    title: "Gym Accessories",
-  },
-  {
-    id: 9712235,
-    banner: "/assets/cat4.png",
-    title: "instructive",
-  },
-  { id: 99146, banner: "/assets/cat5.png", title: "Fashion" },
-  {
-    id: 3465123,
-    banner: "/assets/cat6.png",
-    title: "Home Alliances",
-  },
-];
-
 const FeaturedCategoriesBox = () => {
   const { data, loading, error, networkStatus } = useListCategoriesQuery({
     variables: {
