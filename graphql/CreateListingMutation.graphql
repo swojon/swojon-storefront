@@ -35,6 +35,7 @@ mutation CreateListing($listingData: ListingCreateDTO!) {
       url
       isPrimary
     }
-
+    favoriteCount
+    favoriteStatus
   }
 }

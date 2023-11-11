@@ -35,6 +35,8 @@ query ListListings($filters: ListingFilterInput) {
         url
         isPrimary
       }
+      favoriteCount
+      favoriteStatus
       
     }
    
