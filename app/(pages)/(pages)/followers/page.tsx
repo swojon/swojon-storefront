@@ -12,7 +12,7 @@ const Followers = () => {
   return (
     <section>
       <div className="border-b px-5 py-3.5">
-        <h6 className="text-activeColor text-2xl font-lexed font-medium">
+        <h6 className="text-primaryColor text-2xl font-lexed font-medium">
           My Follower Lists
         </h6>
       </div>

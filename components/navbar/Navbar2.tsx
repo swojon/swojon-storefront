@@ -39,7 +39,7 @@ export default function Navbar2({ border }: { border: any }) {
     >
       {({ open }) => (
         <>
-          <div className="mx-auto    sm:px-[3vw] lg:px-[5vw]">
+          <div className="mx-auto    custom-container">
             <div className="flex h-16 justify-between items-center">
               <div className="flex px-2 lg:px-0">
                 <Link
@@ -132,7 +132,7 @@ export default function Navbar2({ border }: { border: any }) {
                     //   )
                     // }
                     className="border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
-                  > 
+                  >
                     Sell Product
                   </button>
                 </Link>

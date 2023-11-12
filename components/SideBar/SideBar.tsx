@@ -44,10 +44,10 @@ const SideBar = () => {
           <Link
             href={item.url}
             key={item.id}
-            className={`flex items-center  py-2 pl-3 pr-4 text-base font-medium  hover:border-l-4 hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor ${
+            className={`flex items-center  py-2 pl-3 pr-4 text-base font-medium  hover:border-l-4   ${
               pathname === item.url
                 ? "border-l-4 border-activeColor bg-[#e3e6ee] text-activeColor"
-                : "border-l-4 border-transparent text-secondColor"
+                : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
             }`}
           >
             <span className="pe-3.5">{item.icon}</span>{" "}
