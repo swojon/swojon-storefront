@@ -32,8 +32,11 @@ a {
 }
 
 .custom-container {
-  padding-left: 5vw;
-  padding-right: 5vw;
+  /* padding-left: 5vw;
+  padding-right: 5vw; */
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .padding-left {
@@ -133,7 +136,7 @@ a {
 
 /* ==============responsive============ */
 
-@media (min-width: 1600px) {
+/* @media (min-width: 1600px) {
   .custom-container {
     padding-left: 10%;
     padding-right: 10%;
@@ -141,7 +144,13 @@ a {
 }
 @media (min-width: 2200px) {
   .custom-container {
-    padding-left: 13%;
-    padding-right: 13%;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 }
+@media (min-width: 2600px) {
+  .custom-container {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+} */
