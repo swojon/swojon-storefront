@@ -73,11 +73,11 @@ const Footer = () => {
 
         <div className="col-span-4 ">
           <div className="grid md:grid-cols-4 grid-cols-2 gap-2">
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Company
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
                   <Link href="">Community</Link>
                 </li>
@@ -98,11 +98,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Shop
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
                   <Link href="">Fashion</Link>
                 </li>
@@ -125,11 +125,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5 ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Help
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
                   <Link href="/FAQ">FAQ</Link>
                 </li>
@@ -148,11 +148,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Extra Link
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
                   <Link href="/about-us">About us</Link>
                 </li>

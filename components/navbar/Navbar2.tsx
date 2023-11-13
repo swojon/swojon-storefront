@@ -196,13 +196,13 @@ export default function Navbar2({ border }: { border: any }) {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              href="#"
+                              href="/profile"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-200" : "",
                                 "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
-                              My Account
+                              My Profile
                             </Link>
                           )}
                         </Menu.Item>
@@ -211,7 +211,7 @@ export default function Navbar2({ border }: { border: any }) {
                             <Link
                               href="#"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-200" : "",
                                 "block px-4 py-1.5 text-sm text-gray-700"
                               )}
                             >
@@ -224,7 +224,7 @@ export default function Navbar2({ border }: { border: any }) {
                             <Link
                               href="#"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-200" : "",
                                 "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
@@ -241,9 +241,9 @@ export default function Navbar2({ border }: { border: any }) {
                           {({ active }) => (
                             <Link
                               onClick={handleSignOut}
-                              href="#"
+                              href="/help-center"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-200" : "",
                                 "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
@@ -256,9 +256,9 @@ export default function Navbar2({ border }: { border: any }) {
                           {({ active }) => (
                             <Link
                               onClick={handleSignOut}
-                              href="#"
+                              href="/FAQ"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-200" : "",
                                 "block px-4 py-1 text-sm text-gray-700"
                               )}
                             >
