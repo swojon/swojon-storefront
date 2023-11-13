@@ -87,149 +87,152 @@ export default function MegaMenu() {
               leaveTo="opacity-0 -translate-y-1"
             >
               <Popover.Panel className="absolute meg-menu w-[100vw]   top-[75px] inline  z-30 transform shadow-lg   text-primaryColor rounded left-0  ">
-                <div className=" relative py-3 w-full border bg-white h-[80%] flex custom-container gap-4">
+                <div className="  py-3 w-full bg-white h-[80%] ">
                   {loading && <p> Loading </p>}
                   {error && <p> error </p>}
 
-                  {/* First Panel Start Here */}
-                  <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
-                    {parentCategories?.map((item) => (
-                      <div
-                        className="flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer "
-                        key={item.id}
-                        onMouseEnter={() => handleMouseEnter(item)}
-                      >
-                        <h2
-                          className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate  `}
+                  <div className="custom-container relative flex  gap-4 h-full">
+                    {/* First Panel Start Here */}
+                    <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
+                      {parentCategories?.map((item) => (
+                        <div
+                          className="flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer "
+                          key={item.id}
+                          onMouseEnter={() => handleMouseEnter(item)}
                         >
-                          {item.name}
-                        </h2>
-                        <MdKeyboardArrowRight className="text-sm text-gray-400" />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Second Panel Start Here.  */}
-                  <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[35%] pe-3  sticky meg-menu-items ">
-                    <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
-                      <BsFillGrid3X3GapFill className="me-2" /> Shop by category
-                    </h6>
-
-                    {currentCategory && (
-                      <div className="flex flex-wrap gap-5 py-4">
-                        {/* View All card */}
-                        <div className="w-20   ">
-                          <Link
-                            href={`/categories/${currentCategory.slug}`}
-                            className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                          <h2
+                            className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate  `}
                           >
-                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
-                              <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                            </div>
-                            <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                              <span className="truncate pr-1">View All</span>
-                            </span>
-                          </Link>
+                            {item.name}
+                          </h2>
+                          <MdKeyboardArrowRight className="text-sm text-gray-400" />
                         </div>
+                      ))}
+                    </div>
 
-                        {categories!
+                    {/* Second Panel Start Here.  */}
+                    <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[35%] pe-3  sticky meg-menu-items ">
+                      <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
+                        <BsFillGrid3X3GapFill className="me-2" /> Shop by
+                        category
+                      </h6>
+
+                      {currentCategory && (
+                        <div className="flex flex-wrap gap-5 py-4">
+                          {/* View All card */}
+                          <div className="w-20   ">
+                            <Link
+                              href={`/categories/${currentCategory.slug}`}
+                              className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                            >
+                              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                                <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
+                              </div>
+                              <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                <span className="truncate pr-1">View All</span>
+                              </span>
+                            </Link>
+                          </div>
+
+                          {categories!
+                            .filter(
+                              (item) =>
+                                item.parentCategory?.id === currentCategory.id
+                            )
+                            .map((item: any) => (
+                              <div key={item.id} className="w-20   ">
+                                <Link
+                                  href={`/categories/${item.slug}`}
+                                  className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                                >
+                                  <div className="w-full h-20  relative hover:scale-105">
+                                    <Image
+                                      src={item.banner ?? ""}
+                                      height={300}
+                                      width={300}
+                                      alt="banner"
+                                      className="w-full h-full object-cover rounded-full "
+                                    />{" "}
+                                    <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
+                                  </div>
+
+                                  <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                    <span className="truncate pr-1">
+                                      {item.name}
+                                    </span>
+                                  </span>
+                                </Link>
+                              </div>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Third Panel Start Here */}
+                    <div className=" top-0  h-full overflow-y-auto  w-[45%] pe-3  sticky small-scroll ">
+                      {currentCategory &&
+                        categories!
                           .filter(
                             (item) =>
                               item.parentCategory?.id === currentCategory.id
                           )
                           .map((item: any) => (
-                            <div key={item.id} className="w-20   ">
-                              <Link
-                                href={`/categories/${item.slug}`}
-                                className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-                              >
-                                <div className="w-full h-20  relative hover:scale-105">
-                                  <Image
-                                    src={item.banner ?? ""}
-                                    height={300}
-                                    width={300}
-                                    alt="banner"
-                                    className="w-full h-full object-cover rounded-full "
-                                  />{" "}
-                                  <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
+                            <Fragment key={item.id}>
+                              <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
+                                <BsFillGrid3X3GapFill className="me-2" />{" "}
+                                {item.name}
+                              </h6>
+                              <div className="flex flex-wrap gap-5 py-4">
+                                {/* View All card */}
+                                <div className="w-20   ">
+                                  <Link
+                                    href={`/categories/${item.slug}`}
+                                    className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                                  >
+                                    <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                                      <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
+                                    </div>
+                                    <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                      <span className="truncate pr-1">
+                                        View All
+                                      </span>
+                                    </span>
+                                  </Link>
                                 </div>
 
-                                <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                                  <span className="truncate pr-1">
-                                    {item.name}
-                                  </span>
-                                </span>
-                              </Link>
-                            </div>
-                          ))}
-                      </div>
-                    )}
-                  </div>
+                                {categories!
+                                  .filter(
+                                    (cat) => cat.parentCategory?.id === item.id
+                                  )
+                                  .map((subItem: any) => (
+                                    <div className="w-20   " key={subItem.id}>
+                                      <Link
+                                        href={`/categories/${subItem.slug}`}
+                                        className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+                                      >
+                                        <div className="w-full h-20  relative hover:scale-105">
+                                          <Image
+                                            src={subItem.banner ?? ""}
+                                            height={300}
+                                            width={300}
+                                            alt="banner"
+                                            className="w-full h-full object-cover rounded-full "
+                                          />{" "}
+                                          <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
+                                        </div>
 
-                  {/* Third Panel Start Here */}
-                  <div className=" top-0  h-full overflow-y-auto  w-[45%] pe-3  sticky small-scroll ">
-                    {currentCategory &&
-                      categories!
-                        .filter(
-                          (item) =>
-                            item.parentCategory?.id === currentCategory.id
-                        )
-                        .map((item: any) => (
-                          <Fragment key={item.id}>
-                            <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
-                              <BsFillGrid3X3GapFill className="me-2" />{" "}
-                              {item.name}
-                            </h6>
-                            <div className="flex flex-wrap gap-5 py-4">
-                              {/* View All card */}
-                              <div className="w-20   ">
-                                <Link
-                                  href={`/categories/${item.slug}`}
-                                  className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-                                >
-                                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
-                                    <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                                  </div>
-                                  <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                                    <span className="truncate pr-1">
-                                      View All
-                                    </span>
-                                  </span>
-                                </Link>
-                              </div>
-
-                              {categories!
-                                .filter(
-                                  (cat) => cat.parentCategory?.id === item.id
-                                )
-                                .map((subItem: any) => (
-                                  <div className="w-20   " key={subItem.id}>
-                                    <Link
-                                      href={`/categories/${subItem.slug}`}
-                                      className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-                                    >
-                                      <div className="w-full h-20  relative hover:scale-105">
-                                        <Image
-                                          src={subItem.banner ?? ""}
-                                          height={300}
-                                          width={300}
-                                          alt="banner"
-                                          className="w-full h-full object-cover rounded-full "
-                                        />{" "}
-                                        <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
-                                      </div>
-
-                                      <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
-                                        <span className="truncate pr-1">
-                                          {subItem.name}
+                                        <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                          <span className="truncate pr-1">
+                                            {subItem.name}
+                                          </span>
                                         </span>
-                                      </span>
-                                    </Link>
-                                  </div>
-                                ))}
-                            </div>
-                          </Fragment>
-                        ))}
+                                      </Link>
+                                    </div>
+                                  ))}
+                              </div>
+                            </Fragment>
+                          ))}
+                    </div>
                   </div>
                 </div>
               </Popover.Panel>

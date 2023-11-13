@@ -78,10 +78,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
   };
   return (
     <div className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div
-        className="xl:h-[
-215px] lg:h-[210px] md:h-[170px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md"
-      >
+      <div className=" lg:h-[215px] md:h-[200px] h-[190px]  relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Link href={`/products/${listing.id}`}>
           <Image
             src={
@@ -123,7 +120,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         </span>
       </div>
 
-      <div className="flex items-center  text-secondColor">
+      <div className="flex items-center  text-secondColor pt-2">
         <Image src={time} alt="time icon" />
         <span className="text-xs font-lexed ps-1">
           {timeAgo(listing.dateCreated)}

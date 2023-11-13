@@ -145,7 +145,6 @@ const Categories = () => {
 
   return (
     <main className="custom-container relative">
-      
       <div className="mt-10 text-center font-lexed space-y-3">
         <div className="flex items-center space-x-1 justify-center text-secondColor">
           <h1 className="text-base">Home</h1>
@@ -162,7 +161,7 @@ const Categories = () => {
           <CategoryCardLoader />
         </div>
       )}
-      <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-4 pt-10">
+      <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-5 pt-10">
         {data &&
           data?.listCategories.items.map((category) => (
             <CategoryCard2 item={category} key={category.id} />

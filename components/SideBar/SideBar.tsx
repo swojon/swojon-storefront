@@ -24,7 +24,7 @@ const data = [
     id: 5,
     title: "your products",
     icon: <AiOutlineInbox />,
-    url: "/your-products",
+    url: "/product-lists",
   },
   { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/settings" },
   {
@@ -38,20 +38,22 @@ const data = [
 const SideBar = () => {
   const pathname = usePathname();
   return (
-    <section className="sticky top-0 h-auto border border-t-0 rounded-md min-h-[88vh] p-5">
+    <section className="sticky top-0 h-auto  border-r rounded-md min-h-[87vh] h-full lg:p-4 md:p-1">
       <div className="space-y-1  pb-3">
         {data.map((item) => (
           <Link
             href={item.url}
             key={item.id}
-            className={`flex items-center  py-2 pl-3 pr-4 text-base font-medium  hover:border-l-4   ${
+            className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
               pathname === item.url
                 ? "border-l-4 border-activeColor bg-[#e3e6ee] text-activeColor"
                 : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
             }`}
           >
-            <span className="pe-3.5">{item.icon}</span>{" "}
-            <span className="capitalize">{item.title}</span>
+            <span className="lg:pe-3.5 lg:pb-0 pb-1">{item.icon}</span>{" "}
+            <span className="capitalize text-[10px] md:text-xs lg:text-base inline-block leading-snug">
+              {item.title}
+            </span>
           </Link>
         ))}
       </div>

@@ -7,9 +7,9 @@ import appStoreImg from "@/public/assets/appStore.png";
 
 const ActionBanner2 = () => {
   return (
-    <section className="xl:h-[450px] lg:h-[410px] md:h-[300px]  h-auto   bg-[#fff8df] w-full  relative custom-container">
+    <section className="xl:h-[450px] lg:h-[410px] md:h-[300px]  h-auto   bg-[#fff8df] w-full  relative ">
       <div className="absolute clip-path-banner left-0 top-0 w-full h-full z-10"></div>
-      <div className="flex md:flex-row flex-col w-full h-full  ">
+      <div className="flex md:flex-row flex-col w-full h-full custom-container ">
         <div className="md:flex-1  pt-[3vh] md:pt-0 flex items-center z-10 ">
           <div className=" lg:space-y-3 space-y-2">
             <h4 className="lg:text-4xl md:text-2xl text-xl font-medium font-lexed text-primaryColor">

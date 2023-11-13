@@ -10,12 +10,16 @@ interface Iprops {
 function layout({ children }: Iprops) {
   return (
     <>
-      <section className="flex">
-        <div className="w-[23%] md:block hidden">
-          <SideBar />
-        </div>
+      <section className=" bg-[#f5f5f5]">
+        <div className=" custom-container ">
+          <div className="flex bg-white">
+            <div className="lg:w-[22%] ">
+              <SideBar />
+            </div>
 
-        <div className="lg:w-[77%] w-full">{children}</div>
+            <div className="lg:w-[78%] w-full">{children}</div>
+          </div>
+        </div>
       </section>
     </>
   );

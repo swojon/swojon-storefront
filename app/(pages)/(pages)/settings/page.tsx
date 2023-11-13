@@ -7,16 +7,16 @@ const Settings = () => {
   const [editInformation, setEditInformation] = useState("edit");
   return (
     <section>
-      <div className="border-b px-5 py-3.5">
-        <h6 className="text-primaryColor text-2xl font-lexed font-medium">
+      <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           Settings
         </h6>
       </div>
-      <div className="grid grid-cols-2 py-8 px-5">
-        <div className=" w-[80%]">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-8 px-5">
+        <div className=" lg:w-[80%] w-full">
           {editInformation === "edit" ? <SettingsInfo /> : <SettingsEditInfo />}
         </div>
-        <div className="flex justify-end items-start gap-3">
+        <div className="flex md:justify-end justify-center items-start gap-3">
           {editInformation === "update" ? (
             <>
               <button

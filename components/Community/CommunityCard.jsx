@@ -9,7 +9,7 @@ import Link from "next/link";
 const CommunityCard = ({ card }) => {
   return (
     <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[210px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
+      <div className="md:h-[215px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Image
           src={card.banner}
           alt="product banner"
@@ -17,25 +17,25 @@ const CommunityCard = ({ card }) => {
         />
       </div>
 
-      <div className="md:pt-3 pt-1  font-lexed ">
+      <div className="md:pt-3   font-lexed ">
         <h6 className="md:text-lg text-base font-semibold text-primaryColor capitalize">
           {card.title}
         </h6>
       </div>
 
-      <div className="flex items-center pt-1 text-secondColor">
+      <div className="flex items-center  text-secondColor pt-2.5">
         <span className="md:text-sm text-xs font-lexed ">2.8K members</span>
         <span className="md:text-sm text-xs font-lexed  flex items-center">
           <BsDot className="text-lg" /> 8 Post uploaded
         </span>
       </div>
 
-      <div className="flex items-center pt-1 text-secondColor">
+      <div className="flex items-center text-secondColor pt-1.5">
         <TiLocation className="text-bg text-activeColor pe-1" />{" "}
         <span className="text-sm">Fatehpur, Hathazari</span>
       </div>
 
-      <div className="flex items-center space-x-1 md:py-4 py-2">
+      <div className="flex items-center space-x-1 md:py-4.5 py-2">
         <div class="avatars px-2 ">
           <Link href="#" class="avatars__item">
             <Image class="avatar" src={user} alt="" width={30} height={30} />
