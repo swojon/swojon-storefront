@@ -56,7 +56,7 @@ export default function MegaMenu() {
   console.log("sub categories", subCategories);
   return (
     <>
-      <Popover className=" z-[1000]  ">
+      <Popover className=" z-[995]  ">
         {({ open }) => (
           <>
             <div className="relative z-10 ">
