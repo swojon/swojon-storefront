@@ -1,7 +1,18 @@
+"use client"
+import { useGetUserByIdQuery } from "@/apollograph/generated";
 import Image from "next/image";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const authState = useSelector((state: any ) => state.auth)
+  const {data, loading, error} = useGetUserByIdQuery({
+    variables: {
+      userId: authState.user.id
+    },
+    skip: !authState.user.id
+  })
+  const user = data?.getUserById;
   return (
     <section className="">
       <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
@@ -22,10 +33,10 @@ const Profile = () => {
               />
             </div>
             <span className="text-primaryColor font-lexed lg:text-lg text-base  block pt-4">
-              Ibrahim K. Sakib
+              {`${user?.profile?.firstName} ${user?.profile?.lastName} `}
             </span>
             <span className="text-secondColor  lg:text-base text-sm block">
-              example@gmail.com
+              {authState.user.email}
             </span>
           </div>
           <button className=" md:px-3 px-2 md:py-2 py-1 md:text-sm text-xs bg-activeColor text-white font-lexed rounded-md">
