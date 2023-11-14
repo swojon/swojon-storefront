@@ -620,6 +620,83 @@ export function useListLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type ListLocationsQueryHookResult = ReturnType<typeof useListLocationsQuery>;
 export type ListLocationsLazyQueryHookResult = ReturnType<typeof useListLocationsLazyQuery>;
 export type ListLocationsQueryResult = Apollo.QueryResult<ListLocationsQuery, ListLocationsQueryVariables>;
+export const GetUserByIdDocument = gql`
+    query GetUserById($userId: Float!) {
+  getUserById(userId: $userId) {
+    createdAt
+    communities {
+      id
+      description
+      banner
+      name
+      slug
+    }
+    email
+    facebookId
+    followerCount
+    followingCount
+    id
+    isEmailVerified
+    isStaff
+    listingCount
+    isApproved
+    pointBalance
+    profile {
+      address
+      avatar
+      country
+      city
+      avatarThumbnail
+      facebookHandle
+      googleHandle
+      id
+      firstName
+      instagramHandle
+      isPhoneNumberVerified
+      lastName
+      linkedinHandle
+      phoneNumber
+      twitterHandle
+      zipCode
+      state
+    }
+    roles {
+      id
+      name
+      description
+    }
+    username
+  }
+}
+    `;
+
+/**
+ * __useGetUserByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByIdQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -1694,7 +1771,7 @@ export type TokenUserData = {
   __typename?: 'TokenUserData';
   email: Scalars['String']['output'];
   expiresIn: Scalars['Float']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
@@ -1737,7 +1814,7 @@ export type UpdateUserDto = {
 export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
@@ -1752,7 +1829,7 @@ export type UserWithMeta = {
   communities?: Maybe<Array<Community>>;
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   followerCount?: Maybe<Scalars['Float']['output']>;
   followingCount?: Maybe<Scalars['Float']['output']>;
   id: Scalars['Float']['output'];
@@ -1849,6 +1926,13 @@ export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null, parentLocation?: { __typename?: 'Location', slug?: string | null, name: string, id: number } | null }> } };
+
+export type GetUserByIdQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, firstName?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, lastName?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];

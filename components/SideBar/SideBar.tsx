@@ -13,32 +13,32 @@ import {
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
-  {
-    id: 2,
-    title: "my points",
-    icon: <HiOutlineCurrencyDollar />,
-    url: "/points",
-  },
+  // {
+  //   id: 2,
+  //   title: "my points",
+  //   icon: <HiOutlineCurrencyDollar />,
+  //   url: "/points",
+  // },
   { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/wishlists" },
   {
     id: 5,
-    title: "your products",
+    title: "My Ads",
     icon: <AiOutlineInbox />,
-    url: "/product-lists",
+    url: "/my-ads",
   },
   { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/settings" },
-  {
-    id: 8,
-    title: "login & security",
-    icon: <HiLockClosed />,
-    url: "/login-security",
-  },
+  // {
+  //   id: 8,
+  //   title: "login & security",
+  //   icon: <HiLockClosed />,
+  //   url: "/login-security",
+  // },
 ];
 
 const SideBar = () => {
   const pathname = usePathname();
   return (
-    <section className="sticky top-0 h-auto  border-r rounded-md min-h-[87vh] h-full lg:p-4 md:p-1">
+    <section className="sticky top-0  border-r rounded-md min-h-[87vh] h-full lg:p-4 md:p-1">
       <div className="space-y-1  pb-3">
         {data.map((item) => (
           <Link

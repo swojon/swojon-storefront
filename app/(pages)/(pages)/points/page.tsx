@@ -72,7 +72,7 @@ const MyPoints = () => {
             </button>
           </div>
           <div className="flex md:justify-end justify-start items-start gap-3">
-            <button>
+          
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button className="inline-flex w-full justify-center rounded-md border border-activeColor bg-white md:px-3 px-1.5 md:py-2 py-1 md:text-sm text-xs font-medium text-activeColor shadow-sm  focus:outline-none focus:ring-2 focus:ring-activeColor focus:ring-offset-2 items-center ">
@@ -140,7 +140,7 @@ const MyPoints = () => {
                   </Menu.Items>
                 </Transition>
               </Menu>
-            </button>
+            
             <button className="bg-activeColor md:px-3 px-1.5 md:py-2 py-1 md:text-sm text-xs text-white rounded-md border border-activeColor flex items-center">
               <AiOutlinePlus className="me-1 text-lg" /> Buy my points
             </button>
@@ -194,9 +194,9 @@ const MyPoints = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                <Fragment>
+             
                   <PointRow />
-                </Fragment>
+              
               </tbody>
             </table>
           </div>
