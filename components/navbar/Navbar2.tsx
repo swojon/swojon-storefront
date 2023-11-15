@@ -40,11 +40,11 @@ export default function Navbar2({ border }: { border: any }) {
       {({ open }) => (
         <>
           <div className="mx-auto    custom-container">
-            <div className="flex h-16 justify-between items-center">
+            <div className="flex h-16 justify-between gap-2 items-center">
               <div className="flex px-2 lg:px-0">
                 <Link
                   href="/"
-                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base w-32 h-9  justify-center items-center`}
+                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base lg:w-32 md:w-20 w-16 h-9   justify-center items-center`}
                 >
                   {border === "border" ? (
                     <Image
@@ -52,7 +52,7 @@ export default function Navbar2({ border }: { border: any }) {
                       width={100}
                       height={500}
                       alt="logo"
-                      className="w-full h-full"
+                      className="w-full  h-full"
                     />
                   ) : (
                     <Image
@@ -79,7 +79,7 @@ export default function Navbar2({ border }: { border: any }) {
                     All Ads
                   </Link>
                   <Link
-                    href="#"
+                    href="/community"
                     className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
                         ? "  text-primaryColor"
@@ -93,8 +93,9 @@ export default function Navbar2({ border }: { border: any }) {
               <div className={` w-full  lg:w-56 xl:w-[380px] `}>
                 <SearchField />
               </div>
-
-              <div className="flex items-center lg:hidden">
+                
+                {/* mobile hamburger button */}
+              <div className="flex items-center ">
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
                   className="inline-flex items-center justify-center rounded-md p-2 text-activeColor  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor"

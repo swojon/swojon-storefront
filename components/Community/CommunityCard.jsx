@@ -5,11 +5,13 @@ import user2 from "@/public/profile.jpg";
 import { BsDot } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
+import { IoMdArrowDropdown } from "react-icons/io";
+import "./Community.css";
 
 const CommunityCard = ({ card }) => {
   return (
     <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[215px] h-[130px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
+      <div className="md:h-[215px] h-[225px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Image
           src={card.banner}
           alt="product banner"
@@ -17,8 +19,8 @@ const CommunityCard = ({ card }) => {
         />
       </div>
 
-      <div className="md:pt-3   font-lexed ">
-        <h6 className="md:text-lg text-base font-semibold text-primaryColor capitalize">
+      <div className="pt-3   font-lexed ">
+        <h6 className="lg:text-lg text-base  font-semibold text-primaryColor capitalize">
           {card.title}
         </h6>
       </div>
@@ -35,7 +37,7 @@ const CommunityCard = ({ card }) => {
         <span className="text-sm">Fatehpur, Hathazari</span>
       </div>
 
-      <div className="flex items-center space-x-1 md:py-4.5 py-2">
+      <div className="flex items-center space-x-1 md:py-4.5 py-3">
         <div class="avatars px-2 ">
           <Link href="#" class="avatars__item">
             <Image class="avatar" src={user} alt="" width={30} height={30} />
@@ -50,8 +52,15 @@ const CommunityCard = ({ card }) => {
         <span className="text-sm text-secondColor">120+ Members</span>
       </div>
 
-      <div className="border border-activeColor text-whiteColor bg-activeColor rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-        Join to Buy
+      <div
+        className={` flex items-center justify-center gap-2 rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 ${
+          card.joined === "Already Joined"
+            ? "bg-[#E6E6E6] text-primaryColor border border-[#E6E6E6]"
+            : "bg-activeColor text-whiteColor border border-activeColor"
+        }`}
+      >
+        <span>{card.joined}</span>
+        {card.joined === "Already Joined" ? <IoMdArrowDropdown /> : null}
       </div>
     </section>
   );

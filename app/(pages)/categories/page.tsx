@@ -157,7 +157,6 @@ const Categories = () => {
       </div>
       {loading && (
         <div className="w-full pt-10">
-          {" "}
           <CategoryCardLoader />
         </div>
       )}
