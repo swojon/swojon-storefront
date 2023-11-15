@@ -93,9 +93,9 @@ export default function Navbar2({ border }: { border: any }) {
               <div className={` w-full  lg:w-56 xl:w-[380px] `}>
                 <SearchField />
               </div>
-                
-                {/* mobile hamburger button */}
-              <div className="flex items-center ">
+
+              {/* mobile hamburger button */}
+              <div className="flex items-center lg:hidden">
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
                   className="inline-flex items-center justify-center rounded-md p-2 text-activeColor  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor"
