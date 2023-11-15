@@ -78,7 +78,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
   };
   return (
     <div className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className=" lg:h-[215px] md:h-[200px] h-[190px]  relative overflow-hidden rounded-tl-md  rounded-tr-md">
+      <div className="md:h-[215px] h-[225px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
         <Link href={`/products/${listing.id}`}>
           <Image
             src={
@@ -109,13 +109,13 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         )}
       </div>
 
-      <div className="md:pt-3 pt-1 flex flex-row  justify-between items-center font-lexed ">
+      <div className="pt-3  flex flex-row  justify-between items-center font-lexed ">
         <Link href={`/products/${listing.id}`}>
-          <h6 className="md:text-lg text-base font-semibold text-primaryColor capitalize">
+          <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize">
             {listing.title}
           </h6>
         </Link>
-        <span className="text-activeColor md:text-base text-sm">
+        <span className="text-activeColor lg:text-base md:text-sm  text-sm">
           TK, {listing.price}
         </span>
       </div>
@@ -127,7 +127,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         </span>
       </div>
 
-      <div className="flex items-center md:space-x-2 space-x-1 md:py-4 py-2">
+      <div className="flex items-center md:space-x-2 space-x-1 md:py-4 py-3">
         <div className="w-7 h-7 rounded-full">
           <Image
             src={user}
@@ -136,7 +136,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
           />
         </div>
         <span className="text-xs text-secondColor ">Ad by</span>
-        <span className="text-primaryColor md:text-base text-xs font-medium">
+        <span className="text-primaryColor lg:text-base md:text-sm text-xs font-medium">
           {listing.user.username ?? listing.user.email}
         </span>
       </div>

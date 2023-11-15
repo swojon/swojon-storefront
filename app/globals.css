@@ -136,13 +136,25 @@ a {
 
 /* ==============responsive============ */
 
-/* @media (min-width: 1600px) {
+@media (max-width: 765px) {
   .custom-container {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
 }
-@media (min-width: 2200px) {
+@media (max-width: 639px) {
+  .custom-container {
+    padding-left: 15vw;
+    padding-right: 15vw;
+  }
+}
+@media (max-width: 425px) {
+  .custom-container {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+/* @media (min-width: 2200px) {
   .custom-container {
     padding-left: 15%;
     padding-right: 15%;

@@ -7,7 +7,7 @@ const CategoryCard2 = ({ item }) => {
   return (
     <Link
       href={`/categories/${item.slug}`}
-      className=" lg:h-[270px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
+      className=" h-[270px]  rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
     >
       <Image
         src={item?.banner ? item.banner : "/assets/cat6.png"}
