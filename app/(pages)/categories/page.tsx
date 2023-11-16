@@ -114,7 +114,7 @@ const Categories = () => {
   const { data, loading, error, fetchMore, networkStatus } =
     useListCategoriesQuery({
       variables: {
-        limit: 30,
+        limit: 100,
       },
       notifyOnNetworkStatusChange: true,
       nextFetchPolicy: "cache-first",
@@ -123,7 +123,7 @@ const Categories = () => {
   const loadMore = () => {
     fetchMore({
       variables: {
-        limit: 10,
+        limit: 100,
         startingAfter:
           data?.listCategories.items[data.listCategories.items.length - 1].id,
       },
@@ -167,8 +167,8 @@ const Categories = () => {
           ))}
       </div>
       {data?.listCategories.hasMore && (
-        <div>
-          <button onClick={loadMore}>Load More</button>
+        <div className="flex items-center justify-center mt-2">
+          <button onClick={loadMore} className="border border-activeColor text-activeColor  rounded-md p-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">Load More</button>
         </div>
       )}
     </main>

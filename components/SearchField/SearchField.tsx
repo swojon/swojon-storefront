@@ -36,14 +36,6 @@ const SearchField = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // Update the filtered suggestions whenever the search term changes
-    setFilteredSuggestions(
-      searchHistory.filter((term) =>
-        term.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, searchHistory]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -83,6 +75,9 @@ const SearchField = () => {
           onClick={() => setShowSuggestions(true)}
         />
         {showSuggestions && (
+          // <OutsideClickHandler onOutsideClick={() => {
+          //   setShowSuggestions(false);
+          // }}>
           <div
             id="suggestions"
             className="bg-white p-3 border border-gray-300 absolute w-full mt-2 rounded-lg z-20"
@@ -170,6 +165,7 @@ const SearchField = () => {
               </>
             )}
           </div>
+          // </OutsideClickHandler>
         )}
       </div>
     </>

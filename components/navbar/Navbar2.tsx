@@ -90,7 +90,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 </div>
               </div>
-              <div className={`   md:w-full w-full `}>
+              <div className={`   md:w-1/2 w-1/2 `}>
                 <SearchField />
               </div>
 
