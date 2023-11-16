@@ -11,6 +11,7 @@ import {
   HiOutlineHeart,
 } from "react-icons/hi2";
 import { HiOutlineLogout } from "react-icons/hi";
+import { useSelector } from "react-redux";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -38,11 +39,13 @@ const data = [
 
 const SideBar = () => {
   const pathname = usePathname();
+  const {user} = useSelector((state: any) => state.auth);
+
   return (
     <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
       <div className="border-b  pb-3 px-3">
         <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed">
-          Hi, User
+          Hi, {user.username ?? user.email}
         </h6>
         <span className="text-xs text-secondColor lg:leading-normal leading-snug">
           Thanks for being a Swojon customer
@@ -65,6 +68,36 @@ const SideBar = () => {
             </span>
           </Link>
         ))} */}
+        <Link
+          href="/followers"
+          className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
+            pathname === "/followers"
+              ? "border-l-4 border-activeColor bg-[#eaecf1] text-activeColor"
+              : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
+          }`}
+        >
+          <span className="lg:pe-3.5 lg:pb-0 pb-1">
+            <HiOutlineCurrencyDollar />
+          </span>{" "}
+          <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
+              Followers
+          </span>
+        </Link>
+        <Link
+          href="/following"
+          className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
+            pathname === "/following"
+              ? "border-l-4 border-activeColor bg-[#eaecf1] text-activeColor"
+              : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
+          }`}
+        >
+          <span className="lg:pe-3.5 lg:pb-0 pb-1">
+            <HiOutlineCurrencyDollar />
+          </span>{" "}
+          <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
+              People you follow
+          </span>
+        </Link>
         <Link
           href="/points"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
@@ -117,9 +150,9 @@ const SideBar = () => {
           </span>
         </Link>
         <Link
-          href="/product-lists"
+          href="/my-ads"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
-            pathname === "/product-lists"
+            pathname === "/my-ads"
               ? "border-l-4 border-activeColor bg-[#eaecf1] text-activeColor"
               : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
           }`}
