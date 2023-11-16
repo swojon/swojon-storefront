@@ -84,7 +84,7 @@ const ResNavbar = () => {
             </span> */}
           </div>
 
-          <div className="h-[77%] custom-scroll overflow-y-auto">
+          <div className="h-[77vh] custom-scroll overflow-y-auto">
             {parentCategories?.map((item) => (
               <div
                 className="flex justify-between items-center lg:px-8 md:px-4 px-3 my-4  cursor-pointer "
@@ -113,7 +113,7 @@ const ResNavbar = () => {
             ))}
           </div>
 
-          <div className="absolute py-5 px-14 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
+          <div className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
             </Link>
