@@ -132,7 +132,7 @@ export const FollowUserCard = ({user}: {user:any}) => (
           </div>
           <div className="py-3 border-b space-y-1">
             <h6 className="text-base font-lexed font-medium text-primaryColor">
-              {user.username ?? user.email}
+              {user.username ?? user. email}
             </h6>
 
             <h6 className="lg:text-lg text-base text-[#08B66D]">
