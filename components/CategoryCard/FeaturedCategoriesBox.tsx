@@ -32,7 +32,6 @@ const FeaturedCategoriesBox = () => {
       </div>
       {loading && (
         <div className="w-full">
-          {" "}
           <CategoryCardLoader />
         </div>
       )}

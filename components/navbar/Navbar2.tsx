@@ -33,18 +33,18 @@ export default function Navbar2({ border }: { border: any }) {
   return (
     <Disclosure
       as="nav"
-      className={` py-1  ${
+      className={` py-1 px-[2vw]  ${
         border === "border" ? "border-b border-[#E6E6E6]" : "border-0"
       }`}
     >
       {({ open }) => (
         <>
-          <div className="mx-auto    custom-container">
-            <div className="flex h-16 justify-between gap-2 items-center">
-              <div className="flex px-2 lg:px-0">
+          <div className=" ">
+            <div className="flex h-16 justify-between gap-3 items-center">
+              <div className="flex px-2 gap-1 lg:px-0">
                 <Link
                   href="/"
-                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base lg:w-32 md:w-20 w-16 h-9   justify-center items-center`}
+                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center`}
                 >
                   {border === "border" ? (
                     <Image
@@ -70,7 +70,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </span>
                   <Link
                     href="#"
-                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
                         ? "  text-primaryColor"
                         : "text-secondColor"
@@ -80,7 +80,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                   <Link
                     href="/community"
-                    className={`	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
                         ? "  text-primaryColor"
                         : "text-secondColor"
@@ -90,7 +90,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 </div>
               </div>
-              <div className={` w-full  lg:w-56 xl:w-[380px] `}>
+              <div className={`   md:w-full w-full `}>
                 <SearchField />
               </div>
 
@@ -106,17 +106,15 @@ export default function Navbar2({ border }: { border: any }) {
                 </Disclosure.Button>
               </div>
               <div className="hidden  lg:flex lg:items-center space-x-3">
-                {/* Profile dropdown */}
-
                 {authState.isAuthenticated === false ? (
                   <Link href="/signin">
-                    <button className="border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
                       <CiLogin /> <span> login</span>
                     </button>
                   </Link>
                 ) : (
                   <Link href="/chat">
-                    <button className="border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                    <button className="whitespace-nowrap border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
                       <PiChatsCircleFill /> <span> Chat</span>
                     </button>
                   </Link>
@@ -132,7 +130,7 @@ export default function Navbar2({ border }: { border: any }) {
                     //     })
                     //   )
                     // }
-                    className="border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
+                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
                   >
                     Sell Product
                   </button>
@@ -141,7 +139,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
-                      className={`py-1.5 px-2 leading-0 font-lexed font-medium   lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 ${
+                      className={`py-1.5 px-2 leading-0 font-lexed font-medium   lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     >

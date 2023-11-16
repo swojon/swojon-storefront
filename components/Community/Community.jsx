@@ -6,10 +6,48 @@ import img4 from "@/public/assets/comm4.png";
 import CommunityCard from "@/components/Community/CommunityCard";
 
 const card = [
-  { id: 134, banner: img1, title: "Chittagong University" },
-  { id: 143, banner: img2, title: "Chittagong University" },
-  { id: 123, banner: img3, title: "Chittagong University" },
-  { id: 122, banner: img4, title: "Chittagong University" },
+  {
+    id: 134,
+    banner: img1,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 143,
+    banner: img2,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 123,
+    banner: img3,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 1227,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Already Joined",
+  },
+  {
+    id: 1225,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 1224,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 12275,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Already Joined",
+  },
 ];
 
 const Community = () => {

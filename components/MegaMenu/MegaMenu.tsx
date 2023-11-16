@@ -64,7 +64,7 @@ export default function MegaMenu() {
                 <Popover.Button
                   className={classNames(
                     open ? "  text-primaryColor" : "text-secondColor",
-                    "group inline-flex items-center rounded-md   font-medium  focus:outline-none   "
+                    "group inline-flex items-center rounded-md whitespace-nowrap  font-medium  focus:outline-none   "
                   )}
                 >
                   <span>All Category</span>
@@ -86,8 +86,8 @@ export default function MegaMenu() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 -translate-y-1"
             >
-              <Popover.Panel className="absolute meg-menu w-[100vw]   top-[75px] inline  z-30 transform shadow-lg   text-primaryColor rounded left-0  ">
-                <div className="  py-3 w-full bg-white h-[80%] ">
+              <Popover.Panel className="absolute shadow-2xl meg-menu w-[100vw]   top-[75px] inline  z-30 transform border-b border-gray-200   text-primaryColor rounded left-0  ">
+                <div className="  py-3 w-full bg-white h-[100%] ">
                   {loading && <p> Loading </p>}
                   {error && <p> error </p>}
 
