@@ -1,0 +1,16 @@
+query ListFollowers($userId: Float!) {
+  listFollowers(userId: $userId) {
+    items {
+      id
+      email
+      facebookId
+      isApproved
+      isStaff
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+  }
+}

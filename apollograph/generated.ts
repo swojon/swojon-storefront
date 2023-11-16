@@ -500,6 +500,98 @@ export function useListFavoriteListingLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavoriteListingQuery>;
 export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
 export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
+export const ListFollowersDocument = gql`
+    query ListFollowers($userId: Float!) {
+  listFollowers(userId: $userId) {
+    items {
+      id
+      email
+      facebookId
+      isApproved
+      isStaff
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowersQuery__
+ *
+ * To run a query within a React component, call `useListFollowersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowersQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListFollowersQuery(baseOptions: Apollo.QueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+      }
+export function useListFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+        }
+export type ListFollowersQueryHookResult = ReturnType<typeof useListFollowersQuery>;
+export type ListFollowersLazyQueryHookResult = ReturnType<typeof useListFollowersLazyQuery>;
+export type ListFollowersQueryResult = Apollo.QueryResult<ListFollowersQuery, ListFollowersQueryVariables>;
+export const ListFollowingDocument = gql`
+    query ListFollowing($userId: Float!) {
+  listFollowing(userId: $userId) {
+    items {
+      id
+      email
+      facebookId
+      isApproved
+      isStaff
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowingQuery__
+ *
+ * To run a query within a React component, call `useListFollowingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowingQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListFollowingQuery(baseOptions: Apollo.QueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+      }
+export function useListFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+        }
+export type ListFollowingQueryHookResult = ReturnType<typeof useListFollowingQuery>;
+export type ListFollowingLazyQueryHookResult = ReturnType<typeof useListFollowingLazyQuery>;
+export type ListFollowingQueryResult = Apollo.QueryResult<ListFollowingQuery, ListFollowingQueryVariables>;
 export const ListListingsDocument = gql`
     query ListListings($filters: ListingFilterInput) {
   listListings(filters: $filters) {
@@ -1568,6 +1660,8 @@ export type Query = {
   login: TokenUserData;
   /** User logout */
   logout: User;
+  /** Search for listings */
+  searchListings: Listings;
 };
 
 
@@ -1702,6 +1796,15 @@ export type QueryLoginArgs = {
   userData: CreateUserDto;
 };
 
+
+export type QuerySearchListingsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  query: SerachInputDto;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export type Review = {
   __typename?: 'Review';
   dateCreated: Scalars['DateTime']['output'];
@@ -1739,6 +1842,10 @@ export type Role = {
   isApproved: Scalars['Boolean']['output'];
   isDeleted: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
+};
+
+export type SerachInputDto = {
+  search: Scalars['String']['input'];
 };
 
 /** ENUM for Category Status */
@@ -1914,6 +2021,20 @@ export type ListFavoriteListingQueryVariables = Exact<{
 
 
 export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+
+export type ListFollowersQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }> } };
+
+export type ListFollowingQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
