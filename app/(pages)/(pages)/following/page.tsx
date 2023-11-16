@@ -10,7 +10,8 @@ import Image from "next/image";
 import { AiFillHeart } from "react-icons/ai";
 import { useListFollowersQuery, useListFollowingQuery } from "@/apollograph/generated";
 import { useSelector } from "react-redux";
-import { FollowUserCard } from "../followers/page";
+import FollowUserCard from "@/components/FollowUserCard/FollowUserCard";
+
 
 const Followers = () => {
   const {user} = useSelector((state: any) => state.auth)
