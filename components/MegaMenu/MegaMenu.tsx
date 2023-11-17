@@ -147,7 +147,7 @@ export default function MegaMenu() {
                                 >
                                   <div className="w-full h-20  relative hover:scale-105">
                                     <Image
-                                      src={item.banner ?? ""}
+                                      src={item.banner ?? "https://picsum.photos/200/300"}
                                       height={300}
                                       width={300}
                                       alt="banner"
@@ -212,7 +212,7 @@ export default function MegaMenu() {
                                       >
                                         <div className="w-full h-20  relative hover:scale-105">
                                           <Image
-                                            src={subItem.banner ?? ""}
+                                            src={subItem.banner ?? "https://picsum.photos/200/300"}
                                             height={300}
                                             width={300}
                                             alt="banner"
