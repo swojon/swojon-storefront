@@ -73,7 +73,7 @@ export default function Navbar2({ border }: { border: any }) {
                     className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
                         ? "  text-primaryColor"
-                        : "text-secondColor"
+                        : "text-white"
                     }`}
                   >
                     All Ads
@@ -83,7 +83,7 @@ export default function Navbar2({ border }: { border: any }) {
                     className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
                       border === "border"
                         ? "  text-primaryColor"
-                        : "text-secondColor"
+                        : "text-white"
                     }`}
                   >
                     Community

@@ -63,7 +63,7 @@ export default function MegaMenu() {
               <div className=" flex ">
                 <Popover.Button
                   className={classNames(
-                    open ? "  text-primaryColor" : "text-secondColor",
+                    open ? "  text-primaryColor" : "text-white",
                     "group inline-flex items-center rounded-md whitespace-nowrap  font-medium  focus:outline-none   "
                   )}
                 >

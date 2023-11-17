@@ -25,12 +25,12 @@ const HeroSection = () => {
       <div className="flex  hero-height items-center  custom-container   justify-center ">
         <div className="text-center  space-y-2 md:space-y-4 ">
           <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
-            <span>Find your all </span>
-            <span>solution in one place</span>
+            <span> Save! Declutter! </span>
+            
           </h1>
           <p className="text-gray-300 lg:text-lg md:text-base text-sm  lg:flex md:flex-col    animate--delay-1s slideInLeft2">
-            <span> Get everything, that you need with always relaxation. </span>
-            <span> Buy from a trustable source and get relax.</span>
+            <span>Sustainable Shopping, Unbeatable Prices – Welcome to Swojon, where every purchase tells a story of style and savings.</span>
+           
           </p>
 
           {/* <div className="w-full sm:[250px] md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
