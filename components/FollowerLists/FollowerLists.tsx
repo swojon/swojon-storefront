@@ -3,7 +3,7 @@ import React from "react";
 
 const FollowerLists = () => {
   return (
-    <section >
+    <section>
       <div className="lg:h-[340px] h-[320px] grid grid-cols-2 gap-2 ">
         <div className="w-full lg:h-[340px] h-[320px] rounded-l-lg  overflow-hidden">
           <Image

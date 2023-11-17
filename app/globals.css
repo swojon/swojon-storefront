@@ -32,8 +32,11 @@ a {
 }
 
 .custom-container {
-  padding-left: 6vw;
-  padding-right: 6vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .padding-left {
@@ -54,17 +57,19 @@ a {
 
 /* Track */
 .small-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  /* background: #f1f1f1; */
 }
 
 /* Handle */
 .small-scroll::-webkit-scrollbar-thumb {
-  background: #a4a3a3;
-  border-radius: 5px;
+  opacity: 0;
+  background: #cdcccc;
+  border-radius: 4px;
 }
 
 /* Handle on hover */
 .small-scroll::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
   background: #555;
 }
 .swiper {
@@ -89,3 +94,75 @@ a {
   height: 100%;
   object-fit: cover;
 }
+
+.custom-checkedInput[type="checkbox"] {
+  position: relative;
+  border: 1px solid #8f8f8f;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+  /* margin: 0 0.6em 0 0; */
+  outline: 0;
+  padding: 0 !important;
+  vertical-align: text-top;
+  height: 18px;
+  width: 18px;
+  -webkit-appearance: none;
+  opacity: 0.5;
+}
+.custom-checkedInput[type="checkbox"]:hover {
+  opacity: 1;
+}
+
+.custom-checkedInput[type="checkbox"]:checked {
+  background-color: #3b51a4;
+  opacity: 1;
+  border: 1px solid #3b51a4;
+}
+.custom-checkedInput[type="checkbox"]:before {
+  content: "";
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  margin: -1px -1px 0 -1px;
+  transform: rotate(45deg) translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* ==============responsive============ */
+
+@media (max-width: 765px) {
+  .custom-container {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+@media (max-width: 639px) {
+  .custom-container {
+    padding-left: 15vw;
+    padding-right: 15vw;
+  }
+}
+@media (max-width: 425px) {
+  .custom-container {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+/* @media (min-width: 2200px) {
+  .custom-container {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+@media (min-width: 2600px) {
+  .custom-container {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+} */

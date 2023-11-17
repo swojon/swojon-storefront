@@ -1,0 +1,47 @@
+query GetUserById($userId: Float!) {
+  getUserById(userId: $userId) {
+    createdAt
+    communities {
+      id
+      description
+      banner
+      name
+      slug
+    }
+    email
+    facebookId
+    followerCount
+    followingCount
+    id
+    isEmailVerified
+    isStaff
+    listingCount
+    isApproved
+    pointBalance
+    profile {
+      address
+      avatar
+      country
+      city
+      avatarThumbnail
+      facebookHandle
+      googleHandle
+      id
+      firstName
+      instagramHandle
+      isPhoneNumberVerified
+      lastName
+      linkedinHandle
+      phoneNumber
+      twitterHandle
+      zipCode
+      state
+    }
+    roles {
+      id
+      name
+      description
+    }
+    username
+  }
+}

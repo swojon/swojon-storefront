@@ -9,7 +9,7 @@ const Chats = () => {
   return (
     <section>
       {/* <ResUserProfile /> */}
-      <div className="px-6 pt-6 sticky w-full h-[87vh] border rounded-md">
+      <div className="custom-container pt-6 sticky w-full h-[87vh] ">
         <ChatArea />
       </div>
     </section>

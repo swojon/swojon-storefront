@@ -64,7 +64,6 @@ const ProductDetails = ({ params }: { params: { productDetails: string } }) => {
       </div>
 
       <div className="block md:hidden md:h-[350px] sm:h-[300px] h-[280px]">
-        {" "}
         <ProductImageSlider />
       </div>
 

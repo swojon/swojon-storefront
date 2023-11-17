@@ -12,7 +12,7 @@ function SendOfferModal({ props }: { props: any }) {
     <section className="  w-full h-full  space-y-3 lg:space-y-4 p-4">
       <div className="w-full h-[140px]  relative">
         <Image
-          src="/assets/pro4.png"
+          src={props.product.media.length > 0 ? props.product.media[0].url : "/assets/pro1.png"}
           alt="product"
           width="500"
           height="500"
@@ -27,7 +27,7 @@ function SendOfferModal({ props }: { props: any }) {
       </div>
       <div>
         <h5 className="font-lexed text-primaryColor xl:text-lg text-base font-medium">
-          Partex Personal Bed
+          {props.product.title}
         </h5>
         <p className="text-secondColor xl:text-base text-sm">
           Offer a reasonable fare

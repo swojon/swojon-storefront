@@ -1,0 +1,44 @@
+query ListListings($filters: ListingFilterInput) {
+  listListings(filters: $filters) {
+    items{
+        brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media{
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+      
+    }
+   
+  }
+}

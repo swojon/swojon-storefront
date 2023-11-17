@@ -4,15 +4,15 @@ import Slider from "@mui/material/Slider";
 import { styled } from "@mui/system";
 
 const StyledSlider = styled(Slider)(({ theme: any }) => ({
-  color: "#BB2649", // Track color
+  color: "#3b51a4", // Track color
   "& .MuiSlider-thumb": {
-    backgroundColor: "#BB2649",
+    backgroundColor: "#3b51a4",
     width: 14,
     height: 14,
-    boxShadow: "0px 0px 20px #f8cad5",
+    boxShadow: "0px 0px 20px #a7b4e2",
   },
   "& .MuiSlider-rail": {
-    backgroundColor: "#FFDCDD", // Rail color
+    backgroundColor: "#a7b4e2", // Rail color
   },
 }));
 

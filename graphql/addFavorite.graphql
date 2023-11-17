@@ -1,0 +1,15 @@
+mutation AddFavorite($listingId: Float!, $userId: Float!) {
+  addFavorite(listingId: $listingId, userId: $userId) {
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+    user {
+      email
+      id
+      username
+    }
+  }
+}

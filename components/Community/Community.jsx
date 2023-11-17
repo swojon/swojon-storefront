@@ -4,13 +4,50 @@ import img2 from "@/public/assets/comm2.png";
 import img3 from "@/public/assets/comm3.png";
 import img4 from "@/public/assets/comm4.png";
 import CommunityCard from "@/components/Community/CommunityCard";
-import "./Community.scss";
 
 const card = [
-  { id: 134, banner: img1, title: "Chittagong University" },
-  { id: 143, banner: img2, title: "Chittagong University" },
-  { id: 123, banner: img3, title: "Chittagong University" },
-  { id: 122, banner: img4, title: "Chittagong University" },
+  {
+    id: 134,
+    banner: img1,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 143,
+    banner: img2,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 123,
+    banner: img3,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 1227,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Already Joined",
+  },
+  {
+    id: 1225,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 1224,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Join to Buy",
+  },
+  {
+    id: 12275,
+    banner: img4,
+    title: "Chittagong University",
+    joined: "Already Joined",
+  },
 ];
 
 const Community = () => {
@@ -25,7 +62,7 @@ const Community = () => {
         </button>
       </div>
 
-      <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 pt-10">
+      <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 pt-10">
         {card.map((card) => (
           <CommunityCard key={card.id} card={card} />
         ))}

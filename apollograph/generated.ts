@@ -9,6 +9,74 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 
+export const CreateListingDocument = gql`
+    mutation CreateListing($listingData: ListingCreateDTO!) {
+  createListing(listingData: $listingData) {
+    brand {
+      id
+      name
+    }
+    category {
+      id
+      name
+      slug
+    }
+    communities {
+      id
+      name
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    location {
+      id
+      name
+    }
+    price
+    title
+    user {
+      email
+      id
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+export type CreateListingMutationFn = Apollo.MutationFunction<CreateListingMutation, CreateListingMutationVariables>;
+
+/**
+ * __useCreateListingMutation__
+ *
+ * To run a mutation, you first call `useCreateListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createListingMutation, { data, loading, error }] = useCreateListingMutation({
+ *   variables: {
+ *      listingData: // value for 'listingData'
+ *   },
+ * });
+ */
+export function useCreateListingMutation(baseOptions?: Apollo.MutationHookOptions<CreateListingMutation, CreateListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateListingMutation, CreateListingMutationVariables>(CreateListingDocument, options);
+      }
+export type CreateListingMutationHookResult = ReturnType<typeof useCreateListingMutation>;
+export type CreateListingMutationResult = Apollo.MutationResult<CreateListingMutation>;
+export type CreateListingMutationOptions = Apollo.BaseMutationOptions<CreateListingMutation, CreateListingMutationVariables>;
 export const ListCategoriesDocument = gql`
     query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {
   listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {
@@ -104,6 +172,50 @@ export function useListFeaturedCategoriesLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ListFeaturedCategoriesQueryHookResult = ReturnType<typeof useListFeaturedCategoriesQuery>;
 export type ListFeaturedCategoriesLazyQueryHookResult = ReturnType<typeof useListFeaturedCategoriesLazyQuery>;
 export type ListFeaturedCategoriesQueryResult = Apollo.QueryResult<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>;
+export const AddFavoriteDocument = gql`
+    mutation AddFavorite($listingId: Float!, $userId: Float!) {
+  addFavorite(listingId: $listingId, userId: $userId) {
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+    user {
+      email
+      id
+      username
+    }
+  }
+}
+    `;
+export type AddFavoriteMutationFn = Apollo.MutationFunction<AddFavoriteMutation, AddFavoriteMutationVariables>;
+
+/**
+ * __useAddFavoriteMutation__
+ *
+ * To run a mutation, you first call `useAddFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFavoriteMutation, { data, loading, error }] = useAddFavoriteMutation({
+ *   variables: {
+ *      listingId: // value for 'listingId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<AddFavoriteMutation, AddFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(AddFavoriteDocument, options);
+      }
+export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
+export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
+export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
 export const ListChatsDocument = gql`
     query listChats($userId: Float) {
   listChatRooms(userId: $userId) {
@@ -270,6 +382,541 @@ export function useNewMessageAddedSubscription(baseOptions: Apollo.SubscriptionH
       }
 export type NewMessageAddedSubscriptionHookResult = ReturnType<typeof useNewMessageAddedSubscription>;
 export type NewMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewMessageAddedSubscription>;
+export const ListBrandsDocument = gql`
+    query ListBrands {
+  listBrands {
+    items {
+      categories {
+        id
+        name
+        slug
+      }
+      description
+      name
+      logo
+      slug
+      isFeatured
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useListBrandsQuery__
+ *
+ * To run a query within a React component, call `useListBrandsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListBrandsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListBrandsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListBrandsQuery(baseOptions?: Apollo.QueryHookOptions<ListBrandsQuery, ListBrandsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListBrandsQuery, ListBrandsQueryVariables>(ListBrandsDocument, options);
+      }
+export function useListBrandsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListBrandsQuery, ListBrandsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListBrandsQuery, ListBrandsQueryVariables>(ListBrandsDocument, options);
+        }
+export type ListBrandsQueryHookResult = ReturnType<typeof useListBrandsQuery>;
+export type ListBrandsLazyQueryHookResult = ReturnType<typeof useListBrandsLazyQuery>;
+export type ListBrandsQueryResult = Apollo.QueryResult<ListBrandsQuery, ListBrandsQueryVariables>;
+export const ListFavoriteListingDocument = gql`
+    query ListFavoriteListing($userId: Float!) {
+  listFavoriteListing(userId: $userId) {
+    items {
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media {
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFavoriteListingQuery__
+ *
+ * To run a query within a React component, call `useListFavoriteListingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFavoriteListingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFavoriteListingQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListFavoriteListingQuery(baseOptions: Apollo.QueryHookOptions<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>(ListFavoriteListingDocument, options);
+      }
+export function useListFavoriteListingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>(ListFavoriteListingDocument, options);
+        }
+export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavoriteListingQuery>;
+export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
+export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
+export const ListFollowersDocument = gql`
+    query ListFollowers($userId: Float!) {
+  listFollowers(userId: $userId) {
+    items {
+      id
+      email
+      facebookId
+      isApproved
+      isStaff
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowersQuery__
+ *
+ * To run a query within a React component, call `useListFollowersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowersQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListFollowersQuery(baseOptions: Apollo.QueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+      }
+export function useListFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+        }
+export type ListFollowersQueryHookResult = ReturnType<typeof useListFollowersQuery>;
+export type ListFollowersLazyQueryHookResult = ReturnType<typeof useListFollowersLazyQuery>;
+export type ListFollowersQueryResult = Apollo.QueryResult<ListFollowersQuery, ListFollowersQueryVariables>;
+export const ListFollowingDocument = gql`
+    query ListFollowing($userId: Float!) {
+  listFollowing(userId: $userId) {
+    items {
+      id
+      email
+      facebookId
+      isApproved
+      isStaff
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowingQuery__
+ *
+ * To run a query within a React component, call `useListFollowingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowingQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListFollowingQuery(baseOptions: Apollo.QueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+      }
+export function useListFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+        }
+export type ListFollowingQueryHookResult = ReturnType<typeof useListFollowingQuery>;
+export type ListFollowingLazyQueryHookResult = ReturnType<typeof useListFollowingLazyQuery>;
+export type ListFollowingQueryResult = Apollo.QueryResult<ListFollowingQuery, ListFollowingQueryVariables>;
+export const ListListingsDocument = gql`
+    query ListListings($filters: ListingFilterInput) {
+  listListings(filters: $filters) {
+    items {
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media {
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useListListingsQuery__
+ *
+ * To run a query within a React component, call `useListListingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListListingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListListingsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useListListingsQuery(baseOptions?: Apollo.QueryHookOptions<ListListingsQuery, ListListingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListListingsQuery, ListListingsQueryVariables>(ListListingsDocument, options);
+      }
+export function useListListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListListingsQuery, ListListingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListListingsQuery, ListListingsQueryVariables>(ListListingsDocument, options);
+        }
+export type ListListingsQueryHookResult = ReturnType<typeof useListListingsQuery>;
+export type ListListingsLazyQueryHookResult = ReturnType<typeof useListListingsLazyQuery>;
+export type ListListingsQueryResult = Apollo.QueryResult<ListListingsQuery, ListListingsQueryVariables>;
+export const ListLocationsDocument = gql`
+    query ListLocations {
+  listLocations {
+    items {
+      banner
+      description
+      id
+      isDeleted
+      isFeatured
+      isLive
+      name
+      parentLocation {
+        slug
+        name
+        id
+      }
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useListLocationsQuery__
+ *
+ * To run a query within a React component, call `useListLocationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListLocationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListLocationsQuery(baseOptions?: Apollo.QueryHookOptions<ListLocationsQuery, ListLocationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListLocationsQuery, ListLocationsQueryVariables>(ListLocationsDocument, options);
+      }
+export function useListLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListLocationsQuery, ListLocationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListLocationsQuery, ListLocationsQueryVariables>(ListLocationsDocument, options);
+        }
+export type ListLocationsQueryHookResult = ReturnType<typeof useListLocationsQuery>;
+export type ListLocationsLazyQueryHookResult = ReturnType<typeof useListLocationsLazyQuery>;
+export type ListLocationsQueryResult = Apollo.QueryResult<ListLocationsQuery, ListLocationsQueryVariables>;
+export const GetUserByIdDocument = gql`
+    query GetUserById($userId: Float!) {
+  getUserById(userId: $userId) {
+    createdAt
+    communities {
+      id
+      description
+      banner
+      name
+      slug
+    }
+    email
+    facebookId
+    followerCount
+    followingCount
+    id
+    isEmailVerified
+    isStaff
+    listingCount
+    isApproved
+    pointBalance
+    profile {
+      address
+      avatar
+      country
+      city
+      avatarThumbnail
+      facebookHandle
+      googleHandle
+      id
+      firstName
+      instagramHandle
+      isPhoneNumberVerified
+      lastName
+      linkedinHandle
+      phoneNumber
+      twitterHandle
+      zipCode
+      state
+    }
+    roles {
+      id
+      name
+      description
+    }
+    username
+  }
+}
+    `;
+
+/**
+ * __useGetUserByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByIdQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const RemoveFavoriteDocument = gql`
+    mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
+  removeFavorite(listingId: $listingId, userId: $userId) {
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+    user {
+      email
+      id
+      username
+    }
+  }
+}
+    `;
+export type RemoveFavoriteMutationFn = Apollo.MutationFunction<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
+
+/**
+ * __useRemoveFavoriteMutation__
+ *
+ * To run a mutation, you first call `useRemoveFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFavoriteMutation, { data, loading, error }] = useRemoveFavoriteMutation({
+ *   variables: {
+ *      listingId: // value for 'listingId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useRemoveFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(RemoveFavoriteDocument, options);
+      }
+export type RemoveFavoriteMutationHookResult = ReturnType<typeof useRemoveFavoriteMutation>;
+export type RemoveFavoriteMutationResult = Apollo.MutationResult<RemoveFavoriteMutation>;
+export type RemoveFavoriteMutationOptions = Apollo.BaseMutationOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
+export const SearchListingsDocument = gql`
+    query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
+  searchListings(
+    query: $query
+    filters: $filters
+    limit: $limit
+    starting_after: $startingAfter
+    ending_before: $endingBefore
+  ) {
+    hasMore
+    count
+    items {
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media {
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useSearchListingsQuery__
+ *
+ * To run a query within a React component, call `useSearchListingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchListingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchListingsQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      filters: // value for 'filters'
+ *      limit: // value for 'limit'
+ *      startingAfter: // value for 'startingAfter'
+ *      endingBefore: // value for 'endingBefore'
+ *   },
+ * });
+ */
+export function useSearchListingsQuery(baseOptions: Apollo.QueryHookOptions<SearchListingsQuery, SearchListingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchListingsQuery, SearchListingsQueryVariables>(SearchListingsDocument, options);
+      }
+export function useSearchListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchListingsQuery, SearchListingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchListingsQuery, SearchListingsQueryVariables>(SearchListingsDocument, options);
+        }
+export type SearchListingsQueryHookResult = ReturnType<typeof useSearchListingsQuery>;
+export type SearchListingsLazyQueryHookResult = ReturnType<typeof useSearchListingsLazyQuery>;
+export type SearchListingsQueryResult = Apollo.QueryResult<SearchListingsQuery, SearchListingsQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -559,6 +1206,8 @@ export type Listing = {
   communities: Array<Community>;
   dateCreated?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  favoriteCount?: Maybe<Scalars['Float']['output']>;
+  favoriteStatus?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Float']['output'];
   isApproved?: Maybe<Scalars['Boolean']['output']>;
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
@@ -568,6 +1217,7 @@ export type Listing = {
   latitude?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Location>;
   longitude?: Maybe<Scalars['String']['output']>;
+  media: Array<ListingMedia>;
   price: Scalars['Float']['output'];
   title: Scalars['String']['output'];
   user: User;
@@ -591,6 +1241,23 @@ export type ListingCreateDto = {
   title: Scalars['String']['input'];
 };
 
+export type ListingFilterInput = {
+  brandIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  categorySlug?: InputMaybe<Scalars['String']['input']>;
+  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  locationId?: InputMaybe<Scalars['Float']['input']>;
+  locationIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  userIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
+export type ListingMedia = {
+  __typename?: 'ListingMedia';
+  isPrimary: Scalars['Boolean']['output'];
+  url: Scalars['String']['output'];
+};
+
 export type ListingUpdateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId?: InputMaybe<Scalars['Float']['input']>;
@@ -606,6 +1273,7 @@ export type ListingUpdateDto = {
 export type Listings = {
   __typename?: 'Listings';
   count: Scalars['Float']['output'];
+  hasMore: Scalars['Boolean']['output'];
   items: Array<Listing>;
 };
 
@@ -1035,6 +1703,8 @@ export type Query = {
   /** User find by id */
   getUserById: UserWithMeta;
   /** List All Brands */
+  listBrandOptions: Brands;
+  /** List All Brands */
   listBrands: Brands;
   /** List All Categories */
   listCategories: Categories;
@@ -1074,6 +1744,8 @@ export type Query = {
   login: TokenUserData;
   /** User logout */
   logout: User;
+  /** Search for listings */
+  searchListings: Listings;
 };
 
 
@@ -1110,6 +1782,11 @@ export type QueryGetProfileByIdArgs = {
 
 export type QueryGetUserByIdArgs = {
   userId: Scalars['Float']['input'];
+};
+
+
+export type QueryListBrandOptionsArgs = {
+  categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
 
@@ -1169,6 +1846,14 @@ export type QueryListListingReviewsArgs = {
 };
 
 
+export type QueryListListingsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
 export type QueryListPointsHistoryArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
@@ -1193,6 +1878,15 @@ export type QueryListUserReviewsArgs = {
 
 export type QueryLoginArgs = {
   userData: CreateUserDto;
+};
+
+
+export type QuerySearchListingsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  query: SerachInputDto;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type Review = {
@@ -1234,6 +1928,10 @@ export type Role = {
   name: Scalars['String']['output'];
 };
 
+export type SerachInputDto = {
+  search: Scalars['String']['input'];
+};
+
 /** ENUM for Category Status */
 export enum Status {
   Approved = 'APPROVED',
@@ -1264,7 +1962,7 @@ export type TokenUserData = {
   __typename?: 'TokenUserData';
   email: Scalars['String']['output'];
   expiresIn: Scalars['Float']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
@@ -1307,7 +2005,7 @@ export type UpdateUserDto = {
 export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
@@ -1322,7 +2020,7 @@ export type UserWithMeta = {
   communities?: Maybe<Array<Community>>;
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
-  facebookId: Scalars['String']['output'];
+  facebookId?: Maybe<Scalars['String']['output']>;
   followerCount?: Maybe<Scalars['Float']['output']>;
   followingCount?: Maybe<Scalars['Float']['output']>;
   id: Scalars['Float']['output'];
@@ -1335,6 +2033,13 @@ export type UserWithMeta = {
   roles?: Maybe<Array<Role>>;
   username?: Maybe<Scalars['String']['output']>;
 };
+
+export type CreateListingMutationVariables = Exact<{
+  listingData: ListingCreateDto;
+}>;
+
+
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
 
 export type ListCategoriesQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
@@ -1352,6 +2057,14 @@ export type ListFeaturedCategoriesQueryVariables = Exact<{
 
 
 export type ListFeaturedCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, isFeatured?: boolean | null }> } };
+
+export type AddFavoriteMutationVariables = Exact<{
+  listingId: Scalars['Float']['input'];
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type AddFavoriteMutation = { __typename?: 'Mutation', addFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
 
 export type ListChatsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['Float']['input']>;
@@ -1380,3 +2093,67 @@ export type NewMessageAddedSubscriptionVariables = Exact<{
 
 
 export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMessageAdded: { __typename?: 'Chat', content?: string | null, dateSent?: any | null, id: number, sender: { __typename?: 'User', email: string, id: number } } };
+
+export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListBrandsQuery = { __typename?: 'Query', listBrands: { __typename?: 'Brands', items: Array<{ __typename?: 'Brand', description?: string | null, name: string, logo?: string | null, slug?: string | null, isFeatured?: boolean | null, id: number, categories?: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null }> | null }> } };
+
+export type ListFavoriteListingQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+
+export type ListFollowersQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }> } };
+
+export type ListFollowingQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }> } };
+
+export type ListListingsQueryVariables = Exact<{
+  filters?: InputMaybe<ListingFilterInput>;
+}>;
+
+
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+
+export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null, parentLocation?: { __typename?: 'Location', slug?: string | null, name: string, id: number } | null }> } };
+
+export type GetUserByIdQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, firstName?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, lastName?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+
+export type RemoveFavoriteMutationVariables = Exact<{
+  listingId: Scalars['Float']['input'];
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type RemoveFavoriteMutation = { __typename?: 'Mutation', removeFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
+
+export type SearchListingsQueryVariables = Exact<{
+  query: SerachInputDto;
+  filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };

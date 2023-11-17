@@ -1,0 +1,45 @@
+query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
+  searchListings(query: $query, filters: $filters, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore) {
+    hasMore
+    count
+    items{
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+      }
+      communities {
+        id
+        name
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      location {
+        id
+        name
+      }
+      price
+      title
+      user {
+        email
+        id
+      }
+      media{
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+      
+    }
+  }
+}

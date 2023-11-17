@@ -1,0 +1,19 @@
+query ListLocations {
+    listLocations {
+        items{
+            banner
+            description
+            id
+            isDeleted
+            isFeatured
+            isLive
+            name
+            parentLocation{
+                slug
+                name
+                id
+            }
+            slug
+        }
+    }
+}

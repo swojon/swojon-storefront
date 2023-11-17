@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.scss";
 import googleImg from "@/public/assets/googlePlay.png";
+import logo from "@/public/assets/swojon_Logo_-01-cropped.svg";
 import appStoreImg from "@/public/assets/appStore.png";
 import Image from "next/image";
 import {
@@ -15,8 +16,17 @@ const Footer = () => {
   return (
     <footer className="bg-[#ffffff] custom-container py-5">
       <div className="grid lg:grid-cols-6 md:grid-cols-2 gap-4 py-9">
-        <div className=" col-span-2 space-y-4 ">
-          <span className="text-2xl text-activeColor font-medium">Swojon</span>
+        <div className=" col-span-2 space-y-4  ">
+          <Link
+            href="/"
+            className={`flex  font-lexed text-activeColor font-semibold  justify-start    items-center`}
+          >
+            <Image
+              src={logo}
+              alt="logo"
+              className=" lg:w-[35%] md:w-[25%] w-[45%] "
+            />
+          </Link>
           <p className="text-sm text-secondColor">
             Download our mobile app. Get all <br /> service at a glance.
           </p>
@@ -63,110 +73,92 @@ const Footer = () => {
 
         <div className="col-span-4 ">
           <div className="grid md:grid-cols-4 grid-cols-2 gap-2">
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Company
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
                   <Link href="">Community</Link>
                 </li>
                 <li>
-                  {" "}
-                  <Link href="">Category</Link>
+                  <Link href="/categories">Category</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Membership</Link>
+                  <Link href="/contact-us">Contact us</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Product Promote</Link>
+                  <Link href="/chat">Messages</Link>
                 </li>
                 <li>
-                  {" "}
                   <Link href="">All Adds</Link>
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
-                Company
+                Shop
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
-                  <Link href="">Community</Link>
+                  <Link href="">Fashion</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Category</Link>
+                  <Link href="">Furniture</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Membership</Link>
+                  <Link href="">Electronics</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Product Promote</Link>
+                  <Link href="">Instructional</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">All Adds</Link>
+                  <Link href="">And many more</Link>
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5 ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
-                Company
+                Help
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
-                  <Link href="">Community</Link>
+                  <Link href="/FAQ">FAQ</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Category</Link>
+                  <Link href="/privacy-policy">Privacy Policy</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Membership</Link>
+                  <Link href="/terms-condition">Terms & Condition</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Product Promote</Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link href="">All Adds</Link>
+                  <Link href="/help-center">Help Center</Link>
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-1 ">
+            <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
-                Company
+                Extra Link
               </h6>
-              <ul className="font-light lg:text-base md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
                 <li>
-                  <Link href="">Community</Link>
+                  <Link href="/about-us">About us</Link>
                 </li>
                 <li>
                   {" "}
-                  <Link href="">Category</Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link href="">Membership</Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link href="">Product Promote</Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link href="">All Adds</Link>
+                  <Link href="/site-map">Site Map</Link>
                 </li>
               </ul>
             </div>
