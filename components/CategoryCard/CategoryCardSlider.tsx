@@ -19,7 +19,9 @@ const CategoryCardSlider = ({ data }: { data: any }) => {
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper "
-        style={{ height: "250px", "--swiper-navigation-size": "25px" }}
+        style={{ height: "250px",
+        //  "--swiper-navigation-size": "25px"
+       }}
       >
         {data.listCategories.items.map((category: any) => (
           <SwiperSlide

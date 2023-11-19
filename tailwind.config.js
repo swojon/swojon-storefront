@@ -16,7 +16,7 @@ module.exports = {
         primaryColor: "#000721",
         secondColor: "#717171",
         activeColor: "#3b51a4",
-        whiteColor: "#FFFAFA",
+        whiteColor: "#FFFFFF",
       },
       fontFamily: {
         sans: ["Poppins", "sans"],

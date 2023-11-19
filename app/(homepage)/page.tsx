@@ -46,7 +46,7 @@ const Home: NextPage = ({
       <Community />
       {/* <ActionBanner />
       <SellBuyArea /> */}
-      <ActionBanner2 />
+      <ActionBanner2 /> 
     </main>
   );
 };

@@ -500,6 +500,57 @@ export function useListFavoriteListingLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavoriteListingQuery>;
 export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
 export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
+export const ListCommunitiesDocument = gql`
+    query ListCommunities($filters: CommunityFilterInput) {
+  listCommunities(filters: $filters) {
+    items {
+      banner
+      isFeatured
+      id
+      description
+      memberCount
+      members {
+        id
+        role
+      }
+      name
+      slug
+      location {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListCommunitiesQuery__
+ *
+ * To run a query within a React component, call `useListCommunitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListCommunitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListCommunitiesQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useListCommunitiesQuery(baseOptions?: Apollo.QueryHookOptions<ListCommunitiesQuery, ListCommunitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListCommunitiesQuery, ListCommunitiesQueryVariables>(ListCommunitiesDocument, options);
+      }
+export function useListCommunitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListCommunitiesQuery, ListCommunitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListCommunitiesQuery, ListCommunitiesQueryVariables>(ListCommunitiesDocument, options);
+        }
+export type ListCommunitiesQueryHookResult = ReturnType<typeof useListCommunitiesQuery>;
+export type ListCommunitiesLazyQueryHookResult = ReturnType<typeof useListCommunitiesLazyQuery>;
+export type ListCommunitiesQueryResult = Apollo.QueryResult<ListCommunitiesQuery, ListCommunitiesQueryVariables>;
 export const ListFollowersDocument = gql`
     query ListFollowers($userId: Float!) {
   listFollowers(userId: $userId) {
@@ -2105,6 +2156,13 @@ export type ListFavoriteListingQueryVariables = Exact<{
 
 
 export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+
+export type ListCommunitiesQueryVariables = Exact<{
+  filters?: InputMaybe<CommunityFilterInput>;
+}>;
+
+
+export type ListCommunitiesQuery = { __typename?: 'Query', listCommunities: { __typename?: 'Communities', items: Array<{ __typename?: 'Community', banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, slug?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null }> } };
 
 export type ListFollowersQueryVariables = Exact<{
   userId: Scalars['Float']['input'];

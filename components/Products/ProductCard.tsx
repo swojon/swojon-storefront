@@ -77,8 +77,8 @@ const ProductCard = ({ card: listing }: { card: any }) => {
     });
   };
   return (
-    <div className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[215px] h-[225px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
+    <div className="rounded-2xl bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+      <div className="md:h-[215px] h-[225px] relative overflow-hidden  rounded-t-xl rounded-b-sm">
         <Link href={`/products/${listing.id}`}>
           <Image
             src={
@@ -89,7 +89,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             width={500}
             height={500}
             alt="product banner"
-            className="h-full w-full object-cover rounded-tl-md  rounded-tr-md hover:scale-110 transition ease-in-out delay-150 duration-300 "
+            className="h-full w-full object-cover rounded-t-xl rounded-b-sm hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
         {listing.favoriteStatus ? (
@@ -152,7 +152,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
               })
             )
           }
-          className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+          className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
         >
           Offer Price
         </button>
@@ -166,7 +166,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
               })
             )
           }
-          className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+          className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
         >
           Chat Now
         </button>

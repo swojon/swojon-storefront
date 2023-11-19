@@ -8,7 +8,7 @@ import CategoryCardSlider from "./CategoryCardSlider";
 const FeaturedCategoriesBox = () => {
   const { data, loading, error, networkStatus } = useListCategoriesQuery({
     variables: {
-      limit: 8,
+      limit: 6,
       filters: {
         isFeatured: [true],
       },
@@ -23,7 +23,7 @@ const FeaturedCategoriesBox = () => {
     <div className="mt-20  custom-container space-y-10">
       <div className="flex md:flex-row flex-col justify-between items-center space-y-2 md:space-x-0">
         <h2 className="lg:text-4xl text-2xl font-lexed text-primaryColor font-semiBold">
-          Browse Our Category
+          Ready to Shop? 
         </h2>
         <Link href="/categories">
           <button className="border border-activeColor md:py-2 md:px-3 py-1 px-2 rounded  text-activeColor lg:text-base text-sm font-lexed hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 ">

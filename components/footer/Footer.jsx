@@ -72,8 +72,8 @@ const Footer = () => {
         </div>
 
         <div className="col-span-4 ">
-          <div className="grid md:grid-cols-4 grid-cols-2 gap-2">
-            <div className="space-y-2.5  ">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
+            {/* <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Company
               </h6>
@@ -96,8 +96,9 @@ const Footer = () => {
                   <Link href="">All Adds</Link>
                 </li>
               </ul>
-            </div>
-
+            </div> */}
+            
+{/* 
             <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Shop
@@ -123,7 +124,7 @@ const Footer = () => {
                   <Link href="">And many more</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             <div className="space-y-2.5 ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
