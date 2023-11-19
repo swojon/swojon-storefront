@@ -10,6 +10,7 @@ import { FiFilter } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery, useSearchListingsQuery } from "@/apollograph/generated";
+import ProductLoader from "@/components/Loader/ProductLoader";
 
 const SearchPage = ({ params }: { params: any }) => {
 
@@ -62,10 +63,11 @@ const SearchPage = ({ params }: { params: any }) => {
         </div>
         <div className="lg:w-[75%] w-full">
           <div className="grid xl:grid-cols-3 lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
-            {results && results.length > 0 ? results.map((card) => (
+            {/* // results && results.length > 0 ? */}
+            {results?.map((card) => (
               <ProductCard card={card} key={card.id} />
-            ))
-                : <p>No result Found</p>}
+            ))}
+                {loading && <ProductLoader />}
           </div>
         </div>
       </div>

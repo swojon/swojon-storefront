@@ -12,6 +12,7 @@ import { FiFilter } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery } from "@/apollograph/generated";
+import ProductLoader from "@/components/Loader/ProductLoader";
 
 const CategoryDetail = ({ params }: { params: any }) => {
 
@@ -62,6 +63,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
             {listings?.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}
+            {loading && <ProductLoader/>}
           </div>
         </div>
       </div>
