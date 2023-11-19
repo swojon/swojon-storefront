@@ -3,6 +3,7 @@ import React from "react";
 import ProductCard from "@/components/Products/ProductCard";
 import ProductTabs from "@/components/Products/ProductTabs";
 import { useListListingsQuery } from "@/apollograph/generated";
+import ProductLoader from "../Loader/ProductLoader";
 
 const category = [
   {
@@ -124,6 +125,7 @@ const Products = () => {
           {featuredProduct?.map((product) => (
             <ProductCard key={product.id} card={product} />
           ))}
+          {loading && <ProductLoader />}
         </div>
       </div>
     </section>
