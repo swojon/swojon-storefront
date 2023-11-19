@@ -6,7 +6,6 @@ import Image from "next/image";
 const ProductImageSlider = () => {
   return (
     <>
-      {" "}
       <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         <SwiperSlide>
           <Image

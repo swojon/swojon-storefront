@@ -3,6 +3,7 @@ import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import CategoryCardLoader from "../Loader/CategoryCardLoader";
+import CategoryCardSlider from "./CategoryCardSlider";
 
 const FeaturedCategoriesBox = () => {
   const { data, loading, error, networkStatus } = useListCategoriesQuery({
@@ -31,15 +32,19 @@ const FeaturedCategoriesBox = () => {
         </Link>
       </div>
       {loading && (
-        <div className="w-full">
+        <div className="w-full ">
           <CategoryCardLoader />
         </div>
       )}
-      <div className="w-full grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
+      <div className="w-full hidden  md:grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
         {data &&
           data.listCategories.items.map((category) => (
             <CategoryCard2 item={category} key={category.id} />
           ))}
+      </div>
+
+      <div className="md:hidden">
+        {data && <CategoryCardSlider data={data} />}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 const UploadProduct = () => {
   return (
     <section className="custom-container py-10 ">
-      <div className="flex flex-col items-center space-y-2">
+      {/* <div className="flex flex-col items-center space-y-2">
         <div className="flex items-center space-x-1  text-sm text-secondColor">
           <h6>Home</h6>
           <MdKeyboardArrowRight />
@@ -18,7 +18,7 @@ const UploadProduct = () => {
           <p>Need something cleared up? Here are our most</p>
           <p>frequently asked questions.</p>
         </div>
-      </div>
+      </div> */}
       <UploadForm />
     </section>
   );

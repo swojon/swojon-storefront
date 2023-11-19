@@ -34,7 +34,7 @@ export const getCategoryTree = (categories: any[], target: any): any[] => {
   return categoryList;
 };
 
-export default function MegaMenu() {
+export default function MegaMenu({ border }: { border: any }) {
   const { data, loading, error } = useListCategoriesQuery();
   const categories = data?.listCategories.items;
   const parentCategories = categories?.filter(
@@ -63,11 +63,17 @@ export default function MegaMenu() {
               <div className=" flex ">
                 <Popover.Button
                   className={classNames(
-                    open ? "  text-primaryColor" : "text-white",
-                    "group inline-flex items-center rounded-md whitespace-nowrap  font-medium  focus:outline-none   "
+                    open ? "  " : "",
+                    "group inline-flex items-center rounded-md whitespace-nowrap  font-medium  focus:outline-none  xl:text-sm text-xs "
                   )}
                 >
-                  <span>All Category</span>
+                  <span
+                    className={`${
+                      border === "border" ? "  text-primaryColor" : "text-white"
+                    }`}
+                  >
+                    All Category
+                  </span>
                   {open ? (
                     <IoMdArrowDropup className="pl-1 text-activeColor text-xl" />
                   ) : (
@@ -147,7 +153,10 @@ export default function MegaMenu() {
                                 >
                                   <div className="w-full h-20  relative hover:scale-105">
                                     <Image
-                                      src={item.banner ?? "https://picsum.photos/200/300"}
+                                      src={
+                                        item.banner ??
+                                        "https://picsum.photos/200/300"
+                                      }
                                       height={300}
                                       width={300}
                                       alt="banner"
@@ -212,7 +221,10 @@ export default function MegaMenu() {
                                       >
                                         <div className="w-full h-20  relative hover:scale-105">
                                           <Image
-                                            src={subItem.banner ?? "https://picsum.photos/200/300"}
+                                            src={
+                                              subItem.banner ??
+                                              "https://picsum.photos/200/300"
+                                            }
                                             height={300}
                                             width={300}
                                             alt="banner"

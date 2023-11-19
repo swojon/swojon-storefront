@@ -11,19 +11,19 @@ const CategoryCardLoader = () => {
         <div className="w-[75%] h-5 rounded-md bg-gray-300"></div>
         <div className="w-[30%] h-3 rounded-md bg-gray-300 mt-2"></div>
       </div>
-      <div className=" h-[270px]  rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
+      <div className=" h-[270px]  rounded-lg relative hidden md:block   overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
         <div className="w-[75%] h-5 rounded-md bg-gray-300"></div>
         <div className="w-[30%] h-3 rounded-md bg-gray-300 mt-2"></div>
       </div>
-      <div className=" h-[270px]  rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
+      <div className=" h-[270px]  rounded-lg relative hidden md:block    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
         <div className="w-[75%] h-5 rounded-md bg-gray-300"></div>
         <div className="w-[30%] h-3 rounded-md bg-gray-300 mt-2"></div>
       </div>
-      <div className=" h-[270px]  rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
+      <div className=" h-[270px]  rounded-lg relative hidden md:block    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
         <div className="w-[75%] h-5 rounded-md bg-gray-300"></div>
         <div className="w-[30%] h-3 rounded-md bg-gray-300 mt-2"></div>
       </div>
-      <div className=" h-[270px]  rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
+      <div className=" h-[270px]  rounded-lg relative hidden md:block    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300 bg-gray-100 animate-pulse p-5 ">
         <div className="w-[75%] h-5 rounded-md bg-gray-300"></div>
         <div className="w-[30%] h-3 rounded-md bg-gray-300 mt-2"></div>
       </div>

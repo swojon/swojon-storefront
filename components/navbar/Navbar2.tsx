@@ -40,11 +40,11 @@ export default function Navbar2({ border }: { border: any }) {
       {({ open }) => (
         <>
           <div className=" ">
-            <div className="flex h-16 justify-between gap-3 items-center">
-              <div className="flex px-2 gap-1 lg:px-0">
+            <div className="flex h-16 justify-between gap-4 items-center">
+              <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0 ">
                 <Link
                   href="/"
-                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center`}
+                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center lg:mr-1 xl:mr-3.5`}
                 >
                   {border === "border" ? (
                     <Image
@@ -64,33 +64,29 @@ export default function Navbar2({ border }: { border: any }) {
                     />
                   )}
                 </Link>
-                <div className="hidden lg:ml-6 lg:flex lg:space-x-1 xl:space-x-4">
-                  <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed hover:border-activeColor hover:text-gray-200">
-                    <MegaMenu />
+                <div className="hidden   lg:flex lg:gap-1 xl:gap-3">
+                  <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed  hover:border-activeColor hover:text-gray-200">
+                    <MegaMenu border={border} />
                   </span>
                   <Link
                     href="#"
-                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
-                      border === "border"
-                        ? "  text-primaryColor"
-                        : "text-white"
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 xl:text-sm text-xs font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
                     All Ads
                   </Link>
                   <Link
                     href="/community"
-                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
-                      border === "border"
-                        ? "  text-primaryColor"
-                        : "text-white"
+                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1 pt-1 xl:text-sm text-xs font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                      border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
                     Community
                   </Link>
                 </div>
               </div>
-              <div className={`   md:w-1/2 w-1/2 `}>
+              <div className={`lg:w-[42%]   md:w-full w-full `}>
                 <SearchField />
               </div>
 
@@ -98,23 +94,25 @@ export default function Navbar2({ border }: { border: any }) {
               <div className="flex items-center lg:hidden">
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
-                  className="inline-flex items-center justify-center rounded-md p-2 text-activeColor  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor"
+                  className={`inline-flex items-center justify-center rounded-md p-2    hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
+                    border === "border" ? "  text-activeColor" : "text-white"
+                  } `}
                 >
                   <span className="sr-only">Open main menu</span>
 
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
-              <div className="hidden  lg:flex lg:items-center space-x-3">
+              <div className="lg:w-[23%] hidden    lg:flex lg:items-center justify-end gap-3">
                 {authState.isAuthenticated === false ? (
                   <Link href="/signin">
-                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
                       <CiLogin /> <span> login</span>
                     </button>
                   </Link>
                 ) : (
                   <Link href="/chat">
-                    <button className="whitespace-nowrap border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor lg:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
+                    <button className="whitespace-nowrap border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
                       <PiChatsCircleFill /> <span> Chat</span>
                     </button>
                   </Link>
@@ -130,7 +128,7 @@ export default function Navbar2({ border }: { border: any }) {
                     //     })
                     //   )
                     // }
-                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
+                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
                   >
                     Sell Product
                   </button>
@@ -139,7 +137,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
-                      className={`py-1.5 px-2 leading-0 font-lexed font-medium   lg:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5 px-2 leading-0 font-lexed font-medium  xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     >
@@ -149,10 +147,10 @@ export default function Navbar2({ border }: { border: any }) {
                 ) : (
                   <Menu
                     as="div"
-                    className="relative ml-3 flex-shrink-0 font-lexed font-medium "
+                    className="relative  flex-shrink-0 font-lexed font-medium "
                   >
                     <div>
-                      <Menu.Button className="flex items-center bg-activeColor text-sm focus:outline-none  p-1 rounded-3xl gap-1">
+                      <Menu.Button className="flex items-center bg-activeColor xl:text-sm text-xs focus:outline-none  p-1 rounded-3xl gap-1">
                         <Image
                           className="h-7 w-7 rounded-full"
                           src={user}

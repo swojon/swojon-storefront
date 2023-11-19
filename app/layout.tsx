@@ -11,6 +11,7 @@ import { cookies, headers } from "next/headers";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
@@ -18,7 +19,6 @@ import ResNavbar from "@/components/navbar/ResNavbar";
 import { getCookie } from "cookies-next";
 import ResFilter from "@/components/FilterBar/ResFilter";
 import { store } from "./redux/store";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,23 +37,25 @@ async function getSession(): Promise<any> {
   // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
   // console.log("cookies", cookies().get('authorization').value)
 
-  try{
-  
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/profile`, {
-      headers: {
-        Authorization : `Bearer ${cookies().get('authorization')?.value}`
-      },
-      credentials: 'include'
-      });
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies().get("authorization")?.value}`,
+        },
+        credentials: "include",
+      }
+    );
 
     const session = await response.json();
     console.log("Got Session", session);
-    return Object.keys(session).length > 0 ? {user: session, token: cookies().get('authorization')?.value } : null
-     
+    return Object.keys(session).length > 0
+      ? { user: session, token: cookies().get("authorization")?.value }
+      : null;
   } catch {
-    return null
+    return null;
   }
-
 }
 
 export default async function RootLayout({ children }: Iprops) {
@@ -73,17 +75,17 @@ export default async function RootLayout({ children }: Iprops) {
       <body className={inter.className}>
         <ReduxProviders session={session}>
           {/* <NextAuthProvider session={session}> */}
-            <ApolloWrapper>
-              <div className="min-h-[30vh] relative">
-                <ResNavbar />
-                <ResFilter />
-                {children}
-              </div>
+          <ApolloWrapper>
+            <div className="min-h-[30vh] relative">
+              <ResNavbar />
+              <ResFilter />
+              {children}
+            </div>
 
-              <Modal />
+            <Modal />
 
-              <Footer />
-            </ApolloWrapper>
+            <Footer />
+          </ApolloWrapper>
           {/* </NextAuthProvider> */}
         </ReduxProviders>
       </body>

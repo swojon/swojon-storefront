@@ -19,6 +19,7 @@ import { useState } from "react";
 import BrandDropdown from "./BrandDropdown";
 import { useSession } from "next-auth/react";
 import { useCreateListingMutation } from "@/apollograph/generated";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -83,7 +84,8 @@ const UploadForm = () => {
     imageUrls: [],
   };
   const dispatch = useDispatch();
-  const [createListing, {error:createError, data: createData}]  = useCreateListingMutation()
+  const [createListing, { error: createError, data: createData }] =
+    useCreateListingMutation();
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -101,8 +103,7 @@ const UploadForm = () => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
-      console.log("submitting the  form with values")
- 
+      console.log("submitting the  form with values");
 
       try {
         for (let i = 0; i < values.banner.length; i++) {
@@ -129,23 +130,22 @@ const UploadForm = () => {
         mediaUrls: values.imageUrls,
         locationId: values.locationId,
         categoryId: values.categoryId,
-        brandId: values.brandId
-      }
+        brandId: values.brandId,
+      };
 
       createListing({
         variables: {
-          listingData: listingData
+          listingData: listingData,
         },
       });
       // setUploadProgress(null);
 
-      if (createError)
-        console.log("Failed to create listing", createError)
-        // .error("Failed to Create Category, Please Try again.");
+      if (createError) console.log("Failed to create listing", createError);
+      // .error("Failed to Create Category, Please Try again.");
       if (createData) {
         // toast.success("Category Created Successfully");
         action.resetForm();
-        console.log("Success in creating product")
+        console.log("Success in creating product");
       }
       console.log("values after submitting", values);
     },
@@ -153,7 +153,7 @@ const UploadForm = () => {
   console.log(values, "values");
   console.log(errors, "ërrors");
   return (
-    <section className="mt-8 ">
+    <section className=" ">
       {/* <div className="flex ">
         <div className="flex-1">
           <h3 className="text-2xl font-lexed font-medium text-primaryColor">
@@ -189,7 +189,46 @@ const UploadForm = () => {
         </div>
       </div> */}
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+        <div className="space-y-2">
+          <div className="flex items-center space-x-1  text-sm text-secondColor">
+            <h6>Home</h6>
+            <MdKeyboardArrowRight />
+            <h6 className="text-primaryColor">Upload product</h6>
+          </div>
+          <h2 className="text-primaryColor font-lexed xl:text-3xl lg:text-2xl md:text-lg text-base font-medium">
+            Upload product
+          </h2>
+          <div className=" text-base text-secondColor">
+            <p>Need something cleared up? Here are our most</p>
+            <p>frequently asked questions.</p>
+          </div>
+        </div>
+        <div className="flex items-center justify-end gap-3">
+          {" "}
+          <div className="w-[120px]">
+            <LocationDropDown
+              values={values.locationId}
+              setFieldValue={setFieldValue}
+            />
+          </div>{" "}
+          <button
+            onClick={() =>
+              dispatch(
+                setModalOpen({
+                  title: "this is a modal",
+                  body: "success",
+                })
+              )
+            }
+            className="px-2.5 py-2 bg-activeColor text-white text-sm rounded-md"
+          >
+            Modify Search
+          </button>
+        </div>
+      </div>
+
+      <form className="space-y-6 mt-8" onSubmit={handleSubmit}>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
           <div className="w-full space-y-4">
             <h5 className="text-2xl font-lexed text-primaryColor">
@@ -213,7 +252,6 @@ const UploadForm = () => {
                 setFieldValue={setFieldValue}
               />
             </div>
-
 
             <div className="w-full shadow-lg p-5 rounded-md border-gray-50 space-y-3">
               <h6 className="text-lg font-lexed  text-primaryColor">
@@ -299,23 +337,23 @@ const UploadForm = () => {
                   <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
                 ) : null}
               </div>
-            {/* Price Input */}
-            <div>
-              <label
-                htmlFor="price"
-                className="block text-base font-medium text-primaryColor font-lexed"
-              >
-                Price
-              </label>
+              {/* Price Input */}
+              <div>
+                <label
+                  htmlFor="price"
+                  className="block text-base font-medium text-primaryColor font-lexed"
+                >
+                  Price
+                </label>
                 <div className="mt-2">
                   <Price values={values} onChange={handleChange} />
 
                   {errors.price && touched.price ? (
                     <p className="text-red-400	pt-1  text-xs">{errors.price}</p>
                   ) : null}
+                </div>
               </div>
-            </div>
-                  {/*  */}
+              {/*  */}
               <div>
                 <label
                   htmlFor="model"
@@ -323,10 +361,10 @@ const UploadForm = () => {
                 >
                   Description
                 </label>
-                
+
                 <Descriptions values={values} onChange={handleChange} />
 
-{/*              
+                {/*              
                 <textarea
                   id="productDescription"
                   name="productDescription"
@@ -338,7 +376,9 @@ const UploadForm = () => {
                 /> */}
                 {/* <Model values={values.model} setFieldValue={setFieldValue} /> */}
                 {errors.description && touched.description ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.description}</p>
+                  <p className="text-red-400	pt-1  text-xs">
+                    {errors.description}
+                  </p>
                 ) : null}
               </div>
             </div>
@@ -427,7 +467,6 @@ const UploadForm = () => {
                 values={values.banner}
                 uploading={uploading}
                 uploadProgress={uploadProgress}
-
               />
             </div>
 
@@ -575,11 +614,6 @@ const UploadForm = () => {
                 </div>
               </div>
             </div> */}
-
-
-
-
-          
         </div>
       </form>
     </section>
