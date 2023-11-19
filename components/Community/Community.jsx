@@ -5,6 +5,7 @@ import img3 from "@/public/assets/comm3.png";
 import img4 from "@/public/assets/comm4.png";
 import CommunityCard from "@/components/Community/CommunityCard";
 import { useListCommunitiesQuery } from "@/apollograph/generated";
+import ProductLoader from "../Loader/ProductLoader";
 
 // const card = [
 //   {
@@ -70,6 +71,7 @@ const Community = () => {
         {communities && communities?.map((community) => (
           <CommunityCard key={community.id} card={community} />
         ))}
+        {loading && <ProductLoader />}
       </div>
     </section>
   );
