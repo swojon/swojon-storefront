@@ -3,8 +3,8 @@ import img1 from "@/public/assets/comm1.png";
 import img2 from "@/public/assets/comm2.png";
 import img3 from "@/public/assets/comm3.png";
 import img4 from "@/public/assets/comm4.png";
-import CommunityCard from "@/components/Community/CommunityCard";
-import Link from "next/link";
+import CommunityLists from "@/components/Community/CommunityLists";
+import CommunityDetails from "@/components/Community/CommunityDetails";
 
 const card = [
   {
@@ -51,28 +51,21 @@ const card = [
   },
 ];
 
-const Community = () => {
+const CommunitySlug = ({ params }: { params: any }) => {
+  const communityItem = parseInt(params.communitySlug, 10);
+  const selectedCommunity = card.find((item) => item.id === communityItem);
   return (
-    <section className="my-20 custom-container">
-      <div className="flex md:flex-row flex-col justify-between items-center space-y-2 md:space-x-0">
-        <h2 className="lg:text-4xl text-2xl font-lexed text-primaryColor font-semiBold">
-          Join Your Community
-        </h2>
-        <Link
-          href="/community"
-          className="border border-activeColor md:py-2 md:px-3 py-1 px-2 rounded  text-activeColor lg:text-base text-sm font-lexed hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 "
-        >
-          See All Community
-        </Link>
-      </div>
-
-      <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 pt-10">
-        {card.map((card) => (
-          <CommunityCard key={card.id} card={card} />
-        ))}
+    <section className="bg-[#f5f5f6]  py-10">
+      <div className="custom-container flex  gap-4">
+        <div className="w-[28%] lg:block hidden">
+          <CommunityLists />
+        </div>
+        <div className="lg:w-[72%] w-full">
+          <CommunityDetails />
+        </div>
       </div>
     </section>
   );
 };
 
-export default Community;
+export default CommunitySlug;

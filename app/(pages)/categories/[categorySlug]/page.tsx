@@ -14,17 +14,16 @@ import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery } from "@/apollograph/generated";
 
 const CategoryDetail = ({ params }: { params: any }) => {
-
   const appliedFilter = [];
 
-  const {data, loading, error } = useListListingsQuery({
+  const { data, loading, error } = useListListingsQuery({
     variables: {
       filters: {
-        categorySlug: params.categorySlug
-      }
-    }
-  })
-  const listings = data?.listListings?.items
+        categorySlug: params.categorySlug,
+      },
+    },
+  });
+  const listings = data?.listListings?.items;
 
   const dispatch = useDispatch();
 
