@@ -1,17 +1,30 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import React from "react";
 import Image from "next/image";
 import { BsDot } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
 
-const CommunityLists = () => {
+const CommunityLists = ({
+  setCommunityPanelOpen,
+}: {
+  setCommunityPanelOpen: any;
+}) => {
   return (
     <section className="sticky top-0 h-auto  rounded-md min-h-screen space-y-4 bg-white p-4">
       <div className="space-y-3">
-        <h2 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-medium">
-          Community
-        </h2>
+        <div className="flex justify-between items-center">
+          <h2 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-medium">
+            Community
+          </h2>{" "}
+          <div
+            className=" text-primaryColor  cursor-pointer lg:hidden"
+            onClick={() => setCommunityPanelOpen(false)}
+          >
+            <AiOutlineClose />
+          </div>
+        </div>
+
         <div className="relative  ">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center  ">
             <MagnifyingGlassIcon

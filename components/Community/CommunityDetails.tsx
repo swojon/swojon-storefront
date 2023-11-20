@@ -60,8 +60,8 @@ const CommunityDetails = () => {
       <div className="w-full h-[468px] rounded-md">
         <Image
           src="/assets/communityBanner.png"
-          width={700}
-          height={600}
+          width={1600}
+          height={1000}
           className="w-full h-full object-cover rounded-md"
           alt="community banner"
         />
