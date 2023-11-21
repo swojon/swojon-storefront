@@ -174,7 +174,7 @@ const ResNavbar = () => {
                     (item) => item.parentCategory?.id === currentCategory.id
                   )
                   .map((item: any) => (
-                    <div key={item.id} className="w-20   ">
+                    <div key={`sub${item.id}`} className="w-20   ">
                       <Link
                         href={`/categories/${item.slug}`}
                         className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
@@ -206,7 +206,7 @@ const ResNavbar = () => {
                   (item) => item.parentCategory?.id === currentCategory.id
                 )
                 .map((item: any) => (
-                  <Fragment key={item.id}>
+                  <Fragment key={`subsub${item.id}`}>
                     <h6 className="lg:text-lg md:text-base text-sm text-secondColor font-lexed flex  items-center pt-5">
                       <BsFillGrid3X3GapFill className="me-2 " /> {item.name}
                     </h6>
