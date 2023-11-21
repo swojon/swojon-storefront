@@ -39,7 +39,7 @@ const FeaturedCategoriesBox = () => {
       <div className="w-full hidden  md:grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
         {data &&
           data.listCategories.items.map((category) => (
-            <CategoryCard2 item={category} key={category.id} />
+            <CategoryCard2 item={category} key={`featured${category.id}`} />
           ))}
       </div>
 
