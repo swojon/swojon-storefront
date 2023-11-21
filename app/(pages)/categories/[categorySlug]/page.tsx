@@ -43,7 +43,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
         <div className=" flex justify-between items-center gap-3 ">
           <span
             onClick={() => dispatch(setFilterOpen())}
-            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor block lg:hidden"
+            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor  lg:hidden"
           >
             <FiFilter />
           </span>

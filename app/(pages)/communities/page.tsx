@@ -8,6 +8,11 @@ import CommunityDetails from "@/components/Community/CommunityDetails";
 import { useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import { useListListingsQuery } from "@/apollograph/generated";
+import ProductCard from "@/components/Products/ProductCard";
+import ProductLoader from "@/components/Loader/ProductLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { setCommunityOpen } from "@/app/redux/communitySlice";
 
 const card = [
   {
@@ -55,36 +60,30 @@ const card = [
 ];
 
 const CommunitySlug = ({ params }: { params: any }) => {
-  const [communityPanelOpen, setCommunityPanelOpen] = useState(true);
-  const communityItem = parseInt(params.communitySlug, 10);
-  const selectedCommunity = card.find((item) => item.id === communityItem);
+  const { data, loading, error } = useListListingsQuery();
+  const featuredProduct = data?.listListings.items;
+  const dispatch = useDispatch();
+  const isCommunityOpen = useSelector((state: any) => state.community.open);
+
   return (
-    <section className="bg-[#f5f5f6]  lg:py-10 md:py-6 py-4.5">
-      <div className="custom-container flex  gap-4 ">
-        <div
-          className={`lg:w-[28%] w-full  h-full relative ${
-            communityPanelOpen
-              ? "opacity-100"
-              : " opacity-0 hidden pointer-events-none"
-          }`}
+    <section
+      className={`lg:w-[73%] w-full relative lg:block ${
+        isCommunityOpen ? "hidden" : "block"
+      }`}
+    >
+      <div className=" pb-3 z-10 lg:hidden">
+        <button
+          onClick={() => dispatch(setCommunityOpen())}
+          className="p-3  border border-activeColor text-primaryColor rounded-md bg-white"
         >
-          <CommunityLists setCommunityPanelOpen={setCommunityPanelOpen} />
-        </div>
-        <div
-          className={`w-full  h-full lg:block relative ${
-            communityPanelOpen ? "block" : " hidden"
-          }`}
-        >
-          <div className="absolute left-2 top-2 pb-3 z-10 ">
-            <button
-              onClick={() => setCommunityPanelOpen(!communityPanelOpen)}
-              className="p-3 border border-activeColor text-primaryColor rounded-md bg-white"
-            >
-              <FaUsers />
-            </button>
-          </div>
-          <CommunityDetails />
-        </div>
+          <FaUsers />
+        </button>
+      </div>
+      <div className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 ">
+        {featuredProduct?.map((product) => (
+          <ProductCard key={product.id} card={product} />
+        ))}
+        {loading && <ProductLoader />}
       </div>
     </section>
   );

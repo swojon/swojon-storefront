@@ -59,7 +59,7 @@ const Community = () => {
           Join Your Community
         </h2>
         <Link
-          href="/community"
+          href="/communities"
           className="border border-activeColor md:py-2 md:px-3 py-1 px-2 rounded  text-activeColor lg:text-base text-sm font-lexed hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 "
         >
           See All Community

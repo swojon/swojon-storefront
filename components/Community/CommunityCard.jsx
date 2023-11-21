@@ -36,15 +36,15 @@ const CommunityCard = ({ card }) => {
         </div>
         <div className="flex items-center space-x-1 md:py-4.5 py-3">
           <div class="avatars px-2 ">
-            <Link href="#" class="avatars__item">
+            <div class="avatars__item">
               <Image class="avatar" src={user} alt="" width={30} height={30} />
-            </Link>
-            <Link href="#" class="avatars__item">
+            </div>
+            <div class="avatars__item">
               <Image class="avatar" src={user2} alt="" width={30} height={30} />
-            </Link>
-            <Link href="#" class="avatars__item">
+            </div>
+            <div class="avatars__item">
               <Image class="avatar" src={user} alt="" width={30} height={30} />
-            </Link>
+            </div>
           </div>
           <span className="text-sm text-secondColor">120+ Members</span>
         </div>
