@@ -9,14 +9,16 @@ import Link from "next/link";
 import { IoMdArrowDropdown } from "react-icons/io";
 import "./Community.css";
 
-const CommunityCard = ({ card }) => {
+const CommunityCard = ({ card }: {card: any }) => {
   return (
     <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
       <Link href={`/community/${card.id}`}>
         <div className="md:h-[215px] h-[225px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
           <Image
-            src={card.banner}
+            src={card.banner ?? ""}
             alt="product banner"
+            width={100}
+            height={100}
             className="h-full w-full object-cover rounded-tl-md  rounded-tr-md hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </div>
@@ -36,15 +38,15 @@ const CommunityCard = ({ card }) => {
           <span className="text-sm">Fatehpur, Hathazari</span>
         </div>
         <div className="flex items-center space-x-1 md:py-4.5 py-3">
-          <div class="avatars px-2 ">
-            <div class="avatars__item">
-              <Image class="avatar" src={user} alt="" width={30} height={30} />
+          <div className="avatars px-2 ">
+            <div className="avatars__item">
+              <Image className="avatar" src={user} alt="" width={30} height={30} />
             </div>
-            <div class="avatars__item">
-              <Image class="avatar" src={user2} alt="" width={30} height={30} />
+            <div className="avatars__item">
+              <Image className="avatar" src={user2} alt="" width={30} height={30} />
             </div>
-            <div class="avatars__item">
-              <Image class="avatar" src={user} alt="" width={30} height={30} />
+            <div className="avatars__item">
+              <Image className="avatar" src={user} alt="" width={30} height={30} />
             </div>
           </div>
           <span className="text-sm text-secondColor">120+ Members</span>
