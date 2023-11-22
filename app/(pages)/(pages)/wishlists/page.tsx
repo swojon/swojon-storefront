@@ -1,6 +1,7 @@
 "use client";
 import { useListFavoriteListingQuery } from "@/apollograph/generated";
 import FollowerLists from "@/components/FollowerLists/FollowerLists";
+import ProductLoader from "@/components/Loader/ProductLoader";
 import ProductLists from "@/components/ProductLists/ProductLists";
 import ProductCard from "@/components/Products/ProductCard";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -24,6 +25,7 @@ const Wishlists = () => {
         </h6>
       </div>
       <div className="grid  lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2 lg:px-5 md:px-2.5 px-1.5  pt-8">
+        {loading && <ProductLoader />}
         {wishListItems?.map((item) => (
           <ProductCard card={item} key={item.id} />
         ))}

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { FaLocationDot, FaStar } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
@@ -10,16 +10,17 @@ import { AiFillHeart } from "react-icons/ai";
 import { useListFollowersQuery } from "@/apollograph/generated";
 import { useSelector } from "react-redux";
 import FollowUserCard from "@/components/FollowUserCard/FollowUserCard";
+import FollowUserCardLoader from "@/components/Loader/FollowUserCardLoader";
 
 const Followers = () => {
-  const {user} = useSelector((state: any) => state.auth)
-  const {data, error, loading} = useListFollowersQuery({
+  const { user } = useSelector((state: any) => state.auth);
+  const { data, error, loading } = useListFollowersQuery({
     variables: {
-      userId: user.id
-    }
-  })
+      userId: user.id,
+    },
+  });
   const followers = data?.listFollowers.items;
-  console.log("Followers", followers)
+  console.log("Followers", followers);
   return (
     <section>
       <div className="border-b px-5 py-3.5">
@@ -29,9 +30,11 @@ const Followers = () => {
       </div>
 
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
-          {followers?.map(follower => (
-            <FollowUserCard follow={follower} key={follower.id} />
-          ))}
+        {followers?.map((follower) => (
+          <FollowUserCard follow={follower} key={follower.id} />
+        ))}
+        {loading && <FollowUserCardLoader />}
+
         {/* <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none relative">
           <div className="absolute right-3 top-3 w-7 h-7 flex justify-center items-center rounded-full border border-activeColor cursor-pointer">
             <AiFillHeart className="text-activeColor" />
