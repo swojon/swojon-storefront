@@ -19,7 +19,7 @@ const Followers = () => {
     }
   })
   const followers = data?.listFollowers.items;
-
+  console.log("Followers", followers)
   return (
     <section>
       <div className="border-b px-5 py-3.5">
@@ -30,7 +30,7 @@ const Followers = () => {
 
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
           {followers?.map(follower => (
-            <FollowUserCard user={follower} key={follower.id} />
+            <FollowUserCard follow={follower} key={follower.id} />
           ))}
         {/* <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none relative">
           <div className="absolute right-3 top-3 w-7 h-7 flex justify-center items-center rounded-full border border-activeColor cursor-pointer">

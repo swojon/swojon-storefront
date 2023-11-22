@@ -216,6 +216,47 @@ export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
 export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
 export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
+export const AddFollowDocument = gql`
+    mutation AddFollow($userId: Float!, $followedUserId: Float!) {
+  addFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}
+    `;
+export type AddFollowMutationFn = Apollo.MutationFunction<AddFollowMutation, AddFollowMutationVariables>;
+
+/**
+ * __useAddFollowMutation__
+ *
+ * To run a mutation, you first call `useAddFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFollowMutation, { data, loading, error }] = useAddFollowMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      followedUserId: // value for 'followedUserId'
+ *   },
+ * });
+ */
+export function useAddFollowMutation(baseOptions?: Apollo.MutationHookOptions<AddFollowMutation, AddFollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFollowMutation, AddFollowMutationVariables>(AddFollowDocument, options);
+      }
+export type AddFollowMutationHookResult = ReturnType<typeof useAddFollowMutation>;
+export type AddFollowMutationResult = Apollo.MutationResult<AddFollowMutation>;
+export type AddFollowMutationOptions = Apollo.BaseMutationOptions<AddFollowMutation, AddFollowMutationVariables>;
 export const ListChatsDocument = gql`
     query listChats($userId: Float) {
   listChatRooms(userId: $userId) {
@@ -1029,6 +1070,47 @@ export function useSearchListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchListingsQueryHookResult = ReturnType<typeof useSearchListingsQuery>;
 export type SearchListingsLazyQueryHookResult = ReturnType<typeof useSearchListingsLazyQuery>;
 export type SearchListingsQueryResult = Apollo.QueryResult<SearchListingsQuery, SearchListingsQueryVariables>;
+export const RemoveFollowDocument = gql`
+    mutation RemoveFollow($userId: Float!, $followedUserId: Float!) {
+  removeFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}
+    `;
+export type RemoveFollowMutationFn = Apollo.MutationFunction<RemoveFollowMutation, RemoveFollowMutationVariables>;
+
+/**
+ * __useRemoveFollowMutation__
+ *
+ * To run a mutation, you first call `useRemoveFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFollowMutation, { data, loading, error }] = useRemoveFollowMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      followedUserId: // value for 'followedUserId'
+ *   },
+ * });
+ */
+export function useRemoveFollowMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFollowMutation, RemoveFollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFollowMutation, RemoveFollowMutationVariables>(RemoveFollowDocument, options);
+      }
+export type RemoveFollowMutationHookResult = ReturnType<typeof useRemoveFollowMutation>;
+export type RemoveFollowMutationResult = Apollo.MutationResult<RemoveFollowMutation>;
+export type RemoveFollowMutationOptions = Apollo.BaseMutationOptions<RemoveFollowMutation, RemoveFollowMutationVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -2186,6 +2268,14 @@ export type AddFavoriteMutationVariables = Exact<{
 
 export type AddFavoriteMutation = { __typename?: 'Mutation', addFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
 
+export type AddFollowMutationVariables = Exact<{
+  userId: Scalars['Float']['input'];
+  followedUserId: Scalars['Float']['input'];
+}>;
+
+
+export type AddFollowMutation = { __typename?: 'Mutation', addFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
+
 export type ListChatsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['Float']['input']>;
 }>;
@@ -2293,3 +2383,11 @@ export type SearchListingsQueryVariables = Exact<{
 
 
 export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+
+export type RemoveFollowMutationVariables = Exact<{
+  userId: Scalars['Float']['input'];
+  followedUserId: Scalars['Float']['input'];
+}>;
+
+
+export type RemoveFollowMutation = { __typename?: 'Mutation', removeFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };

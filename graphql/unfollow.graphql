@@ -1,0 +1,12 @@
+mutation RemoveFollow($userId: Float!, $followedUserId: Float!) {
+  removeFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}
