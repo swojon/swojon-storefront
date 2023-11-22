@@ -27,12 +27,7 @@ const ResFilter = () => {
       <div
         className={`w-[85%] md:w-[55%] bg-white h-screen opacity-100  relative transition duration-700 ease-in-out delay-200 `}
       >
-        <button
-          className="absolute right-0 top-0 border p-2 m-2 rounded-sm text-activeColor"
-          onClick={() => dispatch(setFilterClose())}
-        >
-          <AiOutlineClose className="text-lg" />
-        </button>
+        
         <section className="sticky top-0 h-full rounded-md min-h-screen py-7 pl-6 pr-16 overflow-y-auto">
           <div className="flex justify-between items-center p-3 border-b ">
             <h6 className="text-lg font-lexed text-primaryColor">Filter by:</h6>
@@ -76,6 +71,12 @@ const ResFilter = () => {
             <BrandFilter />
           </div>
         </section>
+        <button
+          className="absolute right-0 top-0 border p-2 m-2 rounded-sm text-activeColor"
+          onClick={() => dispatch(setFilterClose())}
+        >
+          <AiOutlineClose className="text-lg" />
+        </button>
       </div>
     </div>
   );

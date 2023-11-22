@@ -1,11 +1,10 @@
 "use client";
 import { NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
 import { FormEventHandler, useState } from "react";
 import login from "@/public/assets/loginBanner.png";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
