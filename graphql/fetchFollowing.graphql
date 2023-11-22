@@ -1,6 +1,7 @@
 query ListFollowing($userId: Float!) {
   listFollowing(userId: $userId) {
     items {
+      id
       user{
         id
         email

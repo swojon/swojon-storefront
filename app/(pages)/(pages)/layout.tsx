@@ -4,7 +4,6 @@ import { RxSlash } from "react-icons/rx";
 import SideBar from "@/components/SideBar/SideBar";
 
 interface Iprops {
-  session: any;
   children: React.ReactNode;
 }
 

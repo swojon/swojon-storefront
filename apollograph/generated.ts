@@ -431,9 +431,10 @@ export type ListBrandsQueryResult = Apollo.QueryResult<ListBrandsQuery, ListBran
 export const GetCommunityDocument = gql`
     query GetCommunity($id: Float, $name: String, $slug: String) {
   getCommunity(id: $id, name: $name, slug: $slug) {
+    id
+    slug
     banner
     isFeatured
-    id
     description
     memberCount
     members {
@@ -555,6 +556,7 @@ export const ListCommunitiesDocument = gql`
     query ListCommunities($filters: CommunityFilterInput) {
   listCommunities(filters: $filters) {
     items {
+      slug
       banner
       isFeatured
       id
@@ -606,6 +608,7 @@ export const ListFollowersDocument = gql`
     query ListFollowers($userId: Float!) {
   listFollowers(userId: $userId) {
     items {
+      id
       user {
         id
         email
@@ -655,6 +658,7 @@ export const ListFollowingDocument = gql`
     query ListFollowing($userId: Float!) {
   listFollowing(userId: $userId) {
     items {
+      id
       user {
         id
         email
@@ -1305,6 +1309,7 @@ export type Follow = {
 export type Follower = {
   __typename?: 'Follower';
   followStatus: Scalars['Boolean']['output'];
+  id: Scalars['Float']['output'];
   user: User;
 };
 
@@ -2221,7 +2226,7 @@ export type GetCommunityQueryVariables = Exact<{
 }>;
 
 
-export type GetCommunityQuery = { __typename?: 'Query', getCommunity: { __typename?: 'Community', banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, slug?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null } };
+export type GetCommunityQuery = { __typename?: 'Query', getCommunity: { __typename?: 'Community', id: number, slug?: string | null, banner?: string | null, isFeatured: boolean, description?: string | null, memberCount?: number | null, name?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null } };
 
 export type ListFavoriteListingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
@@ -2235,21 +2240,21 @@ export type ListCommunitiesQueryVariables = Exact<{
 }>;
 
 
-export type ListCommunitiesQuery = { __typename?: 'Query', listCommunities: { __typename?: 'Communities', items: Array<{ __typename?: 'Community', banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, slug?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null }> } };
+export type ListCommunitiesQuery = { __typename?: 'Query', listCommunities: { __typename?: 'Communities', items: Array<{ __typename?: 'Community', slug?: string | null, banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null }> } };
 
 export type ListFollowersQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
+export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListFollowingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
+export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
