@@ -5,63 +5,20 @@ import React from "react";
 import Image from "next/image";
 import { BsDot } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
-import img1 from "@/public/assets/comm1.png";
-import img2 from "@/public/assets/comm2.png";
-import img3 from "@/public/assets/comm3.png";
-import img4 from "@/public/assets/comm4.png";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommunityClose } from "@/app/redux/communitySlice";
 import { FaUsers } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
-
-const card = [
-  {
-    id: 134,
-    banner: img1,
-    title: "Chittagong University",
-    joined: "Join to Buy",
-  },
-  {
-    id: 143,
-    banner: img2,
-    title: "Chittagong University",
-    joined: "Join to Buy",
-  },
-  {
-    id: 123,
-    banner: img3,
-    title: "Chittagong University",
-    joined: "Join to Buy",
-  },
-  {
-    id: 1227,
-    banner: img4,
-    title: "Chittagong University",
-    joined: "Already Joined",
-  },
-  {
-    id: 1225,
-    banner: img4,
-    title: "Chittagong University",
-    joined: "Join to Buy",
-  },
-  {
-    id: 1224,
-    banner: img4,
-    title: "Chittagong University",
-    joined: "Join to Buy",
-  },
-  {
-    id: 12275,
-    banner: img4,
-    title: "Chittagong University",
-    joined: "Already Joined",
-  },
-];
+import { useListCommunitiesQuery } from "@/apollograph/generated";
+import CommunityListCard from "./CommunityListCard";
 
 const CommunityLists = () => {
+  const {user} = useSelector((state: any) => state.auth)
   const dispatch = useDispatch();
+  const {data, loading, error } = useListCommunitiesQuery()
+  const communities = data?.listCommunities.items;
+
   const isCommunityOpen = useSelector((state: any) => state.community.open);
   return (
     <section
@@ -98,130 +55,29 @@ const CommunityLists = () => {
           />
         </div>
         <div className="border-b"></div>
-        <div className="w-full py-2 bg-activeColor text-white text-sm flex justify-center items-center gap-2 rounded-md">
+        {/* <div className="w-full py-2 bg-activeColor text-white text-sm flex justify-center items-center gap-2 rounded-md">
           <span>
             <AiOutlinePlus />
           </span>
           <span>Create community</span>
-        </div>
+        </div> */}
       </div>
 
       <div className="space-y-2">
         <div className="flex justify-between items-center gap-2">
           <h6 className="xl:text-lg md:text-base text-base text-primaryColor font-lexed font-medium">
-            You’ve joined
+           Discover
           </h6>
           <Link
-            href="/community"
+            href="/explore-community"
             className="xl:text-sm md:text-xs text-xs text-activeColor cursor-pointer"
           >
             See all
           </Link>
         </div>
 
-        {card
-          .filter((item) => item.joined === "Already Joined")
-          .map((item) => (
-            <Link
-              href={`/communities/${item.id}`}
-              className="flex items-center justify-between gap-1 p-1.5 bg-[#F5F5F6] rounded-md"
-              key={item.id}
-            >
-              <div className="h-[70px] w-[48px] rounded-md ">
-                <Image
-                  src={item.banner}
-                  className="w-full h-full object-cover rounded-md"
-                  alt="community"
-                  width={400}
-                  height={500}
-                />
-              </div>
-              <div className="w-[70%] ">
-                <h6 className="text-sm text-primaryColor font-lexed font-medium">
-                  Dhaka University
-                </h6>
-
-                <div className="flex items-center text-secondColor pt-1">
-                  <FaUsers className="text-sm text-activeColor pe-1" />{" "}
-                  <span className="text-xs">2.8K members</span>
-                </div>
-                <div className="flex items-center text-secondColor ">
-                  <MdEdit className="text-sm text-activeColor pe-1" />{" "}
-                  <span className="text-xs">8 Post uploaded</span>
-                </div>
-                <div className="flex items-center text-secondColor ">
-                  <TiLocation className="text-sm text-activeColor pe-1" />{" "}
-                  <span className="text-xs">Fatehpur, Hathazari</span>
-                </div>
-              </div>
-              <div className="w-3">
-                <Image
-                  src="/assets/checked.png"
-                  width={200}
-                  height={200}
-                  className="w-full"
-                  alt="icon"
-                />
-              </div>
-            </Link>
-          ))}
-      </div>
-
-      <div className="space-y-2">
-        <div className="flex justify-between items-center gap-2">
-          <h6 className="xl:text-lg md:text-base text-base text-primaryColor font-lexed font-medium">
-            You haven’t joined
-          </h6>
-          <Link
-            href="/community"
-            className="xl:text-sm md:text-xs text-xs text-activeColor cursor-pointer"
-          >
-            See all
-          </Link>
-        </div>
-
-        {card
-          .filter((item) => item.joined === "Join to Buy")
-          .map((item) => (
-            <Link
-              href={`/communities/${item.id}`}
-              className="flex items-center justify-between gap-1 p-1.5 bg-[#F5F5F6] rounded-md"
-              key={item.id}
-            >
-              <div className="h-[70px] w-[48px] rounded-md ">
-                <Image
-                  src={item.banner}
-                  className="w-full h-full object-cover rounded-md"
-                  alt="community"
-                  width={400}
-                  height={500}
-                />
-              </div>
-              <div className="w-[70%]  space-y-1">
-                <h6 className="text-xs text-primaryColor font-lexed font-medium">
-                  Dhaka University
-                </h6>
-                <div className="flex items-center  text-secondColor ">
-                  <span className=" text-xs font-lexed ">2.8K members</span>
-                  <span className=" text-xs font-lexed  flex items-center">
-                    <BsDot className="text-xs" /> 8 Post uploaded
-                  </span>
-                </div>
-                <div className="flex items-center text-secondColor ">
-                  <TiLocation className="text-sm text-activeColor pe-1" />{" "}
-                  <span className="text-xs">Fatehpur, Hathazari</span>
-                </div>
-              </div>
-              <div className="w-4">
-                <Image
-                  src="/assets/community.png"
-                  width={200}
-                  height={200}
-                  className="w-full"
-                  alt="icon"
-                />
-              </div>
-            </Link>
+        {communities?.map((item) => (
+            <CommunityListCard item={item}  key={`com${item.id}`}/>
           ))}
       </div>
     </section>

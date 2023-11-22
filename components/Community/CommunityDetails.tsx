@@ -56,6 +56,7 @@ const card = [
 ];
 
 const CommunityDetails = () => {
+  
   return (
     <section className="relative">
       <div className="absolute left-2 top-2 pb-3 z-10 lg:hidden">
@@ -82,7 +83,7 @@ const CommunityDetails = () => {
             Dhaka University Community
           </h6>
           <div className="flex items-center  text-secondColor ">
-            <span className=" text-base font-lexed ">2.8K members</span>
+            <span className=" text-base font-lexed ">{} members</span>
             <span className=" text-base font-lexed  flex items-center">
               <BsDot className="text-sm" /> 8 Post uploaded
             </span>

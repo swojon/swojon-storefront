@@ -1,57 +1,9 @@
 import React from "react";
-
-import img2 from "@/public/assets/comm2.png";
-import img3 from "@/public/assets/comm3.png";
-import img4 from "@/public/assets/comm4.png";
 import CommunityCard from "@/components/Community/CommunityCard";
 import Link from "next/link";
 import { useListCommunitiesQuery } from "@/apollograph/generated";
 import ProductLoader from "../Loader/ProductLoader";
 
-// const card = [
-//   {
-//     id: 134,
-//     banner: img1,
-//     title: "Chittagong University",
-//     joined: "Join to Buy",
-//   },
-//   {
-//     id: 143,
-//     banner: img2,
-//     title: "Chittagong University",
-//     joined: "Join to Buy",
-//   },
-//   {
-//     id: 123,
-//     banner: img3,
-//     title: "Chittagong University",
-//     joined: "Join to Buy",
-//   },
-//   {
-//     id: 1227,
-//     banner: img4,
-//     title: "Chittagong University",
-//     joined: "Already Joined",
-//   },
-//   {
-//     id: 1225,
-//     banner: img4,
-//     title: "Chittagong University",
-//     joined: "Join to Buy",
-//   },
-//   {
-//     id: 1224,
-//     banner: img4,
-//     title: "Chittagong University",
-//     joined: "Join to Buy",
-//   },
-//   {
-//     id: 12275,
-//     banner: img4,
-//     title: "Chittagong University",
-//     joined: "Already Joined",
-//   },
-// ];
 
 const Community = () => {
   const {data, loading, error } = useListCommunitiesQuery();

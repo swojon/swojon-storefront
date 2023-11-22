@@ -1,10 +1,9 @@
-query ListCommunities($filters: CommunityFilterInput) {
-  listCommunities(filters: $filters) {
-     items {
+query GetCommunity($id: Float, $name: String, $slug: String) {
+  getCommunity(id: $id, name: $name, slug: $slug) {
+      id
       slug
       banner
       isFeatured
-      id
       description
       memberCount
       members {
@@ -17,6 +16,5 @@ query ListCommunities($filters: CommunityFilterInput) {
         id
         name  
       }
-    }
   }
 }

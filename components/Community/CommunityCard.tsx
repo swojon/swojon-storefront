@@ -12,10 +12,10 @@ import "./Community.css";
 const CommunityCard = ({ card }: {card: any }) => {
   return (
     <section className="  rounded-md bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <Link href={`/community/${card.id}`}>
+      <Link href={`/communities/${card.id}`}>
         <div className="md:h-[215px] h-[225px] relative overflow-hidden rounded-tl-md  rounded-tr-md">
           <Image
-            src={card.banner ?? ""}
+            src={!!card.banner ? card.banner :  "/assets/comm1.png"}
             alt="product banner"
             width={100}
             height={100}
@@ -24,11 +24,11 @@ const CommunityCard = ({ card }: {card: any }) => {
         </div>
         <div className="pt-3   font-lexed ">
           <h6 className="lg:text-lg text-base  font-semibold text-primaryColor capitalize">
-            {card.title}
+            {card.name}
           </h6>
         </div>
         <div className="flex items-center  text-secondColor pt-2.5">
-          <span className="md:text-sm text-xs font-lexed ">2.8K members</span>
+          <span className="md:text-sm text-xs font-lexed ">{card.memberCount} members</span>
           <span className="md:text-sm text-xs font-lexed  flex items-center">
             <BsDot className="text-lg" /> 8 Post uploaded
           </span>
