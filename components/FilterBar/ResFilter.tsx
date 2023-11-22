@@ -10,7 +10,7 @@ import PriceRangeSlider from "./PriceRangeSlider";
 import LocationFilter from "./LocationFilter";
 import CategoriesFilter from "./CategoriesFilter";
 import CommunityFilter from "./CommunityFilter";
-import StatusFilter from "./StatusFilter";
+import StatusFilter from "./ConditionFilter";
 import BrandFilter from "./BrandFilter";
 import { setFilterClose } from "@/app/redux/filterSlice";
 

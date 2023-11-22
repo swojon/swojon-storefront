@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import signup from "@/public/assets/loginBanner.png";
+import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
@@ -10,9 +10,9 @@ import { FaApple } from "react-icons/fa6";
 const page = () => {
   return (
     <div className=" w-full min-h-screen h-full flex items-center bg-white fixed top-0 left-0 ">
-      <div className="flex-1 min-h-screen flex items-center bg-activeColor relative">
-        <div className="w-2/3 h-1/3 m-auto ">
-          <Image src={signup} alt="" className="w-full  h-full" />
+      <div className="flex-1 min-h-screen flex items-center relative">
+      <div className="w-2/3 h-1/3 m-auto ">
+          <Image src={signin} alt="" className="w-full  h-full" />
         </div>
         <div className="absolute left-0 bottom-0 ">
           <Image
@@ -30,7 +30,7 @@ const page = () => {
             href="/"
             className="text-lg font-bold text-activeColor	font-lexed"
           >
-            Shwjon
+            Swojon
           </Link>
 
           <form className="space-y-4  mx-auto">

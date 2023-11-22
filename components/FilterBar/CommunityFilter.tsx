@@ -1,37 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "dhaka", label: "dhaka", checked: false },
-      { value: "chittagong", label: "chittagong", checked: false },
-      { value: "rajshahi", label: "rajshahi", checked: true },
-      { value: "sylhet", label: "sylhet", checked: false },
-      { value: "chittagong", label: "chittagong", checked: false },
-      { value: "rajshahi", label: "rajshahi", checked: true },
-      { value: "sylhet", label: "sylhet", checked: false },
-    ],
-  },
-];
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { useListCommunitiesQuery } from "@/apollograph/generated";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const CommunityFilter = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()!
+
+  const [appliedCommunities, setAppliedCommunities] = useState(searchParams.get("community")?.split(',')  ?? [] )
+  
+  const handleChange = (val: any) => {
+    console.log("input changed", val.target.name, val.target.value, val.target.checked)
+    if (val.target.checked) setAppliedCommunities([...appliedCommunities, val.target.value])
+    else  setAppliedCommunities(appliedCommunities.filter(item => item !== val.target.value))
+    // conso setAppliedCommunities([...appliedCommunities, val.target.value])le.log(val.target.name)
+  }  
+  
+  useEffect(()=>{
+      const params = new URLSearchParams(searchParams.toString())
+      appliedCommunities.length > 0 ? params.set("community", appliedCommunities.join(',')) : params.delete('community')
+      !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
+      // router.push(pathname + '?' + params.toString())
+  }, [appliedCommunities])
+
+  console.log("applied appliedCommunities", appliedCommunities)  
+  const {data: communityOptions, loading: communityLoading, error: communityError} = useListCommunitiesQuery()
+
   return (
     <div>
       <form className=" ">
-        {filters.map((section) => (
           <Disclosure
             as="div"
-            key={section.id}
             className="border-b border-gray-200 py-4"
+            defaultOpen={appliedCommunities.length > 0 }
           >
             {({ open }) => (
               <>
@@ -72,26 +76,26 @@ const CommunityFilter = () => {
                     />
                   </div>
                   <div className="space-y-4 h-[150px]  overflow-y-auto small-scroll ">
-                    {section.options.map((option, optionIdx) => (
-                      <div key={option.value} className="flex items-center">
+                    {communityOptions?.listCommunities.items.map((community) => (
+                      <div key={community.id} className="flex items-center">
                         <input
-                          id={`filter-${section.id}-${optionIdx}`}
-                          name={`${section.id}[]`}
-                          defaultValue={option.value}
+                          id={`filter-${community.id}`}
+                          defaultValue={community.slug!}
                           type="checkbox"
-                          defaultChecked={option.checked}
+                          onChange={handleChange}
+                          defaultChecked={appliedCommunities.includes(community.slug!)}
                           className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                         />
                         <label
-                          htmlFor={`filter-${section.id}-${optionIdx}`}
+                          htmlFor={`filter-${community.id}`}
                           className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium ${
-                            option.checked
+                            appliedCommunities.includes(community.slug!)
                               ? "text-activeColor"
                               : "text-primaryColor"
                           }`}
                         >
-                          <span>{option.label} </span>{" "}
-                          <span className="text-gray-400">(4,521)</span>
+                          <span>{community.name} </span>{" "}
+                          {/* <span className="text-gray-400">(4,521)</span> */}
                         </label>
                       </div>
                     ))}
@@ -100,7 +104,6 @@ const CommunityFilter = () => {
               </>
             )}
           </Disclosure>
-        ))}
       </form>
     </div>
   );

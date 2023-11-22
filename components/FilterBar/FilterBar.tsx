@@ -4,88 +4,55 @@ import PriceRangeSlider from "./PriceRangeSlider";
 import LocationFilter from "./LocationFilter";
 import "./FilterCss.css";
 import CommunityFilter from "./CommunityFilter";
-import StatusFilter from "./StatusFilter";
+import StatusFilter from "./ConditionFilter";
 import BrandFilter from "./BrandFilter";
 
 import CategoriesFilter from "./CategoriesFilter";
-
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
-    ],
-  },
-];
+import ConditionFilter from "./ConditionFilter";
+import { useSearchParams } from "next/navigation";
 
 const FilterBar = () => {
+  // const searchParams = useSearchParams()
+  // const conditionFilter = searchParams.get("condition")
+  // console.log(conditionFilter)
   return (
     <section className="sticky top-0 h-auto border rounded-md min-h-screen  ">
       <div className="flex justify-between items-center p-3 border-b ">
-        <h6 className="text-lg font-lexed text-primaryColor">Filter by:</h6>
+        <h6 className="text-lg font-lexed text-primaryColor">Filter</h6>
         <span className="text-activeColor  relative  leading-0">
-          Reset
+          Clear All
           <span className="absolute left-0 bottom-1 h-0.5 w-full bg-activeColor"></span>
         </span>
       </div>
 
-      <div className="py-4 mx-3 border-b">
+      {/* <div className="py-4 mx-3 border-b">
         <span className="block text-lg pb-2  pt-0 text-primaryColor font-lexed">
           Ad Posted by
         </span>
         <AdDropdown />
-      </div>
+      </div> */}
 
-      <div className="py-4 mx-3 border-b">
+      {/* <div className="py-4 mx-3 border-b">
         <span className="block text-lg pb-2  pt-0 text-primaryColor font-lexed">
           Price Range (TK)
         </span>
         <PriceRangeSlider />
-      </div>
-
+      </div> */}
+{/* 
       <div className="px-3">
         <LocationFilter />
       </div>
 
       <div className="px-3">
         <CategoriesFilter />
-      </div>
+      </div> */}
 
       <div className="px-3">
         <CommunityFilter />
       </div>
 
       <div className="px-3">
-        <StatusFilter initial={[]} />
+        <ConditionFilter initial={[]} />
       </div>
 
       <div className="px-3">

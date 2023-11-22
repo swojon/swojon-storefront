@@ -1,36 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "otobi", label: "otobi", checked: true },
-      { value: "hatil", label: "hatil", checked: false },
-      { value: "regal", label: "regal", checked: false },
-      { value: "navana", label: "navana", checked: false },
-      { value: "akhtar", label: "akhtar", checked: false },
-      { value: "partex", label: "partex", checked: false },
-    ],
-  },
-];
+import { useListBrandsQuery } from "@/apollograph/generated";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const BrandFilter = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()!
+
+  const [appliedBrands, setAppliedBrands] = useState(searchParams.get("brand")?.split(',')  ?? [] )
+  
+  const handleChange = (val: any) => {
+    console.log("input changed", val.target.name, val.target.value, val.target.checked)
+    if (val.target.checked) setAppliedBrands([...appliedBrands, val.target.value])
+    else  setAppliedBrands(appliedBrands.filter(item => item !== val.target.value))
+    // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
+  }  
+  
+  useEffect(()=>{
+      const params = new URLSearchParams(searchParams.toString())
+      appliedBrands.length > 0 ? params.set("brand", appliedBrands.join(',')) : params.delete('brand')
+      !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
+      // router.push(pathname + '?' + params.toString())
+  }, [appliedBrands])
+
+  console.log("applied appliedBrands", appliedBrands)  
+  const {data: brandOptions, loading: brandLoading, error: brandError} = useListBrandsQuery()
+
   return (
     <div>
       <form className=" ">
-        {filters.map((section) => (
           <Disclosure
             as="div"
-            key={section.id}
             className="border-b border-gray-200 py-4"
+            defaultOpen={appliedBrands.length > 0 }
           >
             {({ open }) => (
               <>
@@ -71,26 +80,27 @@ const BrandFilter = () => {
                     />
                   </div>
                   <div className="space-y-4 h-[150px]  overflow-y-auto small-scroll ">
-                    {section.options.map((option, optionIdx) => (
-                      <div key={option.value} className="flex items-center">
+                    {brandOptions?.listBrands.items?.map((brand) => (
+                      <div key={brand.id} className="flex items-center">
                         <input
-                          id={`filter-${section.id}-${optionIdx}`}
-                          name={`${section.id}[]`}
-                          defaultValue={option.value}
+                          id={`filter-${brand.id}`}
+                          defaultValue={brand.slug!}
                           type="checkbox"
-                          defaultChecked={option.checked}
+                          onChange={handleChange}
+                          defaultChecked={appliedBrands.includes(brand.slug!)}
                           className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                         />
                         <label
-                          htmlFor={`filter-${section.id}-${optionIdx}`}
-                          className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium ${
-                            option.checked
+                          htmlFor={`filter-${brand.id}-${brand.id}`}
+                          className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium 
+                          ${ appliedBrands.includes(brand.slug!) 
                               ? "text-activeColor"
                               : "text-primaryColor"
                           }`}
                         >
-                          <span>{option.label} </span>{" "}
-                          <span className="text-gray-400">(4,521)</span>
+                          
+                          <span>{brand.name} </span>{" "}
+                          {/* <span className="text-gray-400">(4,521)</span> */}
                         </label>
                       </div>
                     ))}
@@ -99,7 +109,7 @@ const BrandFilter = () => {
               </>
             )}
           </Disclosure>
-        ))}
+        
       </form>
     </div>
   );

@@ -3,16 +3,10 @@ import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const filters = [
-  {
-    id: "condition",
-    name: "condition",
-    options: [
+const options =  [
       { value: "used", label: "used", checked: true },
       { value: "new", label: "new", checked: false },
-    ],
-  },
-];
+    ]
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,13 +14,13 @@ function classNames(...classes: any[]) {
 
 
 
-const StatusFilter = ({initial} : {initial: any[]}) => {
+const ConditionFilter = ({initial} : {initial: any[]}) => {
 
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()!
 
-  const [conditions, setConditions] = useState(initial)
+  const [conditions, setConditions] = useState(searchParams.get("condition")?.split(',')  ?? [] )
   
   const handleChange = (val: any) => {
     console.log("input cchanged", val.target.name, val.target.value, val.target.checked)
@@ -34,13 +28,11 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
     else  setConditions(conditions.filter(item => item !== val.target.value))
     // conso setConditions([...conditions, val.target.value])le.log(val.target.name)
   }  
-
-  
-  // Get a new searchParams string by merging the current
   
   useEffect(()=>{
       const params = new URLSearchParams(searchParams.toString())
-      params.set("condition", conditions.join(','))
+      conditions.length > 0 ? params.set("condition", conditions.join(',')) : params.delete('condition')
+      !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
       // router.push(pathname + '?' + params.toString())
 
   }, [conditions])
@@ -48,18 +40,18 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
   return (
     <div>
       <form className=" ">
-        {filters.map((section) => (
+        
           <Disclosure
             as="div"
-            key={section.id}
             className="border-b border-gray-200 py-4"
+            defaultOpen={conditions.length > 0 }
           >
             {({ open }) => (
               <>
                 <h3 className="-my-3 flow-root">
                   <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                     <span className="font-medium text-lg font-lexed text-primaryColor">
-                      Status
+                      Condition
                     </span>
                     <span className="ml-6 flex items-center">
                       {open ? (
@@ -78,11 +70,10 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
                 </h3>
                 <Disclosure.Panel className="pt-4">
                   <div className="space-y-4">
-                    {section.options.map((option, optionIdx) => (
+                    {options.map((option, optionIdx) => (
                       <div key={option.value} className="flex items-center">
                         <input
-                          id={`filter-${section.id}-${optionIdx}`}
-                          name={`${section.id}[]`}
+                          id={`filter-${optionIdx}`}
                           defaultValue={option.value}
                           type="checkbox"
                           defaultChecked={conditions.includes(option.value)}
@@ -90,7 +81,7 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
                           className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                         />
                         <label
-                          htmlFor={`filter-${section.id}-${optionIdx}`}
+                          htmlFor={`filter-${optionIdx}`}
                           className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium ${
                             conditions.includes(option.value)
                               ? "text-activeColor"
@@ -107,10 +98,9 @@ const StatusFilter = ({initial} : {initial: any[]}) => {
               </>
             )}
           </Disclosure>
-        ))}
-      </form>
+        </form>
     </div>
   );
 };
 
-export default StatusFilter;
+export default ConditionFilter;
