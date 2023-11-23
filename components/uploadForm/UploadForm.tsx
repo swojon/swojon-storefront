@@ -206,7 +206,7 @@ const UploadForm = () => {
         </div>
         <div className="flex items-center justify-end gap-3">
           {" "}
-          <div className="w-[120px]">
+          <div className="w-[160px]">
             <LocationDropDown
               values={values.locationId}
               setFieldValue={setFieldValue}
@@ -221,7 +221,7 @@ const UploadForm = () => {
                 })
               )
             }
-            className="px-2.5 py-2 bg-activeColor text-white text-sm rounded-md"
+            className="px-2.5 py-2.5 bg-activeColor text-white text-sm rounded-md"
           >
             Modify Search
           </button>

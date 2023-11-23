@@ -21,7 +21,7 @@ const NotMatched = ({ title }: { title: any }) => {
         href="/"
         className="py-2 px-3 bg-activeColor text-white text-sm font-lexed rounded-md"
       >
-        Bak to Home page
+        Back to Home page
       </Link>
     </section>
   );

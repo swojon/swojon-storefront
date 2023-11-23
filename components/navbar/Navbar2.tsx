@@ -41,10 +41,10 @@ export default function Navbar2({ border }: { border: any }) {
         <>
           <div className=" ">
             <div className="flex h-16 justify-between gap-4 items-center ">
-              <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0 ">
+              <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0  items-center">
                 <Link
                   href="/"
-                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
+                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  lg:w-[85px] md:w-20 w-16 pb-0.5  justify-center items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
                 >
                   {border === "border" ? (
                     <Image
@@ -52,7 +52,7 @@ export default function Navbar2({ border }: { border: any }) {
                       width={100}
                       height={500}
                       alt="logo"
-                      className="w-full  h-full"
+                      className="w-full  h-full "
                     />
                   ) : (
                     <Image
@@ -60,14 +60,14 @@ export default function Navbar2({ border }: { border: any }) {
                       width={100}
                       height={500}
                       alt="logo"
-                      className="w-full h-full"
+                      className="w-full h-full "
                     />
                   )}
                 </Link>
 
                 <Link
                   href="/"
-                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  md:w-10 w-10 h-9  justify-center items-center lg:mr-1 xl:mr-3.5  lg:hidden`}
+                  className={`font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  md:w-10 w-10 h-9  justify-center items-center lg:mr-1 xl:mr-3.5  lg:hidden`}
                 >
                   {border === "border" ? (
                     <Image
@@ -87,13 +87,13 @@ export default function Navbar2({ border }: { border: any }) {
                     />
                   )}
                 </Link>
-                <div className="hidden  lg:flex lg:gap-1 xl:gap-3">
-                  <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed  hover:border-activeColor hover:text-gray-200">
+                <div className="hidden  lg:flex items-center lg:gap-1 xl:gap-3">
+                  <div className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1  text-sm font-medium  font-lexed  hover:border-activeColor  leading-none">
                     <MegaMenu border={border} />
-                  </span>
+                  </div>
                   <Link
                     href="/explore"
-                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1 pt-1 xl:text-sm text-xs font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium font-lexed hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
@@ -101,7 +101,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                   <Link
                     href="/communities"
-                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1 pt-1 xl:text-sm text-xs font-medium font-lexed hover:border-activeColor hover:text-gray-200 ${
+                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium font-lexed hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >

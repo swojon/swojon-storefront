@@ -12,11 +12,12 @@ import { FaUsers } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 import { useListCommunitiesQuery } from "@/apollograph/generated";
 import CommunityListCard from "./CommunityListCard";
+import CommunityListCardLoader from "../Loader/CommunityListCardLoader";
 
 const CommunityLists = () => {
-  const {user} = useSelector((state: any) => state.auth)
+  const { user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
-  const {data, loading, error } = useListCommunitiesQuery()
+  const { data, loading, error } = useListCommunitiesQuery();
   const communities = data?.listCommunities.items;
 
   const isCommunityOpen = useSelector((state: any) => state.community.open);
@@ -66,7 +67,7 @@ const CommunityLists = () => {
       <div className="space-y-2">
         <div className="flex justify-between items-center gap-2">
           <h6 className="xl:text-lg md:text-base text-base text-primaryColor font-lexed font-medium">
-           Discover
+            Discover
           </h6>
           <Link
             href="/explore-community"
@@ -77,8 +78,9 @@ const CommunityLists = () => {
         </div>
 
         {communities?.map((item) => (
-            <CommunityListCard item={item}  key={`com${item.id}`}/>
-          ))}
+          <CommunityListCard item={item} key={`com${item.id}`} />
+        ))}
+        {loading && <CommunityListCardLoader />}
       </div>
     </section>
   );
