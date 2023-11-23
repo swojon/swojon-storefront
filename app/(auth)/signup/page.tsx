@@ -1,13 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
+import { setCookie } from "cookies-next";
 
 const page = () => {
+  useEffect(() => {
+    setCookie('host', window.location.origin )
+  }, [])
   return (
     <div className=" w-full min-h-screen h-full flex items-center bg-white fixed top-0 left-0 ">
       <div className="flex-1 min-h-screen flex items-center relative">

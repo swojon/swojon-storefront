@@ -12,18 +12,23 @@ import { useState } from "react";
 import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
 import { useSession } from "next-auth/react";
 import { setCookie } from "cookies-next";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams, useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 
-const Home: NextPage = ({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
+const Home: NextPage = () => {
+  const searchParams = useSearchParams()
+  const router = useRouter()
   // console.log(categoryData.data.listCategories.items);  
-  console.log("Got token", searchParams!.token)
-  if (searchParams!.token){
-    setCookie('authorization', searchParams!.token, {secure:true })
-    redirect('/')
+  console.log("Got token", searchParams.get("token"))
+  const token = searchParams.get("token")
+  if (!!token){
+    console.log("setting token to cookies", token)
+    setCookie('authorization', token, {secure:true })
+    // redirect('/')
+    router.push('/', {shallow: true })
+    // window.location.reload()
+    router.refresh()
+
   }
   
   return (

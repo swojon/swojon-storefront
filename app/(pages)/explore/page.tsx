@@ -79,7 +79,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
           
 
           </div>
-          {!loading && !listings && (
+          {!loading && (!listings || listings.length <= 0) && (
               <div className=" pt-16">
                 <NotMatched title={"Sorry! We didn't Find Any Product"} />
               </div>

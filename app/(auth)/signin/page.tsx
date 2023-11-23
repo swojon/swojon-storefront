@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "@/app/redux/authSlice";
+// import { setCookie } from "cookies-next";
 
 interface Props {}
 
@@ -26,6 +27,9 @@ const SignIn: NextPage = (): JSX.Element => {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setCookie('host', window.location.origin )
+  }, [])
   // const redirect = searchParams.get("redirect") === "true";
   const redirect = true;
   const next_url = searchParams.get("next");

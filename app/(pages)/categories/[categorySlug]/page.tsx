@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import CategoryCart from "../../../../components/elements/CategoryCart";
 import FilterBar from "@/components/FilterBar/FilterBar";
@@ -15,15 +15,25 @@ import { useListListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import { MdOutlineClose } from "react-icons/md";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
+import NotMatched from "@/components/NotMatched/NotMatched";
 
 const CategoryDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
-
+  const searchParams = useSearchParams()
+  const conditionFilter = searchParams.get('condition')?.split(',')
+  const brandFilter = searchParams.get('brand')?.split(',')
+  const communityFilter = searchParams.get('community')?.split(',')
+  
+  var  filters = { }
+  filters = {...filters, categorySlug : params.categorySlug}
+  // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
+  if (brandFilter && brandFilter.length > 0) filters = {...filters, brandSlug: brandFilter}
+  if (communityFilter && communityFilter.length > 0 ) filters = {...filters, communitySlug: communityFilter}
+  
+  console.log("Applying filter", filters)
   const { data, loading, error } = useListListingsQuery({
     variables: {
-      filters: {
-        categorySlug: params.categorySlug,
-      },
+      filters: filters
     },
   });
   const listings = data?.listListings?.items;
@@ -47,8 +57,8 @@ const CategoryDetail = ({ params }: { params: any }) => {
       <div className="flex justify-between items-center pt-4 pb-2">
         <div className="flex items-center  w-[75%]">
           <span className="text-2xl text-primaryColor font-lexed flex items-center gap-2 w-[36%]">
-            <span>Search Results </span>
-            <span className="text-sm text-secondColor">(100 items)</span>
+            <span>Posts in : {params.categorySlug} </span>
+            {/* <span className="text-sm text-secondColor">(100 items)</span> */}
           </span>
           <AppliedFilter />
         </div>
@@ -76,6 +86,11 @@ const CategoryDetail = ({ params }: { params: any }) => {
             ))}
             {loading && <ProductLoader />}
           </div>
+          {!loading && (!listings || listings.length <= 0) && (
+              <div className=" pt-16">  
+                <NotMatched title={"Sorry! We didn't Find Any Product"} />
+              </div>
+            )}
         </div>
       </div>
     </section>
