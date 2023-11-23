@@ -40,15 +40,15 @@ export default function Navbar2({ border }: { border: any }) {
       {({ open }) => (
         <>
           <div className=" ">
-            <div className="flex h-16 justify-between gap-4 items-center">
+            <div className="flex h-16 justify-between gap-4 items-center ">
               <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0 ">
                 <Link
                   href="/"
-                  className={`flex flex-shrink-0  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center lg:mr-1 xl:mr-3.5`}
+                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base xl:w-32 lg:w-24 md:w-20 w-16 h-9   justify-center items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
                 >
                   {border === "border" ? (
                     <Image
-                      src="/assets/swojon_Logo_-01-cropped.svg"
+                      src="/assets/swojon.svg"
                       width={100}
                       height={500}
                       alt="logo"
@@ -56,7 +56,7 @@ export default function Navbar2({ border }: { border: any }) {
                     />
                   ) : (
                     <Image
-                      src="/assets/swojon_logo_inverted.svg"
+                      src="/assets/swojonI.svg"
                       width={100}
                       height={500}
                       alt="logo"
@@ -64,7 +64,30 @@ export default function Navbar2({ border }: { border: any }) {
                     />
                   )}
                 </Link>
-                <div className="hidden   lg:flex lg:gap-1 xl:gap-3">
+
+                <Link
+                  href="/"
+                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  md:w-10 w-10 h-9  justify-center items-center lg:mr-1 xl:mr-3.5  lg:hidden`}
+                >
+                  {border === "border" ? (
+                    <Image
+                      src="/assets/SWlogi.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full  h-full"
+                    />
+                  ) : (
+                    <Image
+                      src="/assets/swojon_logoS_inverted.svg"
+                      width={100}
+                      height={500}
+                      alt="logo"
+                      className="w-full h-full"
+                    />
+                  )}
+                </Link>
+                <div className="hidden  lg:flex lg:gap-1 xl:gap-3">
                   <span className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium  font-lexed  hover:border-activeColor hover:text-gray-200">
                     <MegaMenu border={border} />
                   </span>
@@ -103,7 +126,7 @@ export default function Navbar2({ border }: { border: any }) {
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
-              <div className="lg:w-[23%] hidden    lg:flex lg:items-center justify-end gap-3">
+              <div className="lg:w-[23%] hidden   lg:flex lg:items-center justify-end gap-3">
                 {authState.isAuthenticated === false ? (
                   <Link href="/signin">
                     <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
