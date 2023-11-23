@@ -17,8 +17,8 @@ const CommunityCard = ({ card }: {card: any }) => {
           <Image
             src={!!card.banner ? card.banner :  "/assets/comm1.png"}
             alt="product banner"
-            width={100}
-            height={100}
+            width={500}
+            height={500}
             className="h-full w-full object-cover rounded-tl-md  rounded-tr-md hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </div>

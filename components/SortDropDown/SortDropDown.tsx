@@ -13,7 +13,7 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const SortDropDown = () => {
+const SortDropDown = () => {  
   const [selected, setSelected] = useState(people[1]);
   return (
     <Listbox value={selected} onChange={setSelected}>

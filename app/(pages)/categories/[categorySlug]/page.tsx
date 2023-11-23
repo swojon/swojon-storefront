@@ -14,6 +14,7 @@ import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import { MdOutlineClose } from "react-icons/md";
+import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 
 const CategoryDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
@@ -49,26 +50,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
             <span>Search Results </span>
             <span className="text-sm text-secondColor">(100 items)</span>
           </span>
-
-          <div className="flex gap-2.5 items-center flex-wrap w-[63%] ">
-            <div className="bg-gray-100 px-3 py-1 flex gap-2.5 items-center rounded-2xl">
-              <span className="text-sm">Furniture</span>{" "}
-              <MdOutlineClose className="text-sm border border-primaryColor rounded-full p-0.5" />
-            </div>
-
-            <div className="bg-gray-100 px-3 py-1 flex gap-2.5 items-center rounded-2xl">
-              <span className="text-sm">Furniture</span>{" "}
-              <MdOutlineClose className="text-sm border border-primaryColor rounded-full p-0.5" />
-            </div>
-
-            <div className="bg-gray-100 px-3 py-1 flex gap-2.5 items-center rounded-2xl">
-              <span className="text-sm">Furniture</span>{" "}
-              <MdOutlineClose className="text-sm border border-primaryColor rounded-full p-0.5" />
-            </div>
-            <button className="bg-activeColor px-3 py-1 text-sm text-white rounded-2xl">
-              Clear All
-            </button>
-          </div>
+          <AppliedFilter />
         </div>
         <div className=" flex justify-between items-center gap-3 ">
           <span

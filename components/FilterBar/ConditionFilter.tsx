@@ -20,22 +20,32 @@ const ConditionFilter = ({initial} : {initial: any[]}) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()!
 
-  const [conditions, setConditions] = useState(searchParams.get("condition")?.split(',')  ?? [] )
+  const [conditions, setConditions] = useState<any[]>([])
   
   const handleChange = (val: any) => {
+    var applied = []
     console.log("input cchanged", val.target.name, val.target.value, val.target.checked)
-    if (val.target.checked) setConditions([...conditions, val.target.value])
-    else  setConditions(conditions.filter(item => item !== val.target.value))
+    if (val.target.checked) applied = [...conditions, val.target.value]
+    else  applied = conditions.filter(item => item !== val.target.value)
     // conso setConditions([...conditions, val.target.value])le.log(val.target.name)
+    const params = new URLSearchParams(searchParams.toString())
+    applied.length > 0 ? params.set("condition", applied.join(',')) : params.delete('condition')
+    !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
   }  
   
-  useEffect(()=>{
-      const params = new URLSearchParams(searchParams.toString())
-      conditions.length > 0 ? params.set("condition", conditions.join(',')) : params.delete('condition')
-      !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
-      // router.push(pathname + '?' + params.toString())
+  // useEffect(()=>{
+  //     const params = new URLSearchParams(searchParams.toString())
+  //     conditions.length > 0 ? params.set("condition", conditions.join(',')) : params.delete('condition')
+  //     !!params.toString() ?  router.push(pathname + '?' + params.toString()) : router.push(pathname)
+  //     // router.push(pathname + '?' + params.toString())
 
-  }, [conditions])
+  // }, [conditions])
+
+  useEffect(() => {
+    console.log("search params changed")
+    setConditions(searchParams.get("condition")?.split(',')  ?? [])
+  }, [searchParams])
+
   console.log("applied conditions", conditions)
   return (
     <div>
@@ -76,7 +86,7 @@ const ConditionFilter = ({initial} : {initial: any[]}) => {
                           id={`filter-${optionIdx}`}
                           defaultValue={option.value}
                           type="checkbox"
-                          defaultChecked={conditions.includes(option.value)}
+                          checked={conditions.includes(option.value)}
                           onChange={handleChange}
                           className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                         />

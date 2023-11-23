@@ -19,10 +19,7 @@ const FilterBar = () => {
     <section className="sticky top-0 h-auto border rounded-md min-h-screen  ">
       <div className="flex justify-between items-center p-3 border-b ">
         <h6 className="text-lg font-lexed text-primaryColor">Filter</h6>
-        <span className="text-activeColor  relative  leading-0">
-          Clear All
-          <span className="absolute left-0 bottom-1 h-0.5 w-full bg-activeColor"></span>
-        </span>
+       
       </div>
 
       {/* <div className="py-4 mx-3 border-b">
