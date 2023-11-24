@@ -8,13 +8,14 @@ import icon1 from "@/public/assets/govtIcon.png";
 import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
 
-const SellerProfile = () => {
+const SellerProfileCard = ({seller}: {seller: any }) => {
+  console.log("Got seller to render", seller)
   return (
     <div className="flex lg:flex-col sm:flex-row flex-col gap-5">
       <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none">
         <div className="h-24 w-24  rounded-full relative">
           <Image
-            src={user}
+            src={seller?.profile?.avatar ?? icon1}
             width={400}
             height={400}
             alt="user"
@@ -26,7 +27,7 @@ const SellerProfile = () => {
         </div>
         <div className="py-3 border-b space-y-1">
           <h6 className="text-base font-lexed font-medium text-primaryColor">
-            Mr. Ananto Jalil
+            {seller?.username ?? seller?.email} 
           </h6>
 
           <h6 className="lg:text-lg text-base text-[#08B66D]">
@@ -51,31 +52,30 @@ const SellerProfile = () => {
           </div>
         </div>
 
-        <div className="py-3 border-b flex lg:justify-start justify-between">
+        {/* <div className="py-3 border-b flex lg:justify-start justify-between">
           <div className="lg:w-[30%] text-sm">
             <h6 className="text-secondColor">Call Now :</h6>
           </div>
           <div className=" text-sm text-activeColor">
             <h6 className="">01712345678</h6>
-            <h6 className="">01712345678</h6>
+           
           </div>
-        </div>
+        </div> */}
         <div className="py-3 border-b flex lg:justify-start justify-between">
           <div className="lg:w-[30%] text-sm ">
             <h6 className="text-secondColor">Email :</h6>
           </div>
           <div className=" text-sm text-activeColor">
-            <h6 className="">abc@gmail.com</h6>
-            <h6 className="">abc@gmail.com</h6>
+            <h6 className="">{seller?.email}</h6>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
           <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-            OFFER PRICE
+            Send Message
           </div>
           <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-            Chat Now
+            Follow
           </div>
         </div>
       </div>
@@ -126,4 +126,4 @@ const SellerProfile = () => {
   );
 };
 
-export default SellerProfile;
+export default SellerProfileCard;

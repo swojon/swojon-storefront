@@ -5,9 +5,7 @@ import { FaAngleDown } from "react-icons/fa6";
 const condition = [
   { id: 4, name: "Brand new" },
   { id: 1, name: "Like new" },
-  { id: 2, name: "Lightly Used" },
-  { id: 24, name: "Well Used" },
-  { id: 25, name: "Heavily Used" },
+  { id: 2, name: "Used" },
 ];
 
 function classNames(...classes: any[]) {
@@ -21,15 +19,15 @@ const Condition = ({
   values: any;
   setFieldValue: any;
 }) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("Used");
   return (
     <>
       <div className="flex flex-wrap items-center gap-2">
         {condition.map((item) => (
+
           <div
             onClick={() => setSelected(item.name)}
-            className="border p-2 rounded-2xl text-sm capitalize text-secondColor cursor-pointer hover:border-primaryColor
-            "
+            className={`border p-2 rounded-2xl text-sm capitalize text-secondColor cursor-pointer hover:border-primaryColor ${classNames(item.name === selected ? "border-primaryColor" : " ")}`}
             key={item.id}
           >
             {item.name}
@@ -37,7 +35,7 @@ const Condition = ({
         ))}
       </div>
 
-      <div className="pt-3">
+      {/* <div className="pt-3">
         <label
           htmlFor="brand"
           className="block text-xs font-lexed pb-2 text-secondColor"
@@ -52,7 +50,7 @@ const Condition = ({
           defaultValue={""}
           placeholder="Details about the condition"
         />
-      </div>
+      </div> */}
     </>
   );
 };

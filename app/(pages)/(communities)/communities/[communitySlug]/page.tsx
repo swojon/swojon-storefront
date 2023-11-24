@@ -64,9 +64,9 @@ const CommunityContent = ({ params }: { params: any }) => {
           <FaUsers />
         </button>
       </div> */}
-      <div className="w-full h-[200px] rounded-md">
+      <div className="w-full h-[220px] rounded-md">
         <Image
-          src="/assets/communityBanner.png"
+          src={"/assets/communityBanner.png"}
           width={1600}
           height={1000}
           className="w-full h-full object-cover rounded-md"

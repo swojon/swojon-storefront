@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 
-const SellerBox = () => {
+const SellerBox = ({seller}: {seller: any }) => {
   const dispatch = useDispatch();
   return (
     <section className="shadow-md rounded-lg border">
@@ -19,7 +19,7 @@ const SellerBox = () => {
         </span>
       </div>
       <div className="px-3 py-5">
-        <Link href="/seller/1">
+        <Link href={`/seller/${seller?.id}`}>
           <div className="h-20 w-20  rounded-full">
             <Image
               src={user}
@@ -33,7 +33,7 @@ const SellerBox = () => {
 
         <div className="py-3 border-b space-y-1">
           <h6 className="text-base font-lexed font-medium text-primaryColor">
-            Mr. Ananto Jalil
+            {seller?.username}
           </h6>
 
           <div className="flex space-x-1 items-center text-[#08B66D]">
@@ -68,8 +68,7 @@ const SellerBox = () => {
             <h6 className="text-secondColor">Email :</h6>
           </div>
           <div className=" text-sm text-activeColor">
-            <h6 className="">abc@gmail.com</h6>
-            <h6 className="">abc@gmail.com</h6>
+            <h6 className="">{seller?.email}</h6>
           </div>
         </div>
 

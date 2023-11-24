@@ -82,7 +82,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         <Link href={`/products/${listing.id}`}>
           <Image
             src={
-              listing.media.length > 0
+              listing.media?.length > 0
                 ? listing.media[0].url
                 : "/assets/pro1.png"
             }

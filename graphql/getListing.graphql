@@ -1,9 +1,6 @@
-query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
-  searchListings(query: $query, filters: $filters, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore) {
-    hasMore
-    count
-    items{
-      brand {
+query GetListing($id: Float, $name: String) {
+  getListing(id: $id, name: $name) {
+     brand {
         id
         name
       }
@@ -11,10 +8,10 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
         id
         name
         slug
-        parentCategory{
-          id
-          name
-          slug
+        parentCategory {
+            id 
+            name
+            slug
         }
       }
       communities {
@@ -34,7 +31,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
       }
       price
       title
-       user {
+     user {
         email
         id
         username
@@ -52,5 +49,4 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
       favoriteStatus
       
     }
-  }
 }
