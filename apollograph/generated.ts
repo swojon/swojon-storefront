@@ -757,6 +757,11 @@ export const ListListingsDocument = gql`
         id
         name
         slug
+        parentCategory {
+          id
+          name
+          slug
+        }
       }
       communities {
         id
@@ -778,6 +783,12 @@ export const ListListingsDocument = gql`
       user {
         email
         id
+        username
+        profile {
+          firstName
+          lastName
+          avatar
+        }
       }
       media {
         url
@@ -942,6 +953,153 @@ export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
 export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const GetListingDocument = gql`
+    query GetListing($id: Float, $name: String) {
+  getListing(id: $id, name: $name) {
+    brand {
+      id
+      name
+    }
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    communities {
+      id
+      name
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    location {
+      id
+      name
+    }
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        firstName
+        lastName
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+
+/**
+ * __useGetListingQuery__
+ *
+ * To run a query within a React component, call `useGetListingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetListingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetListingQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useGetListingQuery(baseOptions?: Apollo.QueryHookOptions<GetListingQuery, GetListingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetListingQuery, GetListingQueryVariables>(GetListingDocument, options);
+      }
+export function useGetListingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetListingQuery, GetListingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetListingQuery, GetListingQueryVariables>(GetListingDocument, options);
+        }
+export type GetListingQueryHookResult = ReturnType<typeof useGetListingQuery>;
+export type GetListingLazyQueryHookResult = ReturnType<typeof useGetListingLazyQuery>;
+export type GetListingQueryResult = Apollo.QueryResult<GetListingQuery, GetListingQueryVariables>;
+export const ListSellerReviewsDocument = gql`
+    query ListSellerReviews($userId: Float!) {
+  listSellerReviews(userId: $userId) {
+    count
+    items {
+      review
+      rating
+      reviewer {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      seller {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      dateCreated
+      id
+      listing {
+        id
+        title
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListSellerReviewsQuery__
+ *
+ * To run a query within a React component, call `useListSellerReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListSellerReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListSellerReviewsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListSellerReviewsQuery(baseOptions: Apollo.QueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
+      }
+export function useListSellerReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
+        }
+export type ListSellerReviewsQueryHookResult = ReturnType<typeof useListSellerReviewsQuery>;
+export type ListSellerReviewsLazyQueryHookResult = ReturnType<typeof useListSellerReviewsLazyQuery>;
+export type ListSellerReviewsQueryResult = Apollo.QueryResult<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -1006,6 +1164,11 @@ export const SearchListingsDocument = gql`
         id
         name
         slug
+        parentCategory {
+          id
+          name
+          slug
+        }
       }
       communities {
         id
@@ -1027,6 +1190,12 @@ export const SearchListingsDocument = gql`
       user {
         email
         id
+        username
+        profile {
+          firstName
+          lastName
+          avatar
+        }
       }
       media {
         url
@@ -1445,9 +1614,11 @@ export type ListingCreateDto = {
 
 export type ListingFilterInput = {
   brandIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  brandSlug?: InputMaybe<Scalars['String']['input']>;
   categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   categorySlug?: InputMaybe<Scalars['String']['input']>;
   communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  communitySlug?: InputMaybe<Scalars['String']['input']>;
   isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   locationId?: InputMaybe<Scalars['Float']['input']>;
   locationIds?: InputMaybe<Array<Scalars['Float']['input']>>;
@@ -1896,6 +2067,8 @@ export type Query = {
   getCategory: Category;
   /** Get Community by Id, slug or name */
   getCommunity: Community;
+  /** Get Category by Id, slug or name */
+  getListing: Listing;
   /** Get Location by Id, slug or name */
   getLocation: Location;
   /** Profile find by id */
@@ -1964,6 +2137,13 @@ export type QueryGetCategoryArgs = {
 
 
 export type QueryGetCommunityArgs = {
+  id?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetListingArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -2351,7 +2531,7 @@ export type ListListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2364,6 +2544,21 @@ export type GetUserByIdQueryVariables = Exact<{
 
 
 export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, firstName?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, lastName?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+
+export type GetListingQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
+
+export type ListSellerReviewsQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];
@@ -2382,7 +2577,7 @@ export type SearchListingsQueryVariables = Exact<{
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type RemoveFollowMutationVariables = Exact<{
   userId: Scalars['Float']['input'];

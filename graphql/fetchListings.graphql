@@ -9,6 +9,11 @@ query ListListings($filters: ListingFilterInput) {
         id
         name
         slug
+        parentCategory{
+          id
+          name
+          slug
+        }
       }
       communities {
         id
@@ -30,6 +35,12 @@ query ListListings($filters: ListingFilterInput) {
       user {
         email
         id
+        username
+        profile{
+          firstName
+          lastName
+          avatar
+        }
       }
       media{
         url

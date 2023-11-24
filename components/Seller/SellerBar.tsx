@@ -1,11 +1,11 @@
 import React from "react";
 import SellerBox from "../ProductDetails/SellerBox";
-import SellerProfile from "./SellerProfile";
+import SellerProfileCard from "./SellerProfileCard";
 
-const SellerBar = () => {
+const SellerBar = ({seller} : {seller: any }) => {
   return (
     <section className="sticky top-0 h-auto  min-h-screen  ">
-      <SellerProfile />
+      <SellerProfileCard seller={seller}/>
     </section>
   );
 };

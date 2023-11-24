@@ -1,0 +1,35 @@
+query ListSellerReviews($userId: Float!) {
+  listSellerReviews(userId: $userId) {
+    count
+    items {
+      review
+      rating
+      reviewer {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      seller {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      dateCreated
+      id
+      listing {
+        id
+        title
+      }
+    }
+  }
+}

@@ -200,32 +200,11 @@ const UploadForm = () => {
             Upload product
           </h2>
           <div className=" text-base text-secondColor">
-            <p>Need something cleared up? Here are our most</p>
-            <p>frequently asked questions.</p>
+            <p>Need something cleared up?</p>
+            <p>Post here to find their second home.</p>
           </div>
         </div>
-        <div className="flex items-center justify-end gap-3">
-          {" "}
-          <div className="w-[160px]">
-            <LocationDropDown
-              values={values.locationId}
-              setFieldValue={setFieldValue}
-            />
-          </div>{" "}
-          <button
-            onClick={() =>
-              dispatch(
-                setModalOpen({
-                  title: "this is a modal",
-                  body: "success",
-                })
-              )
-            }
-            className="px-2.5 py-2.5 bg-activeColor text-white text-sm rounded-md"
-          >
-            Modify Search
-          </button>
-        </div>
+      
       </div>
 
       <form className="space-y-6 mt-8" onSubmit={handleSubmit}>
@@ -243,82 +222,12 @@ const UploadForm = () => {
                 setFieldValue={setFieldValue}
               />
             </div>
-            <div className="w-full shadow-lg p-5 rounded-md border-gray-50">
-              <h6 className="text-lg font-lexed pb-3 text-primaryColor">
-                Location
-              </h6>
-              <LocationDropDown
-                values={values.locationId}
-                setFieldValue={setFieldValue}
-              />
-            </div>
 
             <div className="w-full shadow-lg p-5 rounded-md border-gray-50 space-y-3">
               <h6 className="text-lg font-lexed  text-primaryColor">
                 Items details
               </h6>
-
-              <div className="">
-                <label
-                  htmlFor="brand"
-                  className="block text-sm font-lexed pb-2 text-secondColor"
-                >
-                  Brand
-                </label>
-                <BrandDropdown
-                  values={values.brandId}
-                  setFieldValue={setFieldValue}
-                />
-                {errors.brand && touched.brand ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
-                ) : null}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="model"
-                  className="block text-sm font-lexed pb-2 text-secondColor"
-                >
-                  Model
-                </label>
-
-                <Model values={values.model} setFieldValue={setFieldValue} />
-                {errors.model && touched.model ? (
-                  <p className="text-red-400	pt-1  text-xs">{errors.model}</p>
-                ) : null}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="features"
-                  className="block text-sm font-lexed pb-2 text-secondColor"
-                >
-                  Features
-                </label>
-
-                <Features />
-              </div>
-            </div>
-
-            <div className="w-full shadow-lg p-5 rounded-md border-gray-50">
-              <h6 className="text-lg font-lexed pb-3 text-primaryColor">
-                Condition
-              </h6>
-              <Condition
-                values={values.condition}
-                setFieldValue={setFieldValue}
-              />
-              {errors.condition && touched.condition ? (
-                <p className="text-red-400	pt-1  text-xs">{errors.condition}</p>
-              ) : null}
-            </div>
-
-            <div className="w-full shadow-lg p-5 rounded-md border-gray-50 space-y-3">
-              <h6 className="text-lg font-lexed  text-primaryColor">
-                Product details
-              </h6>
-
-              <div className="">
+     <div className="">
                 <label
                   htmlFor="brand"
                   className="block text-sm font-lexed pb-2 text-secondColor"
@@ -337,11 +246,40 @@ const UploadForm = () => {
                   <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
                 ) : null}
               </div>
-              {/* Price Input */}
+              <div className="">
+                <label
+                  htmlFor="brand"
+                  className="block text-sm font-lexed pb-2 text-secondColor"
+                >
+                  Brand
+                </label>
+                <BrandDropdown
+                  values={values.brandId}
+                  setFieldValue={setFieldValue}
+                />
+                {errors.brand && touched.brand ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.brand}</p>
+                ) : null}
+              </div>
+              <div>
+              <label
+                  htmlFor="condition"
+                  className="block text-sm font-lexed pb-2 text-secondColor"
+                >
+                  Condition
+                </label>
+              <Condition
+                values={values.condition}
+                setFieldValue={setFieldValue}
+              />
+              {errors.condition && touched.condition ? (
+                <p className="text-red-400	pt-1  text-xs">{errors.condition}</p>
+              ) : null}
+              </div>
               <div>
                 <label
                   htmlFor="price"
-                  className="block text-base font-medium text-primaryColor font-lexed"
+                  className="block text-sm text-secondColor font-lexed"
                 >
                   Price
                 </label>
@@ -381,7 +319,54 @@ const UploadForm = () => {
                   </p>
                 ) : null}
               </div>
+              {/* <div>
+                <label
+                  htmlFor="model"
+                  className="block text-sm font-lexed pb-2 text-secondColor"
+                >
+                  Model
+                </label>
+
+                <Model values={values.model} setFieldValue={setFieldValue} />
+                {errors.model && touched.model ? (
+                  <p className="text-red-400	pt-1  text-xs">{errors.model}</p>
+                ) : null}
+              </div> */}
+{/* 
+              <div>
+                <label
+                  htmlFor="features"
+                  className="block text-sm font-lexed pb-2 text-secondColor"
+                >
+                  Features
+                </label>
+
+                <Features />
+              </div> */}
             </div>
+
+
+
+            {/* <div className="w-full shadow-lg p-5 rounded-md border-gray-50">
+              <h6 className="text-lg font-lexed pb-3 text-primaryColor">
+                Condition
+              </h6>
+              <Condition
+                values={values.condition}
+                setFieldValue={setFieldValue}
+              />
+              {errors.condition && touched.condition ? (
+                <p className="text-red-400	pt-1  text-xs">{errors.condition}</p>
+              ) : null}
+            </div> */}
+
+            {/* <div className="w-full shadow-lg p-5 rounded-md border-gray-50 space-y-3">
+              <h6 className="text-lg font-lexed  text-primaryColor">
+                Product details
+              </h6>
+
+            
+            </div> */}
           </div>
 
           <div className="w-full space-y-4">
@@ -393,7 +378,7 @@ const UploadForm = () => {
                 Your details
               </h6>
 
-              <div className="">
+              {/* <div className="">
                 <label
                   htmlFor="name"
                   className="block text-sm font-lexed pb-2 text-secondColor"
@@ -412,7 +397,7 @@ const UploadForm = () => {
                 {errors.title && touched.title ? (
                   <p className="text-red-400	pt-1  text-xs">{errors.title}</p>
                 ) : null}
-              </div>
+              </div> */}
 
               <div className="">
                 <label
@@ -433,7 +418,7 @@ const UploadForm = () => {
                 {errors.contact && touched.contact ? (
                   <p className="text-red-400	pt-1  text-xs">{errors.contact}</p>
                 ) : null}
-                <div className="flex items-center space-x-2 pt-4">
+                {/* <div className="flex items-center space-x-2 pt-4">
                   <input
                     id=""
                     name="comments"
@@ -449,8 +434,17 @@ const UploadForm = () => {
                       Terms and Conditions
                     </Link>
                   </span>
-                </div>
+                </div> */}
               </div>
+              <div className="">
+              <h6 className="text-sm font-lexed pb-2 text-secondColor">
+                Location
+              </h6>
+              <LocationDropDown
+                values={values.locationId}
+                setFieldValue={setFieldValue}
+              />
+            </div>
             </div>
 
             <div className="w-full shadow-lg p-5 rounded-md border-gray-50">
