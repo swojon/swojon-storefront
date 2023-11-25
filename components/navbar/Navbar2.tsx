@@ -226,7 +226,7 @@ export default function Navbar2({ border }: { border: any }) {
                             </Link>
                           )}
                         </Menu.Item>
-                        <Menu.Item>
+                        {/* <Menu.Item>
                           {({ active }) => (
                             <Link
                               href="#"
@@ -251,7 +251,7 @@ export default function Navbar2({ border }: { border: any }) {
                               Following
                             </Link>
                           )}
-                        </Menu.Item>
+                        </Menu.Item> */}
 
                         <Menu.Item>
                           <div className="my-2 border"></div>
@@ -260,7 +260,6 @@ export default function Navbar2({ border }: { border: any }) {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              onClick={handleSignOut}
                               href="/help-center"
                               className={classNames(
                                 active ? "bg-gray-200" : "",
@@ -275,7 +274,6 @@ export default function Navbar2({ border }: { border: any }) {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              onClick={handleSignOut}
                               href="/FAQ"
                               className={classNames(
                                 active ? "bg-gray-200" : "",

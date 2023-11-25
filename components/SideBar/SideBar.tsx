@@ -45,7 +45,7 @@ const SideBar = () => {
     <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
       <div className="border-b  pb-3 px-3">
         <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed">
-          Hi, {user.username ?? user.email}
+          Hi, {user?.username ?? user?.email}
         </h6>
         <span className="text-xs text-secondColor lg:leading-normal leading-snug">
           Thanks for being a Swojon customer
@@ -98,7 +98,7 @@ const SideBar = () => {
               People you follow
           </span>
         </Link>
-        <Link
+        {/* <Link
           href="/points"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
             pathname === "/points"
@@ -112,7 +112,7 @@ const SideBar = () => {
           <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
             my points
           </span>
-        </Link>
+        </Link> */}
         <Link
           href="/wishlists"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${

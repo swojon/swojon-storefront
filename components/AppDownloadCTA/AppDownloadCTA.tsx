@@ -5,7 +5,7 @@ import mbl from "@/public/assets/mobile.png";
 import googleImg from "@/public/assets/googlePlay.png";
 import appStoreImg from "@/public/assets/appStore.png";
 
-const ActionBanner2 = () => {
+const AppDownloadCTA = () => {
   return (
     <section className="xl:h-[450px] lg:h-[410px] md:h-[300px]  h-auto   bg-[#fff8df] w-full  relative ">
       <div className="absolute clip-path-banner left-0 top-0 w-full h-full z-10"></div>
@@ -48,4 +48,4 @@ const ActionBanner2 = () => {
   );
 };
 
-export default ActionBanner2;
+export default AppDownloadCTA;

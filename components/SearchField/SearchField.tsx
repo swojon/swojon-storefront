@@ -6,6 +6,9 @@ import { MdLocationPin } from "react-icons/md";
 import LocationDropDown from "../LocationDropDown/LocationDropDown";
 import { useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import PreviousHistory from "./PreviousHistory";
+import TrendingSearches from "./TrendingSearches";
 
 const SearchField = () => {
   const searchParams = useSearchParams();
@@ -13,7 +16,7 @@ const SearchField = () => {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-
+  const {user} = useSelector((state: any ) => state.auth)
   const searchHistory = ["I phone 12", "I phone 12 pro", "I phone 13"];
 
   const inputRef = useRef<HTMLInputElement>(null); // Use type assertion here
@@ -107,7 +110,7 @@ const SearchField = () => {
               <>
                 <div className="flex justify-between items-center">
                   <h6 className="text-secondColor font-lexed text-sm font-medium ">
-                    Previous History
+                    Suggestions
                   </h6>
                   <span
                     className="text-activeColor font-lexed text-xs italic "
@@ -115,14 +118,10 @@ const SearchField = () => {
                       // Handle the logic to clear history
                     }}
                   >
-                    clear history
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2 py-3.5">
-                  <span className=" bg-gray-100 text-primaryColor text-sm py-2 px-3  rounded-2xl">
-                    I phone{" "}
-                  </span>
                   <span className=" bg-gray-100 text-primaryColor text-sm py-2 px-3  rounded-2xl">
                     dress
                   </span>
@@ -139,49 +138,15 @@ const SearchField = () => {
                 ))}
               </>
             ) : (
-              <div className="p-3 text-sm text-primaryColor">No matched</div>
+              // <div className="p-3 text-sm text-primaryColor">No matched</div>
+              <></>
             )}
+            
             {/* Render the "Previous History" section only if there are no filtered suggestions */}
             {filteredSuggestions.length === 0 && (
               <>
-                <div className="flex justify-between items-center">
-                  <h6 className="text-secondColor font-lexed text-sm font-medium ">
-                    Previous History
-                  </h6>
-                  <span
-                    className="text-activeColor font-lexed text-xs italic "
-                    onClick={() => {
-                      // Handle the logic to clear history
-                    }}
-                  >
-                    clear history
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 py-3.5">
-                  <span className=" bg-gray-100 text-primaryColor text-sm py-2 px-3  rounded-2xl">
-                    I phone{" "}
-                  </span>
-                  <span className=" bg-gray-100 text-primaryColor text-sm py-2 px-3  rounded-2xl">
-                    dress
-                  </span>
-                </div>
-
-                <h6 className="text-secondColor font-lexed text-sm font-medium ">
-                  Popular searches
-                </h6>
-
-                <div className="flex items-center gap-2 pt-3">
-                  {searchHistory.map((term, index) => (
-                    <span
-                      key={index}
-                      onClick={() => handleSuggestionClick(term)}
-                      className=" bg-gray-100 text-primaryColor text-sm py-2 px-3 rounded-2xl cursor-pointer"
-                    >
-                      {term}
-                    </span>
-                  ))}
-                </div>
+                {!!user?.id && <PreviousHistory handleClick={handleSuggestionClick} /> }
+                <TrendingSearches handleClick={handleSuggestionClick} /> 
               </>
             )}
           </div>

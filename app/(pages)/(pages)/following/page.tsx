@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import FollowUserCard from "@/components/FollowUserCard/FollowUserCard";
 import Link from "next/link";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import FollowUserCardLoader from "@/components/Loader/FollowUserCardLoader";
 
 const Followers = () => {
   const { user } = useSelector((state: any) => state.auth);
@@ -44,6 +45,7 @@ const Followers = () => {
         {followers?.map((follower) => (
           <FollowUserCard follow={follower} key={follower.id} />
         ))}
+        {loading && <FollowUserCardLoader />}
 
         {/* <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none relative">
           <div className="absolute right-3 top-3 w-7 h-7 flex justify-center items-center rounded-full border border-activeColor cursor-pointer">

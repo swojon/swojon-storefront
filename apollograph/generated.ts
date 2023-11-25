@@ -1035,6 +1035,78 @@ export function useGetListingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetListingQueryHookResult = ReturnType<typeof useGetListingQuery>;
 export type GetListingLazyQueryHookResult = ReturnType<typeof useGetListingLazyQuery>;
 export type GetListingQueryResult = Apollo.QueryResult<GetListingQuery, GetListingQueryVariables>;
+export const GetSearchHistoryDocument = gql`
+    query GetSearchHistory {
+  getSearchHistory {
+    items {
+      searchQuery
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSearchHistoryQuery__
+ *
+ * To run a query within a React component, call `useGetSearchHistoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSearchHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSearchHistoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSearchHistoryQuery(baseOptions?: Apollo.QueryHookOptions<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>(GetSearchHistoryDocument, options);
+      }
+export function useGetSearchHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>(GetSearchHistoryDocument, options);
+        }
+export type GetSearchHistoryQueryHookResult = ReturnType<typeof useGetSearchHistoryQuery>;
+export type GetSearchHistoryLazyQueryHookResult = ReturnType<typeof useGetSearchHistoryLazyQuery>;
+export type GetSearchHistoryQueryResult = Apollo.QueryResult<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>;
+export const GetTrendingSearchesDocument = gql`
+    query GetTrendingSearches {
+  getTrendingSearches {
+    items {
+      searchQuery
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTrendingSearchesQuery__
+ *
+ * To run a query within a React component, call `useGetTrendingSearchesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTrendingSearchesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTrendingSearchesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTrendingSearchesQuery(baseOptions?: Apollo.QueryHookOptions<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>(GetTrendingSearchesDocument, options);
+      }
+export function useGetTrendingSearchesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>(GetTrendingSearchesDocument, options);
+        }
+export type GetTrendingSearchesQueryHookResult = ReturnType<typeof useGetTrendingSearchesQuery>;
+export type GetTrendingSearchesLazyQueryHookResult = ReturnType<typeof useGetTrendingSearchesLazyQuery>;
+export type GetTrendingSearchesQueryResult = Apollo.QueryResult<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>;
 export const ListSellerReviewsDocument = gql`
     query ListSellerReviews($userId: Float!) {
   listSellerReviews(userId: $userId) {
@@ -1144,6 +1216,40 @@ export function useRemoveFavoriteMutation(baseOptions?: Apollo.MutationHookOptio
 export type RemoveFavoriteMutationHookResult = ReturnType<typeof useRemoveFavoriteMutation>;
 export type RemoveFavoriteMutationResult = Apollo.MutationResult<RemoveFavoriteMutation>;
 export type RemoveFavoriteMutationOptions = Apollo.BaseMutationOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
+export const RemoveSearchHistoryDocument = gql`
+    mutation RemoveSearchHistory {
+  removeSearchHistory {
+    items {
+      searchQuery
+    }
+  }
+}
+    `;
+export type RemoveSearchHistoryMutationFn = Apollo.MutationFunction<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>;
+
+/**
+ * __useRemoveSearchHistoryMutation__
+ *
+ * To run a mutation, you first call `useRemoveSearchHistoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSearchHistoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeSearchHistoryMutation, { data, loading, error }] = useRemoveSearchHistoryMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRemoveSearchHistoryMutation(baseOptions?: Apollo.MutationHookOptions<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>(RemoveSearchHistoryDocument, options);
+      }
+export type RemoveSearchHistoryMutationHookResult = ReturnType<typeof useRemoveSearchHistoryMutation>;
+export type RemoveSearchHistoryMutationResult = Apollo.MutationResult<RemoveSearchHistoryMutation>;
+export type RemoveSearchHistoryMutationOptions = Apollo.BaseMutationOptions<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>;
 export const SearchListingsDocument = gql`
     query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
   searchListings(
@@ -1751,6 +1857,8 @@ export type Mutation = {
   removeListingReview: Review;
   /** Remove Location */
   removeLocation: Location;
+  /** Remove all search history of a user */
+  removeSearchHistory: Searches;
   /** Remove user from community */
   removeUserFromCommunity: CommunityMember;
   /** User remove role */
@@ -2075,6 +2183,10 @@ export type Query = {
   getProfileById: Profile;
   /** List All Role */
   getRoles: Array<Role>;
+  /** Get Search History */
+  getSearchHistory: TrendingSearches;
+  /** Get trending Searches */
+  getTrendingSearches: TrendingSearches;
   /** User find by id */
   getUserById: UserWithMeta;
   /** List All Brands */
@@ -2310,6 +2422,27 @@ export type Role = {
   name: Scalars['String']['output'];
 };
 
+export type Search = {
+  __typename?: 'Search';
+  id: Scalars['Float']['output'];
+  isSaved?: Maybe<Scalars['Boolean']['output']>;
+  searchQuery: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  user?: Maybe<User>;
+};
+
+export type SearchQuery = {
+  __typename?: 'SearchQuery';
+  searchQuery: Scalars['String']['output'];
+};
+
+export type Searches = {
+  __typename?: 'Searches';
+  count?: Maybe<Scalars['Float']['output']>;
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
+  items: Array<Search>;
+};
+
 export type SerachInputDto = {
   search: Scalars['String']['input'];
 };
@@ -2355,6 +2488,11 @@ export type TokenUserData = {
   sessionMaxAge?: Maybe<Scalars['Float']['output']>;
   token: Scalars['String']['output'];
   username?: Maybe<Scalars['String']['output']>;
+};
+
+export type TrendingSearches = {
+  __typename?: 'TrendingSearches';
+  items: Array<SearchQuery>;
 };
 
 export type UpdateProfileDto = {
@@ -2553,6 +2691,16 @@ export type GetListingQueryVariables = Exact<{
 
 export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
 
+export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSearchHistoryQuery = { __typename?: 'Query', getSearchHistory: { __typename?: 'TrendingSearches', items: Array<{ __typename?: 'SearchQuery', searchQuery: string }> } };
+
+export type GetTrendingSearchesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTrendingSearchesQuery = { __typename?: 'Query', getTrendingSearches: { __typename?: 'TrendingSearches', items: Array<{ __typename?: 'SearchQuery', searchQuery: string }> } };
+
 export type ListSellerReviewsQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
@@ -2567,6 +2715,11 @@ export type RemoveFavoriteMutationVariables = Exact<{
 
 
 export type RemoveFavoriteMutation = { __typename?: 'Mutation', removeFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
+
+export type RemoveSearchHistoryMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RemoveSearchHistoryMutation = { __typename?: 'Mutation', removeSearchHistory: { __typename?: 'Searches', items: Array<{ __typename?: 'Search', searchQuery: string }> } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;

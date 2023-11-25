@@ -16,7 +16,7 @@ const ProductDetailsImage = ({ images }: { images: any }) => {
       </div> */}
       <div className="w-full h-full grid grid-cols-2 gap-3">
         {images?.map((im: any) => (
-        <div className="w-full h-full rounded-lg">
+        <div className="w-full h-full rounded-lg" key={im.url}>
           <Image
             src={im.url}
             width={500}

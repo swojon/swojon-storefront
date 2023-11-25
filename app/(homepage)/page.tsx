@@ -5,7 +5,6 @@ import HeroSection from "@/components/heroSection/HeroSection";
 import Products from "@/components/Products/Products";
 import Community from "@/components/Community/Community";
 import ActionBanner from "@/components/ActionBanner/ActionBanner";
-import ActionBanner2 from "@/components/ActionBanner2/ActionBanner2";
 import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 import { useState } from "react";
 
@@ -13,6 +12,7 @@ import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesB
 import { useSession } from "next-auth/react";
 import { setCookie } from "cookies-next";
 import { redirect, useSearchParams, useRouter } from "next/navigation";
+import AppDownloadCTA from "@/components/AppDownloadCTA/AppDownloadCTA";
 // import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       <Community />
       {/* <ActionBanner />
       <SellBuyArea /> */}
-      <ActionBanner2 /> 
+      {/* <AppDownloadCTA />  */}
     </main>
   );
 };
