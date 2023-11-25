@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 
-const page = () => {
+const SignUpPage = () => {
   useEffect(() => {
     setCookie('host', window.location.origin )
   }, [])
@@ -140,4 +140,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;
