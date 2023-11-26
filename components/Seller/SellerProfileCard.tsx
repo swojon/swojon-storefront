@@ -8,11 +8,11 @@ import icon1 from "@/public/assets/govtIcon.png";
 import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
 
-const SellerProfileCard = ({seller}: {seller: any }) => {
-  console.log("Got seller to render", seller)
+const SellerProfileCard = ({ seller }: { seller: any }) => {
+  // console.log("Got seller to render", seller)
   return (
     <div className="flex lg:flex-col sm:flex-row flex-col gap-5">
-      <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none">
+      <div className=" rounded-md px-3 py-4 flex-1 lg:flex-none">
         <div className="h-24 w-24  rounded-full relative">
           <Image
             src={seller?.profile?.avatar ?? icon1}
@@ -27,7 +27,7 @@ const SellerProfileCard = ({seller}: {seller: any }) => {
         </div>
         <div className="py-3 border-b space-y-1">
           <h6 className="text-base font-lexed font-medium text-primaryColor">
-            {seller?.username ?? seller?.email} 
+            {seller?.username ?? seller?.email}
           </h6>
 
           <h6 className="lg:text-lg text-base text-[#08B66D]">
@@ -80,7 +80,7 @@ const SellerProfileCard = ({seller}: {seller: any }) => {
         </div>
       </div>
 
-      <div className="border rounded-md px-3 py-4 lg:space-y-4 md:space-y-3 space-y-2  flex-1 lg:flex-none ">
+      <div className=" rounded-md px-3 py-4 lg:space-y-4 md:space-y-3 space-y-2  flex-1 lg:flex-none ">
         <h5 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor ">
           Confirmed Information
         </h5>

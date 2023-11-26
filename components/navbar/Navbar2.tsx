@@ -44,7 +44,7 @@ export default function Navbar2({ border }: { border: any }) {
               <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0  items-center">
                 <Link
                   href="/"
-                  className={`  font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  lg:w-[85px] md:w-20 w-16 pb-0.5  justify-center items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
+                  className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 md:flex items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
                 >
                   {border === "border" ? (
                     <Image

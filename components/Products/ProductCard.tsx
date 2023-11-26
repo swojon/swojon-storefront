@@ -109,14 +109,14 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         )}
       </div>
 
-      <div className="pt-3  flex flex-row  justify-between items-center font-lexed ">
-        <Link href={`/products/${listing.id}`}>
-          <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize">
+      <div className="pt-3  flex flex-row   items-center font-lexed ">
+        <Link href={`/products/${listing.id}`} className="w-[63%] ">
+          <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
             {listing.title}
           </h6>
         </Link>
-        <span className="text-activeColor lg:text-base md:text-sm  text-sm">
-          TK, {listing.price}
+        <span className="text-activeColor  md:text-sm  text-sm w-[37%]  flex justify-end items-center truncate">
+          <span className="text-xs pe-0.5">TK,</span> {listing.price}
         </span>
       </div>
 
