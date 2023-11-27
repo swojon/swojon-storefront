@@ -1,0 +1,13 @@
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  width: 5px;
+  height: 5px;
+}
+.swiper-button-prev {
+  top: 50%;
+}
+
+.swiper-button-next {
+  top: 51%;
+}

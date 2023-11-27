@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -11,6 +11,7 @@ import SafetyTips from "@/components/SafetyTips/SafetyTips";
 import Link from "next/link";
 import ProductImageSlider from "@/components/ProductDetails/ProductImageSlider";
 import { useGetListingQuery } from "@/apollograph/generated";
+import ProductThumbnailSlider from "@/components/ProductDetails/ProductThumbnailSlider";
 
 // const card2 = [
 //   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
@@ -25,33 +26,30 @@ import { useGetListingQuery } from "@/apollograph/generated";
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);
-  const {data, error , loading} = useGetListingQuery({
+  const { data, error, loading } = useGetListingQuery({
     variables: {
-      id: productId
+      id: productId,
     },
-    skip: !productId
-  })
+    skip: !productId,
+  });
   const product = data?.getListing;
-  
-  
+
   return (
-    <section className="custom-container py-10 space-y-8">
+    <section className="custom-container py-6 space-y-5">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
           <h6 className="">Home</h6>
           <MdKeyboardArrowRight />
-          {product?.category?.parentCategory && 
+          {product?.category?.parentCategory && (
             <>
-            <h6 className="">Categories</h6>
-            <MdKeyboardArrowRight />
-            </> 
-          }
+              <h6 className="">Categories</h6>
+              <MdKeyboardArrowRight />
+            </>
+          )}
 
           <h6 className="">{product?.category?.name}</h6>
           <MdKeyboardArrowRight />
-          <h6 className="text-primaryColor capitalize">
-            {product?.title}
-          </h6>
+          <h6 className="text-primaryColor capitalize">{product?.title}</h6>
         </div>
 
         <div className="flex items-center space-x-3">
@@ -73,22 +71,27 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         </div>
       </div>
 
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <ProductDetailsImage images={product?.media} />
-      </div>
+      </div> */}
 
-      <div className="block md:hidden md:h-[350px] sm:h-[300px] h-[280px]">
+      {/* <div className="block md:hidden md:h-[350px] sm:h-[300px] h-[280px]">
         <ProductImageSlider images={product?.media} />
+      </div> */}
+
+      <div className="flex gap-8  sticky top-0 h-[500px] overflow-hidden  rounded-md min-h-[450px]  ">
+        <div className="w-[55%]  overflow-auto ">
+          <ProductThumbnailSlider images={product?.media} />
+          {/* <ProductInfo product={product ?? null} /> */}
+        </div>
+        <div className="w-[45%] h-full  px-2">
+          <SellerBox seller={product?.user} />
+        </div>
       </div>
 
       <div className="flex lg:flex-row flex-col items-start gap-4">
-        <div className="lg:w-[70%] w-full">
-          <ProductInfo product={product?? null }/>
-          {/* <SafetyTips /> */}
-        </div>
-        <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0">
-          <SellerBox seller={product?.user}/>
-        </div>
+        <div className="lg:w-[70%] w-full">{/* <SafetyTips /> */}</div>
+        <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0"></div>
       </div>
 
       <div></div>

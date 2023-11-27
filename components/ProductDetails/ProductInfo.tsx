@@ -43,14 +43,14 @@ const ProductInfo = ({ product }: { product: any }) => {
         </div>
       </div>
 
-      <div className="border-b pb-8">
+      {/* <div className="border-b pb-8">
         <h5 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-medium pb-4">
           Description
         </h5>
         <p className="text-secondColor pb-2 lg:text-base md:text-sm text-xs">
           {product?.description}
         </p>
-      </div>
+      </div> */}
     </section>
   );
 };

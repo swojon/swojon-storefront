@@ -9,10 +9,10 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 
-const SellerBox = ({seller}: {seller: any }) => {
+const SellerBox = ({ seller }: { seller: any }) => {
   const dispatch = useDispatch();
   return (
-    <section className="shadow-md rounded-lg border">
+    <section className=" rounded-lg ">
       <div className="p-3 bg-[#F1F7FF] border-b">
         <span className="text-lg font-lexed font-medium text-primaryColor">
           Meet with Seller

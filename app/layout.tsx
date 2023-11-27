@@ -5,7 +5,6 @@ import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
 import Footer from "../components/footer/Footer";
-
 import { Session } from "next-auth";
 import { cookies, headers } from "next/headers";
 
