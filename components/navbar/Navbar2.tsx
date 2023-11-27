@@ -17,6 +17,7 @@ import { deleteCookie } from "cookies-next";
 import SearchField from "../SearchField/SearchField";
 import burgerIcon from "@/public/assets/nav-hamburger.png";
 import { setModalOpen } from "@/app/redux/modalSlice";
+import NotificationDropDown from "../Notification/NotificationDropDown";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -40,8 +41,8 @@ export default function Navbar2({ border }: { border: any }) {
       {({ open }) => (
         <>
           <div className=" ">
-            <div className="flex h-16 justify-between gap-4 items-center ">
-              <div className="lg:w-[35%]  flex px-2 gap-1 lg:px-0  items-center">
+            <div className="flex h-16 justify-between gap-2 items-center ">
+              <div className="lg:w-[34%]  flex px-2 gap-1 lg:px-0  items-center ">
                 <Link
                   href="/"
                   className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 md:flex items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
@@ -109,12 +110,12 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 </div>
               </div>
-              <div className={`lg:w-[42%]   md:w-full w-full `}>
+              <div className={`lg:w-[41%]   md:w-full w-full `}>
                 <SearchField />
               </div>
 
               {/* mobile hamburger button */}
-              <div className="flex items-center lg:hidden">
+              <div className="flex items-center lg:hidden ">
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
                   className={`inline-flex items-center justify-center rounded-md p-2    hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
@@ -126,7 +127,11 @@ export default function Navbar2({ border }: { border: any }) {
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
-              <div className="lg:w-[23%] hidden   lg:flex lg:items-center justify-end gap-3">
+              <div className="lg:w-[25%] hidden   lg:flex lg:items-center justify-end gap-3.5">
+                {authState.isAuthenticated && (
+                  <NotificationDropDown border={border} />
+                )}
+
                 {authState.isAuthenticated === false ? (
                   <Link href="/signin">
                     <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
