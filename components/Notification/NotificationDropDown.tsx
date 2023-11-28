@@ -16,7 +16,7 @@ const NotificationDropDown = ({ border }: { border: any }) => {
         <Menu.Button className="flex items-center  text-primaryColor hover:text-gray-600 focus:outline-none ">
           <span className="sr-only">Open options</span>
           <FaBell
-            className={`text-2xl  ${
+            className={`text-lg  ${
               border === "border" ? "text-activeColor" : "text-white"
             }`}
           />

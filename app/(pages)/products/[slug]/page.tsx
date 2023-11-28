@@ -12,17 +12,8 @@ import Link from "next/link";
 import ProductImageSlider from "@/components/ProductDetails/ProductImageSlider";
 import { useGetListingQuery } from "@/apollograph/generated";
 import ProductThumbnailSlider from "@/components/ProductDetails/ProductThumbnailSlider";
-
-// const card2 = [
-//   { id: 13, banner: "/assets/pro1.png", title: "partex delux bed" },
-//   { id: 14, banner: "/assets/pro2.png", title: "partex delux bed" },
-//   { id: 123, banner: "/assets/pro3.png", title: "partex delux bed" },
-//   { id: 12235, banner: "/assets/pro4.png", title: "partex delux bed" },
-//   { id: 146, banner: "/assets/pro5.png", title: "partex delux bed" },
-//   { id: 123, banner: "/assets/pro6.png", title: "partex delux bed" },
-//   { id: 124388, banner: "/assets/pro1.png", title: "partex delux bed" },
-//   { id: 12783, banner: "/assets/pro8.png", title: "partex delux bed" },
-// ];
+import MeetSeller from "@/components/Seller/MeetSeller";
+import "@/components/Seller/Seller.css";
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);
@@ -79,18 +70,24 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         <ProductImageSlider images={product?.media} />
       </div> */}
 
-      <div className="flex gap-8  sticky top-0 h-[500px] overflow-hidden  rounded-md min-h-[450px]  ">
-        <div className="w-[55%]  overflow-auto ">
+      <div className="flex gap-8   h-[850px] overflow-hidden  rounded-md min-h-[850px] ">
+        <div className="w-[58%] h-full  space-y-6  ">
           <ProductThumbnailSlider images={product?.media} />
-          {/* <ProductInfo product={product ?? null} /> */}
+
+          <div className="border-b "></div>
+          <MeetSeller seller={product?.user} />
         </div>
-        <div className="w-[45%] h-full  px-2">
-          <SellerBox seller={product?.user} />
+        <div className="w-[42%] md:ps-14 ps-14 pe-2 overflow-auto scroll-hidden">
+          <ProductInfo product={product ?? null} />
+
+          {/* <SellerBox seller={product?.user} /> */}
         </div>
       </div>
 
       <div className="flex lg:flex-row flex-col items-start gap-4">
-        <div className="lg:w-[70%] w-full">{/* <SafetyTips /> */}</div>
+        <div className="lg:w-[100%] w-full">
+          <SafetyTips />
+        </div>
         <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0"></div>
       </div>
 

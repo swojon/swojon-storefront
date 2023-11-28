@@ -18,6 +18,7 @@ import SearchField from "../SearchField/SearchField";
 import burgerIcon from "@/public/assets/nav-hamburger.png";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import NotificationDropDown from "../Notification/NotificationDropDown";
+import { FaBell } from "react-icons/fa6";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -129,7 +130,17 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
               <div className="lg:w-[25%] hidden   lg:flex lg:items-center justify-end gap-3.5">
                 {authState.isAuthenticated && (
-                  <NotificationDropDown border={border} />
+                  // <NotificationDropDown border={border} />
+                  <div className="relative">
+                    <FaBell
+                      className={`text-lg  ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
+                    <span className="absolute -top-2 -right-1 bg-red-400 border px-[2px] py-[1px] text-[8px] text-secondColor rounded-full">
+                      10
+                    </span>
+                  </div>
                 )}
 
                 {authState.isAuthenticated === false ? (

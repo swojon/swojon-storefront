@@ -1,0 +1,6 @@
+.scroll-hidden::-webkit-scrollbar {
+  width: 4px;
+}
+.scroll-hidden::-webkit-scrollbar-thumb {
+  background: transparent;
+}
