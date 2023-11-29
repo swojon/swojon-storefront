@@ -8,12 +8,12 @@ import "./ProductDetail.css";
 import Image from "next/image";
 
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
     <section className="flex gap-4 h-[600px] ">
       <div className="w-[18%]">
         <Swiper
-          onSwiper={setThumbsSwiper}
+          onSwiper={(swiper) => {setThumbsSwiper(swiper)}}
           direction={"vertical"}
           loop={true}
           spaceBetween={10}
