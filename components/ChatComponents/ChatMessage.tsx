@@ -38,7 +38,7 @@ const ChatMessage = ({
     subscribeToMore({
       document: NewMessageAddedDocument,
       variables: {
-        chatRoomId: activeChat,
+        chatRoomId: activeChat?.id,
       },
       updateQuery: (
         prev: { listChatMessages: { items: any } },
