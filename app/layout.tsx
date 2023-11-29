@@ -18,6 +18,7 @@ import ResNavbar from "@/components/navbar/ResNavbar";
 import { getCookie } from "cookies-next";
 import ResFilter from "@/components/FilterBar/ResFilter";
 import { store } from "./redux/store";
+import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,6 +78,7 @@ export default async function RootLayout({ children }: Iprops) {
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
               <ResNavbar />
+              <NotificationDrawer />
               <ResFilter />
               {children}
             </div>

@@ -137,9 +137,12 @@ export default function Navbar2({ border }: { border: any }) {
                         border === "border" ? "text-activeColor" : "text-white"
                       }`}
                     />
-                    <span className="absolute -top-2 -right-1 bg-red-400 border px-[2px] py-[1px] text-[8px] text-secondColor rounded-full">
-                      10
-                    </span>
+                    <div
+                      className="absolute -top-2 -right-1 bg-white border w-4
+                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
+                    >
+                      <small className="leading-none"> 10</small>
+                    </div>
                   </div>
                 )}
 
