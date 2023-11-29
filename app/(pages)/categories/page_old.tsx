@@ -6,6 +6,8 @@ import { Waypoint } from "react-waypoint";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import CategoryCardLoader from "@/components/Loader/CategoryCardLoader";
 import ResFilter from "@/components/FilterBar/ResFilter";
+import CategoryDetailCard from "@/components/CategoryCard/CategoryDetailCard";
+import CategoryDetailCardLoader from "@/components/Loader/CategoryDetailCardLoader";
 
 const card = [
   {
@@ -120,6 +122,11 @@ const Categories = () => {
       nextFetchPolicy: "cache-first",
     });
 
+  const categories = data?.listCategories.items;
+  const parentCategories = categories?.filter(
+    (item) => item.parentCategory == null
+  );
+
   const loadMore = () => {
     fetchMore({
       variables: {
@@ -155,20 +162,27 @@ const Categories = () => {
           Browse All Category
         </h5>
       </div>
-      {loading && (
-        <div className="w-full pt-10">
-          <CategoryCardLoader />
-        </div>
-      )}
-      <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-5 pt-10">
+
+      <div className="grid  lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-5 pt-10">
         {data &&
-          data?.listCategories.items.map((category) => (
-            <CategoryCard2 item={category} key={category.id} />
+          parentCategories?.map((category) => (
+            <CategoryDetailCard
+              item={category}
+              categories={categories}
+              key={category.id}
+            />
           ))}
+
+        {loading && <CategoryDetailCardLoader />}
       </div>
       {data?.listCategories.hasMore && (
         <div className="flex items-center justify-center mt-2">
-          <button onClick={loadMore} className="border border-activeColor text-activeColor  rounded-md p-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">Load More</button>
+          <button
+            onClick={loadMore}
+            className="border border-activeColor text-activeColor  rounded-md p-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+          >
+            Load More
+          </button>
         </div>
       )}
     </main>

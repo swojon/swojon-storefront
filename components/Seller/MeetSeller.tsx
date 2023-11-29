@@ -42,7 +42,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
               </div>
             </div>
 
-            <div className=" flex items-start gap-4">
+            {/* <div className=" flex items-start gap-4">
               <div className=" flex gap-2">
                 <div className=" text-sm">
                   <h6 className="text-secondColor">Call Now :</h6>
@@ -60,7 +60,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
                   <h6 className="">{seller?.email}</h6>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
