@@ -19,6 +19,7 @@ import burgerIcon from "@/public/assets/nav-hamburger.png";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import NotificationDropDown from "../Notification/NotificationDropDown";
 import { FaBell } from "react-icons/fa6";
+import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -43,10 +44,10 @@ export default function Navbar2({ border }: { border: any }) {
         <>
           <div className=" ">
             <div className="flex h-16 justify-between gap-2 items-center ">
-              <div className="lg:w-[34%]  flex px-2 gap-1 lg:px-0  items-center ">
+              <div className="lg:w-[33%] md:w-[15%] w-[10%]  flex  gap-1 lg:px-0  items-center ">
                 <Link
                   href="/"
-                  className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 md:flex items-center lg:mr-1 xl:mr-3.5 hidden lg:block `}
+                  className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
                 >
                   {border === "border" ? (
                     <Image
@@ -111,8 +112,29 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 </div>
               </div>
-              <div className={`lg:w-[41%]   md:w-full w-full `}>
+              <div
+                className={`xl:w-[44%] lg:w-[65%] flex items-center gap-3   w-full `}
+              >
                 <SearchField />
+                {authState.isAuthenticated && (
+                  // <NotificationDropDown border={border} />
+                  <div
+                    className="relative cursor-pointer"
+                    onClick={() => dispatch(setNotificationDrawerOpen())}
+                  >
+                    <FaBell
+                      className={`text-lg  ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
+                    <div
+                      className="absolute -top-2 -right-1 bg-white border w-4
+                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
+                    >
+                      <small className="leading-none"> 10</small>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* mobile hamburger button */}
@@ -128,24 +150,7 @@ export default function Navbar2({ border }: { border: any }) {
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
-              <div className="lg:w-[25%] hidden   lg:flex lg:items-center justify-end gap-3.5">
-                {authState.isAuthenticated && (
-                  // <NotificationDropDown border={border} />
-                  <div className="relative">
-                    <FaBell
-                      className={`text-lg  ${
-                        border === "border" ? "text-activeColor" : "text-white"
-                      }`}
-                    />
-                    <div
-                      className="absolute -top-2 -right-1 bg-white border w-4
-                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
-                    >
-                      <small className="leading-none"> 10</small>
-                    </div>
-                  </div>
-                )}
-
+              <div className="xl:w-[23%] lg:w-[38%] hidden   lg:flex lg:items-center justify-end xl:gap-3.5 gap-2">
                 {authState.isAuthenticated === false ? (
                   <Link href="/signin">
                     <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">

@@ -10,10 +10,12 @@ import Image from "next/image";
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
-    <section className="flex gap-4 h-[600px] ">
+    <section className="flex md:gap-4 gap-2 lg:h-[600px] md:h-[400px] sm:h-[350px] h-[280px]">
       <div className="w-[18%]">
         <Swiper
-          onSwiper={(swiper) => {setThumbsSwiper(swiper)}}
+          onSwiper={(swiper) => {
+            setThumbsSwiper(swiper);
+          }}
           direction={"vertical"}
           loop={true}
           spaceBetween={10}
@@ -48,22 +50,19 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
       </div>
       <div className="w-[82%]">
         <Swiper
-          style={{
-            height: "600px",
-          }}
           loop={true}
           spaceBetween={10}
           navigation={true}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2 w-full"
+          className="mySwiper2 w-full lg:h-[600px] md:h-[400px] sm:h-[350px] h-[280px]"
         >
           {images?.map((im: any) => (
             <SwiperSlide key={im.url} className="w-full">
               <Image
                 src={im.url}
                 width={1000}
-                height={700}
+                height={1000}
                 className="w-full h-full object-cover rounded-lg"
                 alt="listing Image"
               />

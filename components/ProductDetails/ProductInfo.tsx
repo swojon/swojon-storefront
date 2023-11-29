@@ -1,9 +1,27 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { BsDot } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
 import { HiLocationMarker } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import "./ProductDetail.css";
+import Link from "next/link";
 
 const ProductInfo = ({ product }: { product: any }) => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state: any) => state.auth);
+  const [showOfferPriceTooltip, setShowOfferPriceTooltip] = useState(false);
+  const [showChatNowTooltip, setShowChatNowTooltip] = useState(false);
+
+  const handleOfferPriceClick = () => {
+    setShowOfferPriceTooltip(!showOfferPriceTooltip);
+    setShowChatNowTooltip(false);
+  };
+
+  const handleChatNowClick = () => {
+    setShowChatNowTooltip(!showChatNowTooltip);
+    setShowOfferPriceTooltip(false);
+  };
   return (
     <section className="space-y-3">
       <div className="  space-y-4">
@@ -34,39 +52,73 @@ const ProductInfo = ({ product }: { product: any }) => {
           <span className=" md:text-sm text-xs">Halishohor, Chattagram</span>
         </div> */}
 
-        <div className="grid grid-cols-2 gap-2 pb-3">
-          <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-            Offer Price
-          </button>
-          <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-            Chat Now
-          </button>
-        </div>
+        {authState.isAuthenticated ? (
+          <>
+            <div className="grid grid-cols-2 gap-2 pb-3">
+              <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 ">
+                Offer Price
+              </button>
+              <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+                Chat Now
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-2 pb-3">
+              <div className="relative" onClick={handleOfferPriceClick}>
+                <button className="border border-activeColor text-whiteColor bg-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
+                  Offer Price
+                </button>
+                {showOfferPriceTooltip && (
+                  <Link href="/signin">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-primaryColor text-white left-[50%] p-2 -translate-x-1/2 text-xs rounded-md">
+                      Please sign in first
+                    </span>
+                  </Link>
+                )}
+              </div>
+
+              <div className="relative" onClick={handleChatNowClick}>
+                <button className="border border-activeColor text-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
+                  Chat Now
+                </button>
+                {showChatNowTooltip && (
+                  <Link href="/signin">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-primaryColor text-white left-[50%] p-2 -translate-x-1/2 text-xs rounded-md">
+                      Please sign in first
+                    </span>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
         <div className=" border-t border-gray-200 space-y-2 pt-3">
           <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
             Details
           </h6>
-          <div className="flex items-start gap-2">
-            <div className="w-[30%]  text-sm text-secondColor">Condition:</div>
-            <div className="w-[70%] text-sm text-primaryColor">Used</div>
+          <div className="flex items-start gap-2 md:text-sm text-xs">
+            <div className="w-[30%]   text-secondColor">Condition:</div>
+            <div className="w-[70%]  text-primaryColor">Used</div>
           </div>
 
-          <div className="flex items-start gap-2">
-            <div className="w-[30%]  text-sm text-secondColor">Brand</div>
-            <div className="w-[70%] text-sm text-primaryColor">Iphone</div>
+          <div className="flex items-start gap-2 md:text-sm text-xs">
+            <div className="w-[30%]   text-secondColor">Brand</div>
+            <div className="w-[70%]  text-primaryColor">Iphone</div>
           </div>
 
-          <div className="flex items-start gap-2">
-            <div className="w-[30%]  text-sm text-secondColor">Category</div>
-            <div className="w-[70%] text-sm text-primaryColor">
+          <div className="flex items-start gap-2 md:text-sm text-xs">
+            <div className="w-[30%]   text-secondColor">Category</div>
+            <div className="w-[70%]  text-primaryColor">
               Electronics Computer Components & Parts
             </div>
           </div>
 
-          <div className="flex items-start gap-2">
-            <div className="w-[30%]  text-sm text-secondColor">Posted</div>
-            <div className="w-[70%] text-sm text-primaryColor">1/23/23</div>
+          <div className="flex items-start gap-2 md:text-sm text-xs">
+            <div className="w-[30%]   text-secondColor">Posted</div>
+            <div className="w-[70%]  text-primaryColor">1/23/23</div>
           </div>
         </div>
       </div>
@@ -84,25 +136,7 @@ const ProductInfo = ({ product }: { product: any }) => {
         <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
           Tags
         </h6>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-          perspiciatis perferendis repudiandae autem quod est architecto minima,
-          quaerat eaque repellendus animi nobis! Esse dolore quidem perspiciatis
-          voluptas voluptate. Delectus expedita, id omnis quam pariatur officia
-          maxime quo quis ipsum debitis, eum, earum commodi. Accusamus laborum
-          sint ipsa ducimus ea, eum perferendis. Laboriosam exercitationem,
-          perspiciatis excepturi ad vero repudiandae accusantium provident enim
-          ut aspernatur saepe assumenda earum fuga maiores ea asperiores eum
-          adipisci, sit sapiente, blanditiis iusto. Qui iusto, ut, veritatis
-          nulla earum molestias, ducimus delectus facilis veniam obcaecati ipsum
-          voluptate sapiente? Ad eos, ducimus, quos, molestiae officiis itaque
-          dolore reiciendis eveniet officia minima excepturi laudantium
-          blanditiis numquam neque. Eius, quibusdam natus! Perferendis
-          voluptatibus tenetur delectus odio aliquid harum ratione. Velit et
-          facilis ad totam dolores iure, consequuntur quae eligendi aperiam?
-          Impedit debitis placeat quod molestias labore et ullam, obcaecati quae
-          ut, veritatis quis est consectetur quaerat aspernatur aliquid rem ad.
-        </p>
+      
       </div> */}
     </section>
   );

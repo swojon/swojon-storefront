@@ -2,21 +2,18 @@
 import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import "./Navbar.scss";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setNavClose, setNavOpen } from "@/app/redux/navSlice";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight, MdArrowBackIos } from "react-icons/md";
-import { GoHome } from "react-icons/go";
+
 import { FaRegHeart, FaRegUser } from "react-icons/fa6";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { GrHomeRounded } from "react-icons/gr";
-
 import "./resNavbar.css";
-import { CiDollar } from "react-icons/ci";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 

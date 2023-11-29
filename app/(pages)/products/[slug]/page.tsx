@@ -70,14 +70,14 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         <ProductImageSlider images={product?.media} />
       </div> */}
 
-      <div className="flex gap-8   h-[850px] overflow-hidden  rounded-md min-h-[850px] ">
-        <div className="w-[58%] h-full  space-y-6  ">
+      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]   md:overflow-hidden  rounded-md  ">
+        <div className="lg:w-[58%] md:w-[50%] w-full h-full  space-y-6  ">
           <ProductThumbnailSlider images={product?.media} />
 
           <div className="border-b "></div>
           <MeetSeller seller={product?.user} />
         </div>
-        <div className="w-[42%] md:ps-14 ps-14 pe-2 overflow-auto scroll-hidden">
+        <div className="lg:w-[42%] md:w-[50%] w-full  lg:ps-14 md:ps-7 pe-0 overflow-auto scroll-hidden">
           <ProductInfo product={product ?? null} />
 
           {/* <SellerBox seller={product?.user} /> */}

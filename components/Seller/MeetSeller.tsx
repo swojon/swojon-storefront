@@ -11,10 +11,10 @@ const MeetSeller = ({ seller }: { seller: any }) => {
       <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
         Meet the Seller
       </h6>
-      <div className="flex items-start justify-between pt-2">
+      <div className="flex flex-col md:flex-row gap-2 md:items-start md:justify-between pt-2">
         <div className="flex gap-5 items-center">
           <Link href={`/seller/${seller?.id}`}>
-            <div className="h-24 w-24  rounded-full">
+            <div className="lg:h-24 lg:w-24 md:h-16 md:w-16 rounded-full">
               <Image
                 src={user}
                 width={400}
@@ -26,7 +26,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
           </Link>
 
           <div className="py-3  space-y-2">
-            <h6 className="text-base font-lexed font-medium text-primaryColor">
+            <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
               {seller?.username}
             </h6>
 
@@ -64,7 +64,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
           </div>
         </div>
 
-        <button className="px-3 py-2 text-sm bg-secondColor rounded-md text-white">
+        <button className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white">
           View Profile
         </button>
       </div>

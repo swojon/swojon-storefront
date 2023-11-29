@@ -77,8 +77,9 @@ export default async function RootLayout({ children }: Iprops) {
           {/* <NextAuthProvider session={session}> */}
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
-              <ResNavbar />
               <NotificationDrawer />
+              <ResNavbar />
+
               <ResFilter />
               {children}
             </div>

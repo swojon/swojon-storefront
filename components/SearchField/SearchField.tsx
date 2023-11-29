@@ -12,11 +12,11 @@ import TrendingSearches from "./TrendingSearches";
 
 const SearchField = () => {
   const searchParams = useSearchParams();
-  const router = useRouter()
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const {user} = useSelector((state: any ) => state.auth)
+  const { user } = useSelector((state: any) => state.auth);
   const searchHistory = ["I phone 12", "I phone 12 pro", "I phone 13"];
 
   const inputRef = useRef<HTMLInputElement>(null); // Use type assertion here
@@ -42,18 +42,15 @@ const SearchField = () => {
     };
   }, []);
 
-
-  const handleSubmit = (event:FormEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/search?query=${searchTerm}`)
-    
-  }
+    router.push(`/search?query=${searchTerm}`);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter"){
+    if (e.key === "Enter") {
       // handleSubmit()
     }
-
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,15 +62,14 @@ const SearchField = () => {
     } else if (!value) {
       setShowSuggestions(false);
     }
-  }
+  };
 
   const handleSuggestionClick = (term: string) => {
     setSearchTerm(term);
     setShowSuggestions(false);
-
   };
   return (
-    <>
+    <div className="w-full">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
@@ -85,18 +81,18 @@ const SearchField = () => {
           />
         </div>
         <form onSubmit={handleSubmit}>
-        <input
-          id="search"
-          className="block w-full rounded-lg border border-gray-300 bg-gray-100 py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-          placeholder="Search"
-          autoComplete="off"
-          value={searchTerm}
-          onChange={handleInputChange}
-          // onKeyDown={handleKeyDown}
-          onClick={() => setShowSuggestions(true)}
-        />
+          <input
+            id="search"
+            className="block w-full rounded-lg border border-gray-300 bg-gray-100 py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            placeholder="Search"
+            autoComplete="off"
+            value={searchTerm}
+            onChange={handleInputChange}
+            // onKeyDown={handleKeyDown}
+            onClick={() => setShowSuggestions(true)}
+          />
         </form>
-        
+
         {showSuggestions && (
           // <OutsideClickHandler onOutsideClick={() => {
           //   setShowSuggestions(false);
@@ -117,8 +113,7 @@ const SearchField = () => {
                     onClick={() => {
                       // Handle the logic to clear history
                     }}
-                  >
-                  </span>
+                  ></span>
                 </div>
 
                 <div className="flex items-center gap-2 py-3.5">
@@ -141,19 +136,21 @@ const SearchField = () => {
               // <div className="p-3 text-sm text-primaryColor">No matched</div>
               <></>
             )}
-            
+
             {/* Render the "Previous History" section only if there are no filtered suggestions */}
             {filteredSuggestions.length === 0 && (
               <>
-                {!!user?.id && <PreviousHistory handleClick={handleSuggestionClick} /> }
-                <TrendingSearches handleClick={handleSuggestionClick} /> 
+                {!!user?.id && (
+                  <PreviousHistory handleClick={handleSuggestionClick} />
+                )}
+                <TrendingSearches handleClick={handleSuggestionClick} />
               </>
             )}
           </div>
           // </OutsideClickHandler>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
