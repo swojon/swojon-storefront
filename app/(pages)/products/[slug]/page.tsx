@@ -14,6 +14,7 @@ import { useGetListingQuery } from "@/apollograph/generated";
 import ProductThumbnailSlider from "@/components/ProductDetails/ProductThumbnailSlider";
 import MeetSeller from "@/components/Seller/MeetSeller";
 import "@/components/Seller/Seller.css";
+import Review from "@/components/Review/Review";
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);
@@ -48,7 +49,7 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
             <Image src={shareIcon} alt="share icon" />
             <span className="text-sm text-primaryColor relative  leading-0 cursor">
               share
-              <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-primaryColor"></span>
+              <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-secondColor"></span>
             </span>
           </div>
 
@@ -56,7 +57,7 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
             <Image src={saveIcon} alt="share icon" />
             <span className="text-sm text-primaryColor relative  leading-0 cursor">
               save
-              <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-primaryColor"></span>
+              <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-secondColor"></span>
             </span>
           </div>
         </div>
@@ -84,14 +85,16 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         </div>
       </div>
 
+      <div className="w-full  ">
+        <Review />
+      </div>
+
       <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">
           <SafetyTips />
         </div>
         <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0"></div>
       </div>
-
-      <div></div>
     </section>
   );
 };

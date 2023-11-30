@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { FaBell } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";

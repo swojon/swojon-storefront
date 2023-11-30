@@ -8,6 +8,7 @@ import "./ProductDetail.css";
 import Link from "next/link";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import { timeAgo } from "@/lib/helpers/timeAgo";
+import ReviewDropdown from "../Review/ReviewDropdown";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ const ProductInfo = ({ product }: { product: any }) => {
     <section className="space-y-3">
       <div className="  space-y-4">
         <div className="space-y-2">
-          <small className="text-xs text-secondColor">Posted {timeAgo(product?.dateCreated)}</small>
+          <small className="text-xs text-secondColor">
+            Posted {timeAgo(product?.dateCreated)}
+          </small>
           <h5 className="lg:text-4xl md:text-lg text-base font-lexed text-primaryColor  capitalize">
             {product?.title}
           </h5>
@@ -38,9 +41,8 @@ const ProductInfo = ({ product }: { product: any }) => {
         </div>
 
         <div className="flex space-x-1 items-center">
-          <div className="flex items-center space-x-1">
-            <FaStar className="text-[#FFB800]" />
-            <span className="text-sm">0.00</span>
+          <div className="flex items-center ">
+            <ReviewDropdown />
           </div>
 
           <div className="flex items-center space-x-1">
@@ -57,29 +59,32 @@ const ProductInfo = ({ product }: { product: any }) => {
         {authState.isAuthenticated ? (
           <>
             <div className="grid grid-cols-2 gap-2 pb-3">
-              <button          
-               onClick={() =>
-                dispatch(
-                  setModalOpen({
-                    title: "this is a modal",
-                    body: "sendOfferModal",
-                    props: { productId: product.id, product: product },
-                  })
-                )
-          } className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 ">
+              <button
+                onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "sendOfferModal",
+                      props: { productId: product.id, product: product },
+                    })
+                  )
+                }
+                className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 "
+              >
                 Offer Price
               </button>
               <button
-              onClick={() =>
-                dispatch(
-                  setModalOpen({
-                    title: "this is a modal",
-                    body: "chatModal",
-                    props: { productId: product.id, product: product },
-                  })
-                )
-              }
-                         className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+                onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "chatModal",
+                      props: { productId: product.id, product: product },
+                    })
+                  )
+                }
+                className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+              >
                 Chat Now
               </button>
             </div>
@@ -125,22 +130,27 @@ const ProductInfo = ({ product }: { product: any }) => {
             <div className="w-[70%]  text-primaryColor">Used</div>
           </div>
 
-
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Brand</div>
-            <div className="w-[70%]  text-primaryColor">{product?.brand?.name ?? "Unknown"}</div>
+            <div className="w-[70%]  text-primaryColor">
+              {product?.brand?.name ?? "Unknown"}
+            </div>
           </div>
 
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Category</div>
             <div className="w-[70%]  text-primaryColor">
-              { product?.category?.parentCategory ? `${product?.parentCategory.name} > ${product?.category.name}` : product?.category.name }
+              {product?.category?.parentCategory
+                ? `${product?.parentCategory.name} > ${product?.category.name}`
+                : product?.category.name}
             </div>
           </div>
 
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Posted</div>
-            <div className="w-[70%]  text-primaryColor">{ product?.dateCreated }</div>
+            <div className="w-[70%]  text-primaryColor">
+              {product?.dateCreated}
+            </div>
           </div>
         </div>
       </div>
