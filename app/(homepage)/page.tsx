@@ -48,7 +48,7 @@ const Home: NextPage = () => {
       </h5> */}
       <FeaturedCategoriesBox />
       <Products />
-      <Community />
+      {/* <Community /> */}
       {/* <ActionBanner />
       <SellBuyArea /> */}
       {/* <AppDownloadCTA />  */}

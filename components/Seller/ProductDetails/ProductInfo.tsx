@@ -1,3 +1,4 @@
+import { timeAgo } from "@/lib/helpers/timeAgo";
 import React from "react";
 import { BsDot } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
@@ -8,7 +9,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     <section className="space-y-3">
       <div className="  space-y-4">
         <div className="space-y-2">
-          <small className="text-xs text-secondColor">Posted 5 min ago</small>
+          <small className="text-xs text-secondColor">Posted {timeAgo(product?.dateCreated)} ago</small>
           <h5 className="lg:text-4xl md:text-lg text-base font-lexed text-primaryColor  capitalize">
             {product?.title}
           </h5>

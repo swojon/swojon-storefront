@@ -102,14 +102,14 @@ export default function Navbar2({ border }: { border: any }) {
                   >
                     All Ads
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/communities"
                     className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium font-lexed hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
                     Community
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
               <div

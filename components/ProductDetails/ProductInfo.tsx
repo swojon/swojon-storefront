@@ -6,6 +6,8 @@ import { HiLocationMarker } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import "./ProductDetail.css";
 import Link from "next/link";
+import { setModalOpen } from "@/app/redux/modalSlice";
+import { timeAgo } from "@/lib/helpers/timeAgo";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     <section className="space-y-3">
       <div className="  space-y-4">
         <div className="space-y-2">
-          <small className="text-xs text-secondColor">Posted 5 min ago</small>
+          <small className="text-xs text-secondColor">Posted {timeAgo(product?.dateCreated)}</small>
           <h5 className="lg:text-4xl md:text-lg text-base font-lexed text-primaryColor  capitalize">
             {product?.title}
           </h5>
@@ -55,10 +57,29 @@ const ProductInfo = ({ product }: { product: any }) => {
         {authState.isAuthenticated ? (
           <>
             <div className="grid grid-cols-2 gap-2 pb-3">
-              <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 ">
+              <button          
+               onClick={() =>
+                dispatch(
+                  setModalOpen({
+                    title: "this is a modal",
+                    body: "sendOfferModal",
+                    props: { productId: product.id, product: product },
+                  })
+                )
+          } className="border border-activeColor text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 ">
                 Offer Price
               </button>
-              <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+              <button
+              onClick={() =>
+                dispatch(
+                  setModalOpen({
+                    title: "this is a modal",
+                    body: "chatModal",
+                    props: { productId: product.id, product: product },
+                  })
+                )
+              }
+                         className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
                 Chat Now
               </button>
             </div>
@@ -104,21 +125,22 @@ const ProductInfo = ({ product }: { product: any }) => {
             <div className="w-[70%]  text-primaryColor">Used</div>
           </div>
 
+
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Brand</div>
-            <div className="w-[70%]  text-primaryColor">Iphone</div>
+            <div className="w-[70%]  text-primaryColor">{product?.brand?.name ?? "Unknown"}</div>
           </div>
 
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Category</div>
             <div className="w-[70%]  text-primaryColor">
-              Electronics Computer Components & Parts
+              { product?.category?.parentCategory ? `${product?.parentCategory.name} > ${product?.category.name}` : product?.category.name }
             </div>
           </div>
 
           <div className="flex items-start gap-2 md:text-sm text-xs">
             <div className="w-[30%]   text-secondColor">Posted</div>
-            <div className="w-[70%]  text-primaryColor">1/23/23</div>
+            <div className="w-[70%]  text-primaryColor">{ product?.dateCreated }</div>
           </div>
         </div>
       </div>

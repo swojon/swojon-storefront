@@ -63,10 +63,10 @@ const MeetSeller = ({ seller }: { seller: any }) => {
             </div> */}
           </div>
         </div>
-
-        <button className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white">
+        
+        <Link href={`/seller/${seller?.id}`} className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white">
           View Profile
-        </button>
+        </Link>
       </div>
     </section>
   );

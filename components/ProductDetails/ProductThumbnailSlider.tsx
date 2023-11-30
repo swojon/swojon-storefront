@@ -24,6 +24,7 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper"
+          initialSlide={0}
         >
           {images?.map((im: any) => (
             <SwiperSlide key={im.url} className="cursor-pointer">
@@ -31,6 +32,7 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
                 src={im.url}
                 width={500}
                 height={700}
+                priority
                 className="w-full h-full object-cover rounded-lg"
                 alt="listing Image"
               />
@@ -50,19 +52,23 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
       </div>
       <div className="w-[82%]">
         <Swiper
+          
           loop={true}
           spaceBetween={10}
           navigation={true}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
+          initialSlide={0}
+          freeMode={true}
           className="mySwiper2 w-full lg:h-[600px] md:h-[400px] sm:h-[350px] h-[280px]"
         >
-          {images?.map((im: any) => (
-            <SwiperSlide key={im.url} className="w-full">
+          {images?.map((im: any, index: number) => (
+            <SwiperSlide key={index} className="w-full">
               <Image
                 src={im.url}
                 width={1000}
                 height={1000}
+                priority
                 className="w-full h-full object-cover rounded-lg"
                 alt="listing Image"
               />
