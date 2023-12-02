@@ -26,7 +26,7 @@ const NotificationDrawer = () => {
         onClick={() => dispatch(setNotificationDrawerClose())}
         className="w-full h-full bg-transparent absolute right-0 top-0 z-100 "
       ></div>
-      <div className="lg:w-[27%] md:w-[45%] mt-auto bg-white notification-container opacity-100   relative transition duration-700 ease-in-out delay-200 shadow-lg rounded-tl-md border border-gray-300 pt-6 pb-3 px-4 space-y-3 overflow-hidden">
+      <div className="lg:w-[27%] md:w-[45%] mt-auto bg-white notification-container opacity-100   relative transition duration-700 ease-in-out delay-200 shadow-lg rounded-tl-md border-t border-l border-gray-300 pt-6 pb-3 px-4 space-y-3 overflow-hidden">
         <button
           className="absolute right-1.5 top-1.5   text-activeColor "
           onClick={() => dispatch(setNotificationDrawerClose())}
@@ -50,16 +50,22 @@ const NotificationDrawer = () => {
           <span className="border-b border-activeColor text-sm pb-0.5">
             All
           </span>
-          <span className="border-b border-transparent text-sm pb-0.5">
+          <span className="border-b border-transparent text-sm pb-0.5 relative">
             Unread
+            <div
+              className="absolute -top-1.5 -right-4 bg-white border w-4
+                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
+            >
+              <small className="leading-none"> 10</small>
+            </div>
           </span>
         </div>
 
         <div className="space-y-3 overflow-auto">
           <h6 className="text-base font-lexed text-secondColor">Today</h6>
 
-          <div className="flex justify-between items-start gap-3">
-            <div className="w-80% flex items-start gap-2">
+          <div className="flex justify-between items-start gap-3 border-b pb-2">
+            <div className="w-80% flex items-start gap-3">
               <div className="md:w-6 md:h-6 w-4 h-4 rounded-full ">
                 <Image
                   src="/user1.jpg"
@@ -69,22 +75,21 @@ const NotificationDrawer = () => {
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <div className="text-xs">
-                <p>
-                  user100 commented on your post{" "}
-                  <span className="italic text-gray-400">30 min ago</span>
-                </p>
-                <p className="mt-1.5 py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
+              <div className="text-xs space-y-1.5">
+                <p>user100 commented on your post </p>
+
+                <div className="w-full py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
                   this is great
-                </p>
+                </div>
+                <span className="italic text-gray-400  block">30 min ago</span>
               </div>
             </div>
 
             <GoDotFill className="text-activeColor" />
           </div>
 
-          <div className="flex justify-between items-start gap-3">
-            <div className="w-80% flex items-start gap-2">
+          <div className="flex justify-between items-start gap-3 border-b pb-2">
+            <div className="w-80% flex items-start gap-3">
               <div className="md:w-6 md:h-6 w-4 h-4 rounded-full ">
                 <Image
                   src="/user1.jpg"
@@ -94,22 +99,18 @@ const NotificationDrawer = () => {
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <div className="text-xs">
-                <p>
-                  user100 commented on your post{" "}
-                  <span className="italic text-gray-400">30 min ago</span>
-                </p>
-                <p className="mt-1.5 py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
-                  this is great
-                </p>
+              <div className="text-xs space-y-1.5">
+                <p>user100 commented on your post </p>
+
+                <span className="italic text-gray-400  block">30 min ago</span>
               </div>
             </div>
 
             <GoDotFill className="text-activeColor" />
           </div>
 
-          <div className="flex justify-between items-start gap-3">
-            <div className="w-80% flex items-start gap-2">
+          <div className="flex justify-between items-start gap-3 border-b pb-2">
+            <div className="w-80% flex items-start gap-3">
               <div className="md:w-6 md:h-6 w-4 h-4 rounded-full ">
                 <Image
                   src="/user1.jpg"
@@ -119,14 +120,10 @@ const NotificationDrawer = () => {
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <div className="text-xs">
-                <p>
-                  user100 commented on your post{" "}
-                  <span className="italic text-gray-400">30 min ago</span>
-                </p>
-                <p className="mt-1.5 py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
-                  this is great
-                </p>
+              <div className="text-xs space-y-1.5">
+                <p>user100 commented on your post </p>
+
+                <span className="italic text-gray-400  block">30 min ago</span>
               </div>
             </div>
 

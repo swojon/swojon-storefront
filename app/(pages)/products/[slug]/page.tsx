@@ -15,6 +15,9 @@ import ProductThumbnailSlider from "@/components/ProductDetails/ProductThumbnail
 import MeetSeller from "@/components/Seller/MeetSeller";
 import "@/components/Seller/Seller.css";
 import Review from "@/components/Review/Review";
+import ThumbnailLoader from "@/components/Loader/ThumbnailLoader";
+import MeetTheSellerLoader from "@/components/Loader/MeetTheSellerLoader";
+import ProductInfoLoader from "@/components/Loader/ProductInfoLoader";
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);
@@ -73,13 +76,24 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
 
       <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]   md:overflow-hidden  rounded-md  ">
         <div className="lg:w-[58%] md:w-[50%] w-full h-full  space-y-6  ">
-          <ProductThumbnailSlider images={product?.media} />
-
+          {loading ? (
+            <ThumbnailLoader />
+          ) : (
+            <ProductThumbnailSlider images={product?.media} />
+          )}
           <div className="border-b "></div>
-          <MeetSeller seller={product?.user} />
+          {loading ? (
+            <MeetTheSellerLoader />
+          ) : (
+            <MeetSeller seller={product?.user} />
+          )}
         </div>
         <div className="lg:w-[42%] md:w-[50%] w-full  lg:ps-14 md:ps-7 pe-0 overflow-auto scroll-hidden">
-          <ProductInfo product={product ?? null} />
+          {loading ? (
+            <ProductInfoLoader />
+          ) : (
+            <ProductInfo product={product ?? null} />
+          )}
 
           {/* <SellerBox seller={product?.user} /> */}
         </div>

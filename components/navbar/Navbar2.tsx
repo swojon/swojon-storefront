@@ -20,6 +20,7 @@ import { setModalOpen } from "@/app/redux/modalSlice";
 import NotificationDropDown from "../Notification/NotificationDropDown";
 import { FaBell } from "react-icons/fa6";
 import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
+import { IoLogoWechat } from "react-icons/io5";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -44,7 +45,7 @@ export default function Navbar2({ border }: { border: any }) {
         <>
           <div className=" ">
             <div className="flex h-16 justify-between gap-2 items-center ">
-              <div className="lg:w-[33%] md:w-[15%] w-[10%]  flex  gap-1 lg:px-0  items-center ">
+              <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-1 lg:px-0  items-center ">
                 <Link
                   href="/"
                   className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
@@ -112,10 +113,12 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link> */}
                 </div>
               </div>
-              <div
-                className={`xl:w-[44%] lg:w-[65%] flex items-center gap-3   w-full `}
-              >
+              <div className={`xl:w-[47%] lg:w-[45%]   w-full `}>
                 <SearchField />
+              </div>
+
+              {/* mobile hamburger button */}
+              <div className="flex items-center lg:hidden gap-2">
                 {authState.isAuthenticated && (
                   // <NotificationDropDown border={border} />
                   <div
@@ -135,10 +138,6 @@ export default function Navbar2({ border }: { border: any }) {
                     </div>
                   </div>
                 )}
-              </div>
-
-              {/* mobile hamburger button */}
-              <div className="flex items-center lg:hidden ">
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
                   className={`inline-flex items-center justify-center rounded-md p-2    hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
@@ -150,36 +149,35 @@ export default function Navbar2({ border }: { border: any }) {
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
-              <div className="xl:w-[23%] lg:w-[38%] hidden   lg:flex lg:items-center justify-end xl:gap-3.5 gap-2">
-                {authState.isAuthenticated === false ? (
-                  <Link href="/signin">
-                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
-                    </button>
-                  </Link>
-                ) : (
+              <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2">
+                {authState.isAuthenticated && (
+                  // <NotificationDropDown border={border} />
+                  <div
+                    className="relative cursor-pointer"
+                    onClick={() => dispatch(setNotificationDrawerOpen())}
+                  >
+                    <FaBell
+                      className={`text-lg  ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
+                    <div
+                      className="absolute -top-2 -right-1 bg-white border w-4
+                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
+                    >
+                      <small className="leading-none"> 10</small>
+                    </div>
+                  </div>
+                )}
+                {authState.isAuthenticated && (
                   <Link href="/chat">
-                    <button className="whitespace-nowrap border font-lexed border-activeColor py-1.5 px-2 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-medium ">
-                      <PiChatsCircleFill /> <span> Chat</span>
-                    </button>
+                    <IoLogoWechat
+                      className={`text-2xl  ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
                   </Link>
                 )}
-
-                <Link href="/upload-product">
-                  <button
-                    // onClick={() =>
-                    //   dispatch(
-                    //     setModalOpen({
-                    //       title: "this is a modal",
-                    //       body: "sellProduct",
-                    //     })
-                    //   )
-                    // }
-                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium "
-                  >
-                    Sell Product
-                  </button>
-                </Link>
 
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
@@ -197,17 +195,11 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative  flex-shrink-0 font-lexed font-medium "
                   >
                     <div>
-                      <Menu.Button className="flex items-center bg-activeColor xl:text-sm text-xs focus:outline-none  p-1 rounded-3xl gap-1">
+                      <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
                         <Image
                           className="h-7 w-7 rounded-full"
                           src={user}
                           alt="user"
-                        />
-
-                        <Image
-                          className="h-7 w-7 rounded-full"
-                          src={burgerIcon}
-                          alt="bar"
                         />
                       </Menu.Button>
                     </div>
@@ -326,6 +318,30 @@ export default function Navbar2({ border }: { border: any }) {
                     </Transition>
                   </Menu>
                 )}
+
+                {authState.isAuthenticated === false && (
+                  <Link href="/signin">
+                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
+                      <CiLogin /> <span> login</span>
+                    </button>
+                  </Link>
+                )}
+
+                <Link href="/upload-product">
+                  <button
+                    // onClick={() =>
+                    //   dispatch(
+                    //     setModalOpen({
+                    //       title: "this is a modal",
+                    //       body: "sellProduct",
+                    //     })
+                    //   )
+                    // }
+                    className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
+                  >
+                    Sell Product
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
