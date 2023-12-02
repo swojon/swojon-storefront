@@ -264,6 +264,18 @@ export const ListChatsDocument = gql`
       chatName
       id
       isDeleted
+      relatedListing {
+        id
+        title
+      }
+      members {
+        user {
+          id
+          email
+          username
+        }
+        userId
+      }
       messages {
         id
         content
@@ -306,8 +318,13 @@ export type ListChatsQueryHookResult = ReturnType<typeof useListChatsQuery>;
 export type ListChatsLazyQueryHookResult = ReturnType<typeof useListChatsLazyQuery>;
 export type ListChatsQueryResult = Apollo.QueryResult<ListChatsQuery, ListChatsQueryVariables>;
 export const GetChatMessageDocument = gql`
-    query getChatMessage($chatRoomId: Float!) {
-  listChatMessages(chatRoomId: $chatRoomId) {
+    query getChatMessage($chatRoomId: Float!, $endingBefore: Float, $limit: Float, $startingAfter: Float) {
+  listChatMessages(
+    chatRoomId: $chatRoomId
+    ending_before: $endingBefore
+    limit: $limit
+    starting_after: $startingAfter
+  ) {
     items {
       id
       content
@@ -317,6 +334,8 @@ export const GetChatMessageDocument = gql`
         email
       }
     }
+    count
+    hasMore
   }
 }
     `;
@@ -334,6 +353,9 @@ export const GetChatMessageDocument = gql`
  * const { data, loading, error } = useGetChatMessageQuery({
  *   variables: {
  *      chatRoomId: // value for 'chatRoomId'
+ *      endingBefore: // value for 'endingBefore'
+ *      limit: // value for 'limit'
+ *      startingAfter: // value for 'startingAfter'
  *   },
  * });
  */
@@ -1500,7 +1522,6 @@ export type Chat = {
   dateSent?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['Float']['output'];
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
-  members?: Maybe<Array<Scalars['Float']['output']>>;
   sender: User;
 };
 
@@ -1509,14 +1530,24 @@ export type ChatRoom = {
   chatName?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  members?: Maybe<Array<ChatRoomMember>>;
+  relatedListing?: Maybe<Listing>;
+};
+
+export type ChatRoomMember = {
+  __typename?: 'ChatRoomMember';
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['Float']['output']>;
 };
 
 export type ChatRoomWithMessage = {
   __typename?: 'ChatRoomWithMessage';
   chatName?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Float']['output'];
+  id?: Maybe<Scalars['Float']['output']>;
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  members?: Maybe<Array<ChatRoomMember>>;
   messages?: Maybe<Array<Chat>>;
+  relatedListing?: Maybe<Listing>;
 };
 
 export type ChatRoomsWithMessage = {
@@ -1528,6 +1559,7 @@ export type ChatRoomsWithMessage = {
 export type Chats = {
   __typename?: 'Chats';
   count?: Maybe<Scalars['Float']['output']>;
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
   items: Array<Chat>;
 };
 
@@ -1617,6 +1649,7 @@ export type CreateMessageDto = {
   chatRoomId?: InputMaybe<Scalars['Float']['input']>;
   message?: InputMaybe<Scalars['String']['input']>;
   receiverId?: InputMaybe<Scalars['Float']['input']>;
+  relatedListingId?: InputMaybe<Scalars['Float']['input']>;
   senderId?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -1835,6 +1868,10 @@ export type Mutation = {
   createUser: User;
   /** User delete */
   deleteUser: User;
+  /** Mark Notification as Read to all notification */
+  markAllNotificationAsRead: Notifications;
+  /** Mark Notification as Read */
+  markNotificationRead: Notification;
   /** Remove Brand */
   removeBrand: Brand;
   /** Remove category of brand */
@@ -1979,6 +2016,11 @@ export type MutationDeleteUserArgs = {
 };
 
 
+export type MutationMarkNotificationReadArgs = {
+  notificationId: Scalars['Float']['input'];
+};
+
+
 export type MutationRemoveBrandArgs = {
   brandId: Scalars['Float']['input'];
 };
@@ -2115,6 +2157,29 @@ export type MutationUpdateUserArgs = {
   userId: Scalars['Float']['input'];
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  content: Scalars['String']['output'];
+  context?: Maybe<Scalars['String']['output']>;
+  dateCreated?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['Float']['output'];
+  read?: Maybe<Scalars['Boolean']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  user: User;
+  userId?: Maybe<Scalars['Float']['output']>;
+};
+
+export type NotificationFilterInput = {
+  unreadOnly?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+};
+
+export type Notifications = {
+  __typename?: 'Notifications';
+  count: Scalars['Float']['output'];
+  hasMore: Scalars['Boolean']['output'];
+  items: Array<Notification>;
+};
+
 export type Point = {
   __typename?: 'Point';
   amount: Scalars['Float']['output'];
@@ -2217,6 +2282,8 @@ export type Query = {
   listListings: Listings;
   /** List All Locations */
   listLocations: Locations;
+  /** List All Notifications0 */
+  listNotifications: Notifications;
   /** List All Point History */
   listPointsHistory: Points;
   /** List All Reviews of a seller */
@@ -2301,6 +2368,9 @@ export type QueryListCategoriesArgs = {
 
 export type QueryListChatMessagesArgs = {
   chatRoomId: Scalars['Float']['input'];
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -2343,6 +2413,14 @@ export type QueryListListingReviewsArgs = {
 export type QueryListListingsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryListNotificationsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<NotificationFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
@@ -2457,6 +2535,7 @@ export enum Status {
 export type Subscription = {
   __typename?: 'Subscription';
   newMessageAdded: Chat;
+  newNotifaction: Notification;
 };
 
 
@@ -2599,14 +2678,17 @@ export type ListChatsQueryVariables = Exact<{
 }>;
 
 
-export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id: number, isDeleted?: boolean | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
+export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id?: number | null, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null } | null }> | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
 
 export type GetChatMessageQueryVariables = Exact<{
   chatRoomId: Scalars['Float']['input'];
+  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
-export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
+export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore?: boolean | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
 
 export type SendChatMessageMutationVariables = Exact<{
   input: CreateMessageDto;

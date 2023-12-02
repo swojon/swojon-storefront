@@ -4,7 +4,18 @@ query listChats ($userId: Float){
       chatName
       id
       isDeleted
-      
+      relatedListing{
+        id
+        title
+      }
+      members {
+        user {
+          id
+          email
+          username
+        }
+        userId
+      }
       messages{
         id
         content

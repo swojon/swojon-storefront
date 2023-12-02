@@ -11,7 +11,7 @@ import { setModalClose } from "@/app/redux/modalSlice";
 import "./Modal.scss";
 import SendOfferModal from "./SendOfferModal";
 import NavbarModal from "./NavbarModal";
-import ChatModal from "./ChatModal";
+import StartChatModal from "./StartChatModal";
 import LoginModal from "./LoginModal";
 import SellProductModal from "./SellProductModal";
 import SuccessModal from "./SuccessModal";
@@ -105,7 +105,7 @@ export default function Modal() {
                       )}
                       {modalStack[modalStack.length - 1]?.body ===
                         CHATMODAL && (
-                        <ChatModal
+                        <StartChatModal
                           props={modalStack[modalStack.length - 1]?.props}
                         />
                       )}

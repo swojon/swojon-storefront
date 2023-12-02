@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
   const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
+  const authState = useSelector((state:any) => state.auth)
   console.log("active chat", activeChat)
   return (
     <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
@@ -32,7 +33,7 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
           <span className="absolute right-1 bottom-0 w-3 h-3 border rounded-full bg-green-400"></span>
         </div>
         <h5 className="xl:text-lg lg:text-base text-base font-lexed font-medium text-primaryColor">
-          Cameron Williamson
+          {activeChat?.members?.filter((crm : any ) => crm.userId !== authState.user.id )?.map((m: any ) => m.user?.username ?? m.user?.email).join(',')  ?? activeChat?.chatName }
         </h5>
         <div className="flex items-center gap-5	">
           <div className="flex flex-col items-center">

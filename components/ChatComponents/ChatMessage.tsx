@@ -15,6 +15,7 @@ import ChatInputSend from "./ChatInputSend";
 import { timeAgo } from "@/lib/helpers/timeAgo";
 
 import ChatMessageLoader from "../Loader/ChatMessageLoader";
+import { Waypoint } from "react-waypoint";
 
 const ChatMessage = ({
   sideProfile,
@@ -27,9 +28,10 @@ const ChatMessage = ({
   const authState = useSelector((state: any) => state.auth);
   const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
 
-  const { data, loading, error, subscribeToMore } = useGetChatMessageQuery({
+  const { data, loading, error, subscribeToMore, fetchMore } = useGetChatMessageQuery({
     variables: {
-      chatRoomId: activeChat?.id
+      chatRoomId: activeChat?.id,
+      limit: 20,
     },
     skip: !activeChat,
   })
@@ -114,6 +116,7 @@ const ChatMessage = ({
   return (
     <MessageAreaData
       sideProfile={sideProfile}
+      fetchMore={fetchMore}
       setSideProfile={setSideProfile}
       data={data!}
       subscribeToMore={more}
@@ -123,16 +126,21 @@ const ChatMessage = ({
 
 const MessageAreaData = ({
   data,
+  fetchMore,
   subscribeToMore,
   setSideProfile,
   sideProfile,
 }: {
   data: GetChatMessageQuery;
+  fetchMore:any,
   subscribeToMore: any;
   sideProfile: any;
   setSideProfile: any;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const dispatch = useDispatch();
+  const authState = useSelector((state: any) => state.auth);
+  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
 
   // Function to keep the chat scroll at the bottom
   const scrollToBottom = () => {
@@ -145,6 +153,8 @@ const MessageAreaData = ({
     subscribeToMore();
     scrollToBottom();
   }, [data.listChatMessages.items]);
+
+  const messages = data?.listChatMessages?.items.slice().reverse();
 
   return (
     <section className="h-full w-full relative border-l">
@@ -168,7 +178,8 @@ const MessageAreaData = ({
           </div>
           <div className="pr-3 space-y-1">
             <h5 className="text-sm text-primaryColor font-lexed truncate">
-              Cameron Williamson
+               {activeChat.members?.filter((crm : any ) => crm.userId !== authState.user.id )?.map((m: any ) => m.user?.username ?? m.user?.email).join(',')  ?? activeChat?.chatName }
+
             </h5>
             <div className="flex items-center space-x-1">
               <span className=" right-0 bottom-0 w-2 h-2 rounded-full bg-green-400"></span>
@@ -184,6 +195,8 @@ const MessageAreaData = ({
           <BsThreeDots />
         </button>
       </div>
+      {/* Related Product State */}
+      {activeChat.relatedListing && 
       <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
         <div className="h-20 w-32 border rounded-md ">
           <Image
@@ -196,25 +209,60 @@ const MessageAreaData = ({
         </div>
         <div className="">
           <h5 className="font-lexed text-primaryColor text-lg font-medium">
-            Home Deluxe Furniture
+            {activeChat.relatedListing?.title}
           </h5>
-          <div className="flex items-center space-x-1">
+          {/* <div className="flex items-center space-x-1">
             <MdLocationPin className="text-activeColor" />
             <span className="block text-secondColor text-sm">
               Fatehpur, Hathazari, Chattogram
             </span>
-          </div>
+          </div> */}
           <span className="text-activeColor text-base font-lexed font-medium pt-1">
-            TK, 7000.00
+            TK, {activeChat.relatedListing?.price}
           </span>
         </div>
       </div>
+      }
       <div
         className=" chatBox px-3  flex items-end  w-full relative overflow-y-auto"
         ref={chatContainerRef}
       >
         <div className="max-h-full w-full space-y-3 ">
-          {data.listChatMessages.items.map((msg) => (
+          {data.listChatMessages.hasMore && 
+                                <Waypoint
+                                onEnter={() => {
+                                  fetchMore({
+                                    variables: {
+                                      limit: 20,
+                                      endingBefore:
+                                        messages![messages!.length - 1].id,
+                                    },
+                                    updateQuery: (
+                                      prev: any,
+                                      { fetchMoreResult }: any
+                                    ) => {
+                                      if (!fetchMoreResult.listChatMessages.items)
+                                        return prev;
+                                   
+                                      
+                                      return {
+                                        listChatMessages: {
+                                          ...prev.listChatMessages,
+                                          items: [
+                                            ...prev.listChatMessages.items,
+                                            ...fetchMoreResult.listChatMessages.items,
+                                          ],
+                                          hasMore:
+                                            fetchMoreResult.listChatMessages.hasMore
+                                        },
+                                      };
+                                    },
+                                  });
+                                }}
+                              />
+                       
+                        }
+          {messages.map((msg) => (
             <MessageDetail msg={msg} key={msg.id} />
           ))}
         </div>
@@ -235,7 +283,22 @@ const MessageDetail = ({ msg }: { msg: any }) => {
             {msg.content}
           </span>
           <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-            {msg.dateSent}
+          {timeAgo(msg.dateSent)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+          10  
+          56
           </span>
         </div>
       </div>

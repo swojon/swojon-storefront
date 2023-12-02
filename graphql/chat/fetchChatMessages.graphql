@@ -1,5 +1,5 @@
-query getChatMessage($chatRoomId: Float!){
-    listChatMessages(chatRoomId: $chatRoomId){
+query getChatMessage($chatRoomId: Float!, $endingBefore: Float, $limit: Float, $startingAfter: Float){
+    listChatMessages(chatRoomId: $chatRoomId, ending_before: $endingBefore, limit: $limit, starting_after: $startingAfter){
         items{
             id
             content
@@ -9,5 +9,8 @@ query getChatMessage($chatRoomId: Float!){
                 email
             }
         }
+        count
+        hasMore
     }
 }
+

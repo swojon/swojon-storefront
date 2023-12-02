@@ -6,7 +6,7 @@ import { FiPaperclip } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
-function ChatModal({ props }: { props: any }) {
+function StartChatModal({ props }: { props: any }) {
   const dispatch = useDispatch();
   const authState = useSelector((state:any) => state.auth)
   const [message, setMessage] = useState("")
@@ -36,6 +36,7 @@ function ChatModal({ props }: { props: any }) {
                 message: message,
                 senderId: authState.user.id,
                 receiverId: props.product.user.id,
+                relatedListingId: props.product.id
               }
             }
           })
@@ -96,7 +97,10 @@ function ChatModal({ props }: { props: any }) {
 
       <div className="rounded-lg  min-h-[150px] bg-[#F1F7FF] mx-4 relative">
         <div className="absolute  bottom-0 left-0 h-14 px-3  w-full  flex items-center space-x-2">
-          <div className=" flex rounded-lg shadow-sm w-full">
+          { props.product.user.id !== authState.user.id ? 
+           <>
+           <div className=" flex rounded-lg shadow-sm w-full">
+            
             <input
               onChange={handleChange}
               type="text"
@@ -113,10 +117,24 @@ function ChatModal({ props }: { props: any }) {
                <Image src="/assets/Send.png" alt="plane" width={30} height={30} />
             }
           </button>
+          </> : <div className="flex rounded-lg shadow-sm w-full">
+            <input
+              onChange={handleChange}
+              type="text"
+              value={message}
+              disabled
+              name="company-website"
+              id="company-website"
+              className="block w-full min-w-0 flex-1  rounded-lg border border-gray-300 px-3 py-2 focus:border-activeColor focus:ring-activeColor sm:text-sm"
+              placeholder="you can't literally send message to you :)"
+            />
+            </div>
+
+          }
         </div>
       </div>
     </section>
   );
 }
 
-export default ChatModal;
+export default StartChatModal;
