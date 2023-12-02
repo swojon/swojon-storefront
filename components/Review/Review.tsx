@@ -4,11 +4,71 @@ import FilterBy from "./FilterBy";
 import { MdOutlineClose } from "react-icons/md";
 import { FaStar } from "react-icons/fa6";
 import ProgressBar from "./ProgressBar";
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const Review = () => {
+  const percentage = 66;
   return (
-    <section className="space-y-9">
-      <div className="flex items-center justify-center gap-8">
+    <section className="space-y-9 ">
+      <h5 className="text-2xl text-primaryColor font-lexed font-medium">
+        Customer review & ratings
+      </h5>
+      <div className="flex items-center justify-around gap-3 px-10">
+        <div className="space-y-5">
+          <h6 className="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-2xl text-primaryColor font-lexed font-medium">
+            4.5 <span className="text-sm">out of</span> 5
+          </h6>
+
+          <div className="flex items-center  gap-2">
+            <div className="flex gap-1 items-center text-sm pb-0.5">
+              <FaStar className="text-yellow-400" />
+              <FaStar className="text-yellow-400" />
+              <FaStar className="text-yellow-400" />
+              <FaStar className="text-yellow-400" />
+              <FaStar className="text-yellow-400" />
+            </div>
+            <small className="text-xs relative   whitespace-nowrap cursor-pointer">
+              (4210 reviews)
+              <span className="absolute left-0 px-1 -bottom-0.5 h-0.5 w-full bg-gray-300"></span>
+            </small>
+          </div>
+
+          <div className="flex items-center gap-2 pb-3">
+            <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3">
+              See all Reviews
+            </button>
+            <button className="border border-activeColor  text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3">
+              Write a Review
+            </button>
+          </div>
+        </div>
+
+        <div className=" flex flex-col items-center">
+          <div className="w-[100px] mb-4">
+            <CircularProgressbar
+              value={percentage}
+              text={`${percentage}%`}
+              strokeWidth={5}
+              styles={buildStyles({
+                textColor: "#3b51a4",
+                pathColor: "#3b51a4",
+              })}
+            />
+          </div>
+
+          <span className="text-base text-primaryColor text-center">
+            {percentage}% would recommend
+          </span>
+          <span className="text-sm text-secondColor text-center">
+            10 recommendations
+          </span>
+        </div>
+
         <div className="space-y-2">
           <div className="flex items-center text-secondColor gap-3 w-[400px]">
             <div className="w-[18%] mx-auto ">
@@ -116,7 +176,7 @@ const Review = () => {
           we have found 3 matches
         </p>
 
-        <div className="p-6 border space-y-2 w-[70%] rounded-md">
+        <div className="p-6 border space-y-2  rounded-md">
           <h6 className="text-lg text-primaryColor font-lexed font-medium">
             Holiday must have
           </h6>
