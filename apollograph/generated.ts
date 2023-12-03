@@ -1194,6 +1194,62 @@ export function useListSellerReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ListSellerReviewsQueryHookResult = ReturnType<typeof useListSellerReviewsQuery>;
 export type ListSellerReviewsLazyQueryHookResult = ReturnType<typeof useListSellerReviewsLazyQuery>;
 export type ListSellerReviewsQueryResult = Apollo.QueryResult<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>;
+export const ListNotificationsDocument = gql`
+    query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+  listNotifications(
+    filters: $filters
+    ending_before: $endingBefore
+    starting_after: $startingAfter
+    limit: $limit
+  ) {
+    count
+    hasMore
+    items {
+      content
+      context
+      dateCreated
+      read
+      type
+      id
+      user {
+        email
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListNotificationsQuery__
+ *
+ * To run a query within a React component, call `useListNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListNotificationsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      endingBefore: // value for 'endingBefore'
+ *      startingAfter: // value for 'startingAfter'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListNotificationsQuery(baseOptions?: Apollo.QueryHookOptions<ListNotificationsQuery, ListNotificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListNotificationsQuery, ListNotificationsQueryVariables>(ListNotificationsDocument, options);
+      }
+export function useListNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListNotificationsQuery, ListNotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListNotificationsQuery, ListNotificationsQueryVariables>(ListNotificationsDocument, options);
+        }
+export type ListNotificationsQueryHookResult = ReturnType<typeof useListNotificationsQuery>;
+export type ListNotificationsLazyQueryHookResult = ReturnType<typeof useListNotificationsLazyQuery>;
+export type ListNotificationsQueryResult = Apollo.QueryResult<ListNotificationsQuery, ListNotificationsQueryVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -1272,6 +1328,47 @@ export function useRemoveSearchHistoryMutation(baseOptions?: Apollo.MutationHook
 export type RemoveSearchHistoryMutationHookResult = ReturnType<typeof useRemoveSearchHistoryMutation>;
 export type RemoveSearchHistoryMutationResult = Apollo.MutationResult<RemoveSearchHistoryMutation>;
 export type RemoveSearchHistoryMutationOptions = Apollo.BaseMutationOptions<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>;
+export const SummaryUserReviewDocument = gql`
+    query SummaryUserReview($userId: Float!) {
+  summaryUserReview(userId: $userId) {
+    avgRating
+    five_star_count
+    four_star_count
+    one_star_count
+    three_star_count
+    reviewCount
+    two_star_count
+  }
+}
+    `;
+
+/**
+ * __useSummaryUserReviewQuery__
+ *
+ * To run a query within a React component, call `useSummaryUserReviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSummaryUserReviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSummaryUserReviewQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useSummaryUserReviewQuery(baseOptions: Apollo.QueryHookOptions<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>(SummaryUserReviewDocument, options);
+      }
+export function useSummaryUserReviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>(SummaryUserReviewDocument, options);
+        }
+export type SummaryUserReviewQueryHookResult = ReturnType<typeof useSummaryUserReviewQuery>;
+export type SummaryUserReviewLazyQueryHookResult = ReturnType<typeof useSummaryUserReviewLazyQuery>;
+export type SummaryUserReviewQueryResult = Apollo.QueryResult<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>;
 export const SearchListingsDocument = gql`
     query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
   searchListings(
@@ -2300,6 +2397,8 @@ export type Query = {
   logout: User;
   /** Search for listings */
   searchListings: Listings;
+  /** List All Reviews of a seller */
+  summaryUserReview: SummaryReview;
 };
 
 
@@ -2461,6 +2560,11 @@ export type QuerySearchListingsArgs = {
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
+
+export type QuerySummaryUserReviewArgs = {
+  userId: Scalars['Float']['input'];
+};
+
 export type Review = {
   __typename?: 'Review';
   dateCreated: Scalars['DateTime']['output'];
@@ -2541,6 +2645,17 @@ export type Subscription = {
 
 export type SubscriptionNewMessageAddedArgs = {
   chatRoomId: Scalars['Float']['input'];
+};
+
+export type SummaryReview = {
+  __typename?: 'SummaryReview';
+  avgRating?: Maybe<Scalars['Float']['output']>;
+  five_star_count?: Maybe<Scalars['Float']['output']>;
+  four_star_count?: Maybe<Scalars['Float']['output']>;
+  one_star_count?: Maybe<Scalars['Float']['output']>;
+  reviewCount?: Maybe<Scalars['Float']['output']>;
+  three_star_count?: Maybe<Scalars['Float']['output']>;
+  two_star_count?: Maybe<Scalars['Float']['output']>;
 };
 
 /** ENUM for point Transaction Type */
@@ -2790,6 +2905,16 @@ export type ListSellerReviewsQueryVariables = Exact<{
 
 export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
 
+export type ListNotificationsQueryVariables = Exact<{
+  filters?: InputMaybe<NotificationFilterInput>;
+  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type ListNotificationsQuery = { __typename?: 'Query', listNotifications: { __typename?: 'Notifications', count: number, hasMore: boolean, items: Array<{ __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } }> } };
+
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
@@ -2802,6 +2927,13 @@ export type RemoveSearchHistoryMutationVariables = Exact<{ [key: string]: never;
 
 
 export type RemoveSearchHistoryMutation = { __typename?: 'Mutation', removeSearchHistory: { __typename?: 'Searches', items: Array<{ __typename?: 'Search', searchQuery: string }> } };
+
+export type SummaryUserReviewQueryVariables = Exact<{
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type SummaryUserReviewQuery = { __typename?: 'Query', summaryUserReview: { __typename?: 'SummaryReview', avgRating?: number | null, five_star_count?: number | null, four_star_count?: number | null, one_star_count?: number | null, three_star_count?: number | null, reviewCount?: number | null, two_star_count?: number | null } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;

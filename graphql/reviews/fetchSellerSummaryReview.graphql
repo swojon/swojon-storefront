@@ -1,0 +1,11 @@
+query SummaryUserReview($userId: Float!) {
+  summaryUserReview(userId: $userId) {
+    avgRating
+    five_star_count
+    four_star_count
+    one_star_count
+    three_star_count
+    reviewCount
+    two_star_count
+  }
+}

@@ -8,7 +8,8 @@ import "./ProductDetail.css";
 import Link from "next/link";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import { timeAgo } from "@/lib/helpers/timeAgo";
-import ReviewDropdown from "../Review/ReviewDropdown";
+import ReviewDropdown from "../Review/ProductReviewDropdown";
+import ProductReviewDropdown from "../Review/ProductReviewDropdown";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -42,13 +43,10 @@ const ProductInfo = ({ product }: { product: any }) => {
 
         <div className="flex space-x-1 items-center">
           <div className="flex items-center ">
-            <ReviewDropdown />
+            <ProductReviewDropdown listingId={product.id} />
           </div>
 
-          <div className="flex items-center space-x-1">
-            <BsDot className="text-secondColor" />
-            <span className="text-sm">No Reviews Yet</span>
-          </div>
+        
         </div>
         {/* 
         <div className="flex space-x-1 items-center">
@@ -141,7 +139,7 @@ const ProductInfo = ({ product }: { product: any }) => {
             <div className="w-[30%]   text-secondColor">Category</div>
             <div className="w-[70%]  text-primaryColor">
               {product?.category?.parentCategory
-                ? `${product?.parentCategory.name} > ${product?.category.name}`
+                ? `${product?.parentCategory?.name} > ${product?.category.name}`
                 : product?.category.name}
             </div>
           </div>

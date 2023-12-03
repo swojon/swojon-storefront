@@ -4,6 +4,7 @@ import React from "react";
 import user from "@/public/userMale.png";
 import { BsDot } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
+import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 
 const MeetSeller = ({ seller }: { seller: any }) => {
   return (
@@ -31,15 +32,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
             </h6>
 
             <div className="flex space-x-1 items-center">
-              <div className="flex items-center space-x-1">
-                <FaStar className="text-[#FFB800]" />
-                <span className="text-sm">4.80</span>
-              </div>
-
-              <div className="flex items-center space-x-1">
-                <BsDot className="text-secondColor" />
-                <span className="text-sm">33 reviews</span>
-              </div>
+              <SellerReviewDropdown sellerId={seller?.id} />
             </div>
 
             {/* <div className=" flex items-start gap-4">
