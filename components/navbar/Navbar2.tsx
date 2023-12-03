@@ -45,7 +45,7 @@ export default function Navbar2({ border }: { border: any }) {
         <>
           <div className=" ">
             <div className="flex h-16 justify-between gap-2 items-center ">
-              <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-1 lg:px-0  items-center ">
+              <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center ">
                 <Link
                   href="/"
                   className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
@@ -91,7 +91,7 @@ export default function Navbar2({ border }: { border: any }) {
                     />
                   )}
                 </Link>
-                <div className="hidden  lg:flex items-center lg:gap-1 xl:gap-3">
+                <div className="hidden  lg:flex items-center lg:gap-x-1 xl:gap-x-3">
                   <div className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1  text-sm font-medium  font-lexed  hover:border-activeColor  leading-none">
                     <MegaMenu border={border} />
                   </div>
@@ -182,7 +182,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
-                      className={`py-1.5 px-2 leading-0 font-lexed font-medium  xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5 px-2 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     >

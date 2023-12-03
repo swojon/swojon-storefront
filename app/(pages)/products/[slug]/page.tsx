@@ -79,7 +79,7 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         <ProductImageSlider images={product?.media} />
       </div> */}
 
-      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]   md:overflow-hidden  rounded-md  ">
+      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]     rounded-md  ">
         <div className="lg:w-[58%] md:w-[50%] w-full h-full  space-y-6  ">
           {loading ? (
             <ThumbnailLoader />

@@ -10,6 +10,9 @@ import {
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import RatingsLoader from "../Loader/RatingsLoader";
+import CircularProgressbarLoader from "../Loader/CircularProgressbarLoader";
+import ProgressBarLoader from "../Loader/ProgressBarLoader";
 
 const Review = () => {
   const percentage = 66;
@@ -48,6 +51,8 @@ const Review = () => {
           </div>
         </div>
 
+        {/* <RatingsLoader /> */}
+
         <div className=" flex flex-col items-center">
           <div className="w-[100px] mb-4">
             <CircularProgressbar
@@ -69,6 +74,10 @@ const Review = () => {
           </span>
         </div>
 
+        {/* <CircularProgressbarLoader />
+
+        <ProgressBarLoader /> */}
+
         <div className="space-y-2">
           <div className="flex items-center text-secondColor gap-3 w-[400px]">
             <div className="w-[18%] mx-auto ">
@@ -86,7 +95,6 @@ const Review = () => {
               <small className="text-xs   whitespace-nowrap ">75%</small>
             </div>
           </div>
-
           <div className="flex items-center text-secondColor gap-3 w-[400px] ">
             <div className="w-[18%] mx-auto ">
               <small className="text-xs relative   whitespace-nowrap">
@@ -103,7 +111,6 @@ const Review = () => {
               <small className="text-xs   whitespace-nowrap ">95%</small>
             </div>
           </div>
-
           <div className="flex items-center text-secondColor gap-3 w-[400px] ">
             <div className="w-[18%] mx-auto ">
               <small className="text-xs relative   whitespace-nowrap">
@@ -120,7 +127,6 @@ const Review = () => {
               <small className="text-xs   whitespace-nowrap ">5%</small>
             </div>
           </div>
-
           <div className="flex items-center text-secondColor gap-3 w-[400px] ">
             <div className="w-[18%] mx-auto ">
               <small className="text-xs relative   whitespace-nowrap">
@@ -137,7 +143,6 @@ const Review = () => {
               <small className="text-xs   whitespace-nowrap ">5%</small>
             </div>
           </div>
-
           <div className="flex items-center text-secondColor gap-3 w-[400px] ">
             <div className="w-[18%] mx-auto ">
               <small className="text-xs relative   whitespace-nowrap">
@@ -172,10 +177,6 @@ const Review = () => {
       </div>
 
       <div className="space-y-3">
-        <p className="text-center text-sm text-primaryColor pb-4">
-          we have found 3 matches
-        </p>
-
         <div className="p-6 border space-y-2  rounded-md">
           <h6 className="text-lg text-primaryColor font-lexed font-medium">
             Holiday must have

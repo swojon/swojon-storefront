@@ -10,6 +10,7 @@ import { setModalOpen } from "@/app/redux/modalSlice";
 import { timeAgo } from "@/lib/helpers/timeAgo";
 import ReviewDropdown from "../Review/ProductReviewDropdown";
 import ProductReviewDropdown from "../Review/ProductReviewDropdown";
+import "./ProductDetail.css";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowOfferPriceTooltip(false);
   };
   return (
-    <section className="space-y-3">
+    <section className="space-y-3 overflow-auto scroll-hidden">
       <div className="  space-y-4">
         <div className="space-y-2">
           <small className="text-xs text-secondColor">
@@ -45,8 +46,6 @@ const ProductInfo = ({ product }: { product: any }) => {
           <div className="flex items-center ">
             <ProductReviewDropdown listingId={product.id} />
           </div>
-
-        
         </div>
         {/* 
         <div className="flex space-x-1 items-center">

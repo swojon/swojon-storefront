@@ -10,6 +10,8 @@ import Image from "next/image";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { current } from "@reduxjs/toolkit";
 import Link from "next/link";
+import MegamenuHeadingLoader from "../Loader/MegamenuHeadingLoader";
+import MegamenuCategoryLoader from "../Loader/MegamenuCategoryLoader";
 
 // import categoryData from "@/data/categoryData";
 
@@ -45,15 +47,15 @@ export default function MegaMenu({ border }: { border: any }) {
   const [subCategories, setSubCategories] = useState<any>([]);
 
   const handleMouseEnter = (category: any) => {
-    console.log("category hovered", category);
+    // console.log("category hovered", category);
     setCurrentCategory(category);
   };
 
   if (currentCategory === null && !!parentCategories) {
-    console.log("Setting initial selected categtory");
+    // console.log("Setting initial selected categtory");
     setCurrentCategory(parentCategories[0]);
   }
-  console.log("sub categories", subCategories);
+  // console.log("sub categories", currentCategory);
   return (
     <>
       <Popover className=" z-[995]  ">
@@ -94,20 +96,22 @@ export default function MegaMenu({ border }: { border: any }) {
             >
               <Popover.Panel className="absolute shadow-2xl meg-menu w-[100vw]   top-[75px] inline  z-30 transform border-b border-gray-200   text-primaryColor rounded left-0  ">
                 <div className="  py-3 w-full bg-white h-[100%] ">
-                  {loading && <p> Loading </p>}
-                  {error && <p> error </p>}
+                  {/* {error && <p> error </p>} */}
 
                   <div className="custom-container relative flex  gap-4 h-full">
                     {/* First Panel Start Here */}
                     <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
+                      {loading && <MegamenuHeadingLoader />}
                       {parentCategories?.map((item) => (
                         <div
-                          className="flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer "
+                          className={`flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer  ${
+                            currentCategory.id === item.id ? "bg-slate-200" : ""
+                          }`}
                           key={item.id}
                           onMouseEnter={() => handleMouseEnter(item)}
                         >
                           <h2
-                            className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate  `}
+                            className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate `}
                           >
                             {item.name}
                           </h2>
@@ -117,11 +121,13 @@ export default function MegaMenu({ border }: { border: any }) {
                     </div>
 
                     {/* Second Panel Start Here.  */}
-                    <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[35%] pe-3  sticky meg-menu-items ">
+                    <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[80%] pe-3  sticky meg-menu-items ">
                       <h6 className="text-lg text-primaryColor font-lexed flex  items-center">
                         <BsFillGrid3X3GapFill className="me-2" /> Shop by
                         category
                       </h6>
+
+                      {loading && <MegamenuCategoryLoader />}
 
                       {currentCategory && (
                         <div className="flex flex-wrap gap-5 py-4">
@@ -178,7 +184,7 @@ export default function MegaMenu({ border }: { border: any }) {
                     </div>
 
                     {/* Third Panel Start Here */}
-                    <div className=" top-0  h-full overflow-y-auto  w-[45%] pe-3  sticky small-scroll ">
+                    {/* <div className=" top-0  h-full overflow-y-auto  w-[45%] pe-3  sticky small-scroll ">
                       {currentCategory &&
                         categories!
                           .filter(
@@ -192,7 +198,7 @@ export default function MegaMenu({ border }: { border: any }) {
                                 {item.name}
                               </h6>
                               <div className="flex flex-wrap gap-5 py-4">
-                                {/* View All card */}
+                              
                                 <div className="w-20   ">
                                   <Link
                                     href={`/categories/${item.slug}`}
@@ -244,7 +250,7 @@ export default function MegaMenu({ border }: { border: any }) {
                               </div>
                             </Fragment>
                           ))}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </Popover.Panel>
