@@ -23,36 +23,26 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper"
+          className="mySwiper "
           initialSlide={0}
+          style={{ zIndex: 1 }}
         >
           {images?.map((im: any) => (
-            <SwiperSlide key={im.url} className="cursor-pointer">
+            <SwiperSlide key={im.url} className="cursor-pointer z-0">
               <Image
                 src={im.url}
                 width={500}
                 height={700}
                 priority
-                className="w-full h-full object-cover rounded-lg"
-                alt="listing Image"
+                className="w-full h-full object-cover rounded-lg z-0"
+                alt="listing Image "
               />
             </SwiperSlide>
           ))}
-
-          {/* <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-          </SwiperSlide> */}
         </Swiper>
       </div>
       <div className="w-[82%]">
         <Swiper
-          
           loop={true}
           spaceBetween={10}
           navigation={true}

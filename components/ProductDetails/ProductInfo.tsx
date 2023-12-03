@@ -97,9 +97,10 @@ const ProductInfo = ({ product }: { product: any }) => {
                   Offer Price
                 </button>
                 {showOfferPriceTooltip && (
-                  <Link href="/signin">
-                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-primaryColor text-white left-[50%] p-2 -translate-x-1/2 text-xs rounded-md">
+                  <Link href="/signin" className="">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-white text-primaryColor border left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
                       Please sign in first
+                      <span className="absolute left-[50%]  -translate-x-1/2 bottom-1.5 h-[2px] w-[85%]  bg-gray-400"></span>
                     </span>
                   </Link>
                 )}
@@ -110,9 +111,10 @@ const ProductInfo = ({ product }: { product: any }) => {
                   Chat Now
                 </button>
                 {showChatNowTooltip && (
-                  <Link href="/signin">
-                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-primaryColor text-white left-[50%] p-2 -translate-x-1/2 text-xs rounded-md">
+                  <Link href="/signin" className="">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 bg-white text-primaryColor border left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
                       Please sign in first
+                      <span className="absolute left-[50%]  -translate-x-1/2 bottom-1.5 h-[2px] w-[85%]  bg-gray-400"></span>
                     </span>
                   </Link>
                 )}

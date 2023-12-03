@@ -18,6 +18,7 @@ import Review from "@/components/Review/Review";
 import ThumbnailLoader from "@/components/Loader/ThumbnailLoader";
 import MeetTheSellerLoader from "@/components/Loader/MeetTheSellerLoader";
 import ProductInfoLoader from "@/components/Loader/ProductInfoLoader";
+import BreadCrumbsLoader from "@/components/Loader/BreadCrumbsLoader";
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);
@@ -32,20 +33,24 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
   return (
     <section className="custom-container py-6 space-y-5">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
-        <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
-          <h6 className="">Home</h6>
-          <MdKeyboardArrowRight />
-          {product?.category?.parentCategory && (
-            <>
-              <h6 className="">Categories</h6>
-              <MdKeyboardArrowRight />
-            </>
-          )}
+        {loading ? (
+          <BreadCrumbsLoader />
+        ) : (
+          <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
+            <h6 className="">Home</h6>
+            <MdKeyboardArrowRight />
+            {product?.category?.parentCategory && (
+              <>
+                <h6 className="">Categories</h6>
+                <MdKeyboardArrowRight />
+              </>
+            )}
 
-          <h6 className="">{product?.category?.name}</h6>
-          <MdKeyboardArrowRight />
-          <h6 className="text-primaryColor capitalize">{product?.title}</h6>
-        </div>
+            <h6 className="">{product?.category?.name}</h6>
+            <MdKeyboardArrowRight />
+            <h6 className="text-primaryColor capitalize">{product?.title}</h6>
+          </div>
+        )}
 
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">

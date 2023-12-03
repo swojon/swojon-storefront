@@ -1,8 +1,6 @@
 .swiper-button-next,
 .swiper-button-prev {
   color: white;
-  top: 50%;
-  /* transform: translateY(-50%); */
 }
 .swiper-button-prev {
   left: 2;
@@ -22,6 +20,9 @@
   color: gray;
   border-radius: 50%;
   box-shadow: 1px 1px 5px #5c5c5c;
+  /* position: absolute;
+  top: 60%; */
+  /* transform: translateY(-60%); */
 }
 
 .tooltip:before {
@@ -29,8 +30,15 @@
   position: absolute;
   border-style: solid;
   border-width: 10px 10px 0;
-  border-color: #000721 transparent transparent transparent;
+  border-color: rgb(223, 223, 223) transparent transparent transparent;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
+}
+.swiper-container {
+  position: relative;
+}
+
+.swiper-slide {
+  z-index: 1;
 }

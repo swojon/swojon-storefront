@@ -36,7 +36,7 @@ export default function Modal() {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-1000"
+        className="relative z-[1500]"
         onClose={() => dispatch(setModalClose(true))}
       >
         <Transition.Child
@@ -48,7 +48,7 @@ export default function Modal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity " />
         </Transition.Child>
 
         <div className="fixed inset-0 z-1000 overflow-y-auto ">
