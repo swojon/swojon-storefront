@@ -1,0 +1,18 @@
+query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+  listNotifications(filters: $filters, ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit) {
+    count
+    hasMore
+    items {
+      content
+      context
+      dateCreated
+      read
+      type
+      id
+      user {
+        email
+        id
+      }
+    }
+  }
+}

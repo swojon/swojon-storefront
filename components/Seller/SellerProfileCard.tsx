@@ -7,6 +7,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import icon1 from "@/public/assets/govtIcon.png";
 import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
+import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 
 const SellerProfileCard = ({ seller }: { seller: any }) => {
   // console.log("Got seller to render", seller)
@@ -35,16 +36,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
           </h6>
 
           <div className="flex space-x-1 items-center flex-wrap">
-            <div className="flex items-center space-x-1">
-              <FaStar className="text-[#FFB800]" />
-              <span className="text-sm">4.80</span>
-            </div>
-
-            <div className="flex items-center space-x-1">
-              <BsDot className="text-secondColor" />
-              <span className="text-sm">33 reviews</span>
-            </div>
-
+            <SellerReviewDropdown sellerId={seller?.id} />
             <div className="flex items-center space-x-1">
               <BsDot className="text-secondColor" />
               <span className="text-sm">20 products</span>

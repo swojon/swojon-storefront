@@ -161,12 +161,12 @@ export default function Navbar2({ border }: { border: any }) {
                         border === "border" ? "text-activeColor" : "text-white"
                       }`}
                     />
-                    <div
+                    {/* <div
                       className="absolute -top-2 -right-1 bg-white border w-4
                     h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
                     >
                       <small className="leading-none"> 10</small>
-                    </div>
+                    </div> */}
                   </div>
                 )}
                 {authState.isAuthenticated && (

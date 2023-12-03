@@ -6,12 +6,16 @@ function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const NotificationToggle = () => {
-  const [enabled, setEnabled] = useState(false);
+const NotificationToggle = ({setUnreadOnly, unreadOnly}: {unreadOnly: any, setUnreadOnly: any}) => {
+  const [enabled, setEnabled] = useState(unreadOnly);
+  const handleChange = (s: boolean | ((prevState: boolean) => boolean)) => {
+    setEnabled(s)
+    setUnreadOnly(s)
+  }
   return (
     <Switch
-      checked={enabled}
-      onChange={setEnabled}
+      checked={unreadOnly}
+      onChange={handleChange}
       className={classNames(
         enabled ? "bg-activeColor" : "bg-gray-200",
         "relative inline-flex h-4 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-activeColor focus:ring-offset-2"
