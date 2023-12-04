@@ -12,14 +12,12 @@ import SellerProductList from "@/components/Seller/SellerProductList";
 import SellerProfileCard from "@/components/Seller/SellerProfileCard";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import ProductLoader from "@/components/Loader/ProductLoader";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const tabData = [
-  { id: 1, tab: "listing" },
-  { id: 1, tab: "reviews" },
-  { id: 1, tab: "follows" },
-];
 
 const SellerProfile = ({ params, children }: { children: any, params: { sellerId: string } }) => {
+
   const sellerId = parseInt(params.sellerId, 10);
   const { data, error, loading } = useGetUserByIdQuery({
     variables: {
@@ -28,9 +26,14 @@ const SellerProfile = ({ params, children }: { children: any, params: { sellerId
     skip: !sellerId,
   });
   const seller = data?.getUserById;
-
-  const [selectedTab, setSelectedTab] = useState(tabData[0].tab);
-
+  
+  const tabData = [
+    { id: 1, tab: "listing", url: `/seller/${seller?.id}` },
+    { id: 2, tab: "reviews", url: `/seller/${seller?.id}/reviews`},
+    { id: 3, tab: "followers", url: `/seller/${seller?.id}/followers`},
+  ];
+  
+  const pathname = usePathname()
   return (
     <section className="custom-container py-10">
       <div className="flex items-center ">
@@ -51,20 +54,19 @@ const SellerProfile = ({ params, children }: { children: any, params: { sellerId
             className={`flex flex-row items-center gap-5 text-base capitalize`}
           >
             {tabData.map((item) => (
-              <span
+              <Link href={item.url}
                 key={item.id}
                 className={` cursor-pointer ${
-                  selectedTab === item.tab
+                  pathname === item.url
                     ? "border-b border-activeColor text-primaryColor"
                     : "border-b border-transparent hover:border-gray-200 text-secondColor"
                 }`}
-                onClick={() => setSelectedTab(item.tab)}
               >
                 {item.tab}{" "}
-                {selectedTab === item.tab && (
+                {/* {selectedTab === item.tab && (
                   <span className="text-gray-400 text-sm">(45)</span>
-                )}
-              </span>
+                )} */}
+              </Link>
             ))}
           </div>
           <div className="flex items-center space-x-3">
@@ -81,16 +83,10 @@ const SellerProfile = ({ params, children }: { children: any, params: { sellerId
       {seller && (
         <div className="flex lg:flex-row flex-col gap-3 pt-10">
           <div className="lg:w-[30%] w-[100%]">
-            {/* <SellerBar seller={seller}/>
-             */}
             <SellerProfileCard seller={seller} />
           </div>
           <div className="lg:w-[70%] w-[100%] ">
              {children}
-
-            {/* <div className=" lg:pt-10 md:pt-6 pt-4 border-t">
-              <SellerRating sellerId={seller.id} />
-            </div> */}
           </div>
         </div>
       )}

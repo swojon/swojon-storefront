@@ -370,6 +370,55 @@ export function useGetChatMessageLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetChatMessageQueryHookResult = ReturnType<typeof useGetChatMessageQuery>;
 export type GetChatMessageLazyQueryHookResult = ReturnType<typeof useGetChatMessageLazyQuery>;
 export type GetChatMessageQueryResult = Apollo.QueryResult<GetChatMessageQuery, GetChatMessageQueryVariables>;
+export const GetChatRoomDocument = gql`
+    query GetChatRoom($chatRoomId: Float) {
+  getChatRoom(id: $chatRoomId) {
+    chatName
+    id
+    isDeleted
+    relatedListing {
+      id
+      title
+    }
+    members {
+      user {
+        id
+        email
+        username
+      }
+      userId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetChatRoomQuery__
+ *
+ * To run a query within a React component, call `useGetChatRoomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetChatRoomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetChatRoomQuery({
+ *   variables: {
+ *      chatRoomId: // value for 'chatRoomId'
+ *   },
+ * });
+ */
+export function useGetChatRoomQuery(baseOptions?: Apollo.QueryHookOptions<GetChatRoomQuery, GetChatRoomQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetChatRoomQuery, GetChatRoomQueryVariables>(GetChatRoomDocument, options);
+      }
+export function useGetChatRoomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetChatRoomQuery, GetChatRoomQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetChatRoomQuery, GetChatRoomQueryVariables>(GetChatRoomDocument, options);
+        }
+export type GetChatRoomQueryHookResult = ReturnType<typeof useGetChatRoomQuery>;
+export type GetChatRoomLazyQueryHookResult = ReturnType<typeof useGetChatRoomLazyQuery>;
+export type GetChatRoomQueryResult = Apollo.QueryResult<GetChatRoomQuery, GetChatRoomQueryVariables>;
 export const SendChatMessageDocument = gql`
     mutation SendChatMessage($input: CreateMessageDTO!) {
   sendChatMessage(chatData: $input) {
@@ -2335,6 +2384,8 @@ export type Query = {
   findCommunityById: Community;
   /** Get Category by Id, slug or name */
   getCategory: Category;
+  /** Get ChatRoom by id */
+  getChatRoom: ChatRoom;
   /** Get Community by Id, slug or name */
   getCommunity: Community;
   /** Get Category by Id, slug or name */
@@ -2411,6 +2462,12 @@ export type QueryGetCategoryArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetChatRoomArgs = {
+  id?: InputMaybe<Scalars['Float']['input']>;
+  userId?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -2804,6 +2861,13 @@ export type GetChatMessageQueryVariables = Exact<{
 
 
 export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore?: boolean | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
+
+export type GetChatRoomQueryVariables = Exact<{
+  chatRoomId?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type GetChatRoomQuery = { __typename?: 'Query', getChatRoom: { __typename?: 'ChatRoom', chatName?: string | null, id: number, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null } | null }> | null } };
 
 export type SendChatMessageMutationVariables = Exact<{
   input: CreateMessageDto;

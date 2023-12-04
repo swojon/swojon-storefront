@@ -20,13 +20,15 @@ import { Waypoint } from "react-waypoint";
 const ChatMessage = ({
   sideProfile,
   setSideProfile,
+  chatRoom
 }: {
   sideProfile: any;
   setSideProfile: any;
+  chatRoom: any
 }) => {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
-  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
+  const activeChat = chatRoom;
 
   const { data, loading, error, subscribeToMore, fetchMore } = useGetChatMessageQuery({
     variables: {
@@ -62,43 +64,7 @@ const ChatMessage = ({
       },
     });
 
-  if (!activeChat) {
-    return (
-      <section className="h-full w-full relative border-l">
-        <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center border-b">
-          <div className="flex items-center gap-2">
-            <button
-              className="p-1.5 border border-activeColor me-1 rounded-md block "
-              onClick={() => setSideProfile("chatlist")}
-            >
-              <HiUsers className="text-primaryColor" />
-            </button>
-          </div>
-
-          <button
-            className="text-lg text-primaryColor cursor-pointer block "
-            onClick={() => setSideProfile("profile")}
-          >
-            <BsThreeDots />
-          </button>
-        </div>
-        <div className=" chatDefault flex flex-col justify-center items-center">
-          <div className="w-[75%] h-[60%] flex  justify-center items-center">
-            <Image
-              src="/assets/textDefault.svg"
-              alt="message"
-              width={500}
-              height={500}
-              className="w-full h-full "
-            />
-          </div>
-          <p className="text-base text-secondColor font-lexed font-medium pt-4">
-            Select chat to start a conversation
-          </p>
-        </div>
-      </section>
-    );
-  }
+ 
 
   // const chatMessages = activeChatWithMessages.find((chat) => chat.id === activeChat.id)
   // const messages = chatMessages?.messages;
@@ -120,6 +86,7 @@ const ChatMessage = ({
       setSideProfile={setSideProfile}
       data={data!}
       subscribeToMore={more}
+      activeChat={activeChat}
     />
   );
 };
@@ -130,17 +97,19 @@ const MessageAreaData = ({
   subscribeToMore,
   setSideProfile,
   sideProfile,
+  activeChat
 }: {
   data: GetChatMessageQuery;
   fetchMore:any,
   subscribeToMore: any;
   sideProfile: any;
   setSideProfile: any;
+  activeChat: any 
 }) => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
-  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
+  // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
 
   // Function to keep the chat scroll at the bottom
   const scrollToBottom = () => {

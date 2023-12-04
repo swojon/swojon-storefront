@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ChatListsModal from "../Loader/ChatListsLoader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
+import Link from "next/link";
 
 const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
   const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
@@ -64,8 +65,9 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
       <div className="space-y-2.5">
         {data?.listChatRooms.items &&
           data.listChatRooms.items.map((chatroom) => (
-            <div
-              onClick={(e) => dispatch(setActiveChatRoom(chatroom))}
+            <Link
+              // onClick={(e) => dispatch(setActiveChatRoom(chatroom))}
+              href={`/chat/${chatroom.id}`}
               key={`chatroom${chatroom.id}`}
               className={`xl:p-2 lg:p-1 p-2 w-full flex items-center  rounded-md border  hover:border-activeColor cursor-pointer ${
                 activeChat === chatroom.id
@@ -107,7 +109,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
 
       </div>
