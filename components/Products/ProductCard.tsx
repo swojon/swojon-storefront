@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import heartIcon from "@/public/assets/heartIcon.png";
 import heartIconFilled from "@/public/assets/heartIconFilled.svg.svg";
 import time from "@/public/assets/time.png";
@@ -18,6 +18,19 @@ import {
 const ProductCard = ({ card: listing }: { card: any }) => {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
+  const [showOfferPriceTooltip, setShowOfferPriceTooltip] = useState(false);
+  const [showChatNowTooltip, setShowChatNowTooltip] = useState(false);
+  
+  const handleOfferPriceClick = () => {
+    setShowOfferPriceTooltip(!showOfferPriceTooltip);
+    setShowChatNowTooltip(false);
+  };
+
+  const handleChatNowClick = () => {
+    setShowChatNowTooltip(!showChatNowTooltip);
+    setShowOfferPriceTooltip(false);
+  };
+
   const [
     addFavorite,
     { data: addData, loading: addLoading, error: addErrror },
@@ -91,8 +104,9 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             alt="product banner"
             className="h-full w-full object-cover rounded-t-xl rounded-b-sm hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
-        </Link>
-        {listing.favoriteStatus ? (
+        </Link> 
+         {authState.isAuthenticated && <>
+          {listing.favoriteStatus ? (
           <div
             onClick={() => handleFavoriteRemove(listing.id, authState.user.id)}
             className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
@@ -107,6 +121,8 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             <Image src={heartIcon} alt="heart icon" />
           </div>
         )}
+         </>} 
+        
       </div>
 
       <div className="pt-3  flex flex-row   items-center font-lexed ">
@@ -140,7 +156,8 @@ const ProductCard = ({ card: listing }: { card: any }) => {
           {listing.user.username ?? listing.user.email}
         </span>
       </div>
-
+      {authState.isAuthenticated ? (
+         
       <div className="grid grid-cols-2 gap-2">
         <button
           onClick={() =>
@@ -171,6 +188,39 @@ const ProductCard = ({ card: listing }: { card: any }) => {
           Chat Now
         </button>
       </div>
+       
+        ) : (
+     
+            <div className="grid grid-cols-2 gap-2">
+              <div className="relative" onClick={handleOfferPriceClick}>
+                <button className="border border-activeColor text-whiteColor bg-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
+                  Offer Price
+                </button>
+                {showOfferPriceTooltip && (
+                  <Link href="/signin" className="">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 border bg-white text-primaryColor  left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
+                      Please <span className="underline">Sign In</span> first
+                    </span>
+                  </Link>
+                )}
+              </div>
+
+              <div className="relative" onClick={handleChatNowClick}>
+                <button className="border border-activeColor text-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
+                  Chat Now
+                </button>
+                {showChatNowTooltip && (
+                  <Link href="/signin" className="">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 border bg-white text-primaryColor  left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
+                      Please <span className="underline">Sign In</span> first
+                    </span>
+                  </Link>
+                )}
+              </div>
+            </div>
+        
+        )}
+
     </div>
   );
 };

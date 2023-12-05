@@ -18,26 +18,7 @@ const ChatArea = () => {
       >
         <ChatLists setSideProfile={setSideProfile} />
       </div>
-      <div
-        className={`w-full  h-full lg:block ${
-          sideProfile === "" ? "block" : " hidden"
-        }`}
-      >
-        <ChatMessage
-          sideProfile={sideProfile}
-          setSideProfile={setSideProfile}
-        />
-      </div>
-
-      <div
-        className={`xl:w-[35%] lg:w-[40%] w-full  h-full  transition-opacity ease-in-out delay-150 ${
-          sideProfile === "profile"
-            ? "opacity-100"
-            : "opacity-0 hidden pointer-events-none"
-        }`}
-      >
-        <ChatUserProfile setSideProfile={setSideProfile} />
-      </div>
+  
     </div>
   );
 };

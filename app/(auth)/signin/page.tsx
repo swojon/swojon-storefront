@@ -143,7 +143,7 @@ const SignIn: NextPage = (): JSX.Element => {
                     id="password"
                     onChange={handleChange}
                     className="block w-full rounded-md border border-gray-200 pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor lg:p-2.5 md:p-2 py-1 px-2 sm:text-sm text-xs"
-                    placeholder="••••••••"
+                    placeholder=""
                   />
                 </div>
               </div>
