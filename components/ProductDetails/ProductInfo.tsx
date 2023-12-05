@@ -28,7 +28,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowOfferPriceTooltip(false);
   };
   return (
-    <section className="space-y-3 overflow-auto scroll-hidden">
+    <section className="space-y-3 ">
       <div className="  space-y-4">
         <div className="space-y-2">
           <small className="text-xs text-secondColor">

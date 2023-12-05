@@ -93,7 +93,7 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
             <MeetSeller seller={product?.user} />
           )}
         </div>
-        <div className="lg:w-[42%] md:w-[50%] w-full  lg:ps-14 md:ps-7 pe-0 overflow-auto scroll-hidden">
+        <div className="lg:w-[42%] md:w-[50%] w-full h-full lg:ps-14 md:ps-2 pe-0 md:overflow-auto scroll-hidden">
           {loading ? (
             <ProductInfoLoader />
           ) : (

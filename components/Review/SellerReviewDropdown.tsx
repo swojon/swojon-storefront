@@ -66,7 +66,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute  z-10  mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border p-5 space-y-4">
+            <Menu.Items className="absolute  z-10 md:-left-1 -left-10 mt-2  rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border p-5 space-y-4">
               <div>
                 <div className="flex items-center gap-3">
                   <span className="text-base text-primaryColor">
@@ -86,8 +86,8 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                 </span>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center text-secondColor gap-3 w-[270px] ">
+              <div className="space-y-2 md:w-[270px] sm:w-[230px] w-[200px]">
+                <div className="flex items-center text-secondColor gap-3 w-full ">
                   <div className="w-[18%] mx-auto ">
                     <small className="text-xs relative   whitespace-nowrap">
                       5 stars
@@ -112,7 +112,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center text-secondColor gap-3 w-[270px] ">
+                <div className="flex items-center text-secondColor gap-3 w-full ">
                   <div className="w-[18%] mx-auto ">
                     <small className="text-xs relative   whitespace-nowrap">
                       4 stars
@@ -137,7 +137,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center text-secondColor gap-3 w-[270px] ">
+                <div className="flex items-center text-secondColor gap-3 w-full ">
                   <div className="w-[18%] mx-auto ">
                     <small className="text-xs relative   whitespace-nowrap">
                       3 stars
@@ -162,7 +162,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center text-secondColor gap-3 w-[270px] ">
+                <div className="flex items-center text-secondColor gap-3 w-full ">
                   <div className="w-[18%] mx-auto ">
                     <small className="text-xs relative   whitespace-nowrap">
                       2 stars
@@ -187,7 +187,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center text-secondColor gap-3 w-[270px] ">
+                <div className="flex items-center text-secondColor gap-3 w-full ">
                   <div className="w-[18%] mx-auto ">
                     <small className="text-xs relative   whitespace-nowrap">
                       1 star

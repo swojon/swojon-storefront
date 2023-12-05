@@ -12,7 +12,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
       <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
         Meet the Seller
       </h6>
-      <div className="flex flex-col md:flex-row gap-2 md:items-start md:justify-between pt-2">
+      <div className="flex  flex-wrap  gap-2 justify-center items-start sm:justify-between pt-2">
         <div className="flex gap-5 items-center">
           <Link href={`/seller/${seller?.id}`}>
             <div className="lg:h-24 lg:w-24 md:h-16 md:w-16 rounded-full">
@@ -56,8 +56,11 @@ const MeetSeller = ({ seller }: { seller: any }) => {
             </div> */}
           </div>
         </div>
-        
-        <Link href={`/seller/${seller?.id}`} className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white">
+
+        <Link
+          href={`/seller/${seller?.id}`}
+          className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white inline"
+        >
           View Profile
         </Link>
       </div>

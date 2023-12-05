@@ -18,9 +18,10 @@ import SearchField from "../SearchField/SearchField";
 import burgerIcon from "@/public/assets/nav-hamburger.png";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import NotificationDropDown from "../Notification/NotificationDropDown";
-import { FaBell } from "react-icons/fa6";
+import { FaRegBell } from "react-icons/fa";
 import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
 import { IoLogoWechat } from "react-icons/io5";
+import { RiWechatLine } from "react-icons/ri";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -125,7 +126,7 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative cursor-pointer"
                     onClick={() => dispatch(setNotificationDrawerOpen())}
                   >
-                    <FaBell
+                    <FaRegBell
                       className={`text-lg  ${
                         border === "border" ? "text-activeColor" : "text-white"
                       }`}
@@ -156,7 +157,7 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative cursor-pointer"
                     onClick={() => dispatch(setNotificationDrawerOpen())}
                   >
-                    <FaBell
+                    <FaRegBell
                       className={`text-lg  ${
                         border === "border" ? "text-activeColor" : "text-white"
                       }`}
@@ -171,7 +172,7 @@ export default function Navbar2({ border }: { border: any }) {
                 )}
                 {authState.isAuthenticated && (
                   <Link href="/chat">
-                    <IoLogoWechat
+                    <RiWechatLine
                       className={`text-2xl  ${
                         border === "border" ? "text-activeColor" : "text-white"
                       }`}
@@ -182,7 +183,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
-                      className={`py-1.5 px-2 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5  leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     >
@@ -321,8 +322,12 @@ export default function Navbar2({ border }: { border: any }) {
 
                 {authState.isAuthenticated === false && (
                   <Link href="/signin">
-                    <button className="whitespace-nowrap border border-activeColor py-1.5 px-3 rounded  bg-white text-activeColor xl:text-sm text-xs flex items-center space-x-1 hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 font-lexed font-medium ">
-                      <CiLogin /> <span> login</span>
+                    <button
+                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                        border === "border" ? "text-primaryColor" : "text-white"
+                      }`}
+                    >
+                      login
                     </button>
                   </Link>
                 )}
