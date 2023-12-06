@@ -8,6 +8,7 @@ import "./Review.css";
 import ProgressBar from "./ProgressBar";
 import { BsDot } from "react-icons/bs";
 import { useSummaryUserReviewQuery } from "@/apollograph/generated";
+import ReviewStars from "./ReviewStars";
 
 const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
   const { data, loading, error } = useSummaryUserReviewQuery({
@@ -22,15 +23,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
     return Math.trunc((count / total) * 100);
   };
 
-  // todo: add loading state
-  let intAvgRating = 0,
-    restRating = 5,
-    haveFrac = false;
-  if (data && data!.summaryUserReview!.avgRating! > 0) {
-    intAvgRating = Math.trunc(data!.summaryUserReview!.avgRating!);
-    haveFrac = !!(data!.summaryUserReview!.avgRating! - intAvgRating);
-    restRating = haveFrac ? 5 - intAvgRating - 1 : 5 - intAvgRating;
-  }
+
 
   return (
     <>
@@ -38,17 +31,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
         <Menu as="div" className="relative inline-block ">
           <div>
             <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
-              {Array(intAvgRating)
-                .fill({})
-                .map((d, i) => (
-                  <FaStar className="text-yellow-400" key={i} />
-                ))}
-              {haveFrac && <FaStarHalfAlt className="text-yellow-400" />}
-              {Array(restRating)
-                .fill({})
-                .map((d, i) => (
-                  <FaStar className="text-gray-400" key={i} />
-                ))}{" "}
+             
               <span className="ms-1 relative text-secondColor">
                 {data?.summaryUserReview.avgRating ?? 0}{" "}
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-gray-400"></span>
@@ -74,11 +57,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </span>
 
                   <div className="flex items-center gap-1 text-sm">
-                    <FaStar className="text-yellow-400" />
-                    <FaStar className="text-yellow-400" />
-                    <FaStar className="text-yellow-400" />
-                    <FaStar className="text-yellow-400" />
-                    <FaStarHalfAlt className="text-yellow-400" />
+                   <ReviewStars avgRating={data?.summaryUserReview.avgRating ?? 0}/>
                   </div>
                 </div>
                 <span className="text-xs text-primaryColor pt-1">

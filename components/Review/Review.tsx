@@ -1,6 +1,6 @@
 import React from "react";
 import SortBy from "./SortBy";
-import FilterBy from "./FilterBy";
+import FilterBy from "./FilterByStars";
 import { MdOutlineClose } from "react-icons/md";
 import { FaStar } from "react-icons/fa6";
 import ProgressBar from "./ProgressBar";

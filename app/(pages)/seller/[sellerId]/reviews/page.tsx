@@ -18,7 +18,7 @@ const SellerListings = ({ params }: { params: { sellerId: string } }) => {
   return (
     <div className="">
       {loading && <RatingsLoader />}
-      <SellerReview />
+      <SellerReview sellerId={sellerId} />
     </div>
   );
 };

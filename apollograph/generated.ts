@@ -1178,71 +1178,6 @@ export function useGetTrendingSearchesLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetTrendingSearchesQueryHookResult = ReturnType<typeof useGetTrendingSearchesQuery>;
 export type GetTrendingSearchesLazyQueryHookResult = ReturnType<typeof useGetTrendingSearchesLazyQuery>;
 export type GetTrendingSearchesQueryResult = Apollo.QueryResult<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>;
-export const ListSellerReviewsDocument = gql`
-    query ListSellerReviews($userId: Float!) {
-  listSellerReviews(userId: $userId) {
-    count
-    items {
-      review
-      rating
-      reviewer {
-        id
-        email
-        username
-        profile {
-          avatar
-          firstName
-          lastName
-        }
-      }
-      seller {
-        id
-        email
-        username
-        profile {
-          avatar
-          firstName
-          lastName
-        }
-      }
-      dateCreated
-      id
-      listing {
-        id
-        title
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useListSellerReviewsQuery__
- *
- * To run a query within a React component, call `useListSellerReviewsQuery` and pass it any options that fit your needs.
- * When your component renders, `useListSellerReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListSellerReviewsQuery({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useListSellerReviewsQuery(baseOptions: Apollo.QueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
-      }
-export function useListSellerReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
-        }
-export type ListSellerReviewsQueryHookResult = ReturnType<typeof useListSellerReviewsQuery>;
-export type ListSellerReviewsLazyQueryHookResult = ReturnType<typeof useListSellerReviewsLazyQuery>;
-export type ListSellerReviewsQueryResult = Apollo.QueryResult<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>;
 export const ListNotificationsDocument = gql`
     query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
   listNotifications(
@@ -1418,6 +1353,81 @@ export function useSummaryUserReviewLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type SummaryUserReviewQueryHookResult = ReturnType<typeof useSummaryUserReviewQuery>;
 export type SummaryUserReviewLazyQueryHookResult = ReturnType<typeof useSummaryUserReviewLazyQuery>;
 export type SummaryUserReviewQueryResult = Apollo.QueryResult<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>;
+export const ListSellerReviewsDocument = gql`
+    query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+  listSellerReviews(
+    filters: $filters
+    userId: $userId
+    ending_before: $endingBefore
+    starting_after: $startingAfter
+    limit: $limit
+  ) {
+    count
+    items {
+      review
+      rating
+      reviewer {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      seller {
+        id
+        email
+        username
+        profile {
+          avatar
+          firstName
+          lastName
+        }
+      }
+      dateCreated
+      id
+      listing {
+        id
+        title
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListSellerReviewsQuery__
+ *
+ * To run a query within a React component, call `useListSellerReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListSellerReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListSellerReviewsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      userId: // value for 'userId'
+ *      endingBefore: // value for 'endingBefore'
+ *      startingAfter: // value for 'startingAfter'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListSellerReviewsQuery(baseOptions: Apollo.QueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
+      }
+export function useListSellerReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>(ListSellerReviewsDocument, options);
+        }
+export type ListSellerReviewsQueryHookResult = ReturnType<typeof useListSellerReviewsQuery>;
+export type ListSellerReviewsLazyQueryHookResult = ReturnType<typeof useListSellerReviewsLazyQuery>;
+export type ListSellerReviewsQueryResult = Apollo.QueryResult<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>;
 export const SearchListingsDocument = gql`
     query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
   searchListings(
@@ -2590,6 +2600,10 @@ export type QueryListPointsHistoryArgs = {
 
 
 export type QueryListSellerReviewsArgs = {
+  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  filters?: InputMaybe<ReviewFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['Float']['input']>;
   userId: Scalars['Float']['input'];
 };
 
@@ -2641,6 +2655,10 @@ export type ReviewCreateDto = {
   reviewerId: Scalars['Float']['input'];
 };
 
+export type ReviewFilterInput = {
+  stars?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
 export type ReviewUpdateDto = {
   rating: Scalars['Float']['input'];
   review?: InputMaybe<Scalars['String']['input']>;
@@ -2649,6 +2667,7 @@ export type ReviewUpdateDto = {
 export type Reviews = {
   __typename?: 'Reviews';
   count: Scalars['Float']['output'];
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
   items: Array<Review>;
 };
 
@@ -2962,13 +2981,6 @@ export type GetTrendingSearchesQueryVariables = Exact<{ [key: string]: never; }>
 
 export type GetTrendingSearchesQuery = { __typename?: 'Query', getTrendingSearches: { __typename?: 'TrendingSearches', items: Array<{ __typename?: 'SearchQuery', searchQuery: string }> } };
 
-export type ListSellerReviewsQueryVariables = Exact<{
-  userId: Scalars['Float']['input'];
-}>;
-
-
-export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
-
 export type ListNotificationsQueryVariables = Exact<{
   filters?: InputMaybe<NotificationFilterInput>;
   endingBefore?: InputMaybe<Scalars['Float']['input']>;
@@ -2998,6 +3010,17 @@ export type SummaryUserReviewQueryVariables = Exact<{
 
 
 export type SummaryUserReviewQuery = { __typename?: 'Query', summaryUserReview: { __typename?: 'SummaryReview', avgRating?: number | null, five_star_count?: number | null, four_star_count?: number | null, one_star_count?: number | null, three_star_count?: number | null, reviewCount?: number | null, two_star_count?: number | null } };
+
+export type ListSellerReviewsQueryVariables = Exact<{
+  filters?: InputMaybe<ReviewFilterInput>;
+  userId: Scalars['Float']['input'];
+  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
