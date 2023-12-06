@@ -31,7 +31,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
         <Menu as="div" className="relative inline-block ">
           <div>
             <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
-             
+              <ReviewStars avgRating={data?.summaryUserReview.avgRating!} />
               <span className="ms-1 relative text-secondColor">
                 {data?.summaryUserReview.avgRating ?? 0}{" "}
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-gray-400"></span>

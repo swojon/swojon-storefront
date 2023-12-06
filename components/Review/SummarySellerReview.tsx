@@ -117,7 +117,7 @@ function SummarySellerReview({sellerId}: {sellerId: number}) {
               </div>
 
               <ReviewProgressBar 
-                count={data?.summaryUserReview.three_star_count!}
+                count={data?.summaryUserReview.two_star_count!}
                 total={data?.summaryUserReview.reviewCount!}
               />
             </div>
