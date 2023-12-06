@@ -15,11 +15,13 @@ import StartChatModal from "./StartChatModal";
 import LoginModal from "./LoginModal";
 import SellProductModal from "./SellProductModal";
 import SuccessModal from "./SuccessModal";
+import WriteReviewModal from "./WriteReviewModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
 const SELLPRODUCT = "sellProduct";
 const SUCCESS = "success";
+const WRITEREVIEW = "writeReview";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -70,6 +72,9 @@ export default function Modal() {
                     modalStack[modalStack.length - 1]?.title ===
                     "Delete the information?"
                       ? "sm:w-2/6"
+                      : modalStack[modalStack.length - 1]?.title ===
+                        "write review modal"
+                      ? "lg:w-[45%] md:w-[55%] w-[80%]"
                       : "lg:w-[35%] md:w-[55%] w-[80%]"
                   }`}
                 >
@@ -100,6 +105,12 @@ export default function Modal() {
                       {modalStack[modalStack.length - 1]?.body ===
                         SENDOFFERMODAL && (
                         <SendOfferModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        WRITEREVIEW && (
+                        <WriteReviewModal
                           props={modalStack[modalStack.length - 1]?.props}
                         />
                       )}
