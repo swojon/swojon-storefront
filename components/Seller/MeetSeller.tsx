@@ -59,7 +59,8 @@ const MeetSeller = ({ seller }: { seller: any }) => {
 
         <Link
           href={`/seller/${seller?.id}`}
-          className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs bg-secondColor rounded-md text-white inline"
+          className= "lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs border border-activeColor text-activeColor rounded-md inline hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300"
+
         >
           View Profile
         </Link>

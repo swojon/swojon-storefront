@@ -159,7 +159,7 @@ export default function Navbar2({ border }: { border: any }) {
                   >
                     <FaRegBell
                       className={`text-lg  ${
-                        border === "border" ? "text-activeColor" : "text-white"
+                        border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     />
                     {/* <div
@@ -174,7 +174,7 @@ export default function Navbar2({ border }: { border: any }) {
                   <Link href="/chat">
                     <RiWechatLine
                       className={`text-2xl  ${
-                        border === "border" ? "text-activeColor" : "text-white"
+                        border === "border" ? "text-primaryColor" : "text-white"
                       }`}
                     />
                   </Link>
