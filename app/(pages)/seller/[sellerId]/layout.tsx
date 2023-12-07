@@ -55,7 +55,7 @@ const SellerProfile = ({
                   <h6 className="h-2 w-14 rounded-md bg-gray-300 animate-pulse"></h6>
                 )}
               </div>
-              <div className="flex items-center space-x-3 lg:hidden ">
+              {/* <div className="flex items-center space-x-3 lg:hidden ">
                 <div className="flex items-center space-x-1">
                   <Image src={ShareIcon} alt="share icon" />
                   <span className="text-sm text-primaryColor relative  leading-0 cursor">
@@ -63,7 +63,7 @@ const SellerProfile = ({
                     <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-primaryColor"></span>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
             <SellerCardLoader />
           </div>
@@ -86,7 +86,7 @@ const SellerProfile = ({
                 )}
                 <h6 className="">{seller?.username ?? seller?.email}</h6>
               </div>
-              <div className="flex items-center space-x-3 lg:hidden ">
+              {/* <div className="flex items-center space-x-3 lg:hidden ">
                 <div className="flex items-center space-x-1">
                   <Image src={ShareIcon} alt="share icon" />
                   <span className="text-sm text-primaryColor relative  leading-0 cursor">
@@ -94,7 +94,7 @@ const SellerProfile = ({
                     <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-primaryColor"></span>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <SellerProfileCard seller={seller} />
@@ -121,7 +121,7 @@ const SellerProfile = ({
                   </Link>
                 ))}
               </div>
-              <div className="lg:flex items-center space-x-3 hidden ">
+              {/* <div className="lg:flex items-center space-x-3 hidden ">
                 <div className="flex items-center space-x-1">
                   <Image src={ShareIcon} alt="share icon" />
                   <span className="text-sm text-primaryColor relative  leading-0 cursor">
@@ -129,7 +129,7 @@ const SellerProfile = ({
                     <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-primaryColor"></span>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
             {children}
           </div>

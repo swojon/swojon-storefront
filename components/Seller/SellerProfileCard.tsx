@@ -31,14 +31,16 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             {seller?.username ?? seller?.email}
           </h6>
 
-          <h6 className="lg:text-lg text-base text-[#08B66D]">
+          {/* <h6 className="lg:text-lg text-base text-[#08B66D]">
             Verified Seller
-          </h6>
+          </h6> */}
 
           <div className="flex space-x-1 items-center flex-wrap">
             <SellerReviewDropdown sellerId={seller?.id} />
-            <div className="flex items-center space-x-1">
-              <BsDot className="text-secondColor" />
+            
+          </div>
+          <div>
+          <div className="flex items-center space-x-1">
               <span className="text-sm">20 products</span>
             </div>
           </div>
@@ -55,19 +57,20 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
         </div> */}
         <div className="py-3 border-b flex lg:justify-start justify-between">
           <div className="lg:w-[30%] text-sm ">
-            <h6 className="text-secondColor">Email :</h6>
+            <h6 className="text-secondColor">Member Since :</h6>
           </div>
           <div className=" text-sm text-activeColor">
-            <h6 className="">{seller?.email}</h6>
+            <h6 className="">{"Jan 2023"}</h6>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
-          <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-            Send Message
-          </div>
+         
           <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
             Follow
+          </div>
+          <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+            Send Message
           </div>
         </div>
       </div>
@@ -98,20 +101,6 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
               Phone Number
             </span>
           </div>
-        </div>
-
-        <div className="space-y-3 ">
-          <h5 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
-            Description
-          </h5>
-          <p className=" lg:text-base md:text-sm text-xs text-secondColor">
-            A hotel is a commercial establishment that provides lodging, meals,
-            and other services to guests, travelers, and tourists. Hotels can
-            range from small family-run businesses to large international
-            chains. Most hotels list a variety services, such as room service,
-            laundry, and concierge. Some hotels also offer meeting and
-            conference facilities, fitness centers, spas.
-          </p>
         </div>
       </div>
     </div>
