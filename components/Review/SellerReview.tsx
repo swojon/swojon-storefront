@@ -11,6 +11,7 @@ import SummarySellerReview from "./SummarySellerReview";
 import FilterByStars from "./FilterByStars";
 import AppliedReviewFilters from "./AppliedReviewFilters";
 import { useSearchParams } from "next/navigation";
+import ReviewCardLoader from "../Loader/ReviewCardLoader";
 
 const SellerReview = ({ sellerId }: { sellerId: number }) => {
   const searchParams = useSearchParams();
@@ -41,9 +42,10 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
         </div>
       </div>
 
-      {loading && <p>Loading</p>}
       {!loading && (!reviews || reviews.length <= 0) && <p>No reviews Yet</p>}
       <div className="masonry-container">
+        {loading && <ReviewCardLoader />}
+
         {reviews &&
           reviews!.map((review) => (
             <ReviewDetailCard review={review} key={review.id} />
