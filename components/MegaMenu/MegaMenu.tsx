@@ -130,21 +130,18 @@ export default function MegaMenu({ border }: { border: any }) {
                       {loading && <MegamenuCategoryLoader />}
 
                       {currentCategory && (
-                        <div className="flex flex-wrap gap-5 py-4">
+                        <div className="flex flex-wrap gap-8 py-4">
                           {/* View All card */}
-                          <div className="w-20   ">
-                            <Link
-                              href={`/categories/${currentCategory.slug}`}
-                              className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-                            >
-                              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center relative hover:scale-105">
+                          <Link href={`/categories/${currentCategory.slug}`}>
+                            <div className=" w-[150px] rounded-lg relative   transition ease-in-out delay-150 duration-300">
+                              <div className="w-full h-[150px] overflow-hidden bg-gray-100 flex items-center justify-center relative hover:scale-105 rounded-md">
                                 <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
                               </div>
-                              <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                              <span className="pt-2 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
                                 <span className="truncate pr-1">View All</span>
                               </span>
-                            </Link>
-                          </div>
+                            </div>
+                          </Link>
 
                           {categories!
                             .filter(
@@ -152,12 +149,12 @@ export default function MegaMenu({ border }: { border: any }) {
                                 item.parentCategory?.id === currentCategory.id
                             )
                             .map((item: any) => (
-                              <div key={item.id} className="w-20   ">
-                                <Link
-                                  href={`/categories/${item.slug}`}
-                                  className=" lg:h-[260px] md:h-[200px] sm:h-[180px] h-[120px] rounded-lg relative    overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-                                >
-                                  <div className="w-full h-20  relative hover:scale-105">
+                              <Link
+                                key={item.id}
+                                href={`/categories/${item.slug}`}
+                              >
+                                <div className="w-[150px]  rounded-md relative      ">
+                                  <div className="w-full h-[150px] hover:scale-105 transition ease-in-out delay-150 duration-300 relative  rounded-md ">
                                     <Image
                                       src={
                                         item.banner ??
@@ -166,18 +163,18 @@ export default function MegaMenu({ border }: { border: any }) {
                                       height={300}
                                       width={300}
                                       alt="banner"
-                                      className="w-full h-full object-cover rounded-full "
+                                      className="w-full h-full object-cover rounded-md "
                                     />{" "}
-                                    <span className="absolute left-0 top-0 w-full h-full  rounded-full opacity-bg "></span>
+                                    <span className="absolute left-0 top-0 w-full h-full  rounded-md opacity-bg "></span>
                                   </div>
 
-                                  <span className="pt-1.5 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
+                                  <span className="pt-2 text-primaryColor text-sm font-medium  w-full flex justify-center items-center ">
                                     <span className="truncate pr-1">
                                       {item.name}
                                     </span>
                                   </span>
-                                </Link>
-                              </div>
+                                </div>
+                              </Link>
                             ))}
                         </div>
                       )}

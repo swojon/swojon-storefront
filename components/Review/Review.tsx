@@ -13,8 +13,12 @@ import "react-circular-progressbar/dist/styles.css";
 import RatingsLoader from "../Loader/RatingsLoader";
 import CircularProgressbarLoader from "../Loader/CircularProgressbarLoader";
 import ProgressBarLoader from "../Loader/ProgressBarLoader";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 const Review = () => {
+  const dispatch = useDispatch();
+
   const percentage = 66;
   return (
     <section className="space-y-9 ">
@@ -45,7 +49,17 @@ const Review = () => {
             <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3">
               See all Reviews
             </button>
-            <button className="border border-activeColor  text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3">
+            <button
+              onClick={() =>
+                dispatch(
+                  setModalOpen({
+                    title: "write review modal",
+                    body: "writeReview",
+                  })
+                )
+              }
+              className="border border-activeColor  text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3"
+            >
               Write a Review
             </button>
           </div>
