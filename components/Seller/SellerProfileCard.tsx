@@ -16,7 +16,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
       <div className=" rounded-md px-3 py-4 flex-1 lg:flex-none">
         <div className="h-24 w-24  rounded-full relative">
           <Image
-            src={seller?.profile?.avatar ?? icon1}
+            src={seller?.profile?.avatar ?? "/user1.jpg"}
             width={400}
             height={400}
             alt="user"
