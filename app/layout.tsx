@@ -5,6 +5,7 @@ import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
 import Footer from "../components/footer/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Session } from "next-auth";
 import { cookies, headers } from "next/headers";
 
@@ -73,10 +74,12 @@ export default async function RootLayout({ children }: Iprops) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        
         <ReduxProviders session={session}>
           {/* <NextAuthProvider session={session}> */}
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
+            <SpeedInsights />
               <NotificationDrawer />
               <ResNavbar />
 
