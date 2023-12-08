@@ -12,10 +12,11 @@ import FilterByStars from "./FilterByStars";
 import AppliedReviewFilters from "./AppliedReviewFilters";
 import { useSearchParams } from "next/navigation";
 import ReviewCardLoader from "../Loader/ReviewCardLoader";
+import { number } from "yup";
 
 const SellerReview = ({ sellerId }: { sellerId: number }) => {
   const searchParams = useSearchParams();
-  const starsFilter = searchParams.get("stars")?.split(",");
+  const starsFilter = searchParams.get("stars")?.split(",")?.map(m => parseInt(m));
   let filters = {};
   if (starsFilter && starsFilter.length > 0)
     filters = { ...filters, stars: starsFilter };

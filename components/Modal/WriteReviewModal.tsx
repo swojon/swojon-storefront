@@ -13,7 +13,7 @@ const review = [
   { id: 5, rating: "5", comment: "Great" },
 ];
 
-const WriteReviewModal = () => {
+const WriteReviewModal = ({props}: {props:any}) => {
   const dispatch = useDispatch();
   const [hoverStar, setHoverStar] = useState<any>(null);
   const [clickedStar, setClickedStar] = useState<any>(null);
