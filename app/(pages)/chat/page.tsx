@@ -1,3 +1,4 @@
+'use client';
 import ChatArea from "@/components/ChatComponents/ChatArea";
 import ChatLists from "@/components/ChatComponents/ChatLists";
 import React from "react";
@@ -6,9 +7,15 @@ import ResUserProfile from "@/components/ChatComponents/ResUserProfile";
 import { BsThreeDots } from "react-icons/bs";
 import { HiUsers } from "react-icons/hi2";
 import Image from "next/image";
+import { usePathname, useSearchParams } from "next/navigation";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const Chats = () => {
-  return (
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const expand = searchParams.get("expand")
+  const isMobile = useIsMobile()
+  if (!isMobile) return (
    <section className="h-full w-full relative border-l">
         <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center border-b">
           <div className="flex items-center gap-2">
@@ -41,8 +48,9 @@ const Chats = () => {
             Select chat to start a conversation
           </p>
         </div>
-      </section>
+    </section>
   );
+  else return <></>;
 };
 
 export default Chats;

@@ -156,24 +156,9 @@ const ProductCard = ({ card: listing }: { card: any }) => {
           {listing.user.username ?? listing.user.email}
         </span>
       </div>
-      {authState.isAuthenticated ? (
+      {/* {authState.isAuthenticated ? (
          
       <div className="px-2.5 pb-2.5 grid grid-cols-2 gap-2">
-        
-        <button
-          onClick={() =>
-            dispatch(
-              setModalOpen({
-                title: "this is a modal",
-                body: "chatModal",
-                props: { productId: listing.id, product: listing },
-              })
-            )
-          }
-          className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
-        >
-          Chat Now
-        </button>
         <button
           onClick={() =>
             dispatch(
@@ -188,12 +173,37 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         >
           Offer Price
         </button>
+        <button
+          onClick={() =>
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "chatModal",
+                props: { productId: listing.id, product: listing },
+              })
+            )
+          }
+          className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300"
+        >
+          Chat Now
+        </button>
       </div>
        
         ) : (
      
             <div className="px-2.5 pb-2.5  grid grid-cols-2 gap-2">
-             
+              <div className="relative" onClick={handleOfferPriceClick}>
+                <button className="border border-activeColor text-whiteColor bg-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
+                  Offer Price
+                </button>
+                {showOfferPriceTooltip && (
+                  <Link href="/signin" className="">
+                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 border bg-white text-primaryColor  left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
+                      Please <span className="underline">Sign In</span> first
+                    </span>
+                  </Link>
+                )}
+              </div>
 
               <div className="relative" onClick={handleChatNowClick}>
                 <button className="border border-activeColor text-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
@@ -207,21 +217,9 @@ const ProductCard = ({ card: listing }: { card: any }) => {
                   </Link>
                 )}
               </div>
-              <div className="relative" onClick={handleOfferPriceClick}>
-                <button className="border border-activeColor text-whiteColor bg-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
-                  Offer Price
-                </button>
-                {showOfferPriceTooltip && (
-                  <Link href="/signin" className="">
-                    <span className="absolute tooltip z-20 whitespace-nowrap -top-11 border bg-white text-primaryColor  left-[50%] p-2  -translate-x-1/2 text-xs rounded-md">
-                      Please <span className="underline">Sign In</span> first
-                    </span>
-                  </Link>
-                )}
-              </div>
             </div>
         
-        )}
+        )} */}
 
     </div>
   );
