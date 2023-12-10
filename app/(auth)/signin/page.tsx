@@ -205,7 +205,7 @@ const SignIn: NextPage = (): JSX.Element => {
               <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px]">
                 {" "}
                 Don’t have an account?{" "}
-                <Link href="/auth/signup">
+                <Link href="/signup">
                   <span className="text-activeColor">Sign up !</span>
                 </Link>
               </h6>

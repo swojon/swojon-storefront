@@ -96,10 +96,10 @@ const SignUpPage = () => {
 
             <form onSubmit={handleSubmit} className="lg:space-y-4 md:space-y-3 space-y-2 mx-auto pt-3">
               <div>
-                <h2 className="lg:text-2xl md:text-lg text-base font-semibold font-lexed">
+                <h2 className="lg:text-2xl md:text-2xl text-base font-semibold font-lexed">
                   Sign Up
                 </h2>
-                <p className="lg:text-base md:text-sm text-[10px] text-secondColor">
+                <p className="lg:text-md md:text-md text-sm text-secondColor">
                   Please enter your details.
                 </p>
               </div>
@@ -180,7 +180,7 @@ const SignUpPage = () => {
                 Sign up
               </button>
             </form>
-
+              {/* <p className="text-center pt-2">Or</p> */}
             <div className="space-y-2 pt-2">
               <Link
                 href="/"
