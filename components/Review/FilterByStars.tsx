@@ -1,3 +1,4 @@
+"use client"; 
 import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";

@@ -24,7 +24,11 @@ import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Swojon | Bangladesh's trusted marketplace",
+  metadataBase: new URL("https://www.swojon.com"),
+  title: {
+    default: "Swojon | Bangladesh's trusted marketplace",
+    template: "%s | Swojon"
+  },
   description:
     "Swojon is the perfect place to declutter your home and make some extra money, or to find the perfect used item at a fraction of the price of new",
 };

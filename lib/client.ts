@@ -30,6 +30,7 @@ const splitLink = split(
 //register apollo client
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({
+    ssrMode: typeof window === undefined,
     cache: new InMemoryCache(),
     link: splitLink ,
     credentials: 'include'

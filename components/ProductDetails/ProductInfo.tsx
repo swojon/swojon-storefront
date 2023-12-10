@@ -138,8 +138,8 @@ const ProductInfo = ({ product }: { product: any }) => {
             <div className="w-[30%]   text-secondColor">Category</div>
             <div className="w-[70%]  text-primaryColor">
               {product?.category?.parentCategory
-                ? `${product?.parentCategory?.name} > ${product?.category.name}`
-                : product?.category.name}
+                ? `${product?.parentCategory?.name} > ${product?.category?.name}`
+                : product?.category?.name}
             </div>
           </div>
 

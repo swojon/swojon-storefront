@@ -90,7 +90,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
     });
   };
   return (
-    <div className="rounded-2xl bg-whiteColor border border-[#EFEFEF] p-2.5 hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+    <div className="rounded-2xl bg-whiteColor border border-[#EFEFEF] hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[215px] h-[225px] relative overflow-hidden  rounded-t-xl rounded-b-sm">
         <Link href={`/products/${listing.id}`}>
           <Image
@@ -125,7 +125,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         
       </div>
 
-      <div className="pt-3  flex flex-row   items-center font-lexed ">
+      <div className=" px-2.5 pt-3 flex flex-row   items-center font-lexed ">
         <Link href={`/products/${listing.id}`} className="w-[63%] ">
           <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
             {listing.title}
@@ -136,14 +136,14 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         </span>
       </div>
 
-      <div className="flex items-center  text-secondColor pt-2">
+      <div className=" px-2.5 flex items-center  text-secondColor pt-2">
         <Image src={time} alt="time icon" />
         <span className="text-xs font-lexed ps-1">
           {timeAgo(listing.dateCreated)}
         </span>
       </div>
 
-      <div className="flex items-center md:space-x-2 space-x-1 md:py-4 py-3">
+      <div className="px-2.5 flex items-center md:space-x-2 space-x-1 md:py-4 py-3">
         <div className="w-7 h-7 rounded-full">
           <Image
             src={user}
@@ -151,14 +151,14 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="w-full h-full object-cover rounded-full"
           />
         </div>
-        <span className="text-xs text-secondColor ">Ad by</span>
+        {/* <span className="text-xs text-secondColor ">Ad by</span> */}
         <span className="text-primaryColor lg:text-base md:text-sm text-xs font-medium">
           {listing.user.username ?? listing.user.email}
         </span>
       </div>
-      {authState.isAuthenticated ? (
+      {/* {authState.isAuthenticated ? (
          
-      <div className="grid grid-cols-2 gap-2">
+      <div className="px-2.5 pb-2.5 grid grid-cols-2 gap-2">
         <button
           onClick={() =>
             dispatch(
@@ -191,7 +191,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
        
         ) : (
      
-            <div className="grid grid-cols-2 gap-2">
+            <div className="px-2.5 pb-2.5  grid grid-cols-2 gap-2">
               <div className="relative" onClick={handleOfferPriceClick}>
                 <button className="border border-activeColor text-whiteColor bg-activeColor rounded-lg py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 w-full">
                   Offer Price
@@ -219,7 +219,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
               </div>
             </div>
         
-        )}
+        )} */}
 
     </div>
   );

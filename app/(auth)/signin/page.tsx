@@ -193,7 +193,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 </span>
                 <span>Continue with Google</span>
               </button>
-              <Link
+              {/* <Link
                 href="/"
                 className="md:py-2 py-1.5 flex justify-center items-center space-x-2 border border-[#E6E6E6]  lg:text-sm md:text-xs text-[12px] text-primaryColor w-full rounded font-lexed"
               >
@@ -201,7 +201,7 @@ const SignIn: NextPage = (): JSX.Element => {
                   <FaApple />
                 </span>
                 <span>Continue with Apple</span>
-              </Link>
+              </Link> */}
               <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px]">
                 {" "}
                 Don’t have an account?{" "}
