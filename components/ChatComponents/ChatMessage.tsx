@@ -20,23 +20,24 @@ import { Waypoint } from "react-waypoint";
 const ChatMessage = ({
   sideProfile,
   setSideProfile,
-  chatRoom
+  chatRoom,
 }: {
   sideProfile: any;
   setSideProfile: any;
-  chatRoom: any
+  chatRoom: any;
 }) => {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
   const activeChat = chatRoom;
 
-  const { data, loading, error, subscribeToMore, fetchMore } = useGetChatMessageQuery({
-    variables: {
-      chatRoomId: activeChat?.id,
-      limit: 20,
-    },
-    skip: !activeChat,
-  })
+  const { data, loading, error, subscribeToMore, fetchMore } =
+    useGetChatMessageQuery({
+      variables: {
+        chatRoomId: activeChat?.id,
+        limit: 20,
+      },
+      skip: !activeChat,
+    });
 
   const more = () =>
     subscribeToMore({
@@ -63,8 +64,6 @@ const ChatMessage = ({
         });
       },
     });
-
- 
 
   // const chatMessages = activeChatWithMessages.find((chat) => chat.id === activeChat.id)
   // const messages = chatMessages?.messages;
@@ -97,14 +96,14 @@ const MessageAreaData = ({
   subscribeToMore,
   setSideProfile,
   sideProfile,
-  activeChat
+  activeChat,
 }: {
   data: GetChatMessageQuery;
-  fetchMore:any,
+  fetchMore: any;
   subscribeToMore: any;
   sideProfile: any;
   setSideProfile: any;
-  activeChat: any 
+  activeChat: any;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
@@ -147,8 +146,10 @@ const MessageAreaData = ({
           </div>
           <div className="pr-3 space-y-1">
             <h5 className="text-sm text-primaryColor font-lexed truncate">
-               {activeChat.members?.filter((crm : any ) => crm.userId !== authState.user.id )?.map((m: any ) => m.user?.username ?? m.user?.email).join(',')  ?? activeChat?.chatName }
-
+              {activeChat.members
+                ?.filter((crm: any) => crm.userId !== authState.user.id)
+                ?.map((m: any) => m.user?.username ?? m.user?.email)
+                .join(",") ?? activeChat?.chatName}
             </h5>
             <div className="flex items-center space-x-1">
               <span className=" right-0 bottom-0 w-2 h-2 rounded-full bg-green-400"></span>
@@ -165,72 +166,66 @@ const MessageAreaData = ({
         </button>
       </div>
       {/* Related Product State */}
-      {activeChat.relatedListing && 
-      <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
-        <div className="h-20 w-32 border rounded-md ">
-          <Image
-            src="/assets/pro2.png"
-            alt="product"
-            width={100}
-            height={100}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </div>
-        <div className="">
-          <h5 className="font-lexed text-primaryColor text-lg font-medium">
-            {activeChat.relatedListing?.title}
-          </h5>
-          {/* <div className="flex items-center space-x-1">
+      {activeChat.relatedListing && (
+        <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
+          <div className="h-20 w-32 border rounded-md ">
+            <Image
+              src="/assets/pro2.png"
+              alt="product"
+              width={100}
+              height={100}
+              className="w-full h-full object-cover rounded-md"
+            />
+          </div>
+          <div className="">
+            <h5 className="font-lexed text-primaryColor text-lg font-medium">
+              {activeChat.relatedListing?.title}
+            </h5>
+            {/* <div className="flex items-center space-x-1">
             <MdLocationPin className="text-activeColor" />
             <span className="block text-secondColor text-sm">
               Fatehpur, Hathazari, Chattogram
             </span>
           </div> */}
-          <span className="text-activeColor text-base font-lexed font-medium pt-1">
-            TK, {activeChat.relatedListing?.price}
-          </span>
+            <span className="text-activeColor text-base font-lexed font-medium pt-1">
+              TK, {activeChat.relatedListing?.price}
+            </span>
+          </div>
         </div>
-      </div>
-      }
+      )}
       <div
-        className=" chatBox px-3  flex items-end  w-full relative overflow-y-auto"
+        className={` px-3 mb-3 flex items-end  w-full relative overflow-y-auto scroll-hidden ${
+          activeChat.relatedListing ? "chatBox" : "chatBox2"
+        }`}
         ref={chatContainerRef}
       >
         <div className="max-h-full w-full space-y-3 ">
-          {data.listChatMessages.hasMore && 
-                                <Waypoint
-                                onEnter={() => {
-                                  fetchMore({
-                                    variables: {
-                                      limit: 20,
-                                      endingBefore:
-                                        messages![messages!.length - 1].id,
-                                    },
-                                    updateQuery: (
-                                      prev: any,
-                                      { fetchMoreResult }: any
-                                    ) => {
-                                      if (!fetchMoreResult.listChatMessages.items)
-                                        return prev;
-                                   
-                                      
-                                      return {
-                                        listChatMessages: {
-                                          ...prev.listChatMessages,
-                                          items: [
-                                            ...prev.listChatMessages.items,
-                                            ...fetchMoreResult.listChatMessages.items,
-                                          ],
-                                          hasMore:
-                                            fetchMoreResult.listChatMessages.hasMore
-                                        },
-                                      };
-                                    },
-                                  });
-                                }}
-                              />
-                       
-                        }
+          {data.listChatMessages.hasMore && (
+            <Waypoint
+              onEnter={() => {
+                fetchMore({
+                  variables: {
+                    limit: 20,
+                    endingBefore: messages![messages!.length - 1].id,
+                  },
+                  updateQuery: (prev: any, { fetchMoreResult }: any) => {
+                    if (!fetchMoreResult.listChatMessages.items) return prev;
+
+                    return {
+                      listChatMessages: {
+                        ...prev.listChatMessages,
+                        items: [
+                          ...prev.listChatMessages.items,
+                          ...fetchMoreResult.listChatMessages.items,
+                        ],
+                        hasMore: fetchMoreResult.listChatMessages.hasMore,
+                      },
+                    };
+                  },
+                });
+              }}
+            />
+          )}
           {messages.map((msg) => (
             <MessageDetail msg={msg} key={msg.id} />
           ))}
@@ -252,22 +247,8 @@ const MessageDetail = ({ msg }: { msg: any }) => {
             {msg.content}
           </span>
           <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
-          {timeAgo(msg.dateSent)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-          10  
-          56
+            {timeAgo(msg.dateSent)}
+            10 56
           </span>
         </div>
       </div>
@@ -290,7 +271,7 @@ const MessageDetail = ({ msg }: { msg: any }) => {
               {msg.content}
             </span>
             <span className="absolute left-0 -bottom-6 text-[#979696] text-xs block">
-            {timeAgo(msg.dateSent)}
+              {timeAgo(msg.dateSent)}
             </span>
           </div>
         </div>

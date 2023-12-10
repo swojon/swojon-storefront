@@ -32,7 +32,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
   }
 
   return (
-    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-auto relative">
+    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 overflow-y-hidden relative">
       <div className="flex justify-between items-center">
         <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
           Chat List
@@ -62,7 +62,7 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
         />
       </div>
 
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 h-full overflow-y-auto">
         {data?.listChatRooms.items &&
           data.listChatRooms.items.map((chatroom) => (
             <Link
@@ -90,7 +90,10 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
               <div className="lg:w-[82%] w-[88%] flex justify-between">
                 <div className="pr-3 space-y-1 w-[80%] ">
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate">
-                    {chatroom.members?.filter(crm => crm.userId !== authState.user.id )?.map(m => m.user?.username ?? m.user?.email).join(',')  ?? chatroom.chatName }
+                    {chatroom.members
+                      ?.filter((crm) => crm.userId !== authState.user.id)
+                      ?.map((m) => m.user?.username ?? m.user?.email)
+                      .join(",") ?? chatroom.chatName}
                   </h5>
                   <p className="text-xs text-primaryColor truncate">
                     {chatroom.messages!.slice(-1)[0]
@@ -100,9 +103,8 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
                 </div>
                 <div className="flex flex-col space-y-1 items-end justify-center w-[20%] ">
                   <span className="xl:text-xs text-[9px] truncate">
-                  {chatroom.messages!.slice(-1)[0] &&
-                   timeAgoNarrow(chatroom.messages!.slice(-1)[0].dateSent)
-                      }
+                    {chatroom.messages!.slice(-1)[0] &&
+                      timeAgoNarrow(chatroom.messages!.slice(-1)[0].dateSent)}
                   </span>
                   <span className="xl:w-4 w-3 xl:h-4 h-3 rounded-full bg-green-400 xl:text-xs text-[9px] text-white flex justify-center items-center">
                     2
@@ -111,7 +113,6 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
               </div>
             </Link>
           ))}
-
       </div>
     </section>
   );

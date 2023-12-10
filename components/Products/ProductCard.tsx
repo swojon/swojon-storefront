@@ -9,6 +9,10 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import { timeAgo } from "@/lib/helpers/timeAgo";
+import { IoMdTime } from "react-icons/io";
+import { TiUser } from "react-icons/ti";
+import { AiOutlineUser } from "react-icons/ai";
+import { CiStar } from "react-icons/ci";
 import {
   ListListingsDocument,
   useAddFavoriteMutation,
@@ -20,7 +24,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
   const authState = useSelector((state: any) => state.auth);
   const [showOfferPriceTooltip, setShowOfferPriceTooltip] = useState(false);
   const [showChatNowTooltip, setShowChatNowTooltip] = useState(false);
-  
+
   const handleOfferPriceClick = () => {
     setShowOfferPriceTooltip(!showOfferPriceTooltip);
     setShowChatNowTooltip(false);
@@ -90,8 +94,8 @@ const ProductCard = ({ card: listing }: { card: any }) => {
     });
   };
   return (
-    <div className="rounded-2xl bg-whiteColor border border-[#EFEFEF] hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[215px] h-[225px] relative overflow-hidden  rounded-t-xl rounded-b-sm">
+    <div className="rounded-2xl   cursor-pointer transition ease-in-out delay-150 duration-300">
+      <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg ">
         <Link href={`/products/${listing.id}`}>
           <Image
             src={
@@ -102,61 +106,63 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             width={500}
             height={500}
             alt="product banner"
-            className="h-full w-full object-cover rounded-t-xl rounded-b-sm hover:scale-110 transition ease-in-out delay-150 duration-300 "
+            className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
-        </Link> 
-         {authState.isAuthenticated && <>
-          {listing.favoriteStatus ? (
-          <div
-            onClick={() => handleFavoriteRemove(listing.id, authState.user.id)}
-            className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
-          >
-            <Image src={heartIconFilled} alt="heart icon filled" />
-          </div>
-        ) : (
-          <div
-            onClick={() => handleFavoriteAdd(listing.id, authState.user.id)}
-            className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
-          >
-            <Image src={heartIcon} alt="heart icon" />
-          </div>
-        )}
-         </>} 
-        
-      </div>
-
-      <div className=" px-2.5 pt-3 flex flex-row   items-center font-lexed ">
-        <Link href={`/products/${listing.id}`} className="w-[63%] ">
-          <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
-            {listing.title}
-          </h6>
         </Link>
-        <span className="text-activeColor  md:text-sm  text-sm w-[37%]  flex justify-end items-center truncate">
-          <span className="text-xs pe-0.5">TK,</span> {listing.price}
-        </span>
+        {authState.isAuthenticated && (
+          <>
+            {listing.favoriteStatus ? (
+              <div
+                onClick={() =>
+                  handleFavoriteRemove(listing.id, authState.user.id)
+                }
+                className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
+              >
+                <Image src={heartIconFilled} alt="heart icon filled" />
+              </div>
+            ) : (
+              <div
+                onClick={() => handleFavoriteAdd(listing.id, authState.user.id)}
+                className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
+              >
+                <Image src={heartIcon} alt="heart icon" />
+              </div>
+            )}
+          </>
+        )}
       </div>
 
-      <div className=" px-2.5 flex items-center  text-secondColor pt-2">
-        <Image src={time} alt="time icon" />
-        <span className="text-xs font-lexed ps-1">
-          {timeAgo(listing.dateCreated)}
-        </span>
-      </div>
-
-      <div className="px-2.5 flex items-center md:space-x-2 space-x-1 md:py-4 py-3">
-        <div className="w-7 h-7 rounded-full">
-          <Image
-            src={user}
-            alt="user"
-            className="w-full h-full object-cover rounded-full"
-          />
+      <div className="">
+        <div className="  pt-3 flex flex-row   items-center font-lexed justify-between">
+          <Link href={`/products/${listing.id}`} className="w-[63%] ">
+            <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
+              {listing.title}
+            </h6>
+          </Link>
+          <div className="flex gap-1  items-center">
+            <CiStar className="text-secondColor text-sm" />{" "}
+            <span className="text-secondColor text-sm">4.4</span>
+          </div>
         </div>
-        {/* <span className="text-xs text-secondColor ">Ad by</span> */}
-        <span className="text-primaryColor lg:text-base md:text-sm text-xs font-medium">
-          {listing.user.username ?? listing.user.email}
+
+        <div className="  flex items-center  text-secondColor ">
+          <IoMdTime className="text-xs " />
+          <span className="text-xs  ps-1">{timeAgo(listing.dateCreated)}</span>
+        </div>
+
+        <div className=" flex items-center   text-secondColor">
+          <AiOutlineUser className="text-xs" />
+          <span className="text-xs ps-1">
+            {listing.user.username ?? listing.user.email}
+          </span>
+        </div>
+
+        <span className="text-primaryColor  md:text-base  text-sm mt-1.5">
+          <span className="text-base pe-0.5">TK,</span> {listing.price}
         </span>
       </div>
-      {authState.isAuthenticated ? (
+
+      {/* {authState.isAuthenticated ? (
          
       <div className="px-2.5 pb-2.5 grid grid-cols-2 gap-2">
         
@@ -221,8 +227,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
               </div>
             </div>
         
-        )}
-
+        )} */}
     </div>
   );
 };

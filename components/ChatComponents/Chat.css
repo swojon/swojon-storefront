@@ -2,6 +2,10 @@
   max-height: calc(87vh - 245px);
   height: calc(87vh - 208px);
 }
+.chatBox2 {
+  max-height: calc(87vh - 149px);
+  height: calc(87vh - 149px);
+}
 
 .chatDefault {
   height: calc(100% - 56px);
@@ -9,4 +13,11 @@
 
 .chatBoxLoader {
   height: calc(87vh - 265px);
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  width: 4px;
+}
+.scroll-hidden::-webkit-scrollbar-thumb {
+  background: transparent;
 }
