@@ -8,7 +8,7 @@ import Footer from "../components/footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Session } from "next-auth";
 import { cookies, headers } from "next/headers";
-
+import {Toaster} from 'react-hot-toast';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -84,6 +84,7 @@ export default async function RootLayout({ children }: Iprops) {
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
             <SpeedInsights />
+            <Toaster />
               <NotificationDrawer />
               <ResNavbar />
 

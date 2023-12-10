@@ -1564,6 +1564,47 @@ export function useRemoveFollowMutation(baseOptions?: Apollo.MutationHookOptions
 export type RemoveFollowMutationHookResult = ReturnType<typeof useRemoveFollowMutation>;
 export type RemoveFollowMutationResult = Apollo.MutationResult<RemoveFollowMutation>;
 export type RemoveFollowMutationOptions = Apollo.BaseMutationOptions<RemoveFollowMutation, RemoveFollowMutationVariables>;
+export const SignupDocument = gql`
+    mutation Signup($userData: CreateUserDto!) {
+  signup(userData: $userData) {
+    email
+    facebookId
+    id
+    isEmailVerified
+    isStaff
+    profile {
+      firstName
+    }
+    username
+  }
+}
+    `;
+export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      userData: // value for 'userData'
+ *   },
+ * });
+ */
+export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, options);
+      }
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -3040,3 +3081,10 @@ export type RemoveFollowMutationVariables = Exact<{
 
 
 export type RemoveFollowMutation = { __typename?: 'Mutation', removeFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
+
+export type SignupMutationVariables = Exact<{
+  userData: CreateUserDto;
+}>;
+
+
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'User', email: string, facebookId?: string | null, id: number, isEmailVerified: boolean, isStaff: boolean, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null } | null } };

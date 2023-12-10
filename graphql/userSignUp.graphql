@@ -1,0 +1,13 @@
+mutation Signup($userData: CreateUserDto!) {
+  signup(userData: $userData) {
+    email
+    facebookId
+    id
+    isEmailVerified
+    isStaff
+    profile {
+      firstName
+    }
+    username
+  }
+}
