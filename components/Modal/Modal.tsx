@@ -16,12 +16,16 @@ import LoginModal from "./LoginModal";
 import SellProductModal from "./SellProductModal";
 import SuccessModal from "./SuccessModal";
 import WriteReviewModal from "./WriteReviewModal";
+import EditEmailModal from "./EditEmailModal";
+import EditNumberlModal from "./EditNumberlModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
 const SELLPRODUCT = "sellProduct";
 const SUCCESS = "success";
 const WRITEREVIEW = "writeReview";
+const EDITEMAIL = "editEmail";
+const EDITNUMBER = "editNumber";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -109,6 +113,18 @@ export default function Modal() {
                         />
                       )}
                       {modalStack[modalStack.length - 1]?.body ===
+                        EDITEMAIL && (
+                        <EditEmailModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        EDITNUMBER && (
+                        <EditNumberlModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
                         WRITEREVIEW && (
                         <WriteReviewModal
                           props={modalStack[modalStack.length - 1]?.props}
@@ -140,7 +156,7 @@ export default function Modal() {
                       {modalStack[modalStack.length - 1]?.body ? (
                         <></>
                       ) : (
-                        <div className=" w-full h-full  ">Empty</div>
+                        <div className=" w-full h-full  "></div>
                       )}
                     </div>
                   </div>

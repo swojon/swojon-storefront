@@ -1,10 +1,11 @@
 "use client";
 import { useGetUserByIdQuery } from "@/apollograph/generated";
+import { setModalOpen } from "@/app/redux/modalSlice";
 import EditPassword from "@/components/Profile/EditPassword";
 import EditUserName from "@/components/Profile/EditUserName";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
   const authState = useSelector((state: any) => state.auth);
@@ -17,6 +18,7 @@ const Profile = () => {
   const user = data?.getUserById;
 
   const [editBtn, setEditBtn] = useState("");
+  const dispatch = useDispatch();
 
   return (
     <section className="">
@@ -87,10 +89,20 @@ const Profile = () => {
               <span className="text-sm text-primaryColor font-lexed  block">
                 mousumi@gmail.com
               </span>
-              <small className="text-xs relative text-primaryColor  whitespace-nowrap cursor-pointer">
+              <button
+                onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "editEmail",
+                    })
+                  )
+                }
+                className="text-xs relative text-primaryColor  whitespace-nowrap cursor-pointer"
+              >
                 Edit
                 <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
-              </small>
+              </button>
             </div>
           </div>
 
@@ -102,10 +114,20 @@ const Profile = () => {
               <span className="text-sm text-primaryColor font-lexed  block">
                 Add phone number
               </span>
-              <small className="text-xs relative text-primaryColor  whitespace-nowrap cursor-pointer">
+              <button
+                onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "editNumber",
+                    })
+                  )
+                }
+                className="text-xs relative text-primaryColor  whitespace-nowrap cursor-pointer"
+              >
                 Add
                 <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
-              </small>
+              </button>
             </div>
           </div>
 

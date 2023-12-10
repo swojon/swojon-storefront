@@ -138,22 +138,22 @@ a {
 
 @media (max-width: 765px) {
   .custom-container {
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 }
-@media (max-width: 639px) {
+/* @media (max-width: 639px) {
   .custom-container {
-    padding-left: 15vw;
-    padding-right: 15vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 }
 @media (max-width: 425px) {
   .custom-container {
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
-}
+} */
 .masonry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

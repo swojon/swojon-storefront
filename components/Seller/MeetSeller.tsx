@@ -12,7 +12,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
       <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
         Meet the Seller
       </h6>
-      <div className="flex  flex-wrap  gap-2 justify-center items-start sm:justify-between pt-2">
+      <div className="flex  flex-wrap  gap-2 lg:justify-between md:justify-center justify-center items-start  sm:justify-between pt-2">
         <div className="flex gap-5 items-center">
           <Link href={`/seller/${seller?.id}`}>
             <div className="lg:h-24 lg:w-24 md:h-16 md:w-16 rounded-full">
@@ -59,8 +59,7 @@ const MeetSeller = ({ seller }: { seller: any }) => {
 
         <Link
           href={`/seller/${seller?.id}`}
-          className= "lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs border border-activeColor text-activeColor rounded-md inline hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300"
-
+          className="lg:px-3 lg:py-2 py-1 px-1.5 lg:text-sm text-xs border border-activeColor text-activeColor rounded-md sm:w-auto w-full hover:shadow-lg cursor-pointer transition ease-in-out delay-150 duration-300 text-center"
         >
           View Profile
         </Link>
