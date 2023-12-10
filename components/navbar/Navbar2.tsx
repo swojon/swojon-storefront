@@ -214,22 +214,6 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
-                        {/* {authState.isAuthenticated && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="#"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-1 text-sm text-gray-700"
-                                )}
-                              >
-                                user: {authState.user.username!}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        )} */}
-
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -243,35 +227,9 @@ export default function Navbar2({ border }: { border: any }) {
                             </Link>
                           )}
                         </Menu.Item>
-                        {/* <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block px-4 py-1.5 text-sm text-gray-700"
-                              )}
-                            >
-                              Followers
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700"
-                              )}
-                            >
-                              Following
-                            </Link>
-                          )}
-                        </Menu.Item> */}
 
                         <Menu.Item>
-                          <div className="my-2 border"></div>
+                          <div className="my-2 border border-t"></div>
                         </Menu.Item>
 
                         <Menu.Item>

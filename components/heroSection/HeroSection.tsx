@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import Navbar2 from "../navbar/Navbar2";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -24,26 +25,13 @@ const HeroSection = () => {
             <span>every purchase tells a story of style and savings.</span>
           </p>
 
-          {/* <div className="w-full sm:[250px] md:w-[270px] lg:w-[320px] xl:w-[350px] mx-auto">
-            <label htmlFor="search" className="sr-only">
-              Search
-            </label>
-            <div className="relative ">
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center  ">
-                <MagnifyingGlassIcon
-                  className="h-7 w-7  p-1.5 bg-activeColor text-white rounded-full mr-1 "
-                  aria-hidden="true"
-                />
-              </div>
-              <input
-                id="search"
-                name="search"
-                className="block w-full rounded-2xl border border-gray-300 bg-white py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-                placeholder="Search"
-                type="search"
-              />
-            </div>
-          </div> */}
+          <div>
+            <Link href="/upload-product">
+              <button className="py-2 px-4 bg-activeColor  rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md whitespace-nowrap">
+                List your product
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
