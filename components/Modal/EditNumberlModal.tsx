@@ -3,7 +3,7 @@ import React from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
-const EditNumberlModal = () => {
+const EditNumberlModal = ({props}: {props: any}) => {
   const dispatch = useDispatch();
   return (
     <section className="w-full h-full  space-y-3 lg:space-y-4 p-5 relative">
