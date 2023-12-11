@@ -16,7 +16,7 @@ function layout({ children }: Iprops) {
           <RxSlash />{" "}
           <span className="text-xs text-primaryColor">My Points</span>
         </div>
-        <div className="flex custom-container ">
+        <div className="flex custom-container  ">
           <div className="lg:w-[22%] ">
             <SideBar />
           </div>

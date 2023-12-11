@@ -15,11 +15,11 @@ const NotificationDrawer = () => {
   const isNotificationDrawerOpen = useSelector(
     (state: any) => state.notificationDrawer.open
   );
-  const [unreadOnly, setUnreadOnly] = useState(true)
+  const [unreadOnly, setUnreadOnly] = useState(true);
 
   return (
     <section
-      className={`fixed top-0 z-[1000]  w-full   transition delay-200 duration-700 ease-in-out h-screen flex justify-end
+      className={`fixed top-0 z-[1000]  w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end
        ${
          isNotificationDrawerOpen
            ? "translate-x-0  right-0 "
@@ -47,7 +47,10 @@ const NotificationDrawer = () => {
             <span className="text-xs text-secondColor pe-2">
               only show unread
             </span>{" "}
-            <NotificationToggle unreadOnly={unreadOnly} setUnreadOnly={setUnreadOnly} />
+            <NotificationToggle
+              unreadOnly={unreadOnly}
+              setUnreadOnly={setUnreadOnly}
+            />
           </div>
         </div>
 
@@ -68,63 +71,72 @@ const NotificationDrawer = () => {
 
         <div className="space-y-3 overflow-auto">
           {/* <h6 className="text-base font-lexed text-secondColor">Today</h6> */}
-    
+
           <NotificationList unreadOnly={unreadOnly} />
-                  
         </div>
       </div>
     </section>
   );
 };
 
-const NotificationList = ({unreadOnly}: {unreadOnly: any}) => {
+const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
   let unreadFilter;
 
   if (!unreadOnly) {
     unreadFilter = {
-      filters: null
-    }
-  }else{
+      filters: null,
+    };
+  } else {
     unreadFilter = {
       filters: {
-        unreadOnly: [true] 
-      }
-    }
+        unreadOnly: [true],
+      },
+    };
   }
 
-  const {data, loading, error } = useListNotificationsQuery({
-    variables:unreadFilter
-  })
-  const notifications = data?.listNotifications.items
+  const { data, loading, error } = useListNotificationsQuery({
+    variables: unreadFilter,
+  });
+  const notifications = data?.listNotifications.items;
 
-  return  (<>
-            {notifications && notifications.map(n => (
-              <div key={n.id} className="flex justify-between items-start gap-3 border-b pb-2">
-              <div className="w-80% flex items-start gap-3">
-                <div className="md:w-6 md:h-6 w-4 h-4 rounded-full ">
-                  <Image
-                    src="/user1.jpg"
-                    alt="user"
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                <div className="text-xs space-y-1.5">
-                  <p>n.content </p>
+  return (
+    <>
+      {notifications &&
+        notifications.map((n) => (
+          <div
+            key={n.id}
+            className="flex justify-between items-start gap-3 border-b pb-2"
+          >
+            <div className="w-80% flex items-start gap-3">
+              <div className="md:w-6 md:h-6 w-4 h-4 rounded-full ">
+                <Image
+                  src="/user1.jpg"
+                  alt="user"
+                  width={300}
+                  height={300}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+              <div className="text-xs space-y-1.5">
+                <p>n.content </p>
 
-                  {/* <div className="w-full py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
+                {/* <div className="w-full py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
                     this is great
                   </div> */}
-                  <span className="italic text-gray-400  block">{timeAgo(n.dateCreated)}</span>
-                </div>
+                <span className="italic text-gray-400  block">
+                  {timeAgo(n.dateCreated)}
+                </span>
               </div>
-              {!n.read && <GoDotFill className="text-activeColor" />} 
-              </div>
-          ))}
-          {loading && <p>Loading</p>}
-          {!loading && notifications?.length === 0 && <p>No {unreadOnly && "unread"} notifications</p> }
-  </>     )
-}
+            </div>
+            {!n.read && <GoDotFill className="text-activeColor" />}
+          </div>
+        ))}
+      {loading && <p>Loading</p>}
+      {!loading && notifications?.length === 0 && (
+        <p>No {unreadOnly && "unread"} notifications</p>
+      )}
+    </>
+  );
+};
 
 export default NotificationDrawer;
