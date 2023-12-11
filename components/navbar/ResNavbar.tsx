@@ -60,7 +60,7 @@ const ResNavbar = () => {
         className={`lg:[35%] md:w-[45%] w-[76%] sm:w-[65%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 `}
       >
         <button
-          className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-red-400"
+          className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-green-400"
           onClick={() => dispatch(setNavClose())}
         >
           <AiOutlineClose className="text-2xl" />
