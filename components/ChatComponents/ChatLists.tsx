@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
 
-const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
+const ChatLists = () => {
   const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const authState = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
@@ -37,13 +37,13 @@ const ChatLists = ({ setSideProfile }: { setSideProfile: any }) => {
         <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
           Chat List
         </h5>
-
+{/* 
         <div
           className=" text-primaryColor  cursor-pointer"
-          onClick={() => setSideProfile("")}
+          // onClick={() => setSideProfile("")}
         >
           <AiOutlineClose />
-        </div>
+        </div> */}
       </div>
 
       <div className="relative ">

@@ -1,10 +1,13 @@
+import useIsMobile from "@/lib/hooks/useIsMobile";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import {
   AiFillMessage,
   AiFillMinusCircle,
   AiOutlineClose,
 } from "react-icons/ai";
+import { HiArrowLeft } from "react-icons/hi2";
 import { MdLocalPhone } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import { useSelector } from "react-redux";
@@ -12,15 +15,37 @@ import { useSelector } from "react-redux";
 const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
   const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
   const authState = useSelector((state:any) => state.auth)
+  const isMobile = useIsMobile()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLeftArrowIconClick = () => {
+    if (isMobile) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.delete("expand")
+      !!params.toString() ? router.push(pathname + '?' + params.toString()) : router.push(pathname)
+    }
+  }
   console.log("active chat", activeChat)
   return (
     <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
+      {!isMobile && 
       <div
         className="absolute right-1 top-1 text-primaryColor  p-2 cursor-pointer"
-        onClick={() => setSideProfile("")}
+        onClick={() => setSideProfile(null)}
       >
         <AiOutlineClose />
       </div>
+      }
+      {isMobile &&  
+      <div
+        className="absolute p-2 top-2 left-2 border border-secondColor me-1 rounded-md block cursor-pointer "
+        onClick={handleLeftArrowIconClick}
+      >
+        <HiArrowLeft className="text-primaryColor" />
+      </div>}
+
       <div className="flex flex-col items-center space-y-3 border-b pb-4">
         <div className="w-14 h-14 rounded-full relative">
           <Image

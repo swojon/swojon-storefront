@@ -6,7 +6,7 @@ import {
 import { setUserProfileOpen } from "@/app/redux/userProfileSlice";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import { BsThreeDots } from "react-icons/bs";
+import { BsInfo, BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { HiUsers } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
@@ -16,6 +16,9 @@ import { timeAgo } from "@/lib/helpers/timeAgo";
 
 import ChatMessageLoader from "../Loader/ChatMessageLoader";
 import { Waypoint } from "react-waypoint";
+import useIsMobile from "@/lib/hooks/useIsMobile";
+import { HiArrowLeft, HiInformationCircle, HiOutlineInformationCircle } from "react-icons/hi2";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const ChatMessage = ({
   sideProfile,
@@ -110,6 +113,10 @@ const MessageAreaData = ({
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
   // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
+  const isMobile = useIsMobile();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname()
 
   // Function to keep the chat scroll at the bottom
   const scrollToBottom = () => {
@@ -124,17 +131,33 @@ const MessageAreaData = ({
   }, [data.listChatMessages.items]);
 
   const messages = data?.listChatMessages?.items.slice().reverse();
+  const handleInfoIconClick = () => {
+    if (isMobile) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set("expand", "info")
+      router.push(pathname + '?' + params.toString())
+  }else setSideProfile("profile")
+  }
 
+  const handleLeftArrowIconClick = () => {
+    if (isMobile) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set("expand", "list")
+      !!params.toString() ? router.push(pathname + '?' + params.toString()) : router.push(pathname)
+    }
+  }
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center ">
         <div className="flex items-center gap-2">
+          {isMobile && 
           <button
-            className="p-1.5 border border-activeColor me-1 rounded-md block "
-            onClick={() => setSideProfile("chatlist")}
+            className="p-1.5 border border-secondColor me-1 rounded-md block "
+            onClick={handleLeftArrowIconClick}
           >
-            <HiUsers className="text-primaryColor" />
+            <HiArrowLeft className="text-primaryColor" />
           </button>
+          }
 
           <div className="w-8 h-8 rounded-full ">
             <Image
@@ -158,10 +181,11 @@ const MessageAreaData = ({
         </div>
 
         <button
-          className="text-lg text-primaryColor cursor-pointer block "
-          onClick={() => setSideProfile("profile")}
+          // className="text-lg cursor-pointer block "
+          className="p-1.5 border border-secondColor me-1 rounded-md block "
+          onClick={handleInfoIconClick}
         >
-          <BsThreeDots />
+          <BsInfo />
         </button>
       </div>
       {/* Related Product State */}

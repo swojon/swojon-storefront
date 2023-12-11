@@ -8,7 +8,7 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const Chats = ({children}: {children:any}) => {
-    const [sideProfile, setSideProfile] = useState("chatlist");
+    // const [sideProfile, setSideProfile] = useState("chatlist");
     //ACTIVE DIV, CHATLIST, chat area, user detail/profile
     // sideProfile === chatlist: 
     // sideProfile === user detail :
@@ -34,13 +34,9 @@ const Chats = ({children}: {children:any}) => {
                 
                 {/* if the screen is not mobile or mobile + expand == list  */}
                     {(!isMobile ||  (expand === "list" || pathname === "/chat")) && 
-                    <div className={`xl:w-[25%] lg:w-[25%] w-full    h-full   ${
-                        sideProfile === "chatlist"
-                        ? "opacity-100"
-                        : " opacity-0 hidden pointer-events-none"
-                    }`}
+                    <div className={`xl:w-[25%] lg:w-[25%] w-full    h-full  `}
                     > 
-                        <ChatLists setSideProfile={setSideProfile} /> 
+                        <ChatLists /> 
                     </div> }
                 {children}
             </div>
