@@ -17,8 +17,13 @@ import { timeAgo } from "@/lib/helpers/timeAgo";
 import ChatMessageLoader from "../Loader/ChatMessageLoader";
 import { Waypoint } from "react-waypoint";
 import useIsMobile from "@/lib/hooks/useIsMobile";
-import { HiArrowLeft, HiInformationCircle, HiOutlineInformationCircle } from "react-icons/hi2";
+import {
+  HiArrowLeft,
+  HiInformationCircle,
+  HiOutlineInformationCircle,
+} from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import AdStartConversation from "./AdStartConversation";
 
 const ChatMessage = ({
   sideProfile,
@@ -115,7 +120,7 @@ const MessageAreaData = ({
   const isMobile = useIsMobile();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   // Function to keep the chat scroll at the bottom
   const scrollToBottom = () => {
@@ -132,31 +137,33 @@ const MessageAreaData = ({
   const messages = data?.listChatMessages?.items.slice().reverse();
   const handleInfoIconClick = () => {
     if (isMobile) {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set("expand", "info")
-      router.push(pathname + '?' + params.toString())
-  }else setSideProfile("profile")
-  }
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("expand", "info");
+      router.push(pathname + "?" + params.toString());
+    } else setSideProfile("profile");
+  };
 
   const handleLeftArrowIconClick = () => {
     if (isMobile) {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set("expand", "list")
-      !!params.toString() ? router.push(pathname + '?' + params.toString()) : router.push(pathname)
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("expand", "list");
+      !!params.toString()
+        ? router.push(pathname + "?" + params.toString())
+        : router.push(pathname);
     }
-  }
+  };
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center ">
         <div className="flex items-center gap-2">
-          {isMobile && 
-          <button
-            className="p-1.5 border border-secondColor me-1 rounded-md block "
-            onClick={handleLeftArrowIconClick}
-          >
-            <HiArrowLeft className="text-primaryColor" />
-          </button>
-          }
+          {isMobile && (
+            <button
+              className="p-1.5 border border-secondColor me-1 rounded-md block "
+              onClick={handleLeftArrowIconClick}
+            >
+              <HiArrowLeft className="text-primaryColor" />
+            </button>
+          )}
 
           <div className="w-8 h-8 rounded-full ">
             <Image
@@ -253,6 +260,9 @@ const MessageAreaData = ({
           {messages.map((msg) => (
             <MessageDetail msg={msg} key={msg.id} />
           ))}
+          <div className="w-full flex justify-end">
+            <AdStartConversation />
+          </div>
         </div>
       </div>
 
