@@ -132,35 +132,35 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         )}
       </div>
 
-      <div className="">
-        <div className="  pt-3 flex flex-row   items-center font-lexed justify-between">
-          <Link href={`/products/${listing.id}`} className="w-[63%] ">
+      <Link href={`/products/${listing.id}`} className="">
+        <div className="  pt-1 pb-1 flex flex-row   items-center font-lexed justify-between">
+          <div  className="w-[63%] ">
             <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
               {listing.title}
             </h6>
-          </Link>
-          <div className="flex gap-1  items-center">
+          </div>
+          {/* <div className="flex gap-1  items-center">
             <CiStar className="text-secondColor text-sm" />{" "}
             <span className="text-secondColor text-sm">4.4</span>
-          </div>
+          </div> */}
         </div>
 
-        <div className="  flex items-center  text-secondColor ">
+        <div className="pb-1  flex items-center  text-secondColor ">
           <IoMdTime className="text-xs " />
           <span className="text-xs  ps-1">{timeAgo(listing.dateCreated)}</span>
         </div>
 
-        <div className=" flex items-center   text-secondColor">
+        <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-xs" />
           <span className="text-xs ps-1">
             {listing.user.username ?? listing.user.email}
           </span>
         </div>
 
-        <span className="text-primaryColor  md:text-base  text-sm mt-1.5">
-          <span className="text-base pe-0.5">TK,</span> {listing.price}
+        <span className="text-primaryColor  md:text-base  text-md mt-1.5 font-medium">
+          <span className="text-xs pe-0.5">Tk </span> {listing.price}
         </span>
-      </div>
+      </Link>
 
       {/* {authState.isAuthenticated ? (
          

@@ -2,7 +2,7 @@ import { useListChatsQuery } from "@/apollograph/generated";
 import Image from "next/image";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ChatListsModal from "../Loader/ChatListsLoader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
@@ -12,8 +12,6 @@ import { usePathname } from "next/navigation";
 const ChatLists = () => {
   const authState = useSelector((state: any) => state.auth);
   const pathname = usePathname()
-
-  const dispatch = useDispatch();
   const { data, error, loading } = useListChatsQuery({
     variables: {
       userId: authState.user.id,
