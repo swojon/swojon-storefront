@@ -13,20 +13,20 @@
 }
 .resNav {
   height: 100vh;
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
   /* min-height: calc(
     100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0)
   ); */
 }
 
-@supports (-webkit-touch-callout: none) {
+/* @supports (-webkit-touch-callout: none) {
   .resNav {
-    /* for ios safari 15, safe-area-inset-bottom is 0, so a special fix apply here */
+    
     height: -webkit-fill-available;
   }
-}
-/* @media (max-width: 765px) {
+} */
+@media (max-width: 765px) {
   .resNav {
     height: 100dvh;
   }
-} */
+}
