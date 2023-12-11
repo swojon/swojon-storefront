@@ -48,7 +48,7 @@ const ResNavbar = () => {
 
   return (
     <div
-      className={`fixed top-0 z-[1000]  w-full h-screen  transition delay-200 duration-700 ease-in-out ${
+      className={`fixed top-0 z-[1000]  w-full  resNav  transition delay-200 duration-700 ease-in-out ${
         isNavOpen ? "translate-x-0   " : "-translate-x-full "
       }`}
     >

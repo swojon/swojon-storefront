@@ -11,3 +11,12 @@
   background: transparent;
   border-radius: 4px;
 }
+.resNav {
+  height: 100vh;
+}
+
+@media (max-width: 765px) {
+  .resNav {
+    height: 100svh;
+  }
+}
