@@ -13,9 +13,18 @@
 }
 .resNav {
   height: 100vh;
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
+  /* min-height: calc(
+    100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0)
+  ); */
 }
 
+/* @supports (-webkit-touch-callout: none) {
+  .resNav {
+    
+    height: -webkit-fill-available;
+  }
+} */
 @media (max-width: 765px) {
   .resNav {
     height: 100dvh;
