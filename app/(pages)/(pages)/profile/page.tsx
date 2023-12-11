@@ -27,7 +27,7 @@ const Profile = () => {
           Personal information
         </h6>
       </div>
-      <div className="px-5 py-4 space-y-3">
+      <div className="lg:px-5 md:px-3 px-1 lg:py-3.5 md:py-2.5 py-2 space-y-3">
         <div className="flex md:flex-raw flex-col md:justify-center lg:items-start md:items-center gap-3">
           <div className="flex flex-col lg:items-start items-center ">
             {/* <span className="text-primaryColor font-lexed lg:text-lg text-base  block pt-4">
@@ -43,7 +43,7 @@ const Profile = () => {
         </div>
 
         <div className="lg:w-[53%] w-full py-5 px-3 rounded-md space-y-4">
-          <div className="w-24 h-24 rounded-full border">
+          <div className="md:w-24 w-16 md:h-24 w-16 rounded-full border">
             <Image
               src="/userMale.png"
               alt="user"
@@ -52,7 +52,7 @@ const Profile = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="text-2xl text-primaryColor font-lexed font-medium block ">
+          <span className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-medium block ">
             Your personal information
           </span>
 
@@ -66,7 +66,7 @@ const Profile = () => {
             {editBtn === "username" ? (
               <EditUserName setEditBtn={setEditBtn} />
             ) : (
-              <div className="flex justify-between items-center gap-2">
+              <div className="flex flex-wrap justify-between items-center gap-2">
                 <span className="text-sm text-primaryColor font-lexed  block">
                   Mousumi akter
                 </span>
@@ -85,7 +85,7 @@ const Profile = () => {
             <span className="text-xs text-secondColor font-lexed  block">
               Email address
             </span>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex flex-wrap justify-between items-center gap-2">
               <span className="text-sm text-primaryColor font-lexed  block">
                 mousumi@gmail.com
               </span>
@@ -110,7 +110,7 @@ const Profile = () => {
             <span className="text-xs text-secondColor font-lexed  block">
               Phone number
             </span>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex flex-wrap justify-between items-center gap-2">
               <span className="text-sm text-primaryColor font-lexed  block">
                 Add phone number
               </span>
@@ -141,7 +141,7 @@ const Profile = () => {
             {editBtn === "password" ? (
               <EditPassword setEditBtn={setEditBtn} />
             ) : (
-              <div className="flex justify-between items-center gap-2">
+              <div className="flex flex-wrap justify-between items-center gap-2">
                 <span className="text-sm text-primaryColor font-lexed  block">
                   ••••••••
                 </span>

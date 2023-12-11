@@ -24,11 +24,20 @@ body {
   background-color: #ffffff;
   color: #000000;
   scroll-behavior: smooth;
+}
+html {
   height: -webkit-fill-available;
 }
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+}
+/* Avoid Chrome to see Safari hack */
+@supports (-webkit-touch-callout: none) {
+  body {
+    /* The hack for Safari */
+    height: -webkit-fill-available;
+  }
 }
 a {
   text-decoration: none;
@@ -142,8 +151,8 @@ a {
 
 @media (max-width: 765px) {
   .custom-container {
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
   }
 }
 /* @media (max-width: 639px) {

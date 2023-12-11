@@ -39,17 +39,17 @@ const data = [
 
 const SideBar = () => {
   const pathname = usePathname();
-  const {user} = useSelector((state: any) => state.auth);
+  const { user } = useSelector((state: any) => state.auth);
 
   return (
     <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
-      <div className="border-b  pb-3 px-3">
+      <div className="border-b  pb-3 sm:px-3 px-1">
         <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed">
           Hi, {user?.username ?? user?.email}
         </h6>
-        <span className="text-xs text-secondColor lg:leading-normal leading-snug">
+        <small className="sm:text-xs text-[10px] text-secondColor lg:leading-normal leading-none">
           Thanks for being a Swojon customer
-        </span>
+        </small>
       </div>
       <div className="py-5 border-b">
         {/* {data.map((item) => (
@@ -80,7 +80,7 @@ const SideBar = () => {
             <HiOutlineCurrencyDollar />
           </span>{" "}
           <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
-              Followers
+            Followers
           </span>
         </Link>
         <Link
@@ -95,7 +95,7 @@ const SideBar = () => {
             <HiOutlineCurrencyDollar />
           </span>{" "}
           <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
-              People you follow
+            People you follow
           </span>
         </Link>
         {/* <Link
