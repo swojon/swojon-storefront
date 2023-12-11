@@ -8,10 +8,13 @@ import ChatListsModal from "../Loader/ChatListsLoader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const ChatLists = () => {
   const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const authState = useSelector((state: any) => state.auth);
+  const pathname = usePathname()
+
   const dispatch = useDispatch();
   const { data, error, loading } = useListChatsQuery({
     variables: {
@@ -70,7 +73,7 @@ const ChatLists = () => {
               href={`/chat/${chatroom.id}`}
               key={`chatroom${chatroom.id}`}
               className={`xl:p-2 lg:p-1 p-2 w-full flex items-center  rounded-md border  hover:border-activeColor cursor-pointer ${
-                activeChat === chatroom.id
+                `/chat/${chatroom.id}` === pathname
                   ? "bg-gray-200 border-gray-300"
                   : "bg-white border-transparent"
               }`}
