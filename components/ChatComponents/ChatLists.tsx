@@ -1,5 +1,4 @@
 import { useListChatsQuery } from "@/apollograph/generated";
-import { setActiveChatRoom } from "@/app/redux/chatSlice";
 import Image from "next/image";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -11,7 +10,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ChatLists = () => {
-  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const authState = useSelector((state: any) => state.auth);
   const pathname = usePathname()
 
