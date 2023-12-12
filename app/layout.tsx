@@ -94,7 +94,7 @@ export default async function RootLayout({ children }: Iprops) {
 
             <Modal />
 
-            <Footer />
+            
           </ApolloWrapper>
           {/* </NextAuthProvider> */}
         </ReduxProviders>

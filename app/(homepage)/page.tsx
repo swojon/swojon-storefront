@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import { setCookie } from "cookies-next";
 import { redirect, useSearchParams, useRouter } from "next/navigation";
 import AppDownloadCTA from "@/components/AppDownloadCTA/AppDownloadCTA";
+import Footer from "@/components/footer/Footer";
 // import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
@@ -52,6 +53,8 @@ const Home: NextPage = () => {
       {/* <ActionBanner />
       <SellBuyArea /> */}
       {/* <AppDownloadCTA />  */}
+
+      <Footer/>
     </main>
   );
 };

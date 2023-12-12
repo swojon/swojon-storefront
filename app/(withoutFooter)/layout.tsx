@@ -11,7 +11,7 @@ function layout({ children }: Iprops) {
     <>
       <Navbar2 border="border" />
       {children}
-      <Footer />
+      
     </>
   );
 }

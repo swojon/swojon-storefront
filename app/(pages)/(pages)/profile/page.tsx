@@ -68,7 +68,7 @@ const Profile = () => {
             ) : (
               <div className="flex justify-between items-center gap-2">
                 <span className="text-sm text-primaryColor font-lexed  block">
-                  Mousumi akter
+                 {data?.getUserById.profile?.firstName}
                 </span>
                 <button
                   onClick={() => setEditBtn("username")}
