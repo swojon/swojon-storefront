@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import ChatArea from "@/components/ChatComponents/ChatArea";
 import ChatLists from "@/components/ChatComponents/ChatLists";
 import React from "react";
@@ -11,12 +11,13 @@ import { usePathname, useSearchParams } from "next/navigation";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const Chats = () => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const expand = searchParams.get("expand")
-  const isMobile = useIsMobile()
-  if (!isMobile) return (
-   <section className="h-full w-full relative border-l">
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const expand = searchParams.get("expand");
+  const isMobile = useIsMobile();
+  if (!isMobile)
+    return (
+      <section className="h-full w-full relative border-l">
         <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center border-b">
           <div className="flex items-center gap-2">
             <button
@@ -37,7 +38,7 @@ const Chats = () => {
         <div className=" chatDefault flex flex-col justify-center items-center">
           <div className="w-[75%] h-[60%] flex  justify-center items-center">
             <Image
-              src="/assets/textDefault.svg"
+              src="/assets/conversation.svg"
               alt="message"
               width={500}
               height={500}
@@ -48,8 +49,8 @@ const Chats = () => {
             Select chat to start a conversation
           </p>
         </div>
-    </section>
-  );
+      </section>
+    );
   else return <></>;
 };
 

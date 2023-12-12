@@ -129,7 +129,7 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
 
               {/* mobile hamburger button */}
-              <div className="flex items-center  gap-2">
+              <div className="flex items-center lg:hidden  gap-2">
                 {/* {authState.isAuthenticated && (
                  
                   <div
