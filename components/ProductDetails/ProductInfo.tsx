@@ -43,9 +43,9 @@ const ProductInfo = ({ product }: { product: any }) => {
         </div>
 
         <div className="flex space-x-1 items-center">
-          <div className="flex items-center ">
+          {/* <div className="flex items-center ">
             <ProductReviewDropdown listingId={product.id} />
-          </div>
+          </div> */}
         </div>
         {/* 
         <div className="flex space-x-1 items-center">

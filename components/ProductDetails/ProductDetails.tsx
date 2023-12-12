@@ -13,6 +13,7 @@ import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import Image from "next/image";
 import shareIcon from "@/public/assets/share.png";
 import saveIcon from "@/public/assets/heartIcon.png";
+import Link from "next/link";
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const { data, error, loading } = useGetListingQuery({
@@ -30,16 +31,22 @@ const ProductDetails = ({ productId }: { productId: number }) => {
           <BreadCrumbsLoader />
         ) : (
           <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
-            <h6 className="">Home</h6>
+            <Link href="/">
+                <h6 className="">Home</h6>
+            </Link>
             <MdKeyboardArrowRight />
             {product?.category?.parentCategory && (
               <>
-                <h6 className="">Categories</h6>
+                <Link href={`/categories/${product?.category?.parentCategory?.slug}`}>
+                    <h6 className="">{product.category.parentCategory.name}</h6>
+                  </Link>
                 <MdKeyboardArrowRight />
               </>
             )}
 
-            <h6 className="">{product?.category?.name}</h6>
+            <Link href={`/categories/${product?.category?.slug}`}>
+              <h6 className="">{product?.category?.name}</h6>
+            </Link>
             <MdKeyboardArrowRight />
             <h6 className="text-primaryColor capitalize">{product?.title}</h6>
           </div>
@@ -104,9 +111,9 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         </div>
       </div>
 
-      <div className="w-full  ">
+      {/* <div className="w-full  ">
         <Review />
-      </div>
+      </div> */}
 
       <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">

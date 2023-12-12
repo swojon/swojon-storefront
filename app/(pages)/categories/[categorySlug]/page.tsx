@@ -44,9 +44,13 @@ const CategoryDetail = ({ params }: { params: any }) => {
     <section className="custom-container py-10">
       <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
-          <h6 className="">Home</h6>
+          <Link href="/">
+                <h6 className="">Home</h6>
+            </Link>
           <MdKeyboardArrowRight />
+          <Link href={`/categories`}>
           <h6 className="">Categories</h6>
+          </Link>
           <MdKeyboardArrowRight />
           <h6 className="text-primaryColor capitalize">
             {params.categorySlug}
