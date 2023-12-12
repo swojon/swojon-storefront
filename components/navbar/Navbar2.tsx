@@ -119,9 +119,9 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
 
               {/* mobile hamburger button */}
-              <div className="flex items-center lg:hidden gap-2">
-                {authState.isAuthenticated && (
-                  // <NotificationDropDown border={border} />
+              <div className="flex items-center  gap-2">
+                {/* {authState.isAuthenticated && (
+                 
                   <div
                     className="relative cursor-pointer"
                     onClick={() => dispatch(setNotificationDrawerOpen())}
@@ -138,10 +138,10 @@ export default function Navbar2({ border }: { border: any }) {
                       <small className="leading-none"> 10</small>
                     </div>
                   </div>
-                )}
+                )} */}
                 <Disclosure.Button
                   onClick={() => dispatch(setNavOpen())}
-                  className={`inline-flex items-center justify-center rounded-md p-2    hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
+                  className={`inline-flex items-center justify-center rounded-md p-2     focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
                     border === "border" ? "  text-activeColor" : "text-white"
                   } `}
                 >
@@ -150,6 +150,7 @@ export default function Navbar2({ border }: { border: any }) {
                   <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 </Disclosure.Button>
               </div>
+
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2">
                 {authState.isAuthenticated && (
                   // <NotificationDropDown border={border} />
