@@ -11,6 +11,7 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
     const searchParams = useSearchParams()
     const pathname = usePathname()
     let expand = searchParams.get("expand")
+    console.log("Got expand", expand)
     if (!expand) expand = ""
 
     const isMobile = useIsMobile()
@@ -46,7 +47,7 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
                     </div>}
 
                     {(!isMobile || expand === "info") && 
-                    <div className={`xl:w-[35%] lg:w-[40%] w-full  h-full  transition-opacity ease-in-out delay-150 ${sideProfile === "profile"
+                    <div className={`xl:w-[35%] lg:w-[40%] w-full  h-full  transition-opacity ease-in-out delay-150 ${(isMobile || sideProfile === "profile")
                             ? "opacity-100"
                             : "opacity-0 hidden pointer-events-none"
                         }`}

@@ -27,7 +27,7 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
       !!params.toString() ? router.push(pathname + '?' + params.toString()) : router.push(pathname)
     }
   }
-  console.log("active chat", activeChat)
+  console.log("Loaded chat user info item")
   return (
     <div className="w-full h-full px-3 py-5 bg-white border-l overflow-y-auto sticky top-0   min-h-[70vh]">
       {!isMobile && 

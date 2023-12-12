@@ -27,14 +27,10 @@ const SignIn: NextPage = (): JSX.Element => {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setCookie("host", window.location.origin);
-    
-  }, []);
   // const redirect = searchParams.get("redirect") === "true";
   const redirect = true;
   const next_url = searchParams.get("next");
-  if (next_url) setCookie('next', next_url)
+  if (next_url) setCookie('next', next_url, {maxAge: 60 * 5 })
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // validate your userinfo
     e.preventDefault();
@@ -67,7 +63,7 @@ const SignIn: NextPage = (): JSX.Element => {
       console.log(data);
       // cookies().set('authorization', data["token"], {secure: true})
       dispatch(setAuthState(data));
-      setCookie("authorization", data.token, { secure: true });
+      setCookie("authorization", data.token, { secure: true, maxAge: 60 * 60 * 24 * 7 });
 
       if (redirect) router.push(next_url ? next_url : "/");
     }

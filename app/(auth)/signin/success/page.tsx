@@ -13,7 +13,7 @@ const SignInSuccess: NextPage = (): JSX.Element => {
     const redirect = searchParams.get("redirect")
     if (!!token){
     //   console.log("setting token to cookies", token)
-      setCookie('authorization', token, {secure:true })
+      setCookie('authorization', token, {secure:true, maxAge: 60*60*24*7 })
       router.push('/signin/success?redirect=1', {shallow: true })
       // window.location.reload()
       router.refresh()
