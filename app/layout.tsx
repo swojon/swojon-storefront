@@ -20,6 +20,7 @@ import { getCookie } from "cookies-next";
 import ResFilter from "@/components/FilterBar/ResFilter";
 import { store } from "./redux/store";
 import NotificationDrawer from "@/components/Notification/NotificationDrawer";
+import DynamicModal from "@/components/Modal/DynamicModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,7 +55,7 @@ async function getSession(): Promise<any> {
     );
 
     const session = await response.json();
-    console.log("Got Session", session);
+    // console.log("Got Session", session);
     return Object.keys(session).length > 0
       ? { user: session, token: cookies().get("authorization")?.value }
       : null;
@@ -71,7 +72,7 @@ export default async function RootLayout({ children }: Iprops) {
   // const headersList = headers();
   // const activePath = headersList.get("x-invoke-path");
 
-  console.log("Current URL", headers().get("cookie"));
+  // console.log("Current URL", headers().get("cookie"));
 
   const session: Session | null = await getSession();
 
@@ -93,6 +94,7 @@ export default async function RootLayout({ children }: Iprops) {
             </div>
 
             <Modal />
+            
 
             
           </ApolloWrapper>

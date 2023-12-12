@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";

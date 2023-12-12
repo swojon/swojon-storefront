@@ -43,7 +43,7 @@ const Profile = () => {
         </div>
 
         <div className="lg:w-[53%] w-full py-5 px-3 rounded-md space-y-4">
-          <div className="md:w-24 w-16 md:h-24 w-16 rounded-full border">
+          <div className="md:w-24 md:h-24 w-16 rounded-full border">
             <Image
               src="/userMale.png"
               alt="user"

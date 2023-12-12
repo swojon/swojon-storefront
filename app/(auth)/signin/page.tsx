@@ -1,5 +1,5 @@
 "use client";
-import { NextPage } from "next";
+import next, { NextPage } from "next";
 import { FormEventHandler, useEffect, useState } from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "@/app/redux/authSlice";
+import DynamicModal from "@/components/Modal/DynamicModal";
 // import { setCookie } from "cookies-next";
 
 interface Props {}
@@ -28,11 +29,12 @@ const SignIn: NextPage = (): JSX.Element => {
 
   useEffect(() => {
     setCookie("host", window.location.origin);
+    
   }, []);
   // const redirect = searchParams.get("redirect") === "true";
   const redirect = true;
   const next_url = searchParams.get("next");
-
+  if (next_url) setCookie('next', next_url)
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // validate your userinfo
     e.preventDefault();
@@ -78,13 +80,8 @@ const SignIn: NextPage = (): JSX.Element => {
       setUserInfo({ email: userInfo.email, password: e.target.value });
   };
   return (
-    <section className="fixed top-0 left-0 w-full min-h-screen h-full bg-white">
-      <div className=" w-full h-full flex items-center custom-container ">
-        <div className="lg:w-[50%] w-[35%] h-full md:flex   min-h-screen  items-center  relative hidden">
-          <div className="lg:w-2/3  lg:h-2/3 h-full m-auto">
-            <Image src={signin} alt="" className="w-full  h-full" />
-          </div>
-        </div>
+
+
         <div className=" bg-white lg:w-[50%] md:w-[75%] w-full">
           <div className="lg:px-24 md:px-16 ">
             <Link href="/" className="">
@@ -212,8 +209,7 @@ const SignIn: NextPage = (): JSX.Element => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+  
   );
 };
 
