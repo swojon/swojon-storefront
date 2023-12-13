@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 
 import ProductCard from "@/components/Products/ProductCard";
@@ -29,6 +29,7 @@ const Products = () => {
           {featuredProduct?.map((product) => (
             <ProductCard key={product.id} card={product} />
           ))}
+
           {loading && <ProductLoader />}
         </div>
       </div>

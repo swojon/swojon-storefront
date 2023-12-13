@@ -133,8 +133,8 @@ const ProductCard = ({ card: listing }: { card: any }) => {
       </div>
 
       <Link href={`/products/${listing.id}`} className="">
-        <div className="  pt-1 pb-1 flex flex-row   items-center font-lexed justify-between">
-          <div className="w-[70%] ">
+        <div className="  py-1 flex flex-row   items-center font-lexed justify-between">
+          <div className="w-[80%] ">
             <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
               {listing.title}
             </h6>

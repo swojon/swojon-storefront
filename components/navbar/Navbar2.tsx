@@ -107,7 +107,7 @@ export default function Navbar2({ border }: { border: any }) {
                   )}
                 </Link>
                 <div className="hidden  lg:flex items-center lg:gap-x-1 xl:gap-x-3">
-                  <div className="text-primaryColor inline-flex items-center border-b-2 border-transparent px-1  text-sm font-medium  font-lexed  hover:border-activeColor  leading-none">
+                  <div className=" ">
                     <MegaMenu border={border} />
                   </div>
                   <Link
