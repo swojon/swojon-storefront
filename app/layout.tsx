@@ -5,22 +5,23 @@ import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { NextAuthProvider } from "./providers";
 import Footer from "../components/footer/Footer";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Session } from "next-auth";
 import { cookies, headers } from "next/headers";
-import {Toaster} from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal/Modal";
-import ResNavbar from "@/components/navbar/ResNavbar";
+import ResNavbar from "@/components/navbar/ResNavbarDrawer";
 import { getCookie } from "cookies-next";
 import ResFilter from "@/components/FilterBar/ResFilter";
 import { store } from "./redux/store";
 import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 import DynamicModal from "@/components/Modal/DynamicModal";
+import ResNavbarDrawer from "@/components/navbar/ResNavbarDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.swojon.com"),
   title: {
     default: "Swojon | Bangladesh's trusted marketplace",
-    template: "%s | Swojon"
+    template: "%s | Swojon",
   },
   description:
     "Swojon is the perfect place to declutter your home and make some extra money, or to find the perfect used item at a fraction of the price of new",
@@ -79,24 +80,20 @@ export default async function RootLayout({ children }: Iprops) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        
         <ReduxProviders session={session}>
           {/* <NextAuthProvider session={session}> */}
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
-            <SpeedInsights />
-            <Toaster />
+              <SpeedInsights />
+              <Toaster />
               <NotificationDrawer />
-              <ResNavbar />
+              <ResNavbarDrawer />
 
               <ResFilter />
               {children}
             </div>
 
             <Modal />
-            
-
-            
           </ApolloWrapper>
           {/* </NextAuthProvider> */}
         </ReduxProviders>

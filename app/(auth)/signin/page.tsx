@@ -97,7 +97,7 @@ const SignIn: NextPage = (): JSX.Element => {
           onSubmit={handleSubmit}
         >
           <div>
-            <h2 className=" lg:text-2xl md:text-lg text-base font-semibold font-lexed">
+            <h2 className=" lg:text-2xl md:text-lg text-base font-semibold font-lexed text-primaryColor">
               Log in
             </h2>
             <p className=" md:text-sm text-[10px] text-secondColor pt-1">
@@ -156,7 +156,7 @@ const SignIn: NextPage = (): JSX.Element => {
                   aria-describedby="comments-description"
                   name="comments"
                   type="checkbox"
-                  className="md:h-4 h-2.5 md:w-4 w-2.5 rounded border-gray-200 text-indigo-600 focus:ring-indigo-500"
+                  className="md:h-4 h-2.5 md:w-4 w-2.5 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
                 />
               </div>
               <label

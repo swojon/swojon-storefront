@@ -18,7 +18,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import NotificationContent from "../Notification/NotificationContent";
 
-const ResNavbar = () => {
+const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
   const isNavOpen = useSelector((state: any) => state.nav.open);
   const { data, loading, error } = useListCategoriesQuery();
@@ -232,4 +232,4 @@ const ResNavbar = () => {
   );
 };
 
-export default ResNavbar;
+export default ResNavbarDrawer;

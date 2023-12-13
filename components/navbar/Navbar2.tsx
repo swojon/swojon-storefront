@@ -24,42 +24,46 @@ import { IoLogoWechat } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import ResponsiveNavBar from "./ResponsiveNavBar";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 const handleSignOut = () => {
-  console.log("signing out")
-  toast.loading("signing you out", {id: "signInToast"})
+  console.log("signing out");
+  toast.loading("signing you out", { id: "signInToast" });
   // dispatch(setUserLogout(true));
   deleteCookie("authorization");
-  toast.success("Signed out", {id: "signInToast"})
-  window.location.reload()
+  toast.success("Signed out", { id: "signInToast" });
+  window.location.reload();
 };
 
 export default function Navbar2({ border }: { border: any }) {
-  const router = useRouter()
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
-  
-  
+
   console.log("session", user);
   return (
     <Disclosure
       as="nav"
-      className={` py-1 px-[2vw]  ${
+      className={` px-[2vw]  ${
         border === "border" ? "border-b border-[#E6E6E6]" : "border-0"
       }`}
     >
       {({ open }) => (
         <>
           <div className=" ">
-            <div className="flex h-16 justify-between gap-2 items-center ">
+            <div className="w-full lg:hidden">
+              {/* mobile navbar */}
+              <ResponsiveNavBar border={border} handleSignOut={handleSignOut} />
+            </div>
+            <div className="lg:flex h-16 justify-between gap-2 items-center hidden">
               <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center ">
                 <Link
                   href="/"
-                  className={`   lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
+                  className={`  lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
                 >
                   {border === "border" ? (
                     <Image
@@ -82,7 +86,7 @@ export default function Navbar2({ border }: { border: any }) {
 
                 <Link
                   href="/"
-                  className={`font-lexed text-activeColor font-semibold xl:text-2xl lg:text-lg text-base  md:w-10 w-10 h-9  justify-center items-center lg:mr-1 xl:mr-3.5  lg:hidden`}
+                  className={` md:w-10 w-10 h-9  justify-center items-center lg:mr-1 xl:mr-3.5  lg:hidden`}
                 >
                   {border === "border" ? (
                     <Image
@@ -124,41 +128,8 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link> */}
                 </div>
               </div>
-              <div className={`xl:w-[47%] lg:w-[45%]   w-full `}>
+              <div className={`xl:w-[47%] lg:w-[45%] hidden lg:block  w-full `}>
                 <SearchField />
-              </div>
-
-              {/* mobile hamburger button */}
-              <div className="flex items-center lg:hidden  gap-2">
-                {/* {authState.isAuthenticated && (
-                 
-                  <div
-                    className="relative cursor-pointer"
-                    onClick={() => dispatch(setNotificationDrawerOpen())}
-                  >
-                    <FaRegBell
-                      className={`text-lg  ${
-                        border === "border" ? "text-activeColor" : "text-white"
-                      }`}
-                    />
-                    <div
-                      className="absolute -top-2 -right-1 bg-white border w-4
-                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
-                    >
-                      <small className="leading-none"> 10</small>
-                    </div>
-                  </div>
-                )} */}
-                <Disclosure.Button
-                  onClick={() => dispatch(setNavOpen())}
-                  className={`inline-flex items-center justify-center rounded-md p-2     focus:outline-none focus:ring-2 focus:ring-inset focus:ring-activeColor ${
-                    border === "border" ? "  text-activeColor" : "text-white"
-                  } `}
-                >
-                  <span className="sr-only">Open main menu</span>
-
-                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                </Disclosure.Button>
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2">
