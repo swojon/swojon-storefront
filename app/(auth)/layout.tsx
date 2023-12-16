@@ -2,10 +2,9 @@
 import React, { useEffect } from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
-import Link from "next/link";
+import "./signInUp.css";
 
-
-const AuthLayout = ({children}: {children: any}) => {
+const AuthLayout = ({ children }: { children: any }) => {
   return (
     <section className="fixed top-0 left-0 w-full min-h-screen h-full bg-white">
       <div className="  w-full h-full flex items-center custom-container">
@@ -23,9 +22,8 @@ const AuthLayout = ({children}: {children: any}) => {
             />
           </div> */}
         </div>
-        
-                {children}
-         
+
+        {children}
       </div>
     </section>
   );

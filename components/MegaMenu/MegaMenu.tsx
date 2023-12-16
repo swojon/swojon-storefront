@@ -70,7 +70,7 @@ export default function MegaMenu({ border }: { border: any }) {
                   )}
                 >
                   <span
-                    className={`${
+                    className={`inline-flex items-center border-b-2 border-transparent px-1 xl:text-sm text-xs font-medium  font-lexed  hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >

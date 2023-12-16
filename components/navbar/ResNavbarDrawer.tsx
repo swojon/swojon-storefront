@@ -18,7 +18,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import NotificationContent from "../Notification/NotificationContent";
 
-const ResNavbar = () => {
+const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
   const isNavOpen = useSelector((state: any) => state.nav.open);
   const { data, loading, error } = useListCategoriesQuery();
@@ -60,7 +60,7 @@ const ResNavbar = () => {
         className={`lg:[35%] md:w-[45%] w-[76%] sm:w-[65%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 `}
       >
         <button
-          className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-green-400"
+          className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-white"
           onClick={() => dispatch(setNavClose())}
         >
           <AiOutlineClose className="text-2xl" />
@@ -90,7 +90,7 @@ const ResNavbar = () => {
                 key={item.id}
                 onClick={() => handleMouseEnter(item)}
               >
-                <div className="grid grid-cols-3 items-center gap-5 w-[90%] ">
+                <div className="grid grid-cols-3 items-center  w-[90%] ">
                   <div className="lg:h-16 lg:w-16 md:h-12 md:w-12 h-12 w-12 rounded-full border ">
                     <Image
                       src={item.banner ?? ""}
@@ -107,12 +107,12 @@ const ResNavbar = () => {
                   </span>
                 </div>
 
-                <MdKeyboardArrowRight className="text-sm text-gray-400" />
+                <MdKeyboardArrowRight className="text-lg text-gray-400" />
               </div>
             ))}
           </div>
 
-          <div className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
+          <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
             </Link>
@@ -136,7 +136,7 @@ const ResNavbar = () => {
             <Link href="/profile" onClick={() => dispatch(setNavClose())}>
               <FaRegUser className="text-2xl" />
             </Link>
-          </div>
+          </footer>
         </div>
 
         <div
@@ -232,4 +232,4 @@ const ResNavbar = () => {
   );
 };
 
-export default ResNavbar;
+export default ResNavbarDrawer;
