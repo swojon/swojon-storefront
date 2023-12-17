@@ -72,7 +72,7 @@ const SignUpPage = () => {
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full ">
       <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-6">
-        {/* <Link href="/" className="">
+        <Link href="/" className="">
           <Image
             src="/assets/swojon.svg"
             width={100}
@@ -165,8 +165,8 @@ const SignUpPage = () => {
           <Link href="">
             <span className="text-xs capitalize text-activeColor">help</span>
           </Link>
-        </div> */}
-        <EmailSignUp />
+        </div>
+        {/* <EmailSignUp /> */}
       </div>
     </div>
   );

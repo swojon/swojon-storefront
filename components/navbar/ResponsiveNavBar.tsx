@@ -9,6 +9,7 @@ import { Fragment } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoChatbubbleOutline } from "react-icons/io5";
+import { RiWechatLine } from "react-icons/ri";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -35,11 +36,11 @@ const ResponsiveNavBar = ({
           <HiOutlineBars3CenterLeft className="text-2xl" />
         </button>
 
-        <IoChatbubbleOutline
+        {/* <IoChatbubbleOutline
           className={`text-lg ${
             border === "border" ? "  text-primaryColor" : "text-white"
           } `}
-        />
+        /> */}
       </div>
 
       <Link href="/" className="sm:w-[14%] w[-20%] flex justify-center">
@@ -70,8 +71,8 @@ const ResponsiveNavBar = ({
             border === "border" ? "  text-primaryColor" : "text-white"
           } `}
         />
-        <FaRegHeart
-          className={`text-lg ${
+        <RiWechatLine
+          className={`text-xl ${
             border === "border" ? "  text-primaryColor" : "text-white"
           } `}
         />

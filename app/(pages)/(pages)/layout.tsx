@@ -17,7 +17,7 @@ function layout({ children }: Iprops) {
           <span className="text-xs text-primaryColor">My Points</span>
         </div>
         <div className="flex custom-container  ">
-          <div className="lg:w-[22%] ">
+          <div className="lg:w-[22%] md:w-[20%] ">
             <SideBar />
           </div>
 
