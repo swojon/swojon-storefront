@@ -65,21 +65,8 @@ const EmailSignUp = () => {
     },
   });
   return (
-    <div className="flex flex-col items-center w-full">
-      <Link href="/" className="">
-        <Image
-          src="/assets/swojon.svg"
-          width={100}
-          height={500}
-          alt="logo"
-          className="lg:w-[90px] md:w-20 w-16  "
-        />
-      </Link>
+   
       <form className="lg:space-y-5 md:space-y-3 space-y-2 mx-auto pt-5 w-full">
-        <h2 className="text-center lg:text-2xl md:text-lg text-base text-primaryColor font-semibold font-lexed">
-          Sign Up
-        </h2>
-
         <div>
           <label
             htmlFor="name"
@@ -156,35 +143,7 @@ const EmailSignUp = () => {
         </button>
       </form>
 
-      <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-4">
-        already have an account !{" "}
-        <Link href="/signin">
-          <span className="text-activeColor">Login</span>
-        </Link>
-      </h6>
 
-      <div className="flex items-center gap-3 cursor-pointer pt-7">
-        <Link href="">
-          <span className="text-xs capitalize text-activeColor">
-            privacy policy
-          </span>
-        </Link>
-
-        <BsDot className="text-secondColor" />
-
-        <Link href="">
-          <span className="text-xs capitalize text-activeColor">
-            terms & condition
-          </span>
-        </Link>
-
-        <BsDot className="text-secondColor" />
-
-        <Link href="">
-          <span className="text-xs capitalize text-activeColor">help</span>
-        </Link>
-      </div>
-    </div>
   );
 };
 

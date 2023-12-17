@@ -10,7 +10,7 @@ import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "@/app/redux/authSlice";
-import { FaGoogle, FaFacebookF, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaGoogle, FaFacebookF, FaRegEye, FaRegEyeSlash, FaFacebookSquare } from "react-icons/fa";
 import DynamicModal from "@/components/Modal/DynamicModal";
 // import { setCookie } from "cookies-next";
 
@@ -81,8 +81,8 @@ const SignIn: NextPage = (): JSX.Element => {
   };
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full">
-      <div className="lg:px-24 md:px-16 ">
-        <Link href="/">
+      <div className="lg:px-24 md:px-16  ">
+        <Link href="/" >
           <Image
             src="/assets/swojon.svg"
             width={100}
@@ -96,7 +96,7 @@ const SignIn: NextPage = (): JSX.Element => {
           className="lg:space-y-4 md:space-y-3 space-y-2 mx-auto pt-3"
           onSubmit={handleSubmit}
         >
-          <div>
+          <div className="text-center">
             <h2 className=" lg:text-2xl md:text-lg text-base font-semibold font-lexed text-primaryColor">
               Log in
             </h2>
@@ -138,7 +138,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 id="password"
                 onChange={handleChange}
                 className="block w-full rounded-md border border-gray-200 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor lg:py-2.5 md:py-2 py-1 pl-2 pr-10 sm:text-sm text-xs"
-                placeholder=""
+                placeholder="Enter your password"
               />
 
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer">
@@ -168,7 +168,7 @@ const SignIn: NextPage = (): JSX.Element => {
             </div>
 
             <Link
-              href="/"
+              href="/forgot-password"
               className="lg:text-sm md:text-xs text-[10px] text-activeColor"
             >
               Forgot password
@@ -189,8 +189,8 @@ const SignIn: NextPage = (): JSX.Element => {
           </span>
         </div>
 
-        <div className="flex items-center justify-center gap-4 ">
-          <button
+        <div className="justify-center gap-4 ">
+          {/* <button
             onClick={handleGoogleClick}
             className=" py-2 px-2 flex justify-center items-center  border border-red-500   text-primaryColor rounded-full "
           >
@@ -202,7 +202,25 @@ const SignIn: NextPage = (): JSX.Element => {
             className=" py-2 px-2 flex justify-center items-center  border border-blue-700   text-primaryColor rounded-full "
           >
             <FaFacebookF className="lg:text-sm md:text-xs text-[12px] text-blue-700" />
-          </button>
+          </button> */}
+          <div className="mb-2 flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer" onClick={handleGoogleClick}>
+            <span className="w-[30%]">
+              <FcGoogle className="float-right text-lg" />
+            </span>
+            <span className="text-sm text-secondColor">
+              Continue with Google
+            </span>
+          </div>
+
+          <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
+            <span className="w-[30%] ">
+              <FaFacebookSquare className="float-right  text-blue-600 text-lg" />
+            </span>
+
+            <span className="text-sm text-secondColor">
+              Continue with Facebook
+            </span>
+          </div>
           {/* <Link
                 href="/"
                 className="md:py-2 py-1.5 flex justify-center items-center space-x-2 border border-[#E6E6E6]  lg:text-sm md:text-xs text-[12px] text-primaryColor w-full rounded font-lexed"

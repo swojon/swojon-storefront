@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare, FaRegEnvelope } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import EmailSignUp from "@/components/SignUp/EmailSignUp";
+import { AiOutlineBackward } from "react-icons/ai";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const formSchema = Yup.object({
   username: Yup.string().min(5).required("Username is required"),
@@ -20,6 +22,7 @@ const formSchema = Yup.object({
 });
 
 const SignUpPage = () => {
+  const [isEmailPreferred, setIsEmailPreferred] = useState(false)
   useEffect(() => {
     setCookie("host", window.location.origin);
   }, []);
@@ -64,7 +67,7 @@ const SignUpPage = () => {
         toast.success(
           "Sign Up successfull. Please login to your account to continue"
         );
-        window.location.replace("/signin");
+        window.location.replace("/login");
       }
     },
   });
@@ -72,7 +75,7 @@ const SignUpPage = () => {
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full ">
       <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-6">
-        {/* <Link href="/" className="">
+        <Link href="/" className="">
           <Image
             src="/assets/swojon.svg"
             width={100}
@@ -82,15 +85,22 @@ const SignUpPage = () => {
           />
         </Link>
 
-        <div className="text-center space-y-1">
+        <div className="space-y-1">
+          <div className="flex justify-between">
+            <div>
+                {isEmailPreferred &&  <button onClick={() => setIsEmailPreferred(false)}> <ArrowLeftIcon className="h-4 w-4"/></button> }
+              </div>
           <h2 className=" lg:text-2xl md:text-lg text-base text-primaryColor font-semibold font-lexed">
             Sign Up
           </h2>
+          <div></div>
+          </div>
+          
           <p className=" md:text-sm text-[10px] text-secondColor pt-1">
             Welcome back! Please enter your details.
           </p>
         </div>
-
+        {!isEmailPreferred && 
         <div className="space-y-2.5 w-full">
           <div className="flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%]">
@@ -111,7 +121,7 @@ const SignUpPage = () => {
             </span>
           </div>
 
-          <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
+          <div onClick={() => setIsEmailPreferred(true)} className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%]">
               <FaRegEnvelope className="float-right text-activeColor text-lg" />
             </span>
@@ -120,30 +130,16 @@ const SignUpPage = () => {
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-2 px-2  rounded-md w-full">
-            <span className="lg:text-sm md:text-xs text-[10px] text-secondColor">
-              Log in
-            </span>
-
-            <div className="flex items-center space-x-2 ">
-              <div className="flex h-5 items-center">
-                <input
-                  id="comments"
-                  aria-describedby="comments-description"
-                  name="comments"
-                  type="checkbox"
-                  className="md:h-4 h-2.5 md:w-4 w-2.5 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
-                />
-              </div>
-              <label
-                htmlFor="comments"
-                className="text-secondColor lg:text-sm md:text-xs text-[10px]"
-              >
-                Accept Terms & Conditions
-              </label>
-            </div>
-          </div>
-        </div>
+         
+          <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-5">
+          {" "}
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="text-activeColor">Log In!</span>
+          </Link>
+        </h6>
+        </div>}
+        {isEmailPreferred && <EmailSignUp /> }
 
         <div className="flex items-center gap-3 cursor-pointer pt-7">
           <Link href="">
@@ -165,8 +161,8 @@ const SignUpPage = () => {
           <Link href="">
             <span className="text-xs capitalize text-activeColor">help</span>
           </Link>
-        </div> */}
-        <EmailSignUp />
+        </div>
+        
       </div>
     </div>
   );

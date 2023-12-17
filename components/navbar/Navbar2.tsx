@@ -261,7 +261,7 @@ export default function Navbar2({ border }: { border: any }) {
                 )}
 
                 {authState.isAuthenticated === false && (
-                  <Link href="/signin">
+                  <Link href="/login">
                     <button
                       className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border" ? "text-primaryColor" : "text-white"
