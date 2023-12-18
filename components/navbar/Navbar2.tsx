@@ -1,30 +1,22 @@
 "use client";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import MegaMenu from "../MegaMenu/MegaMenu";
-import { PiChatsCircleFill } from "react-icons/pi";
-import user from "@/public/user1.jpg";
+// import user from "@/public/user1.jpg";
+import defaultAvatar from '@/public/assets/avatar.svg'
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { setNavOpen } from "@/app/redux/navSlice";
-import { useSession } from "next-auth/react";
-import { CiLogin } from "react-icons/ci";
-import { setUserLogout } from "@/app/redux/authSlice";
 import { deleteCookie } from "cookies-next";
 import SearchField from "../SearchField/SearchField";
-import burgerIcon from "@/public/assets/nav-hamburger.png";
-import { setModalOpen } from "@/app/redux/modalSlice";
-import NotificationDropDown from "../Notification/NotificationDropDown";
 import { FaRegBell } from "react-icons/fa";
 import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
-import { IoLogoWechat } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import ResponsiveNavBar from "./ResponsiveNavBar";
+import { RxAvatar } from "react-icons/rx";
+import { GoPerson } from "react-icons/go";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -44,7 +36,7 @@ export default function Navbar2({ border }: { border: any }) {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
 
-  console.log("session", user);
+  // console.log("session", user);
   return (
     <Disclosure
       as="nav"
@@ -179,11 +171,18 @@ export default function Navbar2({ border }: { border: any }) {
                   >
                     <div>
                       <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
+                        {authState?.user?.profile?.avatar ?
                         <Image
                           className="h-7 w-7 rounded-full"
-                          src={user}
+                          src={authState?.user?.profile?.avatar ?? defaultAvatar}
                           alt="user"
+                        /> : 
+                          <GoPerson
+                          className={`text-lg h-6 w-6  ${
+                            border === "border" ? "text-primaryColor" : "text-white"
+                          }`}
                         />
+                        }
                       </Menu.Button>
                     </div>
                     <Transition

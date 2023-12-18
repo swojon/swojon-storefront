@@ -6,7 +6,7 @@ import EditUserName from "@/components/Profile/EditUserName";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import defaultAvatar from "@/public/assets/avatar.svg"
 const Profile = () => {
   const authState = useSelector((state: any) => state.auth);
   const { data, loading, error } = useGetUserByIdQuery({
@@ -45,7 +45,7 @@ const Profile = () => {
         <div className="lg:w-[53%] w-full py-5 px-3 rounded-md space-y-4">
           <div className="md:w-24 md:h-24 w-16 rounded-full border">
             <Image
-              src="/userMale.png"
+              src={user?.profile?.avatar ?? defaultAvatar}
               alt="user"
               width={400}
               height={400}
@@ -68,7 +68,7 @@ const Profile = () => {
             ) : (
               <div className="flex flex-wrap justify-between items-center gap-2">
                 <span className="text-sm text-primaryColor font-lexed  block">
-                 {data?.getUserById.profile?.firstName}
+                 {user?.profile?.name }
                 </span>
                 <button
                   onClick={() => setEditBtn("username")}
@@ -87,7 +87,7 @@ const Profile = () => {
             </span>
             <div className="flex flex-wrap justify-between items-center gap-2">
               <span className="text-sm text-primaryColor font-lexed  block">
-                mousumi@gmail.com
+                {user?.email}
               </span>
               <button
                 onClick={() =>
@@ -112,7 +112,7 @@ const Profile = () => {
             </span>
             <div className="flex flex-wrap justify-between items-center gap-2">
               <span className="text-sm text-primaryColor font-lexed  block">
-                Add phone number
+                {user?.profile?.phoneNumber}
               </span>
               <button
                 onClick={() =>
@@ -149,7 +149,7 @@ const Profile = () => {
                   onClick={() => setEditBtn("password")}
                   className="text-xs relative text-primaryColor  whitespace-nowrap cursor-pointer"
                 >
-                  Edit
+                  Reset My Password
                   <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
                 </small>
               </div>

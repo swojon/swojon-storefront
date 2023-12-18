@@ -36,8 +36,7 @@ query GetListing($id: Float, $name: String) {
         id
         username
         profile{
-          firstName
-          lastName
+          name
           avatar
         }
       }

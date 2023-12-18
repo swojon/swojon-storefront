@@ -6,7 +6,7 @@ mutation Signup($userData: CreateUserDto!) {
     isEmailVerified
     isStaff
     profile {
-      firstName
+      name
     }
     username
   }

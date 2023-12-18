@@ -728,8 +728,7 @@ export const ListFollowersDocument = gql`
         isApproved
         isStaff
         profile {
-          firstName
-          lastName
+          name
           avatar
         }
       }
@@ -778,8 +777,7 @@ export const ListFollowingDocument = gql`
         isApproved
         isStaff
         profile {
-          firstName
-          lastName
+          name
           avatar
         }
       }
@@ -856,8 +854,7 @@ export const ListListingsDocument = gql`
         id
         username
         profile {
-          firstName
-          lastName
+          name
           avatar
         }
       }
@@ -977,10 +974,9 @@ export const GetUserByIdDocument = gql`
       facebookHandle
       googleHandle
       id
-      firstName
+      name
       instagramHandle
       isPhoneNumberVerified
-      lastName
       linkedinHandle
       phoneNumber
       twitterHandle
@@ -1063,8 +1059,7 @@ export const GetListingDocument = gql`
       id
       username
       profile {
-        firstName
-        lastName
+        name
         avatar
       }
     }
@@ -1312,6 +1307,64 @@ export function useRemoveSearchHistoryMutation(baseOptions?: Apollo.MutationHook
 export type RemoveSearchHistoryMutationHookResult = ReturnType<typeof useRemoveSearchHistoryMutation>;
 export type RemoveSearchHistoryMutationResult = Apollo.MutationResult<RemoveSearchHistoryMutation>;
 export type RemoveSearchHistoryMutationOptions = Apollo.BaseMutationOptions<RemoveSearchHistoryMutation, RemoveSearchHistoryMutationVariables>;
+export const CreateSellerReviewDocument = gql`
+    mutation CreateSellerReview($reviewData: SellerReviewCreateDTO!) {
+  createSellerReview(reviewData: $reviewData) {
+    review
+    rating
+    reviewer {
+      id
+      email
+      username
+      profile {
+        avatar
+        name
+      }
+    }
+    seller {
+      id
+      email
+      username
+      profile {
+        avatar
+        name
+      }
+    }
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+  }
+}
+    `;
+export type CreateSellerReviewMutationFn = Apollo.MutationFunction<CreateSellerReviewMutation, CreateSellerReviewMutationVariables>;
+
+/**
+ * __useCreateSellerReviewMutation__
+ *
+ * To run a mutation, you first call `useCreateSellerReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSellerReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSellerReviewMutation, { data, loading, error }] = useCreateSellerReviewMutation({
+ *   variables: {
+ *      reviewData: // value for 'reviewData'
+ *   },
+ * });
+ */
+export function useCreateSellerReviewMutation(baseOptions?: Apollo.MutationHookOptions<CreateSellerReviewMutation, CreateSellerReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSellerReviewMutation, CreateSellerReviewMutationVariables>(CreateSellerReviewDocument, options);
+      }
+export type CreateSellerReviewMutationHookResult = ReturnType<typeof useCreateSellerReviewMutation>;
+export type CreateSellerReviewMutationResult = Apollo.MutationResult<CreateSellerReviewMutation>;
+export type CreateSellerReviewMutationOptions = Apollo.BaseMutationOptions<CreateSellerReviewMutation, CreateSellerReviewMutationVariables>;
 export const SummaryUserReviewDocument = gql`
     query SummaryUserReview($userId: Float!) {
   summaryUserReview(userId: $userId) {
@@ -1372,8 +1425,7 @@ export const ListSellerReviewsDocument = gql`
         username
         profile {
           avatar
-          firstName
-          lastName
+          name
         }
       }
       seller {
@@ -1382,8 +1434,7 @@ export const ListSellerReviewsDocument = gql`
         username
         profile {
           avatar
-          firstName
-          lastName
+          name
         }
       }
       dateCreated
@@ -1476,8 +1527,7 @@ export const SearchListingsDocument = gql`
         id
         username
         profile {
-          firstName
-          lastName
+          name
           avatar
         }
       }
@@ -1573,7 +1623,7 @@ export const SignupDocument = gql`
     isEmailVerified
     isStaff
     profile {
-      firstName
+      name
     }
     username
   }
@@ -2061,6 +2111,8 @@ export type Mutation = {
   createProfile: Profile;
   /** Role Create */
   createRole: Role;
+  /** Add Review to a seller */
+  createSellerReview: Review;
   /** User create */
   createUser: User;
   /** User delete */
@@ -2200,6 +2252,11 @@ export type MutationCreateProfileArgs = {
 
 export type MutationCreateRoleArgs = {
   roleData: CreateRoleDto;
+};
+
+
+export type MutationCreateSellerReviewArgs = {
+  reviewData: SellerReviewCreateDto;
 };
 
 
@@ -2416,13 +2473,12 @@ export type Profile = {
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
   facebookHandle?: Maybe<Scalars['String']['output']>;
-  firstName?: Maybe<Scalars['String']['output']>;
   googleHandle?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   instagramHandle?: Maybe<Scalars['String']['output']>;
   isPhoneNumberVerified?: Maybe<Scalars['String']['output']>;
-  lastName?: Maybe<Scalars['String']['output']>;
   linkedinHandle?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
   phoneNumber?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
   twitterHandle?: Maybe<Scalars['String']['output']>;
@@ -2493,8 +2549,6 @@ export type Query = {
   listUserReviews: Reviews;
   /** List All Users */
   listUsers: Array<UserWithMeta>;
-  /** User login */
-  login: TokenUserData;
   /** User logout */
   logout: User;
   /** Search for listings */
@@ -2659,11 +2713,6 @@ export type QueryListUserReviewsArgs = {
 };
 
 
-export type QueryLoginArgs = {
-  userData: CreateUserDto;
-};
-
-
 export type QuerySearchListingsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
@@ -2742,6 +2791,14 @@ export type Searches = {
   items: Array<Search>;
 };
 
+export type SellerReviewCreateDto = {
+  listingId?: InputMaybe<Scalars['Float']['input']>;
+  rating: Scalars['Float']['input'];
+  review?: InputMaybe<Scalars['String']['input']>;
+  reviewerId: Scalars['Float']['input'];
+  sellerId?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export type SerachInputDto = {
   search: Scalars['String']['input'];
 };
@@ -2784,23 +2841,6 @@ export enum Transaction_Type {
   Reward = 'REWARD'
 }
 
-export type TokenUserData = {
-  __typename?: 'TokenUserData';
-  email: Scalars['String']['output'];
-  expiresIn: Scalars['Float']['output'];
-  facebookId?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Float']['output'];
-  isApproved: Scalars['Boolean']['output'];
-  isEmailVerified: Scalars['Boolean']['output'];
-  isStaff: Scalars['Boolean']['output'];
-  profile?: Maybe<Profile>;
-  roles?: Maybe<Array<Role>>;
-  sessionId?: Maybe<Scalars['String']['output']>;
-  sessionMaxAge?: Maybe<Scalars['Float']['output']>;
-  token: Scalars['String']['output'];
-  username?: Maybe<Scalars['String']['output']>;
-};
-
 export type TrendingSearches = {
   __typename?: 'TrendingSearches';
   items: Array<SearchQuery>;
@@ -2813,12 +2853,11 @@ export type UpdateProfileDto = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   facebookHandle?: InputMaybe<Scalars['String']['input']>;
-  firstName?: InputMaybe<Scalars['String']['input']>;
   googleHandle?: InputMaybe<Scalars['String']['input']>;
   instagramHandle?: InputMaybe<Scalars['String']['input']>;
   isPhoneNumberVerified?: InputMaybe<Scalars['Boolean']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
   linkedinHandle?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
   twitterHandle?: InputMaybe<Scalars['String']['input']>;
@@ -2976,21 +3015,21 @@ export type ListFollowersQueryVariables = Exact<{
 }>;
 
 
-export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
+export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListFollowingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null } }> } };
+export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3002,7 +3041,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, firstName?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, lastName?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
@@ -3010,7 +3049,7 @@ export type GetListingQueryVariables = Exact<{
 }>;
 
 
-export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
+export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
 
 export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3045,6 +3084,13 @@ export type RemoveSearchHistoryMutationVariables = Exact<{ [key: string]: never;
 
 export type RemoveSearchHistoryMutation = { __typename?: 'Mutation', removeSearchHistory: { __typename?: 'Searches', items: Array<{ __typename?: 'Search', searchQuery: string }> } };
 
+export type CreateSellerReviewMutationVariables = Exact<{
+  reviewData: SellerReviewCreateDto;
+}>;
+
+
+export type CreateSellerReviewMutation = { __typename?: 'Mutation', createSellerReview: { __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } } };
+
 export type SummaryUserReviewQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
@@ -3061,7 +3107,7 @@ export type ListSellerReviewsQueryVariables = Exact<{
 }>;
 
 
-export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, firstName?: string | null, lastName?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
+export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
@@ -3072,7 +3118,7 @@ export type SearchListingsQueryVariables = Exact<{
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, communities: Array<{ __typename?: 'Community', id: number, name?: string | null }>, location?: { __typename?: 'Location', id: number, name: string } | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type RemoveFollowMutationVariables = Exact<{
   userId: Scalars['Float']['input'];
@@ -3087,4 +3133,4 @@ export type SignupMutationVariables = Exact<{
 }>;
 
 
-export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'User', email: string, facebookId?: string | null, id: number, isEmailVerified: boolean, isStaff: boolean, username?: string | null, profile?: { __typename?: 'Profile', firstName?: string | null } | null } };
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'User', email: string, facebookId?: string | null, id: number, isEmailVerified: boolean, isStaff: boolean, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null } | null } };

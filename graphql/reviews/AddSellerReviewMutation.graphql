@@ -1,8 +1,6 @@
-query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
-  listSellerReviews(filters: $filters, userId: $userId, ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit) {
-    count
-    items {
-      review
+mutation CreateSellerReview($reviewData: SellerReviewCreateDTO!) {
+  createSellerReview(reviewData: $reviewData) {
+     review
       rating
       reviewer {
         id
@@ -28,6 +26,5 @@ query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBef
         id
         title
       }
-    }
   }
 }

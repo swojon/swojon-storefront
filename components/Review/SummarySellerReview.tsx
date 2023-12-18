@@ -42,6 +42,7 @@ function SummarySellerReview({ sellerId }: { sellerId: number }) {
                 setModalOpen({
                   title: "write review modal",
                   body: "writeReview",
+                  props: {sellerId: sellerId}
                 })
               )
             }

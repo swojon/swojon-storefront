@@ -9,8 +9,7 @@ query ListFollowing($userId: Float!) {
         isApproved
         isStaff
         profile {
-          firstName
-          lastName
+          name
           avatar
         }
       }

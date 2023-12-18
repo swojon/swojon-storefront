@@ -37,8 +37,7 @@ query ListListings($filters: ListingFilterInput) {
         id
         username
         profile{
-          firstName
-          lastName
+          name
           avatar
         }
       }

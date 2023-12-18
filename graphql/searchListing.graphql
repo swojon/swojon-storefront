@@ -39,8 +39,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
         id
         username
         profile{
-          firstName
-          lastName
+          name          
           avatar
         }
       }

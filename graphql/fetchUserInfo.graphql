@@ -27,10 +27,9 @@ query GetUserById($userId: Float!) {
       facebookHandle
       googleHandle
       id
-      firstName
+      name
       instagramHandle
       isPhoneNumberVerified
-      lastName
       linkedinHandle
       phoneNumber
       twitterHandle
