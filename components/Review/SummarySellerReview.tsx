@@ -18,7 +18,7 @@ function SummarySellerReview({ sellerId }: { sellerId: number }) {
     <div className="flex items-center flex-wrap xl:justify-around  justify-center xl:gap-3 lg:gap-5 gap-8 ">
       <div className="md:space-y-5 space-y-3">
         <h6 className=" lg:text-5xl md:text-4xl sm:text-2xl text-lg text-primaryColor font-lexed font-medium">
-          {data?.summaryUserReview.avgRating ?? 0}{" "}
+          { data?.summaryUserReview?.avgRating ? data!.summaryUserReview!.avgRating.toFixed(2) : 0}{" "}
           <span className="text-sm">out of</span> 5
         </h6>
 

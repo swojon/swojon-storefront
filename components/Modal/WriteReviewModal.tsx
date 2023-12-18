@@ -1,5 +1,5 @@
 "use client";
-import { ListSellerReviewsDocument, useCreateSellerReviewMutation } from "@/apollograph/generated";
+import { ListSellerReviewsDocument, SummaryUserReviewDocument, useCreateSellerReviewMutation } from "@/apollograph/generated";
 import { setModalClose } from "@/app/redux/modalSlice";
 import { useFormik } from "formik";
 import React, { useState } from "react";
@@ -72,12 +72,13 @@ const WriteReviewModal = ({props}: {props:any}) => {
               listingId: props.listingid ?? null
             }
           },
-          refetchQueries: [ListSellerReviewsDocument],
+          refetchQueries: [ListSellerReviewsDocument, SummaryUserReviewDocument],
           
         });
         if (createError) toast.error("Create Failed, Please Try again.");
         if (createData) toast.success("Review Recorded Successfully");
-        // dispatch(setModalClose(true)); //on update we won't close the modal
+        dispatch(setModalClose(true)); //on update we won't close the modal
+        action.resetForm()
       } 
    
   });
@@ -143,7 +144,7 @@ const WriteReviewModal = ({props}: {props:any}) => {
           defaultValue={""}
         />
         <div className="flex justify-center items-center">
-          <button className="text-center py-2 px-4 text-sm text-white bg-activeColor rounded-md hover:shadow-lg">
+          <button className="text-center py-2 px-4 text-sm text-white bg-activeColor rounded-md hover:shadow-lg" onClick={() => handleSubmit()}>
             Submit
           </button>
         </div>

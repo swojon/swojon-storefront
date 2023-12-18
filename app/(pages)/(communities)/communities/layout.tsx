@@ -2,7 +2,6 @@ import CommunityLists from "@/components/Community/CommunityLists";
 import React from "react";
 
 interface Iprops {
-  session: any;
   children: React.ReactNode;
 }
 
