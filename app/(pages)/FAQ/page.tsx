@@ -52,7 +52,7 @@ const faqs = [
 const FAQ = () => {
   return (
     <section className=" py-10 ">
-      <div className="w-[65%] mx-auto">
+      <div className="lg:w-[65%] md:w-[75%] w-[95%] mx-auto">
         <div className="flex flex-col items-center space-y-3">
           <div className="flex items-center space-x-1  text-sm text-secondColor">
             <h6>Home</h6>
@@ -93,7 +93,7 @@ const FAQ = () => {
                       <>
                         <dt>
                           <Disclosure.Button className="flex w-full items-start justify-between text-left text-primayColor">
-                            <span className="text-base font-semibold leading-7">
+                            <span className="md:text-base text-sm font-semibold leading-7">
                               {faq.question}
                             </span>
                             <span className="ml-6 flex h-7 items-center">
@@ -105,8 +105,8 @@ const FAQ = () => {
                             </span>
                           </Disclosure.Button>
                         </dt>
-                        <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                          <p className="text-base leading-7 text-secondColor">
+                        <Disclosure.Panel as="dd" className="mt-2 md:pr-12">
+                          <p className="md:text-base text-sm leading-7 text-secondColor">
                             {faq.answer}
                           </p>
                         </Disclosure.Panel>

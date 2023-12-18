@@ -43,11 +43,11 @@ const SideBar = () => {
 
   return (
     <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
-      <div className="border-b  pb-3 sm:px-3 px-1">
-        <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed">
+      <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
+        <h6 className="lg:text-2xl md:text-lg sm:text-base text-sm text-primaryColor font-lexed">
           Hi, {user?.username ?? user?.email}
         </h6>
-        <small className="sm:text-xs text-[10px] text-secondColor lg:leading-normal leading-none">
+        <small className="sm:text-xs text-[10px] text-secondColor lg:leading-normal leading-none pt-1">
           Thanks for being a Swojon customer
         </small>
       </div>
@@ -131,7 +131,7 @@ const SideBar = () => {
       </div>
 
       <div className="  py-5 border-b">
-        <h6 className="text-base pb-3 text-primaryColor font-lexed">
+        <h6 className="sm:text-base text-sm pb-3 text-primaryColor font-lexed">
           Your Profile
         </h6>
         <Link
@@ -167,7 +167,9 @@ const SideBar = () => {
       </div>
 
       <div className="  py-5 border-b">
-        <h6 className="text-base pb-3 text-primaryColor font-lexed">Privacy</h6>
+        <h6 className="sm:text-base text-sm pb-3 text-primaryColor font-lexed">
+          Privacy
+        </h6>
         <Link
           href="/login-security"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${

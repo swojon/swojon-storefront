@@ -32,14 +32,16 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         ) : (
           <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
             <Link href="/">
-                <h6 className="">Home</h6>
+              <h6 className="">Home</h6>
             </Link>
             <MdKeyboardArrowRight />
             {product?.category?.parentCategory && (
               <>
-                <Link href={`/categories/${product?.category?.parentCategory?.slug}`}>
-                    <h6 className="">{product.category.parentCategory.name}</h6>
-                  </Link>
+                <Link
+                  href={`/categories/${product?.category?.parentCategory?.slug}`}
+                >
+                  <h6 className="">{product.category.parentCategory.name}</h6>
+                </Link>
                 <MdKeyboardArrowRight />
               </>
             )}
@@ -79,7 +81,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
           <ProductImageSlider images={product?.media} />
         </div> */}
 
-      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]     rounded-md  ">
+      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]  rounded-md  ">
         <div className="lg:w-[58%] md:w-[50%] w-full h-full  space-y-6  ">
           {loading ? (
             <ThumbnailLoader />

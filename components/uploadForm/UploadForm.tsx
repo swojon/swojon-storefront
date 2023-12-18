@@ -190,7 +190,7 @@ const UploadForm = () => {
       </div> */}
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <div className="flex items-center space-x-1  text-sm text-secondColor">
             <h6>Home</h6>
             <MdKeyboardArrowRight />
@@ -203,7 +203,7 @@ const UploadForm = () => {
             <p>Need something cleared up?</p>
             <p>Post here to find their second home.</p>
           </div>
-        </div>
+        </div> */}
       
       </div>
 
