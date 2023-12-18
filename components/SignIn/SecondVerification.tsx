@@ -29,7 +29,7 @@ const SecondVerification = () => {
           </p>
         </div>
 
-        <div className="flex  items-center gap-4 cursor-pointer">
+        <div className="flex border border-primaryColor border-1  items-center gap-4 cursor-pointer">
           <FaRegEnvelope className="text-5xl text-gray-300 w-[26%]" />
           <div>
             <span className="block text-base text-primaryColor"> Email</span>
@@ -38,7 +38,7 @@ const SecondVerification = () => {
             </span>
           </div>
         </div>
-        <div className="flex  items-center gap-4 cursor-pointer">
+        <div className="flex border border-primaryColor border-1  items-center gap-4 cursor-pointer">
           <FaRegCommentDots className="text-5xl text-gray-300 w-[26%]" />
           <div>
             <span className="block text-base text-primaryColor">

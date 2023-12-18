@@ -19,7 +19,7 @@ export const middleware = (request: NextRequest) => {
         // console.log(request.nextUrl.pathname)
         const url = request.nextUrl.clone()
         url.searchParams.set('next', request.nextUrl.pathname)
-        url.pathname = `/signin`;
+        url.pathname = `/login`;
         const res = NextResponse.redirect(url);
         // res.cookies.set("redirectTo", request.nextUrl.pathname, {maxAge: 10 * 60})
         return res
