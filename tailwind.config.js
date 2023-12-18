@@ -19,8 +19,8 @@ module.exports = {
         whiteColor: "#FFFFFF",
       },
       fontFamily: {
-        sans: ["Poppins", "sans"],
-        lexed: ["Lexend", "sans"],
+        sans: ["Satoshi", "sans"],
+        lexed: ["Satoshi", "sans"],
       },
     },
   },

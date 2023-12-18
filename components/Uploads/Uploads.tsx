@@ -6,6 +6,7 @@ import ProductTitle from "./ProductTitle";
 import Brand from "./Brand";
 import Condition from "./Condition";
 import { useEffect, useState } from "react";
+import Price from "./Price";
 
 const Uploads = () => {
   const [stickyClass, setStickyClass] = useState("relative");
@@ -22,16 +23,18 @@ const Uploads = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 300
-        ? setStickyClass("fixed top-0 left-0 z-50 w-full right-0 pt-5 ")
+        ? setStickyClass(
+            "fixed top-0 left-0 z-50 w-full right-0 pt-5 shadow-lg "
+          )
         : setStickyClass("relative");
     }
   };
   return (
     <section className="space-y-5">
       <div
-        className={`space-y-5 shadow-xl bg-white transition ease-in-out delay-150 ${stickyClass}`}
+        className={`space-y-5 border-b bg-white transition ease-in-out delay-150 ${stickyClass}`}
       >
-        <div className="flex items-start gap-2 border-b custom-container">
+        <div className="flex items-start gap-2  custom-container">
           <div className="flex-1 space-y-5">
             <div className="flex items-center space-x-1  text-sm text-secondColor">
               <h6>Home</h6>
@@ -73,6 +76,7 @@ const Uploads = () => {
           <ProductTitle />
           <Brand />
           <Condition />
+          <Price />
         </div>
       </div>
     </section>
