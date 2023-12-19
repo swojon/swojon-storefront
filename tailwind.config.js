@@ -14,13 +14,13 @@ module.exports = {
       },
       colors: {
         primaryColor: "#4e5059",
-        secondColor: "#717171",
+        secondColor: "#8A8A8A",
         activeColor: "#3b51a4",
         whiteColor: "#FFFFFF",
       },
       fontFamily: {
-        sans: ["Poppins", "sans"],
-        lexed: ["Lexend", "sans"],
+        sans: ["Satoshi", "sans"],
+        lexed: ["Satoshi", "sans"],
       },
     },
   },
