@@ -7,6 +7,7 @@ import Brand from "./Brand";
 import Condition from "./Condition";
 import { useEffect, useState } from "react";
 import Price from "./Price";
+import DealingMethod from "./DealingMethod";
 
 const Uploads = () => {
   const [stickyClass, setStickyClass] = useState("relative");
@@ -74,9 +75,11 @@ const Uploads = () => {
           <UploadImage />
           <Category />
           <ProductTitle />
-          <Brand />
+
           <Condition />
           <Price />
+          <Brand />
+          <DealingMethod />
         </div>
       </div>
     </section>

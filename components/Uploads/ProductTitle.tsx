@@ -3,10 +3,10 @@ import React from "react";
 const ProductTitle = () => {
   return (
     <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-lexed font-medium">
+      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
         Title would be? <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor ">
+      <p className="text-base text-secondColor font-medium leading-6">
         Choose a brief yet clear title for your item, it makes the good
         impression after photos
       </p>
@@ -15,7 +15,7 @@ const ProductTitle = () => {
         <input
           id="text"
           name="name"
-          className="block w-full rounded-md border border-gray-300 bg-gray-50 py-2.5 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+          className="block w-full rounded-md border border-[#F1F1F1]  py-4 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor md:text-base text-sm"
           placeholder="e.g. Samsung smartphone"
           type="text"
         />
@@ -39,14 +39,14 @@ const ProductTitle = () => {
       </div>
 
       <div>
-        <span className="text-2xl text-primaryColor font-lexed font-medium block pb-4">
+        <span className="text-2xl text-primaryColor font-lexed font-bold block pb-4">
           Quantity <span className="text-red-500">*</span>
         </span>
 
         <input
           id="text"
           name="name"
-          className="block w-full rounded-md border border-gray-300 bg-gray-50 py-2.5 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+          className="block w-full rounded-md border border-[#F1F1F1]  py-4 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
           placeholder="1"
           type="text"
         />

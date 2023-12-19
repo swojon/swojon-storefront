@@ -11,10 +11,10 @@ const Condition = () => {
   const [selectCondition, setSelectCondition] = useState<any>(null);
   return (
     <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-lexed font-medium">
+      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
         Condition of the item? <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor ">
+      <p className="text-base text-secondColor font-medium leading-6">
         Sharing the condition of your item conveys transparent message to your
         customer
       </p>
@@ -23,10 +23,10 @@ const Condition = () => {
         {condition.map((item: any) => (
           <div
             key={item.id}
-            className={`flex flex-col items-center gap-2 py-5 px-3 border  rounded-md cursor-pointer space-y-2.5 hover:border-gray-300 ${
+            className={`flex flex-col items-center gap-2 py-5 px-3 border  rounded-md cursor-pointer space-y-2.5  ${
               item?.id === selectCondition?.id
                 ? "border border-activeColor "
-                : "opacity-50"
+                : "opacity-50 hover:border-gray-500"
             }`}
             onClick={() => setSelectCondition(item)}
           >

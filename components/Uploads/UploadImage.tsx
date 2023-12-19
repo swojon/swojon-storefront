@@ -7,11 +7,11 @@ const UploadImage = () => {
   const [imageCount, setImageCount] = useState(3);
   return (
     <section className="space-y-4">
-      <h6 className="text-2xl text-primaryColor font-lexed font-medium">
+      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
         Hey! Let’s pick some best photos of your item{" "}
         <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor ">
+      <p className="text-base text-secondColor font-medium leading-6">
         Choosing clear and multiple pictures can help make your item look
         trusted and make the buyer feel more trusted
       </p>
@@ -111,12 +111,14 @@ const UploadImage = () => {
                 </div>
               </div>
               <div
-                className={`h-[210.5px] rounded-2xl border ${
+                className={` rounded-2xl border ${
                   imageCount === 1
-                    ? "col-span-2"
+                    ? "col-span-2 h-[441px]"
+                    : imageCount === 2
+                    ? "col-span-2 h-[210.5px]"
                     : imageCount === 3
-                    ? "col-span-2"
-                    : ""
+                    ? "col-span-2 h-[210.5px]"
+                    : "h-[210.5px]"
                 }`}
               >
                 <UploadArea />

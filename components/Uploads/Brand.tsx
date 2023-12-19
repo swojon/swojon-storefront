@@ -19,10 +19,10 @@ const Brand = () => {
   const [selectBrand, setSelectBrand] = useState<any>(null);
   return (
     <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-lexed font-medium">
+      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
         Brand?
       </h6>
-      <p className="text-base text-secondColor ">
+      <p className="text-base text-secondColor font-medium leading-6">
         Choose a brand from the list
       </p>
 
@@ -37,7 +37,7 @@ const Brand = () => {
           <input
             id="search"
             name="search"
-            className="block w-full rounded-2xl border border-gray-300 bg-gray-100 py-2 pr-3 pl-9 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            className="block w-full rounded-3xl bg-gray-100 py-4 pr-3 pl-9 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
             placeholder="Search brand  e.g. Apple"
             type="search"
           />
@@ -55,10 +55,10 @@ const Brand = () => {
           {brands.map((item: any) => (
             <div
               key={item.id}
-              className={`flex flex-col items-center gap-2 py-5 px-2 border  rounded-md cursor-pointer space-y-3 hover:border-gray-300 ${
+              className={`flex flex-col items-center gap-2 py-5 px-2 border  rounded-md cursor-pointer space-y-3  ${
                 item?.id === selectBrand?.id
                   ? " border-activeColor "
-                  : "opacity-50"
+                  : "opacity-50 hover:border-gray-500"
               }`}
               onClick={() => setSelectBrand(item)}
             >
@@ -73,7 +73,7 @@ const Brand = () => {
       </div>
 
       <div className="space-y-4 ">
-        <span className="text-2xl text-primaryColor font-lexed font-medium block ">
+        <span className="text-2xl text-primaryColor font-lexed font-bold block ">
           Need to add more details?
         </span>
 
@@ -85,7 +85,7 @@ const Brand = () => {
         <input
           id="text"
           name="name"
-          className="block w-full rounded-md border border-gray-300 bg-gray-50 py-2.5 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+          className="block w-full rounded-md border border-gray-300  py-4 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
           placeholder="e.g. This smartphone comes with some cool feature.."
           type="text"
         />

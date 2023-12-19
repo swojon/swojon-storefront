@@ -1,14 +1,13 @@
 import React from "react";
+import { IoWarningOutline } from "react-icons/io5";
+import { MdOutlinePhotoCamera } from "react-icons/md";
 
-const Price = () => {
+const Courier = () => {
   return (
-    <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
-        Price <span className="text-red-500">*</span>
+    <div className="px-6 py-5 space-y-5 ">
+      <h6 className="text-base font-bold font-lexed  text-primaryColor ">
+        Delivery Charge
       </h6>
-      <p className="text-base text-secondColor font-medium leading-6">
-        Choose a fair pricing for your item or donate easily
-      </p>
 
       <div>
         <div className="relative  rounded-md shadow-sm">
@@ -52,8 +51,32 @@ const Price = () => {
           I have more than one item
         </label>
       </div>
-    </section>
+
+      <div className="border-b border-[#F1F1F1]"></div>
+
+      <div className="space-y-4">
+        <span className="text-base font-bold font-lexed  text-[#FA4119]">
+          Reminders
+        </span>
+
+        <div className="flex items-center gap-4">
+          <MdOutlinePhotoCamera className="leading-0 text-2xl text-primaryColor " />
+
+          <span className="block font-medium text-primaryColor text-base ">
+            Take a picture of delivery slip for proof
+          </span>
+        </div>
+        <div className="flex items-center gap-4">
+          <IoWarningOutline className="leading-0 text-2xl text-primaryColor " />
+
+          <span className="block font-medium text-primaryColor text-base ">
+            Resolve conflict before you make the deal, swojon is not responsible
+            for any unwanted situation
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default Price;
+export default Courier;
