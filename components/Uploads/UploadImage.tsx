@@ -5,11 +5,11 @@ import Image from "next/image";
 
 const UploadImage = () => {
   const [imageCount, setImageCount] = useState<any>([]);
-  // const deleteImage = (index: any) => {
-  //   setImageCount((prevImageCount: any) =>
-  //     prevImageCount.filter((_, i) => i != index)
-  //   );
-  // };
+  const deleteImage = (index: any) => {
+    setImageCount((prevImageCount: any) =>
+      prevImageCount.filter((_, i) => i != index)
+    );
+  };
 
   console.log("images", imageCount);
   return (
@@ -84,7 +84,7 @@ const UploadImage = () => {
                       />
                     </div>
                     <div
-                      // onClick={() => deleteImage(index)}
+                      onClick={() => deleteImage(index)}
                       className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center"
                     >
                       <Image
