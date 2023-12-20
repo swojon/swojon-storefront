@@ -8,6 +8,46 @@ import Condition from "./Condition";
 import { useEffect, useState } from "react";
 import Price from "./Price";
 import DealingMethod from "./DealingMethod";
+import * as Yup from "yup";
+
+const formSchema = Yup.object({
+  title: Yup.string().min(2).required("Title is required"),
+  brandId: Yup.number().positive().notRequired(),
+  categoryId: Yup.number().positive().notRequired(),
+  description: Yup.string().min(5).required("Description is required"),
+  locationId: Yup.number().positive().required(),
+  price: Yup.number().positive().integer().required("Min price needed"),
+
+  // name: Yup.string().min(2).required("Name is required"),
+  // contact: Yup.number()
+  //   .min(11)
+  //   .typeError("That doesn't look like a phone number")
+  //   .positive("A phone number can't start with a minus")
+  //   .integer("A phone number can't include a decimal point")
+  //   .required("Provide your contact number"),
+  // slug: Yup.string(),
+  // condition: Yup.object().required("Condition is required"),
+  // brand: Yup.object().required("Brand is required"),
+  // genuine: Yup.object().required("Genuine is required"),
+  // model: Yup.object().required("Model is required"),
+  banners: Yup.mixed()
+    .nullable()
+    .test(
+      "FILE_SIZE",
+      "Too big!!",
+      (file: any) => {
+        if (typeof file === "string") return true;
+        return file ? file && file.size < 10 * 1024 * 1024 : true;
+      } //10MB
+    )
+    .test("FILE_TYPE", "INVALID", (file: any) => {
+      if (typeof file === "string") return true;
+      return file
+        ? file && ["image/png", "image/jpeg", "image/jpg"].includes(file.type)
+        : true;
+    }),
+  imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
+});
 
 const Uploads = () => {
   const [stickyClass, setStickyClass] = useState("relative");
@@ -43,11 +83,11 @@ const Uploads = () => {
               <h6 className="text-primaryColor">List product</h6>
             </div>
 
-            <h5 className="text-2xl text-primaryColor font-lexed font-medium">
+            <h5 className="text-2xl text-primaryColor font-lexed font-bold">
               List your Item
             </h5>
 
-            <p className="text-base text-secondColor pb-4">
+            <p className="text-base text-secondColor pb-4 font-medium">
               Listing an item is unbelievably easy in Swojon.
             </p>
           </div>
@@ -71,16 +111,15 @@ const Uploads = () => {
       </div>
 
       <div className=" custom-container   ">
-        <div className="space-y-5 ">
+        <form className="space-y-5 ">
           <UploadImage />
           <Category />
           <ProductTitle />
-
           <Condition />
           <Price />
           <Brand />
           <DealingMethod />
-        </div>
+        </form>
       </div>
     </section>
   );
