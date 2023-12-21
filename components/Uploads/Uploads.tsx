@@ -64,54 +64,56 @@ const Uploads = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 300
-        ? setStickyClass(
-            "fixed top-0 left-0 z-50 w-full right-0 pt-5 shadow-lg "
-          )
+        ? setStickyClass("fixed top-0 left-0 z-50 w-full right-0  shadow-lg ")
         : setStickyClass("relative");
     }
   };
   return (
     <section className="space-y-5">
-      <div
-        className={`space-y-5 border-b bg-white transition ease-in-out delay-150 ${stickyClass}`}
-      >
-        <div className="flex items-start gap-2  custom-container">
-          <div className="flex-1 space-y-5">
-            <div className="flex items-center space-x-1  text-sm text-secondColor">
-              <h6>Home</h6>
-              <MdKeyboardArrowRight />
-              <h6 className="text-primaryColor">List product</h6>
-            </div>
-
-            <h5 className="text-2xl text-primaryColor font-lexed font-bold">
-              List your Item
-            </h5>
-
-            <p className="text-base text-secondColor pb-4 font-medium">
-              Listing an item is unbelievably easy in Swojon.
-            </p>
-          </div>
-
-          <div className="flex-1 flex items-center justify-end gap-4">
-            <button className="py-2 w-24 rounded-md bg-secondColor text-white text-sm hover:shadow-lg">
-              Cancel
-            </button>
-            <button className="py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg">
-              Post
-            </button>
-          </div>
+      <div className={`  `}>
+        <div className="flex items-center space-x-1  text-sm text-secondColor custom-container">
+          <h6>Home</h6>
+          <MdKeyboardArrowRight />
+          <h6 className="text-primaryColor">List product</h6>
         </div>
 
-        <div className="  pb-5 custom-container">
-          <div className="lg:w-[50%] md:w-[70%] w-full">
-            <span className="text-base text-secondColor">Let’s complete </span>
-            <CompleteStatusBar bar={"35%"} />
+        <div
+          className={` border-b bg-white transition ease-in-out delay-150 py-5  
+          
+          `}
+        >
+          <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
+            <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-5 lg:space-y-4 space-y-3 ">
+              <h5 className="text-2xl text-primaryColor font-lexed font-bold">
+                List your Item
+              </h5>
+
+              <p className="text-base text-secondColor  font-medium">
+                Listing an item is unbelievably easy in Swojon.
+              </p>
+
+              <div className=" w-full">
+                <span className="text-base text-secondColor font-medium">
+                  Let’s complete{" "}
+                </span>
+                <CompleteStatusBar bar={"35%"} />
+              </div>
+            </div>
+
+            <div className="flex-1 flex items-center justify-end gap-4 ">
+              <button className="py-2 w-24 rounded-md bg-secondColor text-white text-sm hover:shadow-lg">
+                Cancel
+              </button>
+              <button className="py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg">
+                Post
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       <div className=" custom-container   ">
-        <form className="space-y-5 ">
+        <form className="md:space-y-5 space-y-3">
           <UploadImage />
           <Category />
           <ProductTitle />

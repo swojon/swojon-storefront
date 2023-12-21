@@ -30,17 +30,17 @@ const Category = () => {
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
   const [accordion, setAccordion] = useState<any>(true);
   return (
-    <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
+    <section className="md:space-y-4 space-y-2 pt-4">
+      <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Category of your item? <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor font-medium leading-6">
+      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Select or search the category of your item
       </p>
 
       <div className="rounded-2xl border border-gray-200  ">
-        <div className="relative w-full p-6">
-          <div className="pointer-events-none absolute inset-y-0 left-8 flex items-center  ">
+        <div className="relative w-full md:p-6 p-2.5">
+          <div className="pointer-events-none absolute inset-y-0 md:left-8 left-5 flex items-center  ">
             <MagnifyingGlassIcon
               className="h-7 w-7  p-1.5  text-primaryColor mr-1 "
               aria-hidden="true"
@@ -49,13 +49,13 @@ const Category = () => {
           <input
             id="search"
             name="search"
-            className="block w-full rounded-3xl  bg-gray-100 py-4 pr-3 pl-10 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            className="block w-full rounded-3xl  bg-gray-100 md:py-4 py-3 pr-3 pl-10 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
             placeholder="Search"
             type="search"
           />
         </div>
-        <div className="py-3 px-6 border-y border-gray-200 flex items-center justify-between">
-          <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+        <div className="py-3 md:px-6 px-2.5 border-y border-gray-200 flex items-center justify-between">
+          <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
             {selectCategory
               ? selectCategory.title
               : "Select category from here"}
@@ -72,11 +72,11 @@ const Category = () => {
           </span>
         </div>
         {selectCategory === null && (
-          <div className="px-6 py-6 grid grid-cols-6 gap-4 ">
+          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 flex items-center  gap-4 overflow-x-auto">
             {category.map((item) => (
               <div
                 key={item.id}
-                className={`flex flex-col items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 ${
+                className={`flex flex-col items-center text-center  gap-2 p-4 border  rounded-md cursor-pointer md:space-y-3  ${
                   item?.id === selectCategory?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"
@@ -96,7 +96,7 @@ const Category = () => {
           </div>
         )}
         {selectCategory && (
-          <div className="px-6 py-6 grid grid-cols-8 gap-4 ">
+          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
             {subCategory.map((item: any) => (
               <div
                 key={item.id}

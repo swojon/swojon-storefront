@@ -57,7 +57,7 @@ const UploadArea = ({
 
   return (
     <div
-      className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer"
+      className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-1"
       onClick={handleImageInput}
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
@@ -71,10 +71,10 @@ const UploadArea = ({
         ) : (
           <>
             <TbCloudUp className="text-activeColor text-3xl" />
-            <span className="text-primaryColor font-lexed text-base">
+            <span className="text-primaryColor font-lexed md:text-base text-sm">
               Upload or Drag photos
             </span>
-            <p className="text-secondColor text-sm">
+            <p className="text-secondColor md:text-sm sm:text-xs text-[10px]">
               You can upload up to 5 photos
             </p>
           </>
