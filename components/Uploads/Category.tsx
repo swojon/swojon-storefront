@@ -3,31 +3,28 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import React, { useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
-
-const category = [
-  { id: 188, title: "electronic1" },
-  { id: 14, title: "electronic2" },
-  { id: 15, title: "electronic3" },
-  { id: 18, title: "electronic4" },
-  { id: 157, title: "electronic5" },
-  { id: 144, title: "electronic7" },
-  { id: 17, title: "electronic8" },
-  { id: 177, title: "electronic9" },
-];
-const subCategory = [
-  { id: 188, title: "mobile" },
-  { id: 14, title: "mobile" },
-  { id: 15, title: "mobile3" },
-  { id: 18, title: "mobile4" },
-  { id: 157, title: "mobile5" },
-  { id: 144, title: "mobile7" },
-  { id: 17, title: "electronic8" },
-  { id: 177, title: "mobile9" },
-];
+import { useListCategoriesQuery } from "@/apollograph/generated";
+import { getCategoryTree } from "@/lib/helpers/nestify";
 
 const Category = () => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
+  const {data:categoriesData, loading, error } = useListCategoriesQuery({variables: {
+    limit: 1000
+  }})
+  const categories = categoriesData?.listCategories.items
+  const [query, setQuery] = useState("")
+  
+  const categoryTree = categoriesData?.listCategories.items ? getCategoryTree(categoriesData?.listCategories.items, null) : [];
+  const filteredCategories = !!query ? categories?.filter(ca => ca.name?.toLowerCase().includes(query.toLowerCase())) : categoryTree;
+  
+
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value)
+  }
+
   const [accordion, setAccordion] = useState<any>(true);
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
@@ -49,6 +46,7 @@ const Category = () => {
           <input
             id="search"
             name="search"
+            onChange={handleSearchChange}
             className="block w-full rounded-3xl  bg-gray-100 md:py-4 py-3 pr-3 pl-10 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
             placeholder="Search"
             type="search"
@@ -57,7 +55,7 @@ const Category = () => {
         <div className="py-3 md:px-6 px-2.5 border-y border-gray-200 flex items-center justify-between">
           <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
             {selectCategory
-              ? selectCategory.title
+              ? selectCategory.name
               : "Select category from here"}
           </span>
           <span className="text-2xl text-primaryColor">
@@ -71,33 +69,34 @@ const Category = () => {
             )}
           </span>
         </div>
-        {selectCategory === null && (
+        {}
+        {(selectCategory === null || selectCategory.parentCategory != null) && (
           <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 flex items-center  gap-4 overflow-x-auto">
-            {category.map((item) => (
+            {filteredCategories?.map((category) => (
               <div
-                key={item.id}
+                key={category.id}
                 className={`flex flex-col items-center text-center  gap-2 p-4 border  rounded-md cursor-pointer md:space-y-3  ${
-                  item?.id === selectCategory?.id
+                  category?.id === selectCategory?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
-                onClick={() => setSelectCategory(item)}
+                onClick={() =>  setSelectCategory(category)}
               >
                 <BiSelection className="text-lg" />
 
                 <span className="text-base text-primaryColor font-lexed font-medium capitalize">
-                  {item.title}
+                  {category.name}
                 </span>
                 <span className="text-xs text-secondColor">
-                  24 sub-category
+                {category.children && `${category.children.length} sub-category`}
                 </span>
               </div>
             ))}
           </div>
         )}
-        {selectCategory && (
+        {selectCategory && categoryTree.find(cat => cat.id === selectCategory.id)?.children?.length > 0 &&  (
           <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
-            {subCategory.map((item: any) => (
+            {categoryTree.find(cat => cat.id === selectCategory.id).children.map((item: any) => (
               <div
                 key={item.id}
                 className={`flex flex-col items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 ${
@@ -110,7 +109,7 @@ const Category = () => {
                 <BiSelection classNAme="text-primaryColor" />
 
                 <span className="text-base text-primaryColor font-lexed font-medium capitalize">
-                  Mobile
+                  {item.name}
                 </span>
               </div>
             ))}
