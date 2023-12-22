@@ -2,11 +2,11 @@ import React from "react";
 
 const Price = () => {
   return (
-    <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
+    <section className="md:space-y-4 space-y-2 pt-4">
+      <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Price <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor font-medium leading-6">
+      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Choose a fair pricing for your item or donate easily
       </p>
 
@@ -16,7 +16,7 @@ const Price = () => {
             type="text"
             name="price"
             id="price"
-            className="block w-full rounded-md  border-[#F1F1F1] py-4 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
+            className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
             placeholder="1500"
           />
           <div className="absolute inset-y-0 right-0 flex items-center ">
@@ -42,7 +42,7 @@ const Price = () => {
             id="comments"
             name="comments"
             type="checkbox"
-            className="md:h-6 h-2.5 md:w-6 w-2.5 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
+            className="md:h-6 h-4 md:w-6 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
         <label

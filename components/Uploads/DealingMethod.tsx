@@ -17,17 +17,17 @@ const DealingMethod = () => {
   const [selectMethod, setSelectMethod] = useState<any>(null);
   const [showSelectedMethod, setShowSelectedMethod] = useState<any>(null);
   return (
-    <section className="space-y-4 pt-4">
-      <h6 className="text-2xl text-primaryColor font-bold  leading-9">
+    <section className="md:space-y-4 space-y-2 pt-4">
+      <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Dealing Method? <span className="text-red-500">*</span>
       </h6>
-      <p className="text-base text-secondColor font-medium leading-6">
+      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Select the method, how you want to send the item
       </p>
 
       <div className="rounded-2xl border border-gray-200  ">
-        <div className="py-3 px-6 border-b border-gray-200 flex items-center justify-between">
-          <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+        <div className="md:p-6 p-2.5 border-b border-gray-200 flex items-center justify-between">
+          <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
             {selectMethod ? selectMethod.title : "Chose a dealing method"}
           </span>
           <span className="text-2xl text-primaryColor">
@@ -42,11 +42,11 @@ const DealingMethod = () => {
           </span>
         </div>
         {selectMethod === null && (
-          <div className="px-6 py-6 grid grid-cols-2 gap-4 ">
+          <div className="md:p-6 p-2.5 grid grid-cols-2 gap-4 ">
             {method.map((item) => (
               <div
                 key={item.id}
-                className={`flex h-[98px] flex-col items-center gap-2 p-4 space-y-4 border  rounded-md cursor-pointer  ${
+                className={`flex h-[98px] flex-col justify-center items-center gap-2 p-4 md:space-y-4 border  rounded-md cursor-pointer text-center ${
                   item?.id === selectMethod?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"
@@ -55,7 +55,7 @@ const DealingMethod = () => {
               >
                 <BiSelection />
 
-                <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+                <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
                   {item.title}
                 </span>
               </div>
