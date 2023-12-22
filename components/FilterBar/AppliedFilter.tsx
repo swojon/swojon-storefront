@@ -6,7 +6,7 @@ function AppliedFilter() {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const filterFields = ["condition", "community", "location", "brand"] 
+    const filterFields = ["condition", "community", "location", "brand", "category"] 
     // console.log("all serach params", searchParams.values())
 
     const [filters, setFilters] = useState<any[]>([])

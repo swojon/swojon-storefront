@@ -35,18 +35,18 @@ const FilterBar = () => {
         </span>
         <PriceRangeSlider />
       </div> */}
-{/* 
+
       <div className="px-3">
         <LocationFilter />
       </div>
 
       <div className="px-3">
         <CategoriesFilter />
-      </div> */}
-
-      <div className="px-3">
-        <CommunityFilter />
       </div>
+
+      {/* <div className="px-3">
+        <CommunityFilter />
+      </div> */}
 
       <div className="px-3">
         <ConditionFilter initial={[]} />

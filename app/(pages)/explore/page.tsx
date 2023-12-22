@@ -19,10 +19,13 @@ const ExploreDetail = ({ params }: { params: any }) => {
   const conditionFilter = searchParams.get('condition')?.split(',')
   const brandFilter = searchParams.get('brand')?.split(',')
   const communityFilter = searchParams.get('community')?.split(',')
+  const categoryFilter = searchParams.get("category")?.split(',')
+
   var  filters = {}
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
   if (brandFilter && brandFilter.length > 0) filters = {...filters, brandSlug: brandFilter}
   if (communityFilter && communityFilter.length > 0 ) filters = {...filters, communitySlug: communityFilter}
+  if (categoryFilter && categoryFilter.length > 0 ) filters = {...filters, categorySlug:categoryFilter}
   console.log("Applying filter", filters)
   const { data, loading, error } = useListListingsQuery({
     variables: {

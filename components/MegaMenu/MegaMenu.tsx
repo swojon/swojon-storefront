@@ -37,7 +37,13 @@ export const getCategoryTree = (categories: any[], target: any): any[] => {
 };
 
 export default function MegaMenu({ border }: { border: any }) {
-  const { data, loading, error } = useListCategoriesQuery();
+  const { data, loading, error } = useListCategoriesQuery(
+    {
+      variables: {
+        limit: 1000
+      }
+    }
+  );
   const categories = data?.listCategories.items;
   const parentCategories = categories?.filter(
     (item) => item.parentCategory == null
