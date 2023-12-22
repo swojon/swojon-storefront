@@ -111,14 +111,14 @@ const UploadImage = () => {
                   </div>
                 ))}
               </>
-            ) : (
+            ) :  (
               <>
                 {imageCount.map((item: any, index: any) => (
                   <div
                     key={index}
                     className={`
                md:row-span-${index === 0 ? 2 : 1} row-span-${
-                      index === 0 ? 1 : 1
+                      index === 0 ? 2 : 1
                     } md:col-span-${index === 0 ? 3 : 1} col-span-${
                       index === 0 ? 2 : 1
                     }
