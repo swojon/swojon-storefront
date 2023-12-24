@@ -11,6 +11,7 @@ import DealingMethod from "./DealingMethod";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { slugify } from "@/lib/helpers/slugify";
+import "./Upload.css";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -40,22 +41,21 @@ const formSchema = Yup.object({
   imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
-const Uploads = ({product} : {product: null | any}) => {
+const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const initialValues = {
     title: product ? product.title : "",
     description: product ? product.description : "",
     // images: product ? product.images : "",
-    condition: product? product.condition : "used",
+    condition: product ? product.condition : "used",
     slug: product ? product.slug : "",
     parentCategoryId: product?.parentCategory?.id,
-    brandId: product? product.brand.id : null,
-    categoryId: product? product.category.id : null,
-    locationId: product? product.location.id : null,
-    price: product? product.price : 0,
-    quantity: product? product.quantity: 1,
-    dealingMethod: product? product.dealingMethod : "",
-
+    brandId: product ? product.brand.id : null,
+    categoryId: product ? product.category.id : null,
+    locationId: product ? product.location.id : null,
+    price: product ? product.price : 0,
+    quantity: product ? product.quantity : 1,
+    dealingMethod: product ? product.dealingMethod : "",
   };
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -74,7 +74,6 @@ const Uploads = ({product} : {product: null | any}) => {
     }
   };
 
-  
   const {
     values,
     errors,
@@ -87,21 +86,20 @@ const Uploads = ({product} : {product: null | any}) => {
   } = useFormik({
     initialValues,
     validationSchema: formSchema,
-    onSubmit:  async (values, action) => {
-      console.log("Form submitted with values", values)
-    }
+    onSubmit: async (values, action) => {
+      console.log("Form submitted with values", values);
+    },
   });
 
-  console.log("values", values)
+  console.log("values", values);
   const handleTitleChange = (event: any) => {
     const inputValue = event.currentTarget.value;
     setFieldValue("slug", slugify(inputValue));
   };
 
-
   return (
     <section className="space-y-5">
-      <div className={`  `}>
+      <div className={` `}>
         <div className="flex items-center space-x-1  text-sm text-secondColor custom-container">
           <h6>Home</h6>
           <MdKeyboardArrowRight />
@@ -110,11 +108,11 @@ const Uploads = ({product} : {product: null | any}) => {
 
         <div
           className={` border-b bg-white transition ease-in-out delay-150 py-5  
-          
+          ${stickyClass} 
           `}
         >
           <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
-            <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-5 lg:space-y-4 space-y-3 ">
+            <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-4 lg:space-y-4 space-y-3 ">
               <h5 className="text-2xl text-primaryColor font-lexed font-bold">
                 List your Item
               </h5>
@@ -147,11 +145,23 @@ const Uploads = ({product} : {product: null | any}) => {
         <form className="md:space-y-5 space-y-3">
           <UploadImage />
           <Category setFieldValue={setFieldValue} values={values} />
-          <ProductTitle handleChange={handleChange} values={values}/>
+          <ProductTitle handleChange={handleChange} values={values} />
           <Condition setFieldValue={setFieldValue} values={values} />
-          <Price setFieldValue={setFieldValue} values={values} handleChange={handleChange} />
-          <Brand setFieldValue={setFieldValue} values={values} handleChange={handleChange}/>
-          <DealingMethod setFieldValue={setFieldValue} values={values} handleChange={handleChange} />
+          <Price
+            setFieldValue={setFieldValue}
+            values={values}
+            handleChange={handleChange}
+          />
+          <Brand
+            setFieldValue={setFieldValue}
+            values={values}
+            handleChange={handleChange}
+          />
+          <DealingMethod
+            setFieldValue={setFieldValue}
+            values={values}
+            handleChange={handleChange}
+          />
         </form>
       </div>
     </section>

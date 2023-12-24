@@ -1,28 +1,44 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListBrandsQuery } from "@/apollograph/generated";
+import BrandLoader from "./BrandLoader";
 
+const Brand = ({
+  setFieldValue,
+  values,
+  handleChange,
+}: {
+  setFieldValue: any;
+  values: any;
+  handleChange: any;
+}) => {
+  const [query, setQuery] = useState("");
 
-const Brand = ({setFieldValue, values, handleChange} : {setFieldValue: any, values: any, handleChange:any}) => {
-  const [query, setQuery] = useState("")
-  
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setQuery(value)
-  }
+    setQuery(value);
+  };
 
   const [selectBrand, setSelectBrand] = useState<any>(null);
-  const {data:brandData, loading: brandLoading, error: brandError} = useListBrandsQuery()
+  const {
+    data: brandData,
+    loading: brandLoading,
+    error: brandError,
+  } = useListBrandsQuery();
   const brands = brandData?.listBrands.items;
-  const filteredBrands = !!query ? brands?.filter(br => br.name?.toLowerCase().includes(query.toLowerCase())) : brands;
- 
+  const filteredBrands = !!query
+    ? brands?.filter((br) =>
+        br.name?.toLowerCase().includes(query.toLowerCase())
+      )
+    : brands;
+
   useEffect(() => {
-    if (!selectBrand) setFieldValue('brandId', null)
-    else setFieldValue("brandId", selectBrand.id)
-  }, [selectBrand])
+    if (!selectBrand) setFieldValue("brandId", null);
+    else setFieldValue("brandId", selectBrand.id);
+  }, [selectBrand]);
 
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
@@ -66,11 +82,12 @@ const Brand = ({setFieldValue, values, handleChange} : {setFieldValue: any, valu
           </span>
         </div>
 
-        <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
+        <div className="md:p-6 p-2.5  flex items-center  gap-4 overflow-x-auto small-scroll2">
+          {brandLoading && <BrandLoader />}
           {filteredBrands?.map((item: any) => (
             <div
               key={item.id}
-              className={`flex flex-col items-center gap-2 py-5 px-2 border  rounded-md cursor-pointer space-y-3  ${
+              className={`flex flex-col justify-center  items-center flex-none w-[220px] h-[128px]  text-center pt-5  pb-4 px-2 border  rounded-md cursor-pointer space-y-3  ${
                 item?.id === selectBrand?.id
                   ? " border-activeColor "
                   : "border-gray-200 hover:border-gray-500"
@@ -79,7 +96,7 @@ const Brand = ({setFieldValue, values, handleChange} : {setFieldValue: any, valu
             >
               <BiSelection classNAme="text-primaryColor" />
 
-              <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+              <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
                 {item.name}
               </span>
             </div>
@@ -97,14 +114,14 @@ const Brand = ({setFieldValue, values, handleChange} : {setFieldValue: any, valu
           product results less query for you
         </p>
 
-        <input
+        <textarea
           id="text"
+          rows={4}
           name="description"
           onChange={handleChange}
           value={values.description}
           className="block w-full rounded-md border border-gray-300  md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
           placeholder="e.g. This smartphone comes with some cool feature.."
-          type="text"
         />
       </div>
     </section>

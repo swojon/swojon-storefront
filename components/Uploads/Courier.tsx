@@ -41,7 +41,7 @@ const Courier = () => {
             id="comments"
             name="comments"
             type="checkbox"
-            className="md:h-6 h-2.5 md:w-6 w-2.5 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
+            className="h-4 w-4  rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
         <label
@@ -59,17 +59,21 @@ const Courier = () => {
           Reminders
         </span>
 
-        <div className="flex items-center gap-4">
-          <MdOutlinePhotoCamera className="leading-0 text-2xl text-primaryColor " />
+        <div className="flex items-center md:gap-0 gap-4">
+          <div className="lg:w-[5%] md:w-[7%] w-[10%]">
+            <MdOutlinePhotoCamera className="leading-0 text-3xl text-primaryColor " />
+          </div>
 
-          <span className="block font-medium text-primaryColor text-base ">
+          <span className="block font-medium text-primaryColor md:text-base text-sm lg:w-[95%] md:w-[93%] w-[90%]">
             Take a picture of delivery slip for proof
           </span>
         </div>
-        <div className="flex items-center gap-4">
-          <IoWarningOutline className="leading-0 text-2xl text-primaryColor " />
+        <div className="flex items-center md:gap-0 gap-4">
+          <div className=" lg:w-[5%] md:w-[7%] w-[10%]">
+            <IoWarningOutline className="leading-0 text-3xl text-primaryColor " />
+          </div>
 
-          <span className="block font-medium text-primaryColor text-base ">
+          <span className="block font-medium text-primaryColor md:text-base text-sm lg:w-[95%] md:w-[93%] w-[90%]">
             Resolve conflict before you make the deal, swojon is not responsible
             for any unwanted situation
           </span>

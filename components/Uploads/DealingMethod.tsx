@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import Image from "next/image";
@@ -13,12 +13,20 @@ const method = [
   { id: 14, title: "Courier Delivery", slug: "courier" },
 ];
 
-const DealingMethod = ({setFieldValue, values, handleChange}: {setFieldValue: any, values:any, handleChange: any}) => {
+const DealingMethod = ({
+  setFieldValue,
+  values,
+  handleChange,
+}: {
+  setFieldValue: any;
+  values: any;
+  handleChange: any;
+}) => {
   const [selectMethod, setSelectMethod] = useState<any>(null);
   const [showSelectedMethod, setShowSelectedMethod] = useState<any>(null);
   useEffect(() => {
-    setFieldValue("dealingMethod", selectMethod?.slug)
-  }, [selectMethod])
+    setFieldValue("dealingMethod", selectMethod?.slug);
+  }, [selectMethod]);
 
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
@@ -50,7 +58,7 @@ const DealingMethod = ({setFieldValue, values, handleChange}: {setFieldValue: an
             {method.map((item) => (
               <div
                 key={item.id}
-                className={`flex h-[98px] flex-col justify-center items-center gap-2 p-4 md:space-y-4 border  rounded-md cursor-pointer text-center ${
+                className={`flex h-[98px] flex-col justify-center items-center  p-4 md:space-y-4 space-y-1 border  rounded-md cursor-pointer text-center ${
                   item?.id === selectMethod?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"

@@ -5,34 +5,53 @@ import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
+import NoResultFound from "./NoResultFound";
+import CategoryLoader from "./CategoryLoader";
 
-const Category = ({setFieldValue, values}: { setFieldValue: any, values:any}) => {
+const Category = ({
+  setFieldValue,
+  values,
+}: {
+  setFieldValue: any;
+  values: any;
+}) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
-  const {data:categoriesData, loading, error } = useListCategoriesQuery({variables: {
-    limit: 1000
-  }})
-  const categories = categoriesData?.listCategories.items
-  const [query, setQuery] = useState("")
-  
-  const categoryTree = categoriesData?.listCategories.items ? getCategoryTree(categoriesData?.listCategories.items, null) : [];
-  const filteredCategories = !!query ? categories?.filter(ca => ca.name?.toLowerCase().includes(query.toLowerCase())) : categoryTree;
-  
+  const {
+    data: categoriesData,
+    loading,
+    error,
+  } = useListCategoriesQuery({
+    variables: {
+      limit: 1000,
+    },
+  });
+  const categories = categoriesData?.listCategories.items;
+  const [query, setQuery] = useState("");
 
-  
+  const categoryTree = categoriesData?.listCategories.items
+    ? getCategoryTree(categoriesData?.listCategories.items, null)
+    : [];
+  const filteredCategories = !!query
+    ? categories?.filter((ca) =>
+        ca.name?.toLowerCase().includes(query.toLowerCase())
+      )
+    : categoryTree;
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setQuery(value)
-  }
+    setQuery(value);
+  };
 
   useEffect(() => {
-    if (!selectCategory && !selectSubCategory) setFieldValue('categoryId', null)
-    if (!!selectSubCategory) setFieldValue('categoryId', selectSubCategory.id)
-    console.log("selectCategory", selectCategory)
-    if (!selectCategory?.children || selectCategory?.children?.length ===  0) setFieldValue('categoryId', selectCategory?.id)
-  }, [selectCategory, selectSubCategory])
+    if (!selectCategory && !selectSubCategory)
+      setFieldValue("categoryId", null);
+    if (!!selectSubCategory) setFieldValue("categoryId", selectSubCategory.id);
+    console.log("selectCategory", selectCategory);
+    if (!selectCategory?.children || selectCategory?.children?.length === 0)
+      setFieldValue("categoryId", selectCategory?.id);
+  }, [selectCategory, selectSubCategory]);
 
-  const [accordion, setAccordion] = useState<any>(true);
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -59,11 +78,9 @@ const Category = ({setFieldValue, values}: { setFieldValue: any, values:any}) =>
             type="search"
           />
         </div>
-        <div className="py-3 md:px-6 px-2.5 border-y border-gray-200 flex items-center justify-between">
+        <div className="md:p-6 p-2.5 border-y border-gray-200 flex items-center justify-between">
           <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
-            {selectCategory
-              ? selectCategory.name
-              : "Select category from here"}
+            {selectCategory ? selectCategory.name : "Select category from here"}
           </span>
           <span className="text-2xl text-primaryColor">
             {selectCategory ? (
@@ -78,16 +95,17 @@ const Category = ({setFieldValue, values}: { setFieldValue: any, values:any}) =>
         </div>
         {}
         {(selectCategory === null || selectCategory.parentCategory != null) && (
-          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 flex items-center  gap-4 overflow-x-auto">
+          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-4 flex items-center  gap-4 overflow-x-auto mx-auto">
+            {loading && <CategoryLoader />}
             {filteredCategories?.map((category) => (
               <div
                 key={category.id}
-                className={`flex flex-col items-center text-center  gap-2 p-4 border  rounded-md cursor-pointer md:space-y-3  ${
+                className={`flex flex-col justify-center items-center text-center w-[220px]  p-4 border  rounded-md cursor-pointer md:space-y-3 h-[128px] ${
                   category?.id === selectCategory?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
-                onClick={() =>  setSelectCategory(category)}
+                onClick={() => setSelectCategory(category)}
               >
                 <BiSelection className="text-lg" />
 
@@ -95,33 +113,40 @@ const Category = ({setFieldValue, values}: { setFieldValue: any, values:any}) =>
                   {category.name}
                 </span>
                 <span className="text-xs text-secondColor">
-                {category.children && `${category.children.length} sub-category`}
+                  {category.children &&
+                    `${category.children.length} sub-category`}
                 </span>
               </div>
             ))}
           </div>
         )}
-        {selectCategory && categoryTree.find(cat => cat.id === selectCategory.id)?.children?.length > 0 &&  (
-          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
-            {categoryTree.find(cat => cat.id === selectCategory.id).children.map((item: any) => (
-              <div
-                key={item.id}
-                className={`flex flex-col items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 ${
-                  item?.id === selectSubCategory?.id
-                    ? " border-activeColor "
-                    : "border-gray-200 hover:border-gray-300 "
-                }`}
-                onClick={() => setSelectSubCategory(item)}
-              >
-                <BiSelection classNAme="text-primaryColor" />
+        {selectCategory &&
+          categoryTree.find((cat) => cat.id === selectCategory.id)?.children
+            ?.length > 0 && (
+            <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
+              {loading && <CategoryLoader />}
+              {categoryTree
+                .find((cat) => cat.id === selectCategory.id)
+                .children.map((item: any) => (
+                  <div
+                    key={item.id}
+                    className={`flex flex-col justify-center items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 text-center h-[128px]  ${
+                      item?.id === selectSubCategory?.id
+                        ? " border-activeColor "
+                        : "border-gray-200 hover:border-gray-300 "
+                    }`}
+                    onClick={() => setSelectSubCategory(item)}
+                  >
+                    <BiSelection classNAme="text-primaryColor" />
 
-                <span className="text-base text-primaryColor font-lexed font-medium capitalize">
-                  {item.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}{" "}
+                    <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+                      {item.name}
+                    </span>
+                  </div>
+                ))}
+            </div>
+          )}
+        {/* <NoResultFound /> */}
       </div>
     </section>
   );
