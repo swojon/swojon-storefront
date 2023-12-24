@@ -16,7 +16,7 @@ const UploadProduct = () => {
        
        
       </div> */}
-      <Uploads />
+      <Uploads product={null} />
       {/* <UploadForm /> */}
     </section>
   );

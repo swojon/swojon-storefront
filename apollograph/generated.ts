@@ -1173,6 +1173,52 @@ export function useGetTrendingSearchesLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetTrendingSearchesQueryHookResult = ReturnType<typeof useGetTrendingSearchesQuery>;
 export type GetTrendingSearchesLazyQueryHookResult = ReturnType<typeof useGetTrendingSearchesLazyQuery>;
 export type GetTrendingSearchesQueryResult = Apollo.QueryResult<GetTrendingSearchesQuery, GetTrendingSearchesQueryVariables>;
+export const SearchLocationDocument = gql`
+    query SearchLocation($nominatimQuery: NominatimSearchDTO!) {
+  searchLocation(nominatimQuery: $nominatimQuery) {
+    items {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+  }
+}
+    `;
+
+/**
+ * __useSearchLocationQuery__
+ *
+ * To run a query within a React component, call `useSearchLocationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchLocationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchLocationQuery({
+ *   variables: {
+ *      nominatimQuery: // value for 'nominatimQuery'
+ *   },
+ * });
+ */
+export function useSearchLocationQuery(baseOptions: Apollo.QueryHookOptions<SearchLocationQuery, SearchLocationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchLocationQuery, SearchLocationQueryVariables>(SearchLocationDocument, options);
+      }
+export function useSearchLocationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLocationQuery, SearchLocationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchLocationQuery, SearchLocationQueryVariables>(SearchLocationDocument, options);
+        }
+export type SearchLocationQueryHookResult = ReturnType<typeof useSearchLocationQuery>;
+export type SearchLocationLazyQueryHookResult = ReturnType<typeof useSearchLocationLazyQuery>;
+export type SearchLocationQueryResult = Apollo.QueryResult<SearchLocationQuery, SearchLocationQueryVariables>;
 export const ListNotificationsDocument = gql`
     query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
   listNotifications(
@@ -2411,6 +2457,31 @@ export type MutationUpdateUserArgs = {
   userId: Scalars['Float']['input'];
 };
 
+export type NominatimLocation = {
+  __typename?: 'NominatimLocation';
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  lat?: Maybe<Scalars['String']['output']>;
+  locality?: Maybe<Scalars['String']['output']>;
+  lon?: Maybe<Scalars['String']['output']>;
+  placeId?: Maybe<Scalars['String']['output']>;
+  postCode?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  stateDistrict?: Maybe<Scalars['String']['output']>;
+};
+
+export type NominatimLocations = {
+  __typename?: 'NominatimLocations';
+  items: Array<NominatimLocation>;
+};
+
+export type NominatimSearchDto = {
+  lat?: InputMaybe<Scalars['String']['input']>;
+  lon?: InputMaybe<Scalars['String']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Notification = {
   __typename?: 'Notification';
   content: Scalars['String']['output'];
@@ -2553,6 +2624,8 @@ export type Query = {
   logout: User;
   /** Search for listings */
   searchListings: Listings;
+  /** Search for nominatim api */
+  searchLocation: NominatimLocations;
   /** List All Reviews of a seller */
   summaryUserReview: SummaryReview;
 };
@@ -2722,6 +2795,11 @@ export type QuerySearchListingsArgs = {
 };
 
 
+export type QuerySearchLocationArgs = {
+  nominatimQuery: NominatimSearchDto;
+};
+
+
 export type QuerySummaryUserReviewArgs = {
   userId: Scalars['Float']['input'];
 };
@@ -2731,7 +2809,7 @@ export type Review = {
   dateCreated: Scalars['DateTime']['output'];
   id: Scalars['Float']['output'];
   isDeleted: Scalars['Boolean']['output'];
-  listing: Listing;
+  listing?: Maybe<Listing>;
   rating: Scalars['Float']['output'];
   review?: Maybe<Scalars['String']['output']>;
   reviewer: User;
@@ -3061,6 +3139,13 @@ export type GetTrendingSearchesQueryVariables = Exact<{ [key: string]: never; }>
 
 export type GetTrendingSearchesQuery = { __typename?: 'Query', getTrendingSearches: { __typename?: 'TrendingSearches', items: Array<{ __typename?: 'SearchQuery', searchQuery: string }> } };
 
+export type SearchLocationQueryVariables = Exact<{
+  nominatimQuery: NominatimSearchDto;
+}>;
+
+
+export type SearchLocationQuery = { __typename?: 'Query', searchLocation: { __typename?: 'NominatimLocations', items: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> } };
+
 export type ListNotificationsQueryVariables = Exact<{
   filters?: InputMaybe<NotificationFilterInput>;
   endingBefore?: InputMaybe<Scalars['Float']['input']>;
@@ -3089,7 +3174,7 @@ export type CreateSellerReviewMutationVariables = Exact<{
 }>;
 
 
-export type CreateSellerReviewMutation = { __typename?: 'Mutation', createSellerReview: { __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } } };
+export type CreateSellerReviewMutation = { __typename?: 'Mutation', createSellerReview: { __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing?: { __typename?: 'Listing', id: number, title: string } | null } };
 
 export type SummaryUserReviewQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
@@ -3107,7 +3192,7 @@ export type ListSellerReviewsQueryVariables = Exact<{
 }>;
 
 
-export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing: { __typename?: 'Listing', id: number, title: string } }> } };
+export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing?: { __typename?: 'Listing', id: number, title: string } | null }> } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;

@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import Image from "next/image";
@@ -9,13 +9,17 @@ import MeetUp from "./MeetUp";
 import Courier from "./Courier";
 
 const method = [
-  { id: 188, title: "Meet-up" },
-  { id: 14, title: "Courier Delivery" },
+  { id: 188, title: "Meet-up", slug: "meetup" },
+  { id: 14, title: "Courier Delivery", slug: "courier" },
 ];
 
-const DealingMethod = () => {
+const DealingMethod = ({setFieldValue, values, handleChange}: {setFieldValue: any, values:any, handleChange: any}) => {
   const [selectMethod, setSelectMethod] = useState<any>(null);
   const [showSelectedMethod, setShowSelectedMethod] = useState<any>(null);
+  useEffect(() => {
+    setFieldValue("dealingMethod", selectMethod?.slug)
+  }, [selectMethod])
+
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">

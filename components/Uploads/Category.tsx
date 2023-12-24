@@ -1,12 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
 
-const Category = () => {
+const Category = ({setFieldValue, values}: { setFieldValue: any, values:any}) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
   const {data:categoriesData, loading, error } = useListCategoriesQuery({variables: {
@@ -24,6 +24,13 @@ const Category = () => {
     const value = e.target.value;
     setQuery(value)
   }
+
+  useEffect(() => {
+    if (!selectCategory && !selectSubCategory) setFieldValue('categoryId', null)
+    if (!!selectSubCategory) setFieldValue('categoryId', selectSubCategory.id)
+    console.log("selectCategory", selectCategory)
+    if (!selectCategory?.children || selectCategory?.children?.length ===  0) setFieldValue('categoryId', selectCategory?.id)
+  }, [selectCategory, selectSubCategory])
 
   const [accordion, setAccordion] = useState<any>(true);
   return (
@@ -102,7 +109,7 @@ const Category = () => {
                 className={`flex flex-col items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 ${
                   item?.id === selectSubCategory?.id
                     ? " border-activeColor "
-                    : "opacity-50 hover:border-gray-300 "
+                    : "border-gray-200 hover:border-gray-300 "
                 }`}
                 onClick={() => setSelectSubCategory(item)}
               >

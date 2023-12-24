@@ -1,6 +1,15 @@
 import React from "react";
 
-const Price = () => {
+const Price = ({setFieldValue, values, handleChange}: {setFieldValue:any, values:any, handleChange:any}) => {
+  const handleChecked = (e: { target: { checked: any; }; }) => {
+    if (e.target.checked) {
+      setFieldValue("isDonation", true)
+      setFieldValue("price", 0)
+    }
+    else {
+      setFieldValue("isDonation", false)
+    }
+  } 
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -16,6 +25,8 @@ const Price = () => {
             type="text"
             name="price"
             id="price"
+            value={values.price}
+            onChange={handleChange}
             className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
             placeholder="1500"
           />
@@ -29,8 +40,8 @@ const Price = () => {
               className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm"
             >
               <option>Bangladeshi Taka</option>
-              <option>CAD</option>
-              <option>EUR</option>
+              {/* <option>CAD</option> */}
+              {/* <option>EUR</option> */}
             </select>
           </div>
         </div>
@@ -39,9 +50,10 @@ const Price = () => {
       <div className="flex items-center space-x-2 ">
         <div className="flex  items-center">
           <input
-            id="comments"
-            name="comments"
+            id="isDonation"
+            name="isDonation"
             type="checkbox"
+            onChange={handleChecked}
             className="md:h-6 h-4 md:w-6 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
@@ -49,7 +61,7 @@ const Price = () => {
           htmlFor="comments"
           className="text-secondColor lg:text-sm md:text-xs text-[10px] font-medium"
         >
-          I have more than one item
+          I want to donate
         </label>
       </div>
     </section>

@@ -1,29 +1,36 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
+import { useListBrandsQuery } from "@/apollograph/generated";
 
-const brands = [
-  { id: 188, title: "Apple" },
-  { id: 14, title: "Apple2" },
-  { id: 15, title: "Apple3" },
-  { id: 18, title: "Apple4" },
-  { id: 157, title: "Apple5" },
-  { id: 144, title: "Apple7" },
-  { id: 17, title: "Apple" },
-  { id: 177, title: "Apple9" },
-];
 
-const Brand = () => {
+const Brand = ({setFieldValue, values, handleChange} : {setFieldValue: any, values: any, handleChange:any}) => {
+  const [query, setQuery] = useState("")
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value)
+  }
+
   const [selectBrand, setSelectBrand] = useState<any>(null);
+  const {data:brandData, loading: brandLoading, error: brandError} = useListBrandsQuery()
+  const brands = brandData?.listBrands.items;
+  const filteredBrands = !!query ? brands?.filter(br => br.name?.toLowerCase().includes(query.toLowerCase())) : brands;
+ 
+  useEffect(() => {
+    if (!selectBrand) setFieldValue('brandId', null)
+    else setFieldValue("brandId", selectBrand.id)
+  }, [selectBrand])
+
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Brand?
       </h6>
       <p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Choose a brand from the list
+        Choose a Brand From the list
       </p>
 
       <div className="rounded-2xl border border-gray-200  ">
@@ -37,6 +44,7 @@ const Brand = () => {
           <input
             id="search"
             name="search"
+            onChange={handleSearchChange}
             className="block w-full rounded-3xl bg-gray-100 md:py-4 py-3 pr-3 pl-9 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
             placeholder="Search brand  e.g. Apple"
             type="search"
@@ -44,28 +52,35 @@ const Brand = () => {
         </div>
         <div className="md:p-6 p-2.5 border-y border-gray-200 flex items-center justify-between">
           <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
-            {selectBrand ? selectBrand.title : "Select category from here"}
+            {selectBrand ? selectBrand.name : "Select category from here"}
           </span>
           <span className="text-2xl text-primaryColor">
-            <MdKeyboardArrowUp className="" />
+            {selectBrand ? (
+              <MdOutlineClose
+                className="cursor-pointer"
+                onClick={() => setSelectBrand(null)}
+              />
+            ) : (
+              <MdKeyboardArrowUp className="" />
+            )}
           </span>
         </div>
 
         <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
-          {brands.map((item: any) => (
+          {filteredBrands?.map((item: any) => (
             <div
               key={item.id}
               className={`flex flex-col items-center gap-2 py-5 px-2 border  rounded-md cursor-pointer space-y-3  ${
                 item?.id === selectBrand?.id
                   ? " border-activeColor "
-                  : "opacity-50 hover:border-gray-500"
+                  : "border-gray-200 hover:border-gray-500"
               }`}
               onClick={() => setSelectBrand(item)}
             >
               <BiSelection classNAme="text-primaryColor" />
 
               <span className="text-base text-primaryColor font-lexed font-medium capitalize">
-                {item.title}
+                {item.name}
               </span>
             </div>
           ))}
@@ -84,7 +99,9 @@ const Brand = () => {
 
         <input
           id="text"
-          name="name"
+          name="description"
+          onChange={handleChange}
+          value={values.description}
           className="block w-full rounded-md border border-gray-300  md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
           placeholder="e.g. This smartphone comes with some cool feature.."
           type="text"

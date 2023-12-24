@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 
 const condition = [
-  { id: 188, title: "brand new" },
-  { id: 14, title: "Like new" },
-  { id: 15, title: "Used" },
+  { id: 188, slug: "brand-new", title: "Brand New", description: "The product is in its original, unopened condition, never used. Includes all original accessories and packaging."  },
+  { id: 14, slug: "like-new", title: "Like New", description: "Excellent condition with minimal signs of use. Almost new appearance and functions perfectly." },
+  { id: 15, slug: "used", title: "Used", description: "Previously owned, Please refer to the item's listing for specific details on its condition." },
 ];
 
-const Condition = () => {
+const Condition = ({setFieldValue, values}: {values: any, setFieldValue:any}) => {
   const [selectCondition, setSelectCondition] = useState<any>(null);
+  useEffect(() => {
+    setFieldValue("condition", selectCondition?.slug)
+  }, [selectCondition])
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -26,7 +29,7 @@ const Condition = () => {
             className={`flex flex-col items-center gap-2 py-5 px-3 border  rounded-md cursor-pointer md:space-y-2.5 text-center ${
               item?.id === selectCondition?.id
                 ? "border border-activeColor "
-                : "opacity-50 hover:border-gray-500"
+                : "border-gray-200 hover:border-gray-500"
             }`}
             onClick={() => setSelectCondition(item)}
           >
@@ -37,7 +40,7 @@ const Condition = () => {
             </span>
 
             <p className="text-sm text-secondColor text-center">
-              The product is in its original condition and has never been used
+             {item.description}
             </p>
           </div>
         ))}

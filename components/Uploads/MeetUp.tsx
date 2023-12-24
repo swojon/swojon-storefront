@@ -19,6 +19,7 @@ const MeetUp = () => {
         <input
           id="search"
           name="search"
+          // onChange={handleSearchChange}
           className="block w-full rounded-3xl  bg-[#F5F5F5] py-4 pr-3 pl-9 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
           placeholder="Search"
           type="search"

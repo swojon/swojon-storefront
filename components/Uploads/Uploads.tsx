@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import Price from "./Price";
 import DealingMethod from "./DealingMethod";
 import * as Yup from "yup";
+import { useFormik } from "formik";
+import { slugify } from "@/lib/helpers/slugify";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -17,20 +19,9 @@ const formSchema = Yup.object({
   description: Yup.string().min(5).required("Description is required"),
   locationId: Yup.number().positive().required(),
   price: Yup.number().positive().integer().required("Min price needed"),
-
-  // name: Yup.string().min(2).required("Name is required"),
-  // contact: Yup.number()
-  //   .min(11)
-  //   .typeError("That doesn't look like a phone number")
-  //   .positive("A phone number can't start with a minus")
-  //   .integer("A phone number can't include a decimal point")
-  //   .required("Provide your contact number"),
-  // slug: Yup.string(),
-  // condition: Yup.object().required("Condition is required"),
-  // brand: Yup.object().required("Brand is required"),
-  // genuine: Yup.object().required("Genuine is required"),
-  // model: Yup.object().required("Model is required"),
-  banners: Yup.mixed()
+  condition: Yup.string().required("Item condition is required"),
+  dealingMethod: Yup.string().required("Dealing Method is required"),
+  images: Yup.mixed()
     .nullable()
     .test(
       "FILE_SIZE",
@@ -49,9 +40,23 @@ const formSchema = Yup.object({
   imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
-const Uploads = () => {
+const Uploads = ({product} : {product: null | any}) => {
   const [stickyClass, setStickyClass] = useState("relative");
+  const initialValues = {
+    title: product ? product.title : "",
+    description: product ? product.description : "",
+    // images: product ? product.images : "",
+    condition: product? product.condition : "used",
+    slug: product ? product.slug : "",
+    parentCategoryId: product?.parentCategory?.id,
+    brandId: product? product.brand.id : null,
+    categoryId: product? product.category.id : null,
+    locationId: product? product.location.id : null,
+    price: product? product.price : 0,
+    quantity: product? product.quantity: 1,
+    dealingMethod: product? product.dealingMethod : "",
 
+  };
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
 
@@ -68,6 +73,32 @@ const Uploads = () => {
         : setStickyClass("relative");
     }
   };
+
+  
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    isSubmitting,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: formSchema,
+    onSubmit:  async (values, action) => {
+      console.log("Form submitted with values", values)
+    }
+  });
+
+  console.log("values", values)
+  const handleTitleChange = (event: any) => {
+    const inputValue = event.currentTarget.value;
+    setFieldValue("slug", slugify(inputValue));
+  };
+
+
   return (
     <section className="space-y-5">
       <div className={`  `}>
@@ -115,12 +146,12 @@ const Uploads = () => {
       <div className=" custom-container   ">
         <form className="md:space-y-5 space-y-3">
           <UploadImage />
-          <Category />
-          <ProductTitle />
-          <Condition />
-          <Price />
-          <Brand />
-          <DealingMethod />
+          <Category setFieldValue={setFieldValue} values={values} />
+          <ProductTitle handleChange={handleChange} values={values}/>
+          <Condition setFieldValue={setFieldValue} values={values} />
+          <Price setFieldValue={setFieldValue} values={values} handleChange={handleChange} />
+          <Brand setFieldValue={setFieldValue} values={values} handleChange={handleChange}/>
+          <DealingMethod setFieldValue={setFieldValue} values={values} handleChange={handleChange} />
         </form>
       </div>
     </section>

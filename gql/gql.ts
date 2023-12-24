@@ -35,6 +35,7 @@ const documents = {
     "query GetListing($id: Float, $name: String) {\n  getListing(id: $id, name: $name) {\n    brand {\n      id\n      name\n    }\n    category {\n      id\n      name\n      slug\n      parentCategory {\n        id\n        name\n        slug\n      }\n    }\n    communities {\n      id\n      name\n    }\n    dateCreated\n    description\n    id\n    isApproved\n    isFeatured\n    isLive\n    isSold\n    location {\n      id\n      name\n    }\n    price\n    title\n    user {\n      email\n      id\n      username\n      profile {\n        name\n        avatar\n      }\n    }\n    media {\n      url\n      isPrimary\n    }\n    favoriteCount\n    favoriteStatus\n  }\n}": types.GetListingDocument,
     "query GetSearchHistory {\n  getSearchHistory {\n    items {\n      searchQuery\n    }\n  }\n}": types.GetSearchHistoryDocument,
     "query GetTrendingSearches {\n  getTrendingSearches {\n    items {\n      searchQuery\n    }\n  }\n}": types.GetTrendingSearchesDocument,
+    "query SearchLocation($nominatimQuery: NominatimSearchDTO!) {\n  searchLocation(nominatimQuery: $nominatimQuery) {\n    items {\n      city\n      country\n      displayName\n      lat\n      locality\n      lon\n      placeId\n      postCode\n      state\n      stateDistrict\n    }\n  }\n}": types.SearchLocationDocument,
     "query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {\n  listNotifications(\n    filters: $filters\n    ending_before: $endingBefore\n    starting_after: $startingAfter\n    limit: $limit\n  ) {\n    count\n    hasMore\n    items {\n      content\n      context\n      dateCreated\n      read\n      type\n      id\n      user {\n        email\n        id\n      }\n    }\n  }\n}": types.ListNotificationsDocument,
     "mutation RemoveFavorite($listingId: Float!, $userId: Float!) {\n  removeFavorite(listingId: $listingId, userId: $userId) {\n    dateCreated\n    id\n    listing {\n      id\n      title\n    }\n    user {\n      email\n      id\n      username\n    }\n  }\n}": types.RemoveFavoriteDocument,
     "mutation RemoveSearchHistory {\n  removeSearchHistory {\n    items {\n      searchQuery\n    }\n  }\n}": types.RemoveSearchHistoryDocument,
@@ -148,6 +149,10 @@ export function graphql(source: "query GetSearchHistory {\n  getSearchHistory {\
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query GetTrendingSearches {\n  getTrendingSearches {\n    items {\n      searchQuery\n    }\n  }\n}"): (typeof documents)["query GetTrendingSearches {\n  getTrendingSearches {\n    items {\n      searchQuery\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query SearchLocation($nominatimQuery: NominatimSearchDTO!) {\n  searchLocation(nominatimQuery: $nominatimQuery) {\n    items {\n      city\n      country\n      displayName\n      lat\n      locality\n      lon\n      placeId\n      postCode\n      state\n      stateDistrict\n    }\n  }\n}"): (typeof documents)["query SearchLocation($nominatimQuery: NominatimSearchDTO!) {\n  searchLocation(nominatimQuery: $nominatimQuery) {\n    items {\n      city\n      country\n      displayName\n      lat\n      locality\n      lon\n      placeId\n      postCode\n      state\n      stateDistrict\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
