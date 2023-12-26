@@ -23,8 +23,6 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
     return Math.trunc((count / total) * 100);
   };
 
-
-
   return (
     <>
       <div className="flex items-center">
@@ -57,7 +55,9 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                   </span>
 
                   <div className="flex items-center gap-1 text-sm">
-                   <ReviewStars avgRating={data?.summaryUserReview.avgRating ?? 0}/>
+                    <ReviewStars
+                      avgRating={data?.summaryUserReview.avgRating ?? 0}
+                    />
                   </div>
                 </div>
                 <span className="text-xs text-primaryColor pt-1">

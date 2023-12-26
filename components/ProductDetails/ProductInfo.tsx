@@ -11,6 +11,10 @@ import { timeAgo } from "@/lib/helpers/timeAgo";
 import ReviewDropdown from "../Review/ProductReviewDropdown";
 import ProductReviewDropdown from "../Review/ProductReviewDropdown";
 import "./ProductDetail.css";
+import SellerReviewDropdown from "../Review/SellerReviewDropdown";
+import { CiLocationOn } from "react-icons/ci";
+import Image from "next/image";
+import SellerReview from "./SellerReview";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -28,8 +32,8 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowOfferPriceTooltip(false);
   };
   return (
-    <section className="space-y-3 ">
-      <div className="  space-y-4">
+    <section className="space-y-4 p-4  ">
+      {/* <div className="  space-y-4">
         <div className="space-y-2">
           <small className="text-xs text-secondColor">
             Posted {timeAgo(product?.dateCreated)}
@@ -43,15 +47,15 @@ const ProductInfo = ({ product }: { product: any }) => {
         </div>
 
         <div className="flex space-x-1 items-center">
-          {/* <div className="flex items-center ">
+          <div className="flex items-center ">
             <ProductReviewDropdown listingId={product.id} />
-          </div> */}
+          </div>
         </div>
-        {/* 
+        
         <div className="flex space-x-1 items-center">
           <HiLocationMarker className="text-activeColor" />
           <span className=" md:text-sm text-xs">Halishohor, Chattagram</span>
-        </div> */}
+        </div>
 
         {authState.isAuthenticated ? (
           <>
@@ -159,14 +163,117 @@ const ProductInfo = ({ product }: { product: any }) => {
         <p className="text-secondColor pb-2 lg:text-base md:text-sm text-xs">
           {product?.description}
         </p>
+      </div> */}
+      <div className="space-y-4 border-b border-gray-100">
+        <span className="text-base text-primaryColor font-medium">
+          Listed by
+        </span>
+
+        <div className="flex   gap-3 items-center    pb-4">
+          <Link href="">
+            <div className=" h-[60px] w-[60px] rounded-full">
+              <Image
+                src="/user1.jpg"
+                width={400}
+                height={400}
+                alt="user"
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
+          </Link>
+
+          <div className="  space-y-2">
+            <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
+              Nicola Tesla
+            </h6>
+
+            <div className="flex space-x-1 items-center ">
+              <SellerReview />
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* <div className="space-y-2 ">
-        <h6 className="xl:text-lg lg:text-base md:text-base text-sm font-lexed text-primaryColor">
-          Tags
-        </h6>
-      
-      </div> */}
+      <div className="flex   gap-3 items-center justify-between ">
+        <span className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
+          Item Information
+        </span>
+        <span className="lg:text-base text-sm font-lexed font-medium text-secondColor">
+          Listed 2 days ago
+        </span>
+      </div>
+
+      <span className="lg:text-2xl text-lg font-lexed font-bold text-activeColor block">
+        23,500 Tk
+      </span>
+
+      <div className="grid grid-cols-2 gap-x-4">
+        <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative">
+          <Image
+            src="/assets/starIcon.png"
+            width={80}
+            height={80}
+            className="w-[22px] h-[19.15px] mx-auto"
+            alt="icon"
+          />
+          <span className="block text-base font-bold text-primaryColor text-center">
+            Brand New
+          </span>
+          <div className="absolute right-1 -top-3">
+            <Image
+              src="/assets/info.png"
+              width={80}
+              height={80}
+              className="w-[16px] h-[16px] "
+              alt="icon"
+            />
+          </div>
+        </div>
+
+        <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4">
+          <Image
+            src="/assets/samsungIcon.png"
+            width={80}
+            height={80}
+            className="w-[65.5px] h-[10px] mx-auto"
+            alt="icon"
+          />
+          <span className="block text-base font-bold text-primaryColor text-center">
+            Samsung
+          </span>
+        </div>
+      </div>
+
+      <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+        <div className="flex justify-between items-center">
+          <span className=" text-base font-medium text-secondColor text-center">
+            Meetup
+          </span>
+          <span className=" text-base font-medium text-secondColor text-center relative">
+            View in map
+            <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
+          </span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <span className=" text-base font-bold text-primaryColor text-center">
+            <CiLocationOn />
+          </span>
+          <span className=" text-base font-bold text-primaryColor text-center relative">
+            Oxygen, Bayezid Bostami, Chittagong
+          </span>
+        </div>
+      </div>
+
+      <div className="border-b border-[#F1F1F1]" />
+
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
+        <div className="py-[13px] text-center bg-activeColor text-white text-base rounded-md">
+          Make Offer
+        </div>
+        <div className="py-[13px] text-center bg-secondColor text-white text-base rounded-md">
+          Chat with Seller
+        </div>
+      </div>
     </section>
   );
 };

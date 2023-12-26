@@ -48,3 +48,24 @@
 .scroll-hidden::-webkit-scrollbar-thumb {
   background: transparent;
 }
+
+.slider1 {
+  height: 441px;
+}
+.slider2 {
+  height: 120px;
+}
+
+@media (max-width: 639px) {
+  .slider1 {
+    height: 385px;
+  }
+}
+@media (max-width: 425px) {
+  .slider1 {
+    height: 350px;
+  }
+  .slider2 {
+    height: 60px;
+  }
+}

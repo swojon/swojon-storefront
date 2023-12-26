@@ -10,38 +10,8 @@ import Image from "next/image";
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
-    <section className="flex md:gap-4 gap-2 lg:h-[600px] md:h-[400px] sm:h-[350px] h-[280px]">
-      <div className="w-[18%]">
-        <Swiper
-          onSwiper={(swiper) => {
-            setThumbsSwiper(swiper);
-          }}
-          direction={"vertical"}
-          loop={true}
-          spaceBetween={10}
-          slidesPerView={5}
-          freeMode={true}
-          watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper "
-          initialSlide={0}
-          style={{ zIndex: 1 }}
-        >
-          {images?.map((im: any) => (
-            <SwiperSlide key={im.url} className="cursor-pointer z-0">
-              <Image
-                src={im.url}
-                width={500}
-                height={700}
-                priority
-                className="w-full h-full object-cover rounded-lg z-0"
-                alt="listing Image "
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="w-[82%]">
+    <section className="lg:h-[577px]  space-y-4">
+      <div className="w-full">
         <Swiper
           loop={true}
           spaceBetween={10}
@@ -50,7 +20,8 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
           modules={[FreeMode, Navigation, Thumbs]}
           initialSlide={0}
           freeMode={true}
-          className="mySwiper2 w-full lg:h-[600px] md:h-[400px] sm:h-[350px] h-[280px]"
+          // style={{ height: "441px" }}
+          className="mySwiper2 w-full  slider1"
         >
           {images?.map((im: any, index: number) => (
             <SwiperSlide key={index} className="w-full">
@@ -61,6 +32,35 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
                 priority
                 className="w-full h-full object-cover rounded-lg"
                 alt="listing Image"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="w-full">
+        <Swiper
+          onSwiper={(swiper) => {
+            setThumbsSwiper(swiper);
+          }}
+          loop={true}
+          spaceBetween={13}
+          slidesPerView={5}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[FreeMode, Navigation, Thumbs]}
+          className="mySwiper w-full slider2 "
+          initialSlide={0}
+          // style={{ zIndex: 1, height: "120px" }}
+        >
+          {images?.map((im: any) => (
+            <SwiperSlide key={im.url} className="cursor-pointer z-0  h-full">
+              <Image
+                src={im.url}
+                width={500}
+                height={700}
+                priority
+                className="w-full h-full object-cover rounded-lg z-0"
+                alt="listing Image "
               />
             </SwiperSlide>
           ))}

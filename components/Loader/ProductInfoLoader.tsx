@@ -1,51 +1,55 @@
 import React from "react";
+import { BsDot } from "react-icons/bs";
 
 const ProductInfoLoader = () => {
   return (
-    <section className="space-y-3">
-      <div className="  space-y-5">
-        <div className="space-y-5">
-          <small className="w-16 h-2 bg-gray-300 rounded-md block"></small>
-          <div className="w-56 h-12 bg-gray-300 rounded-md"></div>
-          <div className="w-28 h-6 bg-gray-300 rounded-md "></div>
-        </div>
+    <section className="space-y-5 p-4  animate-pulse">
+      <div className="space-y-4 border-b border-gray-100">
+        <div className="h-2 w-16 bg-gray-300 rounded-md"></div>
 
-        <div className="flex space-x-2 items-center">
-          <div className="w-24 h-3 bg-gray-300 rounded-md"></div>
+        <div className="flex   gap-3 items-center    pb-5">
+          <div className="h-[60px] w-[60px] bg-gray-300 rounded-full"></div>
 
-          <div className="w-24 h-3 bg-gray-300 rounded-md"></div>
-        </div>
+          <div className=" space-y-4">
+            <h6 className="h-2 w-20 bg-gray-300 rounded-md"></h6>
 
-        <div className="grid grid-cols-2 gap-2 pb-3">
-          <button className="bg-gray-300 rounded-md py-4  w-full"></button>
-
-          <button className="bg-gray-300 rounded-md py-4  w-full"></button>
-        </div>
-
-        <div className=" border-t border-gray-200 space-y-3 pt-3">
-          <div className="w-16 h-2 bg-gray-300 rounded-md "></div>
-          <div className="flex items-start gap-3 md:text-sm text-xs">
-            <div className=" w-24 h-3 bg-gray-300 rounded-md"></div>
-            <div className="w-32 h-3 bg-gray-300 rounded-md"></div>
-          </div>
-
-          <div className="flex items-start gap-3 md:text-sm text-xs">
-            <div className="w-24 h-3 bg-gray-300 rounded-md"></div>
-            <div className="w-32 h-3 bg-gray-300 rounded-md"></div>
-          </div>
-
-          <div className="flex items-start gap-3 md:text-sm text-xs">
-            <div className="w-24 h-3 bg-gray-300 rounded-md"></div>
-            <div className="w-32 h-3 bg-gray-300 rounded-md"></div>
+            <div className="flex gap-3 items-center">
+              <div className="h-2 w-20 bg-gray-300 rounded-md "></div>
+              <BsDot className="text-secondColor text-lg" />
+              <div className="h-2 w-20 bg-gray-300 rounded-md "></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="space-y-3 pt-6">
-        <div className="w-16 h-2 bg-gray-300 rounded-md "></div>
-        <p className="w-full h-3 bg-gray-300 rounded-md"></p>
-        <p className="w-full h-3 bg-gray-300 rounded-md"></p>
-        <p className="w-1/2 h-3 bg-gray-300 rounded-md"></p>
+      <div className="flex   gap-3 items-center justify-between ">
+        <div className="h-2 w-[20%] bg-gray-300 rounded-md"></div>
+        <div className="h-2 w-[20%] bg-gray-300 rounded-md" />
+      </div>
+
+      <div className="h-5 w-[30%] bg-gray-300 rounded-md"></div>
+
+      <div className="grid grid-cols-2 gap-x-4">
+        <div className="h-[100px] w-full bg-gray-300 rounded-md" />
+
+        <div className="h-[100px] w-full bg-gray-300 rounded-md" />
+      </div>
+
+      <div className="px-4 py-5  border border-[#F1F1F1] rounded-md space-y-5">
+        <div className="flex   gap-3 items-center justify-between ">
+          <div className="h-2 w-[20%] bg-gray-300 rounded-md" />
+          <div className="h-2 w-[20%] bg-gray-300 rounded-md" />
+        </div>
+        <div className="flex gap-2 items-center">
+          <div className="h-2 w-[60%] bg-gray-300 rounded-md" />
+        </div>
+      </div>
+
+      <div className="border-b border-[#F1F1F1]" />
+
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
+        <div className="h-12 w-full bg-gray-300 rounded-md" />
+        <div className="h-12 w-full bg-gray-300 rounded-md" />
       </div>
     </section>
   );

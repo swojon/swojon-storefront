@@ -5,7 +5,7 @@ const CompleteStatusBar = ({ bar }: { bar: any }) => {
     <div className="my-[10px] mx-auto bg-[#edeff1] h-[8px] rounded-md w-full ">
       <div
         className="min-w-[1%] relative left-0 h-full rounded-md bg-green-600"
-        style={{ width: `${bar}` }}
+        style={{ width: `${bar}%` }}
       ></div>
     </div>
   );

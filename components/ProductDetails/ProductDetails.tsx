@@ -14,6 +14,7 @@ import Image from "next/image";
 import shareIcon from "@/public/assets/share.png";
 import saveIcon from "@/public/assets/heartIcon.png";
 import Link from "next/link";
+import { FiShare2, FiHeart } from "react-icons/fi";
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const { data, error, loading } = useGetListingQuery({
@@ -25,12 +26,12 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const product = data?.getListing;
 
   return (
-    <section className="custom-container py-6 space-y-5">
+    <section className="custom-container py-6 space-y-6">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         {loading ? (
           <BreadCrumbsLoader />
         ) : (
-          <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
+          <div className="flex items-center space-x-1 justify-center text-basetext-secondColor">
             <Link href="/">
               <h6 className="">Home</h6>
             </Link>
@@ -40,7 +41,9 @@ const ProductDetails = ({ productId }: { productId: number }) => {
                 <Link
                   href={`/categories/${product?.category?.parentCategory?.slug}`}
                 >
-                  <h6 className="">{product.category.parentCategory.name}</h6>
+                  <h6 className="text-activeColor font-medium">
+                    {product.category.parentCategory.name}
+                  </h6>
                 </Link>
                 <MdKeyboardArrowRight />
               </>
@@ -54,7 +57,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
           </div>
         )}
 
-        <div className="flex items-center space-x-3">
+        {/* <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">
             <Image src={shareIcon} alt="share icon" />
             <span className="text-sm text-primaryColor relative  leading-0 cursor">
@@ -70,18 +73,10 @@ const ProductDetails = ({ productId }: { productId: number }) => {
               <span className="absolute left-0 bottom-0.5 h-0.5 w-full bg-secondColor"></span>
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      {/* <div className="hidden md:block">
-          <ProductDetailsImage images={product?.media} />
-        </div> */}
-
-      {/* <div className="block md:hidden md:h-[350px] sm:h-[300px] h-[280px]">
-          <ProductImageSlider images={product?.media} />
-        </div> */}
-
-      <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]  rounded-md  ">
+      {/* <div className="flex flex-col md:flex-row md:gap-8 gap-2  lg:h-[850px] md:h-[600px]  rounded-md  ">
         <div className="lg:w-[58%] md:w-[50%] w-full h-full  space-y-6  ">
           {loading ? (
             <ThumbnailLoader />
@@ -97,7 +92,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             </div>
           )}
         </div>
-        <div className="lg:w-[42%] md:w-[50%] w-full h-full lg:ps-14 md:ps-2 pe-0 md:overflow-auto scroll-hidden">
+        <div className="lg:w-[42%] md:w-[50%] w-full h-full  md:overflow-auto scroll-hidden">
           {loading ? (
             <ProductInfoLoader />
           ) : (
@@ -108,8 +103,42 @@ const ProductDetails = ({ productId }: { productId: number }) => {
               </div>
             </>
           )}
+        </div>
+      </div> */}
 
-          {/* <SellerBox seller={product?.user} /> */}
+      <div className="space-y-4">
+        <div className="flex justify-between items-center">
+          <h4 className="text-primaryColor text-2xl	font-bold ">
+            {product?.title}
+          </h4>
+          <div className="flex items-center gap-3">
+            <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+              <FiShare2 className="text-lg text-primaryColor" />
+            </button>
+
+            <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+              <FiHeart className="text-lg text-red-400" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:gap-5 gap-2  ">
+          <div className="xl:w-[64%] lg:w-[57%]  md:w-[50%] w-full h-full  space-y-6 ">
+            {loading ? (
+              <ThumbnailLoader />
+            ) : (
+              <ProductThumbnailSlider images={product?.media} />
+            )}
+          </div>
+          <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full lg:h-[577px]   shadow-xl rounded-md">
+            {loading ? (
+              <ProductInfoLoader />
+            ) : (
+              <div className=" w-full h-full">
+                <ProductInfo product={product ?? null} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -121,7 +150,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         <div className="lg:w-[100%] w-full">
           <SafetyTips />
         </div>
-        <div className="lg:w-[30%] md:w-[50%] w-full pt-5 lg:pt-0"></div>
       </div>
     </section>
   );

@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 
-const ProductTitle = ({handleChange, values}: {handleChange:any, values: any}) => {
+const ProductTitle = ({
+  handleChange,
+  values,
+}: // handleChangeWithProgress,
+{
+  handleChange: any;
+  values: any;
+  // handleChangeWithProgress: any;
+}) => {
   const [showQuantity, setShowQuantity] = useState(false);
-  const handleCheckBox = (e: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+  const handleCheckBox = (e: {
+    target: { checked: boolean | ((prevState: boolean) => boolean) };
+  }) => {
     // console.log("checked", e.target.checked)
-    setShowQuantity(e.target.checked)
-  }
+    setShowQuantity(e.target.checked);
+  };
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -44,23 +54,23 @@ const ProductTitle = ({handleChange, values}: {handleChange:any, values: any}) =
           I have more than one item
         </label>
       </div>
-      {showQuantity && 
-      <div>
-        <span className="md:text-2xl text-lg text-primaryColor font-lexed font-bold block pb-4">
-          Quantity <span className="text-red-500">*</span>
-        </span>
+      {showQuantity && (
+        <div>
+          <span className="md:text-2xl text-lg text-primaryColor font-lexed font-bold block pb-4">
+            Quantity <span className="text-red-500">*</span>
+          </span>
 
-        <input
-          id="text"
-          name="quantity"
-          value={values.quantity}
-          onChange={handleChange}
-          className="block w-full rounded-md border border-[#F1F1F1] md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-          placeholder="1"
-          type="number"
-        />
-      </div> 
-      }
+          <input
+            id="text"
+            name="quantity"
+            value={values.quantity}
+            onChange={handleChange}
+            className="block w-full rounded-md border border-[#F1F1F1] md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            placeholder="1"
+            type="number"
+          />
+        </div>
+      )}
     </section>
   );
 };

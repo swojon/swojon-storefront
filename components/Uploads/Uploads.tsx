@@ -5,7 +5,7 @@ import Category from "./Category";
 import ProductTitle from "./ProductTitle";
 import Brand from "./Brand";
 import Condition from "./Condition";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Price from "./Price";
 import DealingMethod from "./DealingMethod";
 import * as Yup from "yup";
@@ -43,20 +43,27 @@ const formSchema = Yup.object({
 
 const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
-  const initialValues = {
-    title: product ? product.title : "",
-    description: product ? product.description : "",
-    // images: product ? product.images : "",
-    condition: product ? product.condition : "used",
-    slug: product ? product.slug : "",
-    parentCategoryId: product?.parentCategory?.id,
-    brandId: product ? product.brand.id : null,
-    categoryId: product ? product.category.id : null,
-    locationId: product ? product.location.id : null,
-    price: product ? product.price : 0,
-    quantity: product ? product.quantity : 1,
-    dealingMethod: product ? product.dealingMethod : "",
-  };
+  const [progress, setProgress] = useState(0);
+
+  const initialValues = useMemo(() => {
+    return {
+      title: product ? product.title : "",
+      description: product ? product.description : "",
+      // images: product ? product.images : "",
+      condition: product ? product.condition : "used",
+      slug: product ? product.slug : "",
+      parentCategoryId: product?.parentCategory?.id,
+      brandId: product ? product.brand.id : null,
+      categoryId: product ? product.category.id : null,
+      locationId: product ? product.location.id : null,
+      price: product ? product.price : 0,
+      quantity: product ? product.quantity : 1,
+      dealingMethod: product ? product.dealingMethod : "",
+    };
+  }, []);
+  // const initialValues = {
+
+  // };
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
 
@@ -91,7 +98,19 @@ const Uploads = ({ product }: { product: null | any }) => {
     },
   });
 
+  useEffect(() => {
+    // Calculate progress based on completed fields
+    const completedFields = Object.values(values).filter(
+      (value) => !!value && value !== 0 && value !== 1
+    ).length;
+    const totalFields = Object.keys(initialValues).length;
+    const newProgress = Math.round((completedFields / totalFields) * 100);
+
+    setProgress(newProgress);
+  }, [values, initialValues]);
+
   console.log("values", values);
+  console.log("progress", progress);
   const handleTitleChange = (event: any) => {
     const inputValue = event.currentTarget.value;
     setFieldValue("slug", slugify(inputValue));
@@ -122,10 +141,17 @@ const Uploads = ({ product }: { product: null | any }) => {
               </p>
 
               <div className=" w-full">
-                <span className="text-base text-secondColor font-medium">
-                  Let’s complete{" "}
-                </span>
-                <CompleteStatusBar bar={"35%"} />
+                {progress === 0 ? (
+                  <span className="text-base text-secondColor font-medium">
+                    Let’s complete{" "}
+                  </span>
+                ) : (
+                  <span className="text-base text-secondColor font-medium">
+                    {progress}% complete
+                  </span>
+                )}
+
+                <CompleteStatusBar bar={progress} />
               </div>
             </div>
 
@@ -145,7 +171,11 @@ const Uploads = ({ product }: { product: null | any }) => {
         <form className="md:space-y-5 space-y-3">
           <UploadImage />
           <Category setFieldValue={setFieldValue} values={values} />
-          <ProductTitle handleChange={handleChange} values={values} />
+          <ProductTitle
+            handleChange={handleChange}
+            values={values}
+            // handleChangeWithProgress={handleChangeWithProgress}
+          />
           <Condition setFieldValue={setFieldValue} values={values} />
           <Price
             setFieldValue={setFieldValue}
