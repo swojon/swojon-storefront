@@ -99,7 +99,6 @@ const Uploads = ({ product }: { product: null | any }) => {
   });
 
   useEffect(() => {
-    // Calculate progress based on completed fields
     const completedFields = Object.values(values).filter(
       (value) => !!value && value !== 0 && value !== 1
     ).length;
@@ -171,27 +170,70 @@ const Uploads = ({ product }: { product: null | any }) => {
         <form className="md:space-y-5 space-y-3">
           <UploadImage />
           <Category setFieldValue={setFieldValue} values={values} />
-          <ProductTitle
-            handleChange={handleChange}
-            values={values}
-            // handleChangeWithProgress={handleChangeWithProgress}
-          />
-          <Condition setFieldValue={setFieldValue} values={values} />
-          <Price
-            setFieldValue={setFieldValue}
-            values={values}
-            handleChange={handleChange}
-          />
-          <Brand
-            setFieldValue={setFieldValue}
-            values={values}
-            handleChange={handleChange}
-          />
-          <DealingMethod
-            setFieldValue={setFieldValue}
-            values={values}
-            handleChange={handleChange}
-          />
+          <div
+            className={`${
+              values.categoryId && !errors.categoryId
+                ? "opacity-100 "
+                : "opacity-50 pointer-events-none"
+            }`}
+          >
+            <ProductTitle
+              handleChange={handleChange}
+              values={values}
+              // handleChangeWithProgress={handleChangeWithProgress}
+            />
+          </div>
+          <div
+            className={`${
+              values.title && !errors.title
+                ? "opacity-100 "
+                : "opacity-50 pointer-events-none"
+            }`}
+          >
+            <Condition setFieldValue={setFieldValue} values={values} />
+          </div>
+
+          <div
+            className={`${
+              values.condition && !errors.condition
+                ? "opacity-100 "
+                : "opacity-50 pointer-events-none"
+            }`}
+          >
+            <Price
+              setFieldValue={setFieldValue}
+              values={values}
+              handleChange={handleChange}
+            />
+          </div>
+
+          <div
+            className={`${
+              values.price && !errors.price
+                ? "opacity-100 "
+                : "opacity-50 pointer-events-none"
+            }`}
+          >
+            <Brand
+              setFieldValue={setFieldValue}
+              values={values}
+              handleChange={handleChange}
+            />
+          </div>
+
+          <div
+            className={`${
+              values.brandId && !errors.brandId
+                ? "opacity-100 "
+                : "opacity-50 pointer-events-none"
+            }`}
+          >
+            <DealingMethod
+              setFieldValue={setFieldValue}
+              values={values}
+              handleChange={handleChange}
+            />
+          </div>
         </form>
       </div>
     </section>

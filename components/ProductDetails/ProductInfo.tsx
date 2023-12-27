@@ -32,7 +32,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowOfferPriceTooltip(false);
   };
   return (
-    <section className="space-y-4 p-4  ">
+    <section className="space-y-4 p-4 lg:min-h-[577px] border border-gray-50 rounded-md">
       {/* <div className="  space-y-4">
         <div className="space-y-2">
           <small className="text-xs text-secondColor">
@@ -207,6 +207,12 @@ const ProductInfo = ({ product }: { product: any }) => {
         23,500 Tk
       </span>
 
+      <div className=" px-3 py-2 bg-[#F1F1F1] rounded-md">
+        <span className="text-primaryColor text-sm font-medium ">
+          2 Items available
+        </span>
+      </div>
+
       <div className="grid grid-cols-2 gap-x-4">
         <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative">
           <Image
@@ -245,6 +251,59 @@ const ProductInfo = ({ product }: { product: any }) => {
       </div>
 
       <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+        <span className=" text-base font-medium text-secondColor text-center">
+          Additional Details
+        </span>
+
+        <div className="flex gap-2 justify-between items-center">
+          <div className="w-[75%]">
+            <p className=" truncate text-base font-bold text-primaryColor ">
+              Before making an offer, please See Oxygen,
+            </p>
+          </div>
+          <button
+            onClick={() =>
+              dispatch(
+                setModalOpen({
+                  title: "this is a modal",
+                  body: "additionalDetails",
+                })
+              )
+            }
+            className="text-activeColor font-medium"
+          >
+            See more
+          </button>
+        </div>
+      </div>
+
+      {/*==== for Courier Delivery==== */}
+      <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+        <span className=" text-base font-medium text-secondColor text-center">
+          Courier Delivery
+        </span>
+
+        <div className="flex gap-2 justify-between items-center">
+          <h6 className=" truncate text-base font-bold text-primaryColor ">
+            150 Tk
+          </h6>
+        </div>
+
+        <div className="border-b border-[#F1F1F1]" />
+
+        <div className="flex gap-2 justify-between items-center">
+          <div className="w-[75%]">
+            <p className=" truncate text-base font-medium text-primaryColor ">
+              User can request delivery options
+            </p>
+          </div>
+          <button className="text-activeColor font-medium">See more</button>
+        </div>
+      </div>
+
+      {/*==== for Meetup==== */}
+
+      {/* <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
         <div className="flex justify-between items-center">
           <span className=" text-base font-medium text-secondColor text-center">
             Meetup
@@ -262,7 +321,7 @@ const ProductInfo = ({ product }: { product: any }) => {
             Oxygen, Bayezid Bostami, Chittagong
           </span>
         </div>
-      </div>
+      </div> */}
 
       <div className="border-b border-[#F1F1F1]" />
 

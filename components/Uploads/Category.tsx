@@ -53,7 +53,7 @@ const Category = ({
   }, [selectCategory, selectSubCategory]);
 
   return (
-    <section className="md:space-y-4 space-y-2 pt-4">
+    <section className="md:space-y-4 space-y-2 pt-4 	 ">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Category of your item? <span className="text-red-500">*</span>
       </h6>

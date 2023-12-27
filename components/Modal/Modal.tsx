@@ -18,6 +18,7 @@ import SuccessModal from "./SuccessModal";
 import WriteReviewModal from "./WriteReviewModal";
 import EditEmailModal from "./EditEmailModal";
 import EditNumberlModal from "./EditNumberlModal";
+import AdditionalDetail from "./AdditionalDetail";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
@@ -26,6 +27,7 @@ const SUCCESS = "success";
 const WRITEREVIEW = "writeReview";
 const EDITEMAIL = "editEmail";
 const EDITNUMBER = "editNumber";
+const ADDITIONALDETAILS = "additionalDetails";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -139,6 +141,12 @@ export default function Modal() {
                       {modalStack[modalStack.length - 1]?.body ===
                         SELLPRODUCT && (
                         <SellProductModal
+                          props={modalStack[modalStack.length - 1]?.props}
+                        />
+                      )}
+                      {modalStack[modalStack.length - 1]?.body ===
+                        ADDITIONALDETAILS && (
+                        <AdditionalDetail
                           props={modalStack[modalStack.length - 1]?.props}
                         />
                       )}
