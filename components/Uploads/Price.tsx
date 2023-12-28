@@ -1,15 +1,22 @@
 import React from "react";
 
-const Price = ({setFieldValue, values, handleChange}: {setFieldValue:any, values:any, handleChange:any}) => {
-  const handleChecked = (e: { target: { checked: any; }; }) => {
+const Price = ({
+  setFieldValue,
+  values,
+  handleChange,
+}: {
+  setFieldValue: any;
+  values: any;
+  handleChange: any;
+}) => {
+  const handleChecked = (e: { target: { checked: any } }) => {
     if (e.target.checked) {
-      setFieldValue("isDonation", true)
-      setFieldValue("price", 0)
+      setFieldValue("isDonation", true);
+      setFieldValue("price", 0);
+    } else {
+      setFieldValue("isDonation", false);
     }
-    else {
-      setFieldValue("isDonation", false)
-    }
-  } 
+  };
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -54,7 +61,7 @@ const Price = ({setFieldValue, values, handleChange}: {setFieldValue:any, values
             name="isDonation"
             type="checkbox"
             onChange={handleChecked}
-            className="md:h-6 h-4 md:w-6 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
+            className=" h-4  w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
         <label

@@ -56,9 +56,24 @@
   height: 120px;
 }
 
+@media (max-width: 1023px) {
+  .slider2 {
+    height: 70px;
+  }
+}
+
+/* @media (min-width: 768px) {
+  .slider2 {
+    height: 70px;
+  }
+} */
+
 @media (max-width: 639px) {
   .slider1 {
     height: 385px;
+  }
+  .slider2 {
+    height: 80px;
   }
 }
 @media (max-width: 425px) {
