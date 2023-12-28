@@ -1,9 +1,7 @@
-query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
-  searchListings(query: $query, filters: $filters, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore) {
-    hasMore
-    count
-    items{
-      brand {
+
+mutation CreateListing($listingData: ListingCreateDTO!) {
+  createListing(listingData: $listingData) {
+   brand {
         id
         name
       }
@@ -17,10 +15,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
           slug
         }
       }
-      communities {
-        id
-        name
-      }
+    
       dateCreated
       description
       id
@@ -28,18 +23,29 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
       isFeatured
       isLive
       isSold
-      location {
-        id
-        name
+      meetupLocations{
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
       }
+      quantity
+      slug
+      dealingMethod
       price
       title
-       user {
+      user {
         email
         id
         username
         profile{
-          name          
+          name
           avatar
         }
       }
@@ -51,5 +57,4 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
       favoriteStatus
       
     }
-  }
 }

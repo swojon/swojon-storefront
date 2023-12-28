@@ -1,6 +1,7 @@
-query GetListing($id: Float, $name: String) {
-  getListing(id: $id, name: $name) {
-     brand {
+query ListFavoriteListing($userId: Float!) {
+  listFavoriteListing(userId: $userId) {
+    items{
+      brand {
         id
         name
       }
@@ -8,16 +9,13 @@ query GetListing($id: Float, $name: String) {
         id
         name
         slug
-        parentCategory {
-            id 
-            name
-            slug
+        parentCategory{
+          id
+          name
+          slug
         }
       }
-      communities {
-        id
-        name
-      }
+    
       dateCreated
       description
       id
@@ -25,13 +23,24 @@ query GetListing($id: Float, $name: String) {
       isFeatured
       isLive
       isSold
-      location {
-        id
-        name
+      meetupLocations{
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
       }
+      quantity
+      slug
+      dealingMethod
       price
       title
-     user {
+      user {
         email
         id
         username
@@ -48,4 +57,5 @@ query GetListing($id: Float, $name: String) {
       favoriteStatus
       
     }
+  }
 }

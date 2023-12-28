@@ -1,15 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UploadArea from "./UploadArea";
 import Image from "next/image";
 
-const UploadImage = () => {
+const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) => {
   const [imageCount, setImageCount] = useState<any>([]);
   const deleteImage = (index: any) => {
     setImageCount((prevImageCount: any) =>
       prevImageCount.filter((_: any, i: any) => i != index)
     );
   };
+
+  useEffect(() => {
+    console.log("Settings images", imageCount)
+    setFieldValue("images", imageCount)
+  }, [imageCount])
 
   console.log("images", imageCount);
   return (
@@ -173,14 +178,16 @@ const UploadImage = () => {
               }  `}
             >
               <UploadArea
+              
                 imageCount={imageCount}
                 setImageCount={setImageCount}
+              
               />
             </div>
           </div>
         ) : (
           <div className="w-full md:h-[441px] h-[350px]">
-            <UploadArea imageCount={imageCount} setImageCount={setImageCount} />
+            <UploadArea  imageCount={imageCount} setImageCount={setImageCount} />
           </div>
         )}
       </div>

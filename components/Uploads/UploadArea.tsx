@@ -4,6 +4,7 @@ import { TbCloudUp } from "react-icons/tb";
 const UploadArea = ({
   imageCount,
   setImageCount,
+
 }: {
   imageCount: any;
   setImageCount: any;
@@ -27,6 +28,7 @@ const UploadArea = ({
         ]);
       }
     }
+
   };
 
   const onDragOver = (event: any) => {

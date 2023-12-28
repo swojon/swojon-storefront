@@ -5,24 +5,26 @@ import Category from "./Category";
 import ProductTitle from "./ProductTitle";
 import Brand from "./Brand";
 import Condition from "./Condition";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Price from "./Price";
 import DealingMethod from "./DealingMethod";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { slugify } from "@/lib/helpers/slugify";
 import "./Upload.css";
+import { uploadFile } from "@/lib/helpers/uploadFile";
+import { useCreateListingMutation } from "@/apollograph/generated";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
   brandId: Yup.number().positive().notRequired(),
   categoryId: Yup.number().positive().notRequired(),
   description: Yup.string().min(5).required("Description is required"),
-  locationId: Yup.number().positive().required(),
+  // locationId: Yup.number().positive().required(),
   price: Yup.number().positive().integer().required("Min price needed"),
   condition: Yup.string().required("Item condition is required"),
   dealingMethod: Yup.string().required("Dealing Method is required"),
-  deliveryCharge: Yup.number().positive().notRequired(),
+  deliveryCharge: Yup.number().notRequired(),
   meetupLocations: Yup.array(
     Yup.object({
         city : Yup.string().notRequired(),
@@ -43,9 +45,10 @@ const formSchema = Yup.object({
       "FILE_SIZE",
       "Too big!!",
       (file: any) => {
+        console.log("File and type of file", file, typeof file)
         if (typeof file === "string") return true;
-        return file ? file && file.size < 10 * 1024 * 1024 : true;
-      } //10MB
+        return file ? file && file.size < 20 * 1024 * 1024 : true;
+      } //20MB
     )
     .test("FILE_TYPE", "INVALID", (file: any) => {
       if (typeof file === "string") return true;
@@ -60,9 +63,9 @@ const formSchema = Yup.object({
 const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
-
-  const initialValues = useMemo(() => {
-    return {
+  const formRef = useRef<any>(null);
+  
+  const initialValues =  {
       title: product ? product.title : "",
       description: product ? product.description : "",
       images: product ? product.images : [],
@@ -71,14 +74,15 @@ const Uploads = ({ product }: { product: null | any }) => {
       // parentCategoryId: product?.parentCategory?.id,
       brandId: product ? product.brand.id : null,
       categoryId: product ? product.category.id : null,
-      locationId: product ? product.location.id : null,
+      // locationId: product ? product.location.id : null,
       price: product ? product.price : 0,
       quantity: product ? product.quantity : 1,
-      dealingMethod: product ? product.dealingMethod : "",
+      dealingMethod: product ? product.dealingMethod : "meetup",
       deliveryCharge: product ? product.deliveryCharge : 0,
-      meetupLocations: product ? product.meetupLocations : []
+      meetupLocations: product ? product.meetupLocations : [],
+      imageUrls: product? product.media : []
     };
-  }, []);
+  
   // const initialValues = {
 
   // };
@@ -98,7 +102,12 @@ const Uploads = ({ product }: { product: null | any }) => {
         : setStickyClass("relative");
     }
   };
-
+  const [uploading, setUploading] = useState(false);
+  const [uploadDone, setUploadDone] = useState(false);
+  const [uploadError, setUploadError] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [createListing, { error: createError, data: createData }] =
+    useCreateListingMutation();
   const {
     values,
     errors,
@@ -112,10 +121,49 @@ const Uploads = ({ product }: { product: null | any }) => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
-      console.log("Form submitted with values", values);
-    },
-  });
+      console.log("submitting the  form with values");
 
+      try {
+        for (let i = 0; i < values.images.length; i++) {
+          const url = await uploadFile(
+            values.images[i],
+            setUploadDone,
+            setUploading,
+            setUploadError,
+            setUploadProgress
+          );
+
+          console.log(`Image heloo ${i + 1} url: ${url}`);
+          // @ts-ignore:next-line
+          values.imageUrls.push(url);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      let listingData: any = {
+        ...values,
+        mediaUrls: values.imageUrls,
+      };
+
+      createListing({
+        variables: {
+          listingData: listingData,
+        },
+      });
+      // setUploadProgress(null);
+
+      if (createError) console.log("Failed to create listing", createError);
+      // .error("Failed to Create Category, Please Try again.");
+      if (createData) {
+        // toast.success("Category Created Successfully");
+        action.resetForm();
+        console.log("Success in creating product");
+      }
+      console.log("values after submitting", values);
+    }
+  });
+  console.log(errors)
   useEffect(() => {
     const completedFields = Object.values(values).filter(
       (value) => !!value && value !== 0 && value !== 1
@@ -133,6 +181,9 @@ const Uploads = ({ product }: { product: null | any }) => {
     setFieldValue("slug", slugify(inputValue));
   };
 
+  const handlePostButtonClick = () => {
+    handleSubmit()
+  }
   return (
     <section className="space-y-5">
       <div className={` `}>
@@ -176,7 +227,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               <button className="py-2 w-24 rounded-md bg-secondColor text-white text-sm hover:shadow-lg">
                 Cancel
               </button>
-              <button className="py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg">
+              <button type="button" onClick={handlePostButtonClick} className="a py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg">
                 Post
               </button>
             </div>
@@ -185,8 +236,8 @@ const Uploads = ({ product }: { product: null | any }) => {
       </div>
 
       <div className=" custom-container   ">
-        <form className="md:space-y-5 space-y-3">
-          <UploadImage />
+        <form className="md:space-y-5 space-y-3" ref={formRef} onSubmit={handleSubmit}>
+          <UploadImage  setFieldValue={setFieldValue} values={values}/>
           <Category setFieldValue={setFieldValue} values={values} />
           <div
             className={`${
@@ -252,6 +303,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               handleChange={handleChange}
             />
           </div>
+          
         </form>
       </div>
     </section>
