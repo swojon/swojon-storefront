@@ -24,7 +24,7 @@ const UploadArea = ({
       if (!imageCount.some((e: any) => e.name == files[i].name)) {
         setImageCount((prevImageCount: any) => [
           ...prevImageCount,
-          { name: files[i].name, url: URL.createObjectURL(files[i]) },
+          { name: files[i].name, url: URL.createObjectURL(files[i]), file: files[i] },
         ]);
       }
     }
@@ -51,7 +51,7 @@ const UploadArea = ({
       if (!imageCount.some((e: any) => e.name == files[i].name)) {
         setImageCount((prevImageCount: any) => [
           ...prevImageCount,
-          { name: files[i].name, url: URL.createObjectURL(files[i]) },
+          { name: files[i].name, url: URL.createObjectURL(files[i]), file: files[i] },
         ]);
       }
     }

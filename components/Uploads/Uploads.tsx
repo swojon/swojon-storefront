@@ -39,7 +39,8 @@ const formSchema = Yup.object({
         stateDistrict : Yup.string().notRequired(),
     })
   ).notRequired(), 
-  images: Yup.mixed()
+  images: Yup.array().of(
+    Yup.mixed()
     .nullable()
     .test(
       "FILE_SIZE",
@@ -51,11 +52,13 @@ const formSchema = Yup.object({
       } //20MB
     )
     .test("FILE_TYPE", "INVALID", (file: any) => {
+      console.log("file", file, file.type)
       if (typeof file === "string") return true;
       return file
-        ? file && ["image/png", "image/jpeg", "image/jpg"].includes(file.type)
+        ? file && ["image/png", "image/jpeg", "image/jpg", "images/webp", "images/svg"].includes(file.type)
         : true;
-    }),
+    })
+  ),
   imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
 
 });
@@ -168,11 +171,11 @@ const Uploads = ({ product }: { product: null | any }) => {
     const completedFields = Object.values(values).filter(
       (value) => !!value && value !== 0 && value !== 1
     ).length;
-    const totalFields = Object.keys(initialValues).length;
+    const totalFields = Object.keys(values).length;
     const newProgress = Math.round((completedFields / totalFields) * 100);
 
     setProgress(newProgress);
-  }, [values, initialValues]);
+  }, [values]);
 
   console.log("values", values);
   console.log("progress", progress);

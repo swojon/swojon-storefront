@@ -13,8 +13,8 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
 
   useEffect(() => {
     console.log("Settings images", imageCount)
-    setFieldValue("images", imageCount)
-  }, [imageCount])
+    setFieldValue("images", imageCount.map((iC:any) => iC.file))
+  }, [imageCount, setFieldValue])
 
   console.log("images", imageCount);
   return (

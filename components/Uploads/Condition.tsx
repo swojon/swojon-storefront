@@ -33,7 +33,7 @@ const Condition = ({setFieldValue, values}: {values: any, setFieldValue:any}) =>
             }`}
             onClick={() => setSelectCondition(item)}
           >
-            <BiSelection classNAme="text-primaryColor" />
+            <BiSelection className="text-primaryColor" />
 
             <span className="text-base text-primaryColor font-lexed font-medium capitalize">
               {item.title}

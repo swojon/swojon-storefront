@@ -12,7 +12,7 @@ const SellerReview = () => {
 
       <BsDot className="text-secondColor text-lg" />
       <div className="flex flex-wrap gap-2 items-center">
-        <ReviewStars />
+        <ReviewStars avgRating={5}/>
         <span className=" text-base font-medium text-secondColor text-center relative">
           (4 stars)
         </span>

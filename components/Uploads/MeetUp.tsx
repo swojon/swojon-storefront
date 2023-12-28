@@ -92,7 +92,7 @@ const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
           
           <div className="w-full   bg-white shadow-md">
             {locationSearchResults.map(loc => (
-              <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
+              <div key={loc.placeId} className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
               <input
                 id={`osmLocation${loc.placeId}`}
                 name="osmLocation"
@@ -128,8 +128,8 @@ const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
         
         <div className="space-y-5">
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
-          {values.meetupLocations.map( (ml:any) => (
-          <div className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
+          {values.meetupLocations.map( (ml:any, idx:number) => (
+          <div key={ml.placeId} className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-base text-primaryColor font-bold">
                   {ml.displayName}
