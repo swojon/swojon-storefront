@@ -22,6 +22,21 @@ const formSchema = Yup.object({
   price: Yup.number().positive().integer().required("Min price needed"),
   condition: Yup.string().required("Item condition is required"),
   dealingMethod: Yup.string().required("Dealing Method is required"),
+  deliveryCharge: Yup.number().positive().notRequired(),
+  meetupLocations: Yup.array(
+    Yup.object({
+        city : Yup.string().notRequired(),
+        country : Yup.string().notRequired(),
+        displayName : Yup.string().notRequired(),
+        lat : Yup.string().notRequired(),
+        locality : Yup.string().notRequired(),
+        lon : Yup.string().notRequired(),
+        placeId : Yup.string().notRequired(),
+        postCode : Yup.string().notRequired(),
+        state : Yup.string().notRequired(),
+        stateDistrict : Yup.string().notRequired(),
+    })
+  ).notRequired(), 
   images: Yup.mixed()
     .nullable()
     .test(
@@ -39,6 +54,7 @@ const formSchema = Yup.object({
         : true;
     }),
   imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
+
 });
 
 const Uploads = ({ product }: { product: null | any }) => {
@@ -49,16 +65,18 @@ const Uploads = ({ product }: { product: null | any }) => {
     return {
       title: product ? product.title : "",
       description: product ? product.description : "",
-      // images: product ? product.images : "",
+      images: product ? product.images : [],
       condition: product ? product.condition : "used",
       slug: product ? product.slug : "",
-      parentCategoryId: product?.parentCategory?.id,
+      // parentCategoryId: product?.parentCategory?.id,
       brandId: product ? product.brand.id : null,
       categoryId: product ? product.category.id : null,
       locationId: product ? product.location.id : null,
       price: product ? product.price : 0,
       quantity: product ? product.quantity : 1,
       dealingMethod: product ? product.dealingMethod : "",
+      deliveryCharge: product ? product.deliveryCharge : 0,
+      meetupLocations: product ? product.meetupLocations : []
     };
   }, []);
   // const initialValues = {

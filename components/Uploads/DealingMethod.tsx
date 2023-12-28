@@ -10,7 +10,7 @@ import Courier from "./Courier";
 
 const method = [
   { id: 188, title: "Meet-up", slug: "meetup" },
-  { id: 14, title: "Courier Delivery", slug: "courier" },
+  // { id: 14, title: "Courier Delivery", slug: "courier" },
 ];
 
 const DealingMethod = ({
@@ -75,9 +75,9 @@ const DealingMethod = ({
           </div>
         )}
         {selectMethod && selectMethod?.title === "Meet-up" ? (
-          <MeetUp />
+          <MeetUp  setFieldValue={setFieldValue} values={values}/>
         ) : (
-          selectMethod?.title === "Courier Delivery" && <Courier />
+          selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} />
         )}
       </div>
     </section>

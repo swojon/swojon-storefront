@@ -2,7 +2,11 @@ import React from "react";
 import { IoWarningOutline } from "react-icons/io5";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 
-const Courier = () => {
+const Courier = ({setFieldValue, values}: {setFieldValue: any, values:any}) => {
+  const handleFreeDeliveryCheck = (e:any) => {
+    if (e.target.checked) setFieldValue("deliveryCharge", 0)
+  }
+ 
   return (
     <div className="px-6 py-5 space-y-5 ">
       <h6 className="text-base font-bold font-lexed  text-primaryColor ">
@@ -15,6 +19,7 @@ const Courier = () => {
             type="text"
             name="price"
             id="price"
+            value={values.deliveryCharge}
             className="block w-full rounded-md  border-[#F1F1F1] py-4 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
             placeholder="1500"
           />
@@ -28,8 +33,6 @@ const Courier = () => {
               className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm"
             >
               <option>Bangladeshi Taka</option>
-              <option>CAD</option>
-              <option>EUR</option>
             </select>
           </div>
         </div>
@@ -38,9 +41,10 @@ const Courier = () => {
       <div className="flex items-center space-x-2 ">
         <div className="flex  items-center">
           <input
-            id="comments"
-            name="comments"
+            id="isFreeDelivery"
+            name="freeDelivery"
             type="checkbox"
+            onChange={handleFreeDeliveryCheck}
             className="h-4 w-4  rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
@@ -48,7 +52,7 @@ const Courier = () => {
           htmlFor="comments"
           className="text-secondColor lg:text-sm md:text-xs text-[10px] font-medium"
         >
-          I have more than one item
+          I will offer free delivery
         </label>
       </div>
 

@@ -5,18 +5,63 @@ import { GrLocation } from "react-icons/gr";
 import { MdOutlineClose } from "react-icons/md";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 import { IoWarningOutline } from "react-icons/io5";
+import { useSearchLocationQuery } from "@/apollograph/generated";
 
-const MeetUp = () => {
+const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
   const ref = useRef<any>(null);
   const [searchValue, setSearchValue] = useState<any>(null);
   const handleClick = () => {
     ref.current.focus();
   };
+  const {data, loading, error} = useSearchLocationQuery({
+    variables: {
+      nominatimQuery: {
+        query: `${searchValue}, BD`
+      }
+    },
+    skip: !searchValue 
+  })
+  const locationSearchResults = data?.searchLocation.items;
+  console.log(locationSearchResults)
+  const [checkedLocation, setCheckedLocation] = useState<any>([]);
 
-  const handleSearchChange = (event: any) => {
-    setSearchValue(event.target.value);
-  };
+  const handleChecked = (e:any, loc:any) => {
+    if (e.target.checked) setFieldValue("meetupLocations", [...values.meetupLocations, loc])
+    else setFieldValue("meetupLocations", values.meetupLocations.filter( (cL:any) => cL.placeId != loc.placeId))
+  }
+  console.log("Meetup Locations", values.meetupLocations)
+  const [showSearchResult, setShowSearchResult] = useState(false) 
+  
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null
 
+    const sendData = () => {
+      // If the user keeps on typing then the timeout is cleared and restarted
+      if(timer) clearTimeout(timer)
+
+      timer = setTimeout(() => {
+        setSearchValue(ref.current.value)
+        setShowSearchResult(true)
+      }, 3000)
+    }
+
+    const element = ref.current;
+    // Set listener and start timeout
+    element.addEventListener('keyup', sendData);
+
+    return () => {
+      // Remove listener wwhen unmounting
+      element.removeEventListener('keyup', sendData);
+    };
+  }, []);
+  const handleCancelClick = () => {
+    setShowSearchResult(false)
+    setSearchValue(null)
+  }
+
+  const handleRemoveClick = (loc:any) => {
+    setFieldValue("meetupLocations", values.meetupLocations.filter( (cL:any) => cL.placeId != loc.placeId))
+  }
   return (
     <div className="px-6 py-4 space-y-5 ">
       <div className="relative w-full ">
@@ -31,7 +76,7 @@ const MeetUp = () => {
             id="search"
             name="search"
             ref={ref}
-            onChange={handleSearchChange}
+            // onChange={handleSearchChange}
             className={`block w-full   bg-[#F5F5F5] py-4 pr-3 pl-9 leading-5 placeholder-[#C0C0C0]  focus:placeholder-gray-400 focus:outline-none  sm:text-sm ${
               searchValue
                 ? "rounded-t-3xl"
@@ -42,14 +87,18 @@ const MeetUp = () => {
           />
         </div>
 
-        {searchValue && (
+        {showSearchResult && locationSearchResults && (
+          <>
+          
           <div className="w-full   bg-white shadow-md">
-            <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
+            {locationSearchResults.map(loc => (
+              <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
               <input
-                id="isDonation"
-                name="isDonation"
+                id={`osmLocation${loc.placeId}`}
+                name="osmLocation"
                 type="checkbox"
-                // onChange={handleChecked}
+                onChange={e => handleChecked(e, loc)}
+                // value={loc}
                 className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
               />
 
@@ -57,71 +106,38 @@ const MeetUp = () => {
                 htmlFor="comments"
                 className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
               >
-                Dampara, Chittagong, Bangladesh
+                {loc.displayName}
               </label>
             </div>
+            ))}
+         
 
-            <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
-              <input
-                id="isDonation"
-                name="isDonation"
-                type="checkbox"
-                // onChange={handleChecked}
-                className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
-              />
-
-              <label
-                htmlFor="comments"
-                className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
-              >
-                Dampara, Chittagong, Bangladesh
-              </label>
-            </div>
-
-            <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
-              <input
-                id="isDonation"
-                name="isDonation"
-                type="checkbox"
-                // onChange={handleChecked}
-                className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
-              />
-
-              <label
-                htmlFor="comments"
-                className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
-              >
-                Dampara, Chittagong, Bangladesh
-              </label>
-            </div>
           </div>
+      
+            <div className="w-full flex justify-end items-center gap-5">
+              <button onClick={handleCancelClick} className="px-8 py-3.5 text-white bg-secondColor text-base rounded-md">
+                Cancel
+              </button>
+              {/* <button  className="px-8 py-3.5 text-white bg-activeColor text-base rounded-md">
+                Done
+              </button> */}
+            </div>
+          </>
         )}
       </div>
-      {searchValue ? (
-        <div className="w-full flex justify-end items-center gap-5">
-          <button className="px-8 py-3.5 text-white bg-secondColor text-base rounded-md">
-            Cancel
-          </button>
-          <button className="px-8 py-3.5 text-white bg-activeColor text-base rounded-md">
-            Done
-          </button>
-        </div>
-      ) : (
+        
         <div className="space-y-5">
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
-            <div className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
+          {values.meetupLocations.map( (ml:any) => (
+          <div className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-base text-primaryColor font-bold">
-                  Oxygen, Bayezid Bostami, Chittagong
+                  {ml.displayName}
                 </span>
                 <span>
-                  <MdOutlineClose className="text-2xl text-primaryColor" />
+                  <MdOutlineClose onClick={() => handleRemoveClick(ml)} className="text-2xl text-primaryColor" />
                 </span>
               </div>
-
-              <span className="text-base text-secondColor font-medium block">
-                Default Address
-              </span>
 
               <div className="h-[104px] rounded-md">
                 <Image
@@ -133,6 +149,7 @@ const MeetUp = () => {
                 />
               </div>
             </div>
+        ))}
 
             <div
               onClick={handleClick}
@@ -158,15 +175,6 @@ const MeetUp = () => {
             </span>
 
             <div className="flex items-center md:gap-0 gap-4">
-              <div className="lg:w-[5%] md:w-[7%] w-[10%]">
-                <MdOutlinePhotoCamera className="leading-0 text-3xl text-primaryColor " />
-              </div>
-
-              <span className="block font-medium text-primaryColor md:text-base text-sm lg:w-[95%] md:w-[93%] w-[90%]">
-                Take a picture of delivery slip for proof
-              </span>
-            </div>
-            <div className="flex items-center md:gap-0 gap-4">
               <div className=" lg:w-[5%] md:w-[7%] w-[10%]">
                 <IoWarningOutline className="leading-0 text-3xl text-primaryColor " />
               </div>
@@ -178,7 +186,6 @@ const MeetUp = () => {
             </div>
           </div>
         </div>
-      )}
     </div>
   );
 };
