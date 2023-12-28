@@ -6,62 +6,77 @@ import { MdOutlineClose } from "react-icons/md";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 import { IoWarningOutline } from "react-icons/io5";
 import { useSearchLocationQuery } from "@/apollograph/generated";
+import SearchLoader from "./SearchLoader";
 
-const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
+const MeetUp = ({
+  setFieldValue,
+  values,
+}: {
+  setFieldValue: any;
+  values: any;
+}) => {
   const ref = useRef<any>(null);
   const [searchValue, setSearchValue] = useState<any>(null);
   const handleClick = () => {
     ref.current.focus();
   };
-  const {data, loading, error} = useSearchLocationQuery({
+  const { data, loading, error } = useSearchLocationQuery({
     variables: {
       nominatimQuery: {
-        query: `${searchValue}, BD`
-      }
+        query: `${searchValue}, BD`,
+      },
     },
-    skip: !searchValue 
-  })
+    skip: !searchValue,
+  });
   const locationSearchResults = data?.searchLocation.items;
-  console.log(locationSearchResults)
+  console.log(locationSearchResults);
   const [checkedLocation, setCheckedLocation] = useState<any>([]);
 
-  const handleChecked = (e:any, loc:any) => {
-    if (e.target.checked) setFieldValue("meetupLocations", [...values.meetupLocations, loc])
-    else setFieldValue("meetupLocations", values.meetupLocations.filter( (cL:any) => cL.placeId != loc.placeId))
-  }
-  console.log("Meetup Locations", values.meetupLocations)
-  const [showSearchResult, setShowSearchResult] = useState(false) 
-  
+  const handleChecked = (e: any, loc: any) => {
+    if (e.target.checked)
+      setFieldValue("meetupLocations", [...values.meetupLocations, loc]);
+    else
+      setFieldValue(
+        "meetupLocations",
+        values.meetupLocations.filter((cL: any) => cL.placeId != loc.placeId)
+      );
+  };
+  console.log("Meetup Locations", values.meetupLocations);
+  const [showSearchResult, setShowSearchResult] = useState(false);
+
   useEffect(() => {
-    let timer: NodeJS.Timeout | null = null
+    let timer: NodeJS.Timeout | null = null;
 
     const sendData = () => {
       // If the user keeps on typing then the timeout is cleared and restarted
-      if(timer) clearTimeout(timer)
+      if (timer) clearTimeout(timer);
 
       timer = setTimeout(() => {
-        setSearchValue(ref.current.value)
-        setShowSearchResult(true)
-      }, 3000)
-    }
+        setSearchValue(ref.current.value);
+        setShowSearchResult(true);
+      }, 3000);
+    };
 
     const element = ref.current;
     // Set listener and start timeout
-    element.addEventListener('keyup', sendData);
+    element.addEventListener("keyup", sendData);
 
     return () => {
       // Remove listener wwhen unmounting
-      element.removeEventListener('keyup', sendData);
+      element.removeEventListener("keyup", sendData);
     };
   }, []);
   const handleCancelClick = () => {
-    setShowSearchResult(false)
-    setSearchValue(null)
-  }
+    setShowSearchResult(false);
+    setSearchValue(null);
+  };
 
-  const handleRemoveClick = (loc:any) => {
-    setFieldValue("meetupLocations", values.meetupLocations.filter( (cL:any) => cL.placeId != loc.placeId))
-  }
+  const handleRemoveClick = (loc: any) => {
+    setFieldValue(
+      "meetupLocations",
+      values.meetupLocations.filter((cL: any) => cL.placeId != loc.placeId)
+    );
+  };
   return (
     <div className="px-6 py-4 space-y-5 ">
       <div className="relative w-full ">
@@ -87,35 +102,37 @@ const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
           />
         </div>
 
+        {loading && <SearchLoader />}
+
         {showSearchResult && locationSearchResults && (
           <>
-          
-          <div className="w-full   bg-white shadow-md">
-            {locationSearchResults.map(loc => (
-              <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
-              <input
-                id={`osmLocation${loc.placeId}`}
-                name="osmLocation"
-                type="checkbox"
-                onChange={e => handleChecked(e, loc)}
-                // value={loc}
-                className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
-              />
+            <div className="w-full   bg-white shadow-md">
+              {locationSearchResults.map((loc) => (
+                <div className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
+                  <input
+                    id={`osmLocation${loc.placeId}`}
+                    name="osmLocation"
+                    type="checkbox"
+                    onChange={(e) => handleChecked(e, loc)}
+                    // value={loc}
+                    className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
+                  />
 
-              <label
-                htmlFor="comments"
-                className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
-              >
-                {loc.displayName}
-              </label>
+                  <label
+                    htmlFor="comments"
+                    className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
+                  >
+                    {loc.displayName}
+                  </label>
+                </div>
+              ))}
             </div>
-            ))}
-         
 
-          </div>
-      
             <div className="w-full flex justify-end items-center gap-5">
-              <button onClick={handleCancelClick} className="px-8 py-3.5 text-white bg-secondColor text-base rounded-md">
+              <button
+                onClick={handleCancelClick}
+                className="px-8 py-3.5 text-white bg-secondColor text-base rounded-md"
+              >
                 Cancel
               </button>
               {/* <button  className="px-8 py-3.5 text-white bg-activeColor text-base rounded-md">
@@ -125,17 +142,20 @@ const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
           </>
         )}
       </div>
-        
-        <div className="space-y-5">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
-          {values.meetupLocations.map( (ml:any) => (
-          <div className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
+
+      <div className="space-y-5">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
+          {values.meetupLocations.map((ml: any) => (
+            <div className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-base text-primaryColor font-bold">
                   {ml.displayName}
                 </span>
                 <span>
-                  <MdOutlineClose onClick={() => handleRemoveClick(ml)} className="text-2xl text-primaryColor" />
+                  <MdOutlineClose
+                    onClick={() => handleRemoveClick(ml)}
+                    className="text-2xl text-primaryColor"
+                  />
                 </span>
               </div>
 
@@ -149,43 +169,43 @@ const MeetUp = ({setFieldValue, values}: {setFieldValue: any, values: any}) => {
                 />
               </div>
             </div>
-        ))}
+          ))}
 
-            <div
-              onClick={handleClick}
-              className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-4"
-            >
-              <div className="md:space-y-4 space-y-2 text-center flex flex-col items-center">
-                <GrLocation className="text-activeColor text-3xl" />
-                <span className="text-primaryColor font-lexed text-base font-medium">
-                  Add New Location
-                </span>
-                <p className="text-secondColor text-base font-medium">
-                  You can add upto 5 locations
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-b border-[#F1F1F1]"></div>
-
-          <div className="space-y-4">
-            <span className="text-base font-bold font-lexed  text-[#FA4119]">
-              Reminders
-            </span>
-
-            <div className="flex items-center md:gap-0 gap-4">
-              <div className=" lg:w-[5%] md:w-[7%] w-[10%]">
-                <IoWarningOutline className="leading-0 text-3xl text-primaryColor " />
-              </div>
-
-              <span className="block font-medium text-primaryColor md:text-base text-sm lg:w-[95%] md:w-[93%] w-[90%]">
-                Resolve conflict before you make the deal, swojon is not
-                responsible for any unwanted situation
+          <div
+            onClick={handleClick}
+            className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-4"
+          >
+            <div className="md:space-y-4 space-y-2 text-center flex flex-col items-center">
+              <GrLocation className="text-activeColor text-3xl" />
+              <span className="text-primaryColor font-lexed text-base font-medium">
+                Add New Location
               </span>
+              <p className="text-secondColor text-base font-medium">
+                You can add upto 5 locations
+              </p>
             </div>
           </div>
         </div>
+
+        <div className="border-b border-[#F1F1F1]"></div>
+
+        <div className="space-y-4">
+          <span className="text-base font-bold font-lexed  text-[#FA4119]">
+            Reminders
+          </span>
+
+          <div className="flex items-center md:gap-0 gap-4">
+            <div className=" lg:w-[5%] md:w-[7%] w-[10%]">
+              <IoWarningOutline className="leading-0 text-3xl text-primaryColor " />
+            </div>
+
+            <span className="block font-medium text-primaryColor md:text-base text-sm lg:w-[95%] md:w-[93%] w-[90%]">
+              Resolve conflict before you make the deal, swojon is not
+              responsible for any unwanted situation
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

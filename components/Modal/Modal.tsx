@@ -56,14 +56,14 @@ export default function Modal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity " />
+          <div className="fixed  inset-0 bg-gray-700 bg-opacity-75 transition-opacity " />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-1000 overflow-y-auto ">
+        <div className="fixed w-full left-0 right-0 inset-0 z-1000 overflow-y-auto ">
           {modalStack[modalStack.length - 1]?.body === "navbar" ? (
             <NavbarModal />
           ) : (
-            <div className="flex min-h-full   items-center	text-center  sm:p-0 ">
+            <div className="flex min-h-full   items-center	text-center  sm:p-0 custom-container">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -80,8 +80,8 @@ export default function Modal() {
                       ? "sm:w-2/6"
                       : modalStack[modalStack.length - 1]?.title ===
                         "write review modal"
-                      ? "lg:w-[45%] md:w-[55%] w-[80%]"
-                      : "lg:w-[35%] md:w-[55%] w-[80%]"
+                      ? "lg:w-[40%] md:w-[55%] w-[80%]"
+                      : "lg:w-[32%] md:w-[55%] w-[80%]"
                   }`}
                 >
                   {/* <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
