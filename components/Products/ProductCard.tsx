@@ -18,6 +18,7 @@ import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "@/apollograph/generated";
+import FavoriteProduct from "./FavoriteProduct";
 
 const ProductCard = ({ card: listing }: { card: any }) => {
   const dispatch = useDispatch();
@@ -35,64 +36,6 @@ const ProductCard = ({ card: listing }: { card: any }) => {
     setShowOfferPriceTooltip(false);
   };
 
-  const [
-    addFavorite,
-    { data: addData, loading: addLoading, error: addErrror },
-  ] = useAddFavoriteMutation();
-  const [
-    removeFavorite,
-    { data: removeData, loading: removeLoading, error: removeError },
-  ] = useRemoveFavoriteMutation();
-  const handleFavoriteAdd = (listingId: number, userId: any) => {
-    addFavorite({
-      variables: {
-        listingId,
-        userId,
-      },
-      update(cache, { data }) {
-        // console.log("updating cache", cache,  data)
-        const cId = cache.identify(listing);
-        // console.log("cache id", cId)
-        cache.modify({
-          id: cId,
-          fields: {
-            favoriteCount(prev) {
-              return prev + 1;
-            },
-            favoriteStatus(prev) {
-              return true;
-            },
-          },
-        });
-        // console.log("cache updated", cache)
-      },
-    });
-  };
-  const handleFavoriteRemove = (listingId: number, userId: any) => {
-    removeFavorite({
-      variables: {
-        listingId,
-        userId,
-      },
-      update(cache, { data }) {
-        // console.log("updating cache", cache,  data)
-        const cId = cache.identify(listing);
-        // console.log("cache id", cId)
-        cache.modify({
-          id: cId,
-          fields: {
-            favoriteCount(prev) {
-              return prev - 1;
-            },
-            favoriteStatus(prev) {
-              return false;
-            },
-          },
-        });
-        // console.log("cache updated", cache)
-      },
-    });
-  };
   return (
     <div className="rounded-2xl   cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg ">
@@ -109,27 +52,12 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-        {authState.isAuthenticated && (
-          <>
-            {listing.favoriteStatus ? (
-              <div
-                onClick={() =>
-                  handleFavoriteRemove(listing.id, authState.user.id)
-                }
-                className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
-              >
-                <Image src={heartIconFilled} alt="heart icon filled" />
-              </div>
-            ) : (
-              <div
-                onClick={() => handleFavoriteAdd(listing.id, authState.user.id)}
-                className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
-              >
-                <Image src={heartIcon} alt="heart icon" />
-              </div>
-            )}
-          </>
-        )}
+        
+        <div 
+        className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
+        >
+         <FavoriteProduct listing={listing} />
+        </div>
       </div>
 
       <Link href={`/products/${listing.id}`} className="">

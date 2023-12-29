@@ -29,7 +29,7 @@ const Price = ({
       <div>
         <div className="relative  rounded-md shadow-sm">
           <input
-            type="text"
+            type="number"
             name="price"
             id="price"
             value={values.price}

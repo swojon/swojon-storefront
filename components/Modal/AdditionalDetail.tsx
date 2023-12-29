@@ -20,20 +20,7 @@ const AdditionalDetail = ({props}: {props:any}) => {
       </div>
 
       <p className="text-base text-justify text-secondColor py-2.5  ">
-        Unveiling the S22 Ultra a true masterpiece of mobile technology that
-        redefines the boundaries of innovation. With an exquisite blend of
-        sophisticated design and unparalleled performance, this flagship device
-        is a testament to precision engineering. Immerse yourself in the
-        brilliance of an expansive, crystal-clear display that brings every
-        detail to life. The S22 Ultra is not just a phone; its a photography
-        powerhouse with a revolutionary camera system that captures moments with
-        astonishing clarity and creativity. Powered by cutting-edge processors,
-        it effortlessly handles multitasking and resource-intensive
-        applications, delivering a seamless and lightning-fast user experience.
-        Elevate your connectivity with 5G capabilities, and revel in a world of
-        possibilities at your fingertips. The S22 Ultra where elegance meets
-        extraordinary functionality, setting a new standard for premium
-        smartphones.
+        {props?.description}
       </p>
     </section>
   );

@@ -4,7 +4,9 @@ query ListFavoriteListing($userId: Float!) {
       brand {
         id
         name
+        logo
       }
+      condition
       category {
         id
         name

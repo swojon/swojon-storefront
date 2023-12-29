@@ -4,7 +4,9 @@ query ListListings($filters: ListingFilterInput) {
       brand {
         id
         name
+        logo
       }
+      condition
       category {
         id
         name

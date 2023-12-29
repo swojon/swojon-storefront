@@ -18,6 +18,7 @@ import PreviewImage from "../uploadForm/PreviewImage";
 import PreviewProduct from "./PreviewProduct";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
+import toast from "react-hot-toast";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -63,7 +64,7 @@ const formSchema = Yup.object({
         : true;
     })
   ),
-  imageUrls: Yup.array().of(Yup.string().required()).notRequired(),
+  mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
 const Uploads = ({ product }: { product: null | any }) => {
@@ -86,7 +87,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     dealingMethod: product ? product.dealingMethod : "meetup",
     deliveryCharge: product ? product.deliveryCharge : 0,
     meetupLocations: product ? product.meetupLocations : [],
-    imageUrls: product ? product.media : [],
+    mediaUrls: product ? product.media : [],
   };
 
   // const initialValues = {
@@ -115,7 +116,8 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [previewBtn, setPreviewBtn] = useState<any>(null);
   const [createListing, { error: createError, data: createData }] =
     useCreateListingMutation();
-  const {
+  
+    const {
     values,
     errors,
     touched,
@@ -142,16 +144,17 @@ const Uploads = ({ product }: { product: null | any }) => {
 
           console.log(`Image heloo ${i + 1} url: ${url}`);
           // @ts-ignore:next-line
-          values.imageUrls.push(url);
+          values.mediaUrls.push(url);
         }
       } catch (error) {
         console.log(error);
       }
-
-      let listingData: any = {
-        ...values,
-        mediaUrls: values.imageUrls,
+      let {images, ...listingData } = values;
+      listingData = {
+        ...listingData,
+        mediaUrls: values.mediaUrls,
       };
+      
 
       createListing({
         variables: {
@@ -160,11 +163,18 @@ const Uploads = ({ product }: { product: null | any }) => {
       });
       // setUploadProgress(null);
 
-      if (createError) console.log("Failed to create listing", createError);
-      // .error("Failed to Create Category, Please Try again.");
+      if (createError) {
+        console.log("Failed to create listing", createError) 
+        toast.error("Failed to Create Category, Please Try again.")
+      }
       if (createData) {
-        // toast.success("Category Created Successfully");
+        toast.success("Product created successfully");
+        
         action.resetForm();
+        dispatch(setModalOpen({
+          title: "this is a modal",
+          body: "product-create-success",
+        }))
         console.log("Success in creating product");
       }
       console.log("values after submitting", values);
@@ -227,7 +237,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   dispatch(
                     setModalOpen({
                       title: "this is a modal",
-                      body: "success",
+                      body: "product-create-success",
                     })
                   )
                 }

@@ -8,6 +8,19 @@ import { IoWarningOutline } from "react-icons/io5";
 import { useSearchLocationQuery } from "@/apollograph/generated";
 import SearchLoader from "./SearchLoader";
 
+interface NominatimLocation {
+  lat?: string|null, 
+  lon?: string|null,
+  placeId?: string|null,
+  locality?: string|null,  
+  displayName?: string|null, 
+  city?: string|null,
+  stateDistrict?: string|null,
+  state?: string|null,
+  country?: string|null,
+  postCode?: string|null
+}
+
 const MeetUp = ({
   setFieldValue,
   values,
@@ -33,8 +46,9 @@ const MeetUp = ({
   const [checkedLocation, setCheckedLocation] = useState<any>([]);
 
   const handleChecked = (e: any, loc: any) => {
+    var {__typename, ...location } = loc;
     if (e.target.checked)
-      setFieldValue("meetupLocations", [...values.meetupLocations, loc]);
+      setFieldValue("meetupLocations", [...values.meetupLocations, location]);
     else
       setFieldValue(
         "meetupLocations",

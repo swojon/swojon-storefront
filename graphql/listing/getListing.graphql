@@ -3,7 +3,9 @@ query GetListing($id: Float, $name: String) {
      brand {
         id
         name
+        logo
       }
+      condition
       category {
         id
         name

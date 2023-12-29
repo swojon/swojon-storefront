@@ -15,6 +15,7 @@ import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import SellerReview from "./SellerReview";
+import defaultAvatar from '@/public/assets/defaultAvatar.svg'
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowChatNowTooltip(!showChatNowTooltip);
     setShowOfferPriceTooltip(false);
   };
+  
   return (
     <section className="space-y-4 p-4 lg:min-h-[577px] border border-gray-50 rounded-md">
       {/* <div className="  space-y-4">
@@ -173,7 +175,7 @@ const ProductInfo = ({ product }: { product: any }) => {
           <Link href="">
             <div className=" h-[60px] w-[60px] rounded-full">
               <Image
-                src="/user1.jpg"
+                src={product?.user?.profile?.avatar ?? defaultAvatar}
                 width={400}
                 height={400}
                 alt="user"
@@ -184,11 +186,11 @@ const ProductInfo = ({ product }: { product: any }) => {
 
           <div className="  space-y-2">
             <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
-              Nicola Tesla
+              {product?.user?.profile?.name ?? product?.user?.username ?? product?.user?.email}
             </h6>
 
             <div className="flex space-x-1 items-center ">
-              <SellerReview />
+              <SellerReview sellerId={product?.user?.id} />
             </div>
           </div>
         </div>
@@ -199,19 +201,21 @@ const ProductInfo = ({ product }: { product: any }) => {
           Item Information
         </span>
         <span className="lg:text-base text-sm font-lexed font-medium text-secondColor">
-          Listed 2 days ago
+          Listed {timeAgo(product?.dateCreated)}
         </span>
       </div>
 
       <span className="lg:text-2xl text-lg font-lexed font-bold text-activeColor block">
-        23,500 Tk
+        {product?.price} Tk
       </span>
-
+      
+      {product?.quantity > 1 && 
       <div className=" px-3 py-2 bg-[#F1F1F1] rounded-md">
         <span className="text-primaryColor text-sm font-medium ">
-          2 Items available
+          {product.quantity} Items available
         </span>
       </div>
+      }
 
       <div className="grid grid-cols-2 gap-x-4">
         <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative">
@@ -223,7 +227,7 @@ const ProductInfo = ({ product }: { product: any }) => {
             alt="icon"
           />
           <span className="block text-base font-bold text-primaryColor text-center">
-            Brand New
+            {product?.condition}
           </span>
           <div className="absolute right-1 -top-3">
             <Image
@@ -235,19 +239,20 @@ const ProductInfo = ({ product }: { product: any }) => {
             />
           </div>
         </div>
-
+        {!!product?.brand &&  
         <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4">
           <Image
-            src="/assets/samsungIcon.png"
+            src={product?.brand?.logo ?? "/assets/samsungIcon.png"}
             width={80}
             height={80}
             className="w-[65.5px] h-[10px] mx-auto"
             alt="icon"
           />
           <span className="block text-base font-bold text-primaryColor text-center">
-            Samsung
+            {product?.brand?.name}
           </span>
         </div>
+        }
       </div>
 
       <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
@@ -258,7 +263,7 @@ const ProductInfo = ({ product }: { product: any }) => {
         <div className="flex gap-2 justify-between items-center">
           <div className="w-[75%]">
             <p className=" truncate text-base font-bold text-primaryColor ">
-              Before making an offer, please See Oxygen,
+              {product?.description}
             </p>
           </div>
           <button
@@ -267,6 +272,7 @@ const ProductInfo = ({ product }: { product: any }) => {
                 setModalOpen({
                   title: "this is a modal",
                   body: "additionalDetails",
+                  props: {description: product?.description}
                 })
               )
             }
@@ -278,6 +284,7 @@ const ProductInfo = ({ product }: { product: any }) => {
       </div>
 
       {/*==== for Courier Delivery==== */}
+      {product?.dealingMethod === "courier" && 
       <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
         <span className=" text-base font-medium text-secondColor text-center">
           Courier Delivery
@@ -300,10 +307,12 @@ const ProductInfo = ({ product }: { product: any }) => {
           <button className="text-activeColor font-medium">See more</button>
         </div>
       </div>
+      }
 
       {/*==== for Meetup==== */}
 
-      {/* <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+      {product?.dealingMethod === "meetup" 
+      && <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
         <div className="flex justify-between items-center">
           <span className=" text-base font-medium text-secondColor text-center">
             Meetup
@@ -313,25 +322,52 @@ const ProductInfo = ({ product }: { product: any }) => {
             <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
           </span>
         </div>
-        <div className="flex gap-2 items-center">
-          <span className=" text-base font-bold text-primaryColor text-center">
+          {product?.meetupLocations?.map((mL:any) => (
+          
+            <div key={mL.placeId} className="flex gap-2 items-center">
+       
+            <span className=" text-base font-bold text-primaryColor text-center">
             <CiLocationOn />
-          </span>
-          <span className=" text-base font-bold text-primaryColor text-center relative">
-            Oxygen, Bayezid Bostami, Chittagong
-          </span>
-        </div>
-      </div> */}
+            </span>
+            <span className="truncate text-base font-bold text-primaryColor text-center relative">
+              {mL.displayName}
+            </span>
+           </div>
+       
+          ))}
+          
+      </div>
+    }
 
       <div className="border-b border-[#F1F1F1]" />
 
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
-        <div className="py-[13px] text-center bg-activeColor text-white text-base rounded-md">
+        <button 
+          onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "sendOfferModal",
+                      props: { productId: product.id, product: product },
+                    })
+                  )
+                }
+          className="py-[13px] text-center bg-activeColor text-white text-base rounded-md">
           Make Offer
-        </div>
-        <div className="py-[13px] text-center bg-secondColor text-white text-base rounded-md">
+        </button>
+        <button 
+        onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "chatModal",
+                      props: { productId: product.id, product: product },
+                    })
+                  )
+                }
+          className="py-[13px] text-center bg-secondColor text-white text-base rounded-md">
           Chat with Seller
-        </div>
+        </button>
       </div>
     </section>
   );

@@ -15,6 +15,7 @@ import shareIcon from "@/public/assets/share.png";
 import saveIcon from "@/public/assets/heartIcon.png";
 import Link from "next/link";
 import { FiShare2, FiHeart } from "react-icons/fi";
+import FavoriteProduct from "../Products/FavoriteProduct";
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const { data, error, loading } = useGetListingQuery({
@@ -117,7 +118,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             </button>
 
             <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
-              <FiHeart className="text-lg text-red-400" />
+              <FavoriteProduct listing={product!} />
             </button>
           </div>
         </div>
