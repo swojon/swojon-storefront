@@ -15,25 +15,28 @@ import NotMatched from "@/components/NotMatched/NotMatched";
 
 const ExploreDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
-  const searchParams = useSearchParams()
-  const conditionFilter = searchParams.get('condition')?.split(',')
-  const brandFilter = searchParams.get('brand')?.split(',')
-  const communityFilter = searchParams.get('community')?.split(',')
-  const categoryFilter = searchParams.get("category")?.split(',')
+  const searchParams = useSearchParams();
+  const conditionFilter = searchParams.get("condition")?.split(",");
+  const brandFilter = searchParams.get("brand")?.split(",");
+  const communityFilter = searchParams.get("community")?.split(",");
+  const categoryFilter = searchParams.get("category")?.split(",");
 
-  var  filters = {}
+  var filters = {};
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
-  if (brandFilter && brandFilter.length > 0) filters = {...filters, brandSlug: brandFilter}
-  if (communityFilter && communityFilter.length > 0 ) filters = {...filters, communitySlug: communityFilter}
-  if (categoryFilter && categoryFilter.length > 0 ) filters = {...filters, categorySlug:categoryFilter}
-  console.log("Applying filter", filters)
+  if (brandFilter && brandFilter.length > 0)
+    filters = { ...filters, brandSlug: brandFilter };
+  if (communityFilter && communityFilter.length > 0)
+    filters = { ...filters, communitySlug: communityFilter };
+  if (categoryFilter && categoryFilter.length > 0)
+    filters = { ...filters, categorySlug: categoryFilter };
+  console.log("Applying filter", filters);
   const { data, loading, error } = useListListingsQuery({
     variables: {
-        filters: filters
+      filters: filters,
     },
   });
   const listings = data?.listListings?.items;
-  console.log("Got Listings", listings)
+  console.log("Got Listings", listings);
   const dispatch = useDispatch();
 
   return (
@@ -78,15 +81,20 @@ const ExploreDetail = ({ params }: { params: any }) => {
             {listings?.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}
-            {loading && <ProductLoader/>}
-          
-
+            {loading && <ProductLoader />}
           </div>
+
+          <div className="flex justify-center mt-7">
+            <button className="text-base py-3 px-6 rounded-md bg-activeColor text-white font-bold">
+              Load More
+            </button>
+          </div>
+
           {!loading && (!listings || listings.length <= 0) && (
-              <div className=" pt-16">
-                <NotMatched title={"Sorry! We didn't Find Any Product"} />
-              </div>
-            )}
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
         </div>
       </div>
     </section>

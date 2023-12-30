@@ -15,7 +15,7 @@ import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import SellerReview from "./SellerReview";
-import defaultAvatar from '@/public/assets/defaultAvatar.svg'
+import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const ProductInfo = ({ product }: { product: any }) => {
     setShowChatNowTooltip(!showChatNowTooltip);
     setShowOfferPriceTooltip(false);
   };
-  
+
   return (
     <section className="space-y-4 p-4 lg:min-h-[577px] border border-gray-50 rounded-md">
       {/* <div className="  space-y-4">
@@ -186,7 +186,9 @@ const ProductInfo = ({ product }: { product: any }) => {
 
           <div className="  space-y-2">
             <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
-              {product?.user?.profile?.name ?? product?.user?.username ?? product?.user?.email}
+              {product?.user?.profile?.name ??
+                product?.user?.username ??
+                product?.user?.email}
             </h6>
 
             <div className="flex space-x-1 items-center ">
@@ -208,17 +210,17 @@ const ProductInfo = ({ product }: { product: any }) => {
       <span className="lg:text-2xl text-lg font-lexed font-bold text-activeColor block">
         {product?.price} Tk
       </span>
-      
-      {product?.quantity > 1 && 
-      <div className=" px-3 py-2 bg-[#F1F1F1] rounded-md">
-        <span className="text-primaryColor text-sm font-medium ">
-          {product.quantity} Items available
-        </span>
-      </div>
-      }
+
+      {product?.quantity > 1 && (
+        <div className=" px-3 py-2 bg-[#F1F1F1] rounded-md">
+          <span className="text-primaryColor text-sm font-medium ">
+            {product.quantity} Items available
+          </span>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-x-4">
-        <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative">
+        <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative h-[98px]">
           <Image
             src="/assets/starIcon.png"
             width={80}
@@ -239,20 +241,20 @@ const ProductInfo = ({ product }: { product: any }) => {
             />
           </div>
         </div>
-        {!!product?.brand &&  
-        <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4">
-          <Image
-            src={product?.brand?.logo ?? "/assets/samsungIcon.png"}
-            width={80}
-            height={80}
-            className="w-[65.5px] h-[10px] mx-auto"
-            alt="icon"
-          />
-          <span className="block text-base font-bold text-primaryColor text-center">
-            {product?.brand?.name}
-          </span>
-        </div>
-        }
+        {!!product?.brand && (
+          <div className="px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 h-[98px]">
+            <Image
+              src={product?.brand?.logo ?? "/assets/samsungIcon.png"}
+              width={80}
+              height={80}
+              className="w-auto h-[19.15px] mx-auto max-w-[65%]"
+              alt="icon"
+            />
+            <span className="block text-base font-bold text-primaryColor text-center">
+              {product?.brand?.name}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
@@ -272,7 +274,7 @@ const ProductInfo = ({ product }: { product: any }) => {
                 setModalOpen({
                   title: "this is a modal",
                   body: "additionalDetails",
-                  props: {description: product?.description}
+                  props: { description: product?.description },
                 })
               )
             }
@@ -284,88 +286,86 @@ const ProductInfo = ({ product }: { product: any }) => {
       </div>
 
       {/*==== for Courier Delivery==== */}
-      {product?.dealingMethod === "courier" && 
-      <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
-        <span className=" text-base font-medium text-secondColor text-center">
-          Courier Delivery
-        </span>
+      {product?.dealingMethod === "courier" && (
+        <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+          <span className=" text-base font-medium text-secondColor text-center">
+            Courier Delivery
+          </span>
 
-        <div className="flex gap-2 justify-between items-center">
-          <h6 className=" truncate text-base font-bold text-primaryColor ">
-            150 Tk
-          </h6>
-        </div>
-
-        <div className="border-b border-[#F1F1F1]" />
-
-        <div className="flex gap-2 justify-between items-center">
-          <div className="w-[75%]">
-            <p className=" truncate text-base font-medium text-primaryColor ">
-              User can request delivery options
-            </p>
+          <div className="flex gap-2 justify-between items-center">
+            <h6 className=" truncate text-base font-bold text-primaryColor ">
+              150 Tk
+            </h6>
           </div>
-          <button className="text-activeColor font-medium">See more</button>
+
+          <div className="border-b border-[#F1F1F1]" />
+
+          <div className="flex gap-2 justify-between items-center">
+            <div className="w-[75%]">
+              <p className=" truncate text-base font-medium text-primaryColor ">
+                User can request delivery options
+              </p>
+            </div>
+            <button className="text-activeColor font-medium">See more</button>
+          </div>
         </div>
-      </div>
-      }
+      )}
 
       {/*==== for Meetup==== */}
 
-      {product?.dealingMethod === "meetup" 
-      && <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
-        <div className="flex justify-between items-center">
-          <span className=" text-base font-medium text-secondColor text-center">
-            Meetup
-          </span>
-          <span className=" text-base font-medium text-secondColor text-center relative">
-            View in map
-            <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
-          </span>
-        </div>
-          {product?.meetupLocations?.map((mL:any) => (
-          
+      {product?.dealingMethod === "meetup" && (
+        <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+          <div className="flex justify-between items-center">
+            <span className=" text-base font-medium text-secondColor text-center">
+              Meetup
+            </span>
+            <span className=" text-base font-medium text-secondColor text-center relative">
+              View in map
+              <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
+            </span>
+          </div>
+          {product?.meetupLocations?.map((mL: any) => (
             <div key={mL.placeId} className="flex gap-2 items-center">
-       
-            <span className=" text-base font-bold text-primaryColor text-center">
-            <CiLocationOn />
-            </span>
-            <span className="truncate text-base font-bold text-primaryColor text-center relative">
-              {mL.displayName}
-            </span>
-           </div>
-       
+              <span className=" text-base font-bold text-primaryColor text-center">
+                <CiLocationOn />
+              </span>
+              <span className="truncate text-base font-bold text-primaryColor text-center relative">
+                {mL.displayName}
+              </span>
+            </div>
           ))}
-          
-      </div>
-    }
+        </div>
+      )}
 
       <div className="border-b border-[#F1F1F1]" />
 
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
-        <button 
+        <button
           onClick={() =>
-                  dispatch(
-                    setModalOpen({
-                      title: "this is a modal",
-                      body: "sendOfferModal",
-                      props: { productId: product.id, product: product },
-                    })
-                  )
-                }
-          className="py-[13px] text-center bg-activeColor text-white text-base rounded-md">
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "sendOfferModal",
+                props: { productId: product.id, product: product },
+              })
+            )
+          }
+          className="py-[13px] text-center bg-activeColor text-white text-base rounded-md"
+        >
           Make Offer
         </button>
-        <button 
-        onClick={() =>
-                  dispatch(
-                    setModalOpen({
-                      title: "this is a modal",
-                      body: "chatModal",
-                      props: { productId: product.id, product: product },
-                    })
-                  )
-                }
-          className="py-[13px] text-center bg-secondColor text-white text-base rounded-md">
+        <button
+          onClick={() =>
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "chatModal",
+                props: { productId: product.id, product: product },
+              })
+            )
+          }
+          className="py-[13px] text-center bg-secondColor text-white text-base rounded-md"
+        >
           Chat with Seller
         </button>
       </div>

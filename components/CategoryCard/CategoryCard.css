@@ -30,7 +30,7 @@
 .swiper-pagination-bullet {
   background-color: #3b51a4; /* Set your desired color */
 }
-.swiper-button-next,
+/* .swiper-button-next,
 .swiper-button-prev {
   color: white;
   top: 45%;
@@ -43,4 +43,26 @@
 
 .swiper-button-next {
   top: 46%;
+} */
+.sample-slider [class^="swiper-button-"]::after {
+  font-size: 10px;
+}
+
+.swiper-button-prev {
+  top: 40%;
+}
+
+.swiper-button-next {
+  top: 40%;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  margin: 0 10px;
+  font-size: 8px;
+  padding: 8px 10px;
+  background-color: rgb(255, 255, 255);
+  color: #212121;
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px #5c5c5c;
 }

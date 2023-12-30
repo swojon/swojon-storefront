@@ -34,7 +34,7 @@ const PreviewProduct = ({ values }: { values: any }) => {
                 } object-cover rounded-md border border-gray-100`}
               />
             </div>
-            <div className=" grid grid-cols-5 gap-4 slider2 border border-red-400">
+            <div className=" grid grid-cols-5 gap-4 slider2 ">
               {values.images.map((img: any, index: any) => (
                 <Image
                   key={index}

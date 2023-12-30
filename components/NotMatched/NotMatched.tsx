@@ -11,7 +11,7 @@ const NotMatched = ({ title }: { title: any }) => {
         height={900}
         alt="not-found"
       />
-      <h2 className="mt-7 text-lg text-primaryColor font-lexed  leading-none capitalize">
+      <h2 className="mt-7 text-center text-lg text-primaryColor font-lexed  leading-none capitalize">
         {title}
       </h2>
       <p className="pt-1.5 py-3 text-sm text-secondColor ">

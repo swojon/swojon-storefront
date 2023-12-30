@@ -9,7 +9,7 @@ import { setNavClose, setNavOpen } from "@/app/redux/navSlice";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight, MdArrowBackIos } from "react-icons/md";
-
+import { IoMdAdd } from "react-icons/io";
 import { FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { GrHomeRounded } from "react-icons/gr";
@@ -66,21 +66,20 @@ const ResNavbarDrawer = () => {
           <AiOutlineClose className="text-2xl" />
         </button>
         <div className="relative h-full">
-          <div className="flex border-b px-5 py-4 items-center gap-3">
-            <span className="text-base text-primaryColor font-lexed font-medium">
-              All
-            </span>
-            {parentCategories?.slice(0, visibleCategories).map((item) => (
-              <span
-                className="text-base text-primaryColor font-lexed font-medium pr-2 w-20 truncate"
-                key="item.id"
-              >
-                {item.name}
-              </span>
-            ))}
-            {/* <span>
-              <MdKeyboardArrowRight onClick={handleArrowClick} />
-            </span> */}
+          <div className="flex flex-wrap  border-b px-5 py-4 items-center justify-between font-semibold  gap-3">
+            <Image
+              src="/assets/SWlogi.svg"
+              alt="logo"
+              width={100}
+              height={100}
+              className="h-4 w-8"
+            />
+
+            <Link href="/upload-product">
+              <button className="py-2 px-5 bg-activeColor text-white rounded-md">
+                <IoMdAdd />
+              </button>
+            </Link>
           </div>
 
           <div className="h-[77vh] custom-scroll overflow-y-auto">

@@ -19,21 +19,23 @@ import NotMatched from "@/components/NotMatched/NotMatched";
 
 const CategoryDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
-  const searchParams = useSearchParams()
-  const conditionFilter = searchParams.get('condition')?.split(',')
-  const brandFilter = searchParams.get('brand')?.split(',')
-  const communityFilter = searchParams.get('community')?.split(',')
-  
-  var  filters = { }
-  filters = {...filters, categorySlug : params.categorySlug}
+  const searchParams = useSearchParams();
+  const conditionFilter = searchParams.get("condition")?.split(",");
+  const brandFilter = searchParams.get("brand")?.split(",");
+  const communityFilter = searchParams.get("community")?.split(",");
+
+  var filters = {};
+  filters = { ...filters, categorySlug: params.categorySlug };
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
-  if (brandFilter && brandFilter.length > 0) filters = {...filters, brandSlug: brandFilter}
-  if (communityFilter && communityFilter.length > 0 ) filters = {...filters, communitySlug: communityFilter}
-  
-  console.log("Applying filter", filters)
+  if (brandFilter && brandFilter.length > 0)
+    filters = { ...filters, brandSlug: brandFilter };
+  if (communityFilter && communityFilter.length > 0)
+    filters = { ...filters, communitySlug: communityFilter };
+
+  console.log("Applying filter", filters);
   const { data, loading, error } = useListListingsQuery({
     variables: {
-      filters: filters
+      filters: filters,
     },
   });
   const listings = data?.listListings?.items;
@@ -45,11 +47,11 @@ const CategoryDetail = ({ params }: { params: any }) => {
       <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
           <Link href="/">
-                <h6 className="">Home</h6>
-            </Link>
+            <h6 className="">Home</h6>
+          </Link>
           <MdKeyboardArrowRight />
           <Link href={`/categories`}>
-          <h6 className="">Categories</h6>
+            <h6 className="">Categories</h6>
           </Link>
           <MdKeyboardArrowRight />
           <h6 className="text-primaryColor capitalize">
@@ -58,12 +60,16 @@ const CategoryDetail = ({ params }: { params: any }) => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center pt-4 pb-2">
-        <div className="flex items-center  w-[75%]">
-          <span className="text-2xl text-primaryColor font-lexed flex items-center gap-2 w-[36%]">
-            <span>Posts in : {params.categorySlug} </span>
-            {/* <span className="text-sm text-secondColor">(100 items)</span> */}
-          </span>
+      <div className="flex flex-wrap justify-between items-center pt-4 pb-2 gap-3">
+        <div
+          className="flex   items-center  sm:w-[75%] 
+ "
+        >
+          <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed flex items-center gap-2 md:w-[36%] w-full ">
+            Posts in :{" "}
+            <span className="capitalize"> {params.categorySlug}</span>{" "}
+          </h6>
+
           <AppliedFilter />
         </div>
         <div className=" flex justify-between items-center gap-3 ">
@@ -91,10 +97,10 @@ const CategoryDetail = ({ params }: { params: any }) => {
             {loading && <ProductLoader />}
           </div>
           {!loading && (!listings || listings.length <= 0) && (
-              <div className=" pt-16">  
-                <NotMatched title={"Sorry! We didn't Find Any Product"} />
-              </div>
-            )}
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
         </div>
       </div>
     </section>

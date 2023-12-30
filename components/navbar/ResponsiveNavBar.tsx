@@ -10,6 +10,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
+import { GoPerson } from "react-icons/go";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -83,12 +84,10 @@ const ResponsiveNavBar = ({
         >
           <div>
             <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
-              <Image
-                className="h-6 w-6 rounded-full"
-                src="/user1.jpg"
-                width={300}
-                height={300}
-                alt="user"
+              <GoPerson
+                className={`text-lg h-5 w-6  ${
+                  border === "border" ? "text-primaryColor" : "text-white"
+                }`}
               />
             </Menu.Button>
           </div>

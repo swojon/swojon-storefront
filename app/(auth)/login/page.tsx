@@ -10,8 +10,15 @@ import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "@/app/redux/authSlice";
-import { FaGoogle, FaFacebookF, FaRegEye, FaRegEyeSlash, FaFacebookSquare } from "react-icons/fa";
+import {
+  FaGoogle,
+  FaFacebookF,
+  FaRegEye,
+  FaRegEyeSlash,
+  FaFacebookSquare,
+} from "react-icons/fa";
 import DynamicModal from "@/components/Modal/DynamicModal";
+import { BiLoaderCircle } from "react-icons/bi";
 // import { setCookie } from "cookies-next";
 
 interface Props {}
@@ -23,6 +30,7 @@ const handleGoogleClick = () => {
 
 const SignIn: NextPage = (): JSX.Element => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const [formUploading, setFormUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -57,6 +65,7 @@ const SignIn: NextPage = (): JSX.Element => {
       console.log("Failed to login");
       setError("Something Went Wrong");
     } else {
+      setFormUploading(true);
       // toast.success("Successfully Logged in")
       console.log("Log in Successfull");
       // console.log(res.json())
@@ -82,7 +91,7 @@ const SignIn: NextPage = (): JSX.Element => {
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full">
       <div className="lg:px-24 md:px-16  ">
-        <Link href="/" >
+        <Link href="/">
           <Image
             src="/assets/swojon.svg"
             width={100}
@@ -177,9 +186,13 @@ const SignIn: NextPage = (): JSX.Element => {
 
           <button
             type="submit"
-            className="lg:py-2 md:py-2 py-1.5 border border-activeColor bg- lg:text-sm md:text-xs text-[12px] text-activeColor w-full rounded-md font-lexed font-medium"
+            className="lg:py-2 md:py-2 py-1.5 border border-activeColor bg- lg:text-sm md:text-xs text-[12px] text-activeColor w-full rounded-md font-lexed font-medium flex justify-center"
           >
-            Log in
+            {formUploading ? (
+              <BiLoaderCircle className=" text-xl animate-spin" />
+            ) : (
+              " Log in"
+            )}
           </button>
         </form>
 
@@ -203,7 +216,10 @@ const SignIn: NextPage = (): JSX.Element => {
           >
             <FaFacebookF className="lg:text-sm md:text-xs text-[12px] text-blue-700" />
           </button> */}
-          <div className="mb-2 flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer" onClick={handleGoogleClick}>
+          <div
+            className="mb-2 flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
+            onClick={handleGoogleClick}
+          >
             <span className="w-[30%]">
               <FcGoogle className="float-right text-lg" />
             </span>

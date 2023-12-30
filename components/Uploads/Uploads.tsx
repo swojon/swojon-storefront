@@ -19,6 +19,7 @@ import PreviewProduct from "./PreviewProduct";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
+import { BiLoaderCircle } from "react-icons/bi";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -43,32 +44,40 @@ const formSchema = Yup.object({
       state: Yup.string().notRequired(),
       stateDistrict: Yup.string().notRequired(),
     })
-  ).notRequired(), 
+  ).notRequired(),
   images: Yup.array().of(
     Yup.mixed()
-    .nullable()
-    .test(
-      "FILE_SIZE",
-      "Too big!!",
-      (file: any) => {
-        console.log("File and type of file", file, typeof file);
+      .nullable()
+      .test(
+        "FILE_SIZE",
+        "Too big!!",
+        (file: any) => {
+          console.log("File and type of file", file, typeof file);
+          if (typeof file === "string") return true;
+          return file ? file && file.size < 20 * 1024 * 1024 : true;
+        } //20MB
+      )
+      .test("FILE_TYPE", "INVALID", (file: any) => {
+        console.log("file", file, file.type);
         if (typeof file === "string") return true;
-        return file ? file && file.size < 20 * 1024 * 1024 : true;
-      } //20MB
-    )
-    .test("FILE_TYPE", "INVALID", (file: any) => {
-      console.log("file", file, file.type)
-      if (typeof file === "string") return true;
-      return file
-        ? file && ["image/png", "image/jpeg", "image/jpg", "images/webp", "images/svg"].includes(file.type)
-        : true;
-    })
+        return file
+          ? file &&
+              [
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+                "images/webp",
+                "images/svg",
+              ].includes(file.type)
+          : true;
+      })
   ),
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
 const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
+  const [formUploading, setFormUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
 
@@ -90,9 +99,6 @@ const Uploads = ({ product }: { product: null | any }) => {
     mediaUrls: product ? product.media : [],
   };
 
-  // const initialValues = {
-
-  // };
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
 
@@ -116,8 +122,8 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [previewBtn, setPreviewBtn] = useState<any>(null);
   const [createListing, { error: createError, data: createData }] =
     useCreateListingMutation();
-  
-    const {
+
+  const {
     values,
     errors,
     touched,
@@ -149,12 +155,11 @@ const Uploads = ({ product }: { product: null | any }) => {
       } catch (error) {
         console.log(error);
       }
-      let {images, ...listingData } = values;
+      let { images, ...listingData } = values;
       listingData = {
         ...listingData,
         mediaUrls: values.mediaUrls,
       };
-      
 
       createListing({
         variables: {
@@ -164,17 +169,21 @@ const Uploads = ({ product }: { product: null | any }) => {
       // setUploadProgress(null);
 
       if (createError) {
-        console.log("Failed to create listing", createError) 
-        toast.error("Failed to Create Category, Please Try again.")
+        console.log("Failed to create listing", createError);
+        toast.error("Failed to Create Category, Please Try again.");
       }
       if (createData) {
         toast.success("Product created successfully");
-        
+
+        setFormUploading(true);
+
         action.resetForm();
-        dispatch(setModalOpen({
-          title: "this is a modal",
-          body: "product-create-success",
-        }))
+        dispatch(
+          setModalOpen({
+            title: "this is a modal",
+            body: "product-create-success",
+          })
+        );
         console.log("Success in creating product");
       }
       console.log("values after submitting", values);
@@ -273,9 +282,13 @@ const Uploads = ({ product }: { product: null | any }) => {
                 <button
                   type="button"
                   onClick={handlePostButtonClick}
-                  className="a py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg"
+                  className="a py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg flex justify-center"
                 >
-                  Post
+                  {formUploading ? (
+                    <BiLoaderCircle className=" text-xl animate-spin" />
+                  ) : (
+                    "Post"
+                  )}
                 </button>
               </div>
             </div>
