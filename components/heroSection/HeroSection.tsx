@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span> Save! Declutter! </span>
           </h1>
           <p className="text-gray-100 lg:text-lg md:text-base text-sm  lg:flex md:flex-col    animate--delay-1s slideInLeft2">
-            <span>
+            <span className="md:block">
               Sustainable Shopping, Unbeatable Prices – Welcome to Swojon, where
             </span>
             <span>every purchase tells a story of style and savings.</span>
@@ -27,7 +27,7 @@ const HeroSection = () => {
 
           <div>
             <Link href="/upload-product">
-              <button className="py-2 px-4 bg-activeColor  rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md whitespace-nowrap">
+              <button className="py-2.5 px-6 bg-activeColor  rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md whitespace-nowrap">
                 List your product
               </button>
             </Link>

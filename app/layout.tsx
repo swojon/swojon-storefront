@@ -88,11 +88,9 @@ export default async function RootLayout({ children }: Iprops) {
               <Toaster />
               <NotificationDrawer />
               <ResNavbarDrawer />
-
               <ResFilter />
               {children}
             </div>
-
             <Modal />
           </ApolloWrapper>
           {/* </NextAuthProvider> */}

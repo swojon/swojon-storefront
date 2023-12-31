@@ -37,13 +37,11 @@ export const getCategoryTree = (categories: any[], target: any): any[] => {
 };
 
 export default function MegaMenu({ border }: { border: any }) {
-  const { data, loading, error } = useListCategoriesQuery(
-    {
-      variables: {
-        limit: 1000
-      }
-    }
-  );
+  const { data, loading, error } = useListCategoriesQuery({
+    variables: {
+      limit: 1000,
+    },
+  });
   const categories = data?.listCategories.items;
   const parentCategories = categories?.filter(
     (item) => item.parentCategory == null
@@ -76,7 +74,7 @@ export default function MegaMenu({ border }: { border: any }) {
                   )}
                 >
                   <span
-                    className={`inline-flex items-center border-b-2 border-transparent px-1 xl:text-sm text-xs font-medium  font-lexed  hover:border-activeColor  leading-none ${
+                    className={`inline-flex items-center border-b-2 border-transparent px-1 xl:text-sm text-xs  font-lexed  font-bold hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >

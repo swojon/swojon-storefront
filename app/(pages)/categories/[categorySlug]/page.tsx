@@ -60,16 +60,8 @@ const CategoryDetail = ({ params }: { params: any }) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between items-center pt-4 pb-2 gap-3">
-        <div
-          className="flex   items-center  sm:w-[75%] 
- "
-        >
-          <h6 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed flex items-center gap-2 md:w-[36%] w-full ">
-            Posts in :{" "}
-            <span className="capitalize"> {params.categorySlug}</span>{" "}
-          </h6>
-
+      <div className="flex sm:flex-row flex-col justify-between sm:items-center pt-4  gap-3">
+        <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[75%] w-full">
           <AppliedFilter />
         </div>
         <div className=" flex justify-between items-center gap-3 ">
