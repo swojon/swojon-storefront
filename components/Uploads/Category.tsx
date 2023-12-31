@@ -95,12 +95,12 @@ const Category = ({
         </div>
         {}
         {(selectCategory === null || selectCategory.parentCategory != null) && (
-          <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-4 flex items-center  gap-4 overflow-x-auto mx-auto">
+          <div className="md:p-6 p-2.5 md:grid lg:grid-cols-5 md:grid-cols-4  flex items-center  gap-4 overflow-x-auto mx-auto">
             {loading && <CategoryLoader />}
             {filteredCategories?.map((category) => (
               <div
                 key={category.id}
-                className={`flex flex-col justify-center items-center text-center w-[220px]  p-4 border  rounded-md cursor-pointer md:space-y-3 h-[128px] ${
+                className={`flex flex-col justify-center items-center text-center  p-2 border flex-none w-[190px] md:w-auto  rounded-md cursor-pointer md:space-y-2.5 space-y-1 h-[128px] ${
                   category?.id === selectCategory?.id
                     ? "border-activeColor"
                     : "border-gray-200 hover:border-gray-300"
@@ -109,7 +109,7 @@ const Category = ({
               >
                 <BiSelection className="text-lg" />
 
-                <span className="text-base text-primaryColor font-lexed font-medium capitalize">
+                <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
                   {category.name}
                 </span>
                 <span className="text-xs text-secondColor">

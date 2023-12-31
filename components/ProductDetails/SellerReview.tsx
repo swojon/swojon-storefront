@@ -22,11 +22,11 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
   const avgRating = Math.ceil(review?.avgRating!);
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex :items-center gap-2">
         <Menu as="div" className="relative inline-block ">
           <div>
             <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
-              <span className=" text-base font-medium text-secondColor text-center relative">
+              <span className="md:text-base text-sm font-medium text-secondColor text-center relative">
                 {review?.reviewCount} Reviews
                 <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
               </span>
@@ -161,10 +161,10 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <BsDot className="text-secondColor text-lg" />
+        <BsDot className="text-secondColor text-lg sm:block hidden" />
         <div className="flex flex-wrap gap-2 items-center">
           <ReviewStars avgRating={avgRating!} />
-          <span className=" text-base font-medium text-secondColor text-center relative">
+          <span className=" md:text-base text-sm font-medium text-secondColor text-center relative">
             ({avgRating!} stars)
           </span>
         </div>

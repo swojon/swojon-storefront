@@ -172,8 +172,8 @@ const ProductInfo = ({ product }: { product: any }) => {
         </span>
 
         <div className="flex   gap-3 items-center    pb-4">
-          <Link href="">
-            <div className=" h-[60px] w-[60px] rounded-full">
+          <Link href={`/seller/${product?.user?.id}`}>
+            <div className=" md:h-[60px] h-[40px] md:w-[60px] w-[40px] rounded-full">
               <Image
                 src={product?.user?.profile?.avatar ?? defaultAvatar}
                 width={400}
@@ -184,14 +184,16 @@ const ProductInfo = ({ product }: { product: any }) => {
             </div>
           </Link>
 
-          <div className="  space-y-2">
-            <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
-              {product?.user?.profile?.name ??
-                product?.user?.username ??
-                product?.user?.email}
-            </h6>
+          <div className="  md:space-y-2 space-y-1">
+            <Link href={`/seller/${product?.user?.id}`}>
+              <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
+                {product?.user?.profile?.name ??
+                  product?.user?.username ??
+                  product?.user?.email}
+              </h6>
+            </Link>
 
-            <div className="flex space-x-1 items-center ">
+            <div className="flex flex-wrap  gap-1 items-center ">
               <SellerReview sellerId={product?.user?.id} />
             </div>
           </div>
@@ -262,7 +264,7 @@ const ProductInfo = ({ product }: { product: any }) => {
           Additional Details
         </span>
 
-        <div className="flex gap-2 justify-between items-center">
+        <div className="flex flex-wrap gap-2 justify-between items-center">
           <div className="w-[75%]">
             <p className=" truncate text-base font-bold text-primaryColor ">
               {product?.description}
@@ -278,7 +280,7 @@ const ProductInfo = ({ product }: { product: any }) => {
                 })
               )
             }
-            className="text-activeColor font-medium"
+            className="text-activeColor font-medium whitespace-nowrap"
           >
             See more
           </button>
@@ -314,23 +316,33 @@ const ProductInfo = ({ product }: { product: any }) => {
       {/*==== for Meetup==== */}
 
       {product?.dealingMethod === "meetup" && (
-        <div className="p-4  border border-[#F1F1F1] rounded-md space-y-4">
+        <div className="p-4  border border-[#F1F1F1] rounded-md space-y-3">
           <div className="flex justify-between items-center">
             <span className=" text-base font-medium text-secondColor text-center">
               Meetup
             </span>
-            <span className=" text-base font-medium text-secondColor text-center relative">
+            {/* <span className=" text-base font-medium text-secondColor text-center relative">
               View in map
               <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
-            </span>
+            </span> */}
           </div>
           {product?.meetupLocations?.map((mL: any) => (
-            <div key={mL.placeId} className="flex gap-2 items-center">
-              <span className=" text-base font-bold text-primaryColor text-center">
-                <CiLocationOn />
-              </span>
-              <span className="truncate text-base font-bold text-primaryColor text-center relative">
-                {mL.displayName}
+            <div
+              key={mL.placeId}
+              className="flex justify-between items-center gap-2 "
+            >
+              <div className="flex gap-2 items-center w-[85%]">
+                <span className=" text-base font-bold text-primaryColor text-center">
+                  <CiLocationOn />
+                </span>
+                <span className="truncate pr-2 text-base font-bold text-primaryColor text-center relative">
+                  {mL.displayName}
+                </span>
+              </div>
+
+              <span className="inline-block whitespace-nowrap text-sm font-medium text-secondColor text-center relative">
+                Map
+                <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
               </span>
             </div>
           ))}
