@@ -77,7 +77,6 @@ const formSchema = Yup.object({
 
 const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
-  const [formUploading, setFormUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
 
@@ -91,14 +90,16 @@ const Uploads = ({ product }: { product: null | any }) => {
     brandId: product ? product.brand.id : null,
     categoryId: product ? product.category.id : null,
     // locationId: product ? product.location.id : null,
-    price: product ? product.price : 0,
+    price: product ? product.price : null,
     quantity: product ? product.quantity : 1,
     dealingMethod: product ? product.dealingMethod : "meetup",
-    deliveryCharge: product ? product.deliveryCharge : 0,
+    // deliveryCharge: product ? product.deliveryCharge : 0,
     meetupLocations: product ? product.meetupLocations : [],
     mediaUrls: product ? product.media : [],
   };
 
+  const editableFields = ["title", "description", "images", "condition", "brandId", "categoryId", "price", "dealingMethod", "meetupLocations"]
+  
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
 
@@ -120,8 +121,9 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [uploadError, setUploadError] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewBtn, setPreviewBtn] = useState<any>(null);
-  const [createListing, { error: createError, data: createData }] =
+  const [createListing, { error: createError, loading: createLoading,  data: createData }] =
     useCreateListingMutation();
+  const [formUploading, setFormUploading] = useState(false)
 
   const {
     values,
@@ -136,8 +138,8 @@ const Uploads = ({ product }: { product: null | any }) => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
+      setFormUploading(true)
       console.log("submitting the  form with values");
-
       try {
         for (let i = 0; i < values.images.length; i++) {
           const url = await uploadFile(
@@ -148,7 +150,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             setUploadProgress
           );
 
-          console.log(`Image heloo ${i + 1} url: ${url}`);
+          // console.log(`Image heloo ${i + 1} url: ${url}`);
           // @ts-ignore:next-line
           values.mediaUrls.push(url);
         }
@@ -169,14 +171,13 @@ const Uploads = ({ product }: { product: null | any }) => {
       // setUploadProgress(null);
 
       if (createError) {
+        setFormUploading(false)
         console.log("Failed to create listing", createError);
         toast.error("Failed to Create Category, Please Try again.");
       }
       if (createData) {
+        setFormUploading(false)
         toast.success("Product created successfully");
-
-        setFormUploading(true);
-
         action.resetForm();
         dispatch(
           setModalOpen({
@@ -191,20 +192,29 @@ const Uploads = ({ product }: { product: null | any }) => {
   });
   console.log(errors);
   useEffect(() => {
-    const completedFields = Object.values(values).filter(
-      (value) => !!value && value !== 0 && value !== 1
+    const completedFields = Object.entries(values).filter(
+      ([key, value]) => {
+        if (!editableFields.includes(key)) return false
+        // console.log("value", value.isArray)
+    
+        if (Array.isArray(value) && value.length === 0 ) return false
+     
+        if(!!value ) return true
+        
+        return false
+      }  
     ).length;
-    const totalFields = Object.keys(values).length;
+    const totalFields = editableFields.length;
+    // console.log("total Fields", totalFields)
     const newProgress = Math.round((completedFields / totalFields) * 100);
 
     setProgress(newProgress);
   }, [values]);
 
-  console.log("values", values);
-  console.log("progress", progress);
+ 
   const handleTitleChange = (event: any) => {
     const inputValue = event.currentTarget.value;
-    setFieldValue("slug", slugify(inputValue));
+    // setFieldValue("slug", slugify(inputValue));
   };
 
   const handlePostButtonClick = () => {
@@ -284,7 +294,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   onClick={handlePostButtonClick}
                   className="a py-2 w-24 rounded-md bg-activeColor text-white text-sm hover:shadow-lg flex justify-center"
                 >
-                  {formUploading ? (
+                  {createLoading || formUploading ? (
                     <BiLoaderCircle className=" text-xl animate-spin" />
                   ) : (
                     "Post"
@@ -383,7 +393,7 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div
               className={`${
-                values.brandId && !errors.brandId
+                values.price && !errors.price
                   ? "opacity-100 "
                   : "opacity-50 pointer-events-none"
               }`}

@@ -228,7 +228,7 @@ const SignIn: NextPage = (): JSX.Element => {
             </span>
           </div>
 
-          <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
+          {/* <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%] ">
               <FaFacebookSquare className="float-right  text-blue-600 text-lg" />
             </span>
@@ -236,7 +236,7 @@ const SignIn: NextPage = (): JSX.Element => {
             <span className="text-sm text-secondColor">
               Continue with Facebook
             </span>
-          </div>
+          </div> */}
           {/* <Link
                 href="/"
                 className="md:py-2 py-1.5 flex justify-center items-center space-x-2 border border-[#E6E6E6]  lg:text-sm md:text-xs text-[12px] text-primaryColor w-full rounded font-lexed"

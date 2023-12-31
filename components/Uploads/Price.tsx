@@ -35,7 +35,6 @@ const Price = ({
             value={values.price}
             onChange={handleChange}
             className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
-            placeholder="1500"
           />
           <div className="absolute inset-y-0 right-0 flex items-center ">
             <label htmlFor="currency" className="sr-only">
