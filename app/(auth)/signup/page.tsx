@@ -110,7 +110,7 @@ const SignUpPage = () => {
               Continue with Google
             </span>
           </div>
-
+{/* 
           <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%] ">
               <FaFacebookSquare className="float-right  text-blue-600 text-lg" />
@@ -119,7 +119,7 @@ const SignUpPage = () => {
             <span className="text-sm text-secondColor">
               Continue with Facebook
             </span>
-          </div>
+          </div> */}
 
           <div onClick={() => setIsEmailPreferred(true)} className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%]">

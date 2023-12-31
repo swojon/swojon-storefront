@@ -94,7 +94,7 @@ const Brand = ({
               }`}
               onClick={() => setSelectBrand(item)}
             >
-              <BiSelection classNAme="text-primaryColor" />
+              <BiSelection className="text-primaryColor" />
 
               <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
                 {item.name}
