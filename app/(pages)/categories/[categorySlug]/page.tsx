@@ -25,7 +25,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
   const communityFilter = searchParams.get("community")?.split(",");
 
   var filters = {};
-  filters = { ...filters, categorySlug: params.categorySlug };
+  filters = { ...filters, categorySlug: params.categorySlug, status: 'approved'};
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
   if (brandFilter && brandFilter.length > 0)
     filters = { ...filters, brandSlug: brandFilter };

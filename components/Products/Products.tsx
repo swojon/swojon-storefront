@@ -8,7 +8,14 @@ import ProductLoader from "../Loader/ProductLoader";
 import Link from "next/link";
 
 const Products = () => {
-  const { data, loading, error } = useListListingsQuery();
+  const { data, loading, error } = useListListingsQuery({
+    variables: {
+      filters: {
+        status: 'approved',
+      },
+      limit: 16
+    }
+  });
   const featuredProduct = data?.listListings.items;
 
   return (

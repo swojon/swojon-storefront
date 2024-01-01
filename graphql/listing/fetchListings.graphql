@@ -1,5 +1,5 @@
-query ListListings($filters: ListingFilterInput) {
-  listListings(filters: $filters) {
+query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float) {
+  listListings(filters: $filters, limit: $limit, ending_before: $endingBefore, starting_after: $startingAfter) {
     items {
       brand {
         id
@@ -59,6 +59,8 @@ query ListListings($filters: ListingFilterInput) {
       favoriteStatus
       
     }
+    hasMore
+    count
    
   }
 }

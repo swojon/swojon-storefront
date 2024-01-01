@@ -1038,8 +1038,13 @@ export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavori
 export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
 export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
 export const ListListingsDocument = gql`
-    query ListListings($filters: ListingFilterInput) {
-  listListings(filters: $filters) {
+    query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float) {
+  listListings(
+    filters: $filters
+    limit: $limit
+    ending_before: $endingBefore
+    starting_after: $startingAfter
+  ) {
     items {
       brand {
         id
@@ -1097,6 +1102,8 @@ export const ListListingsDocument = gql`
       favoriteCount
       favoriteStatus
     }
+    hasMore
+    count
   }
 }
     `;
@@ -1114,6 +1121,9 @@ export const ListListingsDocument = gql`
  * const { data, loading, error } = useListListingsQuery({
  *   variables: {
  *      filters: // value for 'filters'
+ *      limit: // value for 'limit'
+ *      endingBefore: // value for 'endingBefore'
+ *      startingAfter: // value for 'startingAfter'
  *   },
  * });
  */
@@ -2079,6 +2089,7 @@ export type Listing = {
   price: Scalars['Float']['output'];
   quantity?: Maybe<Scalars['Float']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   user: User;
 };
@@ -2113,6 +2124,7 @@ export type ListingFilterInput = {
   isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   locationId?: InputMaybe<Scalars['Float']['input']>;
   locationIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  status?: InputMaybe<Scalars['String']['input']>;
   userIds?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
@@ -2131,6 +2143,7 @@ export type ListingUpdateDto = {
   location?: InputMaybe<Scalars['String']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   price?: InputMaybe<Scalars['Float']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -3196,10 +3209,13 @@ export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListi
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
