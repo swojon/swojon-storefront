@@ -111,7 +111,7 @@ const MeetUp = ({
                 ? "rounded-t-3xl"
                 : "rounded-3xl focus:border-activeColor focus:ring-1 focus:ring-activeColor"
             }`}
-            placeholder="Search"
+            placeholder="Please insert a location, Search results will show up once you stop typing"
             type="search"
           />
         </div>

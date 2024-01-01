@@ -3,9 +3,15 @@ import Link from "next/link";
 import { setModalClose } from "@/app/redux/modalSlice";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const SuccessModal = ({}: any) => {
+  const router = useRouter()
   const dispatch = useDispatch();
+  const handleButtonClick = (link: string) =>{
+    dispatch(setModalClose(true))
+    router.push(link)
+  }
   return (
     <section className="  w-full h-full  space-y-5 lg:space-y-4 p-7 text-center relative">
       <button
@@ -35,16 +41,12 @@ const SuccessModal = ({}: any) => {
       </p>
 
       <div className="flex flex-col gap-3">
-        <Link href="/">
-          <button className="px-4 w-full py-3 text-base bg-activeColor text-white rounded-md ">
+        <button  onClick={() => handleButtonClick('/')} className="px-4 w-full py-3 text-base bg-activeColor text-white rounded-md ">
             View Pending Items
           </button>
-        </Link>
-        <Link href="/">
-          <button className="px-4 w-full py-3 text-base bg-secondColor text-white rounded-md">
+        <button onClick={() => handleButtonClick('/')} className="px-4 w-full py-3 text-base bg-secondColor text-white rounded-md">
             Go to Home
           </button>
-        </Link>
       </div>
     </section>
   );

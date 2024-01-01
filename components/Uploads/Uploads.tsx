@@ -179,27 +179,26 @@ const Uploads = ({ product }: { product: null | any }) => {
         variables: {
           listingData: listingData,
         },
+        onCompleted: () => {
+          setFormUploading(false);
+          toast.success("Product created successfully");
+          action.resetForm();
+          dispatch(
+            setModalOpen({
+              title: "this is a modal",
+              body: "product-create-success",
+            })
+          );
+          console.log("Success in creating product");
+        }, 
+        onError: () => {
+          setFormUploading(false);
+          console.log("Failed to create listing", createError);
+          toast.error("Failed to Create Category, Please Try again.");
+        }
       });
       // setUploadProgress(null);
 
-      if (createError) {
-        setFormUploading(false);
-        console.log("Failed to create listing", createError);
-        toast.error("Failed to Create Category, Please Try again.");
-      }
-      if (createData) {
-        setFormUploading(false);
-        toast.success("Product created successfully");
-        action.resetForm();
-        dispatch(
-          setModalOpen({
-            title: "this is a modal",
-            body: "product-create-success",
-          })
-        );
-        console.log("Success in creating product");
-      }
-      console.log("values after submitting", values);
     },
   });
   console.log(errors);
