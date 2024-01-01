@@ -7,40 +7,6 @@ import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 
-const categories = [
-  {
-    id: 13,
-    icon: icon,
-    title: "Furniture",
-    children: [
-      { id: 45, title: "bedroom furniture" },
-      { id: 475, title: "bedroom furniture" },
-      { id: 4475, title: "bedroom furniture" },
-      { id: 4775, title: "bedroom furniture" },
-    ],
-  },
-  { id: 14, icon: icon, title: "Electronics", children: [] },
-  {
-    id: 123,
-    icon: icon,
-    title: "Gym Accessories",
-    children: [],
-  },
-  {
-    id: 9712235,
-    icon: icon,
-    title: "instructive",
-    children: [],
-  },
-  { id: 99146, icon: icon, title: "Fashion", children: [] },
-  {
-    id: 3465123,
-    icon: icon,
-    title: "Home Alliances",
-    children: [],
-  },
-];
-
 const CategoriesFilter = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -73,14 +39,14 @@ const CategoriesFilter = () => {
     setAppliedCategories(searchParams.get("category")?.split(",") ?? []);
   }, [searchParams]);
 
-  console.log("applied appliedCategories", appliedCategories);
+  // console.log("applied appliedCategories", appliedCategories);
   const {
     data: categoryOptions,
     loading: categoryLoading,
     error: categoryError,
   } = useListCategoriesQuery({
     variables: {
-      limit: 1000,
+      limit: 1020,
     },
   });
   const categories = categoryOptions?.listCategories.items;

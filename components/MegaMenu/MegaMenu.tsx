@@ -19,34 +19,20 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const getCategoryTree = (categories: any[], target: any): any[] => {
-  let cats = categories.filter((cat) =>
-    target === null
-      ? cat.parentCategory === null
-      : cat.parentCategory?.id === target.id
-  );
-  const categoryList: any[] = [];
-
-  cats.forEach((cat) => {
-    categoryList.push({
-      ...cat,
-      children: getCategoryTree(categories, cat),
-    });
-  });
-  return categoryList;
-};
-
 export default function MegaMenu({ border }: { border: any }) {
   const { data, loading, error } = useListCategoriesQuery({
     variables: {
-      limit: 1000,
+      limit: 1030,
     },
+    fetchPolicy: "cache-and-network"
   });
   const categories = data?.listCategories.items;
-  const parentCategories = categories?.filter(
-    (item) => item.parentCategory == null
-  );
-
+  
+  const parentCategories = categories ? categories.filter(
+    (item) => item.parentCategory === null
+  ) : null;
+  console.log("categories", categories)
+  console.log("parentCategories", parentCategories)
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [subCategories, setSubCategories] = useState<any>([]);
 
@@ -105,8 +91,8 @@ export default function MegaMenu({ border }: { border: any }) {
                   <div className="custom-container relative flex  gap-4 h-full">
                     {/* First Panel Start Here */}
                     <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
-                      {loading && <MegamenuHeadingLoader />}
-                      {parentCategories?.map((item) => (
+                      {loading ?  <MegamenuHeadingLoader /> :
+                      parentCategories?.map((item) => (
                         <div
                           className={`flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer  ${
                             currentCategory.id === item.id ? "bg-slate-200" : ""

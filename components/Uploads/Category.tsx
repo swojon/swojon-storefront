@@ -29,9 +29,7 @@ const Category = ({
   const categories = categoriesData?.listCategories.items;
   const [query, setQuery] = useState("");
 
-  const categoryTree = categoriesData?.listCategories.items
-    ? getCategoryTree(categoriesData?.listCategories.items, null)
-    : [];
+  const categoryTree = categories? getCategoryTree(categories, null) : [];
   const filteredCategories = !!query
     ? categories?.filter((ca) =>
         ca.name?.toLowerCase().includes(query.toLowerCase())

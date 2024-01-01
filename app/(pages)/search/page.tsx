@@ -13,7 +13,7 @@ import { useListListingsQuery, useSearchListingsQuery } from "@/apollograph/gene
 import ProductLoader from "@/components/Loader/ProductLoader";
 
 const SearchPage = ({ params }: { params: any }) => {
-
+  console.log("item loaded", "SearchPage")
   const appliedFilter = [];
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
