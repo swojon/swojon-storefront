@@ -3,7 +3,8 @@ import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleDown, FaAngleRight, FaAngleUp } from "react-icons/fa6";
 import { HiSquare3Stack3D } from "react-icons/hi2";
 import { useListCategoriesQuery } from "@/apollograph/generated";
-import { getCategoryTree } from "../MegaMenu/MegaMenu";
+import { getCategoryTree } from "@/lib/helpers/nestify";
+
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

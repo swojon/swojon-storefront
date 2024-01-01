@@ -64,7 +64,8 @@ const LocationDropDown = ({
                   <span className=" truncate  ">{selected?.name}</span>{" "}
                   <span className="px-2 text-secondColor text-xs">in</span>
                   <span className="text-secondColor text-xs">
-                    {selected?.parentLocation?.name}
+                    {/* {selected?.parentLocation?.name}
+                    "nam" */} name
                   </span>  
                 </> :
                   <span className="text-secondColor">Select a Location</span>
