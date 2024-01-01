@@ -8,11 +8,6 @@ query ListLocations {
             isFeatured
             isLive
             name
-            parentLocation{
-                slug
-                name
-                id
-            }
             slug
         }
     }

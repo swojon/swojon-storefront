@@ -6,6 +6,7 @@ query ListCategories ($filters: CategoryFilterInput, $limit: Float, $startingAft
       id
       name
       slug
+      icon
       banner
       description
       status

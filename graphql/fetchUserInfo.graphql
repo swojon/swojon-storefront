@@ -1,13 +1,6 @@
 query GetUserById($userId: Float!) {
   getUserById(userId: $userId) {
     createdAt
-    communities {
-      id
-      description
-      banner
-      name
-      slug
-    }
     email
     facebookId
     followerCount

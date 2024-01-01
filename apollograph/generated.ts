@@ -18,6 +18,7 @@ export const ListCategoriesDocument = gql`
       id
       name
       slug
+      icon
       banner
       description
       status
@@ -685,11 +686,6 @@ export const ListLocationsDocument = gql`
       isFeatured
       isLive
       name
-      parentLocation {
-        slug
-        name
-        id
-      }
       slug
     }
   }
@@ -726,13 +722,6 @@ export const GetUserByIdDocument = gql`
     query GetUserById($userId: Float!) {
   getUserById(userId: $userId) {
     createdAt
-    communities {
-      id
-      description
-      banner
-      name
-      slug
-    }
     email
     facebookId
     followerCount
@@ -1830,6 +1819,7 @@ export type Category = {
   banner?: Maybe<Scalars['String']['output']>;
   children?: Maybe<Array<Category>>;
   description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   isApproved?: Maybe<Scalars['Boolean']['output']>;
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
@@ -1845,6 +1835,7 @@ export type Category = {
 export type CategoryCreateDto = {
   banner?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   parentCategoryId?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
@@ -1861,6 +1852,7 @@ export type CategoryRemoveDto = {
 export type CategoryUpdateDto = {
   banner?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
   isApproved?: InputMaybe<Scalars['Boolean']['input']>;
   isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2158,7 +2150,6 @@ export type Location = {
   isFeatured?: Maybe<Scalars['Boolean']['output']>;
   isLive?: Maybe<Scalars['Boolean']['output']>;
   name: Scalars['String']['output'];
-  parentLocation?: Maybe<Location>;
   slug?: Maybe<Scalars['String']['output']>;
 };
 
@@ -3045,7 +3036,6 @@ export type User = {
 
 export type UserWithMeta = {
   __typename?: 'UserWithMeta';
-  communities?: Maybe<Array<Community>>;
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
   facebookId?: Maybe<Scalars['String']['output']>;
@@ -3069,7 +3059,7 @@ export type ListCategoriesQueryVariables = Exact<{
 }>;
 
 
-export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null, banner?: string | null, description?: string | null, status?: Status | null, isSponsored?: boolean | null, isFeatured?: boolean | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null }> } };
+export type ListCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, slug?: string | null, icon?: string | null, banner?: string | null, description?: string | null, status?: Status | null, isSponsored?: boolean | null, isFeatured?: boolean | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null }> } };
 
 export type ListFeaturedCategoriesQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
@@ -3171,14 +3161,14 @@ export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __type
 export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null, parentLocation?: { __typename?: 'Location', slug?: string | null, name: string, id: number } | null }> } };
+export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null }> } };
 
 export type GetUserByIdQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, communities?: Array<{ __typename?: 'Community', id: number, description?: string | null, banner?: string | null, name?: string | null, slug?: string | null }> | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
 
 export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -229,7 +229,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             previewBtn === "preview" ? "justify-between" : "justify-start"
           }`}
         >
-          <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
+        <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
             <h6>Home</h6>
             <MdKeyboardArrowRight />
             <h6 className="">List product</h6>
