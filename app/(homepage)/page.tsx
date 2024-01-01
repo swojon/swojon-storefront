@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       >
         LoginBtn
       </h5> */}
-      {/* <FeaturedCategoriesBox /> */}
+      <FeaturedCategoriesBox />
       <Products />
       {/* <Community /> */}
       {/* <ActionBanner />

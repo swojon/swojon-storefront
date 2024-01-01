@@ -326,12 +326,12 @@ const Uploads = ({ product }: { product: null | any }) => {
                 <CompleteStatusBar bar={progress} />
               </div>
 
-              <button
+              {/* <button
                 onClick={() => setPreviewBtn("preview")}
                 className="py-2 w-24 border border-secondColor rounded-md bg- text-secondColor  text-sm hover:shadow-lg"
               >
                 Preview
-              </button>
+              </button> */}
             </div>
           </div>
         )}
