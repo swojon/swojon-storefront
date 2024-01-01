@@ -194,7 +194,7 @@ const ProductInfo = ({ product }: { product: any }) => {
             </Link>
 
             <div className="flex flex-wrap  gap-1 items-center ">
-              <SellerReview sellerId={product?.user?.id} />
+              <SellerReviewDropdown sellerId={product?.user?.id} />
             </div>
           </div>
         </div>

@@ -22,19 +22,19 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
     if (!count || !total) return 0;
     return Math.trunc((count / total) * 100);
   };
+  const review = data?.summaryUserReview;
+  const avgRating = Math.ceil(review?.avgRating!);
 
   return (
     <>
       <div className="flex items-center">
         <Menu as="div" className="relative inline-block ">
           <div>
-            <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
-              <ReviewStars avgRating={data?.summaryUserReview.avgRating!} />
-              <span className="ms-1 relative text-secondColor">
-                {data?.summaryUserReview.avgRating ?? 0}{" "}
-                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-gray-400"></span>
-              </span>{" "}
-              <IoIosArrowDown className="text-gray-300" />
+          <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
+              <span className="md:text-base text-sm font-medium text-secondColor text-center relative">
+                {review?.reviewCount} Reviews
+                <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
+              </span>
             </Menu.Button>
           </div>
 
@@ -192,21 +192,24 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center ">
+              <Link href={`/seller/${sellerId}/reviews`} className="flex items-center justify-center ">
                 <small className="text-sm relative   whitespace-nowrap">
                   see all reviews
                   <span className="absolute left-0 bottom-0 h-0.5 w-full bg-gray-400"></span>
                 </small>
-              </div>
+              </Link>
             </Menu.Items>
           </Transition>
         </Menu>
       </div>
-      <div className="flex items-center space-x-1">
-        <BsDot className="text-secondColor" />
-        <span className="text-sm">
-          {data?.summaryUserReview.reviewCount ?? 0} Reviews{" "}
-        </span>
+      <div className="flex flex-wrap items-center gap-2">
+        <BsDot className="text-secondColor text-lg sm:block hidden" />
+        <div className="flex flex-wrap gap-2 items-center">
+          <ReviewStars avgRating={avgRating!} />
+          <span className=" md:text-base text-sm font-medium text-secondColor text-center relative">
+            {/* ({avgRating!} ) */}
+          </span>
+        </div>
       </div>
     </>
   );
