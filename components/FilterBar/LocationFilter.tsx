@@ -11,7 +11,7 @@ const LocationFilter = () => {
           <>
             <h3 className="-my-3 flow-root">
               <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                <span className="font-medium text-lg font-lexed text-primaryColor">
+                <span className="md:text-lg text-base  font-bold font-lexed text-primaryColor">
                   Location
                 </span>
                 <span className="ml-6 flex items-center">

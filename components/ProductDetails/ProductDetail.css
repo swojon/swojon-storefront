@@ -54,11 +54,13 @@
   }
 }
 
-/* @media (min-width: 768px) {
-  .slider2 {
-    height: 70px;
+@media (min-width: 768px) {
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    padding: 12px 14px;
+    margin: 0 20px;
   }
-} */
+}
 
 @media (max-width: 639px) {
   .slider1 {

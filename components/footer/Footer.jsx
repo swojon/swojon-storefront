@@ -30,16 +30,17 @@ const Footer = () => {
           <p className="text-sm text-secondColor">
             Download our mobile app. Get all <br /> service at a glance.
           </p>
+
           <div className="flex space-x-2">
             <Image
               src={googleImg}
               alt="googleimg"
-              className="lg:w-[35%] md:w-[25%] w-[45%]"
+              className="lg:w-[35%] md:w-[22%] w-[35%]"
             />
             <Image
               src={appStoreImg}
               alt="appStoreImg"
-              className="lg:w-[35%] md:w-[25%] w-[45%]"
+              className="lg:w-[35%] md:w-[22%] w-[35%]"
             />
           </div>
 
@@ -97,8 +98,8 @@ const Footer = () => {
                 </li>
               </ul>
             </div> */}
-            
-{/* 
+
+            {/* 
             <div className="space-y-2.5  ">
               <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
                 Shop

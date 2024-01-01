@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import MegaMenu from "../MegaMenu/MegaMenu";
 // import user from "@/public/user1.jpg";
-import defaultAvatar from '@/public/assets/avatar.svg'
+import defaultAvatar from "@/public/assets/avatar.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,7 +104,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </div>
                   <Link
                     href="/explore"
-                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium font-lexed hover:border-activeColor  leading-none ${
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-bold font-lexed hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
@@ -171,18 +171,23 @@ export default function Navbar2({ border }: { border: any }) {
                   >
                     <div>
                       <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
-                        {authState?.user?.profile?.avatar ?
-                        <Image
-                          className="h-7 w-7 rounded-full"
-                          src={authState?.user?.profile?.avatar ?? defaultAvatar}
-                          alt="user"
-                        /> : 
+                        {authState?.user?.profile?.avatar ? (
+                          <Image
+                            className="h-7 w-7 rounded-full"
+                            src={
+                              authState?.user?.profile?.avatar ?? defaultAvatar
+                            }
+                            alt="user"
+                          />
+                        ) : (
                           <GoPerson
-                          className={`text-lg h-6 w-6  ${
-                            border === "border" ? "text-primaryColor" : "text-white"
-                          }`}
-                        />
-                        }
+                            className={`text-base h-6 w-6  ${
+                              border === "border"
+                                ? "text-primaryColor"
+                                : "text-white"
+                            }`}
+                          />
+                        )}
                       </Menu.Button>
                     </div>
                     <Transition

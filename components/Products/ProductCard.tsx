@@ -52,17 +52,15 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-        
-        <div 
-        className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300"
-        >
-         <FavoriteProduct listing={listing} />
+
+        <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
+          <FavoriteProduct listing={listing} />
         </div>
       </div>
 
       <Link href={`/products/${listing.id}`} className="">
         <div className="  py-1 flex flex-row   items-center font-lexed justify-between">
-          <div className="w-[80%] ">
+          <div className="w-[85%] ">
             <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
               {listing.title}
             </h6>

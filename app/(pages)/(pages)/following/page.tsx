@@ -30,7 +30,7 @@ const Followers = () => {
   return (
     <section>
       <div className="border-b px-5 py-3.5">
-        <h6 className="text-primaryColor text-2xl font-lexed font-medium">
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           People you follow
         </h6>
       </div>

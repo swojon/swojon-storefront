@@ -98,8 +98,18 @@ const Uploads = ({ product }: { product: null | any }) => {
     mediaUrls: product ? product.media : [],
   };
 
-  const editableFields = ["title", "description", "images", "condition", "brandId", "categoryId", "price", "dealingMethod", "meetupLocations"]
-  
+  const editableFields = [
+    "title",
+    "description",
+    "images",
+    "condition",
+    "brandId",
+    "categoryId",
+    "price",
+    "dealingMethod",
+    "meetupLocations",
+  ];
+
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
 
@@ -121,9 +131,11 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [uploadError, setUploadError] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewBtn, setPreviewBtn] = useState<any>(null);
-  const [createListing, { error: createError, loading: createLoading,  data: createData }] =
-    useCreateListingMutation();
-  const [formUploading, setFormUploading] = useState(false)
+  const [
+    createListing,
+    { error: createError, loading: createLoading, data: createData },
+  ] = useCreateListingMutation();
+  const [formUploading, setFormUploading] = useState(false);
 
   const {
     values,
@@ -138,7 +150,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
-      setFormUploading(true)
+      setFormUploading(true);
       console.log("submitting the  form with values");
       try {
         for (let i = 0; i < values.images.length; i++) {
@@ -171,12 +183,12 @@ const Uploads = ({ product }: { product: null | any }) => {
       // setUploadProgress(null);
 
       if (createError) {
-        setFormUploading(false)
+        setFormUploading(false);
         console.log("Failed to create listing", createError);
         toast.error("Failed to Create Category, Please Try again.");
       }
       if (createData) {
-        setFormUploading(false)
+        setFormUploading(false);
         toast.success("Product created successfully");
         action.resetForm();
         dispatch(
@@ -192,18 +204,16 @@ const Uploads = ({ product }: { product: null | any }) => {
   });
   console.log(errors);
   useEffect(() => {
-    const completedFields = Object.entries(values).filter(
-      ([key, value]) => {
-        if (!editableFields.includes(key)) return false
-        // console.log("value", value.isArray)
-    
-        if (Array.isArray(value) && value.length === 0 ) return false
-     
-        if(!!value ) return true
-        
-        return false
-      }  
-    ).length;
+    const completedFields = Object.entries(values).filter(([key, value]) => {
+      if (!editableFields.includes(key)) return false;
+      // console.log("value", value.isArray)
+
+      if (Array.isArray(value) && value.length === 0) return false;
+
+      if (!!value) return true;
+
+      return false;
+    }).length;
     const totalFields = editableFields.length;
     // console.log("total Fields", totalFields)
     const newProgress = Math.round((completedFields / totalFields) * 100);
@@ -211,7 +221,6 @@ const Uploads = ({ product }: { product: null | any }) => {
     setProgress(newProgress);
   }, [values]);
 
- 
   const handleTitleChange = (event: any) => {
     const inputValue = event.currentTarget.value;
     // setFieldValue("slug", slugify(inputValue));
@@ -271,7 +280,7 @@ const Uploads = ({ product }: { product: null | any }) => {
         {previewBtn !== "preview" && (
           <div
             className={`xl:space-y-5 lg:space-y-4 space-y-3  border-b bg-white transition ease-in-out delay-150 py-5  
-          ${stickyClass} 
+          ${stickyClass}
           `}
           >
             <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
@@ -303,8 +312,8 @@ const Uploads = ({ product }: { product: null | any }) => {
               </div>
             </div>
 
-            <div className="flex lg:flex-row flex-col items-center justify-between gap-2 custom-container">
-              <div className=" w-[50%] ">
+            <div className="flex md:flex-row flex-col md:items-center justify-between gap-2 custom-container">
+              <div className=" md:w-[50%] w-full">
                 {progress === 0 ? (
                   <span className="text-base text-secondColor font-medium">
                     Let’s complete{" "}

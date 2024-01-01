@@ -26,6 +26,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   });
   const product = data?.getListing;
 
+  console.log("pro", product);
+
   return (
     <section className="custom-container py-6 space-y-6">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
