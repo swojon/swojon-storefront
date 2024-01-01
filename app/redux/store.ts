@@ -15,6 +15,7 @@ import { userProfileSlice } from "./userProfileSlice";
 import { chatSlice } from "./chatSlice";
 import { communitySlice } from "./communitySlice";
 import { notificationSlice } from "./notificationSlice";
+import { ImagePopUpSlice } from "./ImagePopSlice";
 // import { persistReducer, persistStore } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   [userProfileSlice.name]: userProfileSlice.reducer,
   [communitySlice.name]: communitySlice.reducer,
   [notificationSlice.name]: notificationSlice.reducer,
+  [ImagePopUpSlice.name]: ImagePopUpSlice.reducer,
 });
 
 export const store = configureStore({

@@ -48,6 +48,10 @@
   height: 120px;
 }
 
+.overlay-bg {
+  background: #3f3f3f78;
+}
+
 @media (max-width: 1023px) {
   .slider2 {
     height: 70px;

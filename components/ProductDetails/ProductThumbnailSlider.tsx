@@ -6,9 +6,18 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { useState } from "react";
 import "./ProductDetail.css";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { setImagePopUpOpen } from "@/app/redux/ImagePopSlice";
+// import ModalImage from "react-modal-image";
 
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+  const dispatch = useDispatch();
+
+  const handleExpandImage = (imageUrl: any) => {
+    dispatch(setImagePopUpOpen(imageUrl));
+  };
+
   return (
     <section className="lg:h-[577px]  space-y-4">
       <div className="w-full">
@@ -33,6 +42,21 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
                 className="w-full h-full object-cover rounded-lg"
                 alt="listing Image"
               />
+
+              <div
+                onClick={() => handleExpandImage(im.url)}
+                className="absolute w-[40px] h-[40px] bg-white rounded-full flex justify-center items-center right-2 top-2"
+              >
+                <div className="w-4 h-4">
+                  <Image
+                    src="/assets/expand.png"
+                    alt="expand"
+                    width={100}
+                    height={100}
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

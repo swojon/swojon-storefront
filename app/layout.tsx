@@ -22,6 +22,7 @@ import { store } from "./redux/store";
 import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 import DynamicModal from "@/components/Modal/DynamicModal";
 import ResNavbarDrawer from "@/components/navbar/ResNavbarDrawer";
+import ImagePop from "@/components/ImagePop/ImagePop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -89,6 +90,7 @@ export default async function RootLayout({ children }: Iprops) {
               <NotificationDrawer />
               <ResNavbarDrawer />
               <ResFilter />
+              <ImagePop />
               {children}
             </div>
             <Modal />
