@@ -49,7 +49,7 @@ const ResNavbarDrawer = () => {
   return (
     <div
       className={`fixed top-0 z-[1000]  w-full lg:hidden resNav  transition delay-200 duration-700 ease-in-out ${
-        isNavOpen ? "translate-x-0   " : "-translate-x-full "
+        isNavOpen ? "translate-x-0 block" : "-translate-x-full hidden"
       }`}
     >
       <div
@@ -75,9 +75,12 @@ const ResNavbarDrawer = () => {
               className="h-4 w-8"
             />
 
-            <Link href="/upload-product">
-              <button className="py-2 px-5 bg-activeColor text-white rounded-md">
-                <IoMdAdd />
+            <Link
+              href="/upload-product"
+              onClick={() => dispatch(setNavClose())}
+            >
+              <button className="py-2 px-5 bg-activeColor text-white rounded-md text-base">
+                List Item
               </button>
             </Link>
           </div>
