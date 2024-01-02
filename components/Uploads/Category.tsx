@@ -11,9 +11,13 @@ import CategoryLoader from "./CategoryLoader";
 const Category = ({
   setFieldValue,
   values,
+  errors,
+  touched,
 }: {
   setFieldValue: any;
   values: any;
+  touched: any;
+  errors: any;
 }) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
@@ -29,7 +33,7 @@ const Category = ({
   const categories = categoriesData?.listCategories.items;
   const [query, setQuery] = useState("");
 
-  const categoryTree = categories? getCategoryTree(categories, null) : [];
+  const categoryTree = categories ? getCategoryTree(categories, null) : [];
   const filteredCategories = !!query
     ? categories?.filter((ca) =>
         ca.name?.toLowerCase().includes(query.toLowerCase())
@@ -91,10 +95,13 @@ const Category = ({
             )}
           </span>
         </div>
-        {}
-        {(selectCategory === null || selectCategory.parentCategory != null) && (
-          <div className="md:p-6 p-2.5 md:grid lg:grid-cols-5 md:grid-cols-4  flex items-center  gap-4 overflow-x-auto mx-auto">
+        {
+          <div className="md:p-6 p-2.5  flex items-center  gap-4 overflow-x-auto ">
             {loading && <CategoryLoader />}
+          </div>
+        }
+        {(selectCategory === null || selectCategory.parentCategory != null) && (
+          <div className="md:p-6 p-2.5 md:grid lg:grid-cols-5 md:grid-cols-4  flex items-center  gap-4 overflow-x-auto ">
             {filteredCategories?.map((category) => (
               <div
                 key={category.id}
@@ -128,7 +135,7 @@ const Category = ({
                 .children.map((item: any) => (
                   <div
                     key={item.id}
-                    className={`flex flex-col justify-center items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 text-center h-[128px]  ${
+                    className={`flex flex-col justify-center items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 text-center flex-none w-[190px] h-[128px]  ${
                       item?.id === selectSubCategory?.id
                         ? " border-activeColor "
                         : "border-gray-200 hover:border-gray-300 "

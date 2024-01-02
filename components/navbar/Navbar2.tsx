@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import ResponsiveNavBar from "./ResponsiveNavBar";
 import { RxAvatar } from "react-icons/rx";
 import { GoPerson } from "react-icons/go";
-
+import { LuUser2 } from "react-icons/lu";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -180,8 +180,8 @@ export default function Navbar2({ border }: { border: any }) {
                             alt="user"
                           />
                         ) : (
-                          <GoPerson
-                            className={`text-base h-6 w-6  ${
+                          <LuUser2
+                            className={`text-[22px] font-semiBold  ${
                               border === "border"
                                 ? "text-primaryColor"
                                 : "text-white"

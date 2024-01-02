@@ -22,7 +22,7 @@ const formSchema = Yup.object({
 });
 
 const SignUpPage = () => {
-  const [isEmailPreferred, setIsEmailPreferred] = useState(false)
+  const [isEmailPreferred, setIsEmailPreferred] = useState(false);
   useEffect(() => {
     setCookie("host", window.location.origin);
   }, []);
@@ -88,29 +88,34 @@ const SignUpPage = () => {
         <div className="space-y-1">
           <div className="flex justify-between">
             <div>
-                {isEmailPreferred &&  <button onClick={() => setIsEmailPreferred(false)}> <ArrowLeftIcon className="h-4 w-4"/></button> }
-              </div>
-          <h2 className=" lg:text-2xl md:text-lg text-base text-primaryColor font-semibold font-lexed">
-            Sign Up
-          </h2>
-          <div></div>
+              {isEmailPreferred && (
+                <button onClick={() => setIsEmailPreferred(false)}>
+                  {" "}
+                  <ArrowLeftIcon className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            <h2 className=" lg:text-2xl text-lg  font-bold text-primaryColor font-lexed">
+              Sign Up
+            </h2>
+            <div></div>
           </div>
-          
-          <p className=" md:text-sm text-[10px] text-secondColor pt-1">
+
+          <p className="text-sm  text-secondColor pt-1">
             Welcome back! Please enter your details.
           </p>
         </div>
-        {!isEmailPreferred && 
-        <div className="space-y-2.5 w-full">
-          <div className="flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
-            <span className="w-[30%]">
-              <FcGoogle className="float-right text-lg" />
-            </span>
-            <span className="text-sm text-secondColor">
-              Continue with Google
-            </span>
-          </div>
-{/* 
+        {!isEmailPreferred && (
+          <div className="space-y-2.5 w-full">
+            <div className="flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
+              <span className="w-[30%]">
+                <FcGoogle className="float-right text-lg" />
+              </span>
+              <span className="text-sm text-secondColor font-bold">
+                Continue with Google
+              </span>
+            </div>
+            {/* 
           <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%] ">
               <FaFacebookSquare className="float-right  text-blue-600 text-lg" />
@@ -121,25 +126,28 @@ const SignUpPage = () => {
             </span>
           </div> */}
 
-          <div onClick={() => setIsEmailPreferred(true)} className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
-            <span className="w-[30%]">
-              <FaRegEnvelope className="float-right text-activeColor text-lg" />
-            </span>
-            <span className="text-sm text-secondColor">
-              Continue with Email
-            </span>
-          </div>
+            <div
+              onClick={() => setIsEmailPreferred(true)}
+              className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
+            >
+              <span className="w-[30%]">
+                <FaRegEnvelope className="float-right text-activeColor text-lg" />
+              </span>
+              <span className="text-sm text-secondColor">
+                Continue with Email
+              </span>
+            </div>
 
-         
-          <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-5">
-          {" "}
-          Already have an account?{" "}
-          <Link href="/login">
-            <span className="text-activeColor">Log In!</span>
-          </Link>
-        </h6>
-        </div>}
-        {isEmailPreferred && <EmailSignUp /> }
+            <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-5">
+              {" "}
+              Already have an account?{" "}
+              <Link href="/login">
+                <span className="text-activeColor">Log In!</span>
+              </Link>
+            </h6>
+          </div>
+        )}
+        {isEmailPreferred && <EmailSignUp />}
 
         <div className="flex items-center gap-3 cursor-pointer pt-7">
           <Link href="">
@@ -162,7 +170,6 @@ const SignUpPage = () => {
             <span className="text-xs capitalize text-activeColor">help</span>
           </Link>
         </div>
-        
       </div>
     </div>
   );

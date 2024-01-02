@@ -30,8 +30,8 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
       <div className="flex items-center">
         <Menu as="div" className="relative inline-block ">
           <div>
-          <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
-              <span className="md:text-base text-sm font-medium text-secondColor text-center relative">
+            <Menu.Button className="flex items-center text-xs text-primaryColor hover:text-gray-600 focus:outline-none gap-1 ">
+              <span className="md:text-base text-sm font-medium text-primaryColor text-center relative">
                 {review?.reviewCount} Reviews
                 <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
               </span>
@@ -47,7 +47,7 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute  z-10 md:-left-1 -left-10 mt-2  rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border p-5 space-y-4">
+            <Menu.Items className="absolute  z-10 -left-1  mt-2  rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border p-5 space-y-4">
               <div>
                 <div className="flex items-center gap-3">
                   <span className="text-base text-primaryColor">
@@ -192,7 +192,10 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
                 </div>
               </div>
 
-              <Link href={`/seller/${sellerId}/reviews`} className="flex items-center justify-center ">
+              <Link
+                href={`/seller/${sellerId}/reviews`}
+                className="flex items-center justify-center "
+              >
                 <small className="text-sm relative   whitespace-nowrap">
                   see all reviews
                   <span className="absolute left-0 bottom-0 h-0.5 w-full bg-gray-400"></span>

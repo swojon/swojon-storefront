@@ -3,10 +3,14 @@ import React, { useState } from "react";
 const ProductTitle = ({
   handleChange,
   values,
+  errors,
+  touched,
 }: // handleChangeWithProgress,
 {
   handleChange: any;
   values: any;
+  touched: any;
+  errors: any;
   // handleChangeWithProgress: any;
 }) => {
   const [showQuantity, setShowQuantity] = useState(false);
@@ -16,6 +20,7 @@ const ProductTitle = ({
     // console.log("checked", e.target.checked)
     setShowQuantity(e.target.checked);
   };
+  console.log("error", errors.title);
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -32,10 +37,16 @@ const ProductTitle = ({
           name="title"
           value={values.title}
           onChange={handleChange}
-          className="block w-full rounded-md border border-[#F1F1F1] md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor md:text-base text-sm"
-          placeholder="e.g. Samsung smartphone"
+          className={`block w-full rounded-md  border border-gray-300 md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor md:text-base text-sm"
+          placeholder="e.g. Samsung smartphone ${
+            touched.title && errors.title
+              ? "border border-red-500"
+              : "border border-[#F1F1F1]"
+          }`}
           type="text"
         />
+
+        {touched.title && errors.title ? <div>{errors.title}</div> : null}
       </div>
 
       <div className="flex items-center space-x-2 ">
@@ -44,7 +55,7 @@ const ProductTitle = ({
             id="comments"
             type="checkbox"
             onChange={handleCheckBox}
-            className="md:h-4 h-4 md:w-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+            className="md:h-4 h-4 md:w-4 w-4 rounded border border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
           />
         </div>
         <label

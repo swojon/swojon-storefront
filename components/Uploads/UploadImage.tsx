@@ -3,7 +3,17 @@ import React, { useEffect, useState } from "react";
 import UploadArea from "./UploadArea";
 import Image from "next/image";
 
-const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) => {
+const UploadImage = ({
+  setFieldValue,
+  values,
+  errors,
+  touched,
+}: {
+  setFieldValue: any;
+  values: any;
+  touched: any;
+  errors: any;
+}) => {
   const [imageCount, setImageCount] = useState<any>([]);
   const deleteImage = (index: any) => {
     setImageCount((prevImageCount: any) =>
@@ -12,9 +22,12 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
   };
 
   useEffect(() => {
-    console.log("Settings images", imageCount)
-    setFieldValue("images", imageCount.map((iC:any) => iC.file))
-  }, [imageCount, setFieldValue])
+    console.log("Settings images", imageCount);
+    setFieldValue(
+      "images",
+      imageCount.map((iC: any) => iC.file)
+    );
+  }, [imageCount, setFieldValue]);
 
   console.log("images", imageCount);
   return (
@@ -116,7 +129,7 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
                   </div>
                 ))}
               </>
-            ) :  (
+            ) : (
               <>
                 {imageCount.map((item: any, index: any) => (
                   <div
@@ -178,16 +191,14 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
               }  `}
             >
               <UploadArea
-              
                 imageCount={imageCount}
                 setImageCount={setImageCount}
-              
               />
             </div>
           </div>
         ) : (
           <div className="w-full md:h-[441px] h-[350px]">
-            <UploadArea  imageCount={imageCount} setImageCount={setImageCount} />
+            <UploadArea imageCount={imageCount} setImageCount={setImageCount} />
           </div>
         )}
       </div>

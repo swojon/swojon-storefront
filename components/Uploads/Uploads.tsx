@@ -190,15 +190,14 @@ const Uploads = ({ product }: { product: null | any }) => {
             })
           );
           console.log("Success in creating product");
-        }, 
+        },
         onError: () => {
           setFormUploading(false);
           console.log("Failed to create listing", createError);
           toast.error("Failed to Create Category, Please Try again.");
-        }
+        },
       });
       // setUploadProgress(null);
-
     },
   });
   console.log(errors);
@@ -237,7 +236,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             previewBtn === "preview" ? "justify-between" : "justify-start"
           }`}
         >
-        <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
+          <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
             <h6>Home</h6>
             <MdKeyboardArrowRight />
             <h6 className="">List product</h6>
@@ -346,8 +345,18 @@ const Uploads = ({ product }: { product: null | any }) => {
             ref={formRef}
             onSubmit={handleSubmit}
           >
-            <UploadImage setFieldValue={setFieldValue} values={values} />
-            <Category setFieldValue={setFieldValue} values={values} />
+            <UploadImage
+              setFieldValue={setFieldValue}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
+            <Category
+              setFieldValue={setFieldValue}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
             <div
               className={`${
                 values.categoryId && !errors.categoryId
@@ -358,6 +367,8 @@ const Uploads = ({ product }: { product: null | any }) => {
               <ProductTitle
                 handleChange={handleChange}
                 values={values}
+                touched={touched}
+                errors={errors}
                 // handleChangeWithProgress={handleChangeWithProgress}
               />
             </div>

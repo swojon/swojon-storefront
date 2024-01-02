@@ -44,7 +44,7 @@ const SideBar = () => {
   return (
     <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
       <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
-        <h6 className="lg:text-2xl md:text-lg sm:text-base text-xs font-bold text-primaryColor font-lexed">
+        <h6 className="lg:text-2xl md:text-lg sm:text-base text-xs font-bold text-primaryColor font-lexed truncate">
           Hi, {user?.username ?? user?.email}
         </h6>
         <small className="sm:text-xs hidden md:block text-[10px] text-secondColor lg:leading-normal leading-none pt-1">
