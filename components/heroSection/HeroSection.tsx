@@ -15,7 +15,7 @@ const HeroSection = () => {
 
       <div className="flex  hero-height items-center  custom-container  justify-center ">
         <div className="text-center  space-y-2 md:space-y-4 md:px-5 ">
-          <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-semibold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
+          <h1 className="lg:text-6xl font-lexed md:text-4xl text-3xl font-bold flex flex-col space-y-2 animate text-whiteColor slideInLeft">
             <span> Save! Declutter! </span>
           </h1>
           <p className="text-gray-100 lg:text-lg md:text-base text-sm  lg:flex md:flex-col    animate--delay-1s slideInLeft2">

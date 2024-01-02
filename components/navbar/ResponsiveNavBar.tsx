@@ -11,6 +11,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
 import { GoPerson } from "react-icons/go";
+import defaultAvatar from "@/public/assets/avatar.svg";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -67,7 +68,7 @@ const ResponsiveNavBar = ({
       </Link>
 
       <div className="flex items-center justify-end  md:gap-x-5 gap-x-3 sm:w-[43%] w-[40%]">
-        <IoSearchOutline
+        {/* <IoSearchOutline
           className={`text-lg ${
             border === "border" ? "  text-primaryColor" : "text-white"
           } `}
@@ -162,7 +163,135 @@ const ResponsiveNavBar = ({
               </Menu.Item>
             </Menu.Items>
           </Transition>
-        </Menu>
+        </Menu> */}
+
+        {authState.isAuthenticated && (
+          <Link href="/chat">
+            <RiWechatLine
+              className={`text-2xl  ${
+                border === "border" ? "text-primaryColor" : "text-white"
+              }`}
+            />
+          </Link>
+        )}
+
+        {authState.isAuthenticated === false ? (
+          <Link href="/signup">
+            <button
+              className={`py-1.5  leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                border === "border" ? "text-primaryColor" : "text-white"
+              }`}
+            >
+              sign up
+            </button>
+          </Link>
+        ) : (
+          <Menu
+            as="div"
+            className="relative  flex-shrink-0 font-lexed font-medium "
+          >
+            <div>
+              <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
+                {authState?.user?.profile?.avatar ? (
+                  <Image
+                    className="h-7 w-7 rounded-full"
+                    src={authState?.user?.profile?.avatar ?? defaultAvatar}
+                    alt="user"
+                  />
+                ) : (
+                  <GoPerson
+                    className={`text-base h-6 w-6  ${
+                      border === "border" ? "text-primaryColor" : "text-white"
+                    }`}
+                  />
+                )}
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      href="/profile"
+                      className={classNames(
+                        active ? "bg-gray-200" : "",
+                        "block px-4 py-1 text-sm text-gray-700"
+                      )}
+                    >
+                      My Profile
+                    </Link>
+                  )}
+                </Menu.Item>
+
+                <Menu.Item>
+                  <div className="my-2 border border-t"></div>
+                </Menu.Item>
+
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      href="/help-center"
+                      className={classNames(
+                        active ? "bg-gray-200" : "",
+                        "block px-4 py-1 text-sm text-gray-700"
+                      )}
+                    >
+                      Help Center
+                    </Link>
+                  )}
+                </Menu.Item>
+
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      href="/FAQ"
+                      className={classNames(
+                        active ? "bg-gray-200" : "",
+                        "block px-4 py-1 text-sm text-gray-700"
+                      )}
+                    >
+                      FAQ
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      onClick={handleSignOut}
+                      href="#"
+                      className={classNames(
+                        active ? "bg-gray-100" : "",
+                        "block px-4 py-1 text-sm text-gray-700"
+                      )}
+                    >
+                      Sign out
+                    </Link>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        )}
+
+        {authState.isAuthenticated === false && (
+          <Link href="/login">
+            <button
+              className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                border === "border" ? "text-primaryColor" : "text-white"
+              }`}
+            >
+              login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
