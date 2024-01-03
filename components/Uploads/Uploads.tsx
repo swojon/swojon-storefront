@@ -113,21 +113,27 @@ const Uploads = ({ product }: { product: null | any }) => {
   ];
 
   useEffect(() => {
-    window.addEventListener("scroll", stickNavbar);
+    const handleScroll = () => {
+      let scrollY = window.scrollY || window.pageYOffset;
+
+      if (scrollY > 300) {
+        setStickyClass("fixed top-0 left-0 z-50 w-full right-0 shadow-lg");
+      } else {
+        setStickyClass("relative");
+      }
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Attach the touchmove event listener for iOS
+    window.addEventListener("touchmove", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", stickNavbar);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchmove", handleScroll);
     };
   }, []);
-
-  const stickNavbar = () => {
-    if (window !== undefined) {
-      let windowHeight = window.scrollY;
-      windowHeight > 300
-        ? setStickyClass("fixed top-0 left-0 z-50 w-full right-0  shadow-lg ")
-        : setStickyClass("relative");
-    }
-  };
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -248,7 +254,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             {previewBtn === "preview" && (
               <>
                 <MdKeyboardArrowRight />
-                <h6 className="text-activeColor ">List product</h6>
+                <h6 className="text-red-400 ">List product</h6>
               </>
             )}
           </div>
