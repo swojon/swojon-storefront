@@ -23,7 +23,7 @@ const Products = () => {
       <div className="py-14 custom-container">
         <div className="flex  justify-between items-center gap-2">
           <h2 className="lg:text-4xl text-2xl font-semibold text-primaryColor capitalize truncate">
-            Just In p
+            Just In
           </h2>
           <Link href="/explore">
             <button className="border border-activeColor md:py-2 md:px-5 py-1 px-3 rounded  text-activeColor lg:text-base text-sm font-bold hover:shadow-lg hover:-translate-y-1 transition ease-in-out delay-150 duration-300 whitespace-nowrap">

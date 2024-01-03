@@ -52,10 +52,11 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-
+        {authState.isAuthenticated &&  
         <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
           <FavoriteProduct listing={listing} />
         </div>
+        }
       </div>
 
       <Link href={`/products/${listing.id}`} className="">
