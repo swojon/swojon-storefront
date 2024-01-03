@@ -2,14 +2,16 @@ import React, { useState } from "react";
 
 const ProductTitle = ({
   handleChange,
-  values,
-  errors,
+  handleBlur,
   touched,
+  values,
+  errors
 }: // handleChangeWithProgress,
 {
+  handleBlur:any;
+  touched:any;
   handleChange: any;
   values: any;
-  touched: any;
   errors: any;
   // handleChangeWithProgress: any;
 }) => {
@@ -26,16 +28,22 @@ const ProductTitle = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Title would be? <span className="text-red-500">*</span>
       </h6>
+      {(touched?.title && errors?.title) ? 
+      <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+        {errors?.title}
+      </p>
+      : 
       <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Choose a brief yet clear title for your item, it makes the good
         impression after photos
       </p>
-
+      }
       <div className="w-full ">
         <input
           id="text"
           name="title"
           value={values.title}
+          onBlur={handleBlur}
           onChange={handleChange}
           className={`block w-full rounded-md  border border-gray-300 md:py-4 py-3 pr-3 px-5 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor md:text-base text-sm"
           placeholder="e.g. Samsung smartphone ${

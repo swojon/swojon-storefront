@@ -7,16 +7,20 @@ import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
 import NoResultFound from "./NoResultFound";
 import CategoryLoader from "./CategoryLoader";
+import Image from "next/image";
 
 const Category = ({
+  handleBlur, 
+  touched,
   setFieldValue,
   values,
-  errors,
-  touched,
+ 
+  errors
 }: {
+  handleBlur:any;
+  touched: any;
   setFieldValue: any;
   values: any;
-  touched: any;
   errors: any;
 }) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
@@ -59,9 +63,15 @@ const Category = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Category of your item? <span className="text-red-500">*</span>
       </h6>
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+      {( touched?.categoryId && errors?.categoryId) ? 
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.categoryId}
+        </p> 
+      :
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Select or search the category of your item
-      </p>
+        </p>
+      }
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="relative w-full md:p-6 p-2.5">
@@ -112,8 +122,11 @@ const Category = ({
                 }`}
                 onClick={() => setSelectCategory(category)}
               >
-                <BiSelection className="text-lg" />
-
+                {category.icon? 
+                  <Image src={category.icon} alt="categoryIcon" width={30} height={30} />
+                  :
+                  <BiSelection className="text-lg" />
+                }
                 <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
                   {category.name}
                 </span>

@@ -28,11 +28,19 @@ const condition = [
 const Condition = ({
   setFieldValue,
   values,
+  handleBlur,
+  touched,
+  errors,
 }: {
+  touched: any;
+  handleBlur: any;
   values: any;
+  errors: any;
   setFieldValue: any;
 }) => {
-  const [selectCondition, setSelectCondition] = useState<any>(null);
+  const [selectCondition, setSelectCondition] = useState<any>(
+    condition.find((c) => c.slug === values.condition)
+  );
   useEffect(() => {
     setFieldValue("condition", selectCondition?.slug);
   }, [selectCondition]);
@@ -41,12 +49,18 @@ const Condition = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Condition of the item? <span className="text-red-500">*</span>
       </h6>
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Sharing the condition of your item conveys transparent message to your
-        customer
-      </p>
+      {touched?.condition && errors?.condition ? (
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.condition}
+        </p>
+      ) : (
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+          Sharing the condition of your item conveys transparent message to your
+          customer
+        </p>
+      )}
 
-      <div className=" grid grid-cols-3  md:gap-5 gap-3">
+      <div className="grid grid-cols-3  md:gap-5 gap-3">
         {condition.map((item: any) => (
           <div
             key={item.id}

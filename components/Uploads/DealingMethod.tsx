@@ -17,7 +17,13 @@ const DealingMethod = ({
   setFieldValue,
   values,
   handleChange,
+  handleBlur,
+  errors,
+  touched
 }: {
+  handleBlur: any;
+  touched:any;
+  errors:any;
   setFieldValue: any;
   values: any;
   handleChange: any;
@@ -33,9 +39,14 @@ const DealingMethod = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Dealing Method? <span className="text-red-500">*</span>
       </h6>
+      {errors.dealingMethod ? 
+      <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+        {errors.dealingMethod}
+      </p>
+      :
       <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Select the method, how you want to send the item
-      </p>
+      </p>  }  
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="md:p-6 p-2.5 border-b border-gray-200 flex items-center justify-between">
@@ -75,7 +86,7 @@ const DealingMethod = ({
           </div>
         )}
         {selectMethod && selectMethod?.title === "Meet-up" ? (
-          <MeetUp  setFieldValue={setFieldValue} values={values}/>
+          <MeetUp  setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
         ) : (
           selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} />
         )}

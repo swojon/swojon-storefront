@@ -5,12 +5,19 @@ import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListBrandsQuery } from "@/apollograph/generated";
 import BrandLoader from "./BrandLoader";
+import Image from "next/image";
 
 const Brand = ({
+  touched,
+  handleBlur,
   setFieldValue,
   values,
   handleChange,
+  errors
 }: {
+  touched:any;
+  handleBlur:any;
+  errors:any,
   setFieldValue: any;
   values: any;
   handleChange: any;
@@ -45,9 +52,13 @@ const Brand = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Brand?
       </h6>
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+      { (touched?.brandId && errors.brandId) ? <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+        {errors.brandId}
+      </p>
+      :<p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Choose a Brand From the list
       </p>
+      }
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="relative w-full md:p-6 p-2.5">
@@ -94,8 +105,9 @@ const Brand = ({
               }`}
               onClick={() => setSelectBrand(item)}
             >
-              <BiSelection className="text-primaryColor" />
-
+              { item.logo ? 
+              <Image alt="brand logo" src={item.logo} width={100} height={100} /> : <BiSelection className="text-primaryColor" />
+              } 
               <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
                 {item.name}
               </span>

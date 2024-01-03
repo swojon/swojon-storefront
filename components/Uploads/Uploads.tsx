@@ -45,33 +45,35 @@ const formSchema = Yup.object({
       stateDistrict: Yup.string().notRequired(),
     })
   ).notRequired(),
-  images: Yup.array().of(
-    Yup.mixed()
-      .nullable()
-      .test(
-        "FILE_SIZE",
-        "Too big!!",
-        (file: any) => {
-          console.log("File and type of file", file, typeof file);
+  images: Yup.array()
+    .of(
+      Yup.mixed()
+        .nullable()
+        .test(
+          "FILE_SIZE",
+          "Too big!!",
+          (file: any) => {
+            console.log("File and type of file", file, typeof file);
+            if (typeof file === "string") return true;
+            return file ? file && file.size < 20 * 1024 * 1024 : true;
+          } //20MB
+        )
+        .test("FILE_TYPE", "INVALID", (file: any) => {
+          console.log("file", file, file.type);
           if (typeof file === "string") return true;
-          return file ? file && file.size < 20 * 1024 * 1024 : true;
-        } //20MB
-      )
-      .test("FILE_TYPE", "INVALID", (file: any) => {
-        console.log("file", file, file.type);
-        if (typeof file === "string") return true;
-        return file
-          ? file &&
-              [
-                "image/png",
-                "image/jpeg",
-                "image/jpg",
-                "images/webp",
-                "images/svg",
-              ].includes(file.type)
-          : true;
-      })
-  ),
+          return file
+            ? file &&
+                [
+                  "image/png",
+                  "image/jpeg",
+                  "image/jpg",
+                  "images/webp",
+                  "images/svg+xml",
+                ].includes(file.type)
+            : true;
+        })
+    )
+    .min(1, "Please upload at least one image to proceed"),
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
@@ -149,6 +151,9 @@ const Uploads = ({ product }: { product: null | any }) => {
   } = useFormik({
     initialValues,
     validationSchema: formSchema,
+    // validateOnChange: false,
+    // validateOnBlur: false,
+
     onSubmit: async (values, action) => {
       setFormUploading(true);
       console.log("submitting the  form with values");
@@ -200,7 +205,7 @@ const Uploads = ({ product }: { product: null | any }) => {
       // setUploadProgress(null);
     },
   });
-  console.log(errors);
+  console.log("errors", errors);
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {
       if (!editableFields.includes(key)) return false;
@@ -348,14 +353,16 @@ const Uploads = ({ product }: { product: null | any }) => {
             <UploadImage
               setFieldValue={setFieldValue}
               values={values}
-              touched={touched}
               errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
             />
             <Category
               setFieldValue={setFieldValue}
               values={values}
-              touched={touched}
               errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
             />
             <div
               className={`${
@@ -367,8 +374,9 @@ const Uploads = ({ product }: { product: null | any }) => {
               <ProductTitle
                 handleChange={handleChange}
                 values={values}
-                touched={touched}
                 errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
                 // handleChangeWithProgress={handleChangeWithProgress}
               />
             </div>
@@ -379,7 +387,13 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <Condition setFieldValue={setFieldValue} values={values} />
+              <Condition
+                setFieldValue={setFieldValue}
+                values={values}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
+              />
             </div>
 
             <div
@@ -393,6 +407,9 @@ const Uploads = ({ product }: { product: null | any }) => {
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
               />
             </div>
 
@@ -407,6 +424,9 @@ const Uploads = ({ product }: { product: null | any }) => {
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
               />
             </div>
 
@@ -421,6 +441,9 @@ const Uploads = ({ product }: { product: null | any }) => {
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
               />
             </div>
           </form>
