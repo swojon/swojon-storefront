@@ -111,29 +111,41 @@ const Uploads = ({ product }: { product: null | any }) => {
     "dealingMethod",
     "meetupLocations",
   ];
+  // const handleScroll = () => {
+  //   let scrollY = window.scrollY || window.pageYOffset;
+
+  //   if (scrollY > 300) {
+  //     setStickyClass("fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg");
+  //   } else {
+  //     setStickyClass("relative");
+  //   }
+  // };
+
+  const handleStickyPanel = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+
+      windowHeight > 300
+        ? setStickyClass(
+            "fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg"
+          )
+        : setStickyClass("relative");
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      let scrollY = window.scrollY || window.pageYOffset;
-
-      if (scrollY > 300) {
-        setStickyClass("fixed top-0 left-0 z-50 w-full right-0 shadow-lg");
-      } else {
-        setStickyClass("relative");
-      }
-    };
-
     // Attach the scroll event listener
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleStickyPanel, { passive: true });
 
     // Attach the touchmove event listener for iOS
-    window.addEventListener("touchmove", handleScroll, { passive: true });
+    window.addEventListener("touchmove", handleStickyPanel, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("touchmove", handleScroll);
+      window.removeEventListener("scroll", handleStickyPanel);
+      window.removeEventListener("touchmove", handleStickyPanel);
     };
   }, []);
+
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -254,7 +266,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             {previewBtn === "preview" && (
               <>
                 <MdKeyboardArrowRight />
-                <h6 className="text-red-400 ">List product</h6>
+                <h6 className="text-activeColor ">List product</h6>
               </>
             )}
           </div>
@@ -294,7 +306,7 @@ const Uploads = ({ product }: { product: null | any }) => {
           >
             <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
               <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-4 lg:space-y-4 space-y-3 ">
-                <h5 className="text-2xl text-primaryColor font-lexed font-bold">
+                <h5 className="text-2xl text-red-300 font-lexed font-bold">
                   List your Item
                 </h5>
 
@@ -323,8 +335,18 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div className="flex md:flex-row flex-col md:items-center justify-between gap-2 custom-container">
               <div className=" md:w-[50%] w-full">
+                {uploading && (
+                  <h6 className="text-base text-secondColor font-medium block">
+                    Image Uploading...
+                  </h6>
+                )}
+                {formUploading && (
+                  <h6 className="text-base text-secondColor font-medium block">
+                    Info sending...
+                  </h6>
+                )}
                 {progress === 0 ? (
-                  <span className="text-base text-secondColor font-medium">
+                  <span className="text-base text-secondColor font-medium block">
                     Let’s complete{" "}
                   </span>
                 ) : (
