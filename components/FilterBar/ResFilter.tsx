@@ -19,7 +19,9 @@ const ResFilter = () => {
   return (
     <div
       className={`fixed top-0 lg:hidden  w-full h-screen z-50 transition delay-200 duration-700 ease-in-out ${
-        isFilterOpen ? "translate-x-0  bg-[#2222226d]" : "-translate-x-full "
+        isFilterOpen
+          ? "translate-x-0  bg-[#2222226d] block"
+          : "-translate-x-full hidden"
       }`}
     >
       <div

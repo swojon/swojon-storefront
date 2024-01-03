@@ -110,8 +110,8 @@ const SellerProfile = ({
                     key={item.id}
                     className={` cursor-pointer ${
                       pathname === item.url
-                        ? "border-b border-activeColor text-primaryColor"
-                        : "border-b border-transparent hover:border-gray-200 text-secondColor"
+                        ? "border-b border-activeColor text-primaryColor font-semibold"
+                        : "border-b border-transparent hover:border-gray-200 text-secondColor font-semibold"
                     }`}
                   >
                     {item.tab}{" "}

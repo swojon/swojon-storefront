@@ -20,14 +20,14 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             width={400}
             height={400}
             alt="user"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-full"
           />
           <span className="absolute text-[#08B66D] right-1 bottom-0">
             <MdVerifiedUser className="text-2xl" />
           </span>
         </div>
         <div className="py-3 border-b space-y-1">
-          <h6 className="text-base font-lexed font-medium text-primaryColor">
+          <h6 className="md:text-lg text-base font-lexed font-bold text-primaryColor">
             {seller?.username ?? seller?.email}
           </h6>
 
@@ -37,11 +37,12 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
 
           <div className="flex space-x-1 items-center flex-wrap">
             <SellerReviewDropdown sellerId={seller?.id} />
-            
           </div>
           <div>
-          <div className="flex items-center space-x-1">
-              <span className="text-sm">20 products</span>
+            <div className="flex items-center space-x-1">
+              <span className="md:text-base text-sm text-primaryColor">
+                20 products
+              </span>
             </div>
           </div>
         </div>
@@ -65,13 +66,15 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
-         
-          <div className="border border-activeColor text-activeColor  rounded-md py-1 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+          <button
+            className="border border-activeColor text-activeColor  rounded-md 
+          py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold"
+          >
             Follow
-          </div>
-          <div className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-1 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300">
+          </button>
+          <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-2 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
             Send Message
-          </div>
+          </button>
         </div>
       </div>
 

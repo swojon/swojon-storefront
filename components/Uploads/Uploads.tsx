@@ -45,33 +45,35 @@ const formSchema = Yup.object({
       stateDistrict: Yup.string().notRequired(),
     })
   ).notRequired(),
-  images: Yup.array().of(
-    Yup.mixed()
-      .nullable()
-      .test(
-        "FILE_SIZE",
-        "Too big!!",
-        (file: any) => {
-          console.log("File and type of file", file, typeof file);
+  images: Yup.array()
+    .of(
+      Yup.mixed()
+        .nullable()
+        .test(
+          "FILE_SIZE",
+          "Too big!!",
+          (file: any) => {
+            console.log("File and type of file", file, typeof file);
+            if (typeof file === "string") return true;
+            return file ? file && file.size < 20 * 1024 * 1024 : true;
+          } //20MB
+        )
+        .test("FILE_TYPE", "INVALID", (file: any) => {
+          console.log("file", file, file.type);
           if (typeof file === "string") return true;
-          return file ? file && file.size < 20 * 1024 * 1024 : true;
-        } //20MB
-      )
-      .test("FILE_TYPE", "INVALID", (file: any) => {
-        console.log("file", file, file.type);
-        if (typeof file === "string") return true;
-        return file
-          ? file &&
-              [
-                "image/png",
-                "image/jpeg",
-                "image/jpg",
-                "images/webp",
-                "images/svg+xml",
-              ].includes(file.type)
-          : true;
-      })
-  ).min(1, "Please upload at least one image to proceed"),
+          return file
+            ? file &&
+                [
+                  "image/png",
+                  "image/jpeg",
+                  "image/jpg",
+                  "images/webp",
+                  "images/svg+xml",
+                ].includes(file.type)
+            : true;
+        })
+    )
+    .min(1, "Please upload at least one image to proceed"),
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
@@ -111,21 +113,27 @@ const Uploads = ({ product }: { product: null | any }) => {
   ];
 
   useEffect(() => {
-    window.addEventListener("scroll", stickNavbar);
+    const handleScroll = () => {
+      let scrollY = window.scrollY || window.pageYOffset;
+
+      if (scrollY > 300) {
+        setStickyClass("fixed top-0 left-0 z-50 w-full right-0 shadow-lg");
+      } else {
+        setStickyClass("relative");
+      }
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Attach the touchmove event listener for iOS
+    window.addEventListener("touchmove", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", stickNavbar);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchmove", handleScroll);
     };
   }, []);
-
-  const stickNavbar = () => {
-    if (window !== undefined) {
-      let windowHeight = window.scrollY;
-      windowHeight > 300
-        ? setStickyClass("fixed top-0 left-0 z-50 w-full right-0  shadow-lg ")
-        : setStickyClass("relative");
-    }
-  };
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -149,9 +157,9 @@ const Uploads = ({ product }: { product: null | any }) => {
   } = useFormik({
     initialValues,
     validationSchema: formSchema,
-    // validateOnChange: false, 
+    // validateOnChange: false,
     // validateOnBlur: false,
-    
+
     onSubmit: async (values, action) => {
       setFormUploading(true);
       console.log("submitting the  form with values");
@@ -193,15 +201,14 @@ const Uploads = ({ product }: { product: null | any }) => {
             })
           );
           console.log("Success in creating product");
-        }, 
+        },
         onError: () => {
           setFormUploading(false);
           console.log("Failed to create listing", createError);
           toast.error("Failed to Create Category, Please Try again.");
-        }
+        },
       });
       // setUploadProgress(null);
-
     },
   });
   console.log("errors", errors);
@@ -240,14 +247,14 @@ const Uploads = ({ product }: { product: null | any }) => {
             previewBtn === "preview" ? "justify-between" : "justify-start"
           }`}
         >
-        <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
+          <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
             <h6>Home</h6>
             <MdKeyboardArrowRight />
             <h6 className="">List product</h6>
             {previewBtn === "preview" && (
               <>
                 <MdKeyboardArrowRight />
-                <h6 className="text-activeColor ">List product</h6>
+                <h6 className="text-red-400 ">List product</h6>
               </>
             )}
           </div>
@@ -349,8 +356,20 @@ const Uploads = ({ product }: { product: null | any }) => {
             ref={formRef}
             onSubmit={handleSubmit}
           >
-            <UploadImage setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur} />
-            <Category setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur} />
+            <UploadImage
+              setFieldValue={setFieldValue}
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
+            />
+            <Category
+              setFieldValue={setFieldValue}
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
+            />
             <div
               className={`${
                 values.categoryId && !errors.categoryId
@@ -363,7 +382,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 values={values}
                 errors={errors}
                 touched={touched}
-                handleBlur={handleBlur} 
+                handleBlur={handleBlur}
                 // handleChangeWithProgress={handleChangeWithProgress}
               />
             </div>
@@ -374,7 +393,13 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <Condition setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
+              <Condition
+                setFieldValue={setFieldValue}
+                values={values}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
+              />
             </div>
 
             <div
@@ -390,7 +415,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 handleChange={handleChange}
                 errors={errors}
                 touched={touched}
-                handleBlur={handleBlur} 
+                handleBlur={handleBlur}
               />
             </div>
 
@@ -407,7 +432,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 handleChange={handleChange}
                 errors={errors}
                 touched={touched}
-                handleBlur={handleBlur} 
+                handleBlur={handleBlur}
               />
             </div>
 
@@ -424,7 +449,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 handleChange={handleChange}
                 errors={errors}
                 touched={touched}
-                handleBlur={handleBlur} 
+                handleBlur={handleBlur}
               />
             </div>
           </form>
