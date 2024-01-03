@@ -9,11 +9,17 @@ import NoResultFound from "./NoResultFound";
 import CategoryLoader from "./CategoryLoader";
 
 const Category = ({
+  handleBlur, 
+  touched,
   setFieldValue,
   values,
+  errors
 }: {
+  handleBlur:any;
+  touched: any;
   setFieldValue: any;
   values: any;
+  errors: any;
 }) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
@@ -55,9 +61,15 @@ const Category = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Category of your item? <span className="text-red-500">*</span>
       </h6>
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+      {( touched?.categoryId && errors?.categoryId) ? 
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.categoryId}
+        </p> 
+      :
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Select or search the category of your item
-      </p>
+        </p>
+      }
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="relative w-full md:p-6 p-2.5">

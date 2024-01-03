@@ -24,9 +24,15 @@ interface NominatimLocation {
 const MeetUp = ({
   setFieldValue,
   values,
+  errors,
+  handleBlur,
+  touched
 }: {
+  handleBlur: any;
+  touched:any;
   setFieldValue: any;
   values: any;
+  errors:any;
 }) => {
   const ref = useRef<any>(null);
   const [searchValue, setSearchValue] = useState<any>(null);
@@ -68,7 +74,7 @@ const MeetUp = ({
       timer = setTimeout(() => {
         setSearchValue(ref.current.value);
         setShowSearchResult(true);
-      }, 3000);
+      }, 2000);
     };
 
     const element = ref.current;
@@ -195,9 +201,14 @@ const MeetUp = ({
               <span className="text-primaryColor font-lexed text-base font-medium">
                 Add New Location
               </span>
+              {(touched?.meetupLocations && errors?.meetupLocations) ?  
+              <p className="text-secondColor text-base font-medium">
+                {errors.meetupLocations}
+              </p>:
               <p className="text-secondColor text-base font-medium">
                 You can add upto 5 locations
-              </p>
+              </p> 
+              }
             </div>
           </div>
         </div>

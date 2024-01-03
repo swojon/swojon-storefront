@@ -1,13 +1,19 @@
 import React from "react";
 
 const Price = ({
+  touched,
+  handleBlur,
   setFieldValue,
   values,
   handleChange,
+  errors
 }: {
+  handleBlur:any;
+  touched:any;
   setFieldValue: any;
   values: any;
   handleChange: any;
+  errors:any
 }) => {
   const handleChecked = (e: { target: { checked: any } }) => {
     if (e.target.checked) {
@@ -22,9 +28,15 @@ const Price = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Price <span className="text-red-500">*</span>
       </h6>
+      {(touched?.price && errors?.price) ?
+       <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+        {errors.price}
+      </p>
+      :    
       <p className="md:text-base text-sm text-secondColor font-medium leading-6">
         Choose a fair pricing for your item or donate easily
       </p>
+      }
 
       <div>
         <div className="relative  rounded-md shadow-sm">
@@ -32,6 +44,7 @@ const Price = ({
             type="number"
             name="price"
             id="price"
+            onBlur={handleBlur}
             value={values.price}
             onChange={handleChange}
             className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"

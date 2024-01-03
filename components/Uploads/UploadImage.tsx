@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import UploadArea from "./UploadArea";
 import Image from "next/image";
 
-const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) => {
+const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touched: any, setFieldValue: any, values:any, errors:any, handleBlur: any}) => {
   const [imageCount, setImageCount] = useState<any>([]);
   const deleteImage = (index: any) => {
     setImageCount((prevImageCount: any) =>
@@ -23,10 +23,16 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
         Hey! Let’s pick some best photos of your item{" "}
         <span className="text-red-500">*</span>
       </h6>
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Choosing clear and multiple pictures can help make your item look
-        trusted and make the buyer feel more trusted
-      </p>
+      
+      {(touched?.images && errors?.images) ? 
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors?.images}
+        </p> : 
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+          Choosing clear and multiple pictures can help make your item look
+          trusted and make the buyer feel more trusted
+        </p>
+      }
 
       <div className=" w-full">
         {imageCount.length > 0 ? (
@@ -181,13 +187,14 @@ const UploadImage = ({setFieldValue, values}: {setFieldValue: any, values:any}) 
               
                 imageCount={imageCount}
                 setImageCount={setImageCount}
+                handleBlur={handleBlur}
               
               />
             </div>
           </div>
         ) : (
           <div className="w-full md:h-[441px] h-[350px]">
-            <UploadArea  imageCount={imageCount} setImageCount={setImageCount} />
+            <UploadArea  imageCount={imageCount} setImageCount={setImageCount} handleBlur={handleBlur} />
           </div>
         )}
       </div>

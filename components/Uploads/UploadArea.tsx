@@ -4,8 +4,10 @@ import { TbCloudUp } from "react-icons/tb";
 const UploadArea = ({
   imageCount,
   setImageCount,
+  handleBlur
 
 }: {
+  handleBlur: any;
   imageCount: any;
   setImageCount: any;
 }) => {
@@ -83,6 +85,7 @@ const UploadArea = ({
         )}
       </div>
       <input
+        onBlur={handleBlur}
         type="file"
         ref={inputRef}
         multiple
