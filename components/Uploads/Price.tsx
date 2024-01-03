@@ -45,7 +45,7 @@ const Price = ({
             name="price"
             id="price"
             onBlur={handleBlur}
-            value={values.price}
+            value={values.price ?? ""}
             onChange={handleChange}
             className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
           />

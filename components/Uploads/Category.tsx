@@ -7,6 +7,7 @@ import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
 import NoResultFound from "./NoResultFound";
 import CategoryLoader from "./CategoryLoader";
+import Image from "next/image";
 
 const Category = ({
   handleBlur, 
@@ -117,8 +118,11 @@ const Category = ({
                 }`}
                 onClick={() => setSelectCategory(category)}
               >
-                <BiSelection className="text-lg" />
-
+                {category.icon? 
+                  <Image src={category.icon} alt="categoryIcon" width={30} height={30} />
+                  :
+                  <BiSelection className="text-lg" />
+                }
                 <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
                   {category.name}
                 </span>
