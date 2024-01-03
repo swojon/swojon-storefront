@@ -7,32 +7,34 @@ import { MdOutlinePhotoCamera } from "react-icons/md";
 import { IoWarningOutline } from "react-icons/io5";
 import { useSearchLocationQuery } from "@/apollograph/generated";
 import SearchLoader from "./SearchLoader";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 interface NominatimLocation {
-  lat?: string|null, 
-  lon?: string|null,
-  placeId?: string|null,
-  locality?: string|null,  
-  displayName?: string|null, 
-  city?: string|null,
-  stateDistrict?: string|null,
-  state?: string|null,
-  country?: string|null,
-  postCode?: string|null
+  lat?: string | null;
+  lon?: string | null;
+  placeId?: string | null;
+  locality?: string | null;
+  displayName?: string | null;
+  city?: string | null;
+  stateDistrict?: string | null;
+  state?: string | null;
+  country?: string | null;
+  postCode?: string | null;
 }
-
+const position = [51.505, -0.09];
 const MeetUp = ({
   setFieldValue,
   values,
   errors,
   handleBlur,
-  touched
+  touched,
 }: {
   handleBlur: any;
-  touched:any;
+  touched: any;
   setFieldValue: any;
   values: any;
-  errors:any;
+  errors: any;
 }) => {
   const ref = useRef<any>(null);
   const [searchValue, setSearchValue] = useState<any>(null);
@@ -52,7 +54,7 @@ const MeetUp = ({
   const [checkedLocation, setCheckedLocation] = useState<any>([]);
 
   const handleChecked = (e: any, loc: any) => {
-    var {__typename, ...location } = loc;
+    var { __typename, ...location } = loc;
     if (e.target.checked)
       setFieldValue("meetupLocations", [...values.meetupLocations, location]);
     else
@@ -98,7 +100,7 @@ const MeetUp = ({
     );
   };
   return (
-    <div className="px-6 py-4 space-y-5 ">
+    <div className="md:px-6 px-3 py-4 space-y-5 ">
       <div className="relative w-full ">
         <div className="relative w-full ">
           <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center  ">
@@ -126,22 +128,24 @@ const MeetUp = ({
 
         {showSearchResult && locationSearchResults && (
           <>
-          
-          <div className="w-full   bg-white shadow-md">
-            {locationSearchResults.map(loc => (
-              <div key={loc.placeId} className="flex items-center space-x-4 border-b border-gray-100 px-5  py-4">
-              <input
-                id={`osmLocation${loc.placeId}`}
-                name="osmLocation"
-                type="checkbox"
-                onChange={e => handleChecked(e, loc)}
-                // value={loc}
-                className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
-              />
+            <div className="w-full   bg-white shadow-md">
+              {locationSearchResults.map((loc) => (
+                <div
+                  key={loc.placeId}
+                  className="flex items-center space-x-4 border-b border-gray-100 md:px-5 px-2 py-4"
+                >
+                  <input
+                    id={`osmLocation${loc.placeId}`}
+                    name="osmLocation"
+                    type="checkbox"
+                    onChange={(e) => handleChecked(e, loc)}
+                    // value={loc}
+                    className="md:h-4 h-4 md:w-4 w-4 rounded border-primaryColor text-activeColor focus:ring-activeColor custom-checkedInput"
+                  />
 
                   <label
                     htmlFor="comments"
-                    className="text-secondColor lg:text-base md:text-xs text-[10px] font-medium"
+                    className="text-secondColor lg:text-base text-sm font-medium w-[85%] md:w-[90%]"
                   >
                     {loc.displayName}
                   </label>
@@ -152,7 +156,7 @@ const MeetUp = ({
             <div className="w-full flex justify-end items-center gap-5">
               <button
                 onClick={handleCancelClick}
-                className="px-8 py-3.5 text-white bg-secondColor text-base rounded-md"
+                className="px-8 md:py-3.5 py-2 text-white bg-secondColor text-base rounded-md"
               >
                 Cancel
               </button>
@@ -163,12 +167,15 @@ const MeetUp = ({
           </>
         )}
       </div>
-        
-        <div className="space-y-5">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
-          {values.meetupLocations.map( (ml:any, idx:number) => (
-          <div key={ml.placeId} className="p-4 border border-[#F1F1F1] rounded-md space-y-4">
-              <div className="flex items-center justify-between">
+
+      <div className="space-y-5">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4  ">
+          {values.meetupLocations.map((ml: any, idx: number) => (
+            <div
+              key={ml.placeId}
+              className="md:p-4 p-2 border border-[#F1F1F1] rounded-md space-y-4"
+            >
+              <div className="flex items-start justify-between">
                 <span className="text-base text-primaryColor font-bold">
                   {ml.displayName}
                 </span>
@@ -180,35 +187,45 @@ const MeetUp = ({
                 </span>
               </div>
 
-              <div className="h-[104px] rounded-md">
-                <Image
-                  src="/assets/map.png"
-                  alt="map"
-                  height={800}
-                  width={1000}
-                  className="w-full h-full object-cover rounded-md"
-                />
+              <div className="h-[204px] rounded-md w-full">
+                <MapContainer
+                  style={{ height: 204, borderRadius: 6 }}
+                  center={position}
+                  zoom={13}
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={position}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
+                </MapContainer>
               </div>
             </div>
           ))}
 
           <div
             onClick={handleClick}
-            className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-4"
+            className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-4 min-h-[210px]"
           >
             <div className="md:space-y-4 space-y-2 text-center flex flex-col items-center">
               <GrLocation className="text-activeColor text-3xl" />
               <span className="text-primaryColor font-lexed text-base font-medium">
                 Add New Location
               </span>
-              {(touched?.meetupLocations && errors?.meetupLocations) ?  
-              <p className="text-secondColor text-base font-medium">
-                {errors.meetupLocations}
-              </p>:
-              <p className="text-secondColor text-base font-medium">
-                You can add upto 5 locations
-              </p> 
-              }
+              {touched?.meetupLocations && errors?.meetupLocations ? (
+                <p className="text-secondColor text-base font-medium">
+                  {errors.meetupLocations}
+                </p>
+              ) : (
+                <p className="text-secondColor text-base font-medium">
+                  You can add upto 5 locations
+                </p>
+              )}
             </div>
           </div>
         </div>
