@@ -167,7 +167,7 @@ const ResponsiveNavBar = ({
         </Menu> */}
         {authState.isAuthenticated && (
           <IoSearchOutline
-            className={`text-lg ${
+            className={`text-xl ${
               border === "border" ? "  text-primaryColor" : "text-white"
             } `}
           />

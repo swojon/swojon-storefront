@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
             <MdKeyboardArrowRight />
             <h6 className="text-primaryColor">Privacy Policy</h6>
           </div>
-          <h2 className="text-primaryColor font-lexed xl:text-3xl lg:text-2xl md:text-lg text-base font-medium">
+          <h2 className="text-primaryColor font-lexed  lg:text-4xl md:text-2xl text-xl font-bold">
             Privacy Policy
           </h2>
           <div className="text-center text-base text-secondColor">
@@ -22,133 +22,134 @@ const PrivacyPolicy = () => {
             <p>information we may collect from you across our website.</p>
           </div>
 
-          <div className="pt-8 text-secondColor text-sm">
-            <p>
-              Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam
-              suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum
-              quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris
-              posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At
-              feugiat sapien varius id. Eget quis mi enim, leo lacinia pharetra,
-              semper. Eget in volutpat mollis at volutpat lectus velit, sed
-              auctor. Porttitor fames arcu quis fusce augue enim. Quis at
-              habitant diam at. Suscipit tristique risus, at donec. In turpis
-              vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac
-              volutpat.{" "}
-            </p>
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
+          <div className="pt-8 text-secondColor space-y-8 custom-container">
+            <div className="space-y-3">
+              <h6 className=" text-primaryColor md:text-2xl text-xl font-lexed font-bold">
+                Your Privacy, Our Priority
+              </h6>
+              <p className="md:text-lg text-base">
+                At Swojon, we understand that your privacy is crucial. This
+                policy outlines how we handle your information with care and
+                respect.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h6 className="text-primaryColor md:text-2xl text-xl font-lexed font-bold">
                 What information do we collect?
               </h6>
-              <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum,
-                nulla odio nisl vitae. In aliquet pellentesque aenean hac
-                vestibulum turpis mi bibendum diam. Tempor integer aliquam in
-                vitae malesuada fringilla. Elit nisi in eleifend sed nisi.
-                Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                risus. Sed condimentum enim dignissim adipiscing faucibus
-                consequat, urna. Viverra purus et erat auctor aliquam. Risus,
-                volutpat vulputate posuere purus sit congue convallis aliquet.
-                Arcu id augue ut feugiat donec porttitor neque. Mauris, neque
-                ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus,
-                eget nunc lectus in tellus, pharetra, porttitor. Ipsum sit
-                mattis nulla quam nulla. Gravida id gravida ac enim mauris id.
-                Non pellentesque congue eget consectetur turpis. Sapien, dictum
-                molestie sem tempor. Diam elit, orci, tincidunt aenean tempus.
-                Quis velit eget ut tortor tellus. Sed vel, congue felis elit
-                erat nam nibh orci.
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  Personal Details:
+                </span>{" "}
+                Your name, contact information, and other essentials to enhance
+                your Swojon experience.
+              </p>
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  Usage Data:
+                </span>{" "}
+                How you interact with our site and app, helping us make your
+                experience better.
+              </p>
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  Usage Data:
+                </span>{" "}
+                How you interact with our site and app, helping us make your
+                experience better.
               </p>
             </div>
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
-                How do we use your information?
+            <div className="space-y-3">
+              <h6 className="text-primaryColor md:text-2xl text-xl font-lexed font-bold">
+                How Do We Use Your Information?
               </h6>
-              <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum,
-                nulla odio nisl vitae. In aliquet pellentesque aenean hac
-                vestibulum turpis mi bibendum diam. Tempor integer aliquam in
-                vitae malesuada fringilla. Elit nisi in eleifend sed nisi.
-                Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                risus. Sed condimentum enim dignissim adipiscing faucibus
-                consequat, urna. Viverra purus et erat auctor aliquam. Risus,
-                volutpat vulputate posuere purus sit congue convallis aliquet.
-                Arcu id augue ut feugiat donec porttitor neque. Mauris, neque
-                ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus,
-                eget nunc lectus in tellus, pharetra, porttitor. Ipsum sit
-                mattis nulla quam nulla. Gravida id gravida ac enim mauris id.
-                Non pellentesque congue eget consectetur turpis. Sapien, dictum
-                molestie sem tempor. Diam elit, orci, tincidunt aenean tempus.
-                Quis velit eget ut tortor tellus. Sed vel, congue felis elit
-                erat nam nibh orci.
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  To Serve You:
+                </span>{" "}
+                To manage your account, process transactions, and provide
+                customer support.
               </p>
-            </div>
-
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
-                Do we use cookies and other tracking technologies?
-              </h6>
-              <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum,
-                nulla odio nisl vitae. In aliquet pellentesque aenean hac
-                vestibulum turpis mi bibendum diam. Tempor integer aliquam in
-                vitae malesuada fringilla. Elit nisi in eleifend sed nisi.
-                Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                risus. Sed condimentum enim dignissim adipiscing faucibus
-                consequat, urna. Viverra purus et erat auctor aliquam. Risus,
-                volutpat vulputate posuere purus sit congue convallis aliquet.
-                Arcu id augue ut feugiat donec porttitor neque. Mauris, neque
-                ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus,
-                eget nunc lectus in tellus, pharetra, porttitor. Ipsum sit
-                mattis nulla quam nulla. Gravida id gravida ac enim mauris id.
-                Non pellentesque congue eget consectetur turpis. Sapien, dictum
-                molestie sem tempor. Diam elit, orci, tincidunt aenean tempus.
-                Quis velit eget ut tortor tellus. Sed vel, congue felis elit
-                erat nam nibh orci.
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  To Improve Swojon:
+                </span>{" "}
+                We analyze usage to enhance our platform and introduce features
+                that matter to you.
+              </p>
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  To Communicate:
+                </span>{" "}
+                We'll keep you updated with important notices and exciting
+                offers.
               </p>
             </div>
 
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
-                How long do we keep your information?
+            <div className="space-y-3">
+              <h6 className="text-primaryColor md:text-2xl text-xl font-lexed font-bold">
+                Do We Share Your Information?
               </h6>
-              <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum,
-                nulla odio nisl vitae. In aliquet pellentesque aenean hac
-                vestibulum turpis mi bibendum diam. Tempor integer aliquam in
-                vitae malesuada fringilla. Elit nisi in eleifend sed nisi.
-                Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                turpis. Sapien, dictum
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  No Unnecessary Sharing:
+                </span>{" "}
+                We only share your information with trusted partners when
+                absolutely needed, like for payment processing or legal
+                requirements.
+              </p>
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  No Selling Data:
+                </span>{" "}
+                Your personal information is not for sale.
               </p>
             </div>
 
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
-                What are your privacy rights?
+            <div className="space-y-3">
+              <h6 className="text-primaryColor md:text-2xl text-xl font-lexed font-bold">
+                Your Choices and Rights
               </h6>
-              <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum,
-                nulla odio nisl vitae. In aliquet pellentesque aenean hac
-                vestibulum turpis mi bibendum diam. Tempor integer aliquam in
-                vitae malesuada fringilla. Elit nisi in eleifend sed nisi.
-                Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                turpis. Sapien, dictum
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  Access and Control:
+                </span>{" "}
+                You can view, edit, or delete your personal information at any
+                time.
+              </p>
+              <p className="md:text-lg text-base">
+                <span className="text-primaryColor font-semibold">
+                  Opt Out:
+                </span>{" "}
+                Not interested in our updates or marketing messages? You can opt
+                out anytime.
               </p>
             </div>
 
-            <div className="py-5">
-              <h6 className="pb-3 text-primaryColor text-base font-lexed font-medium">
-                How can you contact us about this policy?
+            <div className="space-y-3">
+              <h6 className="text-primaryColor md:text-2xl text-xl font-lexed font-bold">
+                Security: Our Commitment
               </h6>
-              <p>
-                Sagittis et eu at elementum, quis in. Proin praesent volutpat
-                egestas sociis sit lorem nunc nunc sit. Eget diam curabitur mi
-                ac. Auctor rutrum lacus malesuada massa ornare et. Vulputate
-                consectetur ac ultrices at diam dui eget fringilla tincidunt.
-                Arcu sit dignissim massa erat cursus vulputate gravida id. Sed
-                quis auctor vulputate hac elementum gravida cursus dis. Lectus
-                id duis vitae porttitor enim gravida morbi. Eu turpis posuere
-                semper feugiat volutpat elit, ultrices suspendisse. Auctor vel
-                in vitae placerat. Suspendisse maecenas ac donec scelerisque
-                diam sed est duis purus.
+
+              <p className="md:text-lg text-base">
+                We use robust security measures to protect your information
+                because your trust is everything to us.
+              </p>
+
+              <h6 className="md:text-lg text-base text-primaryColor font-semibold">
+                Updates to This Policy
+              </h6>
+              <p className="md:text-lg text-base">
+                You can view, edit, or delete your personal information at any
+                time.
+              </p>
+
+              <h6 className="md:text-lg text-base text-primaryColor font-semibold">
+                Questions?
+              </h6>
+              <p className="md:text-lg text-base">
+                If you have any concerns or questions about your privacy, our
+                team is always here to help. Reach out anytime.
               </p>
             </div>
           </div>

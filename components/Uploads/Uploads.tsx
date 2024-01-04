@@ -306,7 +306,7 @@ const Uploads = ({ product }: { product: null | any }) => {
           >
             <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
               <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-4 lg:space-y-4 space-y-3 ">
-                <h5 className="text-2xl text-red-300 font-lexed font-bold">
+                <h5 className="text-2xl text-primaryColor font-lexed font-bold">
                   List your Item
                 </h5>
 
