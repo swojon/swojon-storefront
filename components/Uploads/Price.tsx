@@ -47,16 +47,16 @@ const Price = ({
             onBlur={handleBlur}
             value={values.price ?? ""}
             onChange={handleChange}
-            className="block w-full rounded-md  border-[#F1F1F1] md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
+            className="block w-full rounded-md border border-gray-300 md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
           />
-          <div className="absolute inset-y-0 right-0 flex items-center ">
+          <div className="absolute inset-y-0 right-1 flex items-center border-l border-gray-300">
             <label htmlFor="currency" className="sr-only">
               Currency
             </label>
             <select
               id="currency"
               name="currency"
-              className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm"
+              className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-3 text-gray-500 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm"
             >
               <option>Bangladeshi Taka</option>
               {/* <option>CAD</option> */}

@@ -128,10 +128,10 @@ const Footer = () => {
             </div> */}
 
             <div className="space-y-2.5 ">
-              <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
+              <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-bold text-primaryColor">
                 Help
               </h6>
-              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
+              <ul className=" md:text-base text-sm font-medium text-secondColor space-y-1">
                 <li>
                   <Link href="/FAQ">FAQ</Link>
                 </li>
@@ -151,10 +151,10 @@ const Footer = () => {
             </div>
 
             <div className="space-y-2.5  ">
-              <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor">
+              <h6 className="lg:text-2xl md:text-lg text-base font-lexed font-bold text-primaryColor">
                 Extra Link
               </h6>
-              <ul className="font-light  md:text-sm text-xs text-secondColor space-y-1">
+              <ul className="md:text-base text-sm font-medium text-secondColor space-y-1">
                 <li>
                   <Link href="/about-us">About us</Link>
                 </li>

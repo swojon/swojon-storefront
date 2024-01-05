@@ -4,7 +4,7 @@ import { IoMdTime } from "react-icons/io";
 
 const AdStartConversation = () => {
   return (
-    <div className="lg:w-[35%] xl:w-[30%]  border rounded-md ">
+    <div className="lg:w-[350px] max-w-[300px]  border rounded-md ">
       <div className="w-full h-[200px]">
         <Image
           src="/assets/pro5.png"
@@ -14,7 +14,7 @@ const AdStartConversation = () => {
           className="w-full h-full object-cover rounded-t-md"
         />
       </div>
-      <div className="px-2">
+      <div className="p-2">
         <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
           PArtex sofa
         </h6>
@@ -37,7 +37,7 @@ const AdStartConversation = () => {
           </span>
         </div>
 
-        <button className="py-1 w-full  bg-activeColor text-white text-sm rounded-md">
+        <button className="py-1 w-full  bg-activeColor text-white text-sm rounded-md ">
           start conversation
         </button>
       </div>

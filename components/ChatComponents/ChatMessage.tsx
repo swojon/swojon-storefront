@@ -275,12 +275,12 @@ const MessageDetail = ({ msg }: { msg: any }) => {
 
   if (msg.sender.id === authState.user.id)
     return (
-      <div className="relative w-full flex justify-end">
-        <div className="w-1/2  flex justify-end p-2 relative">
-          <span className="p-2  bg-activeColor text-white text-sm rounded-md rounded-br-none">
+      <div className="relative w-full flex justify-end items-start  pb-3.5">
+        <div className="md:w-1/2 w-[75%] flex justify-end px-2  relative ">
+          <span className="p-2 inline-block bg-activeColor text-white text-sm rounded-md rounded-br-none">
             {msg.content}
           </span>
-          <span className="absolute right-2 -bottom-2 text-[#979696] text-xs block">
+          <span className="absolute right-2 -bottom-4 text-[#979696] text-xs block">
             {timeAgo(msg.dateSent)}
             10 56
           </span>
@@ -289,8 +289,8 @@ const MessageDetail = ({ msg }: { msg: any }) => {
     );
   else
     return (
-      <div className="relative w-full flex justify-start">
-        <div className="w-1/2  flex justify-start items-center p-2  space-x-2">
+      <div className="relative w-full flex justify-start pb-1">
+        <div className="md:w-1/2 w-[75%] flex justify-start items-center p-2  space-x-2 mb-1">
           <div className="w-7 h-7 rounded-full">
             <Image
               src="/user1.jpg"
@@ -304,7 +304,7 @@ const MessageDetail = ({ msg }: { msg: any }) => {
             <span className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
               {msg.content}
             </span>
-            <span className="absolute left-0 -bottom-6 text-[#979696] text-xs block">
+            <span className="absolute left-0 -bottom-5 text-[#979696] text-xs block">
               {timeAgo(msg.dateSent)}
             </span>
           </div>

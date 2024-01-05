@@ -12,6 +12,7 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
 import { GoPerson } from "react-icons/go";
 import defaultAvatar from "@/public/assets/avatar.svg";
+import { LuUser2 } from "react-icons/lu";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -164,6 +165,13 @@ const ResponsiveNavBar = ({
             </Menu.Items>
           </Transition>
         </Menu> */}
+        {authState.isAuthenticated && (
+          <IoSearchOutline
+            className={`text-xl ${
+              border === "border" ? "  text-primaryColor" : "text-white"
+            } `}
+          />
+        )}
 
         {authState.isAuthenticated && (
           <Link href="/chat">
@@ -199,8 +207,8 @@ const ResponsiveNavBar = ({
                     alt="user"
                   />
                 ) : (
-                  <GoPerson
-                    className={`text-base h-6 w-6  ${
+                  <LuUser2
+                    className={`text-[22px] font-semiBold  ${
                       border === "border" ? "text-primaryColor" : "text-white"
                     }`}
                   />

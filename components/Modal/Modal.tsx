@@ -44,7 +44,7 @@ export default function Modal() {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-[1500]"
+        className="relative z-[15000]"
         onClose={() => dispatch(setModalClose(true))}
       >
         <Transition.Child

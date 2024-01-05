@@ -45,31 +45,32 @@ const AboutUs = () => {
         <MdKeyboardArrowRight />
         <h6 className="text-primaryColor">About us</h6>
       </div>
-      <div className="my-10 grid grid-cols-2 gap-6 custom-container">
+      <div className="my-10 grid md:grid-cols-2 grid-cols-1 md:gap-6 gap-4 custom-container">
         <div className=" lg:h-[400px] md:h-[300px] sm:h-[250px] h-[250px]  w-full">
           <Image src={about} alt="" className="m-auto w-full" />
         </div>
-        <div className=" flex flex-col justify-center space-y-3 px-3 items-start">
-          <h2 className="text-3xl text-primaryColor font-lexed font-medium">
+        <div className=" flex flex-col justify-center md:space-y-4 space-y-3 md:px-3  items-start">
+          <h2 className="lg:text-4xl md:text-2xl text-xl text-primaryColor font-lexed font-bold">
             Welcome to Swajon
           </h2>
-          <p className="text-sm text-secondColor ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate id est laborum.
+          <p className="md:text-base text-sm text-secondColor font-medium">
+            Swojon, where every item has a story and every deal is a doorway to
+            new possibilities. our mission is to refine the online marketplace,
+            making it more than just a place to buy and sell. It's where
+            community, trust, and opportunity thrive
           </p>
-          <p className="text-sm text-secondColor">
-            Ius ferri velit sanctus cu, sed at soleat accusata. Dictas prompta
-            et Ut placerat legendos interpre.Donec vitae sapien ut libero
-            venenatis faucibus. Nullam quis ante Etiam sit amet orci eget. Quis
-            commodo odio aenean sed adipiscing. Turpis massa tincidunt dui ut
-            ornare lectus. Auctor elit sed vulputate mi sit amet. Commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate id
-            est laborum.
+          <p className="md:text-base text-sm text-secondColor font-medium">
+            We make selling your treasures and finding new gems effortless and
+            secure, all within a vibrant, user friendly platform. At swojon, we
+            believe in the power of connection, every transaction is a chance to
+            bring people together.
           </p>
-          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4">
+          <p className="md:text-base text-sm text-secondColor font-medium">
+            Join us on this exciting journey, and be part of a community where
+            possibilities are endless and every interaction is meaningful.
+            Discover, connect, and thrive with Swojon
+          </p>
+          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4 mx-auto md:mx-0">
             See More Products
           </button>
         </div>
@@ -77,10 +78,10 @@ const AboutUs = () => {
 
       <div className="bg-[#F9F9F9] py-16 custom-container">
         <div className="flex flex-col items-center space-y-3 pb-6">
-          <h5 className="text-2xl text-primaryColor font-lexed font-medium">
+          <h5 className="lg:text-3xl md:text-xl text-lg text-primaryColor font-lexed font-bold">
             What we provides
           </h5>
-          <p className="text-sm text-secondColor text-center">
+          <p className="md:text-base text-sm text-secondColor text-center">
             Need something cleared up? Here are our most <br /> frequently asked
             questions.
           </p>
@@ -108,9 +109,9 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <div className="my-16 grid grid-cols-2 gap-6 custom-container">
-        <div className=" flex flex-col justify-center  px-3 items-start">
-          <h5 className="text-2xl text-primaryColor font-lexed font-medium">
+      <div className="my-16 flex md:flex-row  gap-6  flex-col-reverse custom-container">
+        <div className="flex-1 flex flex-col justify-center  md:px-3 items-start	">
+          <h5 className="lg:text-4xl md:text-2xl text-xl text-primaryColor font-lexed font-bold">
             Sell your products with us
           </h5>
           <p className="text-sm text-secondColor py-4">
@@ -146,21 +147,21 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4">
+          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4 mx-auto md:mx-0">
             Sell your products
           </button>
         </div>
-        <div className=" lg:h-[400px] md:h-[300px] sm:h-[250px] h-[250px] w-full">
+        <div className="flex-1 lg:h-[400px] md:h-[300px] sm:h-[250px] h-[250px] w-full">
           <Image src={about2} alt="" className="m-auto h-full " />
         </div>
       </div>
 
-      <div className="bg-[#F9F9F9] py-16 grid grid-cols-2 gap-6 custom-container">
+      <div className="bg-[#F9F9F9] py-16 grid md:grid-cols-2 grid-cols-1 gap-6 custom-container">
         <div className=" lg:h-[400px] md:h-[300px] sm:h-[250px] h-[250px]  w-full">
           <Image src={about3} alt="" className="m-auto h-full" />
         </div>
         <div className=" flex flex-col justify-center  px-3 items-start">
-          <h5 className="text-2xl text-primaryColor font-lexed font-medium">
+          <h5 className="lg:text-4xl md:text-2xl text-xl text-primaryColor font-lexed font-bold">
             Buy your products
           </h5>
           <p className="text-sm text-secondColor py-4">
@@ -196,7 +197,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4">
+          <button className="px-3 py-2 text-white bg-activeColor text-sm  rounded-md mt-4 mx-auto md:mx-0">
             Sell your products
           </button>
         </div>

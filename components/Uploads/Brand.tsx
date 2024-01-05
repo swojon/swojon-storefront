@@ -13,11 +13,11 @@ const Brand = ({
   setFieldValue,
   values,
   handleChange,
-  errors
+  errors,
 }: {
-  touched:any;
-  handleBlur:any;
-  errors:any,
+  touched: any;
+  handleBlur: any;
+  errors: any;
   setFieldValue: any;
   values: any;
   handleChange: any;
@@ -52,13 +52,15 @@ const Brand = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Brand?
       </h6>
-      { (touched?.brandId && errors.brandId) ? <p className="md:text-base text-sm text-red-500 font-medium leading-6">
-        {errors.brandId}
-      </p>
-      :<p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Choose a Brand From the list
-      </p>
-      }
+      {touched?.brandId && errors.brandId ? (
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.brandId}
+        </p>
+      ) : (
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+          Choose a Brand From the list
+        </p>
+      )}
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="relative w-full md:p-6 p-2.5">
@@ -98,16 +100,24 @@ const Brand = ({
           {filteredBrands?.map((item: any) => (
             <div
               key={item.id}
-              className={`flex flex-col justify-center  items-center flex-none w-[220px] h-[128px]  text-center pt-5  pb-4 px-2 border  rounded-md cursor-pointer space-y-3  ${
+              className={`flex flex-col justify-center  items-center flex-none w-[220px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
                 item?.id === selectBrand?.id
                   ? " border-activeColor "
                   : "border-gray-200 hover:border-gray-500"
               }`}
               onClick={() => setSelectBrand(item)}
             >
-              { item.logo ? 
-              <Image alt="brand logo" src={item.logo} width={100} height={100} /> : <BiSelection className="text-primaryColor" />
-              } 
+              {item.logo ? (
+                <Image
+                  alt="brand logo"
+                  src={item.logo}
+                  width={100}
+                  height={100}
+                  className="w-auto h-8 rounded-md max-w-20"
+                />
+              ) : (
+                <BiSelection className="text-primaryColor" />
+              )}
               <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
                 {item.name}
               </span>

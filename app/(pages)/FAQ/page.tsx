@@ -13,39 +13,39 @@ import Image from "next/image";
 const faqs = [
   {
     id: 1,
-    question: "Is there a free trial available?",
+    question: "What is Swojon?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      "Swojon is an online marketplace where you can easily buy and sell your personal items. It's a community driven marketplace that connects people through unique finds and opportunities.",
   },
   {
     id: 2,
-    question: "Can I change my plan later?",
+    question: "How do I start selling on Swojon?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      "Getting started is simple! Create an account, snap detailed picture of the item you want to sell, make a title for the product, add a description, set your price, provide meetup location and you're all set to reach thousands of potential buyers.",
   },
   {
     id: 24,
-    question: "What is your cancellation policy?",
+    question: "Is it safe to buy and sell on Swojon?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      "Absolutely! Your safety is our top priority. We've built robust trust and security features to ensure every transaction is secure and transparent. You can check seller/buyer profile and reviews to proceed any deals.",
   },
   {
     id: 27,
-    question: "Can other info be added to an invoice?",
+    question: "Are there any fees for using Swojon?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      ": Listing items on Swojon is free. We want to make buying and selling accessible to everyone. For certain premium features, there might be a small fee, but basic buying and selling incur no charges.",
   },
   {
     id: 28,
-    question: "How does billing work?",
+    question: "How does Swojon handle disputes?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      "We have a dedicated support team to handle disputes and ensure fair resolutions. We encourage clear communication and honesty among our users and are here to help when needed.",
   },
   {
     id: 278,
-    question: "How do I change my account email?",
+    question: "Can I return an item I purchased on Swojon?",
     answer:
-      "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+      "The return policy depends on each seller. We encourage sellers to specify their return policy in their listings. Always check the listing details or contact the seller directly for more information.",
   },
 ];
 
@@ -59,12 +59,14 @@ const FAQ = () => {
             <MdKeyboardArrowRight />
             <h6 className="text-primaryColor">FAQ</h6>
           </div>
-          <h2 className="text-primaryColor font-lexed xl:text-3xl lg:text-2xl md:text-lg text-base font-medium">
+          <h2 className="text-primaryColor font-lexed  lg:text-4xl md:text-2xl text-xl font-bold">
             FAQs
           </h2>
           <div className="text-center text-base text-secondColor">
-            <p>Need something cleared up? Here are our most</p>
-            <p>frequently asked questions.</p>
+            <span className="sm:block">
+              Need something cleared up? Here are our most
+            </span>
+            <span>frequently asked questions.</span>
           </div>
 
           <div className="relative w-[250px]">
@@ -84,7 +86,7 @@ const FAQ = () => {
           </div>
         </div>
         <div className="">
-          <div className="mx-auto max-w-7xl px-6 py-16  lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 py-12  lg:px-8">
             <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
               <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
                 {faqs.map((faq) => (
@@ -92,8 +94,8 @@ const FAQ = () => {
                     {({ open }) => (
                       <>
                         <dt>
-                          <Disclosure.Button className="flex w-full items-start justify-between text-left text-primayColor">
-                            <span className="md:text-base text-sm font-semibold leading-7">
+                          <Disclosure.Button className="flex w-full items-start justify-between text-left text-primaryColor">
+                            <span className="md:text-xl text-lg font-bold leading-7">
                               {faq.question}
                             </span>
                             <span className="ml-6 flex h-7 items-center">
@@ -106,7 +108,7 @@ const FAQ = () => {
                           </Disclosure.Button>
                         </dt>
                         <Disclosure.Panel as="dd" className="mt-2 md:pr-12">
-                          <p className="md:text-base text-sm leading-7 text-secondColor">
+                          <p className="md:text-lg text-base leading-7 text-secondColor">
                             {faq.answer}
                           </p>
                         </Disclosure.Panel>

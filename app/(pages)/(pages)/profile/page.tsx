@@ -49,7 +49,7 @@ const Profile = () => {
               alt="user"
               width={400}
               height={400}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-full"
             />
           </div>
           <span className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-medium block ">
@@ -68,7 +68,7 @@ const Profile = () => {
             ) : (
               <div className="flex flex-wrap justify-between items-center gap-2">
                 <span className="text-sm text-primaryColor font-lexed  block">
-                 {user?.profile?.name }
+                  {user?.profile?.name}
                 </span>
                 <button
                   onClick={() => setEditBtn("username")}

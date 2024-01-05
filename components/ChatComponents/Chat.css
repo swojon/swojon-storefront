@@ -15,9 +15,24 @@
   height: calc(87vh - 265px);
 }
 
-.scroll-hidden::-webkit-scrollbar {
+.scroll-hover::-webkit-scrollbar {
   width: 4px;
 }
-.scroll-hidden::-webkit-scrollbar-thumb {
+.scroll-hover::-webkit-scrollbar-thumb {
   background: transparent;
+}
+.scroll-hover:hover {
+  overflow-y: auto;
+}
+.scroll-hover:hover::-webkit-scrollbar-thumb {
+  background: #b4bcc3;
+  border-radius: 10px;
+}
+@media (max-width: 765px) {
+  .chatBox {
+    height: calc(87dvh - 208px);
+  }
+  .chatBox2 {
+    height: calc(87dvh - 149px);
+  }
 }

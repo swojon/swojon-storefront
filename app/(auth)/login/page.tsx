@@ -106,10 +106,10 @@ const SignIn: NextPage = (): JSX.Element => {
           onSubmit={handleSubmit}
         >
           <div className="text-center">
-            <h2 className=" lg:text-2xl md:text-lg text-base font-semibold font-lexed text-primaryColor">
+            <h2 className="lg:text-2xl text-lg  font-bold font-lexed text-primaryColor">
               Log in
             </h2>
-            <p className=" md:text-sm text-[10px] text-secondColor pt-1">
+            <p className="text-sm text-secondColor pt-1">
               Welcome back! Please enter your details.
             </p>
           </div>
@@ -117,7 +117,7 @@ const SignIn: NextPage = (): JSX.Element => {
           <div>
             <label
               htmlFor="email"
-              className="block lg:text-base md:text-sm text-xs font-medium text-primaryColor font-lexed"
+              className="block  text-base  font-medium text-primaryColor font-lexed"
             >
               Email
             </label>
@@ -127,7 +127,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 name="email"
                 id="email"
                 onChange={handleChange}
-                className="block w-full rounded-md border border-gray-200 pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor  lg:p-2.5 md:p-2 py-1 px-2 sm:text-sm text-xs "
+                className="block w-full rounded-md border border-gray-200 pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor  py-2.5 px-2 text-sm "
                 placeholder="Enter your email"
               />
             </div>
@@ -136,7 +136,7 @@ const SignIn: NextPage = (): JSX.Element => {
           <div>
             <label
               htmlFor="password"
-              className="block lg:text-base md:text-sm text-xs font-medium text-primaryColor font-lexed"
+              className="block text-base font-medium text-primaryColor font-lexed"
             >
               Password
             </label>
@@ -146,7 +146,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 name="password"
                 id="password"
                 onChange={handleChange}
-                className="block w-full rounded-md border border-gray-200 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor lg:py-2.5 md:py-2 py-1 pl-2 pr-10 sm:text-sm text-xs"
+                className="block w-full rounded-md border border-gray-200 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor py-2.5 pl-2 pr-10 text-sm"
                 placeholder="Enter your password"
               />
 
@@ -157,7 +157,7 @@ const SignIn: NextPage = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="flex justify-between items-center ">
+          <div className="flex justify-between items-center pb-2">
             <div className="flex items-center space-x-2 ">
               <div className="flex h-5 items-center">
                 <input
@@ -170,7 +170,7 @@ const SignIn: NextPage = (): JSX.Element => {
               </div>
               <label
                 htmlFor="comments"
-                className="text-secondColor lg:text-sm md:text-xs text-[10px]"
+                className="text-secondColor lg:text-sm text-xs "
               >
                 remember me
               </label>
@@ -178,7 +178,7 @@ const SignIn: NextPage = (): JSX.Element => {
 
             <Link
               href="/forgot-password"
-              className="lg:text-sm md:text-xs text-[10px] text-activeColor"
+              className="lg:text-sm text-xs text-activeColor"
             >
               Forgot password
             </Link>
@@ -186,7 +186,7 @@ const SignIn: NextPage = (): JSX.Element => {
 
           <button
             type="submit"
-            className="lg:py-2 md:py-2 py-1.5 border border-activeColor bg- lg:text-sm md:text-xs text-[12px] text-activeColor w-full rounded-md font-lexed font-medium flex justify-center"
+            className="py-2  border border-activeColor text-sm  text-activeColor w-full rounded-md font-lexed font-bold flex justify-center "
           >
             {formUploading ? (
               <BiLoaderCircle className=" text-xl animate-spin" />
@@ -223,7 +223,7 @@ const SignIn: NextPage = (): JSX.Element => {
             <span className="w-[30%]">
               <FcGoogle className="float-right text-lg" />
             </span>
-            <span className="text-sm text-secondColor">
+            <span className="text-sm text-secondColor font-bold">
               Continue with Google
             </span>
           </div>

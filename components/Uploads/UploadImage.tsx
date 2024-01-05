@@ -3,7 +3,19 @@ import React, { useEffect, useState } from "react";
 import UploadArea from "./UploadArea";
 import Image from "next/image";
 
-const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touched: any, setFieldValue: any, values:any, errors:any, handleBlur: any}) => {
+const UploadImage = ({
+  setFieldValue,
+  values,
+  errors,
+  handleBlur,
+  touched,
+}: {
+  touched: any;
+  setFieldValue: any;
+  values: any;
+  errors: any;
+  handleBlur: any;
+}) => {
   const [imageCount, setImageCount] = useState<any>([]);
   const deleteImage = (index: any) => {
     setImageCount((prevImageCount: any) =>
@@ -12,9 +24,12 @@ const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touc
   };
 
   useEffect(() => {
-    console.log("Settings images", imageCount)
-    setFieldValue("images", imageCount.map((iC:any) => iC.file))
-  }, [imageCount, setFieldValue])
+    console.log("Settings images", imageCount);
+    setFieldValue(
+      "images",
+      imageCount.map((iC: any) => iC.file)
+    );
+  }, [imageCount, setFieldValue]);
 
   console.log("images", imageCount);
   return (
@@ -23,16 +38,17 @@ const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touc
         Hey! Let’s pick some best photos of your item{" "}
         <span className="text-red-500">*</span>
       </h6>
-      
-      {(touched?.images && errors?.images) ? 
+
+      {touched?.images && errors?.images ? (
         <p className="md:text-base text-sm text-red-500 font-medium leading-6">
           {errors?.images}
-        </p> : 
+        </p>
+      ) : (
         <p className="md:text-base text-sm text-secondColor font-medium leading-6">
           Choosing clear and multiple pictures can help make your item look
           trusted and make the buyer feel more trusted
         </p>
-      }
+      )}
 
       <div className=" w-full">
         {imageCount.length > 0 ? (
@@ -122,7 +138,7 @@ const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touc
                   </div>
                 ))}
               </>
-            ) :  (
+            ) : (
               <>
                 {imageCount.map((item: any, index: any) => (
                   <div
@@ -184,17 +200,19 @@ const UploadImage = ({setFieldValue, values, errors, handleBlur, touched}: {touc
               }  `}
             >
               <UploadArea
-              
                 imageCount={imageCount}
                 setImageCount={setImageCount}
                 handleBlur={handleBlur}
-              
               />
             </div>
           </div>
         ) : (
           <div className="w-full md:h-[441px] h-[350px]">
-            <UploadArea  imageCount={imageCount} setImageCount={setImageCount} handleBlur={handleBlur} />
+            <UploadArea
+              imageCount={imageCount}
+              setImageCount={setImageCount}
+              handleBlur={handleBlur}
+            />
           </div>
         )}
       </div>
