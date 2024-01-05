@@ -1,16 +1,19 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { GrLocation } from "react-icons/gr";
 import { MdOutlineClose } from "react-icons/md";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 import { IoWarningOutline } from "react-icons/io5";
 import { useSearchLocationQuery } from "@/apollograph/generated";
 import SearchLoader from "./SearchLoader";
+import dynamic from "next/dynamic";
+
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-import markerIcon from 'leaflet/dist/images/marker-icon.png'
+
+
 
 interface NominatimLocation {
   lat?: string | null;
@@ -38,6 +41,13 @@ const MeetUp = ({
   values: any;
   errors: any;
 }) => {
+  const Map = useMemo(() => dynamic(
+    () => import('@/components/Map/MapMeetup'),
+    { 
+      loading: () => <p>A map is loading</p>,
+      ssr: false
+    }
+  ), [])
   const ref = useRef<any>(null);
   const [searchValue, setSearchValue] = useState<any>(null);
   const handleClick = () => {
@@ -190,22 +200,7 @@ const MeetUp = ({
               </div>
 
               <div className="h-[204px] rounded-md w-full">
-                {/* <MapContainer
-                  style={{ height: 204, borderRadius: 6 }}
-                  center={[ml.lat, ml.lon]}
-                  zoom={13}
-                  scrollWheelZoom={false}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={[ml.lat, ml.lon]}>
-                    <Popup>
-                      {ml.displayName}
-                    </Popup>
-                  </Marker>
-                </MapContainer> */}
+                <Map ml={ml} />
               </div>
             </div>
           ))}
