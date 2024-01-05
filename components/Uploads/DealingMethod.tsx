@@ -39,7 +39,7 @@ const DealingMethod = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Dealing Method? <span className="text-red-500">*</span>
       </h6>
-      {errors.dealingMethod ? 
+      {(touched.dealingMethod && errors.dealingMethod) ? 
       <p className="md:text-base text-sm text-red-500 font-medium leading-6">
         {errors.dealingMethod}
       </p>
