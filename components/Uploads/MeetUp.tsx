@@ -10,6 +10,8 @@ import SearchLoader from "./SearchLoader";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+
 interface NominatimLocation {
   lat?: string | null;
   lon?: string | null;
@@ -22,7 +24,7 @@ interface NominatimLocation {
   country?: string | null;
   postCode?: string | null;
 }
-const position = [51.505, -0.09];
+
 const MeetUp = ({
   setFieldValue,
   values,
@@ -190,7 +192,7 @@ const MeetUp = ({
               <div className="h-[204px] rounded-md w-full">
                 <MapContainer
                   style={{ height: 204, borderRadius: 6 }}
-                  center={position}
+                  center={[ml.lat, ml.lon]}
                   zoom={13}
                   scrollWheelZoom={false}
                 >
@@ -198,9 +200,9 @@ const MeetUp = ({
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <Marker position={position}>
+                  <Marker position={[ml.lat, ml.lon]}>
                     <Popup>
-                      A pretty CSS3 popup. <br /> Easily customizable.
+                      {ml.displayName}
                     </Popup>
                   </Marker>
                 </MapContainer>

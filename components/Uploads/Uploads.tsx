@@ -25,7 +25,7 @@ const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
   brandId: Yup.number().positive().notRequired(),
   categoryId: Yup.number().positive().notRequired(),
-  description: Yup.string().min(5).required("Description is required"),
+  description: Yup.string().min(5, "Description must be at least 5 characters"),
   // locationId: Yup.number().positive().required(),
   price: Yup.number().positive().integer().required("Min price needed"),
   condition: Yup.string().required("Item condition is required"),
@@ -426,7 +426,7 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div
               className={`${
-                values.condition && !errors.condition
+                values.title && !errors.title
                   ? "opacity-100 "
                   : "opacity-50 pointer-events-none"
               }`}
