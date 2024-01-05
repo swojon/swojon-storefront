@@ -45,14 +45,14 @@ const TermsAndCondition = () => {
                 <span className="text-primaryColor font-semibold">
                   Account Responsibility:
                 </span>{" "}
-                Keep your login info safe; you’re responsible for your account's
+                Keep your login info safe; you&apos;re responsible for your account&apos;s
                 activity.
               </p>
               <p className="md:text-lg text-base">
                 <span className="text-primaryColor font-semibold">
                   Respectful Conduct:
                 </span>{" "}
-                Treat others as you’d like to be treated. No offensive language
+                Treat others as you&apos;d like to be treated. No offensive language
                 or behavior.
               </p>
             </div>
@@ -96,7 +96,7 @@ const TermsAndCondition = () => {
                 <span className="text-primaryColor font-semibold">
                   No Infringement:
                 </span>{" "}
-                Don’t post anything that infringes on others' rights or is
+                Don&apos;t post anything that infringes on others&apos; rights or is
                 illegal.
               </p>
               <p className="md:text-lg text-base">
@@ -116,14 +116,14 @@ const TermsAndCondition = () => {
                 <span className="text-primaryColor font-semibold">
                   Limited Liability:
                 </span>{" "}
-                We're here to provide a platform, but we can’t be held
+                We&apos;re here to provide a platform, but we can&apos;t be held
                 responsible for all interactions or transactions.
               </p>
               <p className="md:text-lg text-base">
                 <span className="text-primaryColor font-semibold">
                   Dispute Resolution:
                 </span>{" "}
-                If there’s a disagreement, let’s try to resolve it amicably.
+                If there&apos;s a disagreement, let&apos;s try to resolve it amicably.
               </p>
             </div>
 
@@ -136,7 +136,7 @@ const TermsAndCondition = () => {
                 <span className="text-primaryColor font-semibold">
                   Stay Updated:
                 </span>{" "}
-                We might change these terms occasionally. We’ll let you know
+                We might change these terms occasionally. We&apos;ll let you know
                 when we do.
               </p>
             </div>
@@ -148,7 +148,7 @@ const TermsAndCondition = () => {
 
               <p className="md:text-lg text-base">
                 <span className="text-primaryColor font-semibold">
-                  We’re Here to Help:
+                  We&apos;re Here to Help:
                 </span>{" "}
                 Questions or concerns? Reach out anytime
               </p>
@@ -156,7 +156,7 @@ const TermsAndCondition = () => {
 
             <p className="md:text-lg text-base">
               Using Swojon means being part of a community that values trust,
-              respect, and fairness. Let's make it a great experience for
+              respect, and fairness. Let&apos;s make it a great experience for
               everyone!
             </p>
           </div>

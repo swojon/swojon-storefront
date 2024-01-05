@@ -1,3 +1,4 @@
+'use client';
 import { MdKeyboardArrowRight } from "react-icons/md";
 import CompleteStatusBar from "./CompleteStatusBar";
 import UploadImage from "./UploadImage";
@@ -122,7 +123,8 @@ const Uploads = ({ product }: { product: null | any }) => {
   // };
 
   const handleStickyPanel = () => {
-    if (window !== undefined) {
+    if (typeof window === "undefined"){}
+    else {
       let windowHeight = window.scrollY;
 
       windowHeight > 300
@@ -347,7 +349,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 )}
                 {progress === 0 ? (
                   <span className="text-base text-secondColor font-medium block">
-                    Let’s complete{" "}
+                    Let&apos;s complete{" "}
                   </span>
                 ) : (
                   <span className="text-base text-secondColor font-medium">

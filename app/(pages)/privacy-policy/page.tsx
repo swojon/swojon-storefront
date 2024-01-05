@@ -81,7 +81,7 @@ const PrivacyPolicy = () => {
                 <span className="text-primaryColor font-semibold">
                   To Communicate:
                 </span>{" "}
-                We'll keep you updated with important notices and exciting
+                We&apos;ll keep you updated with important notices and exciting
                 offers.
               </p>
             </div>

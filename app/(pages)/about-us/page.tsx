@@ -56,7 +56,7 @@ const AboutUs = () => {
           <p className="md:text-base text-sm text-secondColor font-medium">
             Swojon, where every item has a story and every deal is a doorway to
             new possibilities. our mission is to refine the online marketplace,
-            making it more than just a place to buy and sell. It's where
+            making it more than just a place to buy and sell. It&apos;s where
             community, trust, and opportunity thrive
           </p>
           <p className="md:text-base text-sm text-secondColor font-medium">
