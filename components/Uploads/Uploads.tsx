@@ -79,7 +79,7 @@ const formSchema = Yup.object({
 });
 
 const Uploads = ({ product }: { product: null | any }) => {
-  const [stickyClass, setStickyClass] = useState("fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg");
+  const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
 
@@ -124,34 +124,34 @@ const Uploads = ({ product }: { product: null | any }) => {
 
   
 
-  // useEffect(() => {
-    // if (typeof window === "undefined"){}
-    // else {
-    //   const handleStickyPanel = () => {
-    //     if (typeof window === "undefined"){}
-    //     else {
-    //       let windowHeight = window.scrollY;
+  useEffect(() => {
+    if (typeof window === "undefined"){}
+    else {
+      const handleStickyPanel = () => {
+        if (typeof window === "undefined"){}
+        else {
+          let windowHeight = window.scrollY;
     
-    //       windowHeight > 300
-    //         ? setStickyClass(
-    //             "fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg"
-    //           )
-    //         : setStickyClass("relative");
-    //     }
-    //   };
-    //   // Attach the scroll event listener
-    //   window.addEventListener("scroll", handleStickyPanel, { passive: true });
+          windowHeight > 300
+            ? setStickyClass(
+                "fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg"
+              )
+            : setStickyClass("relative");
+        }
+      };
+      // Attach the scroll event listener
+      window.addEventListener("scroll", handleStickyPanel, { passive: true });
   
-    //   // Attach the touchmove event listener for iOS
-    //   window.addEventListener("touchmove", handleStickyPanel, { passive: true });
+      // Attach the touchmove event listener for iOS
+      window.addEventListener("touchmove", handleStickyPanel, { passive: true });
   
-    //   return () => {
-    //     window.removeEventListener("scroll", handleStickyPanel);
-    //     window.removeEventListener("touchmove", handleStickyPanel);
-    //   };
-    // }
+      return () => {
+        window.removeEventListener("scroll", handleStickyPanel);
+        window.removeEventListener("touchmove", handleStickyPanel);
+      };
+    }
 
-  // }, []);
+  }, []);
 
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);

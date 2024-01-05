@@ -190,7 +190,7 @@ const MeetUp = ({
               </div>
 
               <div className="h-[204px] rounded-md w-full">
-                <MapContainer
+                {/* <MapContainer
                   style={{ height: 204, borderRadius: 6 }}
                   center={[ml.lat, ml.lon]}
                   zoom={13}
@@ -205,7 +205,7 @@ const MeetUp = ({
                       {ml.displayName}
                     </Popup>
                   </Marker>
-                </MapContainer>
+                </MapContainer> */}
               </div>
             </div>
           ))}
