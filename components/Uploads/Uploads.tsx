@@ -130,8 +130,8 @@ const Uploads = ({ product }: { product: null | any }) => {
       const handleStickyPanel = () => {
         if (typeof window === "undefined"){}
         else {
-          let windowHeight = window.scrollY;
-    
+          // alert(`${document.body.scrollTop} ${window.scrollY}`)
+          let windowHeight = !!document.body.scrollTop ? document.body.scrollTop :  window.scrollY  
           windowHeight > 300
             ? setStickyClass(
                 "fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg"

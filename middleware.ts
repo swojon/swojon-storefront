@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 export const config = {
     matcher: [
         "/user/:path*",
-        "/upload-product",
+        // "/upload-product",
         "/chat"
         // "/messages/:path*"
     ]
