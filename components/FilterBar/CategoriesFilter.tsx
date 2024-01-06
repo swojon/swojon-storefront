@@ -87,7 +87,7 @@ const CategoriesFilter = () => {
                       className="text-2xl text-activeColor"
                       aria-hidden="true"
                     />
-                  )}
+                  )  }
                 </span>
               </Disclosure.Button>
             </h3>

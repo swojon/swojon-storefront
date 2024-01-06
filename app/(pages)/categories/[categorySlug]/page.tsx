@@ -23,7 +23,8 @@ const CategoryDetail = ({ params }: { params: any }) => {
   const conditionFilter = searchParams.get("condition")?.split(",");
   const brandFilter = searchParams.get("brand")?.split(",");
   const communityFilter = searchParams.get("community")?.split(",");
-
+  const orderBy = searchParams.get("sort") ?? "default";
+  
   var filters = {};
   filters = { ...filters, categorySlug: params.categorySlug, status: 'approved'};
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
@@ -36,6 +37,8 @@ const CategoryDetail = ({ params }: { params: any }) => {
   const { data, loading, error } = useListListingsQuery({
     variables: {
       filters: filters,
+      limit: 36,
+      orderBy: orderBy
     },
   });
   const listings = data?.listListings?.items;

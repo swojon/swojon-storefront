@@ -19,7 +19,7 @@ function AppliedFilter() {
   useEffect(() => {
     var filtersFromSearchParams: any[] = [];
     searchParams.forEach((val, key) => {
-      console.log("looking", val, key);
+      // console.log("looking", val, key);
       if (filterFields.includes(key))
         filtersFromSearchParams = filtersFromSearchParams.concat(
           val.split(",")

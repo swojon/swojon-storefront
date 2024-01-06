@@ -1,5 +1,5 @@
-query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float) {
-  listListings(filters: $filters, limit: $limit, ending_before: $endingBefore, starting_after: $startingAfter) {
+query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float, $orderBy: String) {
+  listListings(filters: $filters, limit: $limit, ending_before: $endingBefore, starting_after: $startingAfter, orderBy: $orderBy) {
     items {
       brand {
         id

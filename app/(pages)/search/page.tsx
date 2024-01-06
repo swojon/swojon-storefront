@@ -17,12 +17,15 @@ const SearchPage = ({ params }: { params: any }) => {
   const appliedFilter = [];
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
+  const orderBy = searchParams.get("sort") ?? "default";
 
   const {data, loading, error } = useSearchListingsQuery({
     variables: {
       query: {
-        search: query!
-      }
+        search: query!,
+      },
+      orderBy: orderBy,
+      limit: 36
     }
   })
   const results = data?.searchListings?.items

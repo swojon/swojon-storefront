@@ -1038,12 +1038,13 @@ export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavori
 export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
 export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
 export const ListListingsDocument = gql`
-    query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float) {
+    query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float, $orderBy: String) {
   listListings(
     filters: $filters
     limit: $limit
     ending_before: $endingBefore
     starting_after: $startingAfter
+    orderBy: $orderBy
   ) {
     items {
       brand {
@@ -1124,6 +1125,7 @@ export const ListListingsDocument = gql`
  *      limit: // value for 'limit'
  *      endingBefore: // value for 'endingBefore'
  *      startingAfter: // value for 'startingAfter'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
@@ -1229,13 +1231,14 @@ export type GetListingQueryHookResult = ReturnType<typeof useGetListingQuery>;
 export type GetListingLazyQueryHookResult = ReturnType<typeof useGetListingLazyQuery>;
 export type GetListingQueryResult = Apollo.QueryResult<GetListingQuery, GetListingQueryVariables>;
 export const SearchListingsDocument = gql`
-    query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float) {
+    query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float, $orderBy: String) {
   searchListings(
     query: $query
     filters: $filters
     limit: $limit
     starting_after: $startingAfter
     ending_before: $endingBefore
+    orderBy: $orderBy
   ) {
     hasMore
     count
@@ -1315,6 +1318,7 @@ export const SearchListingsDocument = gql`
  *      limit: // value for 'limit'
  *      startingAfter: // value for 'startingAfter'
  *      endingBefore: // value for 'endingBefore'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
@@ -2084,7 +2088,7 @@ export type Listing = {
   isFeatured?: Maybe<Scalars['Boolean']['output']>;
   isLive?: Maybe<Scalars['Boolean']['output']>;
   isSold?: Maybe<Scalars['Boolean']['output']>;
-  media: Array<ListingMedia>;
+  media?: Maybe<Array<ListingMedia>>;
   meetupLocations?: Maybe<Array<NominatimLocation>>;
   price: Scalars['Float']['output'];
   quantity?: Maybe<Scalars['Float']['output']>;
@@ -2137,7 +2141,6 @@ export type ListingMedia = {
 export type ListingUpdateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId?: InputMaybe<Scalars['Float']['input']>;
-  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
@@ -2772,6 +2775,7 @@ export type QueryListBrandOptionsArgs = {
 export type QueryListBrandsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2780,6 +2784,7 @@ export type QueryListCategoriesArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<CategoryFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2788,6 +2793,7 @@ export type QueryListChatMessagesArgs = {
   chatRoomId: Scalars['Float']['input'];
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2832,6 +2838,7 @@ export type QueryListListingsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2840,6 +2847,7 @@ export type QueryListNotificationsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<NotificationFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2847,6 +2855,7 @@ export type QueryListNotificationsArgs = {
 export type QueryListPointsHistoryArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -2855,6 +2864,7 @@ export type QueryListSellerReviewsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<ReviewFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
   userId: Scalars['Float']['input'];
 };
@@ -2874,6 +2884,7 @@ export type QuerySearchListingsArgs = {
   ending_before?: InputMaybe<Scalars['Float']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   query: SerachInputDto;
   starting_after?: InputMaybe<Scalars['Float']['input']>;
 };
@@ -3198,24 +3209,25 @@ export type CreateListingMutationVariables = Exact<{
 }>;
 
 
-export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type ListFavoriteListingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   endingBefore?: InputMaybe<Scalars['Float']['input']>;
   startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
@@ -3223,7 +3235,7 @@ export type GetListingQueryVariables = Exact<{
 }>;
 
 
-export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> } };
+export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
@@ -3231,10 +3243,11 @@ export type SearchListingsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Float']['input']>;
   startingAfter?: InputMaybe<Scalars['Float']['input']>;
   endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type SearchLocationQueryVariables = Exact<{
   nominatimQuery: NominatimSearchDto;

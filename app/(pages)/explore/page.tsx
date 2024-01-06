@@ -20,7 +20,8 @@ const ExploreDetail = ({ params }: { params: any }) => {
   const brandFilter = searchParams.get("brand")?.split(",");
   const communityFilter = searchParams.get("community")?.split(",");
   const categoryFilter = searchParams.get("category")?.split(",");
-
+  const orderBy = searchParams.get("sort") ?? "default";
+   
   var filters = {};
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
   filters = {...filters, status: 'approved'}
@@ -30,10 +31,13 @@ const ExploreDetail = ({ params }: { params: any }) => {
     filters = { ...filters, communitySlug: communityFilter };
   if (categoryFilter && categoryFilter.length > 0)
     filters = { ...filters, categorySlug: categoryFilter };
+
   console.log("Applying filter", filters);
   const { data, loading, error } = useListListingsQuery({
     variables: {
       filters: filters,
+      orderBy: orderBy,
+      limit: 36,
     },
   });
   const listings = data?.listListings?.items;
