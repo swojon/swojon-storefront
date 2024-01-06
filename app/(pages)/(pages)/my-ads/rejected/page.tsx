@@ -9,6 +9,7 @@ const ProductLists = () => {
     variables: {
       filters: {
         userIds: [authState.user.id],
+        status: "rejected"
       },
     },
     skip: !authState.user.id,

@@ -42,7 +42,7 @@ const SuccessModal = ({}: any) => {
 
       <div className="flex flex-col gap-3">
         <button
-          onClick={() => handleButtonClick("/my-ads")}
+          onClick={() => handleButtonClick("/my-ads/approved")}
           className="px-4 w-full py-3 text-base bg-activeColor text-white rounded-md "
         >
           View Pending Items
