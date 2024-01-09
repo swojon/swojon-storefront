@@ -68,7 +68,7 @@ const EmailSignUp = () => {
     },
   });
   return (
-    <form className="lg:space-y-5 md:space-y-3 space-y-2 mx-auto pt-5 w-full">
+    <form onSubmit={handleSubmit}  className="lg:space-y-5 md:space-y-3 space-y-2 mx-auto pt-5 w-full">
       <div>
         <label
           htmlFor="name"
