@@ -16,12 +16,12 @@ const ProductLists = () => {
   const myProducts = data?.listListings.items;
 
   return (
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
-        {myProducts &&
-          myProducts?.map((product) => (
-            <ProductCard card={product} key={product.id} />
-          ))}
-      </div>
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4 pt-5">
+      {myProducts &&
+        myProducts?.map((product) => (
+          <ProductCard card={product} key={product.id} />
+        ))}
+    </div>
   );
 };
 

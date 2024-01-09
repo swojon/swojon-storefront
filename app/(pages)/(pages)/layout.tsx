@@ -15,12 +15,12 @@ function layout({ children }: Iprops) {
           <MdKeyboardArrowRight />
           <span className="text-xs text-primaryColor">My Points</span>
         </div>
-        <div className="flex custom-container  ">
+        <div className="flex custom-container  justify-between">
           <div className="lg:w-[22%] md:w-[20%] w-[18%]">
             <SideBar />
           </div>
 
-          <div className="lg:w-[78%] w-full">{children}</div>
+          <div className="lg:w-[75%] w-full">{children}</div>
         </div>
       </section>
     </>

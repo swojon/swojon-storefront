@@ -23,13 +23,13 @@ const Followers = () => {
   console.log("Followers", followers);
   return (
     <section>
-      <div className="border-b px-5 py-3.5">
+      <div className="">
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           My Followers
         </h6>
       </div>
 
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4  pt-10">
         {followers?.map((follower) => (
           <FollowUserCard follow={follower} key={follower.id} />
         ))}

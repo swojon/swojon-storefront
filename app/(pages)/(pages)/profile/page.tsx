@@ -6,7 +6,7 @@ import EditUserName from "@/components/Profile/EditUserName";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import defaultAvatar from "@/public/assets/avatar.svg"
+import defaultAvatar from "@/public/assets/avatar.svg";
 const Profile = () => {
   const authState = useSelector((state: any) => state.auth);
   const { data, loading, error } = useGetUserByIdQuery({
@@ -22,12 +22,12 @@ const Profile = () => {
 
   return (
     <section className="">
-      <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
+      {/* <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           Personal information
         </h6>
-      </div>
-      <div className="lg:px-5 md:px-3 px-1 lg:py-3.5 md:py-2.5 py-2 space-y-3">
+      </div> */}
+      <div className="lg:px-5 md:px-3 px-1  space-y-3">
         <div className="flex md:flex-raw flex-col md:justify-center lg:items-start md:items-center gap-3">
           <div className="flex flex-col lg:items-start items-center ">
             {/* <span className="text-primaryColor font-lexed lg:text-lg text-base  block pt-4">

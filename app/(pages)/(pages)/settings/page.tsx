@@ -9,12 +9,12 @@ const Settings = () => {
   const [editInformation, setEditInformation] = useState("edit");
   return (
     <section>
-      <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
+      <div className="">
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           Settings
         </h6>
       </div>
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-8 px-5">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-8 ">
         <div className=" lg:w-[80%] w-full">
           {editInformation === "edit" ? <SettingsInfo /> : <SettingsEditInfo />}
         </div>
