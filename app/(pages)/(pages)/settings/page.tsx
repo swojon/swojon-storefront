@@ -4,16 +4,28 @@ import SettingsInfo from "@/components/Settings/SettingsInfo";
 import React, { useState } from "react";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { HiArrowLeft } from "react-icons/hi2";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const Settings = () => {
   const [editInformation, setEditInformation] = useState("edit");
+  const isMobile = useIsMobile();
   return (
     <section>
-      <div className="">
-        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
+      <div className="flex items-center gap-3">
+        {isMobile && (
+          <div
+            className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
+            // onClick={handleLeftArrowIconClick}
+          >
+            <HiArrowLeft className="text-primaryColor" />
+          </div>
+        )}{" "}
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           Settings
         </h6>
       </div>
+
       <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-8 ">
         <div className=" lg:w-[80%] w-full">
           {editInformation === "edit" ? <SettingsInfo /> : <SettingsEditInfo />}
@@ -45,12 +57,12 @@ const Settings = () => {
         </div>
       </div>
 
-      <div className="px-5 ">
+      <div className=" ">
         <h6 className="text-lg font-lexed font-medium text-primaryColor">
           Connect Other Accounts
         </h6>
 
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-5 ">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-5 py-5 ">
           <div className="space-y-3">
             <span className="flex items-center gap-3">
               <FcGoogle className=" text-lg" />

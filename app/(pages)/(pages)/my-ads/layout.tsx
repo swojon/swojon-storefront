@@ -1,6 +1,8 @@
 "use client";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { HiArrowLeft } from "react-icons/hi2";
 
 const ProductLists = ({ children }: { children: any }) => {
   const tabData = [
@@ -10,13 +12,24 @@ const ProductLists = ({ children }: { children: any }) => {
     { id: 3, tab: "rejected", url: `/my-ads/rejected` },
   ];
   const pathname = usePathname();
+  const isMobile = useIsMobile();
 
   return (
     <section>
-      <div className=" flex flex-wrap justify-between items-center gap-3">
-        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium">
-          My Product Lists
-        </h6>
+      <div className=" flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        <div className="flex items-center gap-3">
+          {isMobile && (
+            <div
+              className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
+              // onClick={handleLeftArrowIconClick}
+            >
+              <HiArrowLeft className="text-primaryColor" />
+            </div>
+          )}{" "}
+          <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+            My Product Lists
+          </h6>
+        </div>{" "}
         <div
           className={`flex flex-wrap items-center  gap-x-5 gap-y-3 text-base capitalize`}
         >

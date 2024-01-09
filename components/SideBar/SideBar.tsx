@@ -65,7 +65,7 @@ const SideBar = () => {
           <Link
             href={item.url}
             key={item.id}
-            className={`flex lg:flex-row lg:items-center flex-col  py-2.5 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-lg font-bold gap-5 ${
+            className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
               pathname === item.url ? "text-primaryColor" : "text-secondColor"
             }`}
           >

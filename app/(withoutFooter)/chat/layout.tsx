@@ -32,7 +32,7 @@ const Chats = ({ children }: { children: any }) => {
         <div className="w-full flex h-full border rounded-md">
           {/* if the screen is not mobile or mobile + expand == list  */}
           {(!isMobile || expand === "list" || pathname === "/chat") && (
-            <div className={` lg:w-[25%] md:w-[25%]    w-full     h-full  `}>
+            <div className={` lg:w-[25%] md:w-[25%]  w-full  h-full  `}>
               <ChatLists />
             </div>
           )}
