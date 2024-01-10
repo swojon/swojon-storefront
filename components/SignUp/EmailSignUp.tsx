@@ -43,6 +43,7 @@ const EmailSignUp = () => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, action) => {
+      setFormUploading(true);
       console.log("Submitting the form with values");
       const res = signup({
         variables: {
@@ -51,20 +52,25 @@ const EmailSignUp = () => {
             password: values.password,
             username: values.username,
           },
+        }, 
+        onCompleted: () => {
+          action.resetForm();
+          // console.log("success")
+          setFormUploading(false);
+          toast.success(
+            "Sign Up successfull. We have sent you a verification link in the email address. Please check your inbox or spam to continue."
+          );
+          window.location.replace("/login");
         },
+        onError: () => {
+          setFormUploading(false);
+          console.log("signupError")
+          if (signupError) {
+            toast.error("we have trouble signing you up. Please try again");
+          }
+        }
       });
-      if (signupError) {
-        toast.error("we have trouble signing you up. Please try again");
-      }
-      if (signupData) {
-        action.resetForm();
-        // console.log("success")
-        setFormUploading(true);
-        toast.success(
-          "Sign Up successfull. Please login to your account to continue"
-        );
-        window.location.replace("/signin");
-      }
+    
     },
   });
   return (
