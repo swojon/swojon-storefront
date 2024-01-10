@@ -4,7 +4,9 @@ export const config = {
     matcher: [
         "/user/:path*",
         "/upload-product",
-        "/chat"
+        "/chat",
+        "/profile",
+        "/profile/:path*"
         // "/messages/:path*"
     ]
 }

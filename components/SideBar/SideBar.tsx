@@ -27,23 +27,23 @@ const data = [
   //   icon: <HiOutlineCurrencyDollar />,
   //   url: "/points",
   // },
-  { id: 2, title: "My products", icon: <HiOutlineInbox />, url: "/my-ads" },
-  { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/wishlists" },
-  { id: 35, title: "followers", icon: <HiOutlineUsers />, url: "/followers" },
+  { id: 2, title: "My products", icon: <HiOutlineInbox />, url: "/profile/my-ads" },
+  { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/profile/wishlists" },
+  { id: 35, title: "followers", icon: <HiOutlineUsers />, url: "/profile/followers" },
   {
     id: 75,
     title: "People you follow",
     icon: <RiUserFollowLine />,
-    url: "/following",
+    url: "/profile/following",
   },
 
   {
     id: 8,
     title: "login & security",
     icon: <HiLockClosed />,
-    url: "/login-security",
+    url: "/profile/login-security",
   },
-  { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/settings" },
+  { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/profile/settings" },
   { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
 

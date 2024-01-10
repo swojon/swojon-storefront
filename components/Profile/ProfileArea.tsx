@@ -1,23 +1,17 @@
-"use client";
-import React, { useState } from "react";
-import SideBar from "@/components/SideBar/SideBar";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { usePathname, useSearchParams } from "next/navigation";
-import useIsMobile from "@/lib/hooks/useIsMobile";
+'use client';
+import React from 'react'
+import { MdKeyboardArrowRight } from 'react-icons/md'
+import SideBar from '../SideBar/SideBar'
+import useIsMobile from '@/lib/hooks/useIsMobile';
+import { useSearchParams, usePathname } from 'next/navigation';
 
-interface Iprops {
-  children: React.ReactNode;
-}
-
-function layout({ children }: Iprops) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const sidebar = searchParams.get("sidebar");
-  const isMobile = useIsMobile();
-  console.log("pathname", pathname);
+function ProfileArea({children}:{children:any}) {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const sidebar = searchParams.get("sidebar");
+    const isMobile = useIsMobile();
   return (
-    <>
-      <section className=" bg-white">
+    <section className=" bg-white">
         <div className="pt-4 md:flex items-center gap-2 custom-container hidden">
           <span className="text-xs text-secondColor ">My account</span>
           <MdKeyboardArrowRight />
@@ -34,8 +28,7 @@ function layout({ children }: Iprops) {
           }
         </div>
       </section>
-    </>
-  );
+  )
 }
 
-export default layout;
+export default ProfileArea

@@ -6,10 +6,10 @@ import { HiArrowLeft } from "react-icons/hi2";
 
 const ProductLists = ({ children }: { children: any }) => {
   const tabData = [
-    { id: 4, tab: "all", url: "/my-ads" },
-    { id: 2, tab: "approved", url: `/my-ads/approved` },
-    { id: 1, tab: "pending", url: `/my-ads/pending` },
-    { id: 3, tab: "rejected", url: `/my-ads/rejected` },
+    { id: 4, tab: "all", url: "/profile/my-ads" },
+    { id: 2, tab: "approved", url: `/profile/my-ads/approved` },
+    { id: 1, tab: "pending", url: `/profile/my-ads/pending` },
+    { id: 3, tab: "rejected", url: `/profile/my-ads/rejected` },
   ];
   const pathname = usePathname();
   const isMobile = useIsMobile();
