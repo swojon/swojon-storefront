@@ -33,22 +33,24 @@ const Wishlists = () => {
             <HiArrowLeft className="text-primaryColor" />
           </Link>
         )}{" "}
-        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+        <h6 className="text-primaryColor text-center md:text-left lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           My Favorites
         </h6>
       </div>
       {/* {!!wishListItems || wishListItems?.length == 0(<NotFound />)} */}
-      <div
-        className={`${
-          wishListItems
-            ? " grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2"
-            : " w-full"
-        }   pt-8`}
-      >
+      <div>
         {loading ? (
-          <ProductLoader />
+          <div className=" pt-8 grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2">
+            <ProductLoader />
+          </div>
         ) : (
-          <>
+          <div
+            className={`${
+              wishListItems
+                ? " grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2"
+                : " w-full"
+            }   pt-8`}
+          >
             {wishListItems ? (
               <>
                 {wishListItems?.map((item) => (
@@ -60,7 +62,7 @@ const Wishlists = () => {
                 <NotFound />
               </>
             )}
-          </>
+          </div>
         )}
       </div>
     </section>

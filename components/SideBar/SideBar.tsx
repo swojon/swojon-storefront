@@ -94,7 +94,7 @@ const SideBar = () => {
               opacity: 1,
               //  translateX: 0, translateY: 0
             }}
-            transition={{ duration: 0.12, delay: i * 0.02 }}
+            transition={{ duration: 0.1, delay: i * 0.01 }}
           >
             <Link
               href={item.url}
