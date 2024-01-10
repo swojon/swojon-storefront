@@ -17,6 +17,8 @@ import FollowUserCard from "@/components/FollowUserCard/FollowUserCard";
 import Link from "next/link";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import FollowUserCardLoader from "@/components/Loader/FollowUserCardLoader";
+import { HiArrowLeft } from "react-icons/hi2";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const Followers = () => {
   const { user } = useSelector((state: any) => state.auth);
@@ -26,11 +28,20 @@ const Followers = () => {
     },
   });
   const followers = data?.listFollowing.items;
+  const isMobile = useIsMobile();
 
   return (
     <section>
-      <div className="border-b px-5 py-3.5">
-        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
+      <div className="flex items-center gap-3">
+        {isMobile && (
+          <div
+            className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
+            // onClick={handleLeftArrowIconClick}
+          >
+            <HiArrowLeft className="text-primaryColor" />
+          </div>
+        )}{" "}
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           People you follow
         </h6>
       </div>
@@ -41,7 +52,7 @@ const Followers = () => {
         </div>
       )}
 
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4  pt-10">
         {followers?.map((follower) => (
           <FollowUserCard follow={follower} key={follower.id} />
         ))}

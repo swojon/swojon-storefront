@@ -31,7 +31,7 @@ const ChatLists = () => {
   }
 
   return (
-    <section className="bg-[#F1F7FF] h-full w-full  space-y-2 lg:space-y-4 overflow-y-hidden relative">
+    <section className="bg-[#F1F7FF] h-full w-full  space-y-2 lg:space-y-4 overflow-y-hidden relative pb-10">
       <div className="flex justify-between items-center px-3 pt-3">
         <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-bold">
           Chat List

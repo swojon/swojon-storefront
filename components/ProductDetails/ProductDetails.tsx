@@ -30,12 +30,11 @@ const ProductDetails = ({ productId }: { productId: number }) => {
 
   return (
     <section className="custom-container py-6 space-y-6 ">
-    
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         {loading ? (
           <BreadCrumbsLoader />
         ) : (
-          <div className="flex items-center space-x-1 justify-center text-basetext-secondColor">
+          <div className="flex flex-wrap items-center gap-2 justify-center text-base text-secondColor">
             <Link href="/">
               <h6 className="">Home</h6>
             </Link>
@@ -111,7 +110,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
       </div> */}
 
       <div className="space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap gap-2 justify-between items-center">
           <h4 className="text-primaryColor text-2xl	font-bold ">
             {product?.title}
           </h4>

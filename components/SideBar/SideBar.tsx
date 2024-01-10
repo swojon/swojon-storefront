@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { AiOutlineInbox } from "react-icons/ai";
 import { RiSettings4Line } from "react-icons/ri";
+import { HiOutlineInbox } from "react-icons/hi";
 import {
   HiLockClosed,
   HiMiniUser,
@@ -12,6 +13,10 @@ import {
 } from "react-icons/hi2";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { LiaSignOutAltSolid } from "react-icons/lia";
+import { IoPeopleSharp } from "react-icons/io5";
+import { RiUserFollowLine } from "react-icons/ri";
+import { HiOutlineUsers } from "react-icons/hi2";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -21,20 +26,24 @@ const data = [
   //   icon: <HiOutlineCurrencyDollar />,
   //   url: "/points",
   // },
+  { id: 2, title: "My products", icon: <HiOutlineInbox />, url: "/my-ads" },
   { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/wishlists" },
+  { id: 35, title: "followers", icon: <HiOutlineUsers />, url: "/followers" },
   {
-    id: 5,
-    title: "My Ads",
-    icon: <AiOutlineInbox />,
-    url: "/my-ads",
+    id: 75,
+    title: "People you follow",
+    icon: <RiUserFollowLine />,
+    url: "/following",
+  },
+
+  {
+    id: 8,
+    title: "login & security",
+    icon: <HiLockClosed />,
+    url: "/login-security",
   },
   { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/settings" },
-  // {
-  //   id: 8,
-  //   title: "login & security",
-  //   icon: <HiLockClosed />,
-  //   url: "/login-security",
-  // },
+  { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
 
 const SideBar = () => {
@@ -42,33 +51,38 @@ const SideBar = () => {
   const { user } = useSelector((state: any) => state.auth);
 
   return (
-    <section className="sticky top-0   border-r rounded-md min-h-[87vh] h-full py-4">
-      <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
+    <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4">
+      {/* <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
         <h6 className="lg:text-2xl md:text-lg sm:text-base text-xs font-bold text-primaryColor font-lexed truncate">
           Hi, {user?.username ?? user?.email}
         </h6>
         <small className="sm:text-xs hidden md:block text-[10px] text-secondColor lg:leading-normal leading-none pt-1">
           Thanks for being a Swojon customer
         </small>
-      </div>
-      <div className="md:py-5 py-2.5 border-b">
-        {/* {data.map((item) => (
+      </div> */}
+      <div className="">
+        {data.map((item) => (
           <Link
             href={item.url}
             key={item.id}
-            className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
-              pathname === item.url
-                ? "border-l-4 border-activeColor bg-[#eaecf1] text-activeColor"
-                : "border-l-4 border-transparent text-secondColor hover:border-gray-300 hover:bg-gray-50 hover:text-primaryColor"
+            className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
+              pathname === item.url ? "text-primaryColor" : "text-secondColor"
             }`}
           >
-            <span className="lg:pe-3.5 lg:pb-0 pb-1">{item.icon}</span>{" "}
-            <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block leading-snug">
+            <span
+              className={`text-2xl ${
+                pathname === item.url ? "text-activeColor" : "text-secondColor"
+              }`}
+            >
+              {item.icon}
+            </span>{" "}
+            <span className="capitalize  inline-block leading-snug ">
               {item.title}
             </span>
           </Link>
-        ))} */}
-        <Link
+        ))}
+
+        {/* <Link
           href="/followers"
           className={`flex lg:flex-row lg:items-center flex-col  py-2  lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4 hover:lg:pl-3 hover:md:pl-2 hover:pl-1  ${
             pathname === "/followers"
@@ -97,7 +111,7 @@ const SideBar = () => {
           <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block truncate leading-snug">
             People you follow
           </span>
-        </Link>
+        </Link> */}
         {/* <Link
           href="/points"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pl-3 lg:pr-4 md:pl-2 md:pr-1 pl-1 pr-1 text-base font-medium  hover:border-l-4   ${
@@ -113,7 +127,7 @@ const SideBar = () => {
             my points
           </span>
         </Link> */}
-        <Link
+        {/* <Link
           href="/wishlists"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4 hover:lg:pl-3 hover:md:pl-2 hover:pl-1  ${
             pathname === "/wishlists"
@@ -127,13 +141,10 @@ const SideBar = () => {
           <span className="capitalize text-[10px] md:text-xs lg:text-sm inline-block truncate leading-snug">
             wishlists
           </span>
-        </Link>
+        </Link> */}
       </div>
 
-      <div className="md:py-5 py-2.5 border-b">
-        <h6 className="sm:text-base text-xs font-bold  pb-3 text-primaryColor font-lexed">
-          Your Profile
-        </h6>
+      {/* <div className="">
         <Link
           href="/profile"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4  hover:lg:pl-3 hover:md:pl-2 hover:pl-1  ${
@@ -164,12 +175,9 @@ const SideBar = () => {
             My products
           </span>
         </Link>
-      </div>
+      </div> */}
 
-      <div className="md:py-5 py-2.5 border-b">
-        <h6 className="sm:text-base text-xs font-bold  pb-3 text-primaryColor font-lexed">
-          Privacy
-        </h6>
+      {/* <div className="md:py-5 py-2.5 border-b">
         <Link
           href="/login-security"
           className={`flex lg:flex-row lg:items-center flex-col  py-2 lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4 hover:lg:pl-3 hover:md:pl-2 hover:pl-1  ${
@@ -202,14 +210,14 @@ const SideBar = () => {
         </Link>
       </div>
 
-      <div className="mt-5 py-2 flex lg:flex-row lg:items-center flex-col  lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4 border-l-4 border-transparent text-secondColor">
+      <div className=" py-2 flex lg:flex-row lg:items-center flex-col  lg:pr-4  md:pr-1  pr-1 text-base font-medium  hover:border-l-4 border-l-4 border-transparent text-secondColor">
         <span className="lg:pe-3.5 lg:pb-0 pb-1">
           <HiOutlineLogout />
         </span>{" "}
         <span className="capitalize text-[10px] md:text-xs lg:text-sm leading-snug  inline-block truncate">
           sign out
         </span>
-      </div>
+      </div> */}
     </section>
   );
 };
