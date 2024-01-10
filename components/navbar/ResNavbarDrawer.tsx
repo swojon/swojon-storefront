@@ -63,7 +63,7 @@ const ResNavbarDrawer = () => {
           className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-white"
           onClick={() => dispatch(setNavClose())}
         >
-          <AiOutlineClose className="text-2xl" />
+          <AiOutlineClose className="text-2xl text-red-400" />
         </button>
         <div className="relative h-full">
           <div className="flex flex-wrap  border-b px-5 py-4 items-center justify-between font-semibold  gap-3">
@@ -85,7 +85,7 @@ const ResNavbarDrawer = () => {
             </Link>
           </div>
 
-          <div className="h-[77vh] custom-scroll overflow-y-auto">
+          <div className="h-[77dvh] custom-scroll overflow-y-auto pb-5">
             {parentCategories?.map((item) => (
               <div
                 className="flex justify-between items-center lg:px-8 md:px-4 px-3 my-4  cursor-pointer "

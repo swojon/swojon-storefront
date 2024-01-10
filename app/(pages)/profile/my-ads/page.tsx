@@ -8,7 +8,7 @@ const ProductLists = () => {
   const { data, error, loading } = useListListingsQuery({
     variables: {
       filters: {
-        userIds: [authState.user.id],
+        userIds: [authState.user?.id],
       },
     },
     skip: !authState.user.id,

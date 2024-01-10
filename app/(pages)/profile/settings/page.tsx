@@ -13,17 +13,17 @@ const Settings = () => {
   const isMobile = useIsMobile();
   return (
     <section>
-      <div className="flex items-center gap-3">
+      <div className="relative">
         {isMobile && (
-                   <Link
-                   href={"/profile"}
-            className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
+          <Link
+            href={"/profile"}
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 border border-secondColor  rounded-md  cursor-pointer"
             // onClick={handleLeftArrowIconClick}
           >
             <HiArrowLeft className="text-primaryColor" />
           </Link>
         )}{" "}
-        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+        <h6 className="text-primaryColor md:text-left text-center lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           Settings
         </h6>
       </div>

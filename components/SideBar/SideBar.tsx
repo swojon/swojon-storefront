@@ -11,12 +11,11 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHeart,
 } from "react-icons/hi2";
-import { HiOutlineLogout } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { LiaSignOutAltSolid } from "react-icons/lia";
-import { IoPeopleSharp } from "react-icons/io5";
 import { RiUserFollowLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
+import { motion } from "framer-motion";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const data = [
@@ -27,9 +26,24 @@ const data = [
   //   icon: <HiOutlineCurrencyDollar />,
   //   url: "/points",
   // },
-  { id: 2, title: "My products", icon: <HiOutlineInbox />, url: "/profile/my-ads" },
-  { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/profile/wishlists" },
-  { id: 35, title: "followers", icon: <HiOutlineUsers />, url: "/profile/followers" },
+  {
+    id: 2,
+    title: "My products",
+    icon: <HiOutlineInbox />,
+    url: "/profile/my-ads",
+  },
+  {
+    id: 3,
+    title: "wishlists",
+    icon: <HiOutlineHeart />,
+    url: "/profile/wishlists",
+  },
+  {
+    id: 35,
+    title: "followers",
+    icon: <HiOutlineUsers />,
+    url: "/profile/followers",
+  },
   {
     id: 75,
     title: "People you follow",
@@ -43,18 +57,22 @@ const data = [
     icon: <HiLockClosed />,
     url: "/profile/login-security",
   },
-  { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/profile/settings" },
+  {
+    id: 7,
+    title: "settings",
+    icon: <RiSettings4Line />,
+    url: "/profile/settings",
+  },
   { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
-
 
 const SideBar = () => {
   const pathname = usePathname();
   const { user } = useSelector((state: any) => state.auth);
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   return (
-    <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4">
+    <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4 md:px-0 sm:px-[6vw]">
       {/* <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
         <h6 className="lg:text-2xl md:text-lg sm:text-base text-xs font-bold text-primaryColor font-lexed truncate">
           Hi, {user?.username ?? user?.email}
@@ -64,25 +82,40 @@ const SideBar = () => {
         </small>
       </div> */}
       <div className="">
-        {data.map((item) => (
-          <Link
-            href={item.url === "/profile" ? isMobile ? `${item.url}?sidebar=hide`: item.url : item.url}
+        {data.map((item, i) => (
+          <motion.div
             key={item.id}
-            className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
-              pathname.includes( item.url) ? "text-primaryColor" : "text-secondColor"
-            }`}
+            initial={{
+              opacity: 0,
+              // translateX: i % 2 === 0 ? -50 : 50,
+              // translateY: -50,
+            }}
+            animate={{
+              opacity: 1,
+              //  translateX: 0, translateY: 0
+            }}
+            transition={{ duration: 0.1, delay: i * 0.01 }}
           >
-            <span
-              className={`text-2xl ${
-                pathname.includes(item.url) ? "text-activeColor" : "text-secondColor"
+            <Link
+              href={item.url}
+              className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
+                pathname === item.url ? "text-primaryColor" : "text-secondColor"
               }`}
             >
-              {item.icon}
-            </span>{" "}
-            <span className="capitalize  inline-block leading-snug ">
-              {item.title}
-            </span>
-          </Link>
+              <span
+                className={`text-2xl ${
+                  pathname === item.url
+                    ? "text-activeColor"
+                    : "text-secondColor"
+                }`}
+              >
+                {item.icon}
+              </span>{" "}
+              <span className="capitalize  inline-block leading-snug truncate">
+                {item.title}
+              </span>
+            </Link>
+          </motion.div>
         ))}
 
         {/* <Link
