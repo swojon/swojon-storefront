@@ -352,7 +352,7 @@ const ProductInfo = ({ product }: { product: any }) => {
       <div className="border-b border-[#F1F1F1]" />
 
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
-        <button
+        {/* <button
           onClick={() =>
             dispatch(
               setModalOpen({
@@ -365,7 +365,7 @@ const ProductInfo = ({ product }: { product: any }) => {
           className="py-[13px] text-center bg-activeColor text-white text-base rounded-md"
         >
           Make Offer
-        </button>
+        </button> */}
         <button
           onClick={() =>
             dispatch(
@@ -376,7 +376,7 @@ const ProductInfo = ({ product }: { product: any }) => {
               })
             )
           }
-          className="py-[13px] text-center bg-secondColor text-white text-base rounded-md"
+          className="py-[13px] text-center bg-activeColor text-white text-base rounded-md"
         >
           Chat with Seller
         </button>

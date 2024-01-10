@@ -97,7 +97,7 @@ function StartChatModal({ props }: { props: any }) {
 
       <div className="rounded-lg  min-h-[150px] bg-[#F1F7FF] mx-4 relative">
         <div className="absolute  bottom-0 left-0 h-14 px-3  w-full  flex items-center space-x-2">
-          { props.product.user.id !== authState.user.id ? 
+          { props.product.user.id !== authState.user?.id ? 
            <>
            <div className=" flex rounded-lg shadow-sm w-full">
             

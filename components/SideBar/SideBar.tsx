@@ -16,6 +16,7 @@ import { LiaSignOutAltSolid } from "react-icons/lia";
 import { RiUserFollowLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -25,29 +26,50 @@ const data = [
   //   icon: <HiOutlineCurrencyDollar />,
   //   url: "/points",
   // },
-  { id: 2, title: "My products", icon: <HiOutlineInbox />, url: "/my-ads" },
-  { id: 3, title: "wishlists", icon: <HiOutlineHeart />, url: "/wishlists" },
-  { id: 35, title: "followers", icon: <HiOutlineUsers />, url: "/followers" },
+  {
+    id: 2,
+    title: "My products",
+    icon: <HiOutlineInbox />,
+    url: "/profile/my-ads",
+  },
+  {
+    id: 3,
+    title: "wishlists",
+    icon: <HiOutlineHeart />,
+    url: "/profile/wishlists",
+  },
+  {
+    id: 35,
+    title: "followers",
+    icon: <HiOutlineUsers />,
+    url: "/profile/followers",
+  },
   {
     id: 75,
     title: "People you follow",
     icon: <RiUserFollowLine />,
-    url: "/following",
+    url: "/profile/following",
   },
 
   {
     id: 8,
     title: "login & security",
     icon: <HiLockClosed />,
-    url: "/login-security",
+    url: "/profile/login-security",
   },
-  { id: 7, title: "settings", icon: <RiSettings4Line />, url: "/settings" },
+  {
+    id: 7,
+    title: "settings",
+    icon: <RiSettings4Line />,
+    url: "/profile/settings",
+  },
   { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
 
 const SideBar = () => {
   const pathname = usePathname();
   const { user } = useSelector((state: any) => state.auth);
+  const isMobile = useIsMobile();
 
   return (
     <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4 md:px-0 sm:px-[6vw]">

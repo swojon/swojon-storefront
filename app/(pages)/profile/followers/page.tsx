@@ -1,5 +1,4 @@
 "use client";
-import user from "@/public/userMale.png";
 import { FaLocationDot, FaStar } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
@@ -8,51 +7,42 @@ import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
 import Image from "next/image";
 import { AiFillHeart } from "react-icons/ai";
-import {
-  useListFollowersQuery,
-  useListFollowingQuery,
-} from "@/apollograph/generated";
+import { useListFollowersQuery } from "@/apollograph/generated";
 import { useSelector } from "react-redux";
 import FollowUserCard from "@/components/FollowUserCard/FollowUserCard";
-import Link from "next/link";
-import NotMatched from "@/components/NotMatched/NotMatched";
 import FollowUserCardLoader from "@/components/Loader/FollowUserCardLoader";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
+import Link from "next/link";
 
 const Followers = () => {
   const { user } = useSelector((state: any) => state.auth);
-  const { data, error, loading } = useListFollowingQuery({
+  const { data, error, loading } = useListFollowersQuery({
     variables: {
       userId: user.id,
     },
   });
-  const followers = data?.listFollowing.items;
+  const followers = data?.listFollowers.items;
   const isMobile = useIsMobile();
-
+  console.log("Followers", followers);
   return (
     <section>
       <div className="flex items-center gap-3">
         {isMobile && (
-          <div
+                   <Link
+                   href={"/profile"}
             className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
             // onClick={handleLeftArrowIconClick}
           >
             <HiArrowLeft className="text-primaryColor" />
-          </div>
+          </Link>
         )}{" "}
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
-          People you follow
+          Followers
         </h6>
       </div>
 
-      {followers?.length === 0 && (
-        <div className=" pt-16">
-          <NotMatched title={"No followers yet"} />
-        </div>
-      )}
-
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4  pt-10">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2  grid-cols-1 gap-4  pt-10">
         {followers?.map((follower) => (
           <FollowUserCard follow={follower} key={follower.id} />
         ))}

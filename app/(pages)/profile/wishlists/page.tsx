@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import NotFound from "../../not-found/page";
+import Link from "next/link";
 
 const Wishlists = () => {
   const authState = useSelector((state: any) => state.auth);
@@ -25,15 +26,15 @@ const Wishlists = () => {
     <section>
       <div className="relative">
         {isMobile && (
-          <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 border border-secondColor  rounded-md  cursor-pointer "
-            // onClick={handleLeftArrowIconClick}
+          <Link
+            href={"/profile"}
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 border border-secondColor  rounded-md  cursor-pointer"
           >
             <HiArrowLeft className="text-primaryColor" />
-          </div>
-        )}
-        <h6 className="text-primaryColor  md:text-left text-center lg:text-2xl md:text-lg text-base font-lexed font-medium ">
-          Wishlists
+          </Link>
+        )}{" "}
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+          My Favorites
         </h6>
       </div>
       {/* {!!wishListItems || wishListItems?.length == 0(<NotFound />)} */}
