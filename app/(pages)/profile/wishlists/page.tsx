@@ -34,7 +34,7 @@ const Wishlists = () => {
           </Link>
         )}{" "}
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
-          My Product Lists
+          My Favorites
         </h6>
       </div>{" "}
       <div className="grid  lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2  pt-8">

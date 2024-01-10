@@ -118,7 +118,7 @@ const ResNavbarDrawer = () => {
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
             </Link>
-            <Link href="/wishlists">
+            <Link href="/profile/wishlists">
               <FaRegHeart className="text-2xl" />
             </Link>
 
