@@ -7,6 +7,9 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import defaultAvatar from "@/public/assets/avatar.svg";
+import useIsMobile from "@/lib/hooks/useIsMobile";
+import Link from "next/link";
+import { HiArrowLeft } from "react-icons/hi2";
 const Profile = () => {
   const authState = useSelector((state: any) => state.auth);
   const { data, loading, error } = useGetUserByIdQuery({
@@ -19,9 +22,24 @@ const Profile = () => {
 
   const [editBtn, setEditBtn] = useState("");
   const dispatch = useDispatch();
-
+  const isMobile = useIsMobile()
+  
   return (
     <section className="">
+      <div className="flex items-center gap-3">
+        {isMobile && (
+                   <Link
+                   href={"/profile"}
+            className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
+            // onClick={handleLeftArrowIconClick}
+          >
+            <HiArrowLeft className="text-primaryColor" />
+          </Link>
+        )}{" "}
+        <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+          Personal Information
+        </h6>
+      </div>
       {/* <div className="border-b lg:px-5 md:px-3 px-2 lg:py-3.5 md:py-2.5 py-2">
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base  font-lexed font-medium">
           Personal information

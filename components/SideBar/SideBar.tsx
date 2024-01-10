@@ -17,6 +17,7 @@ import { LiaSignOutAltSolid } from "react-icons/lia";
 import { IoPeopleSharp } from "react-icons/io5";
 import { RiUserFollowLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
+import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -46,9 +47,11 @@ const data = [
   { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
 
+
 const SideBar = () => {
   const pathname = usePathname();
   const { user } = useSelector((state: any) => state.auth);
+  const isMobile = useIsMobile()
 
   return (
     <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4">
@@ -63,15 +66,15 @@ const SideBar = () => {
       <div className="">
         {data.map((item) => (
           <Link
-            href={item.url}
+            href={item.url === "/profile" ? isMobile ? `${item.url}?sidebar=hide`: item.url : item.url}
             key={item.id}
             className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
-              pathname === item.url ? "text-primaryColor" : "text-secondColor"
+              pathname.includes( item.url) ? "text-primaryColor" : "text-secondColor"
             }`}
           >
             <span
               className={`text-2xl ${
-                pathname === item.url ? "text-activeColor" : "text-secondColor"
+                pathname.includes(item.url) ? "text-activeColor" : "text-secondColor"
               }`}
             >
               {item.icon}

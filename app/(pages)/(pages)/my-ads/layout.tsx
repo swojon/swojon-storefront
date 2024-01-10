@@ -19,12 +19,13 @@ const ProductLists = ({ children }: { children: any }) => {
       <div className=" flex flex-col md:flex-row md:justify-between md:items-center gap-3">
         <div className="flex items-center gap-3">
           {isMobile && (
-            <div
+            <Link
+            href={"/profile"}
               className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
               // onClick={handleLeftArrowIconClick}
             >
               <HiArrowLeft className="text-primaryColor" />
-            </div>
+            </Link>
           )}{" "}
           <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
             My Product Lists

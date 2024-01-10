@@ -8,6 +8,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
+import Link from "next/link";
 
 const Wishlists = () => {
   const authState = useSelector((state: any) => state.auth);
@@ -24,12 +25,13 @@ const Wishlists = () => {
     <section>
       <div className="flex items-center gap-3">
         {isMobile && (
-          <div
+          <Link
+            href={"/profile"}
             className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
             // onClick={handleLeftArrowIconClick}
           >
             <HiArrowLeft className="text-primaryColor" />
-          </div>
+          </Link>
         )}{" "}
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           My Product Lists

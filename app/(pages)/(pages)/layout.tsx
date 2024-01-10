@@ -24,7 +24,7 @@ function layout({ children }: Iprops) {
           <span className="text-xs text-primaryColor">My Points</span>
         </div>
         <div className="flex custom-container  justify-between py-4">
-          {(!isMobile || (pathname === "/profile" && (!!sidebar || sidebar !== "hide" ))) && (
+          {(!isMobile || (pathname === "/profile" && (!sidebar || sidebar !== "hide" ))) && (
             <div className="lg:w-[22%] md:w-[27%]  w-full">
               <SideBar />
             </div>

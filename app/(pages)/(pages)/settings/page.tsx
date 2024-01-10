@@ -6,6 +6,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
+import Link from "next/link";
 
 const Settings = () => {
   const [editInformation, setEditInformation] = useState("edit");
@@ -14,12 +15,13 @@ const Settings = () => {
     <section>
       <div className="flex items-center gap-3">
         {isMobile && (
-          <div
+                   <Link
+                   href={"/profile"}
             className=" p-2 border border-secondColor  rounded-md  cursor-pointer "
             // onClick={handleLeftArrowIconClick}
           >
             <HiArrowLeft className="text-primaryColor" />
-          </div>
+          </Link>
         )}{" "}
         <h6 className="text-primaryColor lg:text-2xl md:text-lg text-base font-lexed font-medium ">
           Settings
