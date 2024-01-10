@@ -8,7 +8,9 @@ interface Iprops {
 
 function layout({ children }: Iprops) {
   return (
-    <ProfileArea children={children} />
+    <ProfileArea>
+      {children}
+      </ProfileArea>
   );
 }
 
