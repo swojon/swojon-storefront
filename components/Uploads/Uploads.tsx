@@ -106,7 +106,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     "description",
     "images",
     "condition",
-    "brandId",
+    // "brandId",
     "categoryId",
     "price",
     "dealingMethod",
