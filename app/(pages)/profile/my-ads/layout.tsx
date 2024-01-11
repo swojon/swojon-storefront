@@ -26,7 +26,7 @@ const ProductLists = ({ children }: { children: any }) => {
               <HiArrowLeft className="text-primaryColor" />
             </Link>
           )}{" "}
-          <h6 className="text-primaryColor text-center md:text-left lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+          <h6 className="text-primaryColor text-center md:text-left lg:text-2xl md:text-lg text-base font-lexed font-bold ">
             My Product Lists
           </h6>
         </div>{" "}

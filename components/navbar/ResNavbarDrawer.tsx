@@ -63,7 +63,7 @@ const ResNavbarDrawer = () => {
           className="absolute -right-12 top-0  p-3 bg-black rounded-sm text-white"
           onClick={() => dispatch(setNavClose())}
         >
-          <AiOutlineClose className="text-2xl text-red-400" />
+          <AiOutlineClose className="text-2xl text-green-400" />
         </button>
         <div className="relative h-full">
           <div className="flex flex-wrap  border-b px-5 py-4 items-center justify-between font-semibold  gap-3">

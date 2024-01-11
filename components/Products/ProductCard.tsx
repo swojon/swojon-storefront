@@ -38,7 +38,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
 
   return (
     <div className="rounded-2xl   cursor-pointer transition ease-in-out delay-150 duration-300">
-      <div className="md:h-[270px] sm:h-[250px] h-[220px] relative overflow-hidden  rounded-lg ">
+      <div className="md:h-[270px] sm:h-[250px] h-[250px] relative overflow-hidden  rounded-lg ">
         <Link href={`/products/${listing.id}`}>
           <Image
             src={

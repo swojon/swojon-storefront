@@ -8,22 +8,14 @@ import { MdLocationPin } from "react-icons/md";
 const ChatMessageLoader = () => {
   return (
     <section className="h-full w-full relative border-l">
-      <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center ">
+      <div className="sticky top-0 left-0 h-14 px-3  w-full flex  items-center ">
         <div className="flex items-center gap-2">
-          <button className="p-1.5 border border-activeColor me-1 rounded-md block ">
-            <HiUsers className="text-primaryColor" />
-          </button>
-
           <div className="w-8 h-8 rounded-full bg-gray-300 animate-pulse"></div>
           <div className="pr-3 space-y-2  animate-pulse ">
             <h5 className="  h-3 w-24 bg-gray-200 rounded-md "></h5>
             <p className="h-2 w-16 bg-gray-200 rounded-md"></p>
           </div>
         </div>
-
-        <button className="text-lg text-primaryColor cursor-pointer block ">
-          <BsThreeDots />
-        </button>
       </div>
       <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center ">
         <div className="h-20 w-32 border rounded-md bg-gray-300 animate-pulse"></div>
