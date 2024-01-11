@@ -154,18 +154,17 @@ const MessageAreaData = ({
   };
   return (
     <section className="h-full w-full relative border-l">
-      <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center ">
-        <div className="flex items-center gap-2">
-          {isMobile && (
-            <button
-              className="p-1.5 border border-secondColor me-1 rounded-md block "
-              onClick={handleLeftArrowIconClick}
-            >
-              <HiArrowLeft className="text-primaryColor" />
-            </button>
-          )}
-
-          <div className="w-8 h-8 rounded-full ">
+      <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center gap-2">
+        {isMobile && (
+          <button
+            className="p-1.5 border border-secondColor me-1 rounded-md block "
+            onClick={handleLeftArrowIconClick}
+          >
+            <HiArrowLeft className="text-primaryColor" />
+          </button>
+        )}{" "}
+        <div className="flex items-center gap-2 sm:w-auto w-[70%] ">
+          <div className="sm:w-8 w-5 sm:h-8 w-5 rounded-full ">
             <Image
               src="/user1.jpg"
               alt="user"
@@ -174,23 +173,22 @@ const MessageAreaData = ({
               className="w-ful h-full object-cover rounded-full"
             />
           </div>
-          <div className="pr-3 space-y-1">
-            <h5 className="text-sm text-primaryColor font-lexed truncate">
+          <div className="pr-3 space-y-1 truncate ">
+            <span className="text-sm text-primaryColor font-medium truncate ">
               {activeChat.members
                 ?.filter((crm: any) => crm.userId !== authState.user.id)
                 ?.map((m: any) => m.user?.username ?? m.user?.email)
                 .join(",") ?? activeChat?.chatName}
-            </h5>
+            </span>
             <div className="flex items-center space-x-1">
               <span className=" right-0 bottom-0 w-2 h-2 rounded-full bg-green-400"></span>
               <p className="text-xs text-secondColor">Active Now</p>
             </div>
           </div>
         </div>
-
         <button
           // className="text-lg cursor-pointer block "
-          className="p-1.5 border border-secondColor me-1 rounded-md block "
+          className="p-1.5 border border-secondColor me-1 rounded-md  "
           onClick={handleInfoIconClick}
         >
           <BsInfo />
@@ -260,9 +258,9 @@ const MessageAreaData = ({
           {messages.map((msg) => (
             <MessageDetail msg={msg} key={msg.id} />
           ))}
-          <div className="w-full flex justify-end">
+          {/* <div className="w-full flex justify-end">
             <AdStartConversation />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -276,7 +274,7 @@ const MessageDetail = ({ msg }: { msg: any }) => {
   if (msg.sender.id === authState.user.id)
     return (
       <div className="relative w-full flex justify-end items-start  pb-3.5">
-        <div className="md:w-1/2 w-[75%] flex justify-end px-2  relative ">
+        <div className="md:w-1/2 w-full flex justify-end px-2  relative ">
           <span className="p-2 inline-block bg-activeColor text-white text-sm rounded-md rounded-br-none">
             {msg.content}
           </span>
@@ -290,8 +288,8 @@ const MessageDetail = ({ msg }: { msg: any }) => {
   else
     return (
       <div className="relative w-full flex justify-start pb-1">
-        <div className="md:w-1/2 w-[75%] flex justify-start items-center p-2  space-x-2 mb-1">
-          <div className="w-7 h-7 rounded-full">
+        <div className="md:w-1/2 w-full flex justify-start items-start p-2 gap-2 mb-1 ">
+          <div className="sm:w-9 w-4 sm:h-8 w-4 rounded-full">
             <Image
               src="/user1.jpg"
               width={100}
@@ -301,9 +299,9 @@ const MessageDetail = ({ msg }: { msg: any }) => {
             />
           </div>
           <div className="relative w-full">
-            <span className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
+            <p className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
               {msg.content}
-            </span>
+            </p>
             <span className="absolute left-0 -bottom-5 text-[#979696] text-xs block">
               {timeAgo(msg.dateSent)}
             </span>

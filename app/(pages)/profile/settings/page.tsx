@@ -23,7 +23,7 @@ const Settings = () => {
             <HiArrowLeft className="text-primaryColor" />
           </Link>
         )}{" "}
-        <h6 className="text-primaryColor md:text-left text-center lg:text-2xl md:text-lg text-base font-lexed font-medium ">
+        <h6 className="text-primaryColor md:text-left text-center lg:text-2xl md:text-lg text-base font-lexed font-bold ">
           Settings
         </h6>
       </div>

@@ -20,7 +20,6 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
-
   {
     id: 2,
     title: "My products",
@@ -67,7 +66,7 @@ const SideBar = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="sticky top-0  rounded-md min-h-[87vh] h-full py-4 md:px-0 sm:px-[6vw]">
+    <section className="sticky top-0  rounded-md min-h-[87dvh] h-full pb-4 md:px-0 sm:px-[6vw]">
       {/* <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
         <h6 className="lg:text-2xl md:text-lg sm:text-base text-xs font-bold text-primaryColor font-lexed truncate">
           Hi, {user?.username ?? user?.email}
@@ -92,7 +91,13 @@ const SideBar = () => {
             transition={{ duration: 0.1, delay: i * 0.01 }}
           >
             <Link
-              href={item.url === "/profile" ? isMobile ? "/profile?sidebar=hide" : "/profile": item.url}
+              href={
+                item.url === "/profile"
+                  ? isMobile
+                    ? "/profile?sidebar=hide"
+                    : "/profile"
+                  : item.url
+              }
               className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
                 pathname === item.url ? "text-primaryColor" : "text-secondColor"
               }`}
