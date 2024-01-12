@@ -23,6 +23,7 @@ import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 import DynamicModal from "@/components/Modal/DynamicModal";
 import ResNavbarDrawer from "@/components/navbar/ResNavbarDrawer";
 import ImagePop from "@/components/ImagePop/ImagePop";
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,6 +87,7 @@ export default async function RootLayout({ children }: Iprops) {
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
               <SpeedInsights />
+              <Analytics />
               <Toaster />
               <NotificationDrawer />
               <ResNavbarDrawer />
