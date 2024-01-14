@@ -50,7 +50,8 @@ const ExploreDetail = ({ params }: { params: any }) => {
         filters: filters,
         orderBy: orderBy,
         limit: 36,
-        endingBefore: listings![listings!.length - 1]?.id
+        // endingBefore: listings![listings!.length - 1]?.id,
+        startingAfter: data?.listListings.afterCursor
       },
       updateQuery: (
         prev: any,

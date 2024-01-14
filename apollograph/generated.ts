@@ -10,7 +10,7 @@ export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' |
 const defaultOptions = {} as const;
 
 export const ListCategoriesDocument = gql`
-    query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {
+    query ListCategories($filters: CategoryFilterInput, $limit: Float, $startingAfter: String) {
   listCategories(filters: $filters, limit: $limit, starting_after: $startingAfter) {
     hasMore
     count
@@ -251,7 +251,7 @@ export type ListChatsQueryHookResult = ReturnType<typeof useListChatsQuery>;
 export type ListChatsLazyQueryHookResult = ReturnType<typeof useListChatsLazyQuery>;
 export type ListChatsQueryResult = Apollo.QueryResult<ListChatsQuery, ListChatsQueryVariables>;
 export const GetChatMessageDocument = gql`
-    query getChatMessage($chatRoomId: Float!, $endingBefore: Float, $limit: Float, $startingAfter: Float) {
+    query getChatMessage($chatRoomId: Float!, $endingBefore: String, $limit: Float, $startingAfter: String) {
   listChatMessages(
     chatRoomId: $chatRoomId
     ending_before: $endingBefore
@@ -1038,7 +1038,7 @@ export type ListFavoriteListingQueryHookResult = ReturnType<typeof useListFavori
 export type ListFavoriteListingLazyQueryHookResult = ReturnType<typeof useListFavoriteListingLazyQuery>;
 export type ListFavoriteListingQueryResult = Apollo.QueryResult<ListFavoriteListingQuery, ListFavoriteListingQueryVariables>;
 export const ListListingsDocument = gql`
-    query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: Float, $startingAfter: Float, $orderBy: String) {
+    query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: String, $startingAfter: String, $orderBy: String) {
   listListings(
     filters: $filters
     limit: $limit
@@ -1105,6 +1105,8 @@ export const ListListingsDocument = gql`
     }
     hasMore
     count
+    beforeCursor
+    afterCursor
   }
 }
     `;
@@ -1231,7 +1233,7 @@ export type GetListingQueryHookResult = ReturnType<typeof useGetListingQuery>;
 export type GetListingLazyQueryHookResult = ReturnType<typeof useGetListingLazyQuery>;
 export type GetListingQueryResult = Apollo.QueryResult<GetListingQuery, GetListingQueryVariables>;
 export const SearchListingsDocument = gql`
-    query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float, $orderBy: String) {
+    query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: String, $endingBefore: String, $orderBy: String) {
   searchListings(
     query: $query
     filters: $filters
@@ -1380,7 +1382,7 @@ export type SearchLocationQueryHookResult = ReturnType<typeof useSearchLocationQ
 export type SearchLocationLazyQueryHookResult = ReturnType<typeof useSearchLocationLazyQuery>;
 export type SearchLocationQueryResult = Apollo.QueryResult<SearchLocationQuery, SearchLocationQueryVariables>;
 export const ListNotificationsDocument = gql`
-    query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+    query ListNotifications($filters: NotificationFilterInput, $endingBefore: String, $startingAfter: String, $limit: Float) {
   listNotifications(
     filters: $filters
     ending_before: $endingBefore
@@ -1613,7 +1615,7 @@ export type SummaryUserReviewQueryHookResult = ReturnType<typeof useSummaryUserR
 export type SummaryUserReviewLazyQueryHookResult = ReturnType<typeof useSummaryUserReviewLazyQuery>;
 export type SummaryUserReviewQueryResult = Apollo.QueryResult<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>;
 export const ListSellerReviewsDocument = gql`
-    query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+    query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: String, $startingAfter: String, $limit: Float) {
   listSellerReviews(
     filters: $filters
     userId: $userId
@@ -2098,11 +2100,6 @@ export type Listing = {
   user: User;
 };
 
-export type ListingCommunityInputDto = {
-  communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
-  listingId: Scalars['Float']['input'];
-};
-
 export type ListingCreateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId: Scalars['Float']['input'];
@@ -2152,7 +2149,9 @@ export type ListingUpdateDto = {
 
 export type Listings = {
   __typename?: 'Listings';
-  count: Scalars['Float']['output'];
+  afterCursor?: Maybe<Scalars['String']['output']>;
+  beforeCursor?: Maybe<Scalars['String']['output']>;
+  count?: Maybe<Scalars['Float']['output']>;
   hasMore: Scalars['Boolean']['output'];
   items: Array<Listing>;
 };
@@ -2203,8 +2202,6 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Add category of brand */
   addBrandCategory: Brand;
-  /** Add Communities to listing */
-  addCommunityToListing: Listing;
   /** Add Favorite to Listing */
   addFavorite: Favorite;
   /** Follow user */
@@ -2251,8 +2248,6 @@ export type Mutation = {
   removeCategories: Categories;
   /** Remove Category */
   removeCategory: Category;
-  /** Remove Communities from listing */
-  removeCommunityToListing: Listing;
   /** Remove Favorite From Listing */
   removeFavorite: Favorite;
   /** Unfollow user */
@@ -2298,11 +2293,6 @@ export type Mutation = {
 
 export type MutationAddBrandCategoryArgs = {
   inputData: BrandCategoryInput;
-};
-
-
-export type MutationAddCommunityToListingArgs = {
-  inputData: ListingCommunityInputDto;
 };
 
 
@@ -2417,11 +2407,6 @@ export type MutationRemoveCategoriesArgs = {
 
 export type MutationRemoveCategoryArgs = {
   categoryId: Scalars['Float']['input'];
-};
-
-
-export type MutationRemoveCommunityToListingArgs = {
-  inputData: ListingCommunityInputDto;
 };
 
 
@@ -2773,28 +2758,28 @@ export type QueryListBrandOptionsArgs = {
 
 
 export type QueryListBrandsArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryListCategoriesArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<CategoryFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryListChatMessagesArgs = {
   chatRoomId: Scalars['Float']['input'];
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2835,37 +2820,37 @@ export type QueryListListingReviewsArgs = {
 
 
 export type QueryListListingsArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryListNotificationsArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<NotificationFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryListPointsHistoryArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryListSellerReviewsArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<ReviewFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
   userId: Scalars['Float']['input'];
 };
 
@@ -2881,12 +2866,12 @@ export type QueryListUserReviewsArgs = {
 
 
 export type QuerySearchListingsArgs = {
-  ending_before?: InputMaybe<Scalars['Float']['input']>;
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
   query: SerachInputDto;
-  starting_after?: InputMaybe<Scalars['Float']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -3079,7 +3064,7 @@ export type UserWithMeta = {
 export type ListCategoriesQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3118,9 +3103,9 @@ export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename
 
 export type GetChatMessageQueryVariables = Exact<{
   chatRoomId: Scalars['Float']['input'];
-  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3221,13 +3206,13 @@ export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListi
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
-  endingBefore?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
@@ -3241,13 +3226,13 @@ export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
   filters?: InputMaybe<ListingFilterInput>;
   limit?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
-  endingBefore?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count: number, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type SearchLocationQueryVariables = Exact<{
   nominatimQuery: NominatimSearchDto;
@@ -3258,8 +3243,8 @@ export type SearchLocationQuery = { __typename?: 'Query', searchLocation: { __ty
 
 export type ListNotificationsQueryVariables = Exact<{
   filters?: InputMaybe<NotificationFilterInput>;
-  endingBefore?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
@@ -3296,8 +3281,8 @@ export type SummaryUserReviewQuery = { __typename?: 'Query', summaryUserReview: 
 export type ListSellerReviewsQueryVariables = Exact<{
   filters?: InputMaybe<ReviewFilterInput>;
   userId: Scalars['Float']['input'];
-  endingBefore?: InputMaybe<Scalars['Float']['input']>;
-  startingAfter?: InputMaybe<Scalars['Float']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
 }>;
 

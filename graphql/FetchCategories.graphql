@@ -1,4 +1,4 @@
-query ListCategories ($filters: CategoryFilterInput, $limit: Float, $startingAfter: Float) {
+query ListCategories ($filters: CategoryFilterInput, $limit: Float, $startingAfter: String) {
   listCategories (filters: $filters, limit: $limit, starting_after: $startingAfter){
     hasMore
     count

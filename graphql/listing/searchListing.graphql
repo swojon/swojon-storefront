@@ -1,4 +1,4 @@
-query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: Float, $endingBefore: Float, $orderBy: String) {
+query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: String, $endingBefore: String, $orderBy: String) {
   searchListings(query: $query, filters: $filters, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore, orderBy: $orderBy) {
     hasMore
     count

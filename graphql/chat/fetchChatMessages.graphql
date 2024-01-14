@@ -1,4 +1,4 @@
-query getChatMessage($chatRoomId: Float!, $endingBefore: Float, $limit: Float, $startingAfter: Float){
+query getChatMessage($chatRoomId: Float!, $endingBefore: String, $limit: Float, $startingAfter: String){
     listChatMessages(chatRoomId: $chatRoomId, ending_before: $endingBefore, limit: $limit, starting_after: $startingAfter){
         items{
             id

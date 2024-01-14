@@ -1,4 +1,4 @@
-query ListNotifications($filters: NotificationFilterInput, $endingBefore: Float, $startingAfter: Float, $limit: Float) {
+query ListNotifications($filters: NotificationFilterInput, $endingBefore: String, $startingAfter: String, $limit: Float) {
   listNotifications(filters: $filters, ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit) {
     count
     hasMore

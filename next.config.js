@@ -1,10 +1,16 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+})
+
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
         remotePatterns: [
             {
-              hostname: 'localhost',
-              pathname: '**',
+                hostname: 'localhost',
+                pathname: '**',
             },
             {
                 hostname: 'res.cloudinary.com',
@@ -20,7 +26,7 @@ const nextConfig = {
             }
         ]
     }
-
+    
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

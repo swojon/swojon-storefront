@@ -11,7 +11,7 @@ const CategoryCard = () => {
         <Link
           href={`/categories/${item.slug}`}
           key={item.id}
-          className=" relative h-[250px] shadow rounded-lg category-item"
+          className=" relative h-[200px] w-[200px] shadow rounded-lg category-item"
         >
           <Image
             src={item.cardImg}
