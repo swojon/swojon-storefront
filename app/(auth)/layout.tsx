@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
 import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import "./signInUp.css";

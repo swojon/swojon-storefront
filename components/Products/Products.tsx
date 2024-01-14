@@ -13,7 +13,8 @@ const Products = () => {
       filters: {
         status: "approved",
       },
-      limit: 16,
+      orderBy: "newest",
+      limit: 12,
     },
   });
   const featuredProduct = data?.listListings.items;

@@ -33,7 +33,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
     filters = { ...filters, categorySlug: categoryFilter };
 
   console.log("Applying filter", filters);
-  const { data, loading, error } = useListListingsQuery({
+  const { data, loading, error, fetchMore } = useListListingsQuery({
     variables: {
       filters: filters,
       orderBy: orderBy,
@@ -43,6 +43,37 @@ const ExploreDetail = ({ params }: { params: any }) => {
   const listings = data?.listListings?.items;
   console.log("Got Listings", listings);
   const dispatch = useDispatch();
+  
+  const handleLoadMore = () => {
+    fetchMore({
+      variables: {
+        filters: filters,
+        orderBy: orderBy,
+        limit: 36,
+        endingBefore: listings![listings!.length - 1]?.id
+      },
+      updateQuery: (
+        prev: any,
+        { fetchMoreResult }: any
+      ) => {
+        if (!fetchMoreResult.listListings.items)
+          return prev;
+        
+          // console.log("Fetch More Result", fetchMoreResult)  
+        return {
+          listListings: {
+            ...prev.listListings,
+            items: [
+              ...prev.listListings.items,
+              ...fetchMoreResult.listListings.items,
+            ],
+            hasMore:
+              fetchMoreResult.listListings.hasMore
+          },
+        };
+      },
+    });
+  }
 
   return (
     <section className="custom-container py-10">
@@ -90,7 +121,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
           </div>
           {data?.listListings.hasMore && 
           <div className="flex justify-center mt-7">
-            <button className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <button onClick={handleLoadMore} className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Load More
             </button>
           </div>
