@@ -40,7 +40,7 @@ export default function Navbar2({ border }: { border: any }) {
   return (
     <Disclosure
       as="nav"
-      className={` px-[2vw]  ${
+      className={` px-[2vw] bg-transparent z-[100]  ${
         border === "border" ? "border-b border-[#E6E6E6]" : "border-0"
       }`}
     >
@@ -133,7 +133,9 @@ export default function Navbar2({ border }: { border: any }) {
                   >
                     <FaRegBell
                       className={`text-lg  ${
-                        border === "border" ? "text-primaryColor" : "text-white"
+                        border === "border"
+                          ? "text-primaryColor"
+                          : "text-primaryColor"
                       }`}
                     />
                     {/* <div
@@ -148,7 +150,9 @@ export default function Navbar2({ border }: { border: any }) {
                   <Link href="/chat">
                     <RiWechatLine
                       className={`text-2xl  ${
-                        border === "border" ? "text-primaryColor" : "text-white"
+                        border === "border"
+                          ? "text-primaryColor"
+                          : "text-primaryColor"
                       }`}
                     />
                   </Link>
@@ -158,7 +162,9 @@ export default function Navbar2({ border }: { border: any }) {
                   <Link href="/signup">
                     <button
                       className={`py-1.5  leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
-                        border === "border" ? "text-primaryColor" : "text-white"
+                        border === "border"
+                          ? "text-primaryColor"
+                          : "text-primaryColor"
                       }`}
                     >
                       sign up
@@ -184,7 +190,7 @@ export default function Navbar2({ border }: { border: any }) {
                             className={`text-[22px] font-semiBold  ${
                               border === "border"
                                 ? "text-primaryColor"
-                                : "text-white"
+                                : "text-primaryColor"
                             }`}
                           />
                         )}
@@ -268,7 +274,9 @@ export default function Navbar2({ border }: { border: any }) {
                   <Link href="/login">
                     <button
                       className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
-                        border === "border" ? "text-primaryColor" : "text-white"
+                        border === "border"
+                          ? "text-primaryColor"
+                          : "text-primaryColor"
                       }`}
                     >
                       login
