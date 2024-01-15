@@ -28,8 +28,8 @@ const ResponsiveNavBar = ({
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
   return (
-    <div className="flex h-16 justify-between gap-x-2 items-center ">
-      <div className="flex items-center md:gap-x-5 gap-x-3  sm:w-[43%] w-[40%]">
+    <div className="flex h-16 justify-between gap-x-2 items-center z-10">
+      <div className="flex items-center md:gap-x-5 gap-x-3  sm:w-[43%] w-[40%] z-10">
         <button
           onClick={() => dispatch(setNavOpen())}
           className={`flex items-center  focus:outline-none  ${
@@ -46,7 +46,7 @@ const ResponsiveNavBar = ({
         /> */}
       </div>
 
-      <Link href="/" className="sm:w-[14%] w[-20%] flex justify-center">
+      <Link href="/" className="sm:w-[14%] w[-20%] flex justify-center z-10">
         <div className={` h-6 lg:w-[85px] md:w-20 w-16 `}>
           {border === "border" ? (
             <Image
@@ -69,7 +69,7 @@ const ResponsiveNavBar = ({
         </div>
       </Link>
 
-      <div className="flex items-center justify-end  md:gap-x-5 gap-x-3 sm:w-[43%] w-[40%]">
+      <div className="flex items-center justify-end  md:gap-x-5 gap-x-3 sm:w-[43%] w-[40%] z-10">
         {/* <IoSearchOutline
           className={`text-lg ${
             border === "border" ? "  text-primaryColor" : "text-white"

@@ -10,7 +10,17 @@ const CategoryCardSlider = ({ data }: { data: any }) => {
   return (
     <>
       <Swiper
-        slidesPerView={2}
+        breakpoints={{
+          375: {
+            slidesPerView: 2,
+          },
+          640: {
+            slidesPerView: 4,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+        }}
         spaceBetween={15}
         cssMode={true}
         navigation={true}
@@ -19,14 +29,15 @@ const CategoryCardSlider = ({ data }: { data: any }) => {
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper "
-        style={{ height: "250px",
-        //  "--swiper-navigation-size": "25px"
-       }}
+        style={{
+          height: "230px",
+          //  "--swiper-navigation-size": "25px"
+        }}
       >
         {data.listCategories.items.map((category: any) => (
           <SwiperSlide
             key={category.id}
-            style={{ height: "200px" }}
+            style={{ height: "170px" }}
             className="relative rounded-lg overflow-hidden"
           >
             <Link
