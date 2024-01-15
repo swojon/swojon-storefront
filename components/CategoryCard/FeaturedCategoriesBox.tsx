@@ -21,7 +21,7 @@ const FeaturedCategoriesBox = () => {
   console.log(data?.listCategories.items);
 
   return (
-    <div className="md:mt-20 mt-16  custom-container space-y-10">
+    <div className="md:mt-20 mt-14  custom-container space-y-10">
       <div className="flex  justify-between items-center gap-2">
         <h2 className="lg:text-4xl text-2xl font-semibold text-primaryColor capitalize truncate">
           Ready to Shop?
@@ -37,7 +37,7 @@ const FeaturedCategoriesBox = () => {
           <CategoryCardLoader />
         </div>
       )}
-      <div className="w-full hidden  md:grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-3">
+      <div className="w-full hidden  md:grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
         {data &&
           data.listCategories.items.map((category) => (
             <CategoryCard2 item={category} key={`featured${category.id}`} />

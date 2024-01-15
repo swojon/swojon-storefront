@@ -1,9 +1,9 @@
 .hero-container {
-  background:
+  // background:
   //  linear-gradient(rgba(1, 10, 43, 0.415), rgba(1, 9, 38, 0.484)),
-    url("/assets/Swojon_Cover_photo.png");
-  background-position: bottom;
-  background-size: cover;
+  //   url("/assets/Swojon_Cover_photo.png");
+  // background-position: bottom;
+  // background-size: cover;
   // background-color: #f9f9f9;
   .hero-height {
     height: calc(85vh - 4rem);
@@ -13,6 +13,16 @@
     // @media (max-width: 420px) {
     //   height: calc(60vh - 4rem);
     //   border: 1px solid red;
+    // }
+  }
+  .img-layout {
+    // @media (max-width: 768px) {
+    //   background: linear-gradient(
+    //     to top,
+    //     rgba(186, 30, 30, 0.8),
+    //     rgba(0, 0, 0, 0),
+    //     rgba(0, 0, 0, 0)
+    //   );
     // }
   }
   @media (max-width: 768px) {

@@ -52,7 +52,7 @@ export default function Navbar2({ border }: { border: any }) {
               <ResponsiveNavBar border={border} handleSignOut={handleSignOut} />
             </div>
             <div className="lg:flex h-16 justify-between gap-2 items-center hidden">
-              <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center ">
+              <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center z-10">
                 <Link
                   href="/"
                   className={`  lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
@@ -124,7 +124,7 @@ export default function Navbar2({ border }: { border: any }) {
                 <SearchField />
               </div>
 
-              <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2">
+              <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2 z-10">
                 {authState.isAuthenticated && (
                   // <NotificationDropDown border={border} />
                   <div
