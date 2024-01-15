@@ -14,11 +14,11 @@ const HeroSection = () => {
       <Navbar2 border="none" />
 
       <div className="flex md:justify-end hero-height justify-center items-center  custom-container   relative">
-        <div className="md:text-end text-center space-y-2 md:space-y-4 z-10 ">
+        <div className="md:text-center text-center space-y-2 md:space-y-4 z-10 ">
           <h1 className="lg:text-6xl font-lexed md:text-5xl text-4xl font-bold flex flex-col space-y-2 animate text-primaryColor slideInLeft drop-shadow-2xl shadow-black">
             <span> Save! Declutter! </span>
           </h1>
-          <p className="text-secondColor xl:text-xl lg:text-lg md:text-base text-sm  flex flex-col    animate--delay-1s slideInLeft2  drop-shadow-xl shadow-black">
+          <p className="text-primaryColor xl:text-xl lg:text-lg md:text-base text-sm  flex flex-col    animate--delay-1s slideInLeft2  drop-shadow-xl shadow-black">
             <span className="md:block pe-2">
               Sustainable Shopping, Unbeatable Prices – Welcome to Swojon
             </span>
