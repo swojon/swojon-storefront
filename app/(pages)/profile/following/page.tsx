@@ -47,12 +47,6 @@ const Followers = () => {
         </h6>
       </div>
 
-      {followers?.length === 0 && (
-        <div className=" pt-16">
-          <NotMatched title={"No followers yet"} />
-        </div>
-      )}
-
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4  pt-10">
         {followers?.map((follower) => (
           <FollowUserCard follow={follower} key={follower.id} />

@@ -19,7 +19,7 @@ const Wishlists = () => {
     variables: {
       userId: authState?.user?.id
     },
-    skip: authState?.user?.id
+    skip: !authState?.user?.id
   });
   const wishListItems = data?.listFavoriteListing.items;
   const isMobile = useIsMobile();
