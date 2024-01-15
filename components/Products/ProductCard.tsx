@@ -80,7 +80,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-xs" />
           <span className="text-xs ps-1">
-            {listing.user.username ?? listing.user.email}
+            {listing.user.username ?? listing.user.profile?.name ?? listing.user.email.split('@')[0]}
           </span>
         </div>
 

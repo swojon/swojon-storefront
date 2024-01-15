@@ -1,6 +1,7 @@
 import { useListListingsQuery } from '@/apollograph/generated'
 import React from 'react'
 import ProductCard from '../Products/ProductCard'
+import ProductLoader from '../Loader/ProductLoader'
 
 function SellerProductList({sellerId}: {sellerId: any}) {
     const {data, error, loading } = useListListingsQuery({
@@ -15,6 +16,7 @@ function SellerProductList({sellerId}: {sellerId: any}) {
     console.log("Listing")
     return (
         <>
+            {loading && <ProductLoader />}
             {listings?.map((card) => (
                 <ProductCard card={card} key={card.id} />
             ))} 

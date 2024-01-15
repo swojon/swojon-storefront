@@ -13,17 +13,17 @@ import { useState } from "react";
 const NotificationDrawer = () => {
   const dispatch = useDispatch();
   const isNotificationDrawerOpen = useSelector(
-    (state: any) => state.notificationDrawer.open
-  );
+    (state: any) => state.notificationDrawer.open 
+  ) ?? false; //setting default false
   const [unreadOnly, setUnreadOnly] = useState(true);
 
   return (
     <section
       className={`fixed top-0 z-[1000]  w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end
        ${
-         isNotificationDrawerOpen
-           ? "translate-x-0  right-0 "
-           : "translate-x-full origin-right"
+         !isNotificationDrawerOpen
+           ? "translate-x-full origin-right"
+           : "translate-x-0  right-0 "
        }
       `}
     >

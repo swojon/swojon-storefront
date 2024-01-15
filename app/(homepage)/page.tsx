@@ -3,6 +3,7 @@ import HeroSection from "@/components/heroSection/HeroSection";
 import Products from "@/components/Products/Products";
 import FeaturedCategoriesBox from "@/components/CategoryCard/FeaturedCategoriesBox";
 import Footer from "@/components/footer/Footer";
+import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 // import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
@@ -26,8 +27,8 @@ const Home: NextPage = () => {
       <FeaturedCategoriesBox />
       <Products />
       {/* <Community /> */}
-      {/* <ActionBanner />
-      <SellBuyArea /> */}
+      {/* <ActionBanner /> */}
+      <SellBuyArea /> 
       {/* <AppDownloadCTA />  */}
 
       <Footer/>

@@ -30,7 +30,7 @@ const data = [
   },
   {
     id: 3,
-    title: "wishlists",
+    title: "My favorites",
     icon: <HiOutlineHeart />,
     url: "/profile/wishlists",
   },
@@ -53,12 +53,12 @@ const data = [
     icon: <HiLockClosed />,
     url: "/profile/login-security",
   },
-  {
-    id: 7,
-    title: "settings",
-    icon: <RiSettings4Line />,
-    url: "/profile/settings",
-  },
+  // {
+  //   id: 7,
+  //   title: "settings",
+  //   icon: <RiSettings4Line />,
+  //   url: "/profile/settings",
+  // },
   { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
 ];
 
@@ -88,13 +88,13 @@ const SideBar = () => {
           />
         </div> */}
 
-        <span className="lg:text-2xl md:text-xl text-lg text-primaryColor font-lexed font-bold block capitalize  truncate">
-          Hi, {user?.username ?? user?.email}
-        </span>
+        {/* <span className="lg:text-2xl md:text-xl text-lg text-primaryColor font-lexed font-bold block capitalize  truncate">
+          Hi, {user?.profile?.name ?? user?.username}
+        </span> */}
 
-        <span className=" text-sm text-secondColor block ">
-          Swojon member since November 2023
-        </span>
+        {/* <span className=" text-sm text-secondColor block ">
+          Swojon member since {new Date(user?.createdAt).toLocaleString('en-us',{month:'short', year:'numeric'})}
+        </span> */}
       </div>
 
       <div className="">

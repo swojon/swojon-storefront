@@ -10,14 +10,16 @@ import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import NotFound from "../../not-found/page";
 import Link from "next/link";
+import NotMatched from "@/components/NotMatched/NotMatched";
 
 const Wishlists = () => {
   const authState = useSelector((state: any) => state.auth);
   console.log("authState", authState);
   const { data, error, loading } = useListFavoriteListingQuery({
     variables: {
-      userId: authState?.user?.id,
+      userId: authState?.user?.id
     },
+    skip: authState?.user?.id
   });
   const wishListItems = data?.listFavoriteListing.items;
   const isMobile = useIsMobile();
@@ -38,33 +40,26 @@ const Wishlists = () => {
         </h6>
       </div>
       {/* {!!wishListItems || wishListItems?.length == 0(<NotFound />)} */}
-      <div>
-        {loading ? (
-          <div className=" pt-8 grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2">
-            <ProductLoader />
+      <div className="w-full pt-8 grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2">
+            {wishListItems?.map((card) => (
+              <ProductCard card={card} key={card.id} />
+            ))}
+            {loading && <ProductLoader />}
           </div>
-        ) : (
-          <div
-            className={`${
-              wishListItems
-                ? " grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2"
-                : " w-full"
-            }   pt-8`}
-          >
-            {wishListItems ? (
-              <>
-                {wishListItems?.map((item) => (
-                  <ProductCard card={item} key={item.id} />
-                ))}
-              </>
-            ) : (
-              <>
-                <NotFound />
-              </>
-            )}
+          {/* {data?.listFavoriteListing.hasMore && 
+          <div className="flex justify-center mt-7">
+            <button onClick={handleLoadMore} className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Load More
+            </button>
           </div>
-        )}
-      </div>
+          } */}
+
+          {!loading && (!wishListItems || wishListItems.length <= 0) && (
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
+
     </section>
   );
 };

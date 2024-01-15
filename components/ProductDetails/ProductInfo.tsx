@@ -189,7 +189,7 @@ const ProductInfo = ({ product }: { product: any }) => {
               <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
                 {product?.user?.profile?.name ??
                   product?.user?.username ??
-                  product?.user?.email}
+                  product?.user?.email.split('@')[0]}
               </h6>
             </Link>
 

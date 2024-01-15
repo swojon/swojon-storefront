@@ -1,21 +1,66 @@
+import { useUpdateProfileMutation } from "@/apollograph/generated";
+import { useFormik } from "formik";
 import React from "react";
+import toast from "react-hot-toast";
+import { BiLoaderCircle } from "react-icons/bi";
+import * as Yup from "yup";
 
-const EditUserName = ({ setEditBtn }: { setEditBtn: any }) => {
+const formSchema = Yup.object({
+  name: Yup.string().min(4).max(50).required("Name is required")
+})
+
+const EditUserName = ({profile, setEditBtn }: {profile: any; setEditBtn: any }) => {
+  const initialValues = {
+    name: profile.name
+    };
+  const [ updateProfile, {loading:updateLoading, error, data} ] = useUpdateProfileMutation()
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    isSubmitting,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: formSchema,
+    onSubmit: async (values, action) => {
+        updateProfile({
+          variables: {
+            profileData: {
+              name: values.name
+            },
+            profileId: profile.id
+          },
+          onCompleted: () => {
+            toast.success("Name updated successfully")
+          },
+          onError: () => {
+            toast.error("Failed to update name, Please try again")
+          }
+        });
+      } 
+   
+  });
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="userName"
+            htmlFor="name"
             className="block md:text-base text-sm font-medium text-primaryColor font-lexed capitalize"
           >
-            Edit full name
+            Update full name
           </label>
           <div className="mt-3">
             <input
+              onChange={handleChange}
+              onBlur={handleBlur}
               type="text"
-              name="userName"
-              id="userName"
+              name="name"
+              id="name"
               placeholder="John Doe"
               className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-gray-50"
             />
@@ -30,8 +75,12 @@ const EditUserName = ({ setEditBtn }: { setEditBtn: any }) => {
             Cancel
           </button>
 
-          <button className="py-1 px-4 rounded-md border border-activeColor text-sm text-white bg-activeColor">
-            Save
+          <button  className="py-1 px-4 rounded-md border border-activeColor text-sm text-white bg-activeColor">
+              {updateLoading   ? (
+                    <BiLoaderCircle className=" text-xl animate-spin" />
+                  ) : (
+                    "Update"
+                  )}
           </button>
         </div>
       </form>

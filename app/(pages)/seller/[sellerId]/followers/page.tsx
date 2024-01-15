@@ -1,6 +1,7 @@
 "use client";
 import { useListFollowersQuery } from "@/apollograph/generated";
 import FollowersLoader from "@/components/Loader/FollowersLoader";
+import NotMatched from "@/components/NotMatched/NotMatched";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -17,6 +18,7 @@ const Followers = ({ params }: { params: { sellerId: string } }) => {
   const followers = data?.listFollowers.items;
 
   return (
+    <>
     <section className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
       {followers &&
         followers.map((follower) => (
@@ -58,7 +60,16 @@ const Followers = ({ params }: { params: { sellerId: string } }) => {
           </div>
         ))}
       {loading && <FollowersLoader />}
+      
+      
+  
     </section>
+    {!loading && (!followers || followers.length <= 0) && (
+      <div className=" pt-16">
+        <NotMatched title={"Sorry! No follower Found"} />
+      </div>
+    )}
+    </>
   );
 };
 

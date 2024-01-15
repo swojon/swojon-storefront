@@ -13,6 +13,7 @@ import AppliedReviewFilters from "./AppliedReviewFilters";
 import { useSearchParams } from "next/navigation";
 import ReviewCardLoader from "../Loader/ReviewCardLoader";
 import { number } from "yup";
+import NotMatched from "../NotMatched/NotMatched";
 
 const SellerReview = ({ sellerId }: { sellerId: number }) => {
   const searchParams = useSearchParams();
@@ -43,7 +44,7 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
         </div>
       </div>
 
-      {!loading && (!reviews || reviews.length <= 0) && <p>No reviews Yet</p>}
+     
       <div className="masonry-container">
         {loading && <ReviewCardLoader />}
 
@@ -51,7 +52,13 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
           reviews!.map((review) => (
             <ReviewDetailCard review={review} key={review.id} />
           ))}
+     
       </div>
+      {!loading && (!reviews || reviews.length <= 0) && (
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! No reviews Found"} />
+            </div>
+          )}
       {/* <div className="space-y-3">
        
       </div> */}

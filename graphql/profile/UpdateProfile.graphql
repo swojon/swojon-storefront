@@ -1,0 +1,20 @@
+mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {
+  updateProfile(profileData: $profileData, profileId: $profileId) {
+      address
+      avatar
+      country
+      city
+      avatarThumbnail
+      facebookHandle
+      googleHandle
+      id
+      name
+      instagramHandle
+      isPhoneNumberVerified
+      linkedinHandle
+      phoneNumber
+      twitterHandle
+      zipCode
+      state
+  }
+}

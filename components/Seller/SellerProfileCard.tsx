@@ -8,6 +8,7 @@ import icon1 from "@/public/assets/govtIcon.png";
 import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
+import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 
 const SellerProfileCard = ({ seller }: { seller: any }) => {
   // console.log("Got seller to render", seller)
@@ -16,7 +17,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
       <div className=" rounded-md px-3 py-4 flex-1 lg:flex-none">
         <div className="h-24 w-24  rounded-full relative">
           <Image
-            src={seller?.profile?.avatar ?? "/user1.jpg"}
+            src={seller?.profile?.avatar ?? defaultAvatar}
             width={400}
             height={400}
             alt="user"
@@ -38,13 +39,13 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
           <div className="flex space-x-1 items-center flex-wrap">
             <SellerReviewDropdown sellerId={seller?.id} />
           </div>
-          <div>
+          {/* <div>
             <div className="flex items-center space-x-1">
               <span className="md:text-base text-sm text-primaryColor">
                 20 products
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* <div className="py-3 border-b flex lg:justify-start justify-between">

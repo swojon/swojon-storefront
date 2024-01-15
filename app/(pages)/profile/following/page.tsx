@@ -136,6 +136,12 @@ const Followers = () => {
           </div>
         </div> */}
       </div>
+      {!loading && (!followers || followers.length <= 0) && (
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
+  
     </section>
   );
 };

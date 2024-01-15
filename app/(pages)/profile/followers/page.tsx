@@ -14,6 +14,7 @@ import FollowUserCardLoader from "@/components/Loader/FollowUserCardLoader";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
+import NotMatched from "@/components/NotMatched/NotMatched";
 
 const Followers = () => {
   const { user } = useSelector((state: any) => state.auth);
@@ -48,7 +49,24 @@ const Followers = () => {
         ))}
         {loading && <FollowUserCardLoader />}
 
-        {/* <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none relative">
+      
+      </div>
+          
+    {!loading && (!followers || followers.length <= 0) && (
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
+  
+    
+
+    </section>
+  );
+};
+
+export default Followers;
+
+  {/* <div className="border rounded-md px-3 py-4 flex-1 lg:flex-none relative">
           <div className="absolute right-3 top-3 w-7 h-7 flex justify-center items-center rounded-full border border-activeColor cursor-pointer">
             <AiFillHeart className="text-activeColor" />
           </div>
@@ -124,9 +142,3 @@ const Followers = () => {
             </div>
           </div>
         </div> */}
-      </div>
-    </section>
-  );
-};
-
-export default Followers;

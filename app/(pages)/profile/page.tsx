@@ -61,7 +61,7 @@ const Profile = () => {
             </div>
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
-              {/* <div className="">
+              <div className="">
                 <div className="md:w-24 md:h-24 w-16 rounded-full border">
                   <Image
                     src={user?.profile?.avatar ?? defaultAvatar}
@@ -72,13 +72,13 @@ const Profile = () => {
                   />
                 </div>
                 <span className="lg:text-3xl md:text-2xl text-lg text-primaryColor font-lexed font-bold block capitalize mt-2">
-                  {user?.username ?? user?.email}
+                  {user?.username ?? user?.profile?.name}
                 </span>
 
                 <span className=" md:text-base text-sm text-secondColor block ">
-                  Swojon member since November 2023
+                  Swojon member since {new Date(user?.createdAt).toLocaleString('en-us',{month:'short', year:'numeric'})}
                 </span>
-              </div> */}
+              </div>
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 {editBtn === "" && (
@@ -88,7 +88,7 @@ const Profile = () => {
                 )}
 
                 {editBtn === "username" ? (
-                  <EditUserName setEditBtn={setEditBtn} />
+                  <EditUserName setEditBtn={setEditBtn} profile={user?.profile} />
                 ) : (
                   <div className="flex flex-wrap justify-between items-center gap-2">
                     <span className="text-lg text-secondColor font-lexed  block">
@@ -155,7 +155,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="pb-2 border-b border-gray-200 space-y-2">
+              {/* <div className="pb-2 border-b border-gray-200 space-y-2">
                 {editBtn === "" && (
                   <span className="text-base text-primaryColor font-lexed font-medium block">
                     Password
@@ -178,7 +178,7 @@ const Profile = () => {
                     </small>
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
 
             {/* <form className="lg:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-4 pt-4">

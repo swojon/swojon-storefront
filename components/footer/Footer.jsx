@@ -22,7 +22,9 @@ const Footer = () => {
             className={`flex  font-lexed text-activeColor font-semibold  justify-start    items-center`}
           >
             <Image
-              src={logo}
+              src="/assets/swojon.svg"
+              width={100}
+              height={500}
               alt="logo"
               className=" lg:w-[35%] md:w-[25%] w-[45%] "
             />

@@ -1437,6 +1437,55 @@ export function useListNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ListNotificationsQueryHookResult = ReturnType<typeof useListNotificationsQuery>;
 export type ListNotificationsLazyQueryHookResult = ReturnType<typeof useListNotificationsLazyQuery>;
 export type ListNotificationsQueryResult = Apollo.QueryResult<ListNotificationsQuery, ListNotificationsQueryVariables>;
+export const UpdateProfileDocument = gql`
+    mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {
+  updateProfile(profileData: $profileData, profileId: $profileId) {
+    address
+    avatar
+    country
+    city
+    avatarThumbnail
+    facebookHandle
+    googleHandle
+    id
+    name
+    instagramHandle
+    isPhoneNumberVerified
+    linkedinHandle
+    phoneNumber
+    twitterHandle
+    zipCode
+    state
+  }
+}
+    `;
+export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
+
+/**
+ * __useUpdateProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
+ *   variables: {
+ *      profileData: // value for 'profileData'
+ *      profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+      }
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -3250,6 +3299,14 @@ export type ListNotificationsQueryVariables = Exact<{
 
 
 export type ListNotificationsQuery = { __typename?: 'Query', listNotifications: { __typename?: 'Notifications', count: number, hasMore: boolean, items: Array<{ __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } }> } };
+
+export type UpdateProfileMutationVariables = Exact<{
+  profileData: UpdateProfileDto;
+  profileId: Scalars['Float']['input'];
+}>;
+
+
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];

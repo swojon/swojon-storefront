@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery, useSearchListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
+import NotMatched from "@/components/NotMatched/NotMatched";
 
 const SearchPage = ({ params }: { params: any }) => {
   console.log("item loaded", "SearchPage")
@@ -70,8 +71,14 @@ const SearchPage = ({ params }: { params: any }) => {
             {results?.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}
-                {loading && <ProductLoader />}
+            {loading && <ProductLoader />}
+            
           </div>
+          {!loading && (!results || results.length <= 0) && (
+            <div className=" pt-16">
+              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+            </div>
+          )}
         </div>
       </div>
     </section>

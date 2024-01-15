@@ -19,6 +19,7 @@ const SellerListings = ({ params }: { params: { sellerId: string } }) => {
         {loading && <ProductLoader />}
         <SellerProductList sellerId={seller?.id} />
       </div>
+      
   );
 };
 
