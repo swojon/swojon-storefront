@@ -61,7 +61,7 @@ const ChatLists = () => {
         />
       </div>
 
-      <div className="space-y-3 h-full overflow-y-auto px-3 scroll-hover">
+      <div className="space-y-3 h-[70dvh] overflow-y-auto px-3 scroll-hover pb-10">
         {data?.listChatRooms.items &&
           data.listChatRooms.items.map((chatroom) => (
             <Link

@@ -24,15 +24,15 @@ export default function MegaMenu({ border }: { border: any }) {
     variables: {
       limit: 1030,
     },
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
   const categories = data?.listCategories.items;
-  
-  const parentCategories = categories ? categories.filter(
-    (item) => item.parentCategory === null
-  ) : null;
-  console.log("categories", categories)
-  console.log("parentCategories", parentCategories)
+
+  const parentCategories = categories
+    ? categories.filter((item) => item.parentCategory === null)
+    : null;
+  console.log("categories", categories);
+  console.log("parentCategories", parentCategories);
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [subCategories, setSubCategories] = useState<any>([]);
 
@@ -48,7 +48,7 @@ export default function MegaMenu({ border }: { border: any }) {
   // console.log("sub categories", currentCategory);
   return (
     <>
-      <Popover className=" z-[995]  ">
+      <Popover className=" z-[100]  ">
         {({ open }) => (
           <>
             <div className="relative z-10 ">
@@ -91,23 +91,28 @@ export default function MegaMenu({ border }: { border: any }) {
                   <div className="custom-container relative flex  gap-4 h-full">
                     {/* First Panel Start Here */}
                     <div className=" top-0 border-r border-gray-200 h-full overflow-y-auto  w-[20%] pe-3  sticky meg-menu-items">
-                      {loading ?  <MegamenuHeadingLoader /> :
-                      parentCategories?.map((item) => (
-                        <div
-                          className={`flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer  ${
-                            currentCategory.id === item.id ? "bg-slate-200" : ""
-                          }`}
-                          key={item.id}
-                          onMouseEnter={() => handleMouseEnter(item)}
-                        >
-                          <h2
-                            className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate `}
+                      {loading ? (
+                        <MegamenuHeadingLoader />
+                      ) : (
+                        parentCategories?.map((item) => (
+                          <div
+                            className={`flex justify-between items-center px-3 hover:bg-slate-200   cursor-pointer  ${
+                              currentCategory.id === item.id
+                                ? "bg-slate-200"
+                                : ""
+                            }`}
+                            key={item.id}
+                            onMouseEnter={() => handleMouseEnter(item)}
                           >
-                            {item.name}
-                          </h2>
-                          <MdKeyboardArrowRight className="text-sm text-gray-400" />
-                        </div>
-                      ))}
+                            <h2
+                              className={` py-2 text-secondColor  capitalize font-lexed rounded-sm text-sm font-medium truncate `}
+                            >
+                              {item.name}
+                            </h2>
+                            <MdKeyboardArrowRight className="text-sm text-gray-400" />
+                          </div>
+                        ))
+                      )}
                     </div>
 
                     {/* Second Panel Start Here.  */}

@@ -17,6 +17,8 @@ import { RiUserFollowLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import useIsMobile from "@/lib/hooks/useIsMobile";
+import Image from "next/image";
+import defaultAvatar from "@/public/assets/avatar.svg";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -75,6 +77,26 @@ const SideBar = () => {
           Thanks for being a Swojon customer
         </small>
       </div> */}
+      <div className="pb-3 ">
+        {/* <div className="md:w-20 md:h-20 w-16 h-16 rounded-full border">
+          <Image
+            src={user?.profile?.avatar ?? defaultAvatar}
+            alt="user"
+            width={400}
+            height={400}
+            className="w-full h-full object-cover rounded-full"
+          />
+        </div> */}
+
+        <span className="lg:text-2xl md:text-xl text-lg text-primaryColor font-lexed font-bold block capitalize  truncate">
+          Hi, {user?.username ?? user?.email}
+        </span>
+
+        <span className=" text-sm text-secondColor block ">
+          Swojon member since November 2023
+        </span>
+      </div>
+
       <div className="">
         {data.map((item, i) => (
           <motion.div
@@ -98,7 +120,7 @@ const SideBar = () => {
                     : "/profile"
                   : item.url
               }
-              className={`flex  items-center   py-2.5 lg:px-3 md:px-2  text-lg font-bold gap-x-5 gap-y-3 ${
+              className={`flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 ${
                 pathname === item.url ? "text-primaryColor" : "text-secondColor"
               }`}
             >

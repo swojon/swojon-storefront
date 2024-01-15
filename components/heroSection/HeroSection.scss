@@ -1,11 +1,25 @@
 .hero-container {
-  background: linear-gradient(rgba(1, 10, 43, 0.415), rgba(1, 9, 38, 0.484)),
-    url("../../public/assets/HeroImage2.png");
+  background:
+  //  linear-gradient(rgba(1, 10, 43, 0.415), rgba(1, 9, 38, 0.484)),
+    url("/assets/Swojon_Cover_photo.png");
   background-position: bottom;
   background-size: cover;
-  // background-color: #002352b3;
+  // background-color: #f9f9f9;
   .hero-height {
-    height: calc(80vh - 4rem);
+    height: calc(85vh - 4rem);
+    @media (max-width: 620px) {
+      height: calc(70vh - 4rem);
+    }
+    // @media (max-width: 420px) {
+    //   height: calc(60vh - 4rem);
+    //   border: 1px solid red;
+    // }
+  }
+  @media (max-width: 768px) {
+    background-position: center;
+  }
+  @media (max-width: 620px) {
+    background-position: center;
   }
 }
 
@@ -53,6 +67,7 @@
 .slideInLeft {
   animation-name: slideInLeft;
   animation-timing-function: ease-in;
+  // text-shadow: 1px 1px 2px #4c4c4c;
 }
 .slideInLeft2 {
   animation-name: slideInLeft2;

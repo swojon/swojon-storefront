@@ -80,12 +80,13 @@ const SearchField = () => {
             aria-hidden="true"
           />
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <input
             id="search"
             className="block w-full rounded-lg border border-gray-300 bg-gray-100 py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
             placeholder="Search"
-            autoComplete="off"
+            autoComplete="false"
+            name="searchQuery"
             value={searchTerm}
             onChange={handleInputChange}
             // onKeyDown={handleKeyDown}

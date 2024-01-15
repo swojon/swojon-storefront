@@ -58,7 +58,8 @@ const ResponsiveNavBar = ({
             />
           ) : (
             <Image
-              src="/assets/swojonI.svg"
+              // src="/assets/swojonI.svg"
+              src="/assets/swojon.svg"
               width={100}
               height={500}
               alt="logo"
@@ -168,7 +169,7 @@ const ResponsiveNavBar = ({
         {authState.isAuthenticated && (
           <IoSearchOutline
             className={`text-xl ${
-              border === "border" ? "  text-primaryColor" : "text-white"
+              border === "border" ? "  text-primaryColor" : "text-primaryColor"
             } `}
           />
         )}
@@ -177,7 +178,7 @@ const ResponsiveNavBar = ({
           <Link href="/chat">
             <RiWechatLine
               className={`text-2xl  ${
-                border === "border" ? "text-primaryColor" : "text-white"
+                border === "border" ? "text-primaryColor" : "text-primaryColor"
               }`}
             />
           </Link>
@@ -187,7 +188,7 @@ const ResponsiveNavBar = ({
           <Link href="/signup">
             <button
               className={`py-1.5  leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
-                border === "border" ? "text-primaryColor" : "text-white"
+                border === "border" ? "text-primaryColor" : "text-primaryColor"
               }`}
             >
               sign up
@@ -209,7 +210,9 @@ const ResponsiveNavBar = ({
                 ) : (
                   <LuUser2
                     className={`text-[22px] font-semiBold  ${
-                      border === "border" ? "text-primaryColor" : "text-white"
+                      border === "border"
+                        ? "text-primaryColor"
+                        : "text-primaryColor"
                     }`}
                   />
                 )}
@@ -293,7 +296,7 @@ const ResponsiveNavBar = ({
           <Link href="/login">
             <button
               className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
-                border === "border" ? "text-primaryColor" : "text-white"
+                border === "border" ? "text-primaryColor" : "text-primaryColor"
               }`}
             >
               login

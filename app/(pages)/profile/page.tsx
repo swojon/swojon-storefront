@@ -61,7 +61,7 @@ const Profile = () => {
             </div>
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
-              <div className="">
+              {/* <div className="">
                 <div className="md:w-24 md:h-24 w-16 rounded-full border">
                   <Image
                     src={user?.profile?.avatar ?? defaultAvatar}
@@ -78,7 +78,7 @@ const Profile = () => {
                 <span className=" md:text-base text-sm text-secondColor block ">
                   Swojon member since November 2023
                 </span>
-              </div>
+              </div> */}
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 {editBtn === "" && (
