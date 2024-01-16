@@ -6,14 +6,23 @@ query GetChatRoom($chatRoomId: Float) {
     relatedListing{
     id
     title
+    price
+    media {
+      url
+    }
     }
     members {
-    user {
-        id
-        email
-        username
-    }
-    userId
+      user {
+          createdAt
+          id
+          email
+          username
+          profile {
+            name
+            avatar
+          }
+      }
+      userId
     }
   }
 }

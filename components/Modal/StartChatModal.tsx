@@ -2,6 +2,8 @@ import { useSendChatMessageMutation } from "@/apollograph/generated";
 import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { BiLoaderCircle } from "react-icons/bi";
 import { FiPaperclip } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +12,7 @@ function StartChatModal({ props }: { props: any }) {
   const dispatch = useDispatch();
   const authState = useSelector((state:any) => state.auth)
   const [message, setMessage] = useState("")
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(false)
   const[sendChatMessage, {data, loading, error}] = useSendChatMessageMutation()
   
   const handleChange = (e:any) => {
@@ -23,7 +25,7 @@ function StartChatModal({ props }: { props: any }) {
 
   const handleChatSend = () => {
       if (!message){
-        console.log("Please insert a message")
+        toast.error("A message can't be empty")
       }
       else{
         if (!authState.user.id){
@@ -38,11 +40,21 @@ function StartChatModal({ props }: { props: any }) {
                 receiverId: props.product.user.id,
                 relatedListingId: props.product.id
               }
+            },
+            onCompleted: () => {
+              toast.success("Message sent successfully")
+              setMessage("")
+              setDisabled(true)
+              dispatch(setModalClose(true))
+
+            },
+            onError: () => {
+              toast.error("Failed to send message. Please try again")
+              setDisabled(false)
             }
           })
-          setMessage("")
-          setDisabled(true)
-          dispatch(setModalClose(true))
+          
+          
         }
       }
   }
@@ -113,7 +125,7 @@ function StartChatModal({ props }: { props: any }) {
           </div>
           <button onClick={handleChatSend} disabled={disabled} className="p-1 rounded-full bg-activeColor">
             {loading ?
-               "Loading": 
+               <BiLoaderCircle className="text-white text-xl animate-spin" />: 
                <Image src="/assets/Send.png" alt="plane" width={30} height={30} />
             }
           </button>

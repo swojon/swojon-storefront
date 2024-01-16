@@ -19,7 +19,7 @@ const AdditionalDetail = ({props}: {props:any}) => {
         </button>
       </div>
 
-      <p className="text-base text-justify text-secondColor py-2.5  ">
+      <p className="whitespace-pre-line text-base text-justify text-secondColor py-2.5  ">
         {props?.description}
       </p>
     </section>

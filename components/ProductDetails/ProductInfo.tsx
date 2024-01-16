@@ -266,7 +266,7 @@ const ProductInfo = ({ product }: { product: any }) => {
 
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <div className="w-[75%]">
-            <p className=" truncate text-base font-bold text-primaryColor ">
+            <p className="truncate text-base font-bold text-primaryColor ">
               {product?.description}
             </p>
           </div>

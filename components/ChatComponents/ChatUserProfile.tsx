@@ -11,14 +11,18 @@ import { HiArrowLeft } from "react-icons/hi2";
 import { MdLocalPhone } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import defaultAvatar from "@/public/assets/defaultAvatar.svg";
+import { RxAvatar } from "react-icons/rx";
+import Link from "next/link";
 
-const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
-  const activeChat = useSelector((state:any) => state.chat.activeChatRoom);
+const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; chatRoom:any }) => {
+  // const chatRoom = useSelector((state:any) => state.chat.chatRoomRoom);
   const authState = useSelector((state:any) => state.auth)
   const isMobile = useIsMobile()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
+  const participants = chatRoom?.members?.filter((crm: any) => crm.userId !== authState.user.id)
 
   const handleLeftArrowIconClick = () => {
     if (isMobile) {
@@ -48,26 +52,29 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
 
       <div className="flex flex-col items-center space-y-3 border-b pb-4">
         <div className="w-14 h-14 rounded-full relative">
-          <Image
-            src="/user1.jpg"
-            alt="user"
-            width={100}
-            height={100}
-            className="w-ful h-full object-cover rounded-full"
-          />
+          {participants?.map((m:any) => (
+            <Image
+              src={m.user?.profile?.avatar ?? defaultAvatar}
+              alt="user"
+              width={100}
+              height={100}
+              className="w-ful h-full object-cover rounded-full"
+            />))}
           <span className="absolute right-1 bottom-0 w-3 h-3 border rounded-full bg-green-400"></span>
         </div>
         <h5 className="xl:text-lg lg:text-base text-base font-lexed font-medium text-primaryColor">
-          {activeChat?.members?.filter((crm : any ) => crm.userId !== authState.user.id )?.map((m: any ) => m.user?.username ?? m.user?.email).join(',')  ?? activeChat?.chatName }
+          {participants?.map((m: any ) => m.user?.username ?? m.user?.profile?.name).join(',')  ?? chatRoom?.chatName }
         </h5>
         <div className="flex items-center gap-5	">
-          <div className="flex flex-col items-center">
+        {participants?.map((m: any ) =>
+          (<Link key={m.user.id} href={`/seller/${m.user.id}`} className="flex flex-col items-center">
             <div className="w-7 h-7 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
-              <MdLocalPhone />
+              <RxAvatar />
             </div>
-            <h6 className="text-xs text-primaryColor pt-1 capitalize">call</h6>
-          </div>
-
+            <h6 className="text-xs text-primaryColor pt-1 capitalize">Profile</h6>
+          </Link>
+          ))}
+{/*     }
           <div className="flex flex-col items-center">
             <div className="w-7 h-7 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
               <AiFillMessage />
@@ -75,7 +82,7 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
             <h6 className="text-xs text-primaryColor pt-1 capitalize">
               Message
             </h6>
-          </div>
+          </div> */}
 
           <div className="flex flex-col items-center">
             <div className="w-7 h-7 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
@@ -88,31 +95,32 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
 
       <div className="space-y-2 py-4 border-b">
         <div>
-          <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
+          {/* <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Phone
           </h6>
           <p className="xl:text-sm lg:text-xs text-secondColor">
-            +123 456 789 98
-          </p>
+            01515
+          </p> */}
         </div>
         <div>
           <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Email
           </h6>
           <p className="xl:text-sm lg:text-xs text-secondColor">
-            xyzabc@gmail.com
+            {participants?.map((m:any) => m.user.email)}
           </p>
         </div>
         <div>
           <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
-            Type
+            Member Since
           </h6>
           <p className="xl:text-sm lg:text-xs text-secondColor">
-            Verified Seller
+          {participants?.map((m:any) => new Date(m?.user?.createdAt).toLocaleString('en-us',{month:'short', year:'numeric'}))}
+            
           </p>
         </div>
       </div>
-      <div className="pt-4 space-y-3">
+      {/* <div className="pt-4 space-y-3">
         <h6 className="text-base font-lexed text-primaryColor font-medium">
           Shared files
         </h6>
@@ -132,7 +140,7 @@ const ChatUserProfile = ({ setSideProfile }: { setSideProfile: any }) => {
             1.1 MB
           </span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

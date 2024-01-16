@@ -206,6 +206,10 @@ export const ListChatsDocument = gql`
           id
           email
           username
+          profile {
+            avatar
+            name
+          }
         }
         userId
       }
@@ -264,7 +268,11 @@ export const GetChatMessageDocument = gql`
       dateSent
       sender {
         id
-        email
+        username
+        profile {
+          avatar
+          name
+        }
       }
     }
     count
@@ -312,12 +320,21 @@ export const GetChatRoomDocument = gql`
     relatedListing {
       id
       title
+      price
+      media {
+        url
+      }
     }
     members {
       user {
+        createdAt
         id
         email
         username
+        profile {
+          name
+          avatar
+        }
       }
       userId
     }
@@ -2668,7 +2685,7 @@ export type Profile = {
   googleHandle?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
   instagramHandle?: Maybe<Scalars['String']['output']>;
-  isPhoneNumberVerified?: Maybe<Scalars['String']['output']>;
+  isPhoneNumberVerified?: Maybe<Scalars['Boolean']['output']>;
   linkedinHandle?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   phoneNumber?: Maybe<Scalars['String']['output']>;
@@ -3081,6 +3098,7 @@ export type UpdateUserDto = {
 
 export type User = {
   __typename?: 'User';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   email: Scalars['String']['output'];
   facebookId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
@@ -3148,7 +3166,7 @@ export type ListChatsQueryVariables = Exact<{
 }>;
 
 
-export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id?: number | null, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null } | null }> | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
+export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id?: number | null, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null } | null }> | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
 
 export type GetChatMessageQueryVariables = Exact<{
   chatRoomId: Scalars['Float']['input'];
@@ -3158,14 +3176,14 @@ export type GetChatMessageQueryVariables = Exact<{
 }>;
 
 
-export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore?: boolean | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> } };
+export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore?: boolean | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null } }> } };
 
 export type GetChatRoomQueryVariables = Exact<{
   chatRoomId?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
-export type GetChatRoomQuery = { __typename?: 'Query', getChatRoom: { __typename?: 'ChatRoom', chatName?: string | null, id: number, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null } | null }> | null } };
+export type GetChatRoomQuery = { __typename?: 'Query', getChatRoom: { __typename?: 'ChatRoom', chatName?: string | null, id: number, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string, price: number, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', createdAt?: any | null, id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } | null }> | null } };
 
 export type SendChatMessageMutationVariables = Exact<{
   input: CreateMessageDto;
@@ -3226,7 +3244,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt: any, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
 
 export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3306,7 +3324,7 @@ export type UpdateProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: string | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } };
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];

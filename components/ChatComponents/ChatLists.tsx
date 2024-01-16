@@ -8,6 +8,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 
 const ChatLists = () => {
   const authState = useSelector((state: any) => state.auth);
@@ -80,13 +81,17 @@ const ChatLists = () => {
               >
                 <div className="my-auto">
                   <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
-                    <Image
-                      src="/user1.jpg"
-                      alt="user"
-                      width={100}
-                      height={100}
-                      className="w-ful h-full object-cover rounded-full"
-                    />
+                  {chatroom.members
+                      ?.filter((crm) => crm.userId !== authState.user.id)
+                      ?.map((m) => (
+                        <Image
+                        src={m.user?.profile?.avatar ?? defaultAvatar}
+                          alt="user"
+                          width={100}
+                          height={100}
+                          className="w-ful h-full object-cover rounded-full"
+                        />
+                      ))}
                     <span className="absolute right-0 bottom-0 w-2 h-2 rounded-full bg-green-400"></span>
                   </div>
                 </div>
@@ -94,7 +99,7 @@ const ChatLists = () => {
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate capitalize  leading-none font-semibold">
                     {chatroom.members
                       ?.filter((crm) => crm.userId !== authState.user.id)
-                      ?.map((m) => m.user?.username ?? m.user?.email)
+                      ?.map((m) => m.user?.username ?? m.user?.profile?.name)
                       .join(",") ?? chatroom.chatName}
                   </h5>
                   <p className="text-xs text-secondColor truncate">

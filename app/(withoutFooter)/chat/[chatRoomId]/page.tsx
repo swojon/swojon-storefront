@@ -53,7 +53,7 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
               : "opacity-0 hidden pointer-events-none"
           }`}
         >
-          <ChatUserProfile setSideProfile={setSideProfile} />
+          <ChatUserProfile setSideProfile={setSideProfile} chatRoom={chatRoom} />
         </div>
       )}
     </>

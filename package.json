@@ -79,6 +79,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@parcel/watcher": "^2.3.0",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/leaflet": "^1.9.8",
     "@types/set-cookie-parser": "^2.4.7",
     "sass": "^1.69.7"

@@ -24,6 +24,7 @@ import {
 } from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import AdStartConversation from "./AdStartConversation";
+import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 
 const ChatMessage = ({
   sideProfile,
@@ -152,6 +153,8 @@ const MessageAreaData = ({
         : router.push(pathname);
     }
   };
+  const participants = activeChat?.members?.filter((crm: any) => crm.userId !== authState.user.id)
+  
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center gap-2">
@@ -164,20 +167,20 @@ const MessageAreaData = ({
           </button>
         )}{" "}
         <div className="flex items-center gap-2 sm:w-auto w-[70%] ">
-          <div className="sm:w-8 w-5 sm:h-8 w-5 rounded-full ">
+          <div className="sm:w-8 w-5 sm:h-8 rounded-full ">
+            {participants?.map((m:any) => (
             <Image
-              src="/user1.jpg"
+              src={m.user?.profile?.avatar ?? defaultAvatar}
               alt="user"
               width={100}
               height={100}
               className="w-ful h-full object-cover rounded-full"
-            />
-          </div>
+            />))}
+
+            </div>
           <div className="pr-3 space-y-1 truncate ">
             <span className="text-sm text-primaryColor font-medium truncate ">
-              {activeChat.members
-                ?.filter((crm: any) => crm.userId !== authState.user.id)
-                ?.map((m: any) => m.user?.username ?? m.user?.email)
+              {participants?.map((m: any) => m.user?.username ?? m.user?.profile?.name)
                 .join(",") ?? activeChat?.chatName}
             </span>
             <div className="flex items-center space-x-1">
@@ -199,7 +202,7 @@ const MessageAreaData = ({
         <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
           <div className="h-20 w-32 border rounded-md ">
             <Image
-              src="/assets/pro2.png"
+              src={activeChat.relatedListing.media ? activeChat.relatedListing.media[0]?.url : "/assets/pro2.png"}
               alt="product"
               width={100}
               height={100}
@@ -280,7 +283,7 @@ const MessageDetail = ({ msg }: { msg: any }) => {
           </span>
           <span className="absolute right-2 -bottom-4 text-[#979696] text-xs block">
             {timeAgo(msg.dateSent)}
-            10 56
+          
           </span>
         </div>
       </div>
@@ -289,9 +292,10 @@ const MessageDetail = ({ msg }: { msg: any }) => {
     return (
       <div className="relative w-full flex justify-start pb-1">
         <div className="md:w-1/2 w-full flex justify-start items-start p-2 gap-2 mb-1 ">
-          <div className="sm:w-9 w-4 sm:h-8 w-4 rounded-full">
+          <div className="sm:w-9 sm:h-8 w-4 rounded-full">
             <Image
-              src="/user1.jpg"
+              src={msg.sender?.profile?.avatar ?? defaultAvatar}
+
               width={100}
               height={100}
               className="w-full h-full object-cover rounded-full"

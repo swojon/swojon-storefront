@@ -6,7 +6,12 @@ query getChatMessage($chatRoomId: Float!, $endingBefore: String, $limit: Float, 
             dateSent
             sender {
                 id
-                email
+                username
+                profile {
+                    avatar
+                    name
+                }
+
             }
         }
         count

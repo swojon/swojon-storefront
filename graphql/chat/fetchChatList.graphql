@@ -13,6 +13,10 @@ query listChats ($userId: Float){
           id
           email
           username
+          profile {
+            avatar
+            name
+          }
         }
         userId
       }
