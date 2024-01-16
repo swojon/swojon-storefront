@@ -54,6 +54,7 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
         <div className="w-14 h-14 rounded-full relative">
           {participants?.map((m:any) => (
             <Image
+              key={m.user.id}
               src={m.user?.profile?.avatar ?? defaultAvatar}
               alt="user"
               width={100}

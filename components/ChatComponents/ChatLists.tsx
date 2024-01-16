@@ -85,6 +85,7 @@ const ChatLists = () => {
                       ?.filter((crm) => crm.userId !== authState.user.id)
                       ?.map((m) => (
                         <Image
+                        key={m.user?.id}
                         src={m.user?.profile?.avatar ?? defaultAvatar}
                           alt="user"
                           width={100}

@@ -170,6 +170,7 @@ const MessageAreaData = ({
           <div className="sm:w-8 w-5 sm:h-8 rounded-full ">
             {participants?.map((m:any) => (
             <Image
+            key={m.user.id}
               src={m.user?.profile?.avatar ?? defaultAvatar}
               alt="user"
               width={100}
@@ -202,6 +203,7 @@ const MessageAreaData = ({
         <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
           <div className="h-20 w-32 border rounded-md ">
             <Image
+
               src={activeChat.relatedListing.media ? activeChat.relatedListing.media[0]?.url : "/assets/pro2.png"}
               alt="product"
               width={100}
