@@ -59,6 +59,7 @@ const ChatMessageLoader = () => {
             </span>
 
             <input
+              readOnly
               className="block text-gray-300 w-full min-w-0 flex-1 rounded-none rounded-r-md border border-gray-300 px-3 py-2 focus:border-activeColor focus:ring-activeColor sm:text-sm animate-pulse"
               value="loading....."
               type="text"

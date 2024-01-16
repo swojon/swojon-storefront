@@ -7,15 +7,20 @@ query listChats ($userId: Float){
       relatedListing{
         id
         title
+        price
+        media {
+          url
+        }
       }
       members {
         user {
+          createdAt
           id
           email
           username
           profile {
-            avatar
             name
+            avatar
           }
         }
         userId

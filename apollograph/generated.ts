@@ -200,15 +200,20 @@ export const ListChatsDocument = gql`
       relatedListing {
         id
         title
+        price
+        media {
+          url
+        }
       }
       members {
         user {
+          createdAt
           id
           email
           username
           profile {
-            avatar
             name
+            avatar
           }
         }
         userId
@@ -3166,7 +3171,7 @@ export type ListChatsQueryVariables = Exact<{
 }>;
 
 
-export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id?: number | null, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null } | null }> | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
+export type ListChatsQuery = { __typename?: 'Query', listChatRooms: { __typename?: 'ChatRoomsWithMessage', items: Array<{ __typename?: 'ChatRoomWithMessage', chatName?: string | null, id?: number | null, isDeleted?: boolean | null, relatedListing?: { __typename?: 'Listing', id: number, title: string, price: number, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, members?: Array<{ __typename?: 'ChatRoomMember', userId?: number | null, user?: { __typename?: 'User', createdAt?: any | null, id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } | null }> | null, messages?: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, email: string } }> | null }> } };
 
 export type GetChatMessageQueryVariables = Exact<{
   chatRoomId: Scalars['Float']['input'];

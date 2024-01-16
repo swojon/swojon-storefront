@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import ChatListsModal from "../Loader/ChatListsLoader";
+import ChatListLoader from "../Loader/ChatListsLoader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 const ChatLists = () => {
   const authState = useSelector((state: any) => state.auth);
   const pathname = usePathname();
+
   const { data, error, loading } = useListChatsQuery({
     variables: {
       userId: authState.user.id,
@@ -26,11 +27,11 @@ const ChatLists = () => {
   if (loading) {
     return (
       <>
-        <ChatListsModal />
+        <ChatListLoader />
       </>
     );
   }
-
+  console.log("list chatrooms", data?.listChatRooms.items)
   return (
     <section className="bg-[#F1F7FF] h-full w-full  space-y-2 lg:space-y-4 overflow-y-hidden relative pb-10">
       <div className="flex justify-between items-center px-3 pt-3">
@@ -85,8 +86,8 @@ const ChatLists = () => {
                       ?.filter((crm) => crm.userId !== authState.user.id)
                       ?.map((m) => (
                         <Image
-                        key={m.user?.id}
-                        src={m.user?.profile?.avatar ?? defaultAvatar}
+                          key={m.userId}
+                          src={m.user?.profile?.avatar ?? defaultAvatar}
                           alt="user"
                           width={100}
                           height={100}
@@ -100,7 +101,7 @@ const ChatLists = () => {
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate capitalize  leading-none font-semibold">
                     {chatroom.members
                       ?.filter((crm) => crm.userId !== authState.user.id)
-                      ?.map((m) => m.user?.username ?? m.user?.profile?.name)
+                      ?.map((m) => m.user?.username ?? m.user?.profile?.name )
                       .join(",") ?? chatroom.chatName}
                   </h5>
                   <p className="text-xs text-secondColor truncate">
