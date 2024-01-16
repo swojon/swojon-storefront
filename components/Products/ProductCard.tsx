@@ -37,7 +37,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
   };
 
   return (
-    <div className="rounded-2xl   cursor-pointer transition ease-in-out delay-150 duration-300">
+    <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[270px] sm:h-[250px] h-[250px] relative overflow-hidden  rounded-lg ">
         <Link href={`/products/${listing.id}`}>
           <Image
@@ -80,7 +80,9 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-xs" />
           <span className="text-xs ps-1">
-            {listing.user.username ?? listing.user.profile?.name ?? listing.user.email.split('@')[0]}
+            {listing.user.username ??
+              listing.user.profile?.name ??
+              listing.user.email.split("@")[0]}
           </span>
         </div>
 

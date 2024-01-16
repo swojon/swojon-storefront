@@ -22,6 +22,7 @@ const CategoryCardSlider = ({ data }: { data: any }) => {
           },
         }}
         spaceBetween={15}
+        slidesPerView={2}
         cssMode={true}
         navigation={true}
         pagination={true}
