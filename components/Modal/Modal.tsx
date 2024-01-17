@@ -19,6 +19,7 @@ import WriteReviewModal from "./WriteReviewModal";
 import EditEmailModal from "./EditEmailModal";
 import EditNumberlModal from "./EditNumberlModal";
 import AdditionalDetail from "./AdditionalDetail";
+import FilterModal from "./FilterModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
@@ -28,6 +29,7 @@ const WRITEREVIEW = "writeReview";
 const EDITEMAIL = "editEmail";
 const EDITNUMBER = "editNumber";
 const ADDITIONALDETAILS = "additionalDetails";
+const FILTERMODAL = "filterModal";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -63,7 +65,7 @@ export default function Modal() {
           {modalStack[modalStack.length - 1]?.body === "navbar" ? (
             <NavbarModal />
           ) : (
-            <div className="flex min-h-full   items-center	text-center  sm:p-0 custom-container">
+            <div className="flex min-h-full   items-center	 sm:p-0 custom-container">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -74,7 +76,11 @@ export default function Modal() {
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
                 <Dialog.Panel
-                  className={`relative transform overflow-hidden rounded-lg bg-white  text-left shadow-xl transition-all sm:my-5 mx-auto  h-auto ${
+                  className={`relative transform overflow-hidden    transition-all sm:my-5 mx-auto max-h-[90dvh] h-auto 
+             w-full
+                  `}
+                >
+                  {/*      ${
                     modalStack[modalStack.length - 1]?.title ===
                     "Delete the information?"
                       ? "sm:w-2/6"
@@ -82,92 +88,71 @@ export default function Modal() {
                         "write review modal"
                       ? "lg:w-[40%] md:w-[55%] w-[80%]"
                       : "lg:w-[32%] md:w-[55%] w-[80%]"
-                  }`}
-                >
-                  {/* <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
-                    <button
-                      type="button"
-                      className={`rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-100  focus:ring-offset-2 ${
-                        modalStack[modalStack.length - 1]?.title ===
-                        "Delete the information?"
-                          ? " focus:ring-red-500"
-                          : "focus:ring-indigo-500"
-                      }`}
-                      onClick={() => dispatch(setModalClose(true))}
-                    >
-                      <span className="sr-only">Close</span>
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div> */}
+                  } */}
 
-                  <div className="  sm:flex sm:items-start  w-full h-full overflow-auto form-scrollbar">
-                    <div className="  w-full ">
-                      {/* <Dialog.Title
+                  {/* <Dialog.Title
                         as="h3"
                         className="text-base font-medium leading-6 text-gray-700"
                       >
                         {modalStack[modalStack.length - 1]?.title}
                       </Dialog.Title> */}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        SENDOFFERMODAL && (
-                        <SendOfferModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        EDITEMAIL && (
-                        <EditEmailModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        EDITNUMBER && (
-                        <EditNumberlModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        WRITEREVIEW && (
-                        <WriteReviewModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        CHATMODAL && (
-                        <StartChatModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        SELLPRODUCT && (
-                        <SellProductModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        ADDITIONALDETAILS && (
-                        <AdditionalDetail
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body === SUCCESS && (
-                        <SuccessModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ===
-                        LOGINMODAL && (
-                        <LoginModal
-                          props={modalStack[modalStack.length - 1]?.props}
-                        />
-                      )}
-                      {modalStack[modalStack.length - 1]?.body ? (
-                        <></>
-                      ) : (
-                        <div className=" w-full h-full  "></div>
-                      )}
-                    </div>
-                  </div>
+                  {modalStack[modalStack.length - 1]?.body === FILTERMODAL && (
+                    <FilterModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body ===
+                    SENDOFFERMODAL && (
+                    <SendOfferModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === EDITEMAIL && (
+                    <EditEmailModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === EDITNUMBER && (
+                    <EditNumberlModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === WRITEREVIEW && (
+                    <WriteReviewModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === CHATMODAL && (
+                    <StartChatModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === SELLPRODUCT && (
+                    <SellProductModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body ===
+                    ADDITIONALDETAILS && (
+                    <AdditionalDetail
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === SUCCESS && (
+                    <SuccessModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === LOGINMODAL && (
+                    <LoginModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body ? (
+                    <></>
+                  ) : (
+                    <div className=" w-full h-full  "></div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

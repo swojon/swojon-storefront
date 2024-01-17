@@ -63,8 +63,54 @@ const CategoriesFilter = () => {
   };
 
   return (
-    <div className="">
-      <Disclosure
+    <div className="space-y-3">
+      <div className="flex justify-between items-center gap-2">
+        <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
+          Categories
+        </span>
+        <div className="relative w-[250px] my-3">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center  ">
+            <MagnifyingGlassIcon
+              className="h-7 w-7 text-gray-400 p-1.5 rounded-full mr-1 "
+              aria-hidden="true"
+            />
+          </div>
+          <input
+            id="search"
+            name="search"
+            onChange={handleSearchChange}
+            className="block w-full rounded-2xl border border-gray-300 bg-white py-1.5 pl-8 pr-3 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            placeholder="Search"
+            type="search"
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {filteredCategories?.map((category) => (
+          <div className="flex items-center" key={category.id}>
+            <input
+              id={`filter-${category.id}`}
+              defaultValue={category.slug!}
+              type="checkbox"
+              onChange={handleChange}
+              checked={appliedCategories.includes(category.slug!)}
+              className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+            />
+            <label
+              htmlFor={`filter-${category.id}-${category.id}`}
+              className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium 
+                          ${
+                            appliedCategories.includes(category.slug!)
+                              ? "text-activeColor"
+                              : "text-primaryColor"
+                          }`}
+            >
+              <span>{category.name} </span>{" "}
+            </label>
+          </div>
+        ))}
+      </div>
+      {/* <Disclosure
         as="div"
         className="border-b border-gray-200 py-4"
         defaultOpen={appliedCategories.length > 0}
@@ -87,7 +133,7 @@ const CategoriesFilter = () => {
                       className="text-2xl text-activeColor"
                       aria-hidden="true"
                     />
-                  )  }
+                  )}
                 </span>
               </Disclosure.Button>
             </h3>
@@ -130,7 +176,7 @@ const CategoriesFilter = () => {
                           }`}
                     >
                       <span>{category.name} </span>{" "}
-                      {/* <span className="text-gray-400">(4,521)</span> */}
+                    
                     </label>
                   </div>
                 ))}
@@ -138,7 +184,7 @@ const CategoriesFilter = () => {
             </Disclosure.Panel>
           </>
         )}
-      </Disclosure>
+      </Disclosure> */}
     </div>
   );
 };

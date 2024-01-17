@@ -12,9 +12,13 @@ const LocationFilter = () => {
 
   const [appliedLocations, setAppliedLocations] = useState<any[]>([]);
 
-  const {data:locationsOptions, error:locationsError, loading:locationsLoading} = useListLocationsQuery()
- 
-  const locations = locationsOptions?.listLocations.items
+  const {
+    data: locationsOptions,
+    error: locationsError,
+    loading: locationsLoading,
+  } = useListLocationsQuery();
+
+  const locations = locationsOptions?.listLocations.items;
   const [query, setQuery] = useState("");
   const filteredLocations = !!query
     ? locations?.filter((location) =>
@@ -31,8 +35,7 @@ const LocationFilter = () => {
     );
     var applied = [];
     if (val.target.checked) applied = [...appliedLocations, val.target.value];
-    else
-      applied = appliedLocations.filter((item) => item !== val.target.value);
+    else applied = appliedLocations.filter((item) => item !== val.target.value);
     // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
     applied.length > 0
@@ -53,11 +56,59 @@ const LocationFilter = () => {
   }, [searchParams]);
 
   return (
-    <div className="">
-      <Disclosure 
-      as="div" 
-      className="border-b border-gray-200 py-4"
-      defaultOpen={appliedLocations.length > 0}
+    <div className="space-y-3">
+      <div className="flex justify-between items-center gap-2">
+        <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
+          Location
+        </span>
+        <div className="relative w-[250px] my-3">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center  ">
+            <MagnifyingGlassIcon
+              className="h-7 w-7 text-gray-400 p-1.5 rounded-full mr-1 "
+              aria-hidden="true"
+            />
+          </div>
+          <input
+            id="search"
+            name="search"
+            onChange={handleSearchChange}
+            className="block w-full rounded-2xl border border-gray-300 bg-white py-1.5 pl-8 pr-3 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            placeholder="Search"
+            type="search"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        {filteredLocations?.map((location) => (
+          <div className="flex items-center" key={location.id}>
+            <input
+              id={`filter-${location.id}`}
+              defaultValue={location.slug!}
+              type="checkbox"
+              onChange={handleChange}
+              checked={appliedLocations.includes(location.slug!)}
+              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+            />
+            <label
+              htmlFor={`filter-${location.id}-${location.id}`}
+              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium 
+                          ${
+                            appliedLocations.includes(location.slug!)
+                              ? "text-activeColor"
+                              : "text-primaryColor"
+                          }`}
+            >
+              <span>{location.name} </span>{" "}
+            </label>
+          </div>
+        ))}
+      </div>
+
+      {/* <Disclosure
+        as="div"
+        className="border-b border-gray-200 py-4"
+        defaultOpen={appliedLocations.length > 0}
       >
         {({ open }) => (
           <>
@@ -99,8 +150,7 @@ const LocationFilter = () => {
                 />
               </div>
               <div className="space-y-4 h-[150px]  overflow-y-auto small-scroll">
-
-              {filteredLocations?.map((location) => (
+                {filteredLocations?.map((location) => (
                   <div className="flex items-center" key={location.id}>
                     <input
                       id={`filter-${location.id}`}
@@ -120,16 +170,14 @@ const LocationFilter = () => {
                           }`}
                     >
                       <span>{location.name} </span>{" "}
-                      {/* <span className="text-gray-400">(4,521)</span> */}
                     </label>
                   </div>
                 ))}
               </div>
-
             </Disclosure.Panel>
           </>
         )}
-      </Disclosure>
+      </Disclosure> */}
     </div>
   );
 };
