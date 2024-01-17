@@ -57,18 +57,18 @@ const SignUpPage = () => {
             username: values.username,
           },
         },
+        onCompleted: () => {
+          action.resetForm();
+          // console.log("success")
+          toast.success(
+            "Sign Up successfull. Please login to your account to continue"
+          );
+          window.location.replace("/login");
+        },
+        onError : () => {
+          toast.error("we have trouble signing you up. Please try again");
+        }
       });
-      if (signupError) {
-        toast.error("we have trouble signing you up. Please try again");
-      }
-      if (signupData) {
-        action.resetForm();
-        // console.log("success")
-        toast.success(
-          "Sign Up successfull. Please login to your account to continue"
-        );
-        window.location.replace("/login");
-      }
     },
   });
 

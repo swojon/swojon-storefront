@@ -39,6 +39,8 @@ const documents = {
     "query SearchLocation($nominatimQuery: NominatimSearchDTO!) {\n  searchLocation(nominatimQuery: $nominatimQuery) {\n    items {\n      city\n      country\n      displayName\n      lat\n      locality\n      lon\n      placeId\n      postCode\n      state\n      stateDistrict\n    }\n  }\n}": types.SearchLocationDocument,
     "query ListNotifications($filters: NotificationFilterInput, $endingBefore: String, $startingAfter: String, $limit: Float) {\n  listNotifications(\n    filters: $filters\n    ending_before: $endingBefore\n    starting_after: $startingAfter\n    limit: $limit\n  ) {\n    count\n    hasMore\n    items {\n      content\n      context\n      dateCreated\n      read\n      type\n      id\n      user {\n        email\n        id\n      }\n    }\n  }\n}": types.ListNotificationsDocument,
     "mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {\n  updateProfile(profileData: $profileData, profileId: $profileId) {\n    address\n    avatar\n    country\n    city\n    avatarThumbnail\n    facebookHandle\n    googleHandle\n    id\n    name\n    instagramHandle\n    isPhoneNumberVerified\n    linkedinHandle\n    phoneNumber\n    twitterHandle\n    zipCode\n    state\n  }\n}": types.UpdateProfileDocument,
+    "mutation ResetRequest($email: String!) {\n  resetRequest(email: $email) {\n    success\n  }\n}": types.ResetRequestDocument,
+    "mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}": types.ResetPasswordDocument,
     "mutation RemoveFavorite($listingId: Float!, $userId: Float!) {\n  removeFavorite(listingId: $listingId, userId: $userId) {\n    dateCreated\n    id\n    listing {\n      id\n      title\n    }\n    user {\n      email\n      id\n      username\n    }\n  }\n}": types.RemoveFavoriteDocument,
     "mutation RemoveSearchHistory {\n  removeSearchHistory {\n    items {\n      searchQuery\n    }\n  }\n}": types.RemoveSearchHistoryDocument,
     "mutation CreateSellerReview($reviewData: SellerReviewCreateDTO!) {\n  createSellerReview(reviewData: $reviewData) {\n    review\n    rating\n    reviewer {\n      id\n      email\n      username\n      profile {\n        avatar\n        name\n      }\n    }\n    seller {\n      id\n      email\n      username\n      profile {\n        avatar\n        name\n      }\n    }\n    dateCreated\n    id\n    listing {\n      id\n      title\n    }\n  }\n}": types.CreateSellerReviewDocument,
@@ -166,6 +168,14 @@ export function graphql(source: "query ListNotifications($filters: NotificationF
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {\n  updateProfile(profileData: $profileData, profileId: $profileId) {\n    address\n    avatar\n    country\n    city\n    avatarThumbnail\n    facebookHandle\n    googleHandle\n    id\n    name\n    instagramHandle\n    isPhoneNumberVerified\n    linkedinHandle\n    phoneNumber\n    twitterHandle\n    zipCode\n    state\n  }\n}"): (typeof documents)["mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {\n  updateProfile(profileData: $profileData, profileId: $profileId) {\n    address\n    avatar\n    country\n    city\n    avatarThumbnail\n    facebookHandle\n    googleHandle\n    id\n    name\n    instagramHandle\n    isPhoneNumberVerified\n    linkedinHandle\n    phoneNumber\n    twitterHandle\n    zipCode\n    state\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation ResetRequest($email: String!) {\n  resetRequest(email: $email) {\n    success\n  }\n}"): (typeof documents)["mutation ResetRequest($email: String!) {\n  resetRequest(email: $email) {\n    success\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}"): (typeof documents)["mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

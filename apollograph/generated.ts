@@ -1508,6 +1508,72 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const ResetRequestDocument = gql`
+    mutation ResetRequest($email: String!) {
+  resetRequest(email: $email) {
+    success
+  }
+}
+    `;
+export type ResetRequestMutationFn = Apollo.MutationFunction<ResetRequestMutation, ResetRequestMutationVariables>;
+
+/**
+ * __useResetRequestMutation__
+ *
+ * To run a mutation, you first call `useResetRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetRequestMutation, { data, loading, error }] = useResetRequestMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useResetRequestMutation(baseOptions?: Apollo.MutationHookOptions<ResetRequestMutation, ResetRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetRequestMutation, ResetRequestMutationVariables>(ResetRequestDocument, options);
+      }
+export type ResetRequestMutationHookResult = ReturnType<typeof useResetRequestMutation>;
+export type ResetRequestMutationResult = Apollo.MutationResult<ResetRequestMutation>;
+export type ResetRequestMutationOptions = Apollo.BaseMutationOptions<ResetRequestMutation, ResetRequestMutationVariables>;
+export const ResetPasswordDocument = gql`
+    mutation ResetPassword($resetData: ResetPasswordDTO!) {
+  resetPassword(resetData: $resetData) {
+    success
+  }
+}
+    `;
+export type ResetPasswordMutationFn = Apollo.MutationFunction<ResetPasswordMutation, ResetPasswordMutationVariables>;
+
+/**
+ * __useResetPasswordMutation__
+ *
+ * To run a mutation, you first call `useResetPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
+ *   variables: {
+ *      resetData: // value for 'resetData'
+ *   },
+ * });
+ */
+export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, options);
+      }
+export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
+export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
+export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -2335,6 +2401,10 @@ export type Mutation = {
   removeUserFromCommunity: CommunityMember;
   /** User remove role */
   removeUserRole: User;
+  /** Password Reset */
+  resetPassword: ResetStatus;
+  /** Password Reset Request */
+  resetRequest: ResetStatus;
   /** Send Chat Message */
   sendChatMessage: Chat;
   /** User signup */
@@ -2516,6 +2586,16 @@ export type MutationRemoveUserFromCommunityArgs = {
 export type MutationRemoveUserRoleArgs = {
   roleId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
+};
+
+
+export type MutationResetPasswordArgs = {
+  resetData: ResetPasswordDto;
+};
+
+
+export type MutationResetRequestArgs = {
+  email: Scalars['String']['input'];
 };
 
 
@@ -2955,6 +3035,16 @@ export type QuerySummaryUserReviewArgs = {
   userId: Scalars['Float']['input'];
 };
 
+export type ResetPasswordDto = {
+  password: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+};
+
+export type ResetStatus = {
+  __typename?: 'ResetStatus';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type Review = {
   __typename?: 'Review';
   dateCreated: Scalars['DateTime']['output'];
@@ -3330,6 +3420,20 @@ export type UpdateProfileMutationVariables = Exact<{
 
 
 export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } };
+
+export type ResetRequestMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type ResetRequestMutation = { __typename?: 'Mutation', resetRequest: { __typename?: 'ResetStatus', success?: boolean | null } };
+
+export type ResetPasswordMutationVariables = Exact<{
+  resetData: ResetPasswordDto;
+}>;
+
+
+export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'ResetStatus', success?: boolean | null } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];
