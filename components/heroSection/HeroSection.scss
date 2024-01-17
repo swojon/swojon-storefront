@@ -10,21 +10,8 @@
     @media (max-width: 620px) {
       height: calc(70vh - 4rem);
     }
-    // @media (max-width: 420px) {
-    //   height: calc(60vh - 4rem);
-    //   border: 1px solid red;
-    // }
   }
-  .img-layout {
-    // @media (max-width: 768px) {
-    //   background: linear-gradient(
-    //     to top,
-    //     rgba(186, 30, 30, 0.8),
-    //     rgba(0, 0, 0, 0),
-    //     rgba(0, 0, 0, 0)
-    //   );
-    // }
-  }
+
   @media (max-width: 768px) {
     background-position: center;
   }

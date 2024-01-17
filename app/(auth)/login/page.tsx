@@ -90,19 +90,19 @@ const SignIn: NextPage = (): JSX.Element => {
   };
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full">
-      <div className="lg:px-24 md:px-16  ">
+      <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-5">
         <Link href="/">
           <Image
             src="/assets/swojon.svg"
             width={100}
             height={500}
             alt="logo"
-            className="lg:w-[90px] md:w-20 w-16  "
+            className="lg:w-[120px] md:w-20 w-16  "
           />
         </Link>
 
         <form
-          className="lg:space-y-4 md:space-y-3 space-y-2 mx-auto pt-3"
+          className="lg:space-y-4 md:space-y-3 space-y-2 mx-auto pt-1 w-full"
           onSubmit={handleSubmit}
         >
           <div className="text-center">
@@ -127,7 +127,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 name="email"
                 id="email"
                 onChange={handleChange}
-                className="block w-full rounded-md border border-gray-200 pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor  py-2.5 px-2 text-sm "
+                className="block w-full rounded-md border border-gray-200 pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor  py-2.5 px-2 md:text-lg text-base "
                 placeholder="Enter your email"
               />
             </div>
@@ -146,7 +146,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 name="password"
                 id="password"
                 onChange={handleChange}
-                className="block w-full rounded-md border border-gray-200 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor py-2.5 pl-2 pr-10 text-sm"
+                className="block w-full rounded-md border border-gray-200 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor py-2.5 pl-2 pr-10 md:text-lg text-base"
                 placeholder="Enter your password"
               />
 
@@ -186,12 +186,12 @@ const SignIn: NextPage = (): JSX.Element => {
 
           <button
             type="submit"
-            className="py-2  border border-activeColor text-sm  text-activeColor w-full rounded-md font-lexed font-bold flex justify-center "
+            className="py-2.5  border border-activeColor lg:text-lg text-base  text-activeColor w-full rounded-md font-lexed font-bold flex justify-center "
           >
             {formUploading ? (
               <BiLoaderCircle className=" text-xl animate-spin" />
             ) : (
-              " Log in"
+              "Log in"
             )}
           </button>
         </form>
@@ -202,7 +202,7 @@ const SignIn: NextPage = (): JSX.Element => {
           </span>
         </div>
 
-        <div className="justify-center gap-4 ">
+        <div className=" gap-4 w-full">
           {/* <button
             onClick={handleGoogleClick}
             className=" py-2 px-2 flex justify-center items-center  border border-red-500   text-primaryColor rounded-full "
@@ -217,13 +217,13 @@ const SignIn: NextPage = (): JSX.Element => {
             <FaFacebookF className="lg:text-sm md:text-xs text-[12px] text-blue-700" />
           </button> */}
           <div
-            className="mb-2 flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
+            className="mb-2 flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
             onClick={handleGoogleClick}
           >
-            <span className="w-[30%]">
+            <span className="">
               <FcGoogle className="float-right text-lg" />
             </span>
-            <span className="text-sm text-secondColor font-bold">
+            <span className="lg:text-lg text-base text-secondColor font-bold">
               Continue with Google
             </span>
           </div>
@@ -248,7 +248,7 @@ const SignIn: NextPage = (): JSX.Element => {
               </Link> */}
         </div>
 
-        <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-5">
+        <h6 className="text-center text-secondColor lg:text-sm text-xs  pt-1">
           {" "}
           Don’t have an account?{" "}
           <Link href="/signup">

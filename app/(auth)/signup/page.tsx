@@ -73,33 +73,22 @@ const SignUpPage = () => {
   });
 
   return (
-    <div className=" bg-white lg:w-[50%] md:w-[75%] w-full ">
-      <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-6">
+    <div className=" bg-white lg:w-[50%] md:w-[75%] w-full max-h-screen overflow-auto">
+      <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-2">
         <Link href="/" className="">
           <Image
             src="/assets/swojon.svg"
             width={100}
             height={500}
             alt="logo"
-            className="lg:w-[90px] md:w-20 w-16  "
+            className="lg:w-[120px] md:w-20 w-16  "
           />
         </Link>
 
-        <div className="space-y-1">
-          <div className="flex justify-between">
-            <div>
-              {isEmailPreferred && (
-                <button onClick={() => setIsEmailPreferred(false)}>
-                  {" "}
-                  <ArrowLeftIcon className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-            <h2 className=" lg:text-2xl text-lg  font-bold text-primaryColor font-lexed">
-              Sign Up
-            </h2>
-            <div></div>
-          </div>
+        <div className="space-y-1 py-3">
+          <h2 className=" lg:text-2xl text-lg  font-bold text-primaryColor font-lexed text-center">
+            Sign Up
+          </h2>
 
           <p className="text-sm  text-secondColor pt-1">
             Welcome back! Please enter your details.
@@ -107,14 +96,26 @@ const SignUpPage = () => {
         </div>
         {!isEmailPreferred && (
           <div className="space-y-2.5 w-full">
-            <div className="flex items-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
-              <span className="w-[30%]">
-                <FcGoogle className="float-right text-lg" />
+            <div className="flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer relative">
+              <span className="absolute left-4">
+                <FcGoogle className=" text-lg" />
               </span>
-              <span className="text-sm text-secondColor font-bold">
+              <span className="lg:text-lg text-base text-secondColor font-bold">
                 Continue with Google
               </span>
             </div>
+            <div
+              onClick={() => setIsEmailPreferred(true)}
+              className="flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer relative"
+            >
+              <span className="absolute left-4">
+                <FaRegEnvelope className=" text-activeColor text-lg" />
+              </span>
+              <span className="lg:text-lg text-base text-secondColor font-bold">
+                Continue with Email
+              </span>
+            </div>
+
             {/* 
           <div className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer">
             <span className="w-[30%] ">
@@ -125,18 +126,6 @@ const SignUpPage = () => {
               Continue with Facebook
             </span>
           </div> */}
-
-            <div
-              onClick={() => setIsEmailPreferred(true)}
-              className="flex items-center  py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
-            >
-              <span className="w-[30%]">
-                <FaRegEnvelope className="float-right text-activeColor text-lg" />
-              </span>
-              <span className="text-sm text-secondColor">
-                Continue with Email
-              </span>
-            </div>
 
             <h6 className="text-center text-secondColor lg:text-sm md:text-xs text-[13px] pt-5">
               {" "}
@@ -149,7 +138,17 @@ const SignUpPage = () => {
         )}
         {isEmailPreferred && <EmailSignUp />}
 
-        <div className="flex items-center gap-3 cursor-pointer pt-7">
+        {isEmailPreferred && (
+          <button
+            onClick={() => setIsEmailPreferred(false)}
+            className="text-lg   text-secondColor text-center rounded-md font-lexed font-bold  bg-white flex justify-center cursor-pointer relative mx-auto"
+          >
+            Cancel{" "}
+            <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-secondColor"></span>
+          </button>
+        )}
+
+        {/* <div className="flex items-center gap-3 cursor-pointer pt-7">
           <Link href="">
             <span className="text-xs capitalize text-activeColor">
               privacy policy
@@ -169,7 +168,7 @@ const SignUpPage = () => {
           <Link href="">
             <span className="text-xs capitalize text-activeColor">help</span>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

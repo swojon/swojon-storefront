@@ -205,20 +205,21 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="/profile"
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700"
-                              )}
-                            >
-                              My Profile
-                            </Link>
-                          )}
-                        </Menu.Item>
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border cursor-pointer">
+                        <Link href="/profile">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                className={classNames(
+                                  active ? "bg-gray-200" : "",
+                                  "block px-4 py-1 text-sm text-gray-700"
+                                )}
+                              >
+                                My Profile
+                              </div>
+                            )}
+                          </Menu.Item>
+                        </Link>
 
                         <Menu.Item>
                           <div className="my-2 border border-t"></div>
@@ -230,7 +231,7 @@ export default function Navbar2({ border }: { border: any }) {
                               href="/help-center"
                               className={classNames(
                                 active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
                               )}
                             >
                               Help Center
@@ -244,7 +245,7 @@ export default function Navbar2({ border }: { border: any }) {
                               href="/FAQ"
                               className={classNames(
                                 active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
                               )}
                             >
                               FAQ
@@ -258,7 +259,7 @@ export default function Navbar2({ border }: { border: any }) {
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-1 text-sm text-gray-700"
+                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
                               )}
                             >
                               Sign out
