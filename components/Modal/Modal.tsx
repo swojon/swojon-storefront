@@ -17,7 +17,7 @@ import SellProductModal from "./SellProductModal";
 import SuccessModal from "./SuccessModal";
 import WriteReviewModal from "./WriteReviewModal";
 import EditEmailModal from "./EditEmailModal";
-import EditNumberlModal from "./EditNumberlModal";
+import VerificationCodeModal from "./VerificationCodeModal";
 import AdditionalDetail from "./AdditionalDetail";
 import FilterModal from "./FilterModal";
 const SENDOFFERMODAL = "sendOfferModal";
@@ -27,7 +27,7 @@ const SELLPRODUCT = "sellProduct";
 const SUCCESS = "product-create-success";
 const WRITEREVIEW = "writeReview";
 const EDITEMAIL = "editEmail";
-const EDITNUMBER = "editNumber";
+const VERIFYCODE = "VerifyCode";
 const ADDITIONALDETAILS = "additionalDetails";
 const FILTERMODAL = "filterModal";
 
@@ -112,8 +112,8 @@ export default function Modal() {
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
-                  {modalStack[modalStack.length - 1]?.body === EDITNUMBER && (
-                    <EditNumberlModal
+                  {modalStack[modalStack.length - 1]?.body === VERIFYCODE && (
+                    <VerificationCodeModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

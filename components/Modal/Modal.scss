@@ -1,15 +1,14 @@
 .form-scrollbar {
-    &::-webkit-scrollbar {
-      width: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #b2b2b2;
-    }
+  &::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
   }
-  // .form-scrollbar {
-  
-  // }
-  // .form-scrollba:hover {
-  //   overflow-y: auto;
-  // }
-  
+  &::-webkit-scrollbar-thumb {
+    background: #b2b2b2;
+    border-radius: 5px;
+  }
+}
+
+.filter-content {
+  height: calc(89dvh - 6.5rem);
+}

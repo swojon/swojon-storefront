@@ -1,19 +1,22 @@
+"use client";
 import { setModalClose } from "@/app/redux/modalSlice";
-import React from "react";
+import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import VerificationCode from "../VerificationCode/VerificationCode";
 
-const EditNumberlModal = ({props}: {props: any}) => {
+const VerificationCodeModal = ({ props }: { props: any }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   return (
-    <section className="w-full h-full  space-y-3 lg:space-y-4 p-5 relative">
+    <section className=" lg:w-[30%] md:w-[45%] sm:w-[55%] w-[80%] bg-white rounded-md mx-auto h-full  space-y-3 lg:space-y-5 p-6 relative">
       <button
         className="rounded-full bg-activeColor p-1 border  text-white absolute right-2 top-2"
         onClick={() => dispatch(setModalClose(true))}
       >
         <MdClose />
       </button>
-      <h6 className="text-2xl font-lexed font-medium text-primaryColor text-center">
+      <h6 className="text-2xl font-lexed font-bold text-primaryColor text-center">
         Enter verification code
       </h6>
 
@@ -22,7 +25,7 @@ const EditNumberlModal = ({props}: {props: any}) => {
         <span>mousumitu@gmail.com</span>
       </div>
 
-      <div className=" flex rounded-md shadow-sm">
+      {/* <div className=" flex rounded-md shadow-sm">
         <div className="relative flex flex-grow items-stretch focus-within:z-10">
           <input
             type="password"
@@ -37,16 +40,26 @@ const EditNumberlModal = ({props}: {props: any}) => {
         >
           resend
         </button>
-      </div>
+      </div> */}
 
-      <button className="whitespace-nowrap border border-activeColor py-2 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg  font-lexed font-medium shadow-md text-center w-full">
-        Submit code
+      <VerificationCode
+        length={6}
+        label="Code Label"
+        loading={loading}
+        onComplete={() => {
+          setLoading(true);
+          setTimeout(() => setLoading(false), 10000);
+        }}
+      />
+
+      <button className="whitespace-nowrap border border-activeColor py-2 px-2 rounded bg-white text-activeColor relative  transition ease-in-out delay-150 duration-300 md:text-base text-sm hover:shadow-lg  font-lexed font-medium shadow-md text-center w-full">
+        Resend code in 00:08
       </button>
-      <button className="whitespace-nowrap   px-2 rounded  text-activeColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs   font-lexed font-medium  text-center w-full">
-        Cancel
+      <button className="whitespace-nowrap   px-2 rounded  text-secondColor relative  transition ease-in-out delay-150 duration-300 md:text-base text-sm  font-lexed font-medium  text-center w-full">
+        try another method
       </button>
     </section>
   );
 };
 
-export default EditNumberlModal;
+export default VerificationCodeModal;

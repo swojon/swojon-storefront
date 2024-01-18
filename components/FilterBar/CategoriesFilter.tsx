@@ -64,7 +64,7 @@ const CategoriesFilter = () => {
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-between items-center gap-2">
+      <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center sm:gap-2">
         <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
           Categories
         </span>
@@ -85,31 +85,36 @@ const CategoriesFilter = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3">
-        {filteredCategories?.map((category) => (
-          <div className="flex items-center" key={category.id}>
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
+        {filteredCategories?.slice(0, 12).map((category) => (
+          <div className="flex items-center gap-2" key={category.id}>
             <input
               id={`filter-${category.id}`}
               defaultValue={category.slug!}
               type="checkbox"
               onChange={handleChange}
               checked={appliedCategories.includes(category.slug!)}
-              className="h-4 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput "
             />
             <label
               htmlFor={`filter-${category.id}-${category.id}`}
-              className={`ml-3 text-sm  flex space-x-1 capitalize font-lexed font-medium 
-                          ${
-                            appliedCategories.includes(category.slug!)
-                              ? "text-activeColor"
-                              : "text-primaryColor"
-                          }`}
+              className={`md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%] 
+                      ${
+                        appliedCategories.includes(category.slug!)
+                          ? "text-activeColor"
+                          : "text-primaryColor"
+                      }`}
             >
-              <span>{category.name} </span>{" "}
+              <span className="truncate">{category.name} </span>{" "}
             </label>
           </div>
         ))}
       </div>
+
+      <button className=" text-base rounded-md text-activeColor font-bold relative">
+        See more{" "}
+        <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-activeColor"></span>
+      </button>
       {/* <Disclosure
         as="div"
         className="border-b border-gray-200 py-4"

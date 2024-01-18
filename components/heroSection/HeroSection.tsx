@@ -23,11 +23,11 @@ const HeroSection = () => {
       <div className="flex md:justify-end hero-height justify-center items-center  custom-container   relative z-10 md:bg-none bg-gradient-to-t from-slate-700">
         <div className="md:text-center text-center space-y-2 md:space-y-4 z-10 ">
           <h1 className="lg:text-6xl font-lexed md:text-5xl text-4xl font-bold flex flex-col space-y-2 animate md:text-primaryColor text-white slideInLeft drop-shadow-2xl shadow-black">
-            <span> Save! Declutter! </span>
+            Save! Declutter!
           </h1>
-          <p className="md:text-primaryColor text-white xl:text-xl lg:text-lg md:text-base text-sm  md:flex md:flex-col    animate--delay-1s slideInLeft2  drop-shadow-xl shadow-black">
+          <p className="md:text-primaryColor text-white xl:text-xl lg:text-lg md:text-base text-sm  sm:flex sm:flex-col   animate--delay-1s slideInLeft2  drop-shadow-xl shadow-black">
             <span className="md:block pe-2">
-              Sustainable Shopping, Unbeatable Prices – Welcome to Swojon
+              Sustainable Shopping, Unbeatable Prices – Welcome to Swojon,
             </span>
             <span>
               Where every purchase tells a story of style and savings.

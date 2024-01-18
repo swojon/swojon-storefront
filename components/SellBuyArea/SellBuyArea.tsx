@@ -6,7 +6,7 @@ import layers from "@/public/assets/layers.png";
 
 const SellBuyArea = () => {
   return (
-    <div className="md:my-20 my-14 custom-container">
+    <div className="md:mt-20 mt-12 custom-container">
       <h2 className="lg:text-4xl text-2xl font-lexed text-center text-primaryColor font-semiBold">
         Best Deals Products
       </h2>

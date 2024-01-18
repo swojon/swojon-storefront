@@ -76,7 +76,11 @@ const Profile = () => {
                 </span>
 
                 <span className=" md:text-base text-sm text-secondColor block ">
-                  Swojon member since {new Date(user?.createdAt).toLocaleString('en-us',{month:'short', year:'numeric'})}
+                  Swojon member since{" "}
+                  {new Date(user?.createdAt).toLocaleString("en-us", {
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </span>
               </div>
 
@@ -88,7 +92,10 @@ const Profile = () => {
                 )}
 
                 {editBtn === "username" ? (
-                  <EditUserName setEditBtn={setEditBtn} profile={user?.profile} />
+                  <EditUserName
+                    setEditBtn={setEditBtn}
+                    profile={user?.profile}
+                  />
                 ) : (
                   <div className="flex flex-wrap justify-between items-center gap-2">
                     <span className="text-lg text-secondColor font-lexed  block">
@@ -143,7 +150,7 @@ const Profile = () => {
                       dispatch(
                         setModalOpen({
                           title: "this is a modal",
-                          body: "editNumber",
+                          body: "VerifyCode",
                         })
                       )
                     }

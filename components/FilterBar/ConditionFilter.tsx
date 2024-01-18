@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const options = [
   { value: "used", label: "used", checked: true },
@@ -54,8 +55,38 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
 
   console.log("applied conditions", conditions);
   return (
-    <div>
-      <form className=" ">
+    <div className="space-y-3">
+      <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
+        Condition
+      </span>
+
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
+        {options.map((option, optionIdx) => (
+          <div key={option.value} className="flex items-center">
+            <input
+              id={`filter-${optionIdx}`}
+              defaultValue={option.value}
+              type="checkbox"
+              checked={conditions.includes(option.value)}
+              onChange={handleChange}
+              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+            />
+            <label
+              htmlFor={`filter-${optionIdx}`}
+              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%]  ${
+                conditions.includes(option.value)
+                  ? "text-activeColor"
+                  : "text-primaryColor"
+              }`}
+            >
+              <span>{option.label} </span>
+              <span className="text-gray-400">(4,521)</span>
+            </label>
+          </div>
+        ))}
+      </div>
+
+      {/* <form className=" ">
         <Disclosure
           as="div"
           className="border-b border-gray-200 py-4"
@@ -113,7 +144,7 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
             </>
           )}
         </Disclosure>
-      </form>
+      </form> */}
     </div>
   );
 };

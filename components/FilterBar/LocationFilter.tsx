@@ -57,7 +57,7 @@ const LocationFilter = () => {
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-between items-center gap-2">
+      <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center sm:gap-2">
         <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
           Location
         </span>
@@ -79,7 +79,7 @@ const LocationFilter = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
         {filteredLocations?.map((location) => (
           <div className="flex items-center" key={location.id}>
             <input
@@ -92,7 +92,7 @@ const LocationFilter = () => {
             />
             <label
               htmlFor={`filter-${location.id}-${location.id}`}
-              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium 
+              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%] 
                           ${
                             appliedLocations.includes(location.slug!)
                               ? "text-activeColor"

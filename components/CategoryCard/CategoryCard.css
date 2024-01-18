@@ -48,19 +48,16 @@
   font-size: 10px;
 }
 
-.swiper-button-prev {
-  top: 40%;
-}
-
+.swiper-button-prev,
 .swiper-button-next {
-  top: 40%;
+  top: 38%;
 }
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-  margin: 0 10px;
-  font-size: 8px;
-  padding: 8px 10px;
+  margin: 0 15px;
+  font-size: 12px;
+  padding: 12px 15px;
   background-color: rgb(255, 255, 255);
   color: #212121;
   border-radius: 50%;

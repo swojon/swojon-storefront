@@ -64,8 +64,61 @@ const BrandFilter = () => {
   };
 
   return (
-    <div>
-      <form className=" ">
+    <div className="space-y-3">
+      <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center sm:gap-2">
+        <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">
+          Brands
+        </span>
+        <div className="relative w-[250px] my-3">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center  ">
+            <MagnifyingGlassIcon
+              className="h-7 w-7 text-gray-400 p-1.5 rounded-full mr-1 "
+              aria-hidden="true"
+            />
+          </div>
+          <input
+            id="search"
+            name="search"
+            onChange={handleSearchChange}
+            className="block w-full rounded-2xl border border-gray-300 bg-white py-1.5 pl-8 pr-3 leading-5 placeholder-[#C0C0C0] focus:border-activeColor focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+            placeholder="Search"
+            type="search"
+          />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
+        {filteredBrands?.slice(0, 12).map((brand) => (
+          <div key={brand.id} className="flex items-center">
+            <input
+              id={`filter-${brand.id}`}
+              defaultValue={brand.slug!}
+              type="checkbox"
+              onChange={handleChange}
+              checked={appliedBrands.includes(brand.slug!)}
+              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+            />
+            <label
+              htmlFor={`filter-${brand.id}-${brand.id}`}
+              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%]
+                          ${
+                            appliedBrands.includes(brand.slug!)
+                              ? "text-activeColor"
+                              : "text-primaryColor"
+                          }`}
+            >
+              <span>{brand.name} </span>{" "}
+              {/* <span className="text-gray-400">(4,521)</span> */}
+            </label>
+          </div>
+        ))}
+      </div>
+
+      <button className=" text-base rounded-md text-activeColor font-bold relative">
+        See more{" "}
+        <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-activeColor"></span>
+      </button>
+      {/* <form className=" ">
         <Disclosure
           as="div"
           className="border-b border-gray-200 py-4"
@@ -131,7 +184,7 @@ const BrandFilter = () => {
                           }`}
                       >
                         <span>{brand.name} </span>{" "}
-                        {/* <span className="text-gray-400">(4,521)</span> */}
+                       
                       </label>
                     </div>
                   ))}
@@ -140,7 +193,7 @@ const BrandFilter = () => {
             </>
           )}
         </Disclosure>
-      </form>
+      </form> */}
     </div>
   );
 };
