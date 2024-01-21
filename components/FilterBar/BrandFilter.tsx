@@ -4,6 +4,8 @@ import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useListBrandsQuery } from "@/apollograph/generated";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { BiSelection } from "react-icons/bi";
+import Image from "next/image";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,6 +17,7 @@ const BrandFilter = () => {
   const searchParams = useSearchParams()!;
 
   const [appliedBrands, setAppliedBrands] = useState<any[]>([]);
+  const [selectBrand, setSelectBrand] = useState<any>(null);
 
   const handleChange = (val: any) => {
     console.log(
@@ -87,37 +90,39 @@ const BrandFilter = () => {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
-        {filteredBrands?.slice(0, 12).map((brand) => (
-          <div key={brand.id} className="flex items-center">
-            <input
-              id={`filter-${brand.id}`}
-              defaultValue={brand.slug!}
-              type="checkbox"
-              onChange={handleChange}
-              checked={appliedBrands.includes(brand.slug!)}
-              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
-            />
-            <label
-              htmlFor={`filter-${brand.id}-${brand.id}`}
-              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%]
-                          ${
-                            appliedBrands.includes(brand.slug!)
-                              ? "text-activeColor"
-                              : "text-primaryColor"
-                          }`}
-            >
-              <span>{brand.name} </span>{" "}
-              {/* <span className="text-gray-400">(4,521)</span> */}
-            </label>
+      <div className=" flex items-center  gap-4 overflow-x-auto small-scroll2 pb-3">
+        {filteredBrands?.map((brand) => (
+          <div
+            key={brand.id}
+            className={`flex flex-col justify-center  items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
+              brand?.id === selectBrand?.id
+                ? " border-activeColor "
+                : "border-gray-200 hover:border-gray-500"
+            }`}
+            onClick={() => setSelectBrand(brand)}
+          >
+            {brand.logo ? (
+              <Image
+                alt="brand logo"
+                src={brand.logo}
+                width={100}
+                height={100}
+                className="w-auto h-8 rounded-md max-w-20"
+              />
+            ) : (
+              <BiSelection className="text-primaryColor" />
+            )}
+            <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
+              {brand.name}
+            </span>
           </div>
         ))}
       </div>
 
-      <button className=" text-base rounded-md text-activeColor font-bold relative">
+      {/* <button className=" text-base rounded-md text-activeColor font-bold relative">
         See more{" "}
         <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-activeColor"></span>
-      </button>
+      </button> */}
       {/* <form className=" ">
         <Disclosure
           as="div"

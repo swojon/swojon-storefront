@@ -12,3 +12,16 @@
 .filter-content {
   height: calc(89dvh - 6.5rem);
 }
+
+.small-scroll2::-webkit-scrollbar {
+  height: 8px;
+}
+
+.small-scroll2::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.small-scroll2::-webkit-scrollbar-thumb {
+  background: #cdcccc;
+  border-radius: 4px;
+}

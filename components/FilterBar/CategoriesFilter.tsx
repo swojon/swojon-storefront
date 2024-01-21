@@ -6,6 +6,7 @@ import icon from "@/public/assets/desktop.png";
 import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useListCategoriesQuery } from "@/apollograph/generated";
+import { BiSelection } from "react-icons/bi";
 
 const CategoriesFilter = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const CategoriesFilter = () => {
     },
   });
   const categories = categoryOptions?.listCategories.items;
+  const [selectCategory, setSelectCategory] = useState<any>(null);
   const [query, setQuery] = useState("");
   const filteredCategories = !!query
     ? categories?.filter((ca) =>
@@ -61,6 +63,7 @@ const CategoriesFilter = () => {
     const value = e.target.value;
     setQuery(value);
   };
+  console.log("show", filteredCategories);
 
   return (
     <div className="space-y-3">
@@ -85,36 +88,39 @@ const CategoriesFilter = () => {
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
-        {filteredCategories?.slice(0, 12).map((category) => (
-          <div className="flex items-center gap-2" key={category.id}>
-            <input
-              id={`filter-${category.id}`}
-              defaultValue={category.slug!}
-              type="checkbox"
-              onChange={handleChange}
-              checked={appliedCategories.includes(category.slug!)}
-              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput "
-            />
-            <label
-              htmlFor={`filter-${category.id}-${category.id}`}
-              className={`md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%] 
-                      ${
-                        appliedCategories.includes(category.slug!)
-                          ? "text-activeColor"
-                          : "text-primaryColor"
-                      }`}
-            >
-              <span className="truncate">{category.name} </span>{" "}
-            </label>
+      <div className="flex items-center  gap-4 overflow-x-auto small-scroll2 pb-3">
+        {filteredCategories?.map((category) => (
+          <div
+            key={category.id}
+            className={`flex flex-col justify-center  items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
+              category?.id === selectCategory?.id
+                ? " border-activeColor "
+                : "border-gray-200 hover:border-gray-500"
+            }`}
+            onClick={() => setSelectCategory(category)}
+          >
+            {category.icon ? (
+              <Image
+                alt="brand logo"
+                src={category.icon}
+                width={100}
+                height={100}
+                className="w-auto h-8 rounded-md max-w-20"
+              />
+            ) : (
+              <BiSelection className="text-primaryColor" />
+            )}
+            <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
+              {category.name}
+            </span>
           </div>
         ))}
       </div>
 
-      <button className=" text-base rounded-md text-activeColor font-bold relative">
+      {/* <button className=" text-base rounded-md text-activeColor font-bold relative">
         See more{" "}
         <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-activeColor"></span>
-      </button>
+      </button> */}
       {/* <Disclosure
         as="div"
         className="border-b border-gray-200 py-4"

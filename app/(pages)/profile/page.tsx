@@ -31,7 +31,6 @@ const Profile = () => {
         <ProfileLoader />
       ) : (
         <>
-          {" "}
           <div className="relative">
             {isMobile && (
               <Link
@@ -62,16 +61,35 @@ const Profile = () => {
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
               <div className="">
-                <div className="md:w-24 md:h-24 w-16 rounded-full border">
-                  <Image
-                    src={user?.profile?.avatar ?? defaultAvatar}
-                    alt="user"
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover rounded-full"
-                  />
+                <div className="flex items-end gap-3">
+                  <div className="md:w-24 md:h-24 w-16 rounded-full border">
+                    <Image
+                      src={user?.profile?.avatar ?? defaultAvatar}
+                      alt="user"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  <button
+                    className="py-1.5 px-3 text-sm border border-activeColor rounded-md text-white bg-activeColor"
+                    onClick={() =>
+                      dispatch(
+                        setModalOpen({
+                          title: "this is a modal",
+                          body: "uploadImageModal",
+                        })
+                      )
+                    }
+                  >
+                    change image
+                  </button>
+                  <button className="py-1.5 px-3 text-sm border border-activeColor text-primaryColor rounded-md">
+                    remove
+                  </button>
                 </div>
-                <span className="lg:text-3xl md:text-2xl text-lg text-primaryColor font-lexed font-bold block capitalize mt-2">
+
+                <span className="lg:text-3xl md:text-2xl text-lg text-primaryColor font-lexed font-bold block capitalize mt-4">
                   {user?.username ?? user?.profile?.name}
                 </span>
 
@@ -143,7 +161,7 @@ const Profile = () => {
                 </span>
                 <div className="flex flex-wrap justify-between items-center gap-2">
                   <span className="text-lg text-secondColor font-lexed  block">
-                    {user?.profile?.phoneNumber}
+                    {user?.profile?.phoneNumber || "No Number Added"}
                   </span>
                   <button
                     onClick={() =>

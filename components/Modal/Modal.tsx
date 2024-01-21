@@ -20,6 +20,7 @@ import EditEmailModal from "./EditEmailModal";
 import VerificationCodeModal from "./VerificationCodeModal";
 import AdditionalDetail from "./AdditionalDetail";
 import FilterModal from "./FilterModal";
+import UploadAvatarModal from "./UploadAvatarModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
@@ -30,6 +31,7 @@ const EDITEMAIL = "editEmail";
 const VERIFYCODE = "VerifyCode";
 const ADDITIONALDETAILS = "additionalDetails";
 const FILTERMODAL = "filterModal";
+const UPLOADIMAGEMODAL = "uploadImageModal";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -46,7 +48,7 @@ export default function Modal() {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-[15000]"
+        className="relative z-[15000] "
         onClose={() => dispatch(setModalClose(true))}
       >
         <Transition.Child
@@ -98,6 +100,12 @@ export default function Modal() {
                       </Dialog.Title> */}
                   {modalStack[modalStack.length - 1]?.body === FILTERMODAL && (
                     <FilterModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body ===
+                    UPLOADIMAGEMODAL && (
+                    <UploadAvatarModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

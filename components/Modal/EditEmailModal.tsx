@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 const EditEmailModal = ({ props }: { props: any }) => {
   const dispatch = useDispatch();
   return (
-    <section className=" lg:w-[30%] md:w-[45%] sm:w-[55%] w-[80%] bg-white h-full rounded-md mx-auto space-y-3 lg:space-y-4 py-7 px-5 relative">
+    <section className="lg:w-[30%] md:w-[45%] sm:w-[55%] w-[80%] bg-white h-full rounded-md mx-auto space-y-3 lg:space-y-4 py-7 px-5 relative">
       <button
         className="rounded-full bg-activeColor p-1 border  text-white absolute right-2 top-2"
         onClick={() => dispatch(setModalClose(true))}

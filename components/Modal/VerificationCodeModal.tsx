@@ -46,7 +46,7 @@ const VerificationCodeModal = ({ props }: { props: any }) => {
         length={6}
         label="Code Label"
         loading={loading}
-        onComplete={() => {
+        onComplete={(code: any) => {
           setLoading(true);
           setTimeout(() => setLoading(false), 10000);
         }}

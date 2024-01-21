@@ -82,7 +82,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
                 })
               )
             }
-            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor  "
+            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor cursor-pointer"
           >
             <FiFilter />
           </span>
