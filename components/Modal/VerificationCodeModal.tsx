@@ -4,12 +4,17 @@ import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import VerificationCode from "../VerificationCode/VerificationCode";
+import OTPCode from "../OTPCode/OTPCode";
 
 const VerificationCodeModal = ({ props }: { props: any }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const onOtpSubmit = (otp: any) => {
+    console.log("Login Successful", otp);
+  };
+
   return (
-    <section className=" lg:w-[30%] md:w-[45%] sm:w-[55%] w-[80%] bg-white rounded-md mx-auto h-full  space-y-3 lg:space-y-5 p-6 relative">
+    <section className=" lg:w-[30%] md:w-[45%] sm:w-[55%] w-[85%] bg-white rounded-md mx-auto h-full  space-y-3 lg:space-y-5 md:p-6 p-3 relative">
       <button
         className="rounded-full bg-activeColor p-1 border  text-white absolute right-2 top-2"
         onClick={() => dispatch(setModalClose(true))}
@@ -17,7 +22,7 @@ const VerificationCodeModal = ({ props }: { props: any }) => {
         <MdClose />
       </button>
       <h6 className="text-2xl font-lexed font-bold text-primaryColor text-center">
-        Enter verification code
+        Enter Verification Code
       </h6>
 
       <div className="text-sm  text-secondColor text-center">
@@ -42,7 +47,7 @@ const VerificationCodeModal = ({ props }: { props: any }) => {
         </button>
       </div> */}
 
-      <VerificationCode
+      {/* <VerificationCode
         length={6}
         label="Code Label"
         loading={loading}
@@ -50,7 +55,9 @@ const VerificationCodeModal = ({ props }: { props: any }) => {
           setLoading(true);
           setTimeout(() => setLoading(false), 10000);
         }}
-      />
+      /> */}
+
+      <OTPCode length={4} onOtpSubmit={onOtpSubmit} />
 
       <button className="whitespace-nowrap border border-activeColor py-2 px-2 rounded bg-white text-activeColor relative  transition ease-in-out delay-150 duration-300 md:text-base text-sm hover:shadow-lg  font-lexed font-medium shadow-md text-center w-full">
         Resend code in 00:08

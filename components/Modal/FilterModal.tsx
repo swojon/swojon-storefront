@@ -24,7 +24,7 @@ const FilterModal = () => {
         </button>
       </div>
 
-      <div className="md:px-8 px-2 py-2 md:py-4  mb-2 md:space-y-4 space-y-2.5 z-0 filter-content  overflow-y-auto form-scrollbar ">
+      <div className="md:px-8 px-2 py-2 md:py-4  mb-2 md:space-y-5 space-y-3 z-0 filter-content  overflow-y-auto form-scrollbar ">
         <LocationFilter />
         <CategoriesFilter />
         <ConditionFilter initial={[]} />

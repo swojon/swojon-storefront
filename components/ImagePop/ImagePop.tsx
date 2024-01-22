@@ -30,7 +30,7 @@ const ImagePop = () => {
             alt="img"
             width={700}
             height={500}
-            className="md:w-[80%] w-full md:h-auto h-auto m-6 max-w-full max-h-[90vh]"
+            className=" w-auto md:h-auto h-auto m-6  min-h-[60dvh] "
           />
         )}
       </div>

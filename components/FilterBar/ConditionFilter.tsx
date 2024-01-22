@@ -3,10 +3,13 @@ import { Disclosure } from "@headlessui/react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import brandNew from "@/public/assets/new-product.png";
+import used from "@/public/assets/second-hand.png";
+import Image from "next/image";
 
 const options = [
-  { value: "used", label: "used", checked: true },
-  { value: "new", label: "new", checked: false },
+  { value: "used", label: "used", checked: true, icon: used },
+  { value: "new", label: "new", checked: false, icon: brandNew },
 ];
 
 function classNames(...classes: any[]) {
@@ -23,7 +26,7 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
   const handleChange = (val: any) => {
     var applied = [];
     console.log(
-      "input cchanged",
+      "input changed",
       val.target.name,
       val.target.value,
       val.target.checked
@@ -60,29 +63,46 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
         Condition
       </span>
 
-      <div className="grid sm:grid-cols-3 grid-cols-2 gap-3">
+      <div className="flex items-center  gap-4">
         {options.map((option, optionIdx) => (
-          <div key={option.value} className="flex items-center">
-            <input
-              id={`filter-${optionIdx}`}
-              defaultValue={option.value}
-              type="checkbox"
-              checked={conditions.includes(option.value)}
-              onChange={handleChange}
-              className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+          <div
+            key={optionIdx}
+            className={`flex flex-col justify-center border-gray-200 hover:border-gray-500 items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3 `}
+            onClick={() => setConditions(options)}
+          >
+            <Image
+              alt="icon"
+              src={option.icon}
+              width={100}
+              height={100}
+              className="w-auto h-8 rounded-md max-w-20"
             />
-            <label
-              htmlFor={`filter-${optionIdx}`}
-              className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%]  ${
-                conditions.includes(option.value)
-                  ? "text-activeColor"
-                  : "text-primaryColor"
-              }`}
-            >
-              <span>{option.label} </span>
-              <span className="text-gray-400">(4,521)</span>
-            </label>
+
+            <span className="block text-base text-primaryColor font-lexed font-medium capitalize">
+              {option.value}
+            </span>
           </div>
+          // <div key={option.value} className="flex items-center">
+          //   <input
+          //     id={`filter-${optionIdx}`}
+          //     defaultValue={option.value}
+          //     type="checkbox"
+          //     checked={conditions.includes(option.value)}
+          //     onChange={handleChange}
+          //     className="md:h-6 h-4 md:w-6 w-4 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
+          //   />
+          //   <label
+          //     htmlFor={`filter-${optionIdx}`}
+          //     className={`ml-3 md:text-base text-sm  flex space-x-1 capitalize font-lexed font-medium w-[75%]  ${
+          //       conditions.includes(option.value)
+          //         ? "text-activeColor"
+          //         : "text-primaryColor"
+          //     }`}
+          //   >
+          //     <span>{option.label} </span>
+          //     <span className="text-gray-400">(4,521)</span>
+          //   </label>
+          // </div>
         ))}
       </div>
 
