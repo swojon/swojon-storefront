@@ -1,18 +1,19 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
+export const filterFields = [
+  "condition",
+  "community",
+  "location",
+  "brand",
+  "category",
+];
 
 function AppliedFilter() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const filterFields = [
-    "condition",
-    "community",
-    "location",
-    "brand",
-    "category",
-  ];
+
   // console.log("all serach params", searchParams.values())
 
   const [filters, setFilters] = useState<any[]>([]);

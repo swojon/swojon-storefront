@@ -16,6 +16,7 @@ import ProductLoader from "@/components/Loader/ProductLoader";
 import { MdOutlineClose } from "react-icons/md";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 const CategoryDetail = ({ params }: { params: any }) => {
   const appliedFilter = [];
@@ -24,9 +25,13 @@ const CategoryDetail = ({ params }: { params: any }) => {
   const brandFilter = searchParams.get("brand")?.split(",");
   const communityFilter = searchParams.get("community")?.split(",");
   const orderBy = searchParams.get("sort") ?? "default";
-  
+
   var filters = {};
-  filters = { ...filters, categorySlug: params.categorySlug, status: 'approved'};
+  filters = {
+    ...filters,
+    categorySlug: params.categorySlug,
+    status: "approved",
+  };
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
   if (brandFilter && brandFilter.length > 0)
     filters = { ...filters, brandSlug: brandFilter };
@@ -38,7 +43,7 @@ const CategoryDetail = ({ params }: { params: any }) => {
     variables: {
       filters: filters,
       limit: 36,
-      orderBy: orderBy
+      orderBy: orderBy,
     },
   });
   const listings = data?.listListings?.items;
@@ -69,8 +74,15 @@ const CategoryDetail = ({ params }: { params: any }) => {
         </div>
         <div className=" flex justify-between items-center gap-3 ">
           <span
-            onClick={() => dispatch(setFilterOpen())}
-            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor  lg:hidden"
+            onClick={() =>
+              dispatch(
+                setModalOpen({
+                  title: "this is a modal",
+                  body: "filterModal",
+                })
+              )
+            }
+            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor cursor-pointer"
           >
             <FiFilter />
           </span>
@@ -81,11 +93,11 @@ const CategoryDetail = ({ params }: { params: any }) => {
       </div>
 
       <div className="flex  gap-3 pt-5">
-        <div className="w-[25%] lg:block hidden">
+        {/* <div className="w-[25%] lg:block hidden">
           <FilterBar />
-        </div>
-        <div className="lg:w-[75%] w-full">
-          <div className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+        </div> */}
+        <div className=" w-full">
+          <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
             {listings?.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}

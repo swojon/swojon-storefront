@@ -1,15 +1,27 @@
 .form-scrollbar {
-    &::-webkit-scrollbar {
-      width: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #b2b2b2;
-    }
+  &::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
   }
-  // .form-scrollbar {
-  
-  // }
-  // .form-scrollba:hover {
-  //   overflow-y: auto;
-  // }
-  
+  &::-webkit-scrollbar-thumb {
+    background: #b2b2b2;
+    border-radius: 5px;
+  }
+}
+
+.filter-content {
+  height: calc(89dvh - 6.5rem);
+}
+
+.small-scroll2::-webkit-scrollbar {
+  height: 8px;
+}
+
+.small-scroll2::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.small-scroll2::-webkit-scrollbar-thumb {
+  background: #cdcccc;
+  border-radius: 4px;
+}

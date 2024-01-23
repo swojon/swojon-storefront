@@ -20,7 +20,7 @@ const Products = () => {
   const featuredProduct = data?.listListings.items;
 
   return (
-    <section className="md:mt-20 mt-14   bg-[#f9f9f9]">
+    <section className="md:mt-20 mt-12   bg-[#f9f9f9]">
       <div className="py-14 custom-container">
         <div className="flex  justify-between items-center gap-2">
           <h2 className="lg:text-4xl text-2xl font-semibold text-primaryColor capitalize truncate">

@@ -9,8 +9,8 @@
 .swiper-button-prev:after,
 .swiper-button-next:after {
   margin: 0 10px;
-  font-size: 8px;
-  padding: 8px 10px;
+  font-size: 13px;
+  padding: 12px 20px;
   background-color: rgb(255, 255, 255);
   color: #212121;
   border-radius: 50%;
