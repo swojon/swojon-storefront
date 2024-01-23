@@ -11,6 +11,7 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi2";
 import ProfileLoader from "@/components/Loader/ProfileLoader";
+import EditUserUsername from "@/components/Profile/EditUserUsername";
 const Profile = () => {
   const authState = useSelector((state: any) => state.auth);
   const { data, loading, error } = useGetUserByIdQuery({
@@ -21,7 +22,7 @@ const Profile = () => {
   });
   const user = data?.getUserById;
 
-  const [editBtn, setEditBtn] = useState("");
+  
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
@@ -61,7 +62,7 @@ const Profile = () => {
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
               <div className="">
-                <div className="flex items-end gap-3">
+                <div className="flex items-center gap-3">
                   <div className="md:w-24 md:h-24 w-16 rounded-full border">
                     <Image
                       src={user?.profile?.avatar ?? defaultAvatar}
@@ -103,32 +104,13 @@ const Profile = () => {
               </div>
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
-                {editBtn === "" && (
-                  <span className="text-base text-primaryColor font-lexed font-medium block">
-                    Full name
-                  </span>
-                )}
-
-                {editBtn === "username" ? (
-                  <EditUserName
-                    setEditBtn={setEditBtn}
-                    profile={user?.profile}
-                  />
-                ) : (
-                  <div className="flex flex-wrap justify-between items-center gap-2">
-                    <span className="text-lg text-secondColor font-lexed  block">
-                      {user?.profile?.name}
-                    </span>
-                    <button
-                      onClick={() => setEditBtn("username")}
-                      className="text-lg relative text-primaryColor  whitespace-nowrap cursor-pointer"
-                    >
-                      Edit
-                      <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
-                    </button>
-                  </div>
-                )}
+                <EditUserUsername user={user} />
               </div>
+
+              <div className="pb-2 border-b border-gray-200 space-y-2">
+                <EditUserName profile={user?.profile} />
+              </div>
+              
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <span className="text-base text-primaryColor font-lexed font-medium block">

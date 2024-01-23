@@ -41,6 +41,7 @@ const documents = {
     "mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {\n  updateProfile(profileData: $profileData, profileId: $profileId) {\n    address\n    avatar\n    country\n    city\n    avatarThumbnail\n    facebookHandle\n    googleHandle\n    id\n    name\n    instagramHandle\n    isPhoneNumberVerified\n    linkedinHandle\n    phoneNumber\n    twitterHandle\n    zipCode\n    state\n  }\n}": types.UpdateProfileDocument,
     "mutation ResetRequest($email: String!) {\n  resetRequest(email: $email) {\n    success\n  }\n}": types.ResetRequestDocument,
     "mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}": types.ResetPasswordDocument,
+    "mutation UpdateUser($userData: UpdateUserDto!, $userId: Float!) {\n  updateUser(userData: $userData, userId: $userId) {\n    email\n    id\n    isEmailVerified\n    isStaff\n    username\n  }\n}": types.UpdateUserDocument,
     "mutation RemoveFavorite($listingId: Float!, $userId: Float!) {\n  removeFavorite(listingId: $listingId, userId: $userId) {\n    dateCreated\n    id\n    listing {\n      id\n      title\n    }\n    user {\n      email\n      id\n      username\n    }\n  }\n}": types.RemoveFavoriteDocument,
     "mutation RemoveSearchHistory {\n  removeSearchHistory {\n    items {\n      searchQuery\n    }\n  }\n}": types.RemoveSearchHistoryDocument,
     "mutation CreateSellerReview($reviewData: SellerReviewCreateDTO!) {\n  createSellerReview(reviewData: $reviewData) {\n    review\n    rating\n    reviewer {\n      id\n      email\n      username\n      profile {\n        avatar\n        name\n      }\n    }\n    seller {\n      id\n      email\n      username\n      profile {\n        avatar\n        name\n      }\n    }\n    dateCreated\n    id\n    listing {\n      id\n      title\n    }\n  }\n}": types.CreateSellerReviewDocument,
@@ -176,6 +177,10 @@ export function graphql(source: "mutation ResetRequest($email: String!) {\n  res
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}"): (typeof documents)["mutation ResetPassword($resetData: ResetPasswordDTO!) {\n  resetPassword(resetData: $resetData) {\n    success\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UpdateUser($userData: UpdateUserDto!, $userId: Float!) {\n  updateUser(userData: $userData, userId: $userId) {\n    email\n    id\n    isEmailVerified\n    isStaff\n    username\n  }\n}"): (typeof documents)["mutation UpdateUser($userData: UpdateUserDto!, $userId: Float!) {\n  updateUser(userData: $userData, userId: $userId) {\n    email\n    id\n    isEmailVerified\n    isStaff\n    username\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

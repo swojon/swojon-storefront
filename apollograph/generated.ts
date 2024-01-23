@@ -1574,6 +1574,44 @@ export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOption
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($userData: UpdateUserDto!, $userId: Float!) {
+  updateUser(userData: $userData, userId: $userId) {
+    email
+    id
+    isEmailVerified
+    isStaff
+    username
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userData: // value for 'userData'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const RemoveFavoriteDocument = gql`
     mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
   removeFavorite(listingId: $listingId, userId: $userId) {
@@ -2781,6 +2819,10 @@ export type Profile = {
 
 export type Query = {
   __typename?: 'Query';
+  /** Check if an email is available or not */
+  checkEmailAvailability: ResetStatus;
+  /** Check if a username is available or not */
+  checkUsernameAvailability: ResetStatus;
   /** Find Community by Id */
   findCommunityById: Community;
   /** Get Category by Id, slug or name */
@@ -2851,6 +2893,16 @@ export type Query = {
   searchLocation: NominatimLocations;
   /** List All Reviews of a seller */
   summaryUserReview: SummaryReview;
+};
+
+
+export type QueryCheckEmailAvailabilityArgs = {
+  email: Scalars['String']['input'];
+};
+
+
+export type QueryCheckUsernameAvailabilityArgs = {
+  username: Scalars['String']['input'];
 };
 
 
@@ -3434,6 +3486,14 @@ export type ResetPasswordMutationVariables = Exact<{
 
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'ResetStatus', success?: boolean | null } };
+
+export type UpdateUserMutationVariables = Exact<{
+  userData: UpdateUserDto;
+  userId: Scalars['Float']['input'];
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', email: string, id: number, isEmailVerified: boolean, isStaff: boolean, username?: string | null } };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];
