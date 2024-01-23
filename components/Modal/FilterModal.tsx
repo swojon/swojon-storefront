@@ -10,7 +10,7 @@ import BrandFilter from "../FilterBar/BrandFilter";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { filterFields } from "../FilterBar/AppliedFilter";
 
-const FilterModal = () => {
+const FilterModal = ({ props }: { props: any }) => {
   const searchParams = useSearchParams();
   const router = useRouter()
   const pathname = usePathname()

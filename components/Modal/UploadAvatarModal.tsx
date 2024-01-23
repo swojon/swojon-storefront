@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
 import Image from "next/image";
 
-const UploadAvatarModal = () => {
+const UploadAvatarModal = ({ props }: { props: any }) => {
   const inputRef = useRef<any>();
 
   const triggerFileSelectPopup = () => inputRef.current.click();
