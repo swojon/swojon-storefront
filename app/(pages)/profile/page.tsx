@@ -22,7 +22,6 @@ const Profile = () => {
   });
   const user = data?.getUserById;
 
-  
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
@@ -62,7 +61,7 @@ const Profile = () => {
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
               <div className="">
-                <div className="flex items-center gap-3">
+                <div className="flex items-end gap-3">
                   <div className="md:w-24 md:h-24 w-16 rounded-full border">
                     <Image
                       src={user?.profile?.avatar ?? defaultAvatar}
@@ -110,7 +109,6 @@ const Profile = () => {
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <EditUserName profile={user?.profile} />
               </div>
-              
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <span className="text-base text-primaryColor font-lexed font-medium block">
