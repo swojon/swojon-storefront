@@ -9,8 +9,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import PreviousHistory from "./PreviousHistory";
 import TrendingSearches from "./TrendingSearches";
+import "./SearchField.css";
 
-const SearchField = () => {
+const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
@@ -74,25 +75,37 @@ const SearchField = () => {
         Search
       </label>
       <div className="relative" ref={inputRef}>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
-          <MagnifyingGlassIcon
-            className="h-7 w-7 p-1.5 text-activeColor rounded-full mr-1"
-            aria-hidden="true"
-          />
+        <div className="flex lg:gap-0 gap-4">
+          <form
+            onSubmit={handleSubmit}
+            autoComplete="off"
+            className="relative w-full"
+          >
+            <input
+              id="search"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-100 py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
+              placeholder="Search"
+              autoComplete="false"
+              name="searchQuery"
+              value={searchTerm}
+              onChange={handleInputChange}
+              // onKeyDown={handleKeyDown}
+              onClick={() => setShowSuggestions(true)}
+            />
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+              <MagnifyingGlassIcon
+                className="h-7 w-7 p-1.5 text-activeColor rounded-full mr-1"
+                aria-hidden="true"
+              />
+            </div>
+          </form>
+          <button
+            className="bg-activeColor text-white font-semibold px-3 rounded-md lg:hidden"
+            onClick={() => setShowSearchBar(false)}
+          >
+            Cancel
+          </button>
         </div>
-        <form onSubmit={handleSubmit} autoComplete="off">
-          <input
-            id="search"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-100 py-2 pl-3 pr-8 leading-5 placeholder-[#C0C0C0] focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor sm:text-sm"
-            placeholder="Search"
-            autoComplete="false"
-            name="searchQuery"
-            value={searchTerm}
-            onChange={handleInputChange}
-            // onKeyDown={handleKeyDown}
-            onClick={() => setShowSuggestions(true)}
-          />
-        </form>
 
         {showSuggestions && (
           // <OutsideClickHandler onOutsideClick={() => {
@@ -100,7 +113,7 @@ const SearchField = () => {
           // }}>
           <div
             id="suggestions"
-            className="bg-white p-3 border border-gray-300 absolute w-full mt-2 rounded-lg z-20"
+            className="bg-white p-3 border border-gray-300 absolute w-full mt-2 rounded-lg z-20 searchHeight "
             ref={suggestionsRef}
           >
             {filteredSuggestions.length > 0 ? (

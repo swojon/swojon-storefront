@@ -124,7 +124,7 @@ export default function Navbar2({ border }: { border: any }) {
                 <SearchField />
               </div>
 
-              <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end xl:gap-4 gap-2 z-10">
+              <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
                 {authState.isAuthenticated && (
                   // <NotificationDropDown border={border} />
                   <div
@@ -161,7 +161,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false ? (
                   <Link href="/signup">
                     <button
-                      className={`py-1.5  leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5  leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border"
                           ? "text-primaryColor"
                           : "text-primaryColor"
@@ -176,7 +176,7 @@ export default function Navbar2({ border }: { border: any }) {
                     className="relative  flex-shrink-0 font-lexed font-medium "
                   >
                     <div>
-                      <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
+                      <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none ">
                         {authState?.user?.profile?.avatar ? (
                           <Image
                             className="h-7 w-7 rounded-full"
@@ -205,55 +205,99 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border cursor-pointer">
-                        <Menu.Item>
-                          <Link href="/profile">
-                            <div className="block px-4 py-1 text-sm text-primaryColor font-medium hover:bg-gray-200 cursor-pointer">
-                              My Profile
-                            </div>
-                          </Link>
-                        </Menu.Item>
+                      {/* <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                href="#"
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                              >
+                                Account settings
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                href="#"
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                              >
+                                Support
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                href="#"
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                              >
+                                License
+                              </Link>
+                            )}
+                          </Menu.Item>
 
-                        <Menu.Item>
-                          <div className="mt-1 border border-t"></div>
-                        </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type="submit"
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block w-full px-4 py-2 text-left text-sm"
+                                )}
+                              >
+                                Sign out
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items> */}
+                      <div className="absolute right-0 z-[150] mt-2 w-48 origin-top-right rounded-xl bg-white  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none  cursor-pointer py-1">
+                        <Link href="/profile">
+                          <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
+                            My Profile
+                          </div>
+                        </Link>
 
-                        <Menu.Item>
-                          <Link href="/help-center">
-                            <div className="block px-4 py-1 text-sm text-primaryColor font-medium hover:bg-gray-200 cursor-pointer">
-                              Help Center
-                            </div>
-                          </Link>
-                        </Menu.Item>
+                        <div className="mt-1 border border-t"></div>
 
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="/FAQ"
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
-                              )}
-                            >
-                              FAQ
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              onClick={handleSignOut}
-                              href="#"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
-                              )}
-                            >
-                              Sign out
-                            </Link>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
+                        <Link href="/help-center">
+                          <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
+                            Help Center
+                          </div>
+                        </Link>
+
+                        <Link href="/FAQ">
+                          <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
+                            FAQ
+                          </div>
+                        </Link>
+
+                        <button
+                          onClick={handleSignOut}
+                          className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full text-start"
+                        >
+                          Sign out
+                        </button>
+                      </div>
                     </Transition>
                   </Menu>
                 )}
@@ -261,7 +305,7 @@ export default function Navbar2({ border }: { border: any }) {
                 {authState.isAuthenticated === false && (
                   <Link href="/login">
                     <button
-                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  xl:text-sm text-xs  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
                         border === "border"
                           ? "text-primaryColor"
                           : "text-primaryColor"

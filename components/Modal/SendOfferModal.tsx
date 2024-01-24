@@ -7,13 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 function SendOfferModal({ props }: { props: any }) {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
-  const [offerAmount, setOfferAmount] = useState<number|null>(null)
+  const [offerAmount, setOfferAmount] = useState<number | null>(null);
 
   return (
-    <section className="  w-full h-full  space-y-3 lg:space-y-4 p-4">
+    <section className=" lg:w-[38%] md:w-[45%] sm:w-[55%] w-[90%] bg-white h-full rounded-md mx-auto space-y-3 lg:space-y-4 p-5 relative">
       <div className="w-full h-[140px]  relative">
         <Image
-          src={props.product.media.length > 0 ? props.product.media[0].url : "/assets/pro1.png"}
+          src={
+            props.product.media.length > 0
+              ? props.product.media[0].url
+              : "/assets/pro1.png"
+          }
           alt="product"
           width="500"
           height="500"
@@ -40,22 +44,44 @@ function SendOfferModal({ props }: { props: any }) {
           type="number"
           name="amount"
           id="amount"
-          onChange={(e) => {setOfferAmount(Number(e.target.value))}}
+          onChange={(e) => {
+            setOfferAmount(Number(e.target.value));
+          }}
           value={offerAmount ?? ""}
           className="block w-full rounded-md border border-[#717171] pr-10 text-primaryColor placeholder-[#717171] focus:border-activeColor focus:outline-none focus:ring-activeColor sm:text-sm p-2.5"
           placeholder="Enter your offer"
         />
         <div className="flex flex-wrap gap-2 pt-2">
-          <button onClick={() => {setOfferAmount(4000)}} className="border border-activeColor px-1 py-0.5 text-activeColor rounded">
+          <button
+            onClick={() => {
+              setOfferAmount(4000);
+            }}
+            className="border border-activeColor px-1 py-0.5 text-activeColor rounded"
+          >
             <span className="text-xs">TK 4000</span>
           </button>
-          <button onClick={() => {setOfferAmount(5000)}} className="border border-activeColor px-1 py-0.5 text-activeColor rounded">
+          <button
+            onClick={() => {
+              setOfferAmount(5000);
+            }}
+            className="border border-activeColor px-1 py-0.5 text-activeColor rounded"
+          >
             <span className="text-xs">TK 5000</span>
           </button>
-          <button onClick={() => {setOfferAmount(6000)}} className="border border-activeColor px-1 py-0.5 text-activeColor rounded">
+          <button
+            onClick={() => {
+              setOfferAmount(6000);
+            }}
+            className="border border-activeColor px-1 py-0.5 text-activeColor rounded"
+          >
             <span className="text-xs">TK 6000</span>
           </button>
-          <button onClick={() => {setOfferAmount(9000)}} className="border border-activeColor px-1 py-0.5 text-activeColor rounded">
+          <button
+            onClick={() => {
+              setOfferAmount(9000);
+            }}
+            className="border border-activeColor px-1 py-0.5 text-activeColor rounded"
+          >
             <span className="text-xs">TK 9000</span>
           </button>
         </div>
@@ -80,7 +106,7 @@ function SendOfferModal({ props }: { props: any }) {
           <button className="bg-[#C0C0C0] w-full py-2 text-primaryColor rounded font-medium text-center">
             <span className="text-sm">Cancel</span>
           </button>
-          <button  className="bg-[#C0C0C0] w-full py-2 text-white rounded font-medium text-center">
+          <button className="bg-[#C0C0C0] w-full py-2 text-white rounded font-medium text-center">
             <span className="text-sm">Send offer</span>
           </button>
         </div>

@@ -13,7 +13,7 @@ const SuccessModal = ({}: any) => {
     router.push(link);
   };
   return (
-    <section className="  w-full h-full  space-y-5 lg:space-y-4 p-7 text-center relative">
+    <section className="lg:w-[30%] md:w-[45%] sm:w-[55%] w-[85%] bg-white h-full rounded-md mx-auto space-y-3 lg:space-y-4 p-5 relative">
       <button
         className="text-2xl text-primaryColor absolute right-3 top-3"
         onClick={() => dispatch(setModalClose(true))}
