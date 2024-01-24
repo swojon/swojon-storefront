@@ -191,8 +191,8 @@ const ResNavbarDrawer = () => {
                 {/* View All card */}
 
                 <Link href={`/categories/${currentCategory.slug}`}>
-                  <div className=" w-[90px] rounded-lg relative   transition ease-in-out delay-150 duration-300">
-                    <div className="w-full h-[90px] overflow-hidden bg-gray-100 flex items-center justify-center relative hover:scale-105 rounded-md">
+                  <div className=" w-[110px] rounded-lg relative   transition ease-in-out delay-150 duration-300">
+                    <div className="w-full h-[110px] overflow-hidden bg-gray-100 flex items-center justify-center relative hover:scale-105 rounded-md">
                       <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
                     </div>
                     <span className="pt-2 text-primaryColor text-xs font-medium  w-full flex justify-center items-center ">
@@ -207,8 +207,8 @@ const ResNavbarDrawer = () => {
                   )
                   .map((item: any) => (
                     <div key={`sub${item.id}`} className="  ">
-                      <div className="w-[90px]  rounded-md relative      ">
-                        <div className="w-full h-[90px] hover:scale-105 transition ease-in-out delay-150 duration-300 relative  rounded-md ">
+                      <div className="w-[110px]  rounded-md relative      ">
+                        <div className="w-full h-[110px] hover:scale-105 transition ease-in-out delay-150 duration-300 relative  rounded-md ">
                           <Image
                             src={item.banner ?? "https://picsum.photos/200/300"}
                             height={300}
