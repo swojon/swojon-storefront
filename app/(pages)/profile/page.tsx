@@ -61,7 +61,7 @@ const Profile = () => {
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
               <div className="">
-                <div className="flex items-end gap-3">
+                <div className="flex items-center gap-3">
                   <div className="md:w-24 md:h-24 w-16 rounded-full border">
                     <Image
                       src={user?.profile?.avatar ?? defaultAvatar}
@@ -84,9 +84,9 @@ const Profile = () => {
                   >
                     change image
                   </button>
-                  <button className="py-1.5 px-3 text-sm border border-activeColor text-primaryColor rounded-md">
+                  {/* <button className="py-1.5 px-3 text-sm border border-activeColor text-primaryColor rounded-md">
                     remove
-                  </button>
+                  </button> */}
                 </div>
 
                 <span className="lg:text-3xl md:text-2xl text-lg text-primaryColor font-lexed font-bold block capitalize mt-4">

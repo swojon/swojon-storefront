@@ -13,7 +13,7 @@ const EditUserUsername = ({user }: {user: any;  }) => {
   const [editBtn, setEditBtn] = useState("");
 
   const initialValues = {
-    username: user.username
+    username: user?.username
     };
   const [ updateUser, {loading:updateLoading, error, data} ] = useUpdateUserMutation()
   const {

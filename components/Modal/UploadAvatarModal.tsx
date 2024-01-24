@@ -7,10 +7,14 @@ import {
 import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import { MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { GetUserByIdDocument, useUpdateProfileMutation } from "@/apollograph/generated";
+import { BiLoaderCircle } from "react-icons/bi";
+import { uploadFile } from "@/lib/helpers/uploadFile";
 
 const ORIENTATION_TO_ANGLE = {
   "3": 180,
@@ -20,7 +24,7 @@ const ORIENTATION_TO_ANGLE = {
 
 const UploadAvatarModal = ({ props }: { props: any }) => {
   const inputRef = useRef<any>();
-
+  const authState = useSelector((state: any) => state.auth)
   const triggerFileSelectPopup = () => inputRef.current.click();
   const [showBox, setShowBox] = useState<any>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -29,29 +33,64 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
   const [zoom, setZoom] = useState<number>(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null); // Adjust the type accordingly
   const [croppedImage, setCroppedImage] = useState<any>(null);
-
+  const [updateProfile, {data, loading, error}] = useUpdateProfileMutation()
+  const [formUploading, setFormUploading] = useState(false)
   const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
-  const showCroppedImage = useCallback(async () => {
-    try {
-      if (!imageSrc || !croppedAreaPixels) {
-        console.error("Image source or cropped area pixels are missing.");
-        return;
-      }
-
+  const handleUpload = async ( ) => {
+      setFormUploading(true)
       const croppedImage = await getCroppedImg(
         imageSrc,
         croppedAreaPixels,
         rotation
       );
-      console.log("donee", { croppedImage });
-      setCroppedImage(croppedImage);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [imageSrc, croppedAreaPixels, rotation]);
+      console.log("cropped image", croppedImage)
+      const imageUrl = await uploadFile(croppedImage, () => {}, () => {}, () => {}, () => {});
+      if (!imageUrl) {
+        toast.error("Error getting the image url. Please try again later.")
+        return
+      }
+      updateProfile({
+        variables: {
+          profileData: {
+            avatar: imageUrl
+          },
+          profileId: authState.user.id
+        },
+        onCompleted: ()  => {
+          setFormUploading(false)
+          toast.success("Successfully updated avatar")
+          dispatch(setModalClose(true))
+        },
+        onError: () => {
+          setFormUploading(false)
+          toast.error("Error updating avatar")
+        },
+        refetchQueries: [GetUserByIdDocument]
+      })
+
+  }
+  // const showCroppedImage = useCallback(async () => {
+  //   console.log("callback run")
+  //   try {
+  //     if (!imageSrc || !croppedAreaPixels) {
+  //       console.error("Image source or cropped area pixels are missing.");
+  //       return;
+  //     }
+
+  //     const croppedImage = await getCroppedImg(
+  //       imageSrc,
+  //       croppedAreaPixels,
+  //       rotation
+  //     );
+  //     console.log("donee", { croppedImage });
+  //     setCroppedImage(croppedImage);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }, [imageSrc, croppedAreaPixels, rotation]);
 
   const onClose = () => {
     setCroppedImage(null);
@@ -100,11 +139,12 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
       // If needed, you can extract the URL of the uploaded image
       const imageUrl = response.data.secure_url;
       console.log("Uploaded Image URL:", imageUrl);
-
+      return imageUrl
       // Perform additional actions as needed
     } catch (error) {
       console.error("Error uploading cropped image to Cloudinary:", error);
       // Handle the error
+      return null;
     }
   };
 
@@ -131,11 +171,11 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
         onChange={onFileChange}
         className="sr-only"
       />
-      {showBox === "select" ? (
+      {showBox === "select" && (
         <>
           <div className=" lg:h-[67dvh] md:h-[45dvh] h-[25dvh] relative">
             <Cropper
-              image={imageSrc}
+              image={imageSrc!}
               crop={crop}
               rotation={rotation}
               zoom={zoom}
@@ -166,17 +206,20 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
               </button>
               <button
                 className="py-1.5 px-4 text-sm border border-activeColor rounded-md text-white bg-activeColor"
-                onClick={() => {
-                  showCroppedImage();
-                  setShowBox("CropImage");
+                onClick={async () => {
+                  // showCroppedImage();
+                  // setShowBox("CropImage");
+                  await handleUpload()
                 }}
               >
-                Save
+               {formUploading ?  <BiLoaderCircle className=" text-xl animate-spin" /> : 
+                "Upload"}
               </button>
             </div>
           </div>
         </>
-      ) : showBox === "CropImage" ? (
+      )}
+       {/* { showBox === "CropImage" ? (
         <div className="pt-2 space-y-6">
           {croppedImage && (
             <Image
@@ -213,7 +256,7 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
             Upload New Image
           </span>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
