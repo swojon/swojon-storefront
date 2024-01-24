@@ -118,7 +118,7 @@ const Profile = () => {
                   <span className="text-lg text-secondColor font-lexed  block">
                     {user?.email}
                   </span>
-                  <button
+                  {/* <button
                     onClick={() =>
                       dispatch(
                         setModalOpen({
@@ -131,10 +131,10 @@ const Profile = () => {
                   >
                     Edit
                     <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
-                  </button>
+                  </button> */}
                 </div>
               </div>
-
+{/* 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <span className="text-base text-primaryColor font-lexed font-medium block">
                   Phone number
@@ -158,7 +158,7 @@ const Profile = () => {
                     <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               {/* <div className="pb-2 border-b border-gray-200 space-y-2">
                 {editBtn === "" && (
