@@ -17,18 +17,13 @@ const BrandFilter = () => {
   const searchParams = useSearchParams()!;
 
   const [appliedBrands, setAppliedBrands] = useState<any[]>([]);
-  const [selectBrand, setSelectBrand] = useState<any>(null);
+  // const [selectBrand, setSelectBrand] = useState<any>(null);
 
-  const handleChange = (val: any) => {
-    console.log(
-      "input changed",
-      val.target.name,
-      val.target.value,
-      val.target.checked
-    );
+  const handleChange = (slug: any) => {
+    
     var applied = [];
-    if (val.target.checked) applied = [...appliedBrands, val.target.value];
-    else applied = appliedBrands.filter((item) => item !== val.target.value);
+    if (!appliedBrands.includes(slug)) applied = [...appliedBrands,slug];
+    else applied = appliedBrands.filter((item) => item !== slug);
     // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
     applied.length > 0
@@ -95,11 +90,11 @@ const BrandFilter = () => {
           <div
             key={brand.id}
             className={`flex flex-col justify-center  items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
-              brand?.id === selectBrand?.id
+              appliedBrands.includes(brand.slug)
                 ? " border-activeColor "
                 : "border-gray-200 hover:border-gray-500"
             }`}
-            onClick={() => setSelectBrand(brand)}
+            onClick={() => handleChange(brand.slug)}
           >
             {brand.logo ? (
               <Image

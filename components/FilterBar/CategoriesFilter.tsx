@@ -15,17 +15,12 @@ const CategoriesFilter = () => {
 
   const [appliedCategories, setAppliedCategories] = useState<any[]>([]);
 
-  const handleChange = (val: any) => {
-    console.log(
-      "input changed",
-      val.target.name,
-      val.target.value,
-      val.target.checked
-    );
+  const handleChange = (slug: any) => {
+  
     var applied = [];
-    if (val.target.checked) applied = [...appliedCategories, val.target.value];
+    if (!appliedCategories.includes(slug)) applied = [...appliedCategories, slug];
     else
-      applied = appliedCategories.filter((item) => item !== val.target.value);
+      applied = appliedCategories.filter((item) => item !== slug);
     // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
     applied.length > 0
@@ -51,7 +46,7 @@ const CategoriesFilter = () => {
     },
   });
   const categories = categoryOptions?.listCategories.items;
-  const [selectCategory, setSelectCategory] = useState<any>(null);
+  // const [selectCategory, setSelectCategory] = useState<any>(null);
   const [query, setQuery] = useState("");
   const filteredCategories = !!query
     ? categories?.filter((ca) =>
@@ -93,11 +88,11 @@ const CategoriesFilter = () => {
           <div
             key={category.id}
             className={`flex flex-col justify-center  items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
-              category?.id === selectCategory?.id
+              appliedCategories.includes(category?.slug)
                 ? " border-activeColor "
                 : "border-gray-200 hover:border-gray-500"
             }`}
-            onClick={() => setSelectCategory(category)}
+            onClick={() => handleChange(category?.slug)}
           >
             {category.icon ? (
               <Image
