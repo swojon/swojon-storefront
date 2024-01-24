@@ -206,37 +206,24 @@ export default function Navbar2({ border }: { border: any }) {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border cursor-pointer">
-                        <Link href="/profile">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <div
-                                className={classNames(
-                                  active ? "bg-gray-200" : "",
-                                  "block px-4 py-1 text-sm text-gray-700"
-                                )}
-                              >
-                                My Profile
-                              </div>
-                            )}
-                          </Menu.Item>
-                        </Link>
-
                         <Menu.Item>
-                          <div className="my-2 border border-t"></div>
+                          <Link href="/profile">
+                            <div className="block px-4 py-1 text-sm text-primaryColor font-medium hover:bg-gray-200 cursor-pointer">
+                              My Profile
+                            </div>
+                          </Link>
                         </Menu.Item>
 
                         <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="/help-center"
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block px-4 py-1 text-sm text-gray-700 cursor-pointer"
-                              )}
-                            >
+                          <div className="mt-1 border border-t"></div>
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          <Link href="/help-center">
+                            <div className="block px-4 py-1 text-sm text-primaryColor font-medium hover:bg-gray-200 cursor-pointer">
                               Help Center
-                            </Link>
-                          )}
+                            </div>
+                          </Link>
                         </Menu.Item>
 
                         <Menu.Item>
