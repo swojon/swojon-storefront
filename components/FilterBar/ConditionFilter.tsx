@@ -23,16 +23,10 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
 
   const [conditions, setConditions] = useState<any[]>([]);
 
-  const handleChange = (val: any) => {
+  const handleChange = (condition: any) => {
     var applied = [];
-    console.log(
-      "input changed",
-      val.target.name,
-      val.target.value,
-      val.target.checked
-    );
-    if (val.target.checked) applied = [...conditions, val.target.value];
-    else applied = conditions.filter((item) => item !== val.target.value);
+    if (!conditions.includes(condition)) applied = [...conditions ,condition];
+    else applied = conditions.filter((item) => item !== condition);
     // conso setConditions([...conditions, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
     applied.length > 0
@@ -67,8 +61,13 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
         {options.map((option, optionIdx) => (
           <div
             key={optionIdx}
-            className={`flex flex-col justify-center border-gray-200 hover:border-gray-500 items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3 `}
-            onClick={() => setConditions(options)}
+            // className={`flex flex-col justify-center border-gray-200 hover:border-gray-500 items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3 `}
+            className={`flex flex-col justify-center  items-center flex-none w-[160px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
+              conditions.includes(option.value)
+                ? " border-activeColor "
+                : "border-gray-200 hover:border-gray-500"
+            }`}
+            onClick={() => handleChange(option.value)}
           >
             <Image
               alt="icon"

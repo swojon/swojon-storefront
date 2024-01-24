@@ -6,8 +6,13 @@ export const config = {
         "/upload-product",
         "/chat",
         "/profile",
-        "/profile/:path*"
-        // "/messages/:path*"
+        "/profile/:path*",
+        // "/messages/:path*",
+        "/wishlists",
+        "/my-ads",
+        "/followers",
+        "/following",
+        "/login-security"
     ]
 }
 

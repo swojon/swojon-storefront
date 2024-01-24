@@ -115,9 +115,9 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             {product?.title}
           </h4>
           <div className="flex items-center gap-3">
-            <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+            {/* <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
               <FiShare2 className="text-lg text-primaryColor" />
-            </button>
+            </button> */}
 
             <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
               <FavoriteProduct listing={product!} />

@@ -61,7 +61,7 @@ const Profile = () => {
 
             <div className="lg:w-[53%] w-full py-5  rounded-md space-y-5">
               <div className="">
-                <div className="flex items-end gap-3">
+                <div className="flex items-center gap-3">
                   <div className="md:w-24 md:h-24 w-16 rounded-full border">
                     <Image
                       src={user?.profile?.avatar ?? defaultAvatar}
@@ -84,9 +84,9 @@ const Profile = () => {
                   >
                     change image
                   </button>
-                  <button className="py-1.5 px-3 text-sm border border-activeColor text-primaryColor rounded-md">
+                  {/* <button className="py-1.5 px-3 text-sm border border-activeColor text-primaryColor rounded-md">
                     remove
-                  </button>
+                  </button> */}
                 </div>
 
                 <span className="lg:text-3xl md:text-2xl text-lg text-primaryColor font-lexed font-bold block capitalize mt-4">
@@ -118,7 +118,7 @@ const Profile = () => {
                   <span className="text-lg text-secondColor font-lexed  block">
                     {user?.email}
                   </span>
-                  <button
+                  {/* <button
                     onClick={() =>
                       dispatch(
                         setModalOpen({
@@ -131,10 +131,10 @@ const Profile = () => {
                   >
                     Edit
                     <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
-                  </button>
+                  </button> */}
                 </div>
               </div>
-
+{/* 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <span className="text-base text-primaryColor font-lexed font-medium block">
                   Phone number
@@ -158,7 +158,7 @@ const Profile = () => {
                     <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-primaryColor"></span>
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               {/* <div className="pb-2 border-b border-gray-200 space-y-2">
                 {editBtn === "" && (

@@ -12,7 +12,7 @@ const formSchema = Yup.object({
 const EditUserName = ({profile }: {profile: any; }) => {
   const [editBtn, setEditBtn] = useState("");
   const initialValues = {
-    name: profile.name
+    name: profile?.name
     };
   const [ updateProfile, {loading:updateLoading, error, data} ] = useUpdateProfileMutation()
   const {
