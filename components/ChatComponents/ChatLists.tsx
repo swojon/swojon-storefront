@@ -31,7 +31,7 @@ const ChatLists = () => {
       </>
     );
   }
-  console.log("list chatrooms", data?.listChatRooms.items)
+  console.log("list chatrooms", data?.listChatRooms.items);
   return (
     <section className="bg-[#F1F7FF] h-full w-full  space-y-2 lg:space-y-4 overflow-y-hidden relative pb-10">
       <div className="flex justify-between items-center px-3 pt-3">
@@ -82,7 +82,7 @@ const ChatLists = () => {
               >
                 <div className="my-auto">
                   <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
-                  {chatroom.members
+                    {chatroom.members
                       ?.filter((crm) => crm.userId !== authState.user.id)
                       ?.map((m) => (
                         <Image
@@ -101,7 +101,7 @@ const ChatLists = () => {
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate capitalize  leading-none font-semibold">
                     {chatroom.members
                       ?.filter((crm) => crm.userId !== authState.user.id)
-                      ?.map((m) => m.user?.username ?? m.user?.profile?.name )
+                      ?.map((m) => m.user?.username ?? m.user?.profile?.name)
                       .join(",") ?? chatroom.chatName}
                   </h5>
                   <p className="text-xs text-secondColor truncate">

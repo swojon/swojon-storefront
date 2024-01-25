@@ -45,7 +45,7 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
 
               <div
                 onClick={() => handleExpandImage(im.url)}
-                className="absolute w-[40px] h-[40px] bg-white rounded-full flex justify-center items-center right-2 top-2"
+                className="absolute w-[40px] h-[40px] bg-white rounded-full flex justify-center items-center right-3 top-3"
               >
                 <div className="w-4 h-4">
                   <Image

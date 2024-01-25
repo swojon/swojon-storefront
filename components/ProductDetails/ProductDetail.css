@@ -4,13 +4,15 @@
 .swiper-button-next,
 .swiper-button-prev {
   top: 50%;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-  margin: 0 10px;
+  margin: 0 20px;
   font-size: 13px;
-  padding: 12px 20px;
+  padding: 12px 16px;
   background-color: rgb(255, 255, 255);
   color: #212121;
   border-radius: 50%;
@@ -58,13 +60,13 @@
   }
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .swiper-button-prev:after,
   .swiper-button-next:after {
     padding: 12px 14px;
     margin: 0 20px;
   }
-}
+} */
 
 @media (max-width: 639px) {
   .slider1 {

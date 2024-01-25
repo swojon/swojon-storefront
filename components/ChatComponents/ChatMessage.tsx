@@ -153,8 +153,10 @@ const MessageAreaData = ({
         : router.push(pathname);
     }
   };
-  const participants = activeChat?.members?.filter((crm: any) => crm.userId !== authState.user.id)
-  
+  const participants = activeChat?.members?.filter(
+    (crm: any) => crm.userId !== authState.user.id
+  );
+
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center gap-2">
@@ -168,20 +170,21 @@ const MessageAreaData = ({
         )}{" "}
         <div className="flex items-center gap-2 sm:w-auto w-[70%] ">
           <div className="sm:w-8 w-5 sm:h-8 rounded-full ">
-            {participants?.map((m:any) => (
-            <Image
-            key={m.user.id}
-              src={m.user?.profile?.avatar ?? defaultAvatar}
-              alt="user"
-              width={100}
-              height={100}
-              className="w-ful h-full object-cover rounded-full"
-            />))}
-
-            </div>
+            {participants?.map((m: any) => (
+              <Image
+                key={m.user.id}
+                src={m.user?.profile?.avatar ?? defaultAvatar}
+                alt="user"
+                width={100}
+                height={100}
+                className="w-ful h-full object-cover rounded-full"
+              />
+            ))}
+          </div>
           <div className="pr-3 space-y-1 truncate ">
             <span className="text-sm text-primaryColor font-medium truncate ">
-              {participants?.map((m: any) => m.user?.username ?? m.user?.profile?.name)
+              {participants
+                ?.map((m: any) => m.user?.username ?? m.user?.profile?.name)
                 .join(",") ?? activeChat?.chatName}
             </span>
             <div className="flex items-center space-x-1">
@@ -203,8 +206,11 @@ const MessageAreaData = ({
         <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
           <div className="h-20 w-32 border rounded-md ">
             <Image
-
-              src={activeChat.relatedListing.media ? activeChat.relatedListing.media[0]?.url : "/assets/pro2.png"}
+              src={
+                activeChat.relatedListing.media
+                  ? activeChat.relatedListing.media[0]?.url
+                  : "/assets/pro2.png"
+              }
               alt="product"
               width={100}
               height={100}
@@ -228,7 +234,7 @@ const MessageAreaData = ({
         </div>
       )}
       <div
-        className={` px-3 mb-3 flex items-end  w-full relative overflow-y-auto scroll-hidden ${
+        className={` px-3 mb-3 flex items-end  w-full relative overflow-y-auto scroll-hover2 ${
           activeChat.relatedListing ? "chatBox" : "chatBox2"
         }`}
         ref={chatContainerRef}
@@ -285,7 +291,6 @@ const MessageDetail = ({ msg }: { msg: any }) => {
           </span>
           <span className="absolute right-2 -bottom-4 text-[#979696] text-xs block">
             {timeAgo(msg.dateSent)}
-          
           </span>
         </div>
       </div>
@@ -297,7 +302,6 @@ const MessageDetail = ({ msg }: { msg: any }) => {
           <div className="sm:w-9 sm:h-8 w-4 rounded-full">
             <Image
               src={msg.sender?.profile?.avatar ?? defaultAvatar}
-
               width={100}
               height={100}
               className="w-full h-full object-cover rounded-full"
@@ -305,7 +309,7 @@ const MessageDetail = ({ msg }: { msg: any }) => {
             />
           </div>
           <div className="relative w-full">
-            <p className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none">
+            <p className="p-2  bg-[#F1F7FF] text-primaryColor text-sm rounded-md rounded-bl-none inline-block">
               {msg.content}
             </p>
             <span className="absolute left-0 -bottom-5 text-[#979696] text-xs block">

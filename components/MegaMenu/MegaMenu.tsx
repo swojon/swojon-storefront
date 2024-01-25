@@ -48,7 +48,7 @@ export default function MegaMenu({ border }: { border: any }) {
   // console.log("sub categories", currentCategory);
   return (
     <>
-      <Popover className=" z-[100]  ">
+      <Popover className="z-[100]">
         {({ open }) => (
           <>
             <div className="relative z-10 ">
@@ -67,9 +67,17 @@ export default function MegaMenu({ border }: { border: any }) {
                     All Category
                   </span>
                   {open ? (
-                    <IoMdArrowDropup className="pl-1 text-activeColor text-xl" />
+                    <IoMdArrowDropup
+                      className={`pl-1  text-xl ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
                   ) : (
-                    <IoMdArrowDropdown className="pl-1 text-activeColor text-xl" />
+                    <IoMdArrowDropdown
+                      className={`pl-1  text-xl ${
+                        border === "border" ? "text-activeColor" : "text-white"
+                      }`}
+                    />
                   )}
                 </Popover.Button>
               </div>
@@ -84,7 +92,7 @@ export default function MegaMenu({ border }: { border: any }) {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 -translate-y-1"
             >
-              <Popover.Panel className="absolute shadow-2xl meg-menu w-[100vw]   top-[75px] inline  z-30 transform border-b border-gray-200   text-primaryColor rounded left-0  ">
+              <Popover.Panel className="absolute shadow-2xl meg-menu w-[100vw]   top-[68px] inline  z-30 transform border-b border-gray-200   text-primaryColor rounded left-0  ">
                 <div className="  py-3 w-full bg-white h-[100%] ">
                   {/* {error && <p> error </p>} */}
 

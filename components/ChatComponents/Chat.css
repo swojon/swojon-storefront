@@ -15,19 +15,22 @@
   height: calc(87vh - 265px);
 }
 
-.scroll-hover::-webkit-scrollbar {
-  width: 4px;
+.scroll-hover2::-webkit-scrollbar {
+  width: 8px;
+  background: #e2e2e3;
+  border-radius: 10px;
 }
-.scroll-hover::-webkit-scrollbar-thumb {
-  background: transparent;
+.scroll-hover2::-webkit-scrollbar-thumb {
+  background: #c0c5ca;
+  border-radius: 10px;
 }
-.scroll-hover:hover {
+/* .scroll-hover:hover {
   overflow-y: auto;
 }
 .scroll-hover:hover::-webkit-scrollbar-thumb {
   background: #b4bcc3;
   border-radius: 10px;
-}
+} */
 @media (max-width: 765px) {
   .chatBox {
     height: calc(87dvh - 208px);
