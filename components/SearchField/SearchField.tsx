@@ -18,10 +18,10 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const { user } = useSelector((state: any) => state.auth);
-  const searchHistory = ["I phone 12", "I phone 12 pro", "I phone 13"];
-
+  
   const inputRef = useRef<HTMLInputElement>(null); // Use type assertion here
   const suggestionsRef = useRef<HTMLDivElement>(null); // Add a ref for the suggestion panel
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,12 +45,17 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/search?query=${searchTerm}`);
+    handleSearchEnter(searchTerm);
   };
+  const handleSearchEnter = (searchTerm: string) => {
+    router.push(`/search?query=${searchTerm}`);
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       // handleSubmit()
+      handleSearchEnter(searchTerm);
+
     }
   };
 
@@ -68,6 +73,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const handleSuggestionClick = (term: string) => {
     setSearchTerm(term);
     setShowSuggestions(false);
+    handleSearchEnter(term)
   };
   return (
     <div className="w-full">
@@ -80,6 +86,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
             onSubmit={handleSubmit}
             autoComplete="off"
             className="relative w-full"
+            ref={formRef}
           >
             <input
               id="search"
@@ -89,7 +96,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
               name="searchQuery"
               value={searchTerm}
               onChange={handleInputChange}
-              // onKeyDown={handleKeyDown}
+              onKeyDown={handleKeyDown}
               onClick={() => setShowSuggestions(true)}
             />
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
@@ -100,7 +107,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
             </div>
           </form>
           <button
-            className="bg-activeColor text-white font-semibold px-3 rounded-md lg:hidden"
+            className=" text-gray-500 font-semibold px-3 rounded-md lg:hidden"
             onClick={() => setShowSearchBar(false)}
           >
             Cancel

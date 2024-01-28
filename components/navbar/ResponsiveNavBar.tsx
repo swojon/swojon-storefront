@@ -178,7 +178,7 @@ const ResponsiveNavBar = ({
             </Menu.Items>
           </Transition>
         </Menu> */}
-            {authState.isAuthenticated && (
+            {/* {authState.isAuthenticated && ( */}
               <IoSearchOutline
                 onClick={() => setShowSearchBar(true)}
                 className={`text-xl font-bold ${
@@ -187,7 +187,7 @@ const ResponsiveNavBar = ({
                     : "text-primaryColor "
                 } `}
               />
-            )}
+            {/* )} */}
 
             {authState.isAuthenticated && (
               <Link href="/chat">

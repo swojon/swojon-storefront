@@ -12,6 +12,8 @@ import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery, useSearchListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import AppliedFilter from "@/components/FilterBar/AppliedFilter";
+import { setModalOpen } from "@/app/redux/modalSlice";
 
 const SearchPage = ({ params }: { params: any }) => {
   console.log("item loaded", "SearchPage")
@@ -37,36 +39,44 @@ const SearchPage = ({ params }: { params: any }) => {
     <section className="custom-container py-10">
       <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
-          <h6 className="">Home</h6>
+          <Link href={"/"} className="">Home</Link>
           <MdKeyboardArrowRight />
-          <h6 className="">Categories</h6>
-          <MdKeyboardArrowRight />
-          <h6 className="text-primaryColor capitalize">
-            {params.categorySlug}
-          </h6>
-        </div>
-        
-        <div className=" flex justify-between items-center gap-3 ">
-          <span
-            onClick={() => dispatch(setFilterOpen())}
-            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor block lg:hidden"
-          >
-            <FiFilter />
-          </span>
-          <div className="lg:w-[200px] md:w-[130px]">
-            <SortDropDown />
-          </div>
+          <h6 className="">Search Results</h6>
         </div>
       </div>
-      <div>
-            <h3>Showing Result For : {query}</h3>
-        </div>
+      <div className="flex sm:flex-row flex-col justify-between sm:items-center pt-4  gap-3">
+        
+        
+          <h3 className="text text-lg md:w-[50%] w-full">Showing Result for: {query}</h3>
+          <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[50%] w-full">
+            <AppliedFilter />
+          </div>
+          <div className=" flex justify-between items-center gap-3 ">
+            <span
+              onClick={() =>
+                dispatch(
+                  setModalOpen({
+                    title: "this is a modal",
+                    body: "filterModal",
+                  })
+                )
+              }
+              className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor cursor-pointer"
+            >
+              <FiFilter />
+            </span>
+            <div className="lg:w-[200px] md:w-[130px]">
+              <SortDropDown />
+            </div>
+          </div>
+      </div>
+      
       <div className="flex  gap-3 pt-5">
-        <div className="w-[25%] lg:block hidden">
+        {/* <div className="w-[25%] lg:block hidden">
           <FilterBar />
-        </div>
-        <div className="lg:w-[75%] w-full">
-          <div className="grid xl:grid-cols-3 lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+        </div> */}
+        <div className="w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
             {/* // results && results.length > 0 ? */}
             {results?.map((card) => (
               <ProductCard card={card} key={card.id} />
