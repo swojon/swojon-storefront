@@ -121,7 +121,7 @@ export default function Navbar2({ border }: { border: any }) {
                 </div>
               </div>
               <div className={`xl:w-[47%] lg:w-[45%] hidden lg:block  w-full `}>
-                <SearchField />
+                <SearchField  setShowSearchBar={null}/>
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
