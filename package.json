@@ -45,6 +45,7 @@
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
+    "next-cloudinary": "^5.20.0",
     "next-redux-wrapper": "^8.1.0",
     "next-urql": "^5.0.2",
     "nextjs": "^0.0.3",

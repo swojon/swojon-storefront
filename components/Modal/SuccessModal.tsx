@@ -30,13 +30,13 @@ const SuccessModal = ({}: any) => {
         />
       </div>
 
-      <h6 className="text-2xl font-lexed font-bold text-primaryColor">
+      <h6 className="text-2xl font-lexed font-bold text-primaryColor text-center">
         Congratulations
       </h6>
 
       <div className="border-b" />
 
-      <p className="text-base font-medium text-secondColor  ">
+      <p className="text-base font-medium text-secondColor text-center ">
         Your list is submitted and pending approval.
       </p>
 

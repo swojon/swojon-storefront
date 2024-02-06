@@ -20,17 +20,18 @@ export const uploadFile = async (
       {
         onUploadProgress: (progressEvent) => {
           // Calculate and update the progress percentage
-          const progress = progressEvent.total ?  Math.round(
-            (progressEvent.loaded / progressEvent.total!) * 100
-          ): 0;
+          const progress = progressEvent.total
+            ? Math.round((progressEvent.loaded / progressEvent.total!) * 100)
+            : 0;
           setUploadProgress(progress);
         },
       }
     );
     const url = res.data.url;
+    const publicId = res.data.public_id;
     setUploadDone(true);
     setUploading(false);
-    return url;
+    return { url, publicId };
   } catch {
     setUploadError(true);
     setUploading(false);

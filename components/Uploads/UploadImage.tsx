@@ -2,6 +2,27 @@
 import React, { useEffect, useState } from "react";
 import UploadArea from "./UploadArea";
 import Image from "next/image";
+import { uploadFile } from "@/lib/helpers/uploadFile";
+import axios from "axios";
+import crypto from "crypto";
+// import cloudinary
+
+// cloudinary.config({
+//   cloud_name: process.env.NEXT_PUBLIC_CLOUD_NAME,
+//   api_key: process.env.NEXT_PUBLIC_CLOUD_API_KEY,
+//   api_secret: process.env.NEXT_PUBLIC_CLOUD_API_SECRET,
+// });
+
+const generateSHA1 = (data: any) => {
+  const hash = crypto.createHash("sha1");
+  hash.update(data);
+  return hash.digest("hex");
+};
+
+const generateSignature = (publicId: string, apiSecret: string) => {
+  const timestamp = new Date().getTime();
+  return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
+};
 
 const UploadImage = ({
   setFieldValue,
@@ -9,14 +30,25 @@ const UploadImage = ({
   errors,
   handleBlur,
   touched,
+  uploadProgress,
+  setUploadDone,
+  setUploading,
+  setUploadError,
+  setUploadProgress,
 }: {
   touched: any;
   setFieldValue: any;
   values: any;
   errors: any;
   handleBlur: any;
+  uploadProgress: any;
+  setUploadDone: any;
+  setUploading: any;
+  setUploadError: any;
+  setUploadProgress: any;
 }) => {
   const [imageCount, setImageCount] = useState<any>([]);
+  const [uploadedUrls, setUploadedUrls] = useState<any>([]);
   const deleteImage = (index: any) => {
     setImageCount((prevImageCount: any) =>
       prevImageCount.filter((_: any, i: any) => i != index)
@@ -31,7 +63,75 @@ const UploadImage = ({
     );
   }, [imageCount, setFieldValue]);
 
-  console.log("images", imageCount);
+  useEffect(() => {
+    const uploadImagesToCloudinary = async () => {
+      try {
+        const urls = [];
+        for (let i = 0; i < imageCount.length; i++) {
+          const result = await uploadFile(
+            imageCount[i].file,
+            setUploadDone,
+            setUploading,
+            setUploadError,
+            setUploadProgress
+          );
+
+          if (result) {
+            const { url, publicId } = result;
+            // console.log(
+            //   `Image hello ${i + 1} URL: ${url}, Public ID: ${publicId}`
+            // );
+            urls.push({ url: url, publicId: publicId });
+          }
+        }
+        setUploadedUrls(urls);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (imageCount.length > 0) {
+      uploadImagesToCloudinary();
+    }
+  }, [imageCount]);
+
+  useEffect(() => {
+    console.log("Cloud images", uploadedUrls);
+    setFieldValue(
+      "mediaUrls",
+      uploadedUrls.map((iC: any) => iC.url)
+    );
+  }, [uploadedUrls, setFieldValue]);
+
+  console.log("loading", uploadedUrls);
+
+  const deleteImageFromCloudinary = async (publicId: any) => {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME;
+    const timestamp = new Date().getTime();
+    const apiKey = process.env.NEXT_PUBLIC_CLOUD_API_KEY;
+    const apiSecret = process.env.NEXT_PUBLIC_CLOUD_API_SECRET;
+    const signature = generateSHA1(generateSignature(publicId, apiSecret));
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;
+
+    try {
+      const response = await axios.post(url, {
+        public_id: publicId,
+        signature: signature,
+        api_key: apiKey,
+        timestamp: timestamp,
+      });
+
+      console.error(response);
+      // console.log("successfully deleted");
+      setUploadedUrls((prevUploadedUrls: any) =>
+        prevUploadedUrls.filter((item: any) => item.publicId !== publicId)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // console.log("images", imageCount);
   return (
     <section className="md:space-y-4 space-y-2">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
@@ -51,13 +151,13 @@ const UploadImage = ({
       )}
 
       <div className=" w-full">
-        {imageCount.length > 0 ? (
+        {uploadedUrls.length > 0 ? (
           <div className="grid md:grid-rows-2 grid-rows-3 md:grid-cols-5 grid-cols-2 gap-4 w-full md:h-[441px] h-[500px] ">
-            {imageCount.length === 1 ? (
+            {uploadedUrls.length === 1 ? (
               <>
-                {imageCount.map((item: any, index: any) => (
+                {uploadedUrls.map((item: any, index: any) => (
                   <div
-                    key={index}
+                    key={item.publicId}
                     className={`
                  md:col-span-3 col-span-2 row-span-2  rounded-2xl border relative`}
                   >
@@ -79,8 +179,8 @@ const UploadImage = ({
                         />
                       </div>
                       <div
-                        onClick={() => deleteImage(index)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center"
+                        onClick={() => deleteImageFromCloudinary(item.publicId)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
                       >
                         <Image
                           src="/assets/delete.png"
@@ -94,11 +194,11 @@ const UploadImage = ({
                   </div>
                 ))}
               </>
-            ) : imageCount.length === 2 ? (
+            ) : uploadedUrls.length === 2 ? (
               <>
-                {imageCount.map((item: any, index: any) => (
+                {uploadedUrls.map((item: any, index: any) => (
                   <div
-                    key={index}
+                    key={item.publicId}
                     className={`
                row-span-${index === 0 ? 2 : 1} md:col-span-${
                       index === 0 ? 3 : 2
@@ -123,8 +223,8 @@ const UploadImage = ({
                         />
                       </div>
                       <div
-                        onClick={() => deleteImage(index)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center"
+                        onClick={() => deleteImageFromCloudinary(item.publicId)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
                       >
                         <Image
                           src="/assets/delete.png"
@@ -140,9 +240,9 @@ const UploadImage = ({
               </>
             ) : (
               <>
-                {imageCount.map((item: any, index: any) => (
+                {uploadedUrls.map((item: any, index: any) => (
                   <div
-                    key={index}
+                    key={item.publicId}
                     className={`
                md:row-span-${index === 0 ? 2 : 1} row-span-${
                       index === 0 ? 2 : 1
@@ -169,8 +269,8 @@ const UploadImage = ({
                         />
                       </div>
                       <div
-                        onClick={() => deleteImage(index)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center"
+                        onClick={() => deleteImageFromCloudinary(item.publicId)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
                       >
                         <Image
                           src="/assets/delete.png"
@@ -188,13 +288,13 @@ const UploadImage = ({
 
             <div
               className={` rounded-2xl border ${
-                imageCount.length === 1
+                uploadedUrls.length === 1
                   ? "col-span-2 row-span-2"
-                  : imageCount.length === 2
+                  : uploadedUrls.length === 2
                   ? "md:col-span-2 col-span-1 row-span-1"
-                  : imageCount.length === 3
+                  : uploadedUrls.length === 3
                   ? "col-span-2 row-span-1"
-                  : imageCount.length > 4
+                  : uploadedUrls.length > 4
                   ? "hidden"
                   : ""
               }  `}

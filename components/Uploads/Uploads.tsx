@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import CompleteStatusBar from "./CompleteStatusBar";
 import UploadImage from "./UploadImage";
@@ -120,16 +120,16 @@ const Uploads = ({ product }: { product: null | any }) => {
   //   }
   // };
 
-  
-
   useEffect(() => {
-    if (typeof window === "undefined"){}
-    else {
+    if (typeof window === "undefined") {
+    } else {
       const handleStickyPanel = () => {
-        if (typeof window === "undefined"){}
-        else {
+        if (typeof window === "undefined") {
+        } else {
           // alert(`${document.body.scrollTop} ${window.scrollY}`)
-          let windowHeight = !!document.body.scrollTop ? document.body.scrollTop :  window.scrollY  
+          let windowHeight = !!document.body.scrollTop
+            ? document.body.scrollTop
+            : window.scrollY;
           windowHeight > 300
             ? setStickyClass(
                 "fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg"
@@ -139,16 +139,17 @@ const Uploads = ({ product }: { product: null | any }) => {
       };
       // Attach the scroll event listener
       window.addEventListener("scroll", handleStickyPanel, { passive: true });
-  
+
       // Attach the touchmove event listener for iOS
-      window.addEventListener("touchmove", handleStickyPanel, { passive: true });
-  
+      window.addEventListener("touchmove", handleStickyPanel, {
+        passive: true,
+      });
+
       return () => {
         window.removeEventListener("scroll", handleStickyPanel);
         window.removeEventListener("touchmove", handleStickyPanel);
       };
     }
-
   }, []);
 
   const [uploading, setUploading] = useState(false);
@@ -179,24 +180,24 @@ const Uploads = ({ product }: { product: null | any }) => {
 
     onSubmit: async (values, action) => {
       setFormUploading(true);
-      console.log("submitting the  form with values");
-      try {
-        for (let i = 0; i < values.images.length; i++) {
-          const url = await uploadFile(
-            values.images[i],
-            setUploadDone,
-            setUploading,
-            setUploadError,
-            setUploadProgress
-          );
+      console.log("submitting the form with values", values);
+      // try {
+      //   for (let i = 0; i < values.images.length; i++) {
+      //     const url = await uploadFile(
+      //       values.images[i],
+      //       setUploadDone,
+      //       setUploading,
+      //       setUploadError,
+      //       setUploadProgress
+      //     );
 
-          // console.log(`Image heloo ${i + 1} url: ${url}`);
-          // @ts-ignore:next-line
-          values.mediaUrls.push(url);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      //     // console.log(`Image heloo ${i + 1} url: ${url}`);
+      //     // @ts-ignore:next-line
+      //     values.mediaUrls.push(url);
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      // }
       let { images, ...listingData } = values;
       listingData = {
         ...listingData,
@@ -228,7 +229,9 @@ const Uploads = ({ product }: { product: null | any }) => {
       // setUploadProgress(null);
     },
   });
+
   console.log("errors", errors);
+
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {
       if (!editableFields.includes(key)) return false;
@@ -389,6 +392,11 @@ const Uploads = ({ product }: { product: null | any }) => {
               errors={errors}
               touched={touched}
               handleBlur={handleBlur}
+              uploadProgress={uploadProgress}
+              setUploadDone={setUploadDone}
+              setUploading={setUploading}
+              setUploadError={setUploadError}
+              setUploadProgress={setUploadProgress}
             />
             <Category
               setFieldValue={setFieldValue}
