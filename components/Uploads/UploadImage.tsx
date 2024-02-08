@@ -5,13 +5,7 @@ import Image from "next/image";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 import axios from "axios";
 import crypto from "crypto";
-// import cloudinary
-
-// cloudinary.config({
-//   cloud_name: process.env.NEXT_PUBLIC_CLOUD_NAME,
-//   api_key: process.env.NEXT_PUBLIC_CLOUD_API_KEY,
-//   api_secret: process.env.NEXT_PUBLIC_CLOUD_API_SECRET,
-// });
+import { ImSpinner6 } from "react-icons/im";
 
 const generateSHA1 = (data: any) => {
   const hash = crypto.createHash("sha1");
@@ -49,24 +43,21 @@ const UploadImage = ({
 }) => {
   const [imageCount, setImageCount] = useState<any>([]);
   const [uploadedUrls, setUploadedUrls] = useState<any>([]);
-  const deleteImage = (index: any) => {
-    setImageCount((prevImageCount: any) =>
-      prevImageCount.filter((_: any, i: any) => i != index)
-    );
-  };
+  // const deleteImage = (index: any) => {
+  //   setImageCount((prevImageCount: any) =>
+  //     prevImageCount.filter((_: any, i: any) => i != index)
+  //   );
+  // };
 
   useEffect(() => {
-    console.log("Settings images", imageCount);
+    // console.log("Settings images", imageCount);
     setFieldValue(
       "images",
       imageCount.map((iC: any) => iC.file)
     );
-  }, [imageCount, setFieldValue]);
-
-  useEffect(() => {
     const uploadImagesToCloudinary = async () => {
       try {
-        const urls = [];
+        let updatedImageCount = [];
         for (let i = 0; i < imageCount.length; i++) {
           const result = await uploadFile(
             imageCount[i].file,
@@ -78,13 +69,17 @@ const UploadImage = ({
 
           if (result) {
             const { url, publicId } = result;
-            // console.log(
-            //   `Image hello ${i + 1} URL: ${url}, Public ID: ${publicId}`
-            // );
-            urls.push({ url: url, publicId: publicId });
+            // Update the imageCount with additional data
+            const updatedImage = {
+              ...imageCount[i],
+              publicId: publicId,
+              publicUrl: url,
+            };
+            updatedImageCount.push(updatedImage);
           }
         }
-        setUploadedUrls(urls);
+        // setImageCount(updatedImageCount);
+        setUploadedUrls(updatedImageCount);
       } catch (error) {
         console.log(error);
       }
@@ -93,13 +88,49 @@ const UploadImage = ({
     if (imageCount.length > 0) {
       uploadImagesToCloudinary();
     }
-  }, [imageCount]);
+  }, [imageCount, setFieldValue]);
+
+  // useEffect(() => {
+  //   const uploadImagesToCloudinary = async () => {
+  //     try {
+  //       let updatedImageCount = [];
+  //       for (let i = 0; i < imageCount.length; i++) {
+  //         const result = await uploadFile(
+  //           imageCount[i].file,
+  //           setUploadDone,
+  //           setUploading,
+  //           setUploadError,
+  //           setUploadProgress
+  //         );
+
+  //         if (result) {
+  //           const { url, publicId } = result;
+  //           // Update the imageCount with additional data
+  //           const updatedImage = {
+  //             ...imageCount[i],
+  //             publicId: publicId,
+  //             publicUrl: url,
+  //           };
+  //           updatedImageCount.push(updatedImage);
+  //         }
+  //       }
+  //       setImageCount(updatedImageCount);
+  //       setUploadedUrls(updatedImageCount);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   if (imageCount.length > 0) {
+  //     uploadImagesToCloudinary();
+  //   }
+  // }, [imageCount]);
 
   useEffect(() => {
-    console.log("Cloud images", uploadedUrls);
+    // console.log("Cloud images", uploadedUrls);
     setFieldValue(
       "mediaUrls",
-      uploadedUrls.map((iC: any) => iC.url)
+      uploadedUrls.map((iC: any) => iC.publicUrl)
     );
   }, [uploadedUrls, setFieldValue]);
 
@@ -123,11 +154,23 @@ const UploadImage = ({
 
       console.error(response);
       // console.log("successfully deleted");
+
       setUploadedUrls((prevUploadedUrls: any) =>
         prevUploadedUrls.filter((item: any) => item.publicId !== publicId)
       );
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleDelete = (item: any) => {
+    const matchedItem = uploadedUrls.find(
+      (item2: any) => item2.url === item.url
+    );
+    if (matchedItem) {
+      deleteImageFromCloudinary(matchedItem.publicId);
+      setImageCount((image: any) =>
+        image.filter((i: any) => i.url != item.url)
+      );
     }
   };
 
@@ -151,9 +194,9 @@ const UploadImage = ({
       )}
 
       <div className=" w-full">
-        {uploadedUrls.length > 0 ? (
+        {imageCount.length > 0 ? (
           <div className="grid md:grid-rows-2 grid-rows-3 md:grid-cols-5 grid-cols-2 gap-4 w-full md:h-[441px] h-[500px] ">
-            {uploadedUrls.length === 1 ? (
+            {/* {uploadedUrls.length === 1 ? (
               <>
                 {uploadedUrls.map((item: any, index: any) => (
                   <div
@@ -284,20 +327,154 @@ const UploadImage = ({
                   </div>
                 ))}
               </>
-            )}
+            )} */}
+
+            {imageCount.map((item: any, index: any) => (
+              <div
+                key={index}
+                className={`${
+                  index === 0
+                    ? "md:col-span-3 col-span-2 row-span-2 "
+                    : index === 1 && imageCount.length == 2
+                    ? "row-span-1 md:col-span-2 col-span-1"
+                    : "md:row-span-1 row-span-1 md:col-span-1 col-span-1"
+                } rounded-2xl border relative`}
+              >
+                {/* {uploadedUrls.filter((item2) => item2.url == item.url) ? (
+                  <>
+                    {" "}
+                    <Image
+                      src={item.url}
+                      width={900}
+                      height={900}
+                      className="w-full h-full rounded-2xl object-cover"
+                      alt={`product-${index}`}
+                    />
+                    <div className="absolute right-2 top-2 flex items-center gap-3">
+                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
+                        <Image
+                          src="/assets/info.png"
+                          alt="done"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
+                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
+                        <Image
+                          src="/assets/pen.png"
+                          alt="edit"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
+                      <div
+                        // onClick={() => deleteImageFromCloudinary(item.publicId)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
+                      >
+                        <Image
+                          src="/assets/delete.png"
+                          alt="edit"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <Image
+                      src={item.url}
+                      width={900}
+                      height={900}
+                      className="w-full h-full rounded-2xl object-cover"
+                      alt={`product-${index}`}
+                    />
+                    <div className="absolute right-2 top-2 flex items-center gap-3">
+                      <div className="h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center text-lg">
+                        loading.....
+                      </div>
+                    </div>
+                  </>
+                )} */}
+                {uploadedUrls.some((item2: any) => item2.url === item.url) ? (
+                  <>
+                    <Image
+                      src={item.url}
+                      width={900}
+                      height={900}
+                      className="w-full h-full rounded-2xl object-cover"
+                      alt={`product-${index}`}
+                    />
+                    <div className="absolute right-2 top-2 flex items-center gap-3">
+                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
+                        <Image
+                          src="/assets/pen.png"
+                          alt="edit"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
+                      <div
+                        onClick={() => handleDelete(item)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
+                      >
+                        <Image
+                          src="/assets/delete.png"
+                          alt="edit"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
+                    </div>
+                    <div className="absolute right-2 bottom-2 ">
+                      <div className="w-10 h-10  flex items-center justify-center">
+                        <Image
+                          src="/assets/verified.png"
+                          alt="completeStatus"
+                          width={100}
+                          height={100}
+                          className="w-7"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Image
+                      src={item.url}
+                      width={900}
+                      height={900}
+                      className="w-full h-full rounded-2xl object-cover"
+                      alt={`product-${index}`}
+                    />
+                    <div className="absolute right-0 top-0 w-full h-full  flex items-center justify-center bg-[#ffffffcf]">
+                      <span className="text-primaryColor font-bold text-2xl animate-spin">
+                        <ImSpinner6 />
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
 
             <div
-              className={` rounded-2xl border ${
-                uploadedUrls.length === 1
+              className={`rounded-2xl border ${
+                imageCount.length === 1
                   ? "col-span-2 row-span-2"
-                  : uploadedUrls.length === 2
+                  : imageCount.length === 2
                   ? "md:col-span-2 col-span-1 row-span-1"
-                  : uploadedUrls.length === 3
+                  : imageCount.length === 3
                   ? "col-span-2 row-span-1"
-                  : uploadedUrls.length > 4
+                  : imageCount.length > 4
                   ? "hidden"
                   : ""
-              }  `}
+              }`}
             >
               <UploadArea
                 imageCount={imageCount}

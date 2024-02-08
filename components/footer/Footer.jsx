@@ -54,8 +54,9 @@ const Footer = () => {
               <BiLogoTwitter />
             </Link>
             <Link
-              href="/"
+              href="https://www.facebook.com/groups/396774799601040/?ref=share_group_link"
               className="p-2 border border-gray-200 rounded-full hover:bg-activeColor hover:text-whiteColor"
+              target="_blank"
             >
               <BiLogoFacebook />
             </Link>

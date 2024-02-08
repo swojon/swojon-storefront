@@ -64,15 +64,14 @@
 .slideInLeft {
   animation-name: slideInLeft;
   animation-timing-function: ease-in;
-  text-shadow: 5px 4px 5px rgba(0, 0, 0, 0.34);
+  text-shadow: 5px 4px 5px rgba(0, 0, 0, 0.163);
   // text-shadow: 1px 1px 2px #4c4c4c;
 }
 .slideInLeft2 {
   animation-name: slideInLeft2;
   animation-timing-function: ease-in;
   animation-duration: 1.5s;
-  text-shadow: 4px 2px 4px rgba(11, 11, 11, 0.34);
-  // text-shadow: 5px 6px 6px rgba(0, 0, 0, 0.34);
+  // text-shadow: 4px 2px 4px rgba(11, 11, 11, 0.34);
 }
 
 .primary-btn {

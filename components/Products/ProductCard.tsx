@@ -60,9 +60,9 @@ const ProductCard = ({ card: listing }: { card: any }) => {
       </div>
 
       <Link href={`/products/${listing.id}`} className="">
-        <div className="  py-1 flex flex-row   items-center font-lexed justify-between">
+        <div className="pt-2  pb-1 flex flex-row   items-center font-lexed justify-between">
           <div className="w-[85%] ">
-            <h6 className="lg:text-lg text-base font-semibold text-primaryColor capitalize truncate">
+            <h6 className="md:text-xl text-lg font-semibold text-primaryColor capitalize truncate">
               {listing.title}
             </h6>
           </div>
@@ -73,21 +73,23 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         </div>
 
         <div className="pb-1  flex items-center  text-secondColor ">
-          <IoMdTime className="text-xs " />
-          <span className="text-xs  ps-1">{timeAgo(listing.dateCreated)}</span>
+          <IoMdTime className="text-sm md:text-base" />
+          <span className="text-sm md:text-base ps-1">
+            {timeAgo(listing.dateCreated)}
+          </span>
         </div>
 
         <div className=" pb-1 flex items-center   text-secondColor">
-          <AiOutlineUser className="text-xs" />
-          <span className="text-xs ps-1">
+          <AiOutlineUser className="text-sm md:text-base" />
+          <span className="text-sm md:text-base ps-1">
             {listing.user.username ??
               listing.user.profile?.name ??
               listing.user.email.split("@")[0]}
           </span>
         </div>
 
-        <span className="text-primaryColor  md:text-base  text-md mt-1.5 font-medium">
-          <span className="text-xs pe-0.5">Tk </span> {listing.price}
+        <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
+          <span className="text-sm pe-0.5">Tk </span> {listing.price}
         </span>
       </Link>
 

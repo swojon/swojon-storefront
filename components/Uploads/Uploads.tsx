@@ -343,11 +343,11 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div className="flex md:flex-row flex-col md:items-center justify-between gap-2 custom-container">
               <div className=" md:w-[50%] w-full">
-                {uploading && (
+                {/* {uploading && (
                   <h6 className="text-base text-secondColor font-medium block">
                     Image Uploading...
                   </h6>
-                )}
+                )} */}
                 {formUploading && (
                   <h6 className="text-base text-secondColor font-medium block">
                     Info sending...

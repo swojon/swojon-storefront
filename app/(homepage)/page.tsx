@@ -7,31 +7,16 @@ import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 // import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
- 
-  
   return (
     <main className="">
       <HeroSection />
-      {/* <h5
-        onClick={() =>
-          dispatch(
-            setModalOpen({
-              title: "this is a modal",
-              body: "loginModal",
-            })
-          )
-        }
-      >
-        LoginBtn
-      </h5> */}
       <FeaturedCategoriesBox />
       <Products />
       {/* <Community /> */}
       {/* <ActionBanner /> */}
-      <SellBuyArea /> 
+      <SellBuyArea />
       {/* <AppDownloadCTA />  */}
-
-      <Footer/>
+      <Footer />
     </main>
   );
 };

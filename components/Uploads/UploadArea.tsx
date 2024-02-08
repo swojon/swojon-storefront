@@ -4,8 +4,7 @@ import { TbCloudUp } from "react-icons/tb";
 const UploadArea = ({
   imageCount,
   setImageCount,
-  handleBlur
-
+  handleBlur,
 }: {
   handleBlur: any;
   imageCount: any;
@@ -26,11 +25,14 @@ const UploadArea = ({
       if (!imageCount.some((e: any) => e.name == files[i].name)) {
         setImageCount((prevImageCount: any) => [
           ...prevImageCount,
-          { name: files[i].name, url: URL.createObjectURL(files[i]), file: files[i] },
+          {
+            name: files[i].name,
+            url: URL.createObjectURL(files[i]),
+            file: files[i],
+          },
         ]);
       }
     }
-
   };
 
   const onDragOver = (event: any) => {
@@ -53,7 +55,11 @@ const UploadArea = ({
       if (!imageCount.some((e: any) => e.name == files[i].name)) {
         setImageCount((prevImageCount: any) => [
           ...prevImageCount,
-          { name: files[i].name, url: URL.createObjectURL(files[i]), file: files[i] },
+          {
+            name: files[i].name,
+            url: URL.createObjectURL(files[i]),
+            file: files[i],
+          },
         ]);
       }
     }
