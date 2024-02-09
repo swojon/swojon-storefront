@@ -58,7 +58,8 @@ const UploadImage = ({
     const uploadImagesToCloudinary = async () => {
       try {
         let updatedImageCount = [];
-        for (let i = 0; i < imageCount.length; i++) {
+        for (let i = uploadedUrls.length ; i < imageCount.length; i++) {
+          //uploads only the new file uploaded. don't repeat
           const result = await uploadFile(
             imageCount[i].file,
             setUploadDone,
@@ -79,7 +80,7 @@ const UploadImage = ({
           }
         }
         // setImageCount(updatedImageCount);
-        setUploadedUrls(updatedImageCount);
+        setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
       } catch (error) {
         console.log(error);
       }
@@ -89,7 +90,7 @@ const UploadImage = ({
       uploadImagesToCloudinary();
     }
   }, [imageCount, setFieldValue]);
-
+  console.log("uploadedUrls", uploadedUrls);
   // useEffect(() => {
   //   const uploadImagesToCloudinary = async () => {
   //     try {
@@ -457,6 +458,21 @@ const UploadImage = ({
                       <span className="text-primaryColor font-bold text-2xl animate-spin">
                         <ImSpinner6 />
                       </span>
+                    </div>
+                    <div className="absolute right-2 top-2 flex items-center gap-3">
+
+                      <div
+                        onClick={() => handleDelete(item)}
+                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
+                      >
+                        <Image
+                          src="/assets/delete.png"
+                          alt="edit"
+                          width={100}
+                          height={100}
+                          className="w-4"
+                        />
+                      </div>
                     </div>
                   </>
                 )}

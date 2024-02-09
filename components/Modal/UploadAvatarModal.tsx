@@ -55,7 +55,7 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
       updateProfile({
         variables: {
           profileData: {
-            avatar: imageUrl
+            avatar: imageUrl.url
           },
           profileId: authState.user.id
         },
@@ -164,12 +164,15 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
       >
         <MdClose />
       </button>
+
       <input
-        type="file"
+      className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-1"
+
+type="file"
         accept="image/*"
         ref={inputRef}
         onChange={onFileChange}
-        className="sr-only"
+        // className="sr-only"
       />
       {showBox === "select" && (
         <>

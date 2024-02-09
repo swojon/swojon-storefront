@@ -19,6 +19,8 @@ import { motion } from "framer-motion";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import Image from "next/image";
 import defaultAvatar from "@/public/assets/avatar.svg";
+import toast from "react-hot-toast";
+import { deleteCookie } from "cookies-next";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -59,14 +61,24 @@ const data = [
   //   icon: <RiSettings4Line />,
   //   url: "/profile/settings",
   // },
-  { id: 74, title: "sign out", icon: <LiaSignOutAltSolid />, url: "/sign-out" },
+  // { id: 74, title: "sign out", icon: , url: "/sign-out" },
 ];
 
 const SideBar = () => {
+  
   const pathname = usePathname();
   const { user } = useSelector((state: any) => state.auth);
   const isMobile = useIsMobile();
-
+ 
+  const handleSignOut = () => {
+    console.log("signing out");
+    toast.loading("signing you out", { id: "signInToast" });
+    // dispatch(setUserLogout(true));
+    deleteCookie("authorization");
+    toast.success("Signed out", { id: "signInToast" });
+    window.location.reload();
+  };
+  
   return (
     <section className="sticky top-0  rounded-md min-h-[87dvh] h-full pb-4 md:px-0 sm:px-[6vw]">
       {/* <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
@@ -121,12 +133,12 @@ const SideBar = () => {
                   : item.url
               }
               className={`flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 ${
-                pathname === item.url ? "text-primaryColor" : "text-secondColor"
+                pathname.split('/')[2] === item.url.split('/')[2] ? "text-primaryColor" : "text-secondColor"
               }`}
             >
               <span
                 className={`text-2xl ${
-                  pathname === item.url
+                  pathname.split('/')[2] === item.url.split('/')[2]
                     ? "text-activeColor"
                     : "text-secondColor"
                 }`}
@@ -137,8 +149,37 @@ const SideBar = () => {
                 {item.title}
               </span>
             </Link>
+            
           </motion.div>
         ))}
+       
+       <motion.div
+            initial={{
+              opacity: 0,
+              // translateX: i % 2 === 0 ? -50 : 50,
+              // translateY: -50,
+            }}
+            animate={{
+              opacity: 1,
+              //  translateX: 0, translateY: 0
+            }}
+            transition={{ duration: 0.1, delay: data.length * 0.01 }}
+          >
+            <button
+              onClick={handleSignOut}
+              className={"flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 text-secondColor"}
+            >
+              <span
+                className={"text-2xl text-secondColor"}
+              >
+                <LiaSignOutAltSolid />
+              </span>{" "}
+              <span className="capitalize  inline-block leading-snug truncate">
+                Signout
+              </span>
+            </button>
+            
+          </motion.div>
 
         {/* <Link
           href="/followers"
