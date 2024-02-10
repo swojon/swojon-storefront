@@ -142,7 +142,7 @@ const UploadImage = ({
     const timestamp = new Date().getTime();
     const apiKey = process.env.NEXT_PUBLIC_CLOUD_API_KEY;
     const apiSecret = process.env.NEXT_PUBLIC_CLOUD_API_SECRET;
-    const signature = generateSHA1(generateSignature(publicId, apiSecret));
+    const signature = generateSHA1(generateSignature(publicId, apiSecret!));
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;
 
     try {
