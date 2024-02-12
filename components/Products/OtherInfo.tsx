@@ -52,8 +52,8 @@ const OtherInfo = ({ listing }: { listing: any }) => {
               {({ active }) => (
                 <Link
                   href={{
-                    pathname: "/upload-product",
-                    query: { productId: JSON.stringify(productId) },
+                    pathname: "/update-product",
+                    query: { productId: listing.id },
                   }}
                   // onClick={handleUpdateInfo}
                   className={classNames(

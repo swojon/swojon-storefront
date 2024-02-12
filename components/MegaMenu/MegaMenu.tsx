@@ -31,8 +31,8 @@ export default function MegaMenu({ border }: { border: any }) {
   const parentCategories = categories
     ? categories.filter((item) => item.parentCategory === null)
     : null;
-  console.log("categories", categories);
-  console.log("parentCategories", parentCategories);
+  // console.log("categories", categories);
+  // console.log("parentCategories", parentCategories);
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [subCategories, setSubCategories] = useState<any>([]);
 

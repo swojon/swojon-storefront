@@ -15,12 +15,12 @@ const CommunityFilter = () => {
   );
 
   const handleChange = (val: any) => {
-    console.log(
-      "input changed",
-      val.target.name,
-      val.target.value,
-      val.target.checked
-    );
+    // console.log(
+    //   "input changed",
+    //   val.target.name,
+    //   val.target.value,
+    //   val.target.checked
+    // );
     var applied = [];
     if (val.target.checked) applied = [...appliedCommunities, val.target.value];
     else

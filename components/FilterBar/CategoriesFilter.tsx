@@ -16,11 +16,10 @@ const CategoriesFilter = () => {
   const [appliedCategories, setAppliedCategories] = useState<any[]>([]);
 
   const handleChange = (slug: any) => {
-  
     var applied = [];
-    if (!appliedCategories.includes(slug)) applied = [...appliedCategories, slug];
-    else
-      applied = appliedCategories.filter((item) => item !== slug);
+    if (!appliedCategories.includes(slug))
+      applied = [...appliedCategories, slug];
+    else applied = appliedCategories.filter((item) => item !== slug);
     // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
     applied.length > 0
@@ -58,7 +57,7 @@ const CategoriesFilter = () => {
     const value = e.target.value;
     setQuery(value);
   };
-  console.log("show", filteredCategories);
+  // console.log("show", filteredCategories);
 
   return (
     <div className="space-y-3">

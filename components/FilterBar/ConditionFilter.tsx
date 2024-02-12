@@ -25,7 +25,7 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
 
   const handleChange = (condition: any) => {
     var applied = [];
-    if (!conditions.includes(condition)) applied = [...conditions ,condition];
+    if (!conditions.includes(condition)) applied = [...conditions, condition];
     else applied = conditions.filter((item) => item !== condition);
     // conso setConditions([...conditions, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
@@ -46,11 +46,11 @@ const ConditionFilter = ({ initial }: { initial: any[] }) => {
   // }, [conditions])
 
   useEffect(() => {
-    console.log("search params changed");
+    // console.log("search params changed");
     setConditions(searchParams.get("condition")?.split(",") ?? []);
   }, [searchParams]);
 
-  console.log("applied conditions", conditions);
+  // console.log("applied conditions", conditions);
   return (
     <div className="space-y-3">
       <span className="md:text-2xl text-lg  font-bold font-lexed text-primaryColor">

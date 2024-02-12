@@ -20,9 +20,8 @@ const BrandFilter = () => {
   // const [selectBrand, setSelectBrand] = useState<any>(null);
 
   const handleChange = (slug: any) => {
-    
     var applied = [];
-    if (!appliedBrands.includes(slug)) applied = [...appliedBrands,slug];
+    if (!appliedBrands.includes(slug)) applied = [...appliedBrands, slug];
     else applied = appliedBrands.filter((item) => item !== slug);
     // conso setAppliedBrands([...appliedBrands, val.target.value])le.log(val.target.name)
     const params = new URLSearchParams(searchParams.toString());
@@ -43,7 +42,7 @@ const BrandFilter = () => {
     setAppliedBrands(searchParams.get("brand")?.split(",") ?? []);
   }, [searchParams]);
 
-  console.log("applied appliedBrands", appliedBrands);
+  // console.log("applied appliedBrands", appliedBrands);
   const {
     data: brandOptions,
     loading: brandLoading,

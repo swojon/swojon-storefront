@@ -23,8 +23,6 @@ import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
 
-import { useRouter, useSearchParams } from "next/navigation";
-
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
   brandId: Yup.number().positive().notRequired(),
@@ -81,32 +79,10 @@ const formSchema = Yup.object({
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
-const Uploads = ({ editProduct }: { editProduct: null | any }) => {
+const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
-
-  const searchParams = useSearchParams();
-
-  const getProduct = searchParams.get("productId");
-  const productId = JSON.parse(getProduct);
-
-  const { data, error, loading } = useGetListingQuery({
-    variables: {
-      id: productId.id,
-    },
-    skip: !productId.id,
-  });
-  const product = data?.getListing;
-
-  console.log("result2", product);
-
-  // const receivedCategory = result?.category;
-
-  // const infoFromQuery = router.query.product;
-  // const info = infoFromQuery ? JSON.parse(infoFromQuery as string) : null;
-
-  // console.log("info in Uploads:", info);
 
   const initialValues = {
     title: product ? product.title : "",
