@@ -121,7 +121,7 @@ export default function Navbar2({ border }: { border: any }) {
                 </div>
               </div>
               <div className={`xl:w-[47%] lg:w-[45%] hidden lg:block  w-full `}>
-                <SearchField  setShowSearchBar={null}/>
+                <SearchField setShowSearchBar={null} />
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
@@ -326,7 +326,7 @@ export default function Navbar2({ border }: { border: any }) {
                     //     })
                     //   )
                     // }
-                    className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
+                    className={`whitespace-nowrap border border-activeColor py-1.5 px-3 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md`}
                   >
                     Sell Product
                   </button>

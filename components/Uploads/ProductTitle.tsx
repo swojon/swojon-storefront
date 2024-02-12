@@ -5,11 +5,11 @@ const ProductTitle = ({
   handleBlur,
   touched,
   values,
-  errors
+  errors,
 }: // handleChangeWithProgress,
 {
-  handleBlur:any;
-  touched:any;
+  handleBlur: any;
+  touched: any;
   handleChange: any;
   values: any;
   errors: any;
@@ -23,21 +23,22 @@ const ProductTitle = ({
     setShowQuantity(e.target.checked);
   };
   console.log("error", errors.title);
+  console.log("new title", values.title);
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Title would be? <span className="text-red-500">*</span>
       </h6>
-      {(touched?.title && errors?.title) ? 
-      <p className="md:text-base text-sm text-red-500 font-medium leading-6">
-        {errors?.title}
-      </p>
-      : 
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Choose a brief yet clear title for your item, it makes the good
-        impression after photos
-      </p>
-      }
+      {touched?.title && errors?.title ? (
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors?.title}
+        </p>
+      ) : (
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+          Choose a brief yet clear title for your item, it makes the good
+          impression after photos
+        </p>
+      )}
       <div className="w-full ">
         <input
           id="text"

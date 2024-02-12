@@ -25,6 +25,7 @@ const UploadImage = ({
   handleBlur,
   touched,
   uploadProgress,
+  uploadError,
   setUploadDone,
   setUploading,
   setUploadError,
@@ -36,6 +37,7 @@ const UploadImage = ({
   errors: any;
   handleBlur: any;
   uploadProgress: any;
+  uploadError: any;
   setUploadDone: any;
   setUploading: any;
   setUploadError: any;
@@ -58,7 +60,8 @@ const UploadImage = ({
     const uploadImagesToCloudinary = async () => {
       try {
         let updatedImageCount = [];
-        for (let i = uploadedUrls.length ; i < imageCount.length; i++) {
+        let uploadFailed = false;
+        for (let i = uploadedUrls.length; i < imageCount.length; i++) {
           //uploads only the new file uploaded. don't repeat
           const result = await uploadFile(
             imageCount[i].file,
@@ -68,19 +71,27 @@ const UploadImage = ({
             setUploadProgress
           );
 
-          if (result) {
-            const { url, publicId } = result;
-            // Update the imageCount with additional data
-            const updatedImage = {
-              ...imageCount[i],
-              publicId: publicId,
-              publicUrl: url,
-            };
-            updatedImageCount.push(updatedImage);
+          if (result.error) {
+            // Handle error, you can log it or show a message
+            console.error(`Error uploading file: ${result.error}`);
+            uploadFailed = true;
+
+            break; // Stop uploading further images on error
           }
+
+          const { url, publicId } = result;
+          const updatedImage = {
+            ...imageCount[i],
+            publicId: publicId,
+            publicUrl: url,
+          };
+          updatedImageCount.push(updatedImage);
         }
-        // setImageCount(updatedImageCount);
-        setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
+
+        if (!uploadFailed) {
+          setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
+        }
+        // setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
       } catch (error) {
         console.log(error);
       }
@@ -90,12 +101,18 @@ const UploadImage = ({
       uploadImagesToCloudinary();
     }
   }, [imageCount, setFieldValue]);
-  console.log("uploadedUrls", uploadedUrls);
+
   // useEffect(() => {
+  //   // console.log("Settings images", imageCount);
+  //   setFieldValue(
+  //     "images",
+  //     imageCount.map((iC: any) => iC.file)
+  //   );
   //   const uploadImagesToCloudinary = async () => {
   //     try {
   //       let updatedImageCount = [];
-  //       for (let i = 0; i < imageCount.length; i++) {
+  //       for (let i = uploadedUrls.length; i < imageCount.length; i++) {
+  //         //uploads only the new file uploaded. don't repeat
   //         const result = await uploadFile(
   //           imageCount[i].file,
   //           setUploadDone,
@@ -106,7 +123,7 @@ const UploadImage = ({
 
   //         if (result) {
   //           const { url, publicId } = result;
-  //           // Update the imageCount with additional data
+
   //           const updatedImage = {
   //             ...imageCount[i],
   //             publicId: publicId,
@@ -115,8 +132,8 @@ const UploadImage = ({
   //           updatedImageCount.push(updatedImage);
   //         }
   //       }
-  //       setImageCount(updatedImageCount);
-  //       setUploadedUrls(updatedImageCount);
+  //       // setImageCount(updatedImageCount);
+  //       setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
   //     } catch (error) {
   //       console.log(error);
   //     }
@@ -125,7 +142,7 @@ const UploadImage = ({
   //   if (imageCount.length > 0) {
   //     uploadImagesToCloudinary();
   //   }
-  // }, [imageCount]);
+  // }, [imageCount, setFieldValue]);
 
   useEffect(() => {
     // console.log("Cloud images", uploadedUrls);
@@ -174,6 +191,11 @@ const UploadImage = ({
       );
     }
   };
+  const handleRemoveFailed = (remove: any) => {
+    setImageCount((image: any) =>
+      image.filter((i: any) => i.url != remove.url)
+    );
+  };
 
   // console.log("images", imageCount);
   return (
@@ -197,139 +219,6 @@ const UploadImage = ({
       <div className=" w-full">
         {imageCount.length > 0 ? (
           <div className="grid md:grid-rows-2 grid-rows-3 md:grid-cols-5 grid-cols-2 gap-4 w-full md:h-[441px] h-[500px] ">
-            {/* {uploadedUrls.length === 1 ? (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-                 md:col-span-3 col-span-2 row-span-2  rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : uploadedUrls.length === 2 ? (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-               row-span-${index === 0 ? 2 : 1} md:col-span-${
-                      index === 0 ? 3 : 2
-                    } col-span-${index === 0 ? 2 : 1}
-                rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-               md:row-span-${index === 0 ? 2 : 1} row-span-${
-                      index === 0 ? 2 : 1
-                    } md:col-span-${index === 0 ? 3 : 1} col-span-${
-                      index === 0 ? 2 : 1
-                    }
-                  rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )} */}
-
             {imageCount.map((item: any, index: any) => (
               <div
                 key={index}
@@ -454,13 +343,26 @@ const UploadImage = ({
                       className="w-full h-full rounded-2xl object-cover"
                       alt={`product-${index}`}
                     />
-                    <div className="absolute right-0 top-0 w-full h-full  flex items-center justify-center bg-[#ffffffcf]">
-                      <span className="text-primaryColor font-bold text-2xl animate-spin">
-                        <ImSpinner6 />
-                      </span>
+                    <div className="absolute right-0 top-0 w-full h-full  flex items-center justify-center bg-[#ffffffcf] rounded-md">
+                      {uploadError ? (
+                        <div className="space-y-2">
+                          <span className="block text-primaryColor text-lg font-bold">
+                            failed
+                          </span>
+                          <button
+                            onClick={() => handleRemoveFailed(item.url)}
+                            className="text-sm text-white py-2 px-4 bg-red-600 rounded-md"
+                          >
+                            remove
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-primaryColor font-bold text-2xl animate-spin">
+                          <ImSpinner6 />
+                        </span>
+                      )}
                     </div>
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-
+                    {/* <div className="absolute right-2 top-2 flex items-center gap-3">
                       <div
                         onClick={() => handleDelete(item)}
                         className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
@@ -473,7 +375,7 @@ const UploadImage = ({
                           className="w-4"
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>

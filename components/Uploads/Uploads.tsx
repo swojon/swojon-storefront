@@ -13,12 +13,17 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./Upload.css";
 import { uploadFile } from "@/lib/helpers/uploadFile";
-import { useCreateListingMutation } from "@/apollograph/generated";
+import {
+  useCreateListingMutation,
+  useGetListingQuery,
+} from "@/apollograph/generated";
 import PreviewProduct from "./PreviewProduct";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
+
+import { useRouter, useSearchParams } from "next/navigation";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -76,20 +81,42 @@ const formSchema = Yup.object({
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
-const Uploads = ({ product }: { product: null | any }) => {
+const Uploads = ({ editProduct }: { editProduct: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
 
+  const searchParams = useSearchParams();
+
+  const getProduct = searchParams.get("productId");
+  const productId = JSON.parse(getProduct);
+
+  const { data, error, loading } = useGetListingQuery({
+    variables: {
+      id: productId.id,
+    },
+    skip: !productId.id,
+  });
+  const product = data?.getListing;
+
+  console.log("result2", product);
+
+  // const receivedCategory = result?.category;
+
+  // const infoFromQuery = router.query.product;
+  // const info = infoFromQuery ? JSON.parse(infoFromQuery as string) : null;
+
+  // console.log("info in Uploads:", info);
+
   const initialValues = {
     title: product ? product.title : "",
     description: product ? product.description : "",
-    images: product ? product.images : [],
+    images: [],
     condition: product ? product.condition : "used",
     slug: product ? product.slug : "",
     // parentCategoryId: product?.parentCategory?.id,
-    brandId: product ? product.brand.id : null,
-    categoryId: product ? product.category.id : null,
+    brandId: product ? product?.brand?.id : null,
+    categoryId: product ? product?.category?.id : null,
     // locationId: product ? product.location.id : null,
     price: product ? product.price : null,
     quantity: product ? product.quantity : 1,
@@ -230,7 +257,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     },
   });
 
-  console.log("errors", errors);
+  // console.log("errors", errors);
 
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {
@@ -395,10 +422,12 @@ const Uploads = ({ product }: { product: null | any }) => {
               uploadProgress={uploadProgress}
               setUploadDone={setUploadDone}
               setUploading={setUploading}
+              uploadError={uploadError}
               setUploadError={setUploadError}
               setUploadProgress={setUploadProgress}
             />
             <Category
+              // receivedCategory={receivedCategory}
               setFieldValue={setFieldValue}
               values={values}
               errors={errors}

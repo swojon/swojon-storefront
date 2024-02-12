@@ -12,7 +12,10 @@ import { setModalClose } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { GetUserByIdDocument, useUpdateProfileMutation } from "@/apollograph/generated";
+import {
+  GetUserByIdDocument,
+  useUpdateProfileMutation,
+} from "@/apollograph/generated";
 import { BiLoaderCircle } from "react-icons/bi";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 
@@ -24,7 +27,7 @@ const ORIENTATION_TO_ANGLE = {
 
 const UploadAvatarModal = ({ props }: { props: any }) => {
   const inputRef = useRef<any>();
-  const authState = useSelector((state: any) => state.auth)
+  const authState = useSelector((state: any) => state.auth);
   const triggerFileSelectPopup = () => inputRef.current.click();
   const [showBox, setShowBox] = useState<any>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -33,45 +36,50 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
   const [zoom, setZoom] = useState<number>(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null); // Adjust the type accordingly
   const [croppedImage, setCroppedImage] = useState<any>(null);
-  const [updateProfile, {data, loading, error}] = useUpdateProfileMutation()
-  const [formUploading, setFormUploading] = useState(false)
+  const [updateProfile, { data, loading, error }] = useUpdateProfileMutation();
+  const [formUploading, setFormUploading] = useState(false);
   const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
-  const handleUpload = async ( ) => {
-      setFormUploading(true)
-      const croppedImage = await getCroppedImg(
-        imageSrc,
-        croppedAreaPixels,
-        rotation
-      );
-      console.log("cropped image", croppedImage)
-      const imageUrl = await uploadFile(croppedImage, () => {}, () => {}, () => {}, () => {});
-      if (!imageUrl) {
-        toast.error("Error getting the image url. Please try again later.")
-        return
-      }
-      updateProfile({
-        variables: {
-          profileData: {
-            avatar: imageUrl.url
-          },
-          profileId: authState.user.id
+  const handleUpload = async () => {
+    setFormUploading(true);
+    const croppedImage = await getCroppedImg(
+      imageSrc,
+      croppedAreaPixels,
+      rotation
+    );
+    console.log("cropped image", croppedImage);
+    const imageUrl = await uploadFile(
+      croppedImage,
+      () => {},
+      () => {},
+      () => {},
+      () => {}
+    );
+    if (!imageUrl) {
+      toast.error("Error getting the image url. Please try again later.");
+      return;
+    }
+    updateProfile({
+      variables: {
+        profileData: {
+          avatar: imageUrl.url,
         },
-        onCompleted: ()  => {
-          setFormUploading(false)
-          toast.success("Successfully updated avatar")
-          dispatch(setModalClose(true))
-        },
-        onError: () => {
-          setFormUploading(false)
-          toast.error("Error updating avatar")
-        },
-        refetchQueries: [GetUserByIdDocument]
-      })
-
-  }
+        profileId: authState.user.id,
+      },
+      onCompleted: () => {
+        setFormUploading(false);
+        toast.success("Successfully updated avatar");
+        dispatch(setModalClose(true));
+      },
+      onError: () => {
+        setFormUploading(false);
+        toast.error("Error updating avatar");
+      },
+      refetchQueries: [GetUserByIdDocument],
+    });
+  };
   // const showCroppedImage = useCallback(async () => {
   //   console.log("callback run")
   //   try {
@@ -139,7 +147,7 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
       // If needed, you can extract the URL of the uploaded image
       const imageUrl = response.data.secure_url;
       console.log("Uploaded Image URL:", imageUrl);
-      return imageUrl
+      return imageUrl;
       // Perform additional actions as needed
     } catch (error) {
       console.error("Error uploading cropped image to Cloudinary:", error);
@@ -166,15 +174,13 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
       </button>
 
       <input
-      className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-1"
-
-type="file"
+        className="border-dashed border-2 border-activeColor h-full w-full rounded-2xl flex items-center justify-center cursor-pointer p-1 sr-only"
+        type="file"
         accept="image/*"
         ref={inputRef}
         onChange={onFileChange}
-        // className="sr-only"
       />
-      {showBox === "select" && (
+      {showBox === "select" ? (
         <>
           <div className=" lg:h-[67dvh] md:h-[45dvh] h-[25dvh] relative">
             <Cropper
@@ -212,17 +218,38 @@ type="file"
                 onClick={async () => {
                   // showCroppedImage();
                   // setShowBox("CropImage");
-                  await handleUpload()
+                  await handleUpload();
                 }}
               >
-               {formUploading ?  <BiLoaderCircle className=" text-xl animate-spin" /> : 
-                "Upload"}
+                {formUploading ? (
+                  <BiLoaderCircle className=" text-xl animate-spin" />
+                ) : (
+                  "Upload"
+                )}
               </button>
             </div>
           </div>
         </>
+      ) : (
+        <div className="flex flex-col justify-center">
+          <button
+            className="w-24 h-24 border rounded-full mx-auto"
+            onClick={triggerFileSelectPopup}
+          >
+            <Image
+              src="/assets/uploadImage.png"
+              alt="upload image"
+              width={600}
+              height={400}
+              className="w-16 m-auto"
+            />
+          </button>
+          <span className="text-center text-base font-medium text-primaryColor pt-3">
+            Upload New Image
+          </span>
+        </div>
       )}
-       {/* { showBox === "CropImage" ? (
+      {/* { showBox === "CropImage" ? (
         <div className="pt-2 space-y-6">
           {croppedImage && (
             <Image

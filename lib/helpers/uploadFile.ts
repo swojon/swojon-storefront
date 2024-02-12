@@ -8,7 +8,7 @@ export const uploadFile = async (
   setUploadError: Dispatch<SetStateAction<boolean>>,
   setUploadProgress: any
 ) => {
-  console.log(setUploading, setUploadError);
+  // console.log(setUploading, setUploadError);
   setUploading(true);
   try {
     const formData = new FormData();
@@ -31,9 +31,16 @@ export const uploadFile = async (
     const publicId = res.data.public_id;
     setUploadDone(true);
     setUploading(false);
-    return { url, publicId };
+    console.log("uploaded");
+    return { url, publicId, error: null };
   } catch {
     setUploadError(true);
     setUploading(false);
+    console.log("failed..................");
+    return {
+      url: null,
+      publicId: null,
+      error: "Failed to upload file",
+    };
   }
 };

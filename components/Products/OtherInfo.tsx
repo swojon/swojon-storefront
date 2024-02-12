@@ -1,12 +1,33 @@
+"use client";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const OtherInfo = () => {
+const OtherInfo = ({ listing }: { listing: any }) => {
+  const productId = { id: listing.id };
+  const router = useRouter();
+  const handleUpdateInfo = () => {
+    console.log("info", listing);
+    const myProduct = listing;
+    router.push(
+      {
+        pathname: "upload-product",
+        query: { data: JSON.stringify(myProduct) },
+      } as any
+      // use this to clear query strings like key value from URL
+    );
+  };
+
+  const checkConsole = () => {
+    console.log(listing);
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -29,41 +50,44 @@ const OtherInfo = () => {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href={{
+                    pathname: "/upload-product",
+                    query: { productId: JSON.stringify(productId) },
+                  }}
+                  // onClick={handleUpdateInfo}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-1.5 text-sm"
                   )}
                 >
                   Update
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <span
+                  onClick={checkConsole}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-1.5 text-sm"
                   )}
                 >
                   Remove
-                </a>
+                </span>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <span
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-1.5 text-sm"
                   )}
                 >
                   Marked as sold
-                </a>
+                </span>
               )}
             </Menu.Item>
           </div>

@@ -14,14 +14,15 @@ const Category = ({
   touched,
   setFieldValue,
   values,
-
   errors,
-}: {
+}: // receivedCategory,
+{
   handleBlur: any;
   touched: any;
   setFieldValue: any;
   values: any;
   errors: any;
+  // receivedCategory: any;
 }) => {
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
@@ -34,6 +35,7 @@ const Category = ({
       limit: 1000,
     },
   });
+  // console.log(receivedCategory?.parentCategory?.id);
   const categories = categoriesData?.listCategories.items;
   const [query, setQuery] = useState("");
 

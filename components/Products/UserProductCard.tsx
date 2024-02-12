@@ -59,7 +59,7 @@ const UserProductCard = ({ card: listing }: { card: any }) => {
         )}
         {authState.isAuthenticated && (
           <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
-            <OtherInfo />
+            <OtherInfo listing={listing} />
           </div>
         )}
       </div>
