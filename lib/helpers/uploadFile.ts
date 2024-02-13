@@ -31,7 +31,7 @@ export const uploadFile = async (
     const publicId = res.data.public_id;
     setUploadDone(true);
     setUploading(false);
-    console.log("uploaded");
+
     return { url, publicId, error: null };
   } catch {
     setUploadError(true);

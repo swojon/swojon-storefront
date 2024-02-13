@@ -42,11 +42,11 @@ const CommunityFilter = () => {
   //     // router.push(pathname + '?' + params.toString())
   // }, [appliedCommunities])
   useEffect(() => {
-    console.log("search params changed");
+    // console.log("search params changed");
     setAppliedCommunities(searchParams.get("community")?.split(",") ?? []);
   }, [searchParams]);
 
-  console.log("applied appliedCommunities", appliedCommunities);
+  // console.log("applied appliedCommunities", appliedCommunities);
   const {
     data: communityOptions,
     loading: communityLoading,

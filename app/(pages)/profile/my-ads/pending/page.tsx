@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ProductCard from "@/components/Products/ProductCard";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import UserProductCard from "@/components/Products/UserProductCard";
 
 const ProductLists = () => {
   const authState = useSelector((state: any) => state.auth);
@@ -20,20 +21,20 @@ const ProductLists = () => {
 
   return (
     <>
-    <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
-      {loading && <ProductLoader />}
-      {myProducts &&
-        myProducts?.map((product) => (
-          <ProductCard card={product} key={product.id} />
-        ))}
-    </div>
-     
-     {!loading && (!myProducts || myProducts.length <= 0) && (
-      <div className=" pt-16">
-        <NotMatched title={"Sorry! We didn't Find Any Product"} />
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4 px-5 pt-10">
+        {loading && <ProductLoader />}
+        {myProducts &&
+          myProducts?.map((product) => (
+            <UserProductCard card={product} key={product.id} />
+          ))}
       </div>
-    )}
-</>
+
+      {!loading && (!myProducts || myProducts.length <= 0) && (
+        <div className=" pt-16">
+          <NotMatched title={"Sorry! We didn't Find Any Product"} />
+        </div>
+      )}
+    </>
   );
 };
 

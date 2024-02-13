@@ -43,8 +43,30 @@ const UploadImage = ({
   setUploadError: any;
   setUploadProgress: any;
 }) => {
-  const [imageCount, setImageCount] = useState<any>([]);
-  const [uploadedUrls, setUploadedUrls] = useState<any>([]);
+  const [imageCount, setImageCount] = useState<any>(
+    values.mediaUrls
+      ? values.mediaUrls.map((img: any) => ({
+          name: "",
+          url: img?.url,
+          file: "",
+        }))
+      : []
+  );
+  const [uploadedUrls, setUploadedUrls] = useState<any>(
+    values.mediaUrls
+      ? values.mediaUrls.map((img: any) => {
+          const publicId = img.url && img.url.split("/").slice(-2).join("/");
+          return {
+            name: "",
+            url: img.url,
+            file: "",
+            publicId: publicId,
+            publicUrl: img.url,
+          };
+        })
+      : []
+  );
+
   // const deleteImage = (index: any) => {
   //   setImageCount((prevImageCount: any) =>
   //     prevImageCount.filter((_: any, i: any) => i != index)
@@ -62,7 +84,6 @@ const UploadImage = ({
         let updatedImageCount = [];
         let uploadFailed = false;
         for (let i = uploadedUrls.length; i < imageCount.length; i++) {
-          //uploads only the new file uploaded. don't repeat
           const result = await uploadFile(
             imageCount[i].file,
             setUploadDone,
@@ -72,11 +93,10 @@ const UploadImage = ({
           );
 
           if (result.error) {
-            // Handle error, you can log it or show a message
             console.error(`Error uploading file: ${result.error}`);
             uploadFailed = true;
 
-            break; // Stop uploading further images on error
+            break;
           }
 
           const { url, publicId } = result;
@@ -186,11 +206,13 @@ const UploadImage = ({
     );
     if (matchedItem) {
       deleteImageFromCloudinary(matchedItem.publicId);
+      console.log("deleted");
       setImageCount((image: any) =>
         image.filter((i: any) => i.url != item.url)
       );
     }
   };
+
   const handleRemoveFailed = (remove: any) => {
     setImageCount((image: any) =>
       image.filter((i: any) => i.url != remove.url)
@@ -346,7 +368,7 @@ const UploadImage = ({
                     <div className="absolute right-0 top-0 w-full h-full  flex items-center justify-center bg-[#ffffffcf] rounded-md">
                       {uploadError ? (
                         <div className="space-y-2">
-                          <span className="block text-primaryColor text-lg font-bold">
+                          <span className="block text-primaryColor text-lg font-bold text-center">
                             failed
                           </span>
                           <button

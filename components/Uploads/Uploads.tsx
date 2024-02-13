@@ -91,8 +91,8 @@ const Uploads = ({ product }: { product: null | any }) => {
     condition: product ? product.condition : "used",
     slug: product ? product.slug : "",
     // parentCategoryId: product?.parentCategory?.id,
-    brandId: product ? product?.brand?.id : null,
-    categoryId: product ? product?.category?.id : null,
+    brandId: product ? product.brand.id : null,
+    categoryId: product ? product.category.id : null,
     // locationId: product ? product.location.id : null,
     price: product ? product.price : null,
     quantity: product ? product.quantity : 1,
@@ -233,7 +233,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     },
   });
 
-  // console.log("errors", errors);
+  console.log("errors", errors);
 
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {

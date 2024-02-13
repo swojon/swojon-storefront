@@ -19,16 +19,24 @@ const DealingMethod = ({
   handleChange,
   handleBlur,
   errors,
-  touched
+  touched,
 }: {
   handleBlur: any;
-  touched:any;
-  errors:any;
+  touched: any;
+  errors: any;
   setFieldValue: any;
   values: any;
   handleChange: any;
 }) => {
-  const [selectMethod, setSelectMethod] = useState<any>(null);
+  const [selectMethod, setSelectMethod] = useState<any>(
+    values.dealingMethod
+      ? {
+          id: "",
+          title: values.dealingMethod,
+          slug: values.dealingMethod,
+        }
+      : null
+  );
   const [showSelectedMethod, setShowSelectedMethod] = useState<any>(null);
   useEffect(() => {
     setFieldValue("dealingMethod", selectMethod?.slug);
@@ -39,14 +47,15 @@ const DealingMethod = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Dealing Method? <span className="text-red-500">*</span>
       </h6>
-      {(touched.dealingMethod && errors.dealingMethod) ? 
-      <p className="md:text-base text-sm text-red-500 font-medium leading-6">
-        {errors.dealingMethod}
-      </p>
-      :
-      <p className="md:text-base text-sm text-secondColor font-medium leading-6">
-        Select the method, how you want to send the item
-      </p>  }  
+      {touched.dealingMethod && errors.dealingMethod ? (
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.dealingMethod}
+        </p>
+      ) : (
+        <p className="md:text-base text-sm text-secondColor font-medium leading-6">
+          Select the method, how you want to send the item
+        </p>
+      )}
 
       <div className="rounded-2xl border border-gray-200  ">
         <div className="md:p-6 p-2.5 border-b border-gray-200 flex items-center justify-between">
@@ -85,10 +94,18 @@ const DealingMethod = ({
             ))}
           </div>
         )}
-        {selectMethod && selectMethod?.title === "Meet-up" ? (
-          <MeetUp  setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
+        {selectMethod && selectMethod?.slug === "meetup" ? (
+          <MeetUp
+            setFieldValue={setFieldValue}
+            values={values}
+            errors={errors}
+            touched={touched}
+            handleBlur={handleBlur}
+          />
         ) : (
-          selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} />
+          selectMethod?.title === "Courier Delivery" && (
+            <Courier setFieldValue={setFieldValue} values={values} />
+          )
         )}
       </div>
     </section>

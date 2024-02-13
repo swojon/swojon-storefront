@@ -24,8 +24,6 @@ const Category = ({
   errors: any;
   // receivedCategory: any;
 }) => {
-  const [selectCategory, setSelectCategory] = useState<any>(null);
-  const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
   const {
     data: categoriesData,
     loading,
@@ -35,8 +33,37 @@ const Category = ({
       limit: 1000,
     },
   });
-  // console.log(receivedCategory?.parentCategory?.id);
   const categories = categoriesData?.listCategories.items;
+  const receivedId = categories?.find(
+    (catItem) => values.category && values.category.id === catItem.id
+  );
+  const [selectCategory, setSelectCategory] = useState<any>(
+    receivedId
+      ? {
+          id: receivedId?.parentCategory?.id,
+          name: receivedId?.parentCategory?.name,
+          slug: receivedId?.parentCategory?.slug,
+        }
+      : null
+  );
+  const [selectSubCategory, setSelectSubCategory] = useState<any>(
+    receivedId
+      ? {
+          id: receivedId?.id,
+          name: receivedId?.name,
+          slug: receivedId?.slug,
+        }
+      : null
+  );
+  console.log(selectCategory);
+  console.log(selectSubCategory);
+
+  // console.log(receivedCategory?.parentCategory?.id);
+
+  // const receivedId = categories?.find(
+  //   (catItem) => values.category.id === catItem.id
+  // );
+  console.log("categories", categories);
   const [query, setQuery] = useState("");
 
   const categoryTree = categories ? getCategoryTree(categories, null) : [];

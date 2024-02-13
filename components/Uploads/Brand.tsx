@@ -28,14 +28,27 @@ const Brand = ({
     const value = e.target.value;
     setQuery(value);
   };
-
-  const [selectBrand, setSelectBrand] = useState<any>(null);
   const {
     data: brandData,
     loading: brandLoading,
     error: brandError,
   } = useListBrandsQuery();
   const brands = brandData?.listBrands.items;
+  const receivedId = brands?.find(
+    (brandItem) => values.brand && values.brand?.id === brandItem.id
+  );
+  console.log("checking", receivedId);
+  console.log("checking2", values?.brand);
+
+  const [selectBrand, setSelectBrand] = useState<any>(
+    receivedId
+      ? {
+          id: receivedId?.id,
+          name: receivedId?.name,
+        }
+      : null
+  );
+
   const filteredBrands = !!query
     ? brands?.filter((br) =>
         br.name?.toLowerCase().includes(query.toLowerCase())
@@ -101,7 +114,7 @@ const Brand = ({
             <div
               key={item.id}
               className={`flex flex-col justify-center  items-center flex-none w-[220px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
-                item?.id === selectBrand?.id
+                item?.id === selectBrand?.id || item?.id === receivedId?.id
                   ? " border-activeColor "
                   : "border-gray-200 hover:border-gray-500"
               }`}
