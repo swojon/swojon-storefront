@@ -1,5 +1,6 @@
 "use client";
 import { useGetListingQuery } from "@/apollograph/generated";
+import UpdateFormLoader from "@/components/Loader/UpdateFormLoader";
 import Uploads from "@/components/Uploads/Uploads";
 import { useSearchParams } from "next/navigation";
 import React from "react";
@@ -21,7 +22,7 @@ const UpdateProduct = () => {
   console.log("result2", product);
   return (
     <section className="py-10 ">
-      {loading ? "loading..." : <Uploads product={product} />}
+      {loading ? <UpdateFormLoader /> : <Uploads product={product} />}
     </section>
   );
 };

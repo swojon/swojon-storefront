@@ -35,7 +35,7 @@ const Category = ({
   });
   const categories = categoriesData?.listCategories.items;
   const receivedId = categories?.find(
-    (catItem) => values.category && values.category.id === catItem.id
+    (catItem) => values.categoryId && values.categoryId === catItem.id
   );
   const [selectCategory, setSelectCategory] = useState<any>(
     receivedId

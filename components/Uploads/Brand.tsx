@@ -35,10 +35,10 @@ const Brand = ({
   } = useListBrandsQuery();
   const brands = brandData?.listBrands.items;
   const receivedId = brands?.find(
-    (brandItem) => values.brand && values.brand?.id === brandItem.id
+    (brandItem) => values.brandId && values.brandId === brandItem.id
   );
   console.log("checking", receivedId);
-  console.log("checking2", values?.brand);
+  console.log("checking2", values.brandId);
 
   const [selectBrand, setSelectBrand] = useState<any>(
     receivedId
