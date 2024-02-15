@@ -37,8 +37,6 @@ const Brand = ({
   const receivedId = brands?.find(
     (brandItem) => values.brandId && values.brandId === brandItem.id
   );
-  console.log("checking", receivedId);
-  console.log("checking2", values.brandId);
 
   const [selectBrand, setSelectBrand] = useState<any>(
     receivedId

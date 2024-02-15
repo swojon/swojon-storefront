@@ -27,6 +27,7 @@ const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
   brandId: Yup.number().positive().notRequired(),
   categoryId: Yup.number().positive().notRequired(),
+  productCategoryId: Yup.number().positive().notRequired(),
   description: Yup.string().min(5, "Description must be at least 5 characters"),
   // locationId: Yup.number().positive().required(),
   price: Yup.number().positive().integer().required("Min price needed"),
@@ -47,35 +48,34 @@ const formSchema = Yup.object({
       stateDistrict: Yup.string().notRequired(),
     })
   ).notRequired(),
-  images: Yup.array()
-    .of(
-      Yup.mixed()
-        .nullable()
-        .test(
-          "FILE_SIZE",
-          "Too big!!",
-          (file: any) => {
-            console.log("File and type of file", file, typeof file);
-            if (typeof file === "string") return true;
-            return file ? file && file.size < 20 * 1024 * 1024 : true;
-          } //20MB
-        )
-        .test("FILE_TYPE", "INVALID", (file: any) => {
-          console.log("file", file, file.type);
+  images: Yup.array().of(
+    Yup.mixed()
+      .nullable()
+      .test(
+        "FILE_SIZE",
+        "Too big!!",
+        (file: any) => {
+          console.log("File and type of file", file, typeof file);
           if (typeof file === "string") return true;
-          return file
-            ? file &&
-                [
-                  "image/png",
-                  "image/jpeg",
-                  "image/jpg",
-                  "images/webp",
-                  "images/svg+xml",
-                ].includes(file.type)
-            : true;
-        })
-    )
-    .min(1, "Please upload at least one image to proceed"),
+          return file ? file && file.size < 20 * 1024 * 1024 : true;
+        } //20MB
+      )
+      .test("FILE_TYPE", "INVALID", (file: any) => {
+        // console.log("file", file, file.type);
+        if (typeof file === "string") return true;
+        return file
+          ? file &&
+              [
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+                "images/webp",
+                "images/svg+xml",
+              ].includes(file.type)
+          : true;
+      })
+  ),
+  // .min(1, "Please upload at least one image to proceed"),
   mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
 });
 
@@ -91,15 +91,17 @@ const Uploads = ({ product }: { product: null | any }) => {
     condition: product ? product.condition : "used",
     slug: product ? product.slug : "",
     // parentCategoryId: product?.parentCategory?.id,
-    brandId: product ? product.brand.id : null,
+    brandId: product ? product.brand?.id : null,
     categoryId: product ? product.category.id : null,
+    productCategoryId: product ? product.category.id : null,
+    test: "",
     // locationId: product ? product.location.id : null,
     price: product ? product.price : null,
     quantity: product ? product.quantity : 1,
     dealingMethod: product ? product.dealingMethod : "meetup",
     // deliveryCharge: product ? product.deliveryCharge : 0,
     meetupLocations: product ? product.meetupLocations : [],
-    mediaUrls: product ? product.media : [],
+    mediaUrls: product ? product.media.map((media: any) => media.url) : [],
   };
 
   const editableFields = [
@@ -234,6 +236,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   });
 
   console.log("errors", errors);
+  // console.log("check", values);
 
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {
@@ -412,7 +415,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             />
             <div
               className={`${
-                values.categoryId && !errors.categoryId
+                values.productCategoryId && !errors.productCategoryId
                   ? "opacity-100 "
                   : "opacity-50 pointer-events-none"
               }`}

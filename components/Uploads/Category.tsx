@@ -34,44 +34,34 @@ const Category = ({
     },
   });
   const categories = categoriesData?.listCategories.items;
-  const receivedId = categories?.find(
-    (catItem) => values.categoryId && values.categoryId === catItem.id
+  const receivedCategory = categories?.find(
+    (catItem) =>
+      values.productCategoryId && values.productCategoryId === catItem.id
   );
+  const categoryTree = categories ? getCategoryTree(categories, null) : [];
+  const [query, setQuery] = useState(
+    receivedCategory ? String(receivedCategory.name) : ""
+  );
+  const filteredCategories = !!query
+    ? categories?.filter((ca) =>
+        ca.name?.toLowerCase().includes(query.toLowerCase())
+      )
+    : categoryTree;
+
   const [selectCategory, setSelectCategory] = useState<any>(
-    receivedId
-      ? {
-          id: receivedId?.parentCategory?.id,
-          name: receivedId?.parentCategory?.name,
-          slug: receivedId?.parentCategory?.slug,
-        }
-      : null
+    receivedCategory || null
   );
-  const [selectSubCategory, setSelectSubCategory] = useState<any>(
-    receivedId
-      ? {
-          id: receivedId?.id,
-          name: receivedId?.name,
-          slug: receivedId?.slug,
-        }
-      : null
-  );
-  console.log(selectCategory);
-  console.log(selectSubCategory);
+  const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
+  console.log("sre", typeof receivedCategory?.name);
+  console.log("query", query);
+
+  console.log("selectCategory", selectCategory);
 
   // console.log(receivedCategory?.parentCategory?.id);
 
   // const receivedId = categories?.find(
   //   (catItem) => values.category.id === catItem.id
   // );
-  console.log("categories", categories);
-  const [query, setQuery] = useState("");
-
-  const categoryTree = categories ? getCategoryTree(categories, null) : [];
-  const filteredCategories = !!query
-    ? categories?.filter((ca) =>
-        ca.name?.toLowerCase().includes(query.toLowerCase())
-      )
-    : categoryTree;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -80,11 +70,12 @@ const Category = ({
 
   useEffect(() => {
     if (!selectCategory && !selectSubCategory)
-      setFieldValue("categoryId", null);
-    if (!!selectSubCategory) setFieldValue("categoryId", selectSubCategory.id);
+      setFieldValue("productCategoryId", null);
+    if (!!selectSubCategory)
+      setFieldValue("productCategoryId", selectSubCategory.id);
     console.log("selectCategory", selectCategory);
     if (!selectCategory?.children || selectCategory?.children?.length === 0)
-      setFieldValue("categoryId", selectCategory?.id);
+      setFieldValue("productCategoryId", selectCategory?.id);
   }, [selectCategory, selectSubCategory]);
 
   return (
@@ -92,9 +83,9 @@ const Category = ({
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
         Category of your item? <span className="text-red-500">*</span>
       </h6>
-      {touched?.categoryId && errors?.categoryId ? (
+      {touched?.productCategoryId && errors?.productCategoryId ? (
         <p className="md:text-base text-sm text-red-500 font-medium leading-6">
-          {errors.categoryId}
+          {errors.productCategoryId}
         </p>
       ) : (
         <p className="md:text-base text-sm text-secondColor font-medium leading-6">

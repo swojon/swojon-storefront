@@ -45,23 +45,23 @@ const UploadImage = ({
 }) => {
   const [imageCount, setImageCount] = useState<any>(
     values.mediaUrls
-      ? values.mediaUrls.map((img: any) => ({
+      ? values.mediaUrls.map((url: any) => ({
           name: "",
-          url: img?.url,
+          url: url,
           file: "",
         }))
       : []
   );
   const [uploadedUrls, setUploadedUrls] = useState<any>(
     values.mediaUrls
-      ? values.mediaUrls.map((img: any) => {
-          const publicId = img.url && img.url.split("/").slice(-2).join("/");
+      ? values.mediaUrls.map((url: any) => {
+          const publicId = url && url.split("/").slice(-2).join("/");
           return {
             name: "",
-            url: img.url,
+            url: url,
             file: "",
             publicId: publicId,
-            publicUrl: img.url,
+            publicUrl: url,
           };
         })
       : []
@@ -73,8 +73,10 @@ const UploadImage = ({
   //   );
   // };
 
+  console.log("checking", uploadedUrls);
+
   useEffect(() => {
-    // console.log("Settings images", imageCount);
+    console.log("Settings images", imageCount);
     setFieldValue(
       "images",
       imageCount.map((iC: any) => iC.file)
@@ -204,6 +206,7 @@ const UploadImage = ({
     const matchedItem = uploadedUrls.find(
       (item2: any) => item2.url === item.url
     );
+    console.log(matchedItem, "matchedI");
     if (matchedItem) {
       deleteImageFromCloudinary(matchedItem.publicId);
       console.log("deleted");
