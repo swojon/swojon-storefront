@@ -4,6 +4,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { setModalOpen } from "@/app/redux/modalSlice";
+import { useDispatch } from "react-redux";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -23,7 +25,7 @@ const OtherInfo = ({ listing }: { listing: any }) => {
       // use this to clear query strings like key value from URL
     );
   };
-
+  const dispatch = useDispatch();
   const checkConsole = () => {
     console.log(listing);
   };
@@ -68,7 +70,14 @@ const OtherInfo = ({ listing }: { listing: any }) => {
             <Menu.Item>
               {({ active }) => (
                 <span
-                  onClick={checkConsole}
+                  onClick={() =>
+                    dispatch(
+                      setModalOpen({
+                        title: "this is a modal",
+                        body: "removeItemModal",
+                      })
+                    )
+                  }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-1.5 text-sm"

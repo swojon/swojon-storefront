@@ -21,6 +21,7 @@ import VerificationCodeModal from "./VerificationCodeModal";
 import AdditionalDetail from "./AdditionalDetail";
 import FilterModal from "./FilterModal";
 import UploadAvatarModal from "./UploadAvatarModal";
+import RemoveItem from "./RemoveItem";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const LOGINMODAL = "loginModal";
@@ -32,6 +33,7 @@ const VERIFYCODE = "VerifyCode";
 const ADDITIONALDETAILS = "additionalDetails";
 const FILTERMODAL = "filterModal";
 const UPLOADIMAGEMODAL = "uploadImageModal";
+const REMOVEITEMMODAL = "removeItemModal";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -60,7 +62,10 @@ export default function Modal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed  inset-0 bg-gray-700 bg-opacity-75 transition-opacity " />
+          <div
+            // onClose={() => dispatch(setModalClose(true))}
+            className="fixed  inset-0 bg-gray-700 bg-opacity-75 transition-opacity "
+          />
         </Transition.Child>
 
         <div className="fixed w-full left-0 right-0 inset-0 z-1000 overflow-y-auto ">
@@ -117,6 +122,12 @@ export default function Modal() {
                   )}
                   {modalStack[modalStack.length - 1]?.body === EDITEMAIL && (
                     <EditEmailModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body ===
+                    REMOVEITEMMODAL && (
+                    <RemoveItem
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

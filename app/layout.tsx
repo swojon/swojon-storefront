@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   },
   description:
     "Swojon is the perfect place to declutter your home and make some extra money, or to find the perfect used item at a fraction of the price of new",
+  // verification: {
+  //   google: "google-site-verification=id",
+  // },
 };
 
 interface Iprops {
