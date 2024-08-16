@@ -19,7 +19,7 @@ import {
 } from "react-icons/fa";
 import DynamicModal from "@/components/Modal/DynamicModal";
 import { BiLoaderCircle } from "react-icons/bi";
-// import { setCookie } from "cookies-next";
+// import { setCookie } from "cookies-next" ;
 
 interface Props {}
 
