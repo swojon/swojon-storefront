@@ -2,7 +2,7 @@ import { useSendChatMessageMutation } from "@/apollograph/generated";
 import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
