@@ -21,6 +21,10 @@ const formSchema = Yup.object({
   email: Yup.string().email().required("Email is required"),
 });
 
+const handleGoogleClick = () => {
+  window.open(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/google`, "_self");
+  // window.open(`http://localhost:3005/auth/google`, '_self')
+};
 const SignUpPage = () => {
   const [isEmailPreferred, setIsEmailPreferred] = useState(false);
   useEffect(() => {
@@ -96,7 +100,7 @@ const SignUpPage = () => {
         </div>
         {!isEmailPreferred && (
           <div className="space-y-2.5 w-full">
-            <div className="flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer relative">
+            <div onClick={handleGoogleClick} className="flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer relative">
               <span className="absolute left-4">
                 <FcGoogle className=" text-lg" />
               </span>
