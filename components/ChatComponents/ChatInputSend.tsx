@@ -26,11 +26,13 @@ interface Iprop {
   >;
 }
 
-const ChatInputSend = () => {
+const ChatInputSend = ({
+  activeChat
+}: {activeChat: any}) => {
   const [sendChatMessage, { data, loading, error }] =
     useSendChatMessageMutation();
 
-  const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
+  // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const authState = useSelector((state: any) => state.auth);
   const formik = useFormik({
     // enableReinitialize: true,
@@ -56,13 +58,13 @@ const ChatInputSend = () => {
         //     const {listChatMessages}:any = cache.readQuery({
         //         query: GetChatMessageDocument,
         //         variables: {
-        //             chatRoomId: activeChat
+        //             chatRoomId: activeChat.id
         //         }})
-        //     console.log("list Chat Message", listChatMessages)
+        //     // console.log("list Chat Message", listChatMessages)
         //     cache.writeQuery({
         //         query: GetChatMessageDocument,
         //         variables: {
-        //             chatRoomId: activeChat
+        //             chatRoomId: activeChat.id
         //         },
         //         data : {
         //             listChatMessages: {
@@ -71,6 +73,15 @@ const ChatInputSend = () => {
         //         }
         //     })
         // }
+        // refetchQueries: [
+        //   useGetChatMessageQuery({
+        //     variables: {
+        //       chatRoomId: activeChat?.id,
+        //       limit: 20,
+        //     },
+        //     skip: !activeChat,
+        //   });   
+        // ]
       });
 
       // setDisMsg([...disMsg, { id: nextId++, msg: msgText }])
@@ -82,6 +93,7 @@ const ChatInputSend = () => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("sending messages")
     if (e.key === "Enter") {
       handleSubmit();
     }

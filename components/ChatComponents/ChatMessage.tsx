@@ -275,7 +275,7 @@ const MessageAreaData = ({
         </div>
       </div>
 
-      <ChatInputSend />
+      <ChatInputSend activeChat={activeChat} />
     </section>
   );
 };
