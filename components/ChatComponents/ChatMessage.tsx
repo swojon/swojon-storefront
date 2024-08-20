@@ -157,6 +157,7 @@ const MessageAreaData = ({
     (crm: any) => crm.userId !== authState.user.id
   );
 
+
   return (
     <section className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center gap-2">
@@ -184,7 +185,7 @@ const MessageAreaData = ({
           <div className="pr-3 space-y-1 truncate ">
             <span className="text-sm text-primaryColor font-medium truncate ">
               {participants
-                ?.map((m: any) => m.user?.username ?? m.user?.profile?.name)
+                ?.map((m: any) => m.user?.username ?? m.user?.profile?.name ?? m.user?.email.split("@")[0])
                 .join(",") ?? activeChat?.chatName}
             </span>
             <div className="flex items-center space-x-1">

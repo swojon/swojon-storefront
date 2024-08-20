@@ -16,7 +16,6 @@ import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
 
 const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; chatRoom:any }) => {
-  // const chatRoom = useSelector((state:any) => state.chat.chatRoomRoom);
   const authState = useSelector((state:any) => state.auth)
   const isMobile = useIsMobile()
   const searchParams = useSearchParams()
@@ -64,7 +63,7 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
           <span className="absolute right-1 bottom-0 w-3 h-3 border rounded-full bg-green-400"></span>
         </div>
         <h5 className="xl:text-lg lg:text-base text-base font-lexed font-medium text-primaryColor">
-          {participants?.map((m: any ) => m.user?.username ?? m.user?.profile?.name).join(',')  ?? chatRoom?.chatName }
+          {participants?.map((m: any ) => m.user?.username ?? m.user?.profile?.name ?? m.user?.email.split("@")[0]).join(',')  ?? chatRoom?.chatName }
         </h5>
         <div className="flex items-center gap-5	">
         {participants?.map((m: any ) =>

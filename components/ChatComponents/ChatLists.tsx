@@ -101,7 +101,8 @@ const ChatLists = () => {
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate capitalize  leading-none font-semibold">
                     {chatroom.members
                       ?.filter((crm) => crm.userId !== authState.user.id)
-                      ?.map((m) => m.user?.username ?? m.user?.profile?.name)
+                      ?.map((m) => m.user?.username ?? m.user?.profile?.name  ?? m.user?.email.split("@")[0])
+                      
                       .join(",") ?? chatroom.chatName}
                   </h5>
                   <p className="text-xs text-secondColor truncate">
