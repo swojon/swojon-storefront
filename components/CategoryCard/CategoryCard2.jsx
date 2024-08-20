@@ -20,7 +20,7 @@ const CategoryCard2 = ({ item }) => {
         <h6 className="md:text-lg sm:text-base text-sm capitalize font-lexed font-semibold">
           {item?.name}
         </h6>
-        <span className="md:text-sm text-xs">100 post</span>
+        {/* <span className="md:text-sm text-xs">100 post</span> */}
       </div>
     </Link>
   );
