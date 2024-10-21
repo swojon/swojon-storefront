@@ -15,7 +15,7 @@ export const uploadFile = async (
     formData.append("file", file);
     formData.append("upload_preset", "melz52ez");
     const res = await axios.post(
-      "https://api.cloudinary.com/v1_1/ddu8yxsoo/image/upload",
+      "https://api.cloudinary.com/v1_1/dvqgrbz4r/image/upload",
       formData,
       {
         onUploadProgress: (progressEvent) => {
