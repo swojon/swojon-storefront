@@ -13,9 +13,9 @@ function ProfileArea({ children }: { children: any }) {
   return (
     <section className=" bg-white">
       <div className="pt-4 md:flex items-center gap-2 custom-container hidden">
-        <span className="text-xs text-secondColor ">My account</span>
+        <span className="text-sm text-secondColor ">My account</span>
         <MdKeyboardArrowRight />
-        <span className="text-xs text-primaryColor">My Points</span>
+        <span className="text-sm text-primaryColor">Settings</span>
       </div>
       <div className="flex custom-container gap-6 justify-between py-4">
         {(!isMobile ||

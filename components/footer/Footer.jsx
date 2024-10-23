@@ -33,7 +33,7 @@ const Footer = () => {
             Download our mobile app. Get all <br /> service at a glance.
           </p>
 
-          <div className="flex space-x-2">
+          {/* <div className="flex space-x-2">
             <Image
               src={googleImg}
               alt="googleimg"
@@ -44,7 +44,7 @@ const Footer = () => {
               alt="appStoreImg"
               className="lg:w-[35%] md:w-[22%] w-[35%]"
             />
-          </div>
+          </div> */}
 
           <div className="flex space-x-2">
             <Link
@@ -66,12 +66,12 @@ const Footer = () => {
             >
               <BiLogoInstagram />
             </Link>
-            <Link
+            {/* <Link
               href="/"
               className="p-2 border border-gray-200 rounded-full hover:bg-activeColor hover:text-whiteColor"
             >
               <BiLogoGithub />
-            </Link>
+            </Link> */}
           </div>
         </div>
 

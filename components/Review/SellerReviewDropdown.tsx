@@ -18,7 +18,6 @@ const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
   });
 
   const getPercentage = (count: number, total: number) => {
-    console.log("count", count, "total", total);
     if (!count || !total) return 0;
     return Math.trunc((count / total) * 100);
   };

@@ -5,6 +5,7 @@ query GetUserById($userId: Float!) {
     facebookId
     followerCount
     followingCount
+    followingStatus
     id
     isEmailVerified
     isStaff

@@ -21,8 +21,10 @@ import VerificationCodeModal from "./VerificationCodeModal";
 import AdditionalDetail from "./AdditionalDetail";
 import FilterModal from "./FilterModal";
 import UploadAvatarModal from "./UploadAvatarModal";
+import SendSellerMessage from "./SendSellerMessage";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
+const SENDSELLERCHAT = "sendSellerModal"
 const LOGINMODAL = "loginModal";
 const SELLPRODUCT = "sellProduct";
 const SUCCESS = "product-create-success";
@@ -32,6 +34,7 @@ const VERIFYCODE = "VerifyCode";
 const ADDITIONALDETAILS = "additionalDetails";
 const FILTERMODAL = "filterModal";
 const UPLOADIMAGEMODAL = "uploadImageModal";
+
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -132,6 +135,11 @@ export default function Modal() {
                   )}
                   {modalStack[modalStack.length - 1]?.body === CHATMODAL && (
                     <StartChatModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                   {modalStack[modalStack.length - 1]?.body === SENDSELLERCHAT && (
+                    <SendSellerMessage
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

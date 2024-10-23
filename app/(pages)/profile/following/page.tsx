@@ -47,9 +47,9 @@ const Followers = () => {
         </h6>
       </div>
 
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4  pt-10">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4  pt-10">
         {followers?.map((follower) => (
-          <FollowUserCard follow={follower} key={follower.id} />
+          <FollowUserCard follower={follower} key={follower.id} />
         ))}
         {loading && <FollowUserCardLoader />}
 

@@ -1,1 +1,1 @@
-schema: "https://api.swojon.com/graphql/"
+schema: "https://localhost:3005/graphql/"

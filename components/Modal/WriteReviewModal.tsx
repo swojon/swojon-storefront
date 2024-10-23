@@ -99,7 +99,9 @@ const WriteReviewModal = ({props}: {props:any}) => {
   console.log("values", values)
 
   return (
-    <section className="  w-full h-full  space-y-3 lg:space-y-4 p-5 relative">
+    
+    <section className="w-full bg-white h-full rounded-md mx-auto space-y-3 lg:space-y-4 p-5  relative">
+      
       <button
         className="absolute rounded-full bg-activeColor p-1 border right-2 top-2  text-white"
         onClick={() => dispatch(setModalClose(true))}

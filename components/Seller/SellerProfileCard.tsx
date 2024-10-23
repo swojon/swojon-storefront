@@ -9,9 +9,58 @@ import icon2 from "@/public/assets/emailIcon.png";
 import icon3 from "@/public/assets/phoneIcon.png";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
+import { useAddFollowMutation, useRemoveFollowMutation } from "@/apollograph/generated";
+import { useDispatch, useSelector } from "react-redux";
+import { setModalOpen } from "@/app/redux/modalSlice";
+import  { format } from 'date-fns';
 
 const SellerProfileCard = ({ seller }: { seller: any }) => {
   // console.log("Got seller to render", seller)
+  const authState = useSelector((state: any) => state.auth);
+  const [addFollow,{data, loading, error}] = useAddFollowMutation();
+  const [removeFollow,{data:removeData, loading:removeLoading, error:removeError}] = useRemoveFollowMutation();
+  const dispatch = useDispatch();
+  
+  
+  const handleFollowAdd = (sellerId:number, userId:number) => {
+    addFollow({
+      variables: {
+        userId: userId,
+        followedUserId: sellerId
+      },
+      update(cache, {data}){
+        const cId = cache.identify(seller);
+        cache.modify({
+          id: cId,
+          fields: {
+            followingStatus(prev) {
+              return !prev
+            }
+          }
+        }) 
+      }
+    })
+  }
+  const handleFollowRemove = (sellerId:number, userId:number) => {
+    removeFollow({
+      variables: {
+        userId: userId,
+        followedUserId: sellerId
+      },
+      update(cache, {data}){
+        const cId = cache.identify(seller);
+        cache.modify({
+          id: cId,
+          fields: {
+            followingStatus(prev) {
+              return !prev
+            }
+          }
+        }) 
+      }
+    })
+  }
+  console.log("seller", seller);
   return (
     <div className="flex lg:flex-col sm:flex-row flex-col gap-5">
       <div className=" rounded-md px-3 py-4 flex-1 lg:flex-none">
@@ -62,25 +111,54 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             <h6 className="text-secondColor">Member Since :</h6>
           </div>
           <div className=" text-sm text-activeColor">
-            <h6 className="">{"Jan 2023"}</h6>
+            <h6 className="">{format(seller?.createdAt, 'MMMM yyyy')}</h6>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
-          <button
+        {authState.isAuthenticated && (
+        <>
+          {seller?.followingStatus == true ? (
+          
+              <button onClick={() =>
+                handleFollowRemove(seller.id, authState.user.id)
+              }
             className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold"
           >
-            Follow
+              Unfollow
           </button>
-          <button className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-2 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
+           
+          ) : (
+              <button onClick={() => handleFollowAdd(seller.id, authState.user.id)}
+            className="border border-activeColor text-activeColor  rounded-md 
+          py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold"
+          >
+              Follow
+          </button>
+          
+          )}
+        </>
+      )}
+         
+          <button
+           onClick={() =>
+            dispatch(
+              setModalOpen({
+                title: "Send message",
+                body: "sendSellerModal",
+                props: { seller: seller },
+              })
+            )
+          }
+           className="border border-activeColor text-whiteColor bg-activeColor  rounded-md py-2 text-center md:text-base sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
             Send Message
           </button>
         </div>
       </div>
 
       <div className=" rounded-md px-3 py-4 lg:space-y-4 md:space-y-3 space-y-2  flex-1 lg:flex-none ">
-        <h5 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor ">
+        {/* <h5 className="lg:text-2xl md:text-lg text-base font-lexed font-medium text-primaryColor ">
           Confirmed Information
         </h5>
 
@@ -105,7 +183,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
               Phone Number
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ query ListFollowers($userId: Float!) {
         email
         facebookId
         isApproved
+        username
         isStaff
         profile {
           name

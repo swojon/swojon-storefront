@@ -2,16 +2,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import ShareIcon from "@/public/assets/share.png";
-import icon2 from "@/public/assets/heartIcon.png";
-import ProductCard from "@/components/Products/ProductCard";
-import SellerBar from "@/components/Seller/SellerBar";
-import SellerRating from "@/components/Seller/SellerRating";
 import { useGetUserByIdQuery } from "@/apollograph/generated";
-import SellerProductList from "@/components/Seller/SellerProductList";
 import SellerProfileCard from "@/components/Seller/SellerProfileCard";
-import NotMatched from "@/components/NotMatched/NotMatched";
-import ProductLoader from "@/components/Loader/ProductLoader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SellerCardLoader from "@/components/Loader/SellerCardLoader";
