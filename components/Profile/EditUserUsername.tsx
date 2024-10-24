@@ -71,7 +71,7 @@ const EditUserUsername = ({user }: {user: any;  }) => {
              type="text"
              name="username"
              id="name"
-             value={user.username}
+             value={values.username}
              placeholder="JohnDoe"
              className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-gray-50"
            />
