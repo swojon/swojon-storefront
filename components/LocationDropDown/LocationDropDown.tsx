@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 

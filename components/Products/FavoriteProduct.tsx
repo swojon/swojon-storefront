@@ -2,7 +2,6 @@ import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "@/apollograph/generated";
-import Image from "next/image";
 import React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
