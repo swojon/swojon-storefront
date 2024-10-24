@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
-import NotFound from "../../not-found/page";
 import Password from "@/components/Login&Security/Password";
 
 const LoginAndSecurity = () => {

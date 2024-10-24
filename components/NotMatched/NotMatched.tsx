@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const NotMatched = ({ title }: { title: any }) => {
+const NotMatched = ({ title, subtitle, cta }: { title: any, subtitle? : any, cta?: {text : any, link: any} }) => {
   return (
     <section className="flex flex-col justify-center items-center custom-container ">
       <Image
@@ -15,14 +15,17 @@ const NotMatched = ({ title }: { title: any }) => {
         {title}
       </h2>
       <p className="pt-1.5 py-3 text-sm text-secondColor ">
-        we didn`t find anything
+        {subtitle ?? "" }
       </p>
+
+      {cta &&  
       <Link
-        href="/"
+        href={cta.link}
         className="py-2 px-3 bg-activeColor text-white text-sm font-lexed rounded-md"
       >
-        Back to Home page
+        {cta.text}
       </Link>
+      }
     </section>
   );
 };

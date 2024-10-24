@@ -2,19 +2,12 @@
 import { useGetListingQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import BreadCrumbsLoader from "../Loader/BreadCrumbsLoader";
-import MeetTheSellerLoader from "../Loader/MeetTheSellerLoader";
 import ProductInfoLoader from "../Loader/ProductInfoLoader";
 import ThumbnailLoader from "../Loader/ThumbnailLoader";
-import Review from "../Review/Review";
 import SafetyTips from "../SafetyTips/SafetyTips";
-import MeetSeller from "../Seller/MeetSeller";
 import ProductInfo from "./ProductInfo";
 import ProductThumbnailSlider from "./ProductThumbnailSlider";
-import Image from "next/image";
-import shareIcon from "@/public/assets/share.png";
-import saveIcon from "@/public/assets/heartIcon.png";
 import Link from "next/link";
-import { FiShare2, FiHeart } from "react-icons/fi";
 import FavoriteProduct from "../Products/FavoriteProduct";
 
 const ProductDetails = ({ productId }: { productId: number }) => {

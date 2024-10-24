@@ -1,23 +1,19 @@
 "use client";
-import { Fragment, ReactNode, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
-  ExclamationTriangleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
 
 const NavbarModal = () => {
-  const open = useSelector((state: any) => state.modal.open);
-  const modalStack = useSelector((state: any) => state.modal.stack);
 
   //   const body = useSelector((state: any) => state.modal.body);
   //   const title = useSelector((state: any) => state.modal.title);
 
   const dispatch = useDispatch();
 
-  const cancelButtonRef = useRef(null);
   return (
     <div className="border border-red-100 min-h-screen   	 p-4 text-center  sm:p-0 ">
       <Transition.Child

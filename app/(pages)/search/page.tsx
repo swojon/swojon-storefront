@@ -1,15 +1,14 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import FilterBar from "@/components/FilterBar/FilterBar";
+import { useSearchParams } from "next/navigation";
+
 import { MdKeyboardArrowRight } from "react-icons/md";
 import ProductCard from "@/components/Products/ProductCard";
 import SortDropDown from "@/components/SortDropDown/SortDropDown";
 import Link from "next/link";
 import { FiFilter } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { setFilterOpen } from "@/app/redux/filterSlice";
-import { useListListingsQuery, useSearchListingsQuery } from "@/apollograph/generated";
+import {  useSearchListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
@@ -17,7 +16,7 @@ import { setModalOpen } from "@/app/redux/modalSlice";
 
 const SearchPage = ({ params }: { params: any }) => {
   console.log("item loaded", "SearchPage")
-  const appliedFilter = [];
+
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
   const orderBy = searchParams.get("sort") ?? "default";

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { setModalClose } from "@/app/redux/modalSlice";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";

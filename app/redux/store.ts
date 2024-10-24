@@ -7,7 +7,6 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
-import { createWrapper } from "next-redux-wrapper";
 import { modalSlice } from "./modalSlice";
 import { navSlice } from "./navSlice";
 import { filterSlice } from "./filterSlice";

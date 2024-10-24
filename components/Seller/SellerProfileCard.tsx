@@ -1,12 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import user from "@/public/userMale.png";
-import { FaStar } from "react-icons/fa6";
-import { BsDot } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
-import icon1 from "@/public/assets/govtIcon.png";
-import icon2 from "@/public/assets/emailIcon.png";
-import icon3 from "@/public/assets/phoneIcon.png";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { useAddFollowMutation, useRemoveFollowMutation } from "@/apollograph/generated";

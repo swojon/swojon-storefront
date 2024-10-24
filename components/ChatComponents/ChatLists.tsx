@@ -1,11 +1,10 @@
 import { useListChatsQuery } from "@/apollograph/generated";
 import Image from "next/image";
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import ChatListLoader from "../Loader/ChatListsLoader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { timeAgo, timeAgoNarrow } from "@/lib/helpers/timeAgo";
+import { timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";

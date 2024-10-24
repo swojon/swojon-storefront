@@ -1,7 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import ChatMessage from "./ChatMessage";
-import ChatUserProfile from "./ChatUserProfile";
+import React from "react";
 import "./Chat.css";
 import ChatLists from "./ChatLists";
 

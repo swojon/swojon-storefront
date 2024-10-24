@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import ShareIcon from "@/public/assets/share.png";
 
 const SellerContentLoader = () => {
   return (

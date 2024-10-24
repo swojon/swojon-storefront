@@ -1,17 +1,16 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, {  useState } from "react";
 import Image from "next/image";
 import "./Navbar.scss";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { setNavClose, setNavOpen } from "@/app/redux/navSlice";
+import { setNavClose } from "@/app/redux/navSlice";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight, MdArrowBackIos } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
+
 import { FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
-import { AiOutlineDollarCircle } from "react-icons/ai";
 import { GrHomeRounded } from "react-icons/gr";
 import "./resNavbar.css";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
@@ -29,8 +28,8 @@ const ResNavbarDrawer = () => {
 
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [openPanel, setOpenPanel] = useState<any>(null);
-  const [subCategories, setSubCategories] = useState<any>([]);
-  const [visibleCategories, setVisibleCategories] = useState(4);
+  // const [subCategories, setSubCategories] = useState<any>([]);
+  // const [visibleCategories, setVisibleCategories] = useState(4);
 
   const handleMouseEnter = (category: any) => {
     console.log("category hovered", category);

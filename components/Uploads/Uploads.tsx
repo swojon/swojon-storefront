@@ -12,7 +12,6 @@ import DealingMethod from "./DealingMethod";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./Upload.css";
-import { uploadFile } from "@/lib/helpers/uploadFile";
 import { useCreateListingMutation } from "@/apollograph/generated";
 import PreviewProduct from "./PreviewProduct";
 import { useDispatch } from "react-redux";

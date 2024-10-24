@@ -1,13 +1,12 @@
 import React from "react";
 import ReviewProgressBar from "./ReviewProgressBar";
 import ReviewStars from "./ReviewStars";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import { useSummaryUserReviewQuery } from "@/apollograph/generated";
 
 function SummarySellerReview({ sellerId }: { sellerId: number }) {
   const dispatch = useDispatch();
-  const authState = useSelector((state: any) => state.auth);
   const { data, loading, error } = useSummaryUserReviewQuery({
     variables: {
       userId: sellerId,

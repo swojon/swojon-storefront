@@ -80,7 +80,7 @@ export const FollowUserCard = ({follower}: {follower:any}) => {
                 {follower.followStatus ? (
                <button
                onClick={() =>
-                handleFollowRemove(follower, authState.user.id)
+                handleFollowRemove( authState.user.id, follower.user.id)
               }
                className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
@@ -89,7 +89,7 @@ export const FollowUserCard = ({follower}: {follower:any}) => {
               ) : (
                 
                  <button 
-                 onClick={() => handleFollowAdd(follower, authState.user.id)}
+                 onClick={() => handleFollowAdd( authState.user.id, follower.user.id)}
                 className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
                  Follow

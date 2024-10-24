@@ -3,13 +3,10 @@ import {
   NewMessageAddedDocument,
   useGetChatMessageQuery,
 } from "@/apollograph/generated";
-import { setUserProfileOpen } from "@/app/redux/userProfileSlice";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import { BsInfo, BsThreeDots } from "react-icons/bs";
-import { FiPaperclip } from "react-icons/fi";
-import { HiUsers } from "react-icons/hi";
-import { MdLocationPin } from "react-icons/md";
+import { BsInfo } from "react-icons/bs";
+
 import { useDispatch, useSelector } from "react-redux";
 import ChatInputSend from "./ChatInputSend";
 import { timeAgo } from "@/lib/helpers/timeAgo";
@@ -19,11 +16,8 @@ import { Waypoint } from "react-waypoint";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import {
   HiArrowLeft,
-  HiInformationCircle,
-  HiOutlineInformationCircle,
 } from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import AdStartConversation from "./AdStartConversation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 
 const ChatMessage = ({
@@ -35,8 +29,7 @@ const ChatMessage = ({
   setSideProfile: any;
   chatRoom: any;
 }) => {
-  const dispatch = useDispatch();
-  const authState = useSelector((state: any) => state.auth);
+
   const activeChat = chatRoom;
 
   const { data, loading, error, subscribeToMore, fetchMore } =

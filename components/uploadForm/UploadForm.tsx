@@ -2,24 +2,17 @@
 import { useFormik } from "formik";
 import CategoryDropDown from "./CategoryDropDown";
 import Condition from "./Condition";
-import Genuine from "./Genuine";
 import LocationDropDown from "./LocationDropDown";
-import Features from "./Features";
-import Model from "./Model";
 import Descriptions from "./Descriptions";
 import Price from "./Price";
 import AddImage from "./AddImage";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { setModalOpen } from "@/app/redux/modalSlice";
 import * as Yup from "yup";
-import axios from "axios";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 import { useState } from "react";
 import BrandDropdown from "./BrandDropdown";
-import { useSession } from "next-auth/react";
 import { useCreateListingMutation } from "@/apollograph/generated";
-import { MdKeyboardArrowRight } from "react-icons/md";
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),

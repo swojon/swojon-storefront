@@ -1,8 +1,6 @@
 import React from "react";
-import user from "@/public/userMale.png";
 import { FaStar } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
-import { MdVerifiedUser } from "react-icons/md";
 import Image from "next/image";
 import { useListSellerReviewsQuery } from "@/apollograph/generated";
 import { timeAgo } from "@/lib/helpers/timeAgo";

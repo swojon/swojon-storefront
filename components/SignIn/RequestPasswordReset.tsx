@@ -3,8 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { BsDot } from 'react-icons/bs';
-import { FaRegEyeSlash } from 'react-icons/fa6';
-import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 function RequestPasswordReset() {
     const [isSent, setIsSent] = useState(false)

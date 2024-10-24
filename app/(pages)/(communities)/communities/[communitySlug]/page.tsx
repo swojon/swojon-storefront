@@ -2,11 +2,6 @@
 import { BsDot } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
 import { HiShare } from "react-icons/hi";
-import img1 from "@/public/assets/comm1.png";
-import img2 from "@/public/assets/comm2.png";
-import img3 from "@/public/assets/comm3.png";
-import img4 from "@/public/assets/comm4.png";
-import { FaUsers } from "react-icons/fa6";
 import Image from "next/image";
 import {
   useGetCommunityQuery,
@@ -14,8 +9,6 @@ import {
 } from "@/apollograph/generated";
 import ProductCard from "@/components/Products/ProductCard";
 import ProductLoader from "@/components/Loader/ProductLoader";
-import { useDispatch, useSelector } from "react-redux";
-import { setCommunityOpen } from "@/app/redux/communitySlice";
 import CommunityDropDown from "@/components/Community/CommunityDropDown";
 import { useState } from "react";
 

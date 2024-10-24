@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
 import * as Yup from "yup";

@@ -1,19 +1,10 @@
 "use client";
-import ChatArea from "@/components/ChatComponents/ChatArea";
-import ChatLists from "@/components/ChatComponents/ChatLists";
 import React from "react";
 import "@/components/ChatComponents/Chat.css";
-import ResUserProfile from "@/components/ChatComponents/ResUserProfile";
-import { BsThreeDots } from "react-icons/bs";
-import { HiUsers } from "react-icons/hi2";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 
 const Chats = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const expand = searchParams.get("expand");
   const isMobile = useIsMobile();
   if (!isMobile)
     return (

@@ -1,17 +1,13 @@
 "use client";
 import { setNavOpen } from "@/app/redux/navSlice";
-import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Fragment, useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
-import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiWechatLine } from "react-icons/ri";
-import { GoPerson } from "react-icons/go";
 import defaultAvatar from "@/public/assets/avatar.svg";
 import { LuUser2 } from "react-icons/lu";
 import SearchField from "../SearchField/SearchField";

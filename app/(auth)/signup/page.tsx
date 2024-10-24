@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import signin from "@/public/assets/signin.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { setCookie } from "cookies-next";
@@ -9,11 +8,9 @@ import { useFormik } from "formik";
 import { useSignupMutation } from "@/apollograph/generated";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebookSquare, FaRegEnvelope } from "react-icons/fa";
-import { BsDot } from "react-icons/bs";
+import { FaRegEnvelope } from "react-icons/fa";
+
 import EmailSignUp from "@/components/SignUp/EmailSignUp";
-import { AiOutlineBackward } from "react-icons/ai";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const formSchema = Yup.object({
   username: Yup.string().min(5).required("Username is required"),

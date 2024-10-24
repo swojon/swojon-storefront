@@ -1,7 +1,4 @@
 import cartImg from "../public/cat1.jpg";
-import cartImg2 from "../public/cat2.jpg";
-import cartImg3 from "../public/cat3.jpg";
-import cartImg4 from "../public/cat4.jpg";
 
 const categoryData = {
   data: {

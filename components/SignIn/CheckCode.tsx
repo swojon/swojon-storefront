@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegCommentDots, FaRegEnvelope } from "react-icons/fa";
 import { HiOutlineMailOpen } from "react-icons/hi";
 
 import { BsDot } from "react-icons/bs";

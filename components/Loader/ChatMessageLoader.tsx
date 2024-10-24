@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { BsThreeDots } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
-import { HiUsers } from "react-icons/hi";
-import { MdLocationPin } from "react-icons/md";
 
 const ChatMessageLoader = () => {
   return (

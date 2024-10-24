@@ -1,13 +1,12 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import FilterBar from "@/components/FilterBar/FilterBar";
+import { useSearchParams } from "next/navigation";
+
 import { MdKeyboardArrowRight } from "react-icons/md";
 import ProductCard from "@/components/Products/ProductCard";
 import SortDropDown from "@/components/SortDropDown/SortDropDown";
 import Link from "next/link";
 import { FiFilter } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
@@ -15,9 +14,9 @@ import NotMatched from "@/components/NotMatched/NotMatched";
 import { setModalOpen } from "@/app/redux/modalSlice";
 
 const ExploreDetail = ({ params }: { params: any }) => {
-  const appliedFilter = [];
+
   const searchParams = useSearchParams();
-  const conditionFilter = searchParams.get("condition")?.split(",");
+  // const conditionFilter = searchParams.get("condition")?.split(",");
   const brandFilter = searchParams.get("brand")?.split(",");
   const communityFilter = searchParams.get("community")?.split(",");
   const categoryFilter = searchParams.get("category")?.split(",");
@@ -110,29 +109,9 @@ const ExploreDetail = ({ params }: { params: any }) => {
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-between items-center pt-4 pb-2">
-        <div className="flex items-center  w-[75%]">
-          <span className="text-2xl text-primaryColor font-lexed flex items-center gap-2 w-[36%]">
-            <span>All Ads </span>
-          </span>
-          <AppliedFilter />
-        </div>
-        <div className=" flex justify-between items-center gap-3 ">
-          <span
-            onClick={() => dispatch(setFilterOpen())}
-            className="border border-gray-400 py-1.5 px-2 rounded-md  text-base flex justify-center items-center text-activeColor  lg:hidden"
-          >
-            <FiFilter />
-          </span>
-          <div className="lg:w-[200px] md:w-[130px]">
-            <SortDropDown />
-          </div>
-        </div>
-      </div> */}
+   
       <div className="flex  gap-3 pt-5">
-        {/* <div className="w-[25%] lg:block hidden">
-          <FilterBar />
-        </div> */}
+        
         <div className=" w-full">
         <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
             {listings?.map((card) => (

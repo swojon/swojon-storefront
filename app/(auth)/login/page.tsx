@@ -1,23 +1,17 @@
 "use client";
-import next, { NextPage } from "next";
-import { FormEventHandler, useEffect, useState } from "react";
-import signin from "@/public/assets/signin.svg";
+import { NextPage } from "next";
+import { FormEventHandler, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa6";
 import { setCookie } from "cookies-next";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "@/app/redux/authSlice";
 import {
-  FaGoogle,
-  FaFacebookF,
-  FaRegEye,
   FaRegEyeSlash,
-  FaFacebookSquare,
 } from "react-icons/fa";
-import DynamicModal from "@/components/Modal/DynamicModal";
 import { BiLoaderCircle } from "react-icons/bi";
 // import { setCookie } from "cookies-next" ;
 

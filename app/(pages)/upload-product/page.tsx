@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Uploads from "@/components/Uploads/Uploads";
-import { MdKeyboardArrowRight } from "react-icons/md";
 
 const UploadProduct = () => {
   return (

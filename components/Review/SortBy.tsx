@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import {  ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const people = [
   { id: 1, name: "Sort by best match" },

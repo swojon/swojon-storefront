@@ -1,27 +1,22 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-import CategoryCart from "../../../../components/elements/CategoryCart";
-import FilterBar from "@/components/FilterBar/FilterBar";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import ProductCard from "@/components/Products/ProductCard";
 import SortDropDown from "@/components/SortDropDown/SortDropDown";
 import Link from "next/link";
 import { FiFilter } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { setFilterOpen } from "@/app/redux/filterSlice";
 import { useListListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
-import { MdOutlineClose } from "react-icons/md";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import { setModalOpen } from "@/app/redux/modalSlice";
 
 const CategoryDetail = ({ params }: { params: any }) => {
-  const appliedFilter = [];
   const searchParams = useSearchParams();
-  const conditionFilter = searchParams.get("condition")?.split(",");
+  // const conditionFilter = searchParams.get("condition")?.split(",");
   const brandFilter = searchParams.get("brand")?.split(",");
   const communityFilter = searchParams.get("community")?.split(",");
   const orderBy = searchParams.get("sort") ?? "default";

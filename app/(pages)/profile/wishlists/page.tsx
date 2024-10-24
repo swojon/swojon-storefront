@@ -1,14 +1,10 @@
 "use client";
 import { useListFavoriteListingQuery } from "@/apollograph/generated";
-import FollowerLists from "@/components/FollowerLists/FollowerLists";
 import ProductLoader from "@/components/Loader/ProductLoader";
-import ProductLists from "@/components/ProductLists/ProductLists";
 import ProductCard from "@/components/Products/ProductCard";
-import { MdKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
-import NotFound from "../../not-found/page";
 import Link from "next/link";
 import NotMatched from "@/components/NotMatched/NotMatched";
 
@@ -56,7 +52,13 @@ const Wishlists = () => {
 
           {!loading && (!wishListItems || wishListItems.length <= 0) && (
             <div className=" pt-16">
-              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+              <NotMatched title={"It looks like you haven’t favorited any products yet."}
+              subtitle={"Browse through and save your favorites!"}
+              cta={{
+                text: "Explore products",
+                link : "/explore"
+              }} />
+              
             </div>
           )}
 

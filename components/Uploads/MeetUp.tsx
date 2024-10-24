@@ -1,15 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { GrLocation } from "react-icons/gr";
 import { MdOutlineClose } from "react-icons/md";
-import { MdOutlinePhotoCamera } from "react-icons/md";
 import { IoWarningOutline } from "react-icons/io5";
 import { useSearchLocationQuery } from "@/apollograph/generated";
 import SearchLoader from "./SearchLoader";
 import dynamic from "next/dynamic";
 
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 

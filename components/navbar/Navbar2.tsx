@@ -15,12 +15,8 @@ import { RiWechatLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import ResponsiveNavBar from "./ResponsiveNavBar";
-import { RxAvatar } from "react-icons/rx";
-import { GoPerson } from "react-icons/go";
 import { LuUser2 } from "react-icons/lu";
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
+
 const handleSignOut = () => {
   console.log("signing out");
   toast.loading("signing you out", { id: "signInToast" });
@@ -31,7 +27,6 @@ const handleSignOut = () => {
 };
 
 export default function Navbar2({ border }: { border: any }) {
-  const router = useRouter();
 
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);

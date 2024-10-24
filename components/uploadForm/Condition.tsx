@@ -1,6 +1,4 @@
-import { Fragment, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { FaAngleDown } from "react-icons/fa6";
+import {  useState } from "react";
 
 const condition = [
   { id: 4, name: "Brand new" },

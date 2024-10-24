@@ -5,6 +5,7 @@ import ProductCard from "@/components/Products/ProductCard";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
 
+
 const ProductLists = () => {
   const authState = useSelector((state: any) => state.auth);
   const { data, error, loading } = useListListingsQuery({
@@ -30,7 +31,13 @@ const ProductLists = () => {
      
      {!loading && (!myProducts || myProducts.length <= 0) && (
       <div className=" pt-16">
-        <NotMatched title={"Sorry! We didn't Find Any Product"} />
+        <NotMatched 
+        title={"Great news! You don’t have any pending products"} 
+        cta={{
+          text: "list new product", 
+          link : "/upload-product"
+        }}
+        />
       </div>
     )}
 </>

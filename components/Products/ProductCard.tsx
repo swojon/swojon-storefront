@@ -1,41 +1,16 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import heartIcon from "@/public/assets/heartIcon.png";
-import heartIconFilled from "@/public/assets/heartIconFilled.svg.svg";
-import time from "@/public/assets/time.png";
-import user from "@/public/user1.jpg";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalOpen } from "@/app/redux/modalSlice";
 import { timeAgo } from "@/lib/helpers/timeAgo";
 import { IoMdTime } from "react-icons/io";
-import { TiUser } from "react-icons/ti";
 import { AiOutlineUser } from "react-icons/ai";
-import { CiStar } from "react-icons/ci";
-import {
-  ListListingsDocument,
-  useAddFavoriteMutation,
-  useRemoveFavoriteMutation,
-} from "@/apollograph/generated";
 import FavoriteProduct from "./FavoriteProduct";
 
 const ProductCard = ({ card: listing }: { card: any }) => {
-  const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
-  const [showOfferPriceTooltip, setShowOfferPriceTooltip] = useState(false);
-  const [showChatNowTooltip, setShowChatNowTooltip] = useState(false);
-
-  const handleOfferPriceClick = () => {
-    setShowOfferPriceTooltip(!showOfferPriceTooltip);
-    setShowChatNowTooltip(false);
-  };
-
-  const handleChatNowClick = () => {
-    setShowChatNowTooltip(!showChatNowTooltip);
-    setShowOfferPriceTooltip(false);
-  };
-
+  
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[270px] sm:h-[250px] h-[250px] relative overflow-hidden  rounded-lg ">

@@ -2,13 +2,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { AiOutlineInbox } from "react-icons/ai";
-import { RiSettings4Line } from "react-icons/ri";
 import { HiOutlineInbox } from "react-icons/hi";
 import {
   HiLockClosed,
   HiMiniUser,
-  HiOutlineCurrencyDollar,
   HiOutlineHeart,
 } from "react-icons/hi2";
 import { useSelector } from "react-redux";
@@ -17,8 +14,7 @@ import { RiUserFollowLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import useIsMobile from "@/lib/hooks/useIsMobile";
-import Image from "next/image";
-import defaultAvatar from "@/public/assets/avatar.svg";
+
 import toast from "react-hot-toast";
 import { deleteCookie } from "cookies-next";
 

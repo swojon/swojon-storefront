@@ -1,26 +1,21 @@
 "use client";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  getCroppedImg,
-  getRotatedImage,
+  getCroppedImg
 } from "@/components/CropImage/cropImage";
 import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
-import Image from "next/image";
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import { GetUserByIdDocument, useUpdateProfileMutation } from "@/apollograph/generated";
 import { BiLoaderCircle } from "react-icons/bi";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 
-const ORIENTATION_TO_ANGLE = {
-  "3": 180,
-  "6": 90,
-  "8": -90,
-};
+
 
 const UploadAvatarModal = ({ props }: { props: any }) => {
   const inputRef = useRef<any>();

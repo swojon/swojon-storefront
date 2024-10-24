@@ -1,9 +1,7 @@
 "use client";
-import ChatArea from "@/components/ChatComponents/ChatArea";
 import ChatLists from "@/components/ChatComponents/ChatLists";
 import React, { useState } from "react";
 import "@/components/ChatComponents/Chat.css";
-import ResUserProfile from "@/components/ChatComponents/ResUserProfile";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import { usePathname, useSearchParams } from "next/navigation";
 

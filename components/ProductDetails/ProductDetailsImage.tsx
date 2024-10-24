@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { GoStack } from "react-icons/go";
 
 const ProductDetailsImage = ({ images }: { images: any }) => {
   return (

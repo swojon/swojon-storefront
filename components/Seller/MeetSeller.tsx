@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import user from "@/public/userMale.png";
-import { BsDot } from "react-icons/bs";
-import { FaStar } from "react-icons/fa6";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 
 const MeetSeller = ({ seller }: { seller: any }) => {

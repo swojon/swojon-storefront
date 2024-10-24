@@ -32,7 +32,13 @@ const ProductLists = () => {
     
     {!loading && (!myProducts || myProducts.length <= 0) && (
             <div className=" pt-16">
-              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+              <NotMatched 
+              title={"You don't have any approved products yet."} 
+              subtitle={" Submit your products for approval and get them live soon!"}
+              cta={{
+                text: "list new product", 
+                link : "/upload-product"
+              }} />
             </div>
           )}
     </>

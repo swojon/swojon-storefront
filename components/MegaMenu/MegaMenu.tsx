@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useListCategoriesQuery } from "@/apollograph/generated";
@@ -8,7 +8,7 @@ import "./MegaMenu.css";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import Image from "next/image";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import { current } from "@reduxjs/toolkit";
+
 import Link from "next/link";
 import MegamenuHeadingLoader from "../Loader/MegamenuHeadingLoader";
 import MegamenuCategoryLoader from "../Loader/MegamenuCategoryLoader";

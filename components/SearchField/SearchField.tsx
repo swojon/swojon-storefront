@@ -1,9 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import React, { FormEvent, useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa6";
-import { IoIosArrowDown } from "react-icons/io";
-import { MdLocationPin } from "react-icons/md";
-import LocationDropDown from "../LocationDropDown/LocationDropDown";
 import { useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";

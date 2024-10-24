@@ -1,9 +1,9 @@
 'use client';
 import { gql, useQuery } from "@apollo/client";
 // import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import {  signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const query = gql`
   query GetUsers {

@@ -1,15 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
+
 import { setCookie } from "cookies-next";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useSignupMutation } from "@/apollograph/generated";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { BsDot } from "react-icons/bs";
 import { BiLoaderCircle } from "react-icons/bi";
-import { error } from "console";
+
 
 const formSchema = Yup.object({
   username: Yup.string().min(5).required("Username is required"),

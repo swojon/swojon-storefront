@@ -1,10 +1,9 @@
 "use client";
 import { useGetUserByIdQuery } from "@/apollograph/generated";
 import { setModalOpen } from "@/app/redux/modalSlice";
-import EditPassword from "@/components/Profile/EditPassword";
 import EditUserName from "@/components/Profile/EditUserName";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import defaultAvatar from "@/public/assets/avatar.svg";
 import useIsMobile from "@/lib/hooks/useIsMobile";

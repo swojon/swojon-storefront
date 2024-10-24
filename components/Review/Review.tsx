@@ -6,13 +6,9 @@ import { FaStar } from "react-icons/fa6";
 import ProgressBar from "./ProgressBar";
 import {
   CircularProgressbar,
-  CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import RatingsLoader from "../Loader/RatingsLoader";
-import CircularProgressbarLoader from "../Loader/CircularProgressbarLoader";
-import ProgressBarLoader from "../Loader/ProgressBarLoader";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 

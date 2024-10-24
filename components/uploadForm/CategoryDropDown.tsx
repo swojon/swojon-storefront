@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { FaAngleDown, FaAngleRight, FaAngleUp } from "react-icons/fa6";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { HiSquare3Stack3D } from "react-icons/hi2";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
@@ -19,9 +19,6 @@ const CategoryDropDown = ({
 }) => {
   const { data, loading, error } = useListCategoriesQuery();
   const categories = data?.listCategories.items;
-  const parentCategories = categories?.filter(
-    (item) => item.parentCategory == null
-  );
   const categoryTree = categories ? getCategoryTree(categories, null) : [];
 
   const [selected, setSelected] = useState(

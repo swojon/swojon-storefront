@@ -3,13 +3,11 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import {
-  AiFillMessage,
   AiFillMinusCircle,
   AiOutlineClose,
 } from "react-icons/ai";
 import { HiArrowLeft } from "react-icons/hi2";
-import { MdLocalPhone } from "react-icons/md";
-import { TbFileText } from "react-icons/tb";
+
 import { useSelector } from "react-redux";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { RxAvatar } from "react-icons/rx";

@@ -1,11 +1,9 @@
 import React from "react";
 import "./HeroSection.scss";
-import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 // import Hero1 from "../../public/assets/bannerHeadPhone.jpg";
 
 import Navbar2 from "../navbar/Navbar2";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 const HeroSection = () => {

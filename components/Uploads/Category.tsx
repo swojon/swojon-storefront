@@ -5,7 +5,6 @@ import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListCategoriesQuery } from "@/apollograph/generated";
 import { getCategoryTree } from "@/lib/helpers/nestify";
-import NoResultFound from "./NoResultFound";
 import CategoryLoader from "./CategoryLoader";
 import Image from "next/image";
 
@@ -161,7 +160,7 @@ const Category = ({
                     }`}
                     onClick={() => setSelectSubCategory(item)}
                   >
-                    <BiSelection classNAme="text-primaryColor" />
+                    <BiSelection className="text-primaryColor" />
 
                     <span className="text-base text-primaryColor font-lexed font-medium capitalize">
                       {item.name}

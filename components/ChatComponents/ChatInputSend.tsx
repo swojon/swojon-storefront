@@ -1,10 +1,8 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
-  GetChatMessageDocument,
-  useGetChatMessageQuery,
   useSendChatMessageMutation,
 } from "@/apollograph/generated";
 import { useSelector } from "react-redux";
@@ -15,7 +13,7 @@ const schema = Yup.object().shape({
   msgText: Yup.string().required(),
 });
 
-let nextId = 1;
+
 interface Iprop {
   disMsg: {
     id: Number;
