@@ -339,11 +339,16 @@ const ProductInfo = ({ product }: { product: any }) => {
                   {mL.displayName}
                 </span>
               </div>
+              <Link
+              href={`https://maps.google.com/?q=${mL.lat},${mL.lon}`}
+              target="blank">
 
-              <span className="inline-block whitespace-nowrap text-sm font-medium text-secondColor text-center relative">
+<span className="inline-block whitespace-nowrap text-sm font-medium text-secondColor text-center relative">
                 Map
                 <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-400"></span>
               </span>
+              </Link>
+              
             </div>
           ))}
         </div>
