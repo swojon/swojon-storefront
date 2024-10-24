@@ -1,9 +1,11 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 import {cookies} from 'next/headers';
 import setCookie from 'set-cookie-parser';
 
+import { jwtDecode } from "jwt-decode";
 
 
 export const options: NextAuthOptions = {
@@ -18,32 +20,36 @@ export const options: NextAuthOptions = {
       },
 
       async authorize(credentials, req) {
-        const res : any = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`, {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
-
-        let res_cookies = setCookie.parse(res, {})
-        const {data, error} = await res.json();
-        res_cookies.forEach((cookie: any) => {
-              cookies().set(cookie)
-        })
-
-        const user = data.login;
-        console.log("data at login", data.login)
-        if (user) { 
-            
-            return user
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                username: credentials?.email,
+                password: credentials?.password,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              redirect: "follow",
+            }
+          );
+        
+        const data = await res.json();
+        
+        if (data) { 
+            return {...data.user, token: data.token}
         } else {
-            // If you return null or false then the credentials will be rejected
             return null
-            // You can also Reject this callback with an Error or with a URL:
-            // throw new Error('error message') // Redirect to error page
-            // throw '/path/to/redirect'        // Redirect to a URL
         }
         
     }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+      
     }),
   ],
   session: {
@@ -52,25 +58,70 @@ export const options: NextAuthOptions = {
   },
 
   callbacks: {
-      async jwt({token, user}) {
-          // console.log("setting jwt token", token, user)
-          return {...token, ...user}
+      async jwt({token, user, account}) {
+          // console.log("setting jwt token", token, user) 
+      if (account && account.provider == "google") {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/auth/google/token`,
+        {
+            method: "POST",
+            headers: {
+            // "Authorization": `Bearer ${account?.id_token}`,
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            tokenId : account?.id_token
+            })
+        }
+        );
+        const resParsed = await res.json(); // return {"refresh", "access"} 
+
+        var decodedJwt = jwtDecode(resParsed.token);
+        console.log("decodedJWT", decodedJwt);
+        token = Object.assign({}, token, {
+            token: resParsed.token,
+            tokenExpires: decodedJwt.exp!* 1000
+        });
+
+        return { ...user, ...token };
+      }
+      //from credentials provider, data: {token: "", user: {}} will be provided as user
+      return {...token, ...user}
       },
 
+      async signIn({account, profile}) {
+        if (account?.provider === "google"){
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/auth/google/token`,
+              {
+                method: "POST",
+                headers: {
+                  // "Authorization": `Bearer ${account?.id_token}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  tokenId : account?.id_token
+                })
+              }
+            );
+            const resParsed = await res.json();
+            console.log("resParsed signin", resParsed)
+            if (resParsed){
+              return true
+            }else {
+              return false
+            }
+          }
+     
+        // Custom logic to handle sign-in events
+        return true; // Must return true to indicate successful sign-in
+      },
       async session({session, token}) {
           session.user = token as any;
           return session
       }
     },
 
-  // }
-  // pages: {
-  //     signIn: "/auth/signin",
-  //     signOut: "/auth/signout",
-  //     error: "/auth/error", // Error code passed in query string as ?error=
-  //     verifyRequest: "/auth/verify-request", // (used for check email message)
-  //     // newUser: null, // If set, new users will be directed here on first sign in
-  // },
   pages: {
     signIn: "/auth/signin",
     signOut: "/",

@@ -13,13 +13,18 @@ import {
   FaRegEyeSlash,
 } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
+import { signIn } from "next-auth/react";
 // import { setCookie } from "cookies-next" ;
 
 interface Props {}
 
-const handleGoogleClick = () => {
-  window.open(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/google`, "_self");
-  // window.open(`http://localhost:3005/auth/google`, '_self')
+// const handleGoogleClick = () => {
+//   window.open(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/google`, "_self");
+//   // window.open(`http://localhost:3005/auth/google`, '_self')
+// };
+
+const handleGoogleClick = async () => {
+  await signIn("google", { callbackUrl: "/", redirect: true });
 };
 
 const SignIn: NextPage = (): JSX.Element => {
@@ -39,41 +44,48 @@ const SignIn: NextPage = (): JSX.Element => {
     e.preventDefault();
     console.log("email: ", userInfo.email, "password", userInfo.password);
     setError(null);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          username: userInfo.email,
-          password: userInfo.password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        redirect: "follow",
-      }
-    );
-    const data = await res.json();
-    if (res.status != 200) {
-      console.log("Failed to login");
-      setError("Something Went Wrong");
-    } else {
-      setFormUploading(true);
-      // toast.success("Successfully Logged in")
-      console.log("Log in Successfull");
-      // console.log(res.json())
+    // const res = await fetch(
+    //   `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       username: userInfo.email,
+    //       password: userInfo.password,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     credentials: "include",
+    //     redirect: "follow",
+    //   }
+    // );
+    // const data = await res.json();
+    // if (res.status != 200) {
+    //   console.log("Failed to login");
+    //   setError("Something Went Wrong");
+    // } else {
+    //   setFormUploading(true);
+    //   // toast.success("Successfully Logged in")
+    //   console.log("Log in Successfull");
+    //   // console.log(res.json())
 
-      console.log(data);
-      // cookies().set('authorization', data["token"], {secure: true})
-      dispatch(setAuthState(data));
-      setCookie("authorization", data.token, {
-        secure: true,
-        maxAge: 60 * 60 * 24 * 7,
-      });
+    //   console.log(data);
+    //   // cookies().set('authorization', data["token"], {secure: true})
+    //   dispatch(setAuthState(data));
+    //   setCookie("authorization", data.token, {
+    //     secure: true,
+    //     maxAge: 60 * 60 * 24 * 7,
+    //   });
 
-      if (redirect) router.push(next_url ? next_url : "/");
-    }
+    //   if (redirect) router.push(next_url ? next_url : "/");
+    // }
+    await signIn("credentials", {
+      email : userInfo.email,
+      password: userInfo.password,
+      redirect: true,
+      callbackUrl: "/",
+    });
+
   };
 
   const handleChange = (e: any) => {
