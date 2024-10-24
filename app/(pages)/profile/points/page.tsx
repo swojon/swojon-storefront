@@ -4,7 +4,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BiFilterAlt, BiSolidDollarCircle } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

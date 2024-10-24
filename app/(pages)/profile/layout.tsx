@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import ProfileArea from "@/components/Profile/ProfileArea";
 
 interface Iprops {

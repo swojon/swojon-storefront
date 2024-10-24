@@ -2,10 +2,9 @@ import ReviewStars from "../Review/ReviewStars";
 import { useSummaryUserReviewQuery } from "@/apollograph/generated";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import Link from "next/link";
+
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
 import "@/components/Review/Review.css";
 import ProgressBar from "@/components/Review/ProgressBar";
 import { BsDot } from "react-icons/bs";

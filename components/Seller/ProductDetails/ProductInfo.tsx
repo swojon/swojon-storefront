@@ -2,7 +2,6 @@ import { timeAgo } from "@/lib/helpers/timeAgo";
 import React from "react";
 import { BsDot } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
-import { HiLocationMarker } from "react-icons/hi";
 
 const ProductInfo = ({ product }: { product: any }) => {
   return (

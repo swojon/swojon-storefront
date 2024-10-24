@@ -4,8 +4,6 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { Disclosure } from "@headlessui/react";
 import {
   MagnifyingGlassIcon,
-  MinusSmallIcon,
-  PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import Image from "next/image";

@@ -1,6 +1,5 @@
-import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
+import { setModalClose } from "@/app/redux/modalSlice";
 import Image from "next/image";
-import { FiPaperclip } from "react-icons/fi";
 import { MdClose, MdKeyboardArrowRight } from "react-icons/md";
 import { useDispatch } from "react-redux";
 

@@ -1,8 +1,8 @@
 "use client";
-import next, { NextPage } from "next";
+import { NextPage } from "next";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import {  getCookie, setCookie } from "cookies-next";
 
 const SignInSuccess: NextPage = (): JSX.Element => {
   const searchParams = useSearchParams();

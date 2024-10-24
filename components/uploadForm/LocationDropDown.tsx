@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { FaAngleDown, FaAngleRight, FaAngleUp } from "react-icons/fa6";
-import { HiSquare3Stack3D } from "react-icons/hi2";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useListLocationsQuery } from "@/apollograph/generated";
 import { getLocationTree } from "@/lib/helpers/nestify";
 import { MdLocationPin } from "react-icons/md";

@@ -1,12 +1,10 @@
 import { useSendChatMessageMutation } from "@/apollograph/generated";
-import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
+import { setModalClose,  } from "@/app/redux/modalSlice";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
-import { FiPaperclip } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 

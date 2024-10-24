@@ -1,10 +1,6 @@
 "use client"; 
 import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import Link from "next/link";
-import { FaStar } from "react-icons/fa6";
-import { FaStarHalfAlt } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
 import "./Review.css";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
