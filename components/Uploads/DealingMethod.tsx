@@ -3,10 +3,11 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import React, { useEffect, useRef, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
-import Image from "next/image";
-import { GrLocation } from "react-icons/gr";
-import MeetUp from "./MeetUp";
+
 import Courier from "./Courier";
+import dynamic from "next/dynamic";
+
+const DynamicMeetup = dynamic(() => import("./MeetUp"), {ssr: false})
 
 const method = [
   { id: 188, title: "Meet-up", slug: "meetup" },
@@ -86,7 +87,7 @@ const DealingMethod = ({
           </div>
         )}
         {selectMethod && selectMethod?.title === "Meet-up" ? (
-          <MeetUp  setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
+          <DynamicMeetup  setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
         ) : (
           selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} />
         )}

@@ -1,5 +1,6 @@
 import { useSendChatMessageMutation } from "@/apollograph/generated";
 import { setModalClose } from "@/app/redux/modalSlice";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -15,7 +16,7 @@ function StartChatModal({ props }: { props: any }) {
     dispatch(setModalClose(true));
     router.push(link);
   };
-  const authState = useSelector((state: any) => state.auth);
+  const {data:session, status} = useSession();
   const [message, setMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [sendChatMessage, { data, loading, error }] =
@@ -33,7 +34,7 @@ function StartChatModal({ props }: { props: any }) {
     if (!message) {
       toast.error("A message can't be empty");
     } else {
-      if (!authState.user.id) {
+      if (!session?.user?.id) {
         console.log("Please login before sending the message");
       } else {
         setDisabled(true);
@@ -41,7 +42,7 @@ function StartChatModal({ props }: { props: any }) {
           variables: {
             input: {
               message: message,
-              senderId: authState.user.id,
+              senderId: session?.user?.id,
               receiverId: props.product.user.id,
               relatedListingId: props.product.id,
             },
@@ -123,9 +124,9 @@ function StartChatModal({ props }: { props: any }) {
 
       <div className="rounded-lg  min-h-[150px] bg-[#F1F7FF] mx-5  relative">
         <div className="absolute  bottom-0 left-0 h-14 px-3  w-full  flex items-center space-x-2">
-          {authState.user ? (
+          {status === "authenticated" ? (
             <>
-              {props.product.user.id !== authState.user?.id ? (
+              {props.product.user.id !== session?.user?.id ? (
                 <>
                   <div className=" flex rounded-lg shadow-sm w-full">
                     <input

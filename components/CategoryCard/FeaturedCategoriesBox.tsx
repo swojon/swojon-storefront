@@ -1,12 +1,16 @@
 "use client";
 import React from "react";
-import CategoryCard2 from "./CategoryCard2";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
-import CategoryCardLoader from "../Loader/CategoryCardLoader";
-import CategoryCardSlider from "./CategoryCardSlider";
+import dynamic from "next/dynamic";
+import useIsMobile from "@/lib/hooks/useIsMobile";
+
+const DynamicCategoryCard2 = dynamic(() => import("./CategoryCard2"), {ssr: false})
+const DynamicCategoryCardLoader = dynamic(() => import("../Loader/CategoryCardLoader"), {ssr: false})
+const DynamicCategoryCardSlider = dynamic(() => import("./CategoryCardSlider"), {ssr: false})
 
 const FeaturedCategoriesBox = () => {
+  const isMobile = useIsMobile()
   const { data, loading, error, networkStatus } = useListCategoriesQuery({
     variables: {
       limit: 6,
@@ -34,19 +38,21 @@ const FeaturedCategoriesBox = () => {
       </div>
       {loading && (
         <div className="w-full ">
-          <CategoryCardLoader />
+          <DynamicCategoryCardLoader />
         </div>
       )}
-      <div className="w-full hidden  md:grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
+      { !isMobile ? (
+        <div className="w-full hidden md:grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
         {data &&
           data.listCategories.items.map((category) => (
-            <CategoryCard2 item={category} key={`featured${category.id}`} />
+            <DynamicCategoryCard2 item={category} key={`featured${category.id}`} />
           ))}
       </div>
-
-      <div className="md:hidden">
-        {data && <CategoryCardSlider data={data} />}
-      </div>
+      ) : 
+      (<div className="md:hidden">
+        {data && <DynamicCategoryCardSlider data={data} />}
+      </div>)
+      }
     </div>
   );
 };

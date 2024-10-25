@@ -2,13 +2,14 @@ import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "@/apollograph/generated";
+import { useSession } from "next-auth/react";
 import React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 function FavoriteProduct({ listing }: { listing: any }) {
-  const authState = useSelector((state: any) => state.auth);
+  const {data:session, status} = useSession();
   const [
     addFavorite,
     { data: addData, loading: addLoading, error: addErrror },
@@ -69,19 +70,19 @@ function FavoriteProduct({ listing }: { listing: any }) {
   };
   return (
     <>
-      {authState.isAuthenticated && (
+      {status === "authenticated" && (
         <>
           {listing?.favoriteStatus ? (
             <span
               onClick={() =>
-                handleFavoriteRemove(listing.id, authState.user.id)
+                handleFavoriteRemove(listing.id, session?.user?.id)
               }
             >
               <AiFillHeart className="text-lg text-red-400" />
             </span>
           ) : (
             <span
-              onClick={() => handleFavoriteAdd(listing.id, authState.user.id)}
+              onClick={() => handleFavoriteAdd(listing.id, session?.user?.id)}
             >
               <FiHeart className="text-base text-red-400" />
             </span>

@@ -1,12 +1,11 @@
 import React from "react";
 import "./Footer.scss";
-import googleImg from "@/public/assets/googlePlay.png";
-import logo from "@/public/assets/swojon_Logo_-01-cropped.svg";
-import appStoreImg from "@/public/assets/appStore.png";
+// import googleImg from "@/public/assets/googlePlay.png";
+// import logo from "@/public/assets/swojon_Logo_-01-cropped.svg";
+// import appStoreImg from "@/public/assets/appStore.png";
 import Image from "next/image";
 import {
   BiLogoFacebook,
-  BiLogoGithub,
   BiLogoInstagram,
   BiLogoTwitter,
 } from "react-icons/bi";

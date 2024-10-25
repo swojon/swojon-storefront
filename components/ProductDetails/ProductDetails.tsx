@@ -1,14 +1,16 @@
 "use client";
 import { useGetListingQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import BreadCrumbsLoader from "../Loader/BreadCrumbsLoader";
-import ProductInfoLoader from "../Loader/ProductInfoLoader";
-import ThumbnailLoader from "../Loader/ThumbnailLoader";
-import SafetyTips from "../SafetyTips/SafetyTips";
-import ProductInfo from "./ProductInfo";
-import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import Link from "next/link";
-import FavoriteProduct from "../Products/FavoriteProduct";
+import dynamic from "next/dynamic";
+
+const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
+const DynamicProductInfo = dynamic(() => import("./ProductInfo"), {ssr: false});
+const DynamicProductInfoLoader = dynamic(() => import("../Loader/ProductInfoLoader"), {ssr: false});
+const DynamicBreadCrumbsLoader = dynamic(() => import("../Loader/BreadCrumbsLoader"), {ssr: false});
+const DynamicThumbnailLoader = dynamic(() => import("../Loader/ThumbnailLoader"), {ssr: false});
+const DynamicProductThumbnailSlider = dynamic(() => import("./ProductThumbnailSlider"), {ssr: false});
+const DynamicFavoriteProduct = dynamic(() => import("../Products/FavoriteProduct"), {ssr: false});
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const { data, error, loading } = useGetListingQuery({
@@ -25,7 +27,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
     <section className="custom-container py-6 space-y-6 ">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         {loading ? (
-          <BreadCrumbsLoader />
+          <DynamicBreadCrumbsLoader />
         ) : (
           <div className="flex flex-wrap items-center gap-2 justify-center text-base text-secondColor">
             <Link href="/">
@@ -113,7 +115,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             </button> */}
 
             <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
-              <FavoriteProduct listing={product!} />
+              <DynamicFavoriteProduct listing={product!} />
             </button>
           </div>
         </div>
@@ -121,17 +123,17 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         <div className="flex flex-col md:flex-row md:gap-5 gap-2  ">
           <div className="xl:w-[64%] lg:w-[57%]  md:w-[50%] w-full h-full  space-y-6 ">
             {loading ? (
-              <ThumbnailLoader />
+              <DynamicThumbnailLoader />
             ) : (
-              <ProductThumbnailSlider images={product?.media} />
+              <DynamicProductThumbnailSlider images={product?.media} />
             )}
           </div>
           <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full   shadow-xl rounded-md">
             {loading ? (
-              <ProductInfoLoader />
+              <DynamicProductInfoLoader />
             ) : (
               <div className=" w-full h-full">
-                <ProductInfo product={product ?? null} />
+                <DynamicProductInfo product={product ?? null} />
               </div>
             )}
           </div>
@@ -144,7 +146,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
 
       <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">
-          <SafetyTips />
+          <DynamicSafetyTips />
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { setModalClose, setModalOpen } from "@/app/redux/modalSlice";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
@@ -6,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 function SendOfferModal({ props }: { props: any }) {
   const dispatch = useDispatch();
-  const authState = useSelector((state: any) => state.auth);
+  const {data:session, status} = useSession();
+  
   const [offerAmount, setOfferAmount] = useState<number | null>(null);
 
   return (
@@ -87,7 +89,7 @@ function SendOfferModal({ props }: { props: any }) {
         </div>
       </div>
 
-      {authState.isAuthenticated === false ? (
+      {status !== "authenticated" ? (
         <button
           className="bg-[#C0C0C0] w-full py-2 text-primaryColor rounded font-medium text-center"
           onClick={() =>

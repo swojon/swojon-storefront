@@ -1,14 +1,14 @@
 import { Fragment, useState } from "react";
-import AdDropdown from "./AdDropdown";
-import PriceRangeSlider from "./PriceRangeSlider";
+// import AdDropdown from "./AdDropdown";
+// import PriceRangeSlider from "./PriceRangeSlider";
 import LocationFilter from "./LocationFilter";
 import "./FilterCss.css";
-import CommunityFilter from "./CommunityFilter";
-import StatusFilter from "./ConditionFilter";
+// import CommunityFilter from "./CommunityFilter";
+// import StatusFilter from "./ConditionFilter";
 import BrandFilter from "./BrandFilter";
 import CategoriesFilter from "./CategoriesFilter";
 import ConditionFilter from "./ConditionFilter";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { FiFilter } from "react-icons/fi";
 
 const FilterBar = () => {
@@ -40,9 +40,9 @@ const FilterBar = () => {
         <PriceRangeSlider />
       </div> */}
 
-      <div className="px-3">
+      {/* <div className="px-3">
         <LocationFilter />
-      </div>
+      </div> */}
 
       <div className="px-3">
         <CategoriesFilter />

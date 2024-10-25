@@ -1,27 +1,26 @@
 "use client";
-import { Fragment, ReactNode, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  ExclamationTriangleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
+import dynamic from "next/dynamic";
 
 import "./Modal.scss";
-import SendOfferModal from "./SendOfferModal";
-import NavbarModal from "./NavbarModal";
-import StartChatModal from "./StartChatModal";
-import LoginModal from "./LoginModal";
-import SellProductModal from "./SellProductModal";
-import SuccessModal from "./SuccessModal";
-import WriteReviewModal from "./WriteReviewModal";
-import EditEmailModal from "./EditEmailModal";
-import VerificationCodeModal from "./VerificationCodeModal";
-import AdditionalDetail from "./AdditionalDetail";
-import FilterModal from "./FilterModal";
-import UploadAvatarModal from "./UploadAvatarModal";
-import SendSellerMessage from "./SendSellerMessage";
+
+const DynamicSendOfferModal = dynamic(()=> import("./SendOfferModal"), {ssr: false})
+const DynamicNavbarModal = dynamic(()=> import("./NavbarModal"), {ssr: false})
+const DynamicStartChatModal = dynamic(()=> import("./StartChatModal"), {ssr: false})
+const DynamicLoginModal = dynamic(()=> import("./LoginModal"), {ssr: false})
+const DynamicSellProductModal = dynamic(()=> import("./SellProductModal"), {ssr: false})
+const DynamicSuccessModal = dynamic(()=> import("./SuccessModal"), {ssr: false})
+const DynamicWriteReviewModal = dynamic(()=> import("./WriteReviewModal"), {ssr: false})
+const DynamicEditEmailModal = dynamic(()=> import("./EditEmailModal"), {ssr: false})
+const DynamicVerificationCodeModal = dynamic(()=> import("./VerificationCodeModal"), {ssr: false})
+const DynamicAdditionalDetail = dynamic(()=> import("./AdditionalDetail"), {ssr: false})
+const DynamicFilterModal = dynamic(()=> import("./FilterModal"), {ssr: false})
+const DynamicUploadAvatarModal = dynamic(()=> import("./UploadAvatarModal"), {ssr: false})
+const DynamicSendSellerMessage = dynamic(()=> import("./SendSellerMessage"), {ssr: false})
+
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const SENDSELLERCHAT = "sendSellerModal"
@@ -68,7 +67,7 @@ export default function Modal() {
 
         <div className="fixed w-full left-0 right-0 inset-0 z-1000 overflow-y-auto ">
           {modalStack[modalStack.length - 1]?.body === "navbar" ? (
-            <NavbarModal />
+            <DynamicNavbarModal />
           ) : (
             <div className="flex min-h-full   items-center	 sm:p-0 custom-container">
               <Transition.Child
@@ -102,65 +101,65 @@ export default function Modal() {
                         {modalStack[modalStack.length - 1]?.title}
                       </Dialog.Title> */}
                   {modalStack[modalStack.length - 1]?.body === FILTERMODAL && (
-                    <FilterModal
+                    <DynamicFilterModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body ===
                     UPLOADIMAGEMODAL && (
-                    <UploadAvatarModal
+                    <DynamicUploadAvatarModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body ===
                     SENDOFFERMODAL && (
-                    <SendOfferModal
+                    <DynamicSendOfferModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === EDITEMAIL && (
-                    <EditEmailModal
+                    <DynamicEditEmailModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === VERIFYCODE && (
-                    <VerificationCodeModal
+                    <DynamicVerificationCodeModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === WRITEREVIEW && (
-                    <WriteReviewModal
+                    <DynamicWriteReviewModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === CHATMODAL && (
-                    <StartChatModal
+                    <DynamicStartChatModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                    {modalStack[modalStack.length - 1]?.body === SENDSELLERCHAT && (
-                    <SendSellerMessage
+                    <DynamicSendSellerMessage
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === SELLPRODUCT && (
-                    <SellProductModal
+                    <DynamicSellProductModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body ===
                     ADDITIONALDETAILS && (
-                    <AdditionalDetail
+                    <DynamicAdditionalDetail
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === SUCCESS && (
-                    <SuccessModal
+                    <DynamicSuccessModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}
                   {modalStack[modalStack.length - 1]?.body === LOGINMODAL && (
-                    <LoginModal
+                    <DynamicLoginModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

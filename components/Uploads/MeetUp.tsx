@@ -9,9 +9,6 @@ import dynamic from "next/dynamic";
 
 import "leaflet/dist/leaflet.css";
 
-
-
-
 interface NominatimLocation {
   lat?: string | null;
   lon?: string | null;

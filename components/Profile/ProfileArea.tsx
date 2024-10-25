@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import SideBar from "../SideBar/SideBar";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import { useSearchParams, usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const DynamicSideBar = dynamic(() => import("../SideBar/SideBar"), {ssr: false});
 
 function ProfileArea({ children }: { children: any }) {
   const searchParams = useSearchParams();
@@ -21,7 +23,7 @@ function ProfileArea({ children }: { children: any }) {
         {(!isMobile ||
           (pathname === "/profile" && (!sidebar || sidebar !== "hide"))) && (
           <div className="lg:w-[22%] md:w-[27%]  w-full">
-            <SideBar />
+            <DynamicSideBar />
           </div>
         )}
         {(!isMobile ||

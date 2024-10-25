@@ -1,14 +1,16 @@
 import React from "react";
-import { GetListingDocument, useGetListingQuery } from "@/apollograph/generated";
+import { GetListingDocument } from "@/apollograph/generated";
 import "@/components/Seller/Seller.css";
 import { Metadata } from "next";
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
 import {request} from 'graphql-request';
 
+
 export async function generateMetadata  ({ params }: { params: { slug: string } }) :Promise<Metadata>{
   let post ;
   const productId =  parseInt(params.slug, 10)
   console.log("url", process.env.NEXT_PUBLIC_GRAPHQL_URL)
+  
   try {
     post = await request({
       url : process.env.NEXT_PUBLIC_GRAPHQL_URL!,

@@ -1,7 +1,6 @@
 "use client";
 import { useGetUserByIdQuery } from "@/apollograph/generated";
 import { setModalOpen } from "@/app/redux/modalSlice";
-import EditUserName from "@/components/Profile/EditUserName";
 import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +9,13 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi2";
 import ProfileLoader from "@/components/Loader/ProfileLoader";
-import EditUserUsername from "@/components/Profile/EditUserUsername";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+
+
+const DynamicEditUserName = dynamic(() => import("@/components/Profile/EditUserName"), {ssr:false})
+const DynamicEditUserUsername = dynamic(() => import("@/components/Profile/EditUserUsername"), {ssr:false})
+
 const Profile = () => {
   // const authState = useSelector((state: any) => state.auth);
   const {data: session} = useSession();
@@ -105,11 +109,11 @@ const Profile = () => {
               </div>
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
-                <EditUserUsername user={user} />
+                <DynamicEditUserUsername user={user} />
               </div>
 
               <div className="pb-2 border-b border-gray-200 space-y-2">
-                <EditUserName profile={user?.profile} />
+                <DynamicEditUserName profile={user?.profile} />
               </div>
 
               <div className="pb-2 border-b border-gray-200 space-y-2">

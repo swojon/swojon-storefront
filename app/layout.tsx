@@ -4,17 +4,16 @@ import { Inter } from "next/font/google";
 import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Modal from "@/components/Modal/Modal";
-import ResFilter from "@/components/FilterBar/ResFilter";
 import NotificationDrawer from "@/components/Notification/NotificationDrawer";
-import ResNavbarDrawer from "@/components/navbar/ResNavbarDrawer";
 import ImagePop from "@/components/ImagePop/ImagePop";
 import { Analytics } from "@vercel/analytics/react";
 import { NextAuthProvider } from "./providers";
+import dynamic from "next/dynamic";
+import { Toaster } from "react-hot-toast";
+import Modal from "@/components/Modal/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +32,9 @@ interface Iprops {
   children: React.ReactNode;
 }
 
+const DynamicResNavbar = dynamic(()=> import("@/components/navbar/ResNavbarDrawer"), {ssr: false})
+const DynamicResFilter = dynamic(()=> import("@/components/FilterBar/ResFilter"), {ssr: false})
+
 export default async function RootLayout({ children }: Iprops) {
 
   return (
@@ -46,8 +48,8 @@ export default async function RootLayout({ children }: Iprops) {
               <Analytics />
               <Toaster />
               <NotificationDrawer />
-              <ResNavbarDrawer />
-              <ResFilter />
+              <DynamicResNavbar />
+              <DynamicResFilter />
               <ImagePop />
               {children}
             </div>

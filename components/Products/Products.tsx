@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
 
-import ProductCard from "@/components/Products/ProductCard";
-import ProductTabs from "@/components/Products/ProductTabs";
 import { useListListingsQuery } from "@/apollograph/generated";
-import ProductLoader from "../Loader/ProductLoader";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const DynamicProductCard = dynamic(() => import("@/components/Products/ProductCard"), {ssr: false});
+const DynamicProductLoader = dynamic(() => import("../Loader/ProductLoader"), {ssr: false});
+
 
 const Products = () => {
   const { data, loading, error } = useListListingsQuery({
@@ -35,10 +37,10 @@ const Products = () => {
 
         <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-8 gap-5 ">
           {featuredProduct?.map((product) => (
-            <ProductCard key={product.id} card={product} />
+            <DynamicProductCard key={product.id} card={product} />
           ))}
 
-          {loading && <ProductLoader />}
+          {loading && <DynamicProductLoader />}
         </div>
       </div>
     </section>

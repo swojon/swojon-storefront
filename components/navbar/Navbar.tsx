@@ -1,21 +1,22 @@
 "use client";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import MegaMenu from "../MegaMenu/MegaMenu";
-// import user from "@/public/user1.jpg";
 import defaultAvatar from "@/public/assets/avatar.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCookie } from "cookies-next";
-import SearchField from "../SearchField/SearchField";
 import { FaRegBell } from "react-icons/fa";
 import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
 import { RiWechatLine } from "react-icons/ri";
 import toast from "react-hot-toast";
-import ResponsiveNavBar from "./ResponsiveNavBar";
 import { LuUser2 } from "react-icons/lu";
 import { signOut, useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+
+const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {ssr: false});
+const DynamicResponsiveNavBar = dynamic(() => import( "./ResponsiveNavBar"), {ssr: false});
+const DynamicMegaMenu = dynamic(() => import("../MegaMenu/MegaMenu"), {ssr: false});
+
 
 const handleSignOut = () => {
   // console.log("signing out");
@@ -48,7 +49,7 @@ export default function Navbar({ border }: { border: any }) {
           <div className=" ">
             <div className="w-full lg:hidden">
               {/* mobile navbar */}
-              <ResponsiveNavBar border={border} handleSignOut={handleSignOut} />
+              <DynamicResponsiveNavBar border={border} handleSignOut={handleSignOut} />
             </div>
             <div className="lg:flex h-16 justify-between gap-2 items-center hidden">
               <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center z-10">
@@ -99,7 +100,7 @@ export default function Navbar({ border }: { border: any }) {
                 </Link>
                 <div className="hidden  lg:flex items-center lg:gap-x-1 xl:gap-x-3">
                   <div className=" ">
-                    <MegaMenu border={border} />
+                    <DynamicMegaMenu border={border} />
                   </div>
                   <Link
                     href="/explore"
@@ -120,7 +121,7 @@ export default function Navbar({ border }: { border: any }) {
                 </div>
               </div>
               <div className={`xl:w-[47%] lg:w-[45%] hidden lg:block  w-full `}>
-                <SearchField  setShowSearchBar={null}/>
+                <DynamicSearchField  setShowSearchBar={null}/>
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">

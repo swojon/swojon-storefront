@@ -1,23 +1,25 @@
 "use client";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import CompleteStatusBar from "./CompleteStatusBar";
-import UploadImage from "./UploadImage";
-import Category from "./Category";
-import ProductTitle from "./ProductTitle";
-import Brand from "./Brand";
-import Condition from "./Condition";
-import { useEffect, useRef, useState } from "react";
-import Price from "./Price";
-import DealingMethod from "./DealingMethod";
+import { useEffect, useRef, useState  } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./Upload.css";
 import { useCreateListingMutation } from "@/apollograph/generated";
-import PreviewProduct from "./PreviewProduct";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
+import dynamic from "next/dynamic";
+
+const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
+const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
+const DynamicCategory = dynamic(()=> import("./Category"), {ssr: false});
+const DynamicProductTitle = dynamic(()=> import("./ProductTitle"), {ssr: false});
+const DynamicBrand = dynamic(()=> import("./Brand"), {ssr: false});
+const DynamicCondition = dynamic(()=> import("./Condition"), {ssr: false});
+const DynamicPrice = dynamic(()=> import("./Price"), {ssr: false});
+const DynamicDealingMethod = dynamic(()=> import("./DealingMethod"), {ssr: false});
+const DynamicPreviewProduct = dynamic(()=> import("./PreviewProduct"), {ssr: false});
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -362,7 +364,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   </span>
                 )}
 
-                <CompleteStatusBar bar={progress} />
+                <DynamicCompleteStatusBar bar={progress} />
               </div>
 
               {/* <button
@@ -378,14 +380,14 @@ const Uploads = ({ product }: { product: null | any }) => {
 
       <div className=" custom-container">
         {previewBtn === "preview" ? (
-          <PreviewProduct values={values} />
+          <DynamicPreviewProduct values={values} />
         ) : (
           <form
             className="md:space-y-5 space-y-3"
             ref={formRef}
             onSubmit={handleSubmit}
           >
-            <UploadImage
+            <DynamicUploadImage
               setFieldValue={setFieldValue}
               values={values}
               errors={errors}
@@ -397,7 +399,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               setUploadError={setUploadError}
               setUploadProgress={setUploadProgress}
             />
-            <Category
+            <DynamicCategory
               setFieldValue={setFieldValue}
               values={values}
               errors={errors}
@@ -411,7 +413,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <ProductTitle
+              <DynamicProductTitle
                 handleChange={handleChange}
                 values={values}
                 errors={errors}
@@ -427,7 +429,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <Condition
+              <DynamicCondition
                 setFieldValue={setFieldValue}
                 values={values}
                 errors={errors}
@@ -443,7 +445,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <Price
+              <DynamicPrice
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
@@ -460,7 +462,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <Brand
+              <DynamicBrand
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
@@ -477,7 +479,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DealingMethod
+              <DynamicDealingMethod
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
