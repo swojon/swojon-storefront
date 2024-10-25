@@ -7,8 +7,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { setCookie } from "cookies-next";
-import { useDispatch } from "react-redux";
-import { setAuthState } from "@/app/redux/authSlice";
+
 import {
   FaRegEyeSlash,
 } from "react-icons/fa";
