@@ -15,8 +15,6 @@ import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 import { setModalOpen } from "@/app/redux/modalSlice";
 
 const SearchPage = ({ params }: { params: any }) => {
-  console.log("item loaded", "SearchPage")
-
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
   const orderBy = searchParams.get("sort") ?? "default";

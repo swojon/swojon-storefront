@@ -12,14 +12,15 @@ import { useSelector } from "react-redux";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; chatRoom:any }) => {
-  const authState = useSelector((state:any) => state.auth)
+  const {data: session} = useSession();
   const isMobile = useIsMobile()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const participants = chatRoom?.members?.filter((crm: any) => crm.userId !== authState.user.id)
+  const participants = chatRoom?.members?.filter((crm: any) => crm.userId !== session?.user?.id)
 
   const handleLeftArrowIconClick = () => {
     if (isMobile) {

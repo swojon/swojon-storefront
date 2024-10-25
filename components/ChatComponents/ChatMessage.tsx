@@ -19,6 +19,7 @@ import {
 } from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
+import { useSession } from "next-auth/react";
 
 const ChatMessage = ({
   sideProfile,
@@ -109,7 +110,8 @@ const MessageAreaData = ({
 }) => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
-  const authState = useSelector((state: any) => state.auth);
+  // const authState = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -147,7 +149,7 @@ const MessageAreaData = ({
     }
   };
   const participants = activeChat?.members?.filter(
-    (crm: any) => crm.userId !== authState.user.id
+    (crm: any) => crm.userId !== session?.user?.id
   );
 
 

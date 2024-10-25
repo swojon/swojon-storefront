@@ -11,6 +11,7 @@ import { RiWechatLine } from "react-icons/ri";
 import defaultAvatar from "@/public/assets/avatar.svg";
 import { LuUser2 } from "react-icons/lu";
 import SearchField from "../SearchField/SearchField";
+import { useSession } from "next-auth/react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -24,7 +25,8 @@ const ResponsiveNavBar = ({
   handleSignOut: any;
 }) => {
   const dispatch = useDispatch();
-  const authState = useSelector((state: any) => state.auth);
+  // const authState = useSelector((state: any) => state.auth);
+  const {data: session, status} = useSession();
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <div className="h-16  z-10">
@@ -174,7 +176,7 @@ const ResponsiveNavBar = ({
             </Menu.Items>
           </Transition>
         </Menu> */}
-            {/* {authState.isAuthenticated && ( */}
+            {/* {status === "authenticated" && ( */}
               <IoSearchOutline
                 onClick={() => setShowSearchBar(true)}
                 className={`text-xl font-bold ${
@@ -185,7 +187,7 @@ const ResponsiveNavBar = ({
               />
             {/* )} */}
 
-            {authState.isAuthenticated && (
+            {status === "authenticated" && (
               <Link href="/chat">
                 <RiWechatLine
                   className={`text-2xl  ${
@@ -197,7 +199,7 @@ const ResponsiveNavBar = ({
               </Link>
             )}
 
-            {/* {authState.isAuthenticated === false ? (
+            {/* {status !== "authenticated" ? (
           <Link href="/signup">
             <button
               className={`py-1.5  leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
@@ -305,20 +307,20 @@ const ResponsiveNavBar = ({
           </Menu>
         )} */}
 
-            {authState.isAuthenticated && (
+            {status === "authenticated" && (
               <Menu
                 as="div"
                 className="relative  flex-shrink-0 font-lexed font-medium "
               >
                 <div>
                   <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none  ">
-                    {authState?.user?.profile?.avatar ? (
+                    {/* {session?.user?.profile?.avatar ? (
                       <Image
                         className="h-7 w-7 rounded-full"
-                        src={authState?.user?.profile?.avatar ?? defaultAvatar}
+                        src={session?.user?.profile?.avatar ?? defaultAvatar}
                         alt="user"
                       />
-                    ) : (
+                    ) : ( */}
                       <LuUser2
                         className={`text-[22px] font-semiBold  ${
                           border === "border"
@@ -326,7 +328,7 @@ const ResponsiveNavBar = ({
                             : "text-primaryColor"
                         }`}
                       />
-                    )}
+                    {/* )} */}
                   </Menu.Button>
                 </div>
                 <Transition
@@ -403,7 +405,7 @@ const ResponsiveNavBar = ({
               </Menu>
             )}
 
-            {authState.isAuthenticated === false && (
+            {status !== "authenticated" && (
               <Link href="/login">
                 <button
                   className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${

@@ -11,13 +11,16 @@ import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi2";
 import ProfileLoader from "@/components/Loader/ProfileLoader";
 import EditUserUsername from "@/components/Profile/EditUserUsername";
+import { useSession } from "next-auth/react";
 const Profile = () => {
-  const authState = useSelector((state: any) => state.auth);
+  // const authState = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
+
   const { data, loading, error } = useGetUserByIdQuery({
     variables: {
-      userId: authState.user?.id,
+      userId: session?.user?.id!,
     },
-    skip: !authState.user?.id,
+    skip: !session?.user?.id,
   });
   const user = data?.getUserById;
 

@@ -8,7 +8,7 @@ type Props = {
   session?: Session|null;
 };
 
-export const NextAuthProvider = ({ children, session }: Props) => {
+export const NextAuthProvider = ({ children }: Props) => {
   // console.log("provider session set", session)
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  return <SessionProvider>{children}</SessionProvider>;
 };

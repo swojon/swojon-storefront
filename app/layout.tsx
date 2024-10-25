@@ -4,8 +4,6 @@ import { Inter } from "next/font/google";
 import { ReduxProviders } from "./redux/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Session } from "next-auth";
-import { cookies } from "next/headers";
 import { Toaster } from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,6 +14,7 @@ import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 import ResNavbarDrawer from "@/components/navbar/ResNavbarDrawer";
 import ImagePop from "@/components/ImagePop/ImagePop";
 import { Analytics } from "@vercel/analytics/react";
+import { NextAuthProvider } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,48 +33,13 @@ interface Iprops {
   children: React.ReactNode;
 }
 
-async function getSession(): Promise<any> {
-  // console.log(process.env.NEXT_PUBLIC_BACKEND_AUTH_URL)
-  // console.log("cookies", cookies().get('authorization').value)
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${cookies().get("authorization")?.value}`,
-        },
-        credentials: "include",
-      }
-    );
-
-    const session = await response.json();
-    // console.log("Got Session", session);
-    return Object.keys(session).length > 0
-      ? { user: session, token: cookies().get("authorization")?.value }
-      : null;
-  } catch {
-    return null;
-  }
-}
-
 export default async function RootLayout({ children }: Iprops) {
-  // const router = useRouter();
-  // const { pathname, query } = router;
-
-  // const params = query.params;
-  // const headersList = headers();
-  // const activePath = headersList.get("x-invoke-path");
-
-  // console.log("Current URL", headers().get("cookie"));
-
-  const session: Session | null = await getSession();
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProviders session={session}>
-          {/* <NextAuthProvider session={session}> */}
+        <ReduxProviders>
+          <NextAuthProvider>
           <ApolloWrapper>
             <div className="min-h-[30vh] relative">
               <SpeedInsights />
@@ -89,7 +53,7 @@ export default async function RootLayout({ children }: Iprops) {
             </div>
             <Modal />
           </ApolloWrapper>
-          {/* </NextAuthProvider> */}
+          </NextAuthProvider>
         </ReduxProviders>
       </body>
     </html>

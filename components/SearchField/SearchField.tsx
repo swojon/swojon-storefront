@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import PreviousHistory from "./PreviousHistory";
 import TrendingSearches from "./TrendingSearches";
 import "./SearchField.css";
+import { useSession } from "next-auth/react";
 
 const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const searchParams = useSearchParams();
@@ -13,7 +14,8 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const { user } = useSelector((state: any) => state.auth);
+  // const { user } = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   
   const inputRef = useRef<HTMLInputElement>(null); // Use type assertion here
   const suggestionsRef = useRef<HTMLDivElement>(null); // Add a ref for the suggestion panel
@@ -157,7 +159,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
             {/* Render the "Previous History" section only if there are no filtered suggestions */}
             {filteredSuggestions.length === 0 && (
               <>
-                {!!user?.id && (
+                {!!session?.user?.id && (
                   <PreviousHistory handleClick={handleSuggestionClick} />
                 )}
                 <TrendingSearches handleClick={handleSuggestionClick} />

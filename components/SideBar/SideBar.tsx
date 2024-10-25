@@ -17,6 +17,7 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 
 import toast from "react-hot-toast";
 import { deleteCookie } from "cookies-next";
+import { useSession } from "next-auth/react";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -63,7 +64,7 @@ const data = [
 const SideBar = () => {
   
   const pathname = usePathname();
-  const { user } = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   const isMobile = useIsMobile();
  
   const handleSignOut = () => {

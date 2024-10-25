@@ -13,20 +13,24 @@ import { FaRegBell } from "react-icons/fa";
 import { setNotificationDrawerOpen } from "@/app/redux/notificationSlice";
 import { RiWechatLine } from "react-icons/ri";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import ResponsiveNavBar from "./ResponsiveNavBar";
 import { LuUser2 } from "react-icons/lu";
+import { signOut, useSession } from "next-auth/react";
 
 const handleSignOut = () => {
-  console.log("signing out");
+  // console.log("signing out");
   toast.loading("signing you out", { id: "signInToast" });
+  signOut();
   // dispatch(setUserLogout(true));
-  deleteCookie("authorization");
+  // deleteCookie("authorization");
   toast.success("Signed out", { id: "signInToast" });
-  window.location.reload();
+  // window.location.reload();
 };
 
-export default function Navbar2({ border }: { border: any }) {
+export default function Navbar({ border }: { border: any }) {
+
+  const {data: session, status} = useSession();
+  console.log("status", status);
 
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
@@ -120,7 +124,7 @@ export default function Navbar2({ border }: { border: any }) {
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
-                {authState.isAuthenticated && (
+                {status === "authenticated" && (
                   // <NotificationDropDown border={border} />
                   <div
                     className="relative cursor-pointer"
@@ -141,7 +145,7 @@ export default function Navbar2({ border }: { border: any }) {
                     </div> */}
                   </div>
                 )}
-                {authState.isAuthenticated && (
+                {status === "authenticated" && (
                   <Link href="/chat">
                     <RiWechatLine
                       className={`text-2xl  ${
@@ -153,7 +157,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Link>
                 )}
 
-                {authState.isAuthenticated === false ? (
+                {status !== "authenticated" ? (
                   <Link href="/signup">
                     <button
                       className={`py-1.5  leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
@@ -297,7 +301,7 @@ export default function Navbar2({ border }: { border: any }) {
                   </Menu>
                 )}
 
-                {authState.isAuthenticated === false && (
+                {status != "authenticated" && (
                   <Link href="/login">
                     <button
                       className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${

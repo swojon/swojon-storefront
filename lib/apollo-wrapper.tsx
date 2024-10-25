@@ -20,7 +20,7 @@ function makeSuspenseCache() {
 }
 
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
-  
+  const {data:session} = useSession();
   function makeClient() {
     const httpLink = new HttpLink({
       uri: GRAPHQL_ENDPOINT,
@@ -33,11 +33,12 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
         connected: (socket) => (console.log("Connected to ws")),
       },
       connectionParams: () => {
-        console.log("passing headers",`Bearer ${getCookie('authorization')}`)
+        // ${getCookie('authorization')
+        console.log("passing headers",`Bearer ${session?.user?.token}`)
         return {
           headers: {
             // authorization: `Bearer ${cookies().get('authorization')?.value}`,
-            Authorization: `Bearer ${getCookie('authorization')}`,
+            Authorization: `Bearer ${session?.user?.token}`,
             // cookies: typeof window !== 'undefined'? document.cookie : "",
           },
         };
@@ -79,7 +80,7 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
         headers: {
           ...context.headers,
           // authorization: `Bearer ${cookies().get('authorization')?.value}`,
-          Authorization: `Bearer ${getCookie('authorization')}`,
+          Authorization: `Bearer ${session?.user?.token}`,
           // cookies: typeof window !== 'undefined'? document.cookie : "",
         },
       };

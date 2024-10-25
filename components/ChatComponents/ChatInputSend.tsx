@@ -8,6 +8,7 @@ import {
 import { useSelector } from "react-redux";
 import { FiPaperclip } from "react-icons/fi";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const schema = Yup.object().shape({
   msgText: Yup.string().required(),
@@ -31,7 +32,8 @@ const ChatInputSend = ({
     useSendChatMessageMutation();
 
   // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
-  const authState = useSelector((state: any) => state.auth);
+  // const authState = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   const formik = useFormik({
     // enableReinitialize: true,
     initialValues: {
@@ -49,7 +51,7 @@ const ChatInputSend = ({
           input: {
             message: msgText,
             chatRoomId: activeChat.id,
-            senderId: authState.user.id,
+            senderId: session?.user?.id,
           },
         },
         // update: (cache, {data}) => {

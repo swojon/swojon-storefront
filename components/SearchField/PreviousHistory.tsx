@@ -1,11 +1,12 @@
 import { GetSearchHistoryDocument, useGetSearchHistoryQuery, useRemoveSearchHistoryMutation } from '@/apollograph/generated'
+import { useSession } from 'next-auth/react';
 import React from 'react'
 import { useSelector } from 'react-redux'
 
 function PreviousHistory({handleClick}: {handleClick: any}) {
-    const {user} = useSelector((state:any) => state.auth)
+    const {data: session} = useSession();
     const {data, loading, error} = useGetSearchHistoryQuery({
-      skip: !user
+      skip: !session?.user?.id
     })
     const [removeSearchHistory, {data:removeData, loading:removeLoading, error:removeError}] = useRemoveSearchHistoryMutation()
     const recentSearches = data?.getSearchHistory.items

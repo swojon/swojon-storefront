@@ -8,13 +8,15 @@ import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import { useSession } from "next-auth/react";
 
 const Followers = () => {
-  const { user } = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   const { data, error, loading } = useListFollowersQuery({
     variables: {
-      userId: user.id,
+      userId: session?.user?.id!,
     },
+    skip: !session?.user?.id
   });
   const followers = data?.listFollowers.items;
   const isMobile = useIsMobile();

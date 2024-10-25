@@ -7,19 +7,18 @@ import { HiArrowLeft } from "react-icons/hi2";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import NotMatched from "@/components/NotMatched/NotMatched";
+import { useSession } from "next-auth/react";
 
 const Wishlists = () => {
-  const authState = useSelector((state: any) => state.auth);
-  console.log("authState", authState);
+  const {data: session} = useSession();
   const { data, error, loading } = useListFavoriteListingQuery({
     variables: {
-      userId: authState?.user?.id
+      userId: session?.user?.id!
     },
-    skip: !authState?.user?.id
+    skip: !session?.user?.id
   });
   const wishListItems = data?.listFavoriteListing.items;
   const isMobile = useIsMobile();
-  console.log("wish", wishListItems);
   return (
     <section>
       <div className="relative">

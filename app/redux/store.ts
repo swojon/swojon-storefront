@@ -6,7 +6,7 @@ import {
   Action,
   combineReducers,
 } from "@reduxjs/toolkit";
-import { authSlice } from "./authSlice";
+// import { authSlice } from "./authSlice";
 import { modalSlice } from "./modalSlice";
 import { navSlice } from "./navSlice";
 import { filterSlice } from "./filterSlice";
@@ -19,7 +19,7 @@ import { ImagePopUpSlice } from "./ImagePopSlice";
 // import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
-  [authSlice.name]: authSlice.reducer,
+  // [authSlice.name]: authSlice.reducer,
   [chatSlice.name]: chatSlice.reducer,
   [modalSlice.name]: modalSlice.reducer,
   [navSlice.name]: navSlice.reducer,

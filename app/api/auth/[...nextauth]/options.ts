@@ -21,7 +21,7 @@ export const options: NextAuthOptions = {
 
       async authorize(credentials, req) {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/auth/login`,
             {
               method: "POST",
               body: JSON.stringify({
@@ -35,9 +35,8 @@ export const options: NextAuthOptions = {
               redirect: "follow",
             }
           );
-        
         const data = await res.json();
-        
+        console.log("got data", data)
         if (data) { 
             return {...data.user, token: data.token}
         } else {
@@ -59,7 +58,7 @@ export const options: NextAuthOptions = {
 
   callbacks: {
       async jwt({token, user, account}) {
-          // console.log("setting jwt token", token, user) 
+          console.log("setting jwt token", token, user) 
       if (account && account.provider == "google") {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/auth/google/token`,
@@ -79,9 +78,12 @@ export const options: NextAuthOptions = {
         var decodedJwt = jwtDecode(resParsed.token);
         console.log("decodedJWT", decodedJwt);
         token = Object.assign({}, token, {
+            //@ts-ignore 
+            id: decodedJwt.id,
             token: resParsed.token,
             tokenExpires: decodedJwt.exp!* 1000
         });
+        console.log("setting token", token);
 
         return { ...user, ...token };
       }
@@ -106,7 +108,7 @@ export const options: NextAuthOptions = {
             );
             const resParsed = await res.json();
             console.log("resParsed signin", resParsed)
-            if (resParsed){
+            if (resParsed.status === "success"){
               return true
             }else {
               return false
@@ -123,7 +125,7 @@ export const options: NextAuthOptions = {
     },
 
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/login",
     signOut: "/",
   },
 };

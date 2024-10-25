@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar2 from "@/components/navbar/Navbar2";
+import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 
 interface Iprops {
@@ -9,7 +9,7 @@ interface Iprops {
 function layout({ children }: Iprops) {
   return (
     <>
-      <Navbar2 border="border" />
+      <Navbar border="border" />
       {children}
       <Footer />
     </>

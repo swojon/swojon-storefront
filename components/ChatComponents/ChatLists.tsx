@@ -8,16 +8,18 @@ import { timeAgoNarrow } from "@/lib/helpers/timeAgo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
+import { useSession } from "next-auth/react";
 
 const ChatLists = () => {
-  const authState = useSelector((state: any) => state.auth);
+  // const authState = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   const pathname = usePathname();
 
   const { data, error, loading } = useListChatsQuery({
     variables: {
-      userId: authState.user.id,
+      userId: session?.user?.id,
     },
-    skip: !authState.user.id,
+    skip: !session?.user?.id,
   });
 
   if (error) {
@@ -82,7 +84,7 @@ const ChatLists = () => {
                 <div className="my-auto">
                   <div className="xl:w-8 lg:w-5 w-7  xl:h-8 lg:h-5 h-7 rounded-full relative">
                     {chatroom.members
-                      ?.filter((crm) => crm.userId !== authState.user.id)
+                      ?.filter((crm) => crm.userId !== session?.user?.id)
                       ?.map((m) => (
                         <Image
                           key={m.userId}
@@ -99,7 +101,7 @@ const ChatLists = () => {
                 <div className="col-span-3  space-y-2 my-auto">
                   <h5 className="xl:text-sm lg:text-xs text-primaryColor font-lexed truncate capitalize  leading-none font-semibold">
                     {chatroom.members
-                      ?.filter((crm) => crm.userId !== authState.user.id)
+                      ?.filter((crm) => crm.userId !== session?.user?.id)
                       ?.map((m) => m.user?.username ?? m.user?.profile?.name  ?? m.user?.email.split("@")[0])
                       
                       .join(",") ?? chatroom.chatName}

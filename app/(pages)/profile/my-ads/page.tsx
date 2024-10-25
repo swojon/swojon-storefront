@@ -1,19 +1,19 @@
 "use client";
 import { useListListingsQuery } from "@/apollograph/generated";
-import { useSelector } from "react-redux";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import UserProductCard from "@/components/Products/UserProductCard";
+import { useSession } from "next-auth/react";
 
 const ProductLists = () => {
-  const authState = useSelector((state: any) => state.auth);
+  const {data: session} = useSession();
   const { data, error, loading } = useListListingsQuery({
     variables: {
       filters: {
-        userIds: [authState.user?.id],
+        userIds: [session?.user?.id!],
       },
     },
-    skip: !authState.user.id,
+    skip: !session?.user?.id,
   });
   const myProducts = data?.listListings.items;
 

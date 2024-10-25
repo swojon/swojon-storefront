@@ -12,7 +12,6 @@ const Chats = ({ children }: { children: any }) => {
   // sideProfile === user detail :
   // < button, Separate state: ChatList(Default),
   const isMobile = useIsMobile();
-  console.log("is Mobile", isMobile);
   //the areas are: chatList, chatArea, chatInfo
   // we will add search params section in the mobile.
   //?expand=""
@@ -23,7 +22,6 @@ const Chats = ({ children }: { children: any }) => {
 
   const [activeArea, setActiveArea] = useState("chatList");
   const [backArea, setBackArea] = useState<null | string>(null);
-  console.log("pathname", pathname);
   return (
     <section>
       <div className="custom-container pt-6 sticky w-full h-[87dvh] ">

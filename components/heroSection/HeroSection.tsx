@@ -3,7 +3,7 @@ import "./HeroSection.scss";
 import Image from "next/image";
 // import Hero1 from "../../public/assets/bannerHeadPhone.jpg";
 
-import Navbar2 from "../navbar/Navbar2";
+import Navbar from "../navbar/Navbar";
 import Link from "next/link";
 
 const HeroSection = () => {
@@ -16,7 +16,7 @@ const HeroSection = () => {
         alt="cover"
       />
       {/* <div className="bg-gradient-to-t from-purple-500 to-pink-500 z-20 w-full h-full"></div> */}
-      <Navbar2 border="none" />
+      <Navbar border="none" />
 
       <div className="flex md:justify-end hero-height justify-center items-center  custom-container   relative  md:bg-none bg-gradient-to-t from-slate-700">
         <div className="md:text-center text-center space-y-2 md:space-y-4 ">
