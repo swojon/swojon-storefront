@@ -37,10 +37,10 @@ export const options: NextAuthOptions = {
           );
         const data = await res.json();
         console.log("got data", data)
-        if (data) { 
+        if (data.user) { 
             return {...data.user, token: data.token}
         } else {
-            return null
+          throw new Error(data.message)
         }
         
     }
@@ -48,7 +48,6 @@ export const options: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-      
     }),
   ],
   session: {
@@ -58,7 +57,6 @@ export const options: NextAuthOptions = {
 
   callbacks: {
       async jwt({token, user, account}) {
-          console.log("setting jwt token", token, user) 
       if (account && account.provider == "google") {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/auth/google/token`,
@@ -71,10 +69,9 @@ export const options: NextAuthOptions = {
             body: JSON.stringify({
             tokenId : account?.id_token
             })
-        }
-        );
+        });
         const resParsed = await res.json(); // return {"refresh", "access"} 
-
+        console.log("jwtresparse", resParsed)
         var decodedJwt = jwtDecode(resParsed.token);
         console.log("decodedJWT", decodedJwt);
         token = Object.assign({}, token, {
@@ -127,5 +124,6 @@ export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
     signOut: "/",
+    error: "/login"
   },
 };

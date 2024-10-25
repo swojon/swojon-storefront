@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 // import { setCookie } from "cookies-next" ;
 
 interface Props {}
@@ -23,69 +24,60 @@ interface Props {}
 //   // window.open(`http://localhost:3005/auth/google`, '_self')
 // };
 
-const handleGoogleClick = async () => {
-  await signIn("google", { callbackUrl: "/", redirect: true });
-};
 
 const SignIn: NextPage = (): JSX.Element => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [formUploading, setFormUploading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [googleError, setGoogleError] = useState<string|null>(null);
+
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const dispatch = useDispatch();
+  const errorParams = searchParams.get("error")  
 
-  // const redirect = searchParams.get("redirect") === "true";
-  const redirect = true;
   const next_url = searchParams.get("next");
   if (next_url) setCookie("next", next_url, { maxAge: 60 * 5 });
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // validate your userinfo
     e.preventDefault();
-    console.log("email: ", userInfo.email, "password", userInfo.password);
+    setFormUploading(true);
     setError(null);
-    // const res = await fetch(
-    //   `${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/login`,
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       username: userInfo.email,
-    //       password: userInfo.password,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //     redirect: "follow",
-    //   }
-    // );
-    // const data = await res.json();
-    // if (res.status != 200) {
-    //   console.log("Failed to login");
-    //   setError("Something Went Wrong");
-    // } else {
-    //   setFormUploading(true);
-    //   // toast.success("Successfully Logged in")
-    //   console.log("Log in Successfull");
-    //   // console.log(res.json())
 
-    //   console.log(data);
-    //   // cookies().set('authorization', data["token"], {secure: true})
-    //   dispatch(setAuthState(data));
-    //   setCookie("authorization", data.token, {
-    //     secure: true,
-    //     maxAge: 60 * 60 * 24 * 7,
-    //   });
-
-    //   if (redirect) router.push(next_url ? next_url : "/");
-    // }
-    await signIn("credentials", {
+    const res = await signIn("credentials", {
       email : userInfo.email,
       password: userInfo.password,
-      redirect: true,
+      redirect: false,
       callbackUrl: "/",
     });
+    if (res?.ok){
+      setFormUploading(false);
+      toast.success("Successfully Logged in")
+      if (res?.url){
+        router.push(res.url)
+      }
+    }else{
+      setFormUploading(false);
+      setError(res?.error ?? "")
+    }
+  };
+  
+  const handleGoogleClick = async () => {
+    setGoogleLoading(true);
+    setGoogleError(null);
 
+    const res = await signIn("google", { callbackUrl: "/", redirect: true });
+   
+    if (res?.ok){
+      setGoogleLoading(false);
+      toast.success("Successfully Logged in")
+      if (res?.url){
+        router.push(res.url)
+      }
+    }else{
+      setGoogleLoading(false);
+      setGoogleError(res?.error ?? "")
+    }
+    
   };
 
   const handleChange = (e: any) => {
@@ -94,6 +86,13 @@ const SignIn: NextPage = (): JSX.Element => {
     if (e.target.name === "password")
       setUserInfo({ email: userInfo.email, password: e.target.value });
   };
+
+  useEffect(()=>{
+      if (errorParams === "OAuthCallback" || errorParams === "AccessDenied"){
+        toast.error("Oops! Something went wrong logging in. Please ensure you're using the same method you originally used to sign in.")
+      }
+  }, [errorParams])
+
   return (
     <div className=" bg-white lg:w-[50%] md:w-[75%] w-full">
       <div className="lg:px-24 md:px-16 flex flex-col items-center space-y-5">
@@ -189,6 +188,13 @@ const SignIn: NextPage = (): JSX.Element => {
               Forgot password
             </Link>
           </div>
+          {error && (
+            <div>
+              <div className="text-center text-red-500">
+                {error}
+              </div>
+            </div>
+          )}
 
           <button
             type="submit"
@@ -222,6 +228,13 @@ const SignIn: NextPage = (): JSX.Element => {
           >
             <FaFacebookF className="lg:text-sm md:text-xs text-[12px] text-blue-700" />
           </button> */}
+          {googleError && (
+            <div>
+              <div className="text-center text-red-500">
+                {googleError}
+              </div>
+            </div>
+          )}
           <div
             className="mb-2 flex items-center justify-center py-2 px-5 border gap-4 rounded-md w-full hover:border-activeColor cursor-pointer"
             onClick={handleGoogleClick}
@@ -230,7 +243,12 @@ const SignIn: NextPage = (): JSX.Element => {
               <FcGoogle className="float-right text-lg" />
             </span>
             <span className="lg:text-lg text-base text-secondColor font-bold">
-              Continue with Google
+            {googleLoading ? ( 
+              <BiLoaderCircle className=" text-xl animate-spin" />
+            ) : (
+              "Continue with Google"
+            )}
+              
             </span>
           </div>
 

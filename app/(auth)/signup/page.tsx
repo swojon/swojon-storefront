@@ -11,6 +11,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaRegEnvelope } from "react-icons/fa";
 
 import EmailSignUp from "@/components/SignUp/EmailSignUp";
+import { signIn } from "next-auth/react";
+import { BiLoaderCircle } from "react-icons/bi";
 
 const formSchema = Yup.object({
   username: Yup.string().min(5).required("Username is required"),
@@ -18,12 +20,17 @@ const formSchema = Yup.object({
   email: Yup.string().email().required("Email is required"),
 });
 
-const handleGoogleClick = () => {
-  window.open(`${process.env.NEXT_PUBLIC_BACKEND_AUTH_URL}/google`, "_self");
-  // window.open(`http://localhost:3005/auth/google`, '_self')
-};
+
 const SignUpPage = () => {
   const [isEmailPreferred, setIsEmailPreferred] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleClick = async () => {
+    setGoogleLoading(true);
+    await signIn("google", { callbackUrl: "/", redirect: true });
+    setGoogleLoading(false); 
+  };
+  
   useEffect(() => {
     setCookie("host", window.location.origin);
   }, []);
@@ -102,7 +109,11 @@ const SignUpPage = () => {
                 <FcGoogle className=" text-lg" />
               </span>
               <span className="lg:text-lg text-base text-secondColor font-bold">
-                Continue with Google
+              {googleLoading ? ( 
+              <BiLoaderCircle className=" text-xl animate-spin" />
+            ) : (
+              "Continue with Google"
+            )}
               </span>
             </div>
             <div
@@ -142,7 +153,7 @@ const SignUpPage = () => {
         {isEmailPreferred && (
           <button
             onClick={() => setIsEmailPreferred(false)}
-            className="text-lg   text-secondColor text-center rounded-md font-lexed font-bold  bg-white flex justify-center cursor-pointer relative mx-auto"
+            className="text-lg my-2  text-secondColor text-center rounded-md font-lexed font-bold  bg-white flex justify-center cursor-pointer relative mx-auto"
           >
             Cancel{" "}
             <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-secondColor"></span>
