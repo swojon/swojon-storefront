@@ -10,6 +10,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from "@apollo/client/utilities";
 import { getCookie } from "cookies-next";
+import { useEffect } from "react";
 
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_URL 
@@ -19,8 +20,11 @@ function makeSuspenseCache() {
   return new SuspenseCache
 }
 
-export function ApolloWrapper({ children }: React.PropsWithChildren) {
-  const {data:session} = useSession();
+export function ApolloWrapper({ children, session }: any) {
+
+  // const {data:session} = useSession();
+  // console.log("apollo 24session", session)
+  useEffect(() => {}, [session]);
   function makeClient() {
     const httpLink = new HttpLink({
       uri: GRAPHQL_ENDPOINT,

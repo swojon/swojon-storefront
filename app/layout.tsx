@@ -14,6 +14,7 @@ import { NextAuthProvider } from "./providers";
 import dynamic from "next/dynamic";
 import { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal/Modal";
+import { ApolloWrapperWithSession } from "@/lib/ApolloWrapperWithSession";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,7 +43,7 @@ export default async function RootLayout({ children }: Iprops) {
       <body className={inter.className}>
         <ReduxProviders>
           <NextAuthProvider>
-          <ApolloWrapper>
+          <ApolloWrapperWithSession>
             <div className="min-h-[30vh] relative">
               <SpeedInsights />
               <Analytics />
@@ -54,7 +55,7 @@ export default async function RootLayout({ children }: Iprops) {
               {children}
             </div>
             <Modal />
-          </ApolloWrapper>
+          </ApolloWrapperWithSession>
           </NextAuthProvider>
         </ReduxProviders>
       </body>
