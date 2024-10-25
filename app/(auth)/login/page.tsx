@@ -38,8 +38,8 @@ const SignIn: NextPage = (): JSX.Element => {
 
   const next_url = searchParams.get("next");
   if (next_url) setCookie("next", next_url, { maxAge: 60 * 5 });
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
+
+  const handleLogin = async () => {
     setFormUploading(true);
     setError(null);
 
@@ -106,9 +106,8 @@ const SignIn: NextPage = (): JSX.Element => {
           />
         </Link>
 
-        <form
+        <div
           className="lg:space-y-4 md:space-y-3 space-y-2 mx-auto pt-1 w-full"
-          onSubmit={handleSubmit}
         >
           <div className="text-center">
             <h2 className="lg:text-2xl text-lg  font-bold font-lexed text-primaryColor">
@@ -197,7 +196,7 @@ const SignIn: NextPage = (): JSX.Element => {
           )}
 
           <button
-            type="submit"
+            onClick={handleLogin}
             className="py-2.5  border border-activeColor lg:text-lg text-base  text-activeColor w-full rounded-md font-lexed font-bold flex justify-center "
           >
             {formUploading ? (
@@ -206,7 +205,7 @@ const SignIn: NextPage = (): JSX.Element => {
               "Log in"
             )}
           </button>
-        </form>
+        </div>
 
         <div className="w-full h-px bg-gray-200 my-7 relative">
           <span className="h-6 w-6  bg-white  absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2  flex justify-center items-center">

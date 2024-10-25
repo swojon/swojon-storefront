@@ -36,7 +36,7 @@ export const options: NextAuthOptions = {
             }
           );
         const data = await res.json();
-        console.log("got data", data)
+        // console.log("got data", data)
         if (data.user) { 
             return {...data.user, token: data.token}
         } else {
@@ -71,16 +71,16 @@ export const options: NextAuthOptions = {
             })
         });
         const resParsed = await res.json(); // return {"refresh", "access"} 
-        console.log("jwtresparse", resParsed)
+        // console.log("jwtresparse", resParsed)
         var decodedJwt = jwtDecode(resParsed.token);
-        console.log("decodedJWT", decodedJwt);
+        // console.log("decodedJWT", decodedJwt);
         token = Object.assign({}, token, {
             //@ts-ignore 
             id: decodedJwt.id,
             token: resParsed.token,
             tokenExpires: decodedJwt.exp!* 1000
         });
-        console.log("setting token", token);
+        // console.log("setting token", token);
 
         return { ...user, ...token };
       }
