@@ -7,10 +7,12 @@ import { useAddFollowMutation, useRemoveFollowMutation } from "@/apollograph/gen
 import { useDispatch, useSelector } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import  { format } from 'date-fns';
+import { useSession } from "next-auth/react";
 
 const SellerProfileCard = ({ seller }: { seller: any }) => {
   // console.log("Got seller to render", seller)
-  const authState = useSelector((state: any) => state.auth);
+  const {data:session, status} = useSession();
+
   const [addFollow,{data, loading, error}] = useAddFollowMutation();
   const [removeFollow,{data:removeData, loading:removeLoading, error:removeError}] = useRemoveFollowMutation();
   const dispatch = useDispatch();
@@ -110,12 +112,12 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-3">
-        {authState.isAuthenticated && (
+        {status === "authenticated" && (
         <>
           {seller?.followingStatus == true ? (
           
               <button onClick={() =>
-                handleFollowRemove(seller.id, authState.user.id)
+                handleFollowRemove(seller.id, session?.user?.id!)
               }
             className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold"
@@ -124,7 +126,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
           </button>
            
           ) : (
-              <button onClick={() => handleFollowAdd(seller.id, authState.user.id)}
+              <button onClick={() => handleFollowAdd(seller.id, session?.user?.id!)}
             className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold"
           >
