@@ -7,9 +7,10 @@ import { timeAgo } from "@/lib/helpers/timeAgo";
 import { IoMdTime } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
 import FavoriteProduct from "./FavoriteProduct";
+import { useSession } from "next-auth/react";
 
 const ProductCard = ({ card: listing }: { card: any }) => {
-  const authState = useSelector((state: any) => state.auth);
+  const {data:session, status } = useSession();
   
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
@@ -27,7 +28,7 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-        {authState.isAuthenticated && (
+        {status === "authenticated" && (
           <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
             <FavoriteProduct listing={listing} />
           </div>

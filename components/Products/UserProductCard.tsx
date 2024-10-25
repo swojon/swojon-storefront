@@ -9,11 +9,11 @@ import { AiOutlineUser } from "react-icons/ai";
 
 import FavoriteProduct from "./FavoriteProduct";
 import OtherInfo from "./OtherInfo";
+import { useSession } from "next-auth/react";
 
 const UserProductCard = ({ card: listing }: { card: any }) => {
 
-  const authState = useSelector((state: any) => state.auth);
-
+  const {data:session, status} = useSession();
 
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
@@ -31,12 +31,12 @@ const UserProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-        {authState.isAuthenticated && (
+        {status === "authenticated" && (
           <div className="absolute right-10 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
             <FavoriteProduct listing={listing} />
           </div>
         )}
-        {authState.isAuthenticated && (
+        {status === "authenticated" && (
           <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
             <OtherInfo />
           </div>
@@ -50,7 +50,7 @@ const UserProductCard = ({ card: listing }: { card: any }) => {
               {listing.title}
             </h6>
           </div>
-          {authState.isAuthenticated && (
+          {status === "authenticated" && (
             <div className="flex items-center text-primaryColor text-sm relative">
               {/* <MdOutlineEdit className="text-lg font-bold " />{" "} */}
               <h6 className="font-medium">Edit</h6>
