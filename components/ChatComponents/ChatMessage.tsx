@@ -276,9 +276,8 @@ const MessageAreaData = ({
   );
 };
 const MessageDetail = ({ msg }: { msg: any }) => {
-  const authState = useSelector((state: any) => state.auth);
-
-  if (msg.sender.id === authState.user.id)
+  const {data:session, status} = useSession();
+  if (msg.sender.id === session?.user?.id)
     return (
       <div className="relative w-full flex justify-end items-start  pb-3.5">
         <div className="md:w-1/2 w-full flex justify-end px-2  relative ">
