@@ -4,12 +4,14 @@ import ReviewStars from "./ReviewStars";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import { useSummaryUserReviewQuery } from "@/apollograph/generated";
+import { useSession } from "next-auth/react";
 
-function SummarySellerReview({ sellerId }: { sellerId: number }) {
+function SummarySellerReview({ sellerUsernameOrId }: { sellerUsernameOrId: string }) {
   const dispatch = useDispatch();
+  const {data:session, status} = useSession(); 
   const { data, loading, error } = useSummaryUserReviewQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId: sellerUsernameOrId,
     },
   });
 
@@ -35,20 +37,23 @@ function SummarySellerReview({ sellerId }: { sellerId: number }) {
           <button className="border border-activeColor text-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3">
             See all Reviews
           </button>
-          <button
-            onClick={() =>
-              dispatch(
-                setModalOpen({
-                  title: "write review modal",
-                  body: "writeReview",
-                  props: {sellerId: sellerId}
-                })
-              )
-            }
-            className="border border-activeColor  text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3"
-          >
-            Write a Review
-          </button>
+          {status === "authenticated" && session?.username != sellerUsernameOrId && session?.user?.id != Number(sellerUsernameOrId) && 
+           <button
+           onClick={() =>
+             dispatch(
+               setModalOpen({
+                 title: "write review modal",
+                 body: "writeReview",
+                 props: {sellerUsernameOrId: sellerUsernameOrId}
+               })
+             )
+           }
+           className="border border-activeColor  text-whiteColor bg-activeColor  rounded-lg py-1 text-center md:text-sm sm:text-xs text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 px-3"
+         >
+           Write a Review
+         </button>
+          }
+         
         </div>
       </div>
 

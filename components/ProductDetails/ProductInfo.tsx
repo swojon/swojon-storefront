@@ -22,7 +22,7 @@ const ProductInfo = ({ product }: { product: any }) => {
         </span>
 
         <div className="flex   gap-3 items-center    pb-4">
-          <Link href={`/seller/${product?.user?.id}`}>
+          <Link href={`/seller/${ product?.user?.username ?? product?.user?.id}`}>
             <div className=" md:h-[60px] h-[40px] md:w-[60px] w-[40px] rounded-full">
               <Image
                 src={product?.user?.profile?.avatar ?? defaultAvatar}

@@ -600,8 +600,8 @@ export type ListCommunitiesQueryHookResult = ReturnType<typeof useListCommunitie
 export type ListCommunitiesLazyQueryHookResult = ReturnType<typeof useListCommunitiesLazyQuery>;
 export type ListCommunitiesQueryResult = Apollo.QueryResult<ListCommunitiesQuery, ListCommunitiesQueryVariables>;
 export const ListFollowersDocument = gql`
-    query ListFollowers($userId: Float!) {
-  listFollowers(userId: $userId) {
+    query ListFollowers($usernameOrId: String!) {
+  listFollowers(usernameOrId: $usernameOrId) {
     items {
       id
       user {
@@ -634,7 +634,7 @@ export const ListFollowersDocument = gql`
  * @example
  * const { data, loading, error } = useListFollowersQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      usernameOrId: // value for 'usernameOrId'
  *   },
  * });
  */
@@ -650,8 +650,8 @@ export type ListFollowersQueryHookResult = ReturnType<typeof useListFollowersQue
 export type ListFollowersLazyQueryHookResult = ReturnType<typeof useListFollowersLazyQuery>;
 export type ListFollowersQueryResult = Apollo.QueryResult<ListFollowersQuery, ListFollowersQueryVariables>;
 export const ListFollowingDocument = gql`
-    query ListFollowing($userId: Float!) {
-  listFollowing(userId: $userId) {
+    query ListFollowing($usernameOrId: String!) {
+  listFollowing(usernameOrId: $usernameOrId) {
     items {
       id
       user {
@@ -683,7 +683,7 @@ export const ListFollowingDocument = gql`
  * @example
  * const { data, loading, error } = useListFollowingQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      usernameOrId: // value for 'usernameOrId'
  *   },
  * });
  */
@@ -741,9 +741,9 @@ export function useListLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type ListLocationsQueryHookResult = ReturnType<typeof useListLocationsQuery>;
 export type ListLocationsLazyQueryHookResult = ReturnType<typeof useListLocationsLazyQuery>;
 export type ListLocationsQueryResult = Apollo.QueryResult<ListLocationsQuery, ListLocationsQueryVariables>;
-export const GetUserByIdDocument = gql`
-    query GetUserById($userId: Float!) {
-  getUserById(userId: $userId) {
+export const GetUserByIdOrUsernameDocument = gql`
+    query GetUserByIdOrUsername($usernameOrId: String!) {
+  getUserByIdOrUsername(usernameOrId: $usernameOrId) {
     createdAt
     email
     facebookId
@@ -785,32 +785,32 @@ export const GetUserByIdDocument = gql`
     `;
 
 /**
- * __useGetUserByIdQuery__
+ * __useGetUserByIdOrUsernameQuery__
  *
- * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUserByIdOrUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdOrUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserByIdQuery({
+ * const { data, loading, error } = useGetUserByIdOrUsernameQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      usernameOrId: // value for 'usernameOrId'
  *   },
  * });
  */
-export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+export function useGetUserByIdOrUsernameQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        return Apollo.useQuery<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>(GetUserByIdOrUsernameDocument, options);
       }
-export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+export function useGetUserByIdOrUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+          return Apollo.useLazyQuery<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>(GetUserByIdOrUsernameDocument, options);
         }
-export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
-export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
-export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export type GetUserByIdOrUsernameQueryHookResult = ReturnType<typeof useGetUserByIdOrUsernameQuery>;
+export type GetUserByIdOrUsernameLazyQueryHookResult = ReturnType<typeof useGetUserByIdOrUsernameLazyQuery>;
+export type GetUserByIdOrUsernameQueryResult = Apollo.QueryResult<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>;
 export const GetSearchHistoryDocument = gql`
     query GetSearchHistory {
   getSearchHistory {
@@ -1751,8 +1751,8 @@ export type CreateSellerReviewMutationHookResult = ReturnType<typeof useCreateSe
 export type CreateSellerReviewMutationResult = Apollo.MutationResult<CreateSellerReviewMutation>;
 export type CreateSellerReviewMutationOptions = Apollo.BaseMutationOptions<CreateSellerReviewMutation, CreateSellerReviewMutationVariables>;
 export const SummaryUserReviewDocument = gql`
-    query SummaryUserReview($userId: Float!) {
-  summaryUserReview(userId: $userId) {
+    query SummaryUserReview($usernameOrId: String!) {
+  summaryUserReview(usernameOrId: $usernameOrId) {
     avgRating
     five_star_count
     four_star_count
@@ -1776,7 +1776,7 @@ export const SummaryUserReviewDocument = gql`
  * @example
  * const { data, loading, error } = useSummaryUserReviewQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      usernameOrId: // value for 'usernameOrId'
  *   },
  * });
  */
@@ -1792,13 +1792,14 @@ export type SummaryUserReviewQueryHookResult = ReturnType<typeof useSummaryUserR
 export type SummaryUserReviewLazyQueryHookResult = ReturnType<typeof useSummaryUserReviewLazyQuery>;
 export type SummaryUserReviewQueryResult = Apollo.QueryResult<SummaryUserReviewQuery, SummaryUserReviewQueryVariables>;
 export const ListSellerReviewsDocument = gql`
-    query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: String, $startingAfter: String, $limit: Float) {
+    query ListSellerReviews($usernameOrId: String!, $orderBy: String, $limit: Float, $startingAfter: String, $endingBefore: String, $filters: ReviewFilterInput) {
   listSellerReviews(
-    filters: $filters
-    userId: $userId
-    ending_before: $endingBefore
-    starting_after: $startingAfter
+    usernameOrId: $usernameOrId
+    orderBy: $orderBy
     limit: $limit
+    starting_after: $startingAfter
+    ending_before: $endingBefore
+    filters: $filters
   ) {
     count
     items {
@@ -1845,11 +1846,12 @@ export const ListSellerReviewsDocument = gql`
  * @example
  * const { data, loading, error } = useListSellerReviewsQuery({
  *   variables: {
- *      filters: // value for 'filters'
- *      userId: // value for 'userId'
- *      endingBefore: // value for 'endingBefore'
- *      startingAfter: // value for 'startingAfter'
+ *      usernameOrId: // value for 'usernameOrId'
+ *      orderBy: // value for 'orderBy'
  *      limit: // value for 'limit'
+ *      startingAfter: // value for 'startingAfter'
+ *      endingBefore: // value for 'endingBefore'
+ *      filters: // value for 'filters'
  *   },
  * });
  */
@@ -2846,7 +2848,7 @@ export type Query = {
   /** Get trending Searches */
   getTrendingSearches: TrendingSearches;
   /** User find by id */
-  getUserById: UserWithMeta;
+  getUserByIdOrUsername: UserWithMeta;
   /** List All Brands */
   listBrandOptions: Brands;
   /** List All Brands */
@@ -2952,8 +2954,8 @@ export type QueryGetProfileByIdArgs = {
 };
 
 
-export type QueryGetUserByIdArgs = {
-  userId: Scalars['Float']['input'];
+export type QueryGetUserByIdOrUsernameArgs = {
+  usernameOrId: Scalars['String']['input'];
 };
 
 
@@ -3010,12 +3012,12 @@ export type QueryListFavoritedUserArgs = {
 
 
 export type QueryListFollowersArgs = {
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 };
 
 
 export type QueryListFollowingArgs = {
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 };
 
 
@@ -3056,7 +3058,7 @@ export type QueryListSellerReviewsArgs = {
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['String']['input']>;
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 };
 
 
@@ -3066,7 +3068,7 @@ export type QueryListUserCommunityArgs = {
 
 
 export type QueryListUserReviewsArgs = {
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 };
 
 
@@ -3086,7 +3088,7 @@ export type QuerySearchLocationArgs = {
 
 
 export type QuerySummaryUserReviewArgs = {
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 };
 
 export type ResetPasswordDto = {
@@ -3169,7 +3171,7 @@ export type SellerReviewCreateDto = {
   rating: Scalars['Float']['input'];
   review?: InputMaybe<Scalars['String']['input']>;
   reviewerId: Scalars['Float']['input'];
-  sellerId?: InputMaybe<Scalars['Float']['input']>;
+  sellerIdOrUsername?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SerachInputDto = {
@@ -3371,14 +3373,14 @@ export type ListCommunitiesQueryVariables = Exact<{
 export type ListCommunitiesQuery = { __typename?: 'Query', listCommunities: { __typename?: 'Communities', items: Array<{ __typename?: 'Community', slug?: string | null, banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null }> } };
 
 export type ListFollowersQueryVariables = Exact<{
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 }>;
 
 
 export type ListFollowersQuery = { __typename?: 'Query', listFollowers: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, username?: string | null, isStaff: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListFollowingQueryVariables = Exact<{
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 }>;
 
 
@@ -3389,12 +3391,12 @@ export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null }> } };
 
-export type GetUserByIdQueryVariables = Exact<{
-  userId: Scalars['Float']['input'];
+export type GetUserByIdOrUsernameQueryVariables = Exact<{
+  usernameOrId: Scalars['String']['input'];
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'UserWithMeta', createdAt?: any | null, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, followingStatus?: boolean | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+export type GetUserByIdOrUsernameQuery = { __typename?: 'Query', getUserByIdOrUsername: { __typename?: 'UserWithMeta', createdAt?: any | null, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, followingStatus?: boolean | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
 
 export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3519,18 +3521,19 @@ export type CreateSellerReviewMutationVariables = Exact<{
 export type CreateSellerReviewMutation = { __typename?: 'Mutation', createSellerReview: { __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing?: { __typename?: 'Listing', id: number, title: string } | null } };
 
 export type SummaryUserReviewQueryVariables = Exact<{
-  userId: Scalars['Float']['input'];
+  usernameOrId: Scalars['String']['input'];
 }>;
 
 
 export type SummaryUserReviewQuery = { __typename?: 'Query', summaryUserReview: { __typename?: 'SummaryReview', avgRating?: number | null, five_star_count?: number | null, four_star_count?: number | null, one_star_count?: number | null, three_star_count?: number | null, reviewCount?: number | null, two_star_count?: number | null } };
 
 export type ListSellerReviewsQueryVariables = Exact<{
-  filters?: InputMaybe<ReviewFilterInput>;
-  userId: Scalars['Float']['input'];
-  endingBefore?: InputMaybe<Scalars['String']['input']>;
-  startingAfter?: InputMaybe<Scalars['String']['input']>;
+  usernameOrId: Scalars['String']['input'];
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<ReviewFilterInput>;
 }>;
 
 

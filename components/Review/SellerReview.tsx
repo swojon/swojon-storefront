@@ -15,7 +15,7 @@ import ReviewCardLoader from "../Loader/ReviewCardLoader";
 import { number } from "yup";
 import NotMatched from "../NotMatched/NotMatched";
 
-const SellerReview = ({ sellerId }: { sellerId: number }) => {
+const SellerReview = ({ sellerUsernameOrId }: { sellerUsernameOrId: string }) => {
   const searchParams = useSearchParams();
   const starsFilter = searchParams.get("stars")?.split(",")?.map(m => parseInt(m));
   let filters = {};
@@ -23,7 +23,7 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
     filters = { ...filters, stars: starsFilter };
   const { data, loading, error } = useListSellerReviewsQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId: sellerUsernameOrId,
       filters: filters,
     },
   });
@@ -32,7 +32,7 @@ const SellerReview = ({ sellerId }: { sellerId: number }) => {
 
   return (
     <section className="space-y-9 lg:px-2">
-      <SummarySellerReview sellerId={sellerId} />
+      <SummarySellerReview sellerUsernameorId={sellerUsernameOrId} />
       <div className="flex flex-col justify-between md:flex-row items-start  md:gap-5 gap-3">
         <div className="flex gap-2.5 items-center flex-wrap ">
           {/* Applied filter */}

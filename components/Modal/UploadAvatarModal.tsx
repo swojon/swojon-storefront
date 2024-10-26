@@ -11,7 +11,7 @@ import { setModalClose } from "@/app/redux/modalSlice";
 
 import axios from "axios";
 import toast from "react-hot-toast";
-import { GetUserByIdDocument, useUpdateProfileMutation } from "@/apollograph/generated";
+import { GetUserByIdOrUsernameDocument, useUpdateProfileMutation } from "@/apollograph/generated";
 import { BiLoaderCircle } from "react-icons/bi";
 import { uploadFile } from "@/lib/helpers/uploadFile";
 
@@ -63,7 +63,7 @@ const UploadAvatarModal = ({ props }: { props: any }) => {
           setFormUploading(false)
           toast.error("Error updating avatar")
         },
-        refetchQueries: [GetUserByIdDocument]
+        refetchQueries: [GetUserByIdOrUsernameDocument]
       })
 
   }

@@ -3,6 +3,8 @@ import { useGetListingQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import NotMatched from "../NotMatched/NotMatched";
+import NotFound from "@/app/(pages)/404/page";
 
 const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicProductInfo = dynamic(() => import("./ProductInfo"), {ssr: false});
@@ -22,7 +24,17 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const product = data?.getListing;
 
   console.log("pro", product);
-
+  if (!loading && !data ){
+    return (
+      <NotFound 
+      title="Oops! We can’t seem to find that product" 
+      subtitle="It might have been moved, or maybe the link is broken."
+      cta={{
+        text: "Explore Products",
+        link: "/explore"
+      }}/>
+    )
+  }
   return (
     <section className="custom-container py-6 space-y-6 ">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">

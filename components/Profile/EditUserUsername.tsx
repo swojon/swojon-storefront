@@ -5,8 +5,15 @@ import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
 import * as Yup from "yup";
 
+const blacklistedWords = ["facebook", "amazon", "google", "admin", "support"];
 const formSchema = Yup.object({
-  username: Yup.string().min(4).max(50).required("Username is required")
+  username: Yup.string()
+  .min(5, 'Username must be at least 5 characters long.')
+  .matches(/^[a-zA-Z0-9]*$/, 'Username should not contain special characters.')
+  .test('no-blacklisted-words', 'Username contains a blacklisted word.', (value) => {
+      if (!value) return true; // Skip if empty
+      return !blacklistedWords.some(word => value.toLowerCase().includes(word));
+  })
 })
 
 const EditUserUsername = ({user }: {user: any;  }) => {
@@ -39,8 +46,9 @@ const EditUserUsername = ({user }: {user: any;  }) => {
           onCompleted: () => {
             toast.success("Username updated successfully")
           },
-          onError: () => {
-            toast.error("Failed to update username, Please try again")
+          onError: (e) => {
+            console.log(e);
+            toast.error(e.message)
           }
         });
       } 
@@ -77,9 +85,14 @@ const EditUserUsername = ({user }: {user: any;  }) => {
            />
          </div>
        </div>
-
+       {errors.username && 
+        <div className="mt-1">
+          <p className="text-red-400">{errors.username.toString()}</p>
+        </div>
+        } 
        <div className="flex gap-3 items-center justify-end py-3 ">
          <button
+          type="submit"
            onClick={() => setEditBtn("")}
            className="  hover:border-b text-sm text-secondColor"
          >

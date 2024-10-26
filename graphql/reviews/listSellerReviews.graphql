@@ -1,5 +1,5 @@
-query ListSellerReviews($filters: ReviewFilterInput, $userId: Float!, $endingBefore: String, $startingAfter: String, $limit: Float) {
-  listSellerReviews(filters: $filters, userId: $userId, ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit) {
+query ListSellerReviews($usernameOrId: String!, $orderBy: String, $limit: Float, $startingAfter: String, $endingBefore: String, $filters: ReviewFilterInput) {
+  listSellerReviews(usernameOrId: $usernameOrId, orderBy: $orderBy, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore, filters: $filters) {
     count
     items {
       review

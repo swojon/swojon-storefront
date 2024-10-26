@@ -110,9 +110,9 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             <h6 className="">{format(seller?.createdAt, 'MMMM yyyy')}</h6>
           </div>
         </div>
-
+        {seller?.id != session?.user?.id && 
         <div className="grid grid-cols-2 gap-2 pt-3">
-        {status === "authenticated" && (
+        {status === "authenticated"  && (
         <>
           {seller?.followingStatus == true ? (
           
@@ -151,6 +151,7 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             Send Message
           </button>
         </div>
+        }
       </div>
 
       <div className=" rounded-md px-3 py-4 lg:space-y-4 md:space-y-3 space-y-2  flex-1 lg:flex-none ">

@@ -6,12 +6,12 @@ import NotMatched from "@/components/NotMatched/NotMatched";
 import React from "react";
 
 const Followers = ({ params }: { params: { sellerId: string } }) => {
-  const sellerId = parseInt(params.sellerId, 10);
+  
   const { data, error, loading } = useListFollowersQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId:params.sellerId,
     },
-    skip: !sellerId,
+    skip: !params.sellerId,
   });
 
   const followers = data?.listFollowers.items;

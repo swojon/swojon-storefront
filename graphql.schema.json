@@ -7428,18 +7428,18 @@
             "deprecationReason": null
           },
           {
-            "name": "getUserById",
+            "name": "getUserByIdOrUsername",
             "description": "User find by id",
             "args": [
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -7877,14 +7877,14 @@
             "description": "List All Followerer",
             "args": [
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -7910,14 +7910,14 @@
             "description": "List All Following",
             "args": [
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -8271,14 +8271,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -8337,14 +8337,14 @@
             "description": "List All Reviews of a user",
             "args": [
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -8536,14 +8536,14 @@
             "description": "List All Reviews of a seller",
             "args": [
               {
-                "name": "userId",
+                "name": "usernameOrId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Float",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -9290,11 +9290,11 @@
             "deprecationReason": null
           },
           {
-            "name": "sellerId",
+            "name": "sellerIdOrUsername",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Float",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,

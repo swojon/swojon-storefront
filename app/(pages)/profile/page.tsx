@@ -1,5 +1,5 @@
 "use client";
-import { useGetUserByIdQuery } from "@/apollograph/generated";
+import { useGetUserByIdOrUsernameQuery } from "@/apollograph/generated";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import Image from "next/image";
 import React from "react";
@@ -20,13 +20,13 @@ const Profile = () => {
   // const authState = useSelector((state: any) => state.auth);
   const {data: session} = useSession();
 
-  const { data, loading, error } = useGetUserByIdQuery({
+  const { data, loading, error } = useGetUserByIdOrUsernameQuery({
     variables: {
-      userId: session?.user?.id!,
+      usernameOrId: String(session?.user?.id!),
     },
     skip: !session?.user?.id,
   });
-  const user = data?.getUserById;
+  const user = data?.getUserByIdOrUsername;
 
   const dispatch = useDispatch();
   const isMobile = useIsMobile();

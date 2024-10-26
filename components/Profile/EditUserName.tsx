@@ -38,8 +38,8 @@ const EditUserName = ({profile }: {profile: any; }) => {
           onCompleted: () => {
             toast.success("Name updated successfully")
           },
-          onError: () => {
-            toast.error("Failed to update name, Please try again")
+          onError: (e) => {
+            toast.error(e.message)
           }
         });
       } 
@@ -72,7 +72,7 @@ const EditUserName = ({profile }: {profile: any; }) => {
               name="name"
               id="name"
               value={values.name}
-              placeholder="John Doe"
+              placeholder=""
               className="block w-full min-w-0 flex-1 py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-activeColor focus:ring-activeColor sm:text-sm bg-gray-50"
             />
           </div>

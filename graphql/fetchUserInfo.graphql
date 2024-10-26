@@ -1,5 +1,5 @@
-query GetUserById($userId: Float!) {
-  getUserById(userId: $userId) {
+query GetUserByIdOrUsername($usernameOrId: String!) {
+  getUserByIdOrUsername(usernameOrId: $usernameOrId) {
     createdAt
     email
     facebookId

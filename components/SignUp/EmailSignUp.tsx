@@ -8,8 +8,15 @@ import { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 
 
+const blacklistedWords = ["facebook", "amazon", "google", "admin", "support"];
 const formSchema = Yup.object({
-  username: Yup.string().min(5).required("Username is required"),
+  username: Yup.string()
+  .min(5, 'Username must be at least 5 characters long.')
+  .matches(/^[a-zA-Z0-9]*$/, 'Username should not contain special characters.')
+  .test('no-blacklisted-words', 'Username contains a blacklisted word.', (value) => {
+      if (!value) return true; // Skip if empty
+      return !blacklistedWords.some(word => value.toLowerCase().includes(word));
+  }),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long.")
     .matches(/[0-9]/, "Password must contain at least one number.")

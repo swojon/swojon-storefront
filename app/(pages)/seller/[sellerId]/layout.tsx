@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useGetUserByIdQuery } from "@/apollograph/generated";
+import { useGetUserByIdOrUsernameQuery } from "@/apollograph/generated";
 import SellerProfileCard from "@/components/Seller/SellerProfileCard";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SellerCardLoader from "@/components/Loader/SellerCardLoader";
 import SellerContentLoader from "@/components/Loader/SellerContentLoader";
+import NotFound from "../../404/page";
 
 const SellerProfile = ({
   params,
@@ -15,22 +16,30 @@ const SellerProfile = ({
   children: any;
   params: { sellerId: string };
 }) => {
-  const sellerId = parseInt(params.sellerId, 10);
-  const { data, error, loading } = useGetUserByIdQuery({
+  const { data, error, loading } = useGetUserByIdOrUsernameQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId: params.sellerId,
     },
-    skip: !sellerId,
+    skip: !params.sellerId,
   });
-  const seller = data?.getUserById;
+  const seller = data?.getUserByIdOrUsername;
 
   const tabData = [
-    { id: 1, tab: "listing", url: `/seller/${seller?.id}` },
-    { id: 2, tab: "reviews", url: `/seller/${seller?.id}/reviews` },
-    { id: 3, tab: "followers", url: `/seller/${seller?.id}/followers` },
+    { id: 1, tab: "listing", url: `/seller/${seller?.username ?? seller?.id }` },
+    { id: 2, tab: "reviews", url: `/seller/${seller?.username ?? seller?.id}/reviews` },
+    { id: 3, tab: "followers", url: `/seller/${seller?.username ?? seller?.id}/followers` },
   ];
 
   const pathname = usePathname();
+  if (!loading && !seller){
+    return <NotFound 
+    title="Oops! We can’t seem to find that page" 
+    subtitle="It might have been moved, or maybe the link is broken."
+    cta={{
+      text: "Explore Products",
+      link: "/explore"
+    }}
+    />  }
   return (
     <section className="custom-container py-10">
       {loading && (

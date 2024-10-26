@@ -1,5 +1,5 @@
-query SummaryUserReview($userId: Float!) {
-  summaryUserReview(userId: $userId) {
+query SummaryUserReview($usernameOrId: String!) {
+  summaryUserReview(usernameOrId: $usernameOrId) {
     avgRating
     five_star_count
     four_star_count

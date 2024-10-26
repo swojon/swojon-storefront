@@ -2,6 +2,7 @@
 import { ListSellerReviewsDocument, SummaryUserReviewDocument, useCreateSellerReviewMutation } from "@/apollograph/generated";
 import { setModalClose } from "@/app/redux/modalSlice";
 import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaRegStar } from "react-icons/fa6";
@@ -18,21 +19,22 @@ const review = [
 ];
 
 const formSchema = Yup.object({
-  rating: Yup.number().min(1).max(5).required("Category name is required"),
+  rating: Yup.number().min(1).max(5).required("Rating is required"),
   review: Yup.string().min(3).notRequired(),
 
 })
 
 const WriteReviewModal = ({props}: {props:any}) => {
-  const authState = useSelector((state:any ) => state.auth)
+  const {data:session, status} = useSession();
+
   const initialValues = {
     rating: 1,
     review: "",
-    sellerId: props.sellerId ?? null,
-    reviewerId: authState.user.id ?? null,
+    sellerId: props.sellerIdOrUsername ?? null,
+    reviewerId: session?.user?.id ?? null,
     listingId: props.listingId ?? null
   };
-  console.log(props.sellerId,  "Seller Id From modal props")
+  console.log(props.sellerIdOrUsername,  "Seller Id From modal props")
  
   const dispatch = useDispatch();
   const [hoverStar, setHoverStar] = useState<any>(null);
@@ -67,8 +69,8 @@ const WriteReviewModal = ({props}: {props:any}) => {
             reviewData: {
               rating: values.rating,
               review: values.review,
-              sellerId: props.sellerId ?? null,
-              reviewerId: authState.user.id,
+              sellerIdOrUsername: props.sellerIdOrUsername ?? null,
+              reviewerId: session?.user?.id!,
               listingId: props.listingid ?? null
             }
           },

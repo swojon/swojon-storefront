@@ -1,5 +1,5 @@
-query ListFollowing($userId: Float!) {
-  listFollowing(userId: $userId) {
+query ListFollowing($usernameOrId: String!) {
+  listFollowing(usernameOrId: $usernameOrId) {
     items {
       id
       user{

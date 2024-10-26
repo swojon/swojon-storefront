@@ -11,7 +11,7 @@ import ReviewStars from "./ReviewStars";
 const SellerReviewDropdown = ({ sellerId }: { sellerId: number }) => {
   const { data, loading, error } = useSummaryUserReviewQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId: String(sellerId),
     },
   });
 
