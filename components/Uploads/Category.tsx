@@ -13,7 +13,7 @@ const Category = ({
   touched,
   setFieldValue,
   values,
-
+  initialCategory,
   errors,
 }: {
   handleBlur: any;
@@ -21,9 +21,9 @@ const Category = ({
   setFieldValue: any;
   values: any;
   errors: any;
+  initialCategory: any;
 }) => {
-  const [selectCategory, setSelectCategory] = useState<any>(null);
-  const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
+  
   const {
     data: categoriesData,
     loading,
@@ -34,7 +34,11 @@ const Category = ({
     },
   });
   const categories = categoriesData?.listCategories.items;
+  const [selectCategory, setSelectCategory] = useState<any>(initialCategory?? null);
+  const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
+
   const [query, setQuery] = useState("");
+
 
   const categoryTree = categories ? getCategoryTree(categories, null) : [];
   const filteredCategories = !!query
@@ -49,7 +53,7 @@ const Category = ({
   };
 
   useEffect(() => {
-    if (!selectCategory && !selectSubCategory)
+    if (!selectCategory && !selectSubCategory )
       setFieldValue("categoryId", null);
     if (!!selectSubCategory) setFieldValue("categoryId", selectSubCategory.id);
     console.log("selectCategory", selectCategory);
@@ -57,6 +61,7 @@ const Category = ({
       setFieldValue("categoryId", selectCategory?.id);
   }, [selectCategory, selectSubCategory]);
 
+  console.log("Selected Category", selectCategory)
   return (
     <section className="md:space-y-4 space-y-2 pt-4 	 ">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">

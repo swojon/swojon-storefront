@@ -29,6 +29,8 @@ const UploadImage = ({
   setUploading,
   setUploadError,
   setUploadProgress,
+  imageCount,
+  setImageCount
 }: {
   touched: any;
   setFieldValue: any;
@@ -40,8 +42,10 @@ const UploadImage = ({
   setUploading: any;
   setUploadError: any;
   setUploadProgress: any;
+  imageCount:any;
+  setImageCount:any;
 }) => {
-  const [imageCount, setImageCount] = useState<any>([]);
+  // const [imageCount, setImageCount] = useState<any>([]);
   const [uploadedUrls, setUploadedUrls] = useState<any>([]);
   // const deleteImage = (index: any) => {
   //   setImageCount((prevImageCount: any) =>
@@ -60,26 +64,38 @@ const UploadImage = ({
         let updatedImageCount = [];
         for (let i = uploadedUrls.length ; i < imageCount.length; i++) {
           //uploads only the new file uploaded. don't repeat
-          const result = await uploadFile(
-            imageCount[i].file,
-            setUploadDone,
-            setUploading,
-            setUploadError,
-            setUploadProgress
-          );
-
-          if (result) {
-            const { url, publicId } = result;
-            // Update the imageCount with additional data
-            const updatedImage = {
+          console.log("uploaded url", imageCount[i])
+          if (imageCount[i].url.includes("http://res.cloudinary.com")){
+            //it is already an url, no need to reupload
+            updatedImageCount.push({
               ...imageCount[i],
-              publicId: publicId,
-              publicUrl: url,
-            };
-            updatedImageCount.push(updatedImage);
+              publicId: imageCount[i].url.split("/").pop().split(".")[0],
+              publicUrl: imageCount[i].url
+            })
+          }else{
+            const result = await uploadFile(
+              imageCount[i].file,
+              setUploadDone,
+              setUploading,
+              setUploadError,
+              setUploadProgress
+            );
+  
+            if (result) {
+              const { url, publicId } = result;
+              // Update the imageCount with additional data
+              const updatedImage = {
+                ...imageCount[i],
+                publicId: publicId,
+                publicUrl: url,
+              };
+              updatedImageCount.push(updatedImage);
+            }
           }
+         
         }
         // setImageCount(updatedImageCount);
+        console.log("Uploaded Urls", updatedImageCount, uploadedUrls);
         setUploadedUrls([...uploadedUrls, ...updatedImageCount]);
       } catch (error) {
         console.log(error);
@@ -91,41 +107,7 @@ const UploadImage = ({
     }
   }, [imageCount, setFieldValue]);
   console.log("uploadedUrls", uploadedUrls);
-  // useEffect(() => {
-  //   const uploadImagesToCloudinary = async () => {
-  //     try {
-  //       let updatedImageCount = [];
-  //       for (let i = 0; i < imageCount.length; i++) {
-  //         const result = await uploadFile(
-  //           imageCount[i].file,
-  //           setUploadDone,
-  //           setUploading,
-  //           setUploadError,
-  //           setUploadProgress
-  //         );
-
-  //         if (result) {
-  //           const { url, publicId } = result;
-  //           // Update the imageCount with additional data
-  //           const updatedImage = {
-  //             ...imageCount[i],
-  //             publicId: publicId,
-  //             publicUrl: url,
-  //           };
-  //           updatedImageCount.push(updatedImage);
-  //         }
-  //       }
-  //       setImageCount(updatedImageCount);
-  //       setUploadedUrls(updatedImageCount);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   if (imageCount.length > 0) {
-  //     uploadImagesToCloudinary();
-  //   }
-  // }, [imageCount]);
+ 
 
   useEffect(() => {
     // console.log("Cloud images", uploadedUrls);
@@ -197,139 +179,6 @@ const UploadImage = ({
       <div className=" w-full">
         {imageCount.length > 0 ? (
           <div className="grid md:grid-rows-2 grid-rows-3 md:grid-cols-5 grid-cols-2 gap-4 w-full md:h-[441px] h-[500px] ">
-            {/* {uploadedUrls.length === 1 ? (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-                 md:col-span-3 col-span-2 row-span-2  rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : uploadedUrls.length === 2 ? (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-               row-span-${index === 0 ? 2 : 1} md:col-span-${
-                      index === 0 ? 3 : 2
-                    } col-span-${index === 0 ? 2 : 1}
-                rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>
-                {uploadedUrls.map((item: any, index: any) => (
-                  <div
-                    key={item.publicId}
-                    className={`
-               md:row-span-${index === 0 ? 2 : 1} row-span-${
-                      index === 0 ? 2 : 1
-                    } md:col-span-${index === 0 ? 3 : 1} col-span-${
-                      index === 0 ? 2 : 1
-                    }
-                  rounded-2xl border relative`}
-                  >
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full  h-full rounded-2xl object-cover"
-                      alt="product"
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )} */}
-
             {imageCount.map((item: any, index: any) => (
               <div
                 key={index}
@@ -341,66 +190,7 @@ const UploadImage = ({
                     : "md:row-span-1 row-span-1 md:col-span-1 col-span-1"
                 } rounded-2xl border relative`}
               >
-                {/* {uploadedUrls.filter((item2) => item2.url == item.url) ? (
-                  <>
-                    {" "}
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full h-full rounded-2xl object-cover"
-                      alt={`product-${index}`}
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/info.png"
-                          alt="done"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center">
-                        <Image
-                          src="/assets/pen.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                      <div
-                        // onClick={() => deleteImageFromCloudinary(item.publicId)}
-                        className="w-10 h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center cursor-pointer"
-                      >
-                        <Image
-                          src="/assets/delete.png"
-                          alt="edit"
-                          width={100}
-                          height={100}
-                          className="w-4"
-                        />
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <Image
-                      src={item.url}
-                      width={900}
-                      height={900}
-                      className="w-full h-full rounded-2xl object-cover"
-                      alt={`product-${index}`}
-                    />
-                    <div className="absolute right-2 top-2 flex items-center gap-3">
-                      <div className="h-10 border border-gray-100 bg-white rounded-full flex items-center justify-center text-lg">
-                        loading.....
-                      </div>
-                    </div>
-                  </>
-                )} */}
+                
                 {uploadedUrls.some((item2: any) => item2.url === item.url) ? (
                   <>
                     <Image

@@ -14,6 +14,7 @@ const Brand = ({
   values,
   handleChange,
   errors,
+  initialBrand
 }: {
   touched: any;
   handleBlur: any;
@@ -21,6 +22,7 @@ const Brand = ({
   setFieldValue: any;
   values: any;
   handleChange: any;
+  initialBrand: any;
 }) => {
   const [query, setQuery] = useState("");
 
@@ -29,7 +31,7 @@ const Brand = ({
     setQuery(value);
   };
 
-  const [selectBrand, setSelectBrand] = useState<any>(null);
+  const [selectBrand, setSelectBrand] = useState<any>(initialBrand ?? null);
   const {
     data: brandData,
     loading: brandLoading,
@@ -81,7 +83,7 @@ const Brand = ({
         </div>
         <div className="md:p-6 p-2.5 border-y border-gray-200 flex items-center justify-between">
           <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
-            {selectBrand ? selectBrand.name : "Select category from here"}
+            {selectBrand ? selectBrand.name : "Select Brand from here"}
           </span>
           <span className="text-2xl text-primaryColor">
             {selectBrand ? (

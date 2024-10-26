@@ -19,9 +19,9 @@ const AdditionalDetail = ({ props }: { props: any }) => {
         </button>
       </div>
 
-      <p className="text-base text-justify text-primaryColor py-2.5  ">
+      <pre className="font-lexed text-base text-justify text-primaryColor py-2.5  ">
         {props?.description}
-      </p>
+      </pre>
     </section>
   );
 };

@@ -4,22 +4,33 @@ import { useEffect, useRef, useState  } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./Upload.css";
-import { useCreateListingMutation } from "@/apollograph/generated";
+import { useCreateListingMutation, useUpdateListingMutation } from "@/apollograph/generated";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
 import dynamic from "next/dynamic";
+import { Listing } from "@/gql/graphql";
+import Brand from "./Brand";
+import Category from "./Category";
+import CompleteStatusBar from "./CompleteStatusBar";
+import Condition from "./Condition";
+import DealingMethod from "./DealingMethod";
+import PreviewProduct from "./PreviewProduct";
+import Price from "./Price";
+import ProductTitle from "./ProductTitle";
+import UploadImage from "./UploadImage";
 
-const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
-const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
-const DynamicCategory = dynamic(()=> import("./Category"), {ssr: false});
-const DynamicProductTitle = dynamic(()=> import("./ProductTitle"), {ssr: false});
-const DynamicBrand = dynamic(()=> import("./Brand"), {ssr: false});
-const DynamicCondition = dynamic(()=> import("./Condition"), {ssr: false});
-const DynamicPrice = dynamic(()=> import("./Price"), {ssr: false});
-const DynamicDealingMethod = dynamic(()=> import("./DealingMethod"), {ssr: false});
-const DynamicPreviewProduct = dynamic(()=> import("./PreviewProduct"), {ssr: false});
+// const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
+// const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
+// const DynamicCategory = dynamic(()=> import("./Category"), {ssr: false});
+// const DynamicProductTitle = dynamic(()=> import("./ProductTitle"), {ssr: false});
+// const DynamicBrand = dynamic(()=> import("./Brand"), {ssr: false});
+// const DynamicCondition = dynamic(()=> import("./Condition"), {ssr: false});
+// const DynamicPrice = dynamic(()=> import("./Price"), {ssr: false});
+// const DynamicDealingMethod = dynamic(()=> import("./DealingMethod"), {ssr: false});
+// const DynamicPreviewProduct = dynamic(()=> import("./PreviewProduct"), {ssr: false});
+
 
 const formSchema = Yup.object({
   title: Yup.string().min(2).required("Title is required"),
@@ -81,22 +92,35 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
+  const dispatch = useDispatch();
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadDone, setUploadDone] = useState(false);
+  const [uploadError, setUploadError] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [previewBtn, setPreviewBtn] = useState<any>(null);
+  const [imageCount, setImageCount] = useState<any>([]);
+
+  const [createListing, { error: createError, loading: createLoading, data: createData }] = useCreateListingMutation();
+  const [updateListing, {error:updateError, loading:updateLoading, data:updateData}] = useUpdateListingMutation();
+
+  const [formUploading, setFormUploading] = useState(false);
+  
   const initialValues = {
     title: product ? product.title : "",
     description: product ? product.description : "",
-    images: product ? product.images : [],
+    images: [],
     condition: product ? product.condition : "used",
     slug: product ? product.slug : "",
     // parentCategoryId: product?.parentCategory?.id,
-    brandId: product ? product.brand.id : null,
-    categoryId: product ? product.category.id : null,
+    brandId: product ? product?.brand?.id : null,
+    categoryId: product ? product?.category?.id : null,
     // locationId: product ? product.location.id : null,
     price: product ? product.price : null,
     quantity: product ? product.quantity : 1,
     dealingMethod: product ? product.dealingMethod : "meetup",
     // deliveryCharge: product ? product.deliveryCharge : 0,
-    meetupLocations: product ? product.meetupLocations : [],
+    meetupLocations: product ? product.meetupLocations.map(({__typename, ...rest}:any) => rest ) : [],
     mediaUrls: product ? product.media : [],
   };
 
@@ -111,16 +135,9 @@ const Uploads = ({ product }: { product: null | any }) => {
     "dealingMethod",
     "meetupLocations",
   ];
-  // const handleScroll = () => {
-  //   let scrollY = window.scrollY || window.pageYOffset;
+  
 
-  //   if (scrollY > 300) {
-  //     setStickyClass("fixed top-0 left-0 z-[10000] w-full right-0 shadow-lg");
-  //   } else {
-  //     setStickyClass("relative");
-  //   }
-  // };
-
+  //to always keep post button up.
   useEffect(() => {
     if (typeof window === "undefined") {
     } else {
@@ -152,18 +169,9 @@ const Uploads = ({ product }: { product: null | any }) => {
       };
     }
   }, []);
+  // end UseEffect
 
-  const [uploading, setUploading] = useState(false);
-  const [uploadDone, setUploadDone] = useState(false);
-  const [uploadError, setUploadError] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [previewBtn, setPreviewBtn] = useState<any>(null);
-  const [
-    createListing,
-    { error: createError, loading: createLoading, data: createData },
-  ] = useCreateListingMutation();
-  const [formUploading, setFormUploading] = useState(false);
-
+  console.log("initialValues", initialValues)
   const {
     values,
     errors,
@@ -182,57 +190,119 @@ const Uploads = ({ product }: { product: null | any }) => {
     onSubmit: async (values, action) => {
       setFormUploading(true);
       console.log("submitting the form with values", values);
-      // try {
-      //   for (let i = 0; i < values.images.length; i++) {
-      //     const url = await uploadFile(
-      //       values.images[i],
-      //       setUploadDone,
-      //       setUploading,
-      //       setUploadError,
-      //       setUploadProgress
-      //     );
-
-      //     // console.log(`Image heloo ${i + 1} url: ${url}`);
-      //     // @ts-ignore:next-line
-      //     values.mediaUrls.push(url);
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      // }
       let { images, ...listingData } = values;
       listingData = {
         ...listingData,
         mediaUrls: values.mediaUrls,
       };
-
-      createListing({
-        variables: {
-          listingData: listingData,
-        },
-        onCompleted: () => {
-          setFormUploading(false);
-          toast.success("Product created successfully");
-          action.resetForm();
-          dispatch(
-            setModalOpen({
-              title: "this is a modal",
-              body: "product-create-success",
-            })
-          );
-          console.log("Success in creating product");
-        },
-        onError: () => {
-          setFormUploading(false);
-          console.log("Failed to create listing", createError);
-          toast.error("Failed to Create Category, Please Try again.");
-        },
-      });
+      if (!product){
+        //create mode
+        createListing({
+          variables: {
+            listingData: listingData,
+          },
+          onCompleted: () => {
+            setFormUploading(false);
+            toast.success("Product created successfully");
+            action.resetForm();
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "product-create-success",
+              })
+            );
+  
+          },
+          onError: () => {
+            setFormUploading(false);
+            console.log("Failed to create listing", createError);
+            toast.error("Failed to create listing");
+          },
+        });
+      }else{
+        updateListing({
+          variables: {
+            listingId: product.id,
+            listingData: {
+              title: listingData.title,
+              price: listingData.price,
+              description: listingData.description,
+              categoryId: listingData.categoryId,
+              brandId: listingData.brandId,
+              mediaUrls: listingData.mediaUrls,
+              meetupLocations: listingData.meetupLocations
+              //@todo here
+            }
+          },
+          onCompleted: () => {
+            setFormUploading(false);
+            toast.success("Product updated successfully");
+            action.resetForm();
+            dispatch(
+              setModalOpen({
+                title: "this is a modal",
+                body: "product-create-success",
+              })
+            );
+  
+          },
+          onError: () => {
+            setFormUploading(false);
+            console.log("Failed to update listing", createError);
+            toast.error("Failed to update listing");
+          },
+        })
+      }
+      
       // setUploadProgress(null);
     },
   });
 
-  console.log("errors", errors);
+  async function getFileFromCloudinaryUrl(cloudinaryUrl:string, fileName:string) {
+    try {
+      // Fetch the file from Cloudinary URL
+      const response = await fetch(cloudinaryUrl);
+      const blob = await response.blob();
+      
+      // Create a File object from the blob
+      // You may need to adjust the file type based on your needs
+      const file = new File([blob], fileName, { 
+        type: blob.type 
+      });
+      
+      return {
+        name: fileName,
+        url: cloudinaryUrl,
+        file: file
+      };
+    } catch (error) {
+      console.error('Error converting Cloudinary URL to File:', error);
+      throw error;
+    }
+  }
+  
 
+  console.log("errors", errors);
+  //load images from the media if already present
+  //load images from the media if already present
+  useEffect( ()=> {
+    const initializeFiles = async () => {
+      const filePromises = product.media.map(({ url }: {url: string}) => 
+         getFileFromCloudinaryUrl(url, url.split("/").pop()!)
+      );
+      const loadedFiles = await Promise.all(filePromises);
+      setImageCount(loadedFiles);
+    };
+    
+    if (product?.media){
+      console.log("Getting products")
+      console.log(product.mediaUrls)
+      initializeFiles();
+
+    }
+  }, [product])
+
+  //progress bar effect
   useEffect(() => {
     const completedFields = Object.entries(values).filter(([key, value]) => {
       if (!editableFields.includes(key)) return false;
@@ -250,7 +320,8 @@ const Uploads = ({ product }: { product: null | any }) => {
 
     setProgress(newProgress);
   }, [values]);
-
+  // end progress bar
+  
   const handleTitleChange = (event: any) => {
     const inputValue = event.currentTarget.value;
     // setFieldValue("slug", slugify(inputValue));
@@ -259,7 +330,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   const handlePostButtonClick = () => {
     handleSubmit();
   };
-  const dispatch = useDispatch();
+  
   return (
     <section className="space-y-5">
       <div className={` ${previewBtn === "preview" && "border-b pb-5"}`}>
@@ -364,7 +435,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   </span>
                 )}
 
-                <DynamicCompleteStatusBar bar={progress} />
+                <CompleteStatusBar bar={progress} />
               </div>
 
               {/* <button
@@ -380,14 +451,14 @@ const Uploads = ({ product }: { product: null | any }) => {
 
       <div className=" custom-container">
         {previewBtn === "preview" ? (
-          <DynamicPreviewProduct values={values} />
+          <PreviewProduct values={values} />
         ) : (
           <form
             className="md:space-y-5 space-y-3"
             ref={formRef}
             onSubmit={handleSubmit}
           >
-            <DynamicUploadImage
+            <UploadImage
               setFieldValue={setFieldValue}
               values={values}
               errors={errors}
@@ -398,13 +469,16 @@ const Uploads = ({ product }: { product: null | any }) => {
               setUploading={setUploading}
               setUploadError={setUploadError}
               setUploadProgress={setUploadProgress}
+              imageCount={imageCount}
+              setImageCount={setImageCount}
             />
-            <DynamicCategory
+            <Category
               setFieldValue={setFieldValue}
               values={values}
               errors={errors}
               touched={touched}
               handleBlur={handleBlur}
+              initialCategory={product.category ?? null}
             />
             <div
               className={`${
@@ -413,7 +487,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DynamicProductTitle
+              <ProductTitle
                 handleChange={handleChange}
                 values={values}
                 errors={errors}
@@ -429,7 +503,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DynamicCondition
+              <Condition
                 setFieldValue={setFieldValue}
                 values={values}
                 errors={errors}
@@ -445,7 +519,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DynamicPrice
+              <Price
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
@@ -462,12 +536,13 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DynamicBrand
+              <Brand
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}
                 errors={errors}
                 touched={touched}
+                initialBrand={product.brand ?? null}
                 handleBlur={handleBlur}
               />
             </div>
@@ -479,7 +554,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   : "opacity-50 pointer-events-none"
               }`}
             >
-              <DynamicDealingMethod
+              <DealingMethod
                 setFieldValue={setFieldValue}
                 values={values}
                 handleChange={handleChange}

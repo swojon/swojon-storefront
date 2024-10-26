@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 
 import "leaflet/dist/leaflet.css";
 
-interface NominatimLocation {
+export interface NominatimLocation {
   lat?: string | null;
   lon?: string | null;
   placeId?: string | null;

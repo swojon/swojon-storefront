@@ -1359,6 +1359,94 @@ export function useSearchListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchListingsQueryHookResult = ReturnType<typeof useSearchListingsQuery>;
 export type SearchListingsLazyQueryHookResult = ReturnType<typeof useSearchListingsLazyQuery>;
 export type SearchListingsQueryResult = Apollo.QueryResult<SearchListingsQuery, SearchListingsQueryVariables>;
+export const UpdateListingDocument = gql`
+    mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
+  updateListing(listingData: $listingData, listingId: $listingId) {
+    brand {
+      id
+      name
+      logo
+    }
+    condition
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+export type UpdateListingMutationFn = Apollo.MutationFunction<UpdateListingMutation, UpdateListingMutationVariables>;
+
+/**
+ * __useUpdateListingMutation__
+ *
+ * To run a mutation, you first call `useUpdateListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateListingMutation, { data, loading, error }] = useUpdateListingMutation({
+ *   variables: {
+ *      listingData: // value for 'listingData'
+ *      listingId: // value for 'listingId'
+ *   },
+ * });
+ */
+export function useUpdateListingMutation(baseOptions?: Apollo.MutationHookOptions<UpdateListingMutation, UpdateListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateListingMutation, UpdateListingMutationVariables>(UpdateListingDocument, options);
+      }
+export type UpdateListingMutationHookResult = ReturnType<typeof useUpdateListingMutation>;
+export type UpdateListingMutationResult = Apollo.MutationResult<UpdateListingMutation>;
+export type UpdateListingMutationOptions = Apollo.BaseMutationOptions<UpdateListingMutation, UpdateListingMutationVariables>;
 export const SearchLocationDocument = gql`
     query SearchLocation($nominatimQuery: NominatimSearchDTO!) {
   searchLocation(nominatimQuery: $nominatimQuery) {
@@ -2318,9 +2406,8 @@ export type ListingUpdateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId?: InputMaybe<Scalars['Float']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  location?: InputMaybe<Scalars['String']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
+  mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
+  meetupLocations?: InputMaybe<Array<NominatimLocationInput>>;
   price?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -3452,6 +3539,14 @@ export type SearchListingsQueryVariables = Exact<{
 
 
 export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+
+export type UpdateListingMutationVariables = Exact<{
+  listingData: ListingUpdateDto;
+  listingId: Scalars['Float']['input'];
+}>;
+
+
+export type UpdateListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type SearchLocationQueryVariables = Exact<{
   nominatimQuery: NominatimSearchDto;

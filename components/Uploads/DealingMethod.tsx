@@ -29,12 +29,13 @@ const DealingMethod = ({
   values: any;
   handleChange: any;
 }) => {
-  const [selectMethod, setSelectMethod] = useState<any>(null);
+  const [selectMethod, setSelectMethod] = useState<any>(method.find(i => i.slug == values.dealingMethod) ?? null);
   const [showSelectedMethod, setShowSelectedMethod] = useState<any>(null);
   useEffect(() => {
     setFieldValue("dealingMethod", selectMethod?.slug);
   }, [selectMethod]);
 
+  console.log("Dealing method", values.dealingMethod)
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
