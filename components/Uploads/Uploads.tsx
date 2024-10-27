@@ -116,11 +116,11 @@ const Uploads = ({ product }: { product: null | any }) => {
     brandId: product ? product?.brand?.id : null,
     categoryId: product ? product?.category?.id : null,
     // locationId: product ? product.location.id : null,
-    price: product ? product.price : null,
-    quantity: product ? product.quantity : 1,
-    dealingMethod: product ? product.dealingMethod : "meetup",
+    price: product ? product?.price : null,
+    quantity: product ? product?.quantity : 1,
+    dealingMethod: product ? product?.dealingMethod : "",
     // deliveryCharge: product ? product.deliveryCharge : 0,
-    meetupLocations: product ? product.meetupLocations.map(({__typename, ...rest}:any) => rest ) : [],
+    meetupLocations: product ? product?.meetupLocations.map(({__typename, ...rest}:any) => rest ) : [],
     mediaUrls: product ? product.media : [],
   };
 
@@ -482,7 +482,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               errors={errors}
               touched={touched}
               handleBlur={handleBlur}
-              initialCategory={product.category ?? null}
+              initialCategory={product?.category ?? null}
             />
             <div
               className={`${
@@ -546,7 +546,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                 handleChange={handleChange}
                 errors={errors}
                 touched={touched}
-                initialBrand={product.brand ?? null}
+                initialBrand={product?.brand ?? null}
                 handleBlur={handleBlur}
               />
             </div>
