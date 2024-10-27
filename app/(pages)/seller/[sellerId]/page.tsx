@@ -14,10 +14,15 @@ const SellerListings = ({ params }: { params: { sellerId: string } }) => {
   const seller = data?.getUserByIdOrUsername;
 
   return (
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full lg:pb-10 md:pb-6 pb-4">
-        {loading && <ProductLoader />}
-        <SellerProductList sellerId={seller?.id} />
-      </div>
+      <>
+      {loading && (
+        <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full lg:pb-10 md:pb-6 pb-4">
+         <ProductLoader />
+        </div>
+      )}
+      {seller && <SellerProductList sellerId={seller?.id} />}
+      </>
+      
       
   );
 };

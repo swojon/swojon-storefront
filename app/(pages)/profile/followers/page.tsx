@@ -14,7 +14,7 @@ const Followers = () => {
   const {data: session} = useSession();
   const { data, error, loading } = useListFollowersQuery({
     variables: {
-      userId: session?.user?.id!,
+      usernameOrId: String(session?.user?.id!),
     },
     skip: !session?.user?.id
   });

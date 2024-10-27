@@ -37,7 +37,7 @@ const Wishlists = () => {
       {/* {!!wishListItems || wishListItems?.length == 0(<NotFound />)} */}
       <div className="w-full pt-8 grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-2">
             {wishListItems?.map((card) => (
-              <ProductCard card={card} key={card.id} />
+              <ProductCard product={card} key={card.id} />
             ))}
             {loading && <ProductLoader />}
           </div>

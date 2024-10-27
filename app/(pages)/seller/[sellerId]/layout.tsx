@@ -7,7 +7,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SellerCardLoader from "@/components/Loader/SellerCardLoader";
 import SellerContentLoader from "@/components/Loader/SellerContentLoader";
-import NotFound from "../../404/page";
+import NotFound from "@/components/NotMatched/NotFound";
+
 
 const SellerProfile = ({
   params,

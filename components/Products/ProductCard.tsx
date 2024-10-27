@@ -8,18 +8,19 @@ import { IoMdTime } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
 import FavoriteProduct from "./FavoriteProduct";
 import { useSession } from "next-auth/react";
+import OtherInfo from "./OtherInfo";
 
-const ProductCard = ({ card: listing }: { card: any }) => {
+const ProductCard = ({ product }: { product: any }) => {
   const {data:session, status } = useSession();
   
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[270px] sm:h-[250px] h-[250px] relative overflow-hidden  rounded-lg ">
-        <Link href={`/products/${listing.id}`}>
+        <Link href={`/products/${product.id}`}>
           <Image
             src={
-              listing.media?.length > 0
-                ? listing.media[0].url
+              product.media?.length > 0
+                ? product.media[0].url
                 : "/assets/pro1.png"
             }
             width={500}
@@ -28,18 +29,23 @@ const ProductCard = ({ card: listing }: { card: any }) => {
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />
         </Link>
-        {status === "authenticated" && (
+        {status === "authenticated" && session.user?.id != product.user.id && (
           <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor hover:scale-105 transition ease-in-out delay-150 duration-300">
-            <FavoriteProduct listing={listing} />
+            <FavoriteProduct listing={product} />
+          </div>
+        )}
+        {status === "authenticated" && session?.user?.id === product.user.id && (
+          <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
+            <OtherInfo listing={product}/>
           </div>
         )}
       </div>
 
-      <Link href={`/products/${listing.id}`} className="">
+      <Link href={`/products/${product.id}`} className="">
         <div className="pt-2  pb-1 flex flex-row   items-center font-lexed justify-between">
           <div className="w-[85%] ">
             <h6 className="md:text-xl text-lg font-semibold text-primaryColor capitalize truncate">
-              {listing.title}
+              {product.title}
             </h6>
           </div>
           {/* <div className="flex gap-1  items-center">
@@ -51,21 +57,21 @@ const ProductCard = ({ card: listing }: { card: any }) => {
         <div className="pb-1  flex items-center  text-secondColor ">
           <IoMdTime className="text-sm md:text-base" />
           <span className="text-sm md:text-base ps-1">
-            {timeAgo(listing.dateCreated)}
+            {timeAgo(product.dateCreated)}
           </span>
         </div>
 
         <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-sm md:text-base" />
           <span className="text-sm md:text-base ps-1">
-            {listing.user.username ??
-              listing.user.profile?.name ??
-              listing.user.email.split("@")[0]}
+            {product.user.username ??
+              product.user.profile?.name ??
+              product.user.email.split("@")[0]}
           </span>
         </div>
 
         <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
-          <span className="text-sm pe-0.5">Tk </span> {listing.price}
+          <span className="text-sm pe-0.5">Tk </span> {product.price}
         </span>
       </Link>
 

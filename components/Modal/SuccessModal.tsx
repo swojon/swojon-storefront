@@ -36,7 +36,7 @@ const SuccessModal = ({}: any) => {
       <div className="border-b" />
 
       <p className="text-base font-medium text-secondColor text-center ">
-        Your list is submitted and pending approval.
+        Your product is submitted and pending approval.
       </p>
 
       <div className="flex flex-col gap-3">

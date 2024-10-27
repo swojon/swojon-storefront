@@ -2405,6 +2405,7 @@ export type ListingMedia = {
 export type ListingUpdateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId?: InputMaybe<Scalars['Float']['input']>;
+  condition?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   meetupLocations?: InputMaybe<Array<NominatimLocationInput>>;

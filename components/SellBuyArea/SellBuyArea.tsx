@@ -8,7 +8,7 @@ const SellBuyArea = () => {
   return (
     <div className="md:mt-20 mt-12 custom-container">
       <h2 className="lg:text-4xl text-2xl font-lexed text-center text-primaryColor font-bold">
-        Best Deals Products
+        Experience the Difference
       </h2>
       <div className="pt-7 lg:w-[80%] w-full mx-auto flex flex-wrap justify-center items-center gap-3">
         <div className=" p-3 space-y-3  w-64 h-48  flex flex-col justify-center items-center text-center">
@@ -17,10 +17,10 @@ const SellBuyArea = () => {
             <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#ffebeb] rounded-full"></div>
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
-            Sell and Declutter
+          Browse
           </h6>
           <span className="text-sm md:text-base text-secondColor">
-            Make money while saving the earth
+          Quality finds, better prices
           </span>
         </div>
 
@@ -30,10 +30,10 @@ const SellBuyArea = () => {
             <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#fff8dd] rounded-full 	"></div>
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
-            Best Deal
+          Thrive
           </h6>
           <span className="text-sm md:text-base text-secondColor">
-            It’s also a great deal for the environment
+          Turn clutter into cash
           </span>
         </div>
 
@@ -43,10 +43,10 @@ const SellBuyArea = () => {
             <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#e8ffed] rounded-full"></div>
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
-            Simply Buy and Sell
+          Grow
           </h6>
           <span className="text-sm md:text-base text-secondColor">
-            It’s also a great deal for the environment
+          Your store, your future
           </span>
         </div>
       </div>

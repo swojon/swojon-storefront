@@ -25,7 +25,7 @@ const ProductLists = () => {
       {loading && <ProductLoader />}
       {myProducts &&
         myProducts?.map((product) => (
-          <ProductCard card={product} key={product.id} />
+          <ProductCard product={product} key={product.id} />
           ))}
       
     </div>

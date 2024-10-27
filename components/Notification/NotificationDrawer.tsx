@@ -17,64 +17,68 @@ const NotificationDrawer = () => {
   const [unreadOnly, setUnreadOnly] = useState(true);
 
   return (
-    <section
-      className={`fixed top-0 z-[1000]  w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end
-       ${
-         !isNotificationDrawerOpen
-           ? "translate-x-full origin-right hidden"
-           : "translate-x-0  right-0 block"
-       }
-      `}
-    >
-      <div
-        onClick={() => dispatch(setNotificationDrawerClose())}
-        className="w-full h-full bg-transparent absolute right-0 top-0 z-100 "
-      ></div>
-      <div className="lg:w-[27%] md:w-[45%] mt-auto bg-white notification-container opacity-100   relative transition duration-700 ease-in-out delay-200 shadow-lg rounded-tl-md border-t border-l border-gray-300 pt-6 pb-3 px-4 space-y-3 overflow-hidden">
-        <button
-          className="absolute right-1.5 top-1.5   text-activeColor "
+    <> {isNotificationDrawerOpen ? 
+      (<section
+        className={`fixed top-0 z-[1000]  w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end
+         ${
+           !isNotificationDrawerOpen
+             ? "translate-x-full origin-right hidden"
+             : "translate-x-0  right-0 block"
+         }
+        `}
+      >
+        <div
           onClick={() => dispatch(setNotificationDrawerClose())}
-        >
-          <AiOutlineClose className="text-base" />
-        </button>
-
-        <div className="flex justify-between items-center">
-          <h6 className="text-lg font-lexed text-primaryColor">
-            Notifications
-          </h6>
-          <div className="flex  items-center">
-            <span className="text-xs text-secondColor pe-2">
-              only show unread
-            </span>{" "}
-            <NotificationToggle
-              unreadOnly={unreadOnly}
-              setUnreadOnly={setUnreadOnly}
-            />
+          className="w-full h-full bg-transparent absolute right-0 top-0 z-100 "
+        ></div>
+        <div className="lg:w-[27%] md:w-[45%] mt-auto bg-white notification-container opacity-100   relative transition duration-700 ease-in-out delay-200 shadow-lg rounded-tl-md border-t border-l border-gray-300 pt-6 pb-3 px-4 space-y-3 overflow-hidden">
+          <button
+            className="absolute right-1.5 top-1.5   text-activeColor "
+            onClick={() => dispatch(setNotificationDrawerClose())}
+          >
+            <AiOutlineClose className="text-base" />
+          </button>
+  
+          <div className="flex justify-between items-center">
+            <h6 className="text-lg font-lexed text-primaryColor">
+              Notifications
+            </h6>
+            <div className="flex  items-center">
+              <span className="text-xs text-secondColor pe-2">
+                only show unread
+              </span>{" "}
+              <NotificationToggle
+                unreadOnly={unreadOnly}
+                setUnreadOnly={setUnreadOnly}
+              />
+            </div>
+          </div>
+  
+          {/* <div className="flex items-center gap-3 border-b">
+            <span className="border-b border-activeColor text-sm pb-0.5">
+              unread
+            </span>
+            <span className="border-b border-transparent text-sm pb-0.5 relative">
+              All
+              <div
+                className="absolute -top-1.5 -right-4 bg-white border w-4
+                      h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
+              >
+                <small className="leading-none"> 10</small>
+              </div>
+            </span>
+          </div> */}
+  
+          <div className="space-y-3 overflow-auto">
+            {/* <h6 className="text-base font-lexed text-secondColor">Today</h6> */}
+  
+            <NotificationList unreadOnly={unreadOnly} />
           </div>
         </div>
-
-        {/* <div className="flex items-center gap-3 border-b">
-          <span className="border-b border-activeColor text-sm pb-0.5">
-            unread
-          </span>
-          <span className="border-b border-transparent text-sm pb-0.5 relative">
-            All
-            <div
-              className="absolute -top-1.5 -right-4 bg-white border w-4
-                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
-            >
-              <small className="leading-none"> 10</small>
-            </div>
-          </span>
-        </div> */}
-
-        <div className="space-y-3 overflow-auto">
-          {/* <h6 className="text-base font-lexed text-secondColor">Today</h6> */}
-
-          <NotificationList unreadOnly={unreadOnly} />
-        </div>
-      </div>
-    </section>
+      </section> ) : 
+      <></>}
+    </>
+   
   );
 };
 

@@ -1,13 +1,15 @@
 "use client";
 import { useGetListingQuery } from '@/apollograph/generated';
-import NotFound from '@/app/(pages)/404/page';
 import BreadCrumbsLoader from '@/components/Loader/BreadCrumbsLoader';
+import NotFound from '@/components/NotMatched/NotFound';
 import Uploads from '@/components/Uploads/Uploads'
-import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 import React from 'react'
 
 const ProductEditPage = ({ params }: { params: { slug: string } }) => {
     const productId = parseInt(params.slug, 10);
+    const {data:session, status} = useSession();
+
     const { data, error, loading } = useGetListingQuery({
         variables: {
           id: productId,
@@ -27,13 +29,24 @@ const ProductEditPage = ({ params }: { params: { slug: string } }) => {
           }}/>
         )
       }
+ 
     if (loading){
         return <BreadCrumbsLoader />
     }
   return (
+    <>
+    {product?.user?.id !== session?.user?.id ? <NotFound 
+      title="Oops! You don't have permission to do the operation" 
+      cta={{
+        text: "View My products",
+        link: "/profile/my-ads"
+      }}/> :  
     <section className=" py-10 ">
         <Uploads product={product} />
     </section>
+  }
+  </>
+    
   )
 }
 

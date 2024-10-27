@@ -12,6 +12,8 @@ import {
 import Link from "next/link";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-[#ffffff] custom-container py-5">
       <div className="grid lg:grid-cols-6 md:grid-cols-2 gap-4 py-9">
@@ -170,7 +172,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="border-t border-[#E6E6E6] pt-5 text-center text-secondColor text-sm">
-        © 2023 Swojon, All Rights Reserved
+        © {currentYear} Swojon, All Rights Reserved
       </div>
     </footer>
   );

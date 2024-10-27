@@ -2,7 +2,7 @@
 import { useListListingsQuery } from "@/apollograph/generated";
 import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
-import UserProductCard from "@/components/Products/UserProductCard";
+import ProductCard from "@/components/Products/ProductCard";
 import { useSession } from "next-auth/react";
 
 const ProductLists = () => {
@@ -23,7 +23,7 @@ const ProductLists = () => {
         {loading && <ProductLoader />}
         {myProducts &&
           myProducts?.map((product) => (
-            <UserProductCard card={product} key={product.id} />
+            <ProductCard product={product} key={product.id} />
           ))}
       </div>
 

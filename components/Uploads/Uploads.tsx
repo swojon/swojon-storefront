@@ -100,7 +100,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewBtn, setPreviewBtn] = useState<any>(null);
   const [imageCount, setImageCount] = useState<any>([]);
-
+  const isUpdate = !!product; //mode of the component
   const [createListing, { error: createError, loading: createLoading, data: createData }] = useCreateListingMutation();
   const [updateListing, {error:updateError, loading:updateLoading, data:updateData}] = useUpdateListingMutation();
 
@@ -230,7 +230,10 @@ const Uploads = ({ product }: { product: null | any }) => {
               categoryId: listingData.categoryId,
               brandId: listingData.brandId,
               mediaUrls: listingData.mediaUrls,
-              meetupLocations: listingData.meetupLocations
+              meetupLocations: listingData.meetupLocations,
+              status: "pending",
+              condition : listingData.condition 
+              
               //@todo here
             }
           },
@@ -342,7 +345,7 @@ const Uploads = ({ product }: { product: null | any }) => {
           <div className="flex items-center space-x-1  text-sm   font-medium text-primaryColor">
             <h6>Home</h6>
             <MdKeyboardArrowRight />
-            <h6 className="">List product</h6>
+            <h6 className="">{isUpdate ? "Update Product" : "List product"}</h6>
             {previewBtn === "preview" && (
               <>
                 <MdKeyboardArrowRight />
@@ -387,11 +390,12 @@ const Uploads = ({ product }: { product: null | any }) => {
             <div className="flex lg:flex-row flex-col items-start gap-2 custom-container">
               <div className="flex-1 sm:w-[80%] w-[100%] xl:space-y-4 lg:space-y-4 space-y-3 ">
                 <h5 className="text-2xl text-primaryColor font-lexed font-bold">
-                  List your Item
+                  {isUpdate ? "Update Your Product Details" : "List your Item"}
                 </h5>
 
                 <p className="text-base text-secondColor  font-medium">
-                  Listing an item is unbelievably easy in Swojon.
+                  {isUpdate ? "Updating your product will make it pending approval again. This helps us ensure all listings meet our quality standards."
+                   : "Listing an item is unbelievably easy in Swojon."}
                 </p>
               </div>
 

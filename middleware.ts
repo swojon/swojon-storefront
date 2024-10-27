@@ -5,7 +5,7 @@ export const config = {
         "/chat",
         "/profile",
         "/profile/:path*",
-        // "/messages/:path*",
+        "/edit-product/:path*",
         "/wishlists",
         "/my-ads",
         "/followers",

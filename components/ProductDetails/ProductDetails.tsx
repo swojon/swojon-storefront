@@ -3,18 +3,21 @@ import { useGetListingQuery } from "@/apollograph/generated";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import NotMatched from "../NotMatched/NotMatched";
-import NotFound from "@/app/(pages)/404/page";
+
+import { FiEdit } from "react-icons/fi";
+import { useSession } from "next-auth/react";
+import BreadCrumbsLoader from "../Loader/BreadCrumbsLoader";
+import ProductInfoLoader from "../Loader/ProductInfoLoader";
+import ThumbnailLoader from "../Loader/ThumbnailLoader";
+import ProductInfo from "./ProductInfo";
+import ProductThumbnailSlider from "./ProductThumbnailSlider";
+import NotFound from "../NotMatched/NotFound";
 
 const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
-const DynamicProductInfo = dynamic(() => import("./ProductInfo"), {ssr: false});
-const DynamicProductInfoLoader = dynamic(() => import("../Loader/ProductInfoLoader"), {ssr: false});
-const DynamicBreadCrumbsLoader = dynamic(() => import("../Loader/BreadCrumbsLoader"), {ssr: false});
-const DynamicThumbnailLoader = dynamic(() => import("../Loader/ThumbnailLoader"), {ssr: false});
-const DynamicProductThumbnailSlider = dynamic(() => import("./ProductThumbnailSlider"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(() => import("../Products/FavoriteProduct"), {ssr: false});
 
 const ProductDetails = ({ productId }: { productId: number }) => {
+  const {data:session, status} = useSession();
   const { data, error, loading } = useGetListingQuery({
     variables: {
       id: productId,
@@ -39,7 +42,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
     <section className="custom-container py-6 space-y-6 ">
       <div className="flex md:flex-row flex-col items-center justify-between gap-2">
         {loading ? (
-          <DynamicBreadCrumbsLoader />
+          <BreadCrumbsLoader />
         ) : (
           <div className="flex flex-wrap items-center gap-2 justify-center text-base text-secondColor">
             <Link href="/">
@@ -122,30 +125,37 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             {product?.title}
           </h4>
           <div className="flex items-center gap-3">
-            {/* <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
-              <FiShare2 className="text-lg text-primaryColor" />
-            </button> */}
-
+            {status === "authenticated" && product?.user.id === session?.user?.id && 
+            <Link href={`/edit-product/${product?.id}`} className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+              <FiEdit className="text-lg text-primaryColor" />
+            </Link>
+            }
+            {status === "authenticated" && product?.user.id != session?.user?.id && 
             <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
               <DynamicFavoriteProduct listing={product!} />
             </button>
+            }
+
+            {/* <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+              <FiShare className="text-lg text-primaryColor"/>
+            </button> */}
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:gap-5 gap-2  ">
           <div className="xl:w-[64%] lg:w-[57%]  md:w-[50%] w-full h-full  space-y-6 ">
             {loading ? (
-              <DynamicThumbnailLoader />
+              <ThumbnailLoader />
             ) : (
-              <DynamicProductThumbnailSlider images={product?.media} />
+              <ProductThumbnailSlider images={product?.media} />
             )}
           </div>
           <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full   shadow-xl rounded-md">
             {loading ? (
-              <DynamicProductInfoLoader />
+              <ProductInfoLoader />
             ) : (
               <div className=" w-full h-full">
-                <DynamicProductInfo product={product ?? null} />
+                <ProductInfo product={product ?? null} />
               </div>
             )}
           </div>

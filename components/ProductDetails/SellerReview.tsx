@@ -13,7 +13,7 @@ import SellerPreviewLoader from "../Loader/SellerPreviewLoader";
 const SellerReview = ({ sellerId }: { sellerId: number }) => {
   const { data, loading, error } = useSummaryUserReviewQuery({
     variables: {
-      userId: sellerId,
+      usernameOrId: String(sellerId),
     },
     skip: !sellerId,
   });

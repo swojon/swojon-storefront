@@ -10,7 +10,8 @@ declare module "next-auth" {
         user? : {
             id: number,
             email: string,
-            token: string 
+            token: string,
+            username?:string;   
         }
         passport? : {
             user: {

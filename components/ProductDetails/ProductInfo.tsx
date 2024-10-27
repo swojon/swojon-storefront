@@ -35,7 +35,7 @@ const ProductInfo = ({ product }: { product: any }) => {
           </Link>
 
           <div className="  md:space-y-2 space-y-1">
-            <Link href={`/seller/${product?.user?.id}`}>
+            <Link href={`/seller/${ product?.user?.username ?? product?.user?.id}`}>
               <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
                 {product?.user?.profile?.name ??
                   product?.user?.username ??

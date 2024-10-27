@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const OtherInfo = () => {
+const OtherInfo = ({listing}: {listing: any}) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -29,18 +30,18 @@ const OtherInfo = () => {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href={`/edit-product/${listing.id}`}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-1.5 text-sm"
                   )}
                 >
                   Update
-                </a>
+                </Link>
               )}
             </Menu.Item>
-            <Menu.Item>
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   href="#"
@@ -65,7 +66,7 @@ const OtherInfo = () => {
                   Marked as sold
                 </a>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
           </div>
         </Menu.Items>
       </Transition>
