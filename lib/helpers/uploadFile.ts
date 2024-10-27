@@ -27,7 +27,7 @@ export const uploadFile = async (
         },
       }
     );
-    const url = res.data.url;
+    const url = res.data.secure_url;
     const publicId = res.data.public_id;
     setUploadDone(true);
     setUploading(false);

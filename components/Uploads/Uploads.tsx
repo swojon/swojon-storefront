@@ -264,7 +264,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   async function getFileFromCloudinaryUrl(cloudinaryUrl:string, fileName:string) {
     try {
       // Fetch the file from Cloudinary URL
-      const response = await fetch(cloudinaryUrl);
+      const response = await fetch(cloudinaryUrl.replace("http://", "https://"));
       const blob = await response.blob();
       
       // Create a File object from the blob
