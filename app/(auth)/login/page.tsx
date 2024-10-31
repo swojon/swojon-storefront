@@ -9,6 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { setCookie } from "cookies-next";
 
 import {
+  FaRegEye,
   FaRegEyeSlash,
 } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
@@ -29,6 +30,7 @@ const SignIn: NextPage = (): JSX.Element => {
   const [formUploading, setFormUploading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [googleError, setGoogleError] = useState<string|null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -113,7 +115,7 @@ const SignIn: NextPage = (): JSX.Element => {
               Log in
             </h2>
             <p className="text-sm text-secondColor pt-1">
-              Welcome back! Please enter your details.
+              Your marketplace journey continues here
             </p>
           </div>
 
@@ -145,7 +147,7 @@ const SignIn: NextPage = (): JSX.Element => {
             </label>
             <div className="relative mt-1 rounded-md shadow-sm">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 onChange={handleChange}
@@ -153,16 +155,16 @@ const SignIn: NextPage = (): JSX.Element => {
                 placeholder="Enter your password"
               />
 
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer">
-                <FaRegEyeSlash />
-                {/* <FaRegEye /> */}
-              </span>
+              <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer">
+                {showPassword ?  <FaRegEyeSlash onClick={() => setShowPassword(false)} /> : 
+                <FaRegEye onClick={() => setShowPassword(true)} /> }
+              </button>
             </div>
           </div>
 
           <div className="flex justify-between items-center pb-2">
             <div className="flex items-center space-x-2 ">
-              <div className="flex h-5 items-center">
+              {/* <div className="flex h-5 items-center">
                 <input
                   id="comments"
                   aria-describedby="comments-description"
@@ -176,7 +178,7 @@ const SignIn: NextPage = (): JSX.Element => {
                 className="text-secondColor lg:text-sm text-xs "
               >
                 remember me
-              </label>
+              </label> */}
             </div>
 
             <Link

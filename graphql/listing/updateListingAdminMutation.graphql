@@ -1,0 +1,60 @@
+mutation UpdateListingAdmin($adminlistingData: AdminListingUpdateDTO!, $listingId: Float!) {
+  updateListingAdmin(adminlistingData: $adminlistingData, listingId: $listingId) {
+     brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+        slug
+        parentCategory{
+          id
+          name
+          slug
+        }
+      }
+    datePublished
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      isLive
+      isSold
+      meetupLocations{
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+      user {
+        email
+        id
+        username
+        profile{
+          name
+          avatar
+        }
+      }
+      media{
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+      
+    
+  }
+}

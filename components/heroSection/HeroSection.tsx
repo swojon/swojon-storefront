@@ -20,11 +20,11 @@ const HeroSection = () => {
       <div className="flex md:justify-end hero-height justify-center items-center  custom-container   relative  md:bg-none bg-gradient-to-t from-slate-700">
         <div className="md:text-center text-center space-y-2 md:space-y-4 ">
           <h1 className="lg:text-6xl font-lexed md:text-5xl text-4xl font-bold flex flex-col space-y-2 animate md:text-[#374798] text-white slideInLeft ">
-          Sell Smart, Save More
+          Sell. Build Trust. Grow.
           </h1>
           <p className="md:text-slate-500 text-white xl:text-xl lg:text-lg md:text-base text-sm  sm:flex sm:flex-col   animate--delay-1s slideInLeft2   font-medium">
             <span className="md:block pe-2">
-              Launch Your Store in Minutes, Profit for Years
+            Your first sale is one listing away
             </span>
             {/* <span>
               Where every purchase tells a story of style and savings.

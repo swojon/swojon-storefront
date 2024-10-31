@@ -1545,6 +1545,93 @@ export function useSetListingAvailabilityMutation(baseOptions?: Apollo.MutationH
 export type SetListingAvailabilityMutationHookResult = ReturnType<typeof useSetListingAvailabilityMutation>;
 export type SetListingAvailabilityMutationResult = Apollo.MutationResult<SetListingAvailabilityMutation>;
 export type SetListingAvailabilityMutationOptions = Apollo.BaseMutationOptions<SetListingAvailabilityMutation, SetListingAvailabilityMutationVariables>;
+export const UpdateListingAdminDocument = gql`
+    mutation UpdateListingAdmin($adminlistingData: AdminListingUpdateDTO!, $listingId: Float!) {
+  updateListingAdmin(adminlistingData: $adminlistingData, listingId: $listingId) {
+    brand {
+      id
+      name
+    }
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    datePublished
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+export type UpdateListingAdminMutationFn = Apollo.MutationFunction<UpdateListingAdminMutation, UpdateListingAdminMutationVariables>;
+
+/**
+ * __useUpdateListingAdminMutation__
+ *
+ * To run a mutation, you first call `useUpdateListingAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateListingAdminMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateListingAdminMutation, { data, loading, error }] = useUpdateListingAdminMutation({
+ *   variables: {
+ *      adminlistingData: // value for 'adminlistingData'
+ *      listingId: // value for 'listingId'
+ *   },
+ * });
+ */
+export function useUpdateListingAdminMutation(baseOptions?: Apollo.MutationHookOptions<UpdateListingAdminMutation, UpdateListingAdminMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateListingAdminMutation, UpdateListingAdminMutationVariables>(UpdateListingAdminDocument, options);
+      }
+export type UpdateListingAdminMutationHookResult = ReturnType<typeof useUpdateListingAdminMutation>;
+export type UpdateListingAdminMutationResult = Apollo.MutationResult<UpdateListingAdminMutation>;
+export type UpdateListingAdminMutationOptions = Apollo.BaseMutationOptions<UpdateListingAdminMutation, UpdateListingAdminMutationVariables>;
 export const UpdateListingDocument = gql`
     mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
   updateListing(listingData: $listingData, listingId: $listingId) {
@@ -3554,6 +3641,7 @@ export type UpdateUserDto = {
   isApproved?: InputMaybe<Scalars['Boolean']['input']>;
   isStaff?: InputMaybe<Scalars['Boolean']['input']>;
   isSuperAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  oldPassword?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
@@ -3779,6 +3867,14 @@ export type SetListingAvailabilityMutationVariables = Exact<{
 
 
 export type SetListingAvailabilityMutation = { __typename?: 'Mutation', setListingAvailability: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+
+export type UpdateListingAdminMutationVariables = Exact<{
+  adminlistingData: AdminListingUpdateDto;
+  listingId: Scalars['Float']['input'];
+}>;
+
+
+export type UpdateListingAdminMutation = { __typename?: 'Mutation', updateListingAdmin: { __typename?: 'Listing', datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type UpdateListingMutationVariables = Exact<{
   listingData: ListingUpdateDto;

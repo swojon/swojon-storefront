@@ -95,11 +95,11 @@ const SignUpPage = () => {
 
         <div className="space-y-1 py-3">
           <h2 className=" lg:text-2xl text-lg  font-bold text-primaryColor font-lexed text-center">
-            Sign Up
+            Get Started
           </h2>
 
           <p className="text-sm  text-secondColor pt-1">
-            Welcome back! Please enter your details.
+          Buy or Sell, You're in the Right Place
           </p>
         </div>
         {!isEmailPreferred && (
@@ -153,7 +153,7 @@ const SignUpPage = () => {
         {isEmailPreferred && (
           <button
             onClick={() => setIsEmailPreferred(false)}
-            className="text-lg my-2  text-secondColor text-center rounded-md font-lexed font-bold  bg-white flex justify-center cursor-pointer relative mx-auto"
+            className="text-lg my-4 mt-4  text-secondColor text-center rounded-md font-lexed font-bold  bg-white flex justify-center cursor-pointer relative mx-auto"
           >
             Cancel{" "}
             <span className="absolute left-0 px-1 bottom-0.5 h-[0.5px] w-full bg-secondColor"></span>

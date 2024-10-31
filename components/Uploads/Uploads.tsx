@@ -38,7 +38,7 @@ const formSchema = Yup.object({
   categoryId: Yup.number().positive().notRequired(),
   description: Yup.string().min(5, "Description must be at least 5 characters"),
   // locationId: Yup.number().positive().required(),
-  price: Yup.number().positive().integer().required("Min price needed"),
+  price: Yup.number().integer().required("Min price needed").test("PRICE_TEST", "Price can't be negative", (price) => price >= 0),
   condition: Yup.string().required("Item condition is required"),
   dealingMethod: Yup.string().required("Dealing Method is required"),
   deliveryCharge: Yup.number().notRequired(),
@@ -231,7 +231,6 @@ const Uploads = ({ product }: { product: null | any }) => {
               brandId: listingData.brandId,
               mediaUrls: listingData.mediaUrls,
               meetupLocations: listingData.meetupLocations,
-              status: "pending",
               condition : listingData.condition 
               
               //@todo here
@@ -285,9 +284,6 @@ const Uploads = ({ product }: { product: null | any }) => {
   }
   
 
-  console.log("errors", errors);
-  //load images from the media if already present
-  //load images from the media if already present
   useEffect( ()=> {
     const initializeFiles = async () => {
       const filePromises = product.media.map(({ url }: {url: string}) => 
@@ -298,7 +294,6 @@ const Uploads = ({ product }: { product: null | any }) => {
     };
     
     if (product?.media){
-      console.log("Getting products")
       console.log(product.mediaUrls)
       initializeFiles();
 
@@ -312,8 +307,8 @@ const Uploads = ({ product }: { product: null | any }) => {
       // console.log("value", value.isArray)
 
       if (Array.isArray(value) && value.length === 0) return false;
-
-      if (!!value) return true;
+      
+      if (!!value ) return true;
 
       return false;
     }).length;
@@ -535,7 +530,7 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div
               className={`${
-                values.price && !errors.price
+                values.price >= 0 && !errors.price
                   ? "opacity-100 "
                   : "opacity-50 pointer-events-none"
               }`}

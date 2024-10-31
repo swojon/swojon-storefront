@@ -271,7 +271,7 @@ export default function Navbar({ border }: { border: any }) {
                         </div>
                       </Menu.Items> */}
                       <div className="absolute right-0 z-[150] mt-2 w-48 origin-top-right rounded-xl bg-white  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none  cursor-pointer py-1">
-                        <Link href="/profile">
+                        <Link href="/profile?sidebar=hide">
                           <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
                             My Profile
                           </div>

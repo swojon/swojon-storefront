@@ -109,7 +109,7 @@ const ResNavbarDrawer = () => {
               </div>
             </button>
 
-            <Link href="/profile" onClick={() => dispatch(setNavClose())}>
+            <Link href="/profile?sidebar=hide" onClick={() => dispatch(setNavClose())}>
               <FaRegUser className="text-2xl" />
             </Link>
           </footer>
