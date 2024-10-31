@@ -99,7 +99,7 @@ const SignUpPage = () => {
           </h2>
 
           <p className="text-sm  text-secondColor pt-1">
-          Buy or Sell, You're in the Right Place
+          {"Buy or Sell, You're in the Right Place"}
           </p>
         </div>
         {!isEmailPreferred && (

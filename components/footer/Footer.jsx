@@ -31,7 +31,7 @@ const Footer = () => {
             />
           </Link>
           <p className="text-sm text-secondColor">
-          "Stay connected with us! Follow our social media channels for updates and the latest news."
+          Stay connected with us! Follow our social media channels for updates and the latest news.
           </p>
 
           {/* <div className="flex space-x-2">
