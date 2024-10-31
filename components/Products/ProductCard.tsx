@@ -39,11 +39,11 @@ const ProductCard = ({ product }: { product: any }) => {
             <OtherInfo listing={product}/>
           </div>
         )}
-        {!product.isAvailable  && !product.isSold &&(
+        {/* {!product.isAvailable  && !product.isSold &&(
           <div className="absolute left-0 top-0 m-3 w-24 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
             Unavailable
           </div>
-        )}
+        )} */}
         {product.isSold &&(
           <div className="absolute left-0 top-0 m-3 w-16 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
           Sold
