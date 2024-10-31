@@ -11,18 +11,17 @@ const DynamicCategoryCardSlider = dynamic(() => import("./CategoryCardSlider"), 
 
 const FeaturedCategoriesBox = () => {
   const isMobile = useIsMobile()
-  const { data, loading, error, networkStatus } = useListCategoriesQuery({
+  const { data, loading, error } = useListCategoriesQuery({
     variables: {
       limit: 6,
       filters: {
         isFeatured: [true],
       },
     },
-    notifyOnNetworkStatusChange: true,
+   
     nextFetchPolicy: "cache-first",
   });
 
-  console.log(data?.listCategories.items);
 
   return (
     <div className="md:mt-20 mt-12  custom-container space-y-10">
@@ -50,7 +49,7 @@ const FeaturedCategoriesBox = () => {
       </div>
       ) : 
       (<div className="md:hidden">
-        {data && <DynamicCategoryCardSlider data={data} />}
+        {data?.listCategories.items && <DynamicCategoryCardSlider categories={data?.listCategories.items} />}
       </div>)
       }
     </div>

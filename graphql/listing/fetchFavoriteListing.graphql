@@ -19,6 +19,7 @@ query ListFavoriteListing($userId: Float!) {
       }
     
       dateCreated
+      datePublished
       description
       id
       isApproved

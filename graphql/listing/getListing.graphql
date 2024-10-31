@@ -16,7 +16,7 @@ query GetListing($id: Float, $name: String) {
           slug
         }
       }
-    
+    datePublished
       dateCreated
       description
       id

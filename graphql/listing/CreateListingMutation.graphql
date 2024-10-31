@@ -17,7 +17,7 @@ mutation CreateListing($listingData: ListingCreateDTO!) {
           slug
         }
       }
-    
+    datePublished
       dateCreated
       description
       id

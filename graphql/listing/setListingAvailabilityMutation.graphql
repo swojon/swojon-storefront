@@ -1,7 +1,7 @@
-query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: String, $startingAfter: String, $orderBy: String) {
-  listListings(filters: $filters, limit: $limit, ending_before: $endingBefore, starting_after: $startingAfter, orderBy: $orderBy) {
-    items {
-      brand {
+
+mutation SetListingAvailability($listingData: MarkAsUnavailableDTO!, $setListingAvailabilityListingId2: Float!) {
+  setListingAvailability(listingData: $listingData, listingId: $setListingAvailabilityListingId2) {
+         brand {
         id
         name
         logo
@@ -17,7 +17,7 @@ query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: S
           slug
         }
       }
-    datePublished
+      datePublished
       dateCreated
       description
       id
@@ -59,10 +59,4 @@ query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: S
       favoriteStatus
       
     }
-    hasMore
-    count
-    beforeCursor
-    afterCursor
-   
   }
-}

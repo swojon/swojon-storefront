@@ -8,9 +8,7 @@ import {request} from 'graphql-request';
 
 export async function generateMetadata  ({ params }: { params: { slug: string } }) :Promise<Metadata>{
   let post ;
-  const productId =  parseInt(params.slug, 10)
-  console.log("url", process.env.NEXT_PUBLIC_GRAPHQL_URL)
-  
+  const productId =  parseInt(params.slug, 10) 
   try {
     post = await request({
       url : process.env.NEXT_PUBLIC_GRAPHQL_URL!,
@@ -22,7 +20,6 @@ export async function generateMetadata  ({ params }: { params: { slug: string } 
   } catch (error) {
     console.log(post)
   }
-  console.log("Got post", post)
   return {
     // @ts-ignore
     title: post?.getListing?.title ?? "Not Found",

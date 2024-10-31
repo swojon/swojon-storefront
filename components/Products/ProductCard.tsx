@@ -12,7 +12,7 @@ import OtherInfo from "./OtherInfo";
 
 const ProductCard = ({ product }: { product: any }) => {
   const {data:session, status } = useSession();
-  
+
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
       <div className="md:h-[270px] sm:h-[250px] h-[250px] relative overflow-hidden  rounded-lg ">
@@ -34,13 +34,23 @@ const ProductCard = ({ product }: { product: any }) => {
             <FavoriteProduct listing={product} />
           </div>
         )}
-        {status === "authenticated" && session?.user?.id === product.user.id && (
+        {status === "authenticated" && session?.user?.id === product.user.id &&  !product.isSold && (
           <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
             <OtherInfo listing={product}/>
           </div>
         )}
+        {!product.isAvailable  && !product.isSold &&(
+          <div className="absolute left-0 top-0 m-3 w-24 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
+            Unavailable
+          </div>
+        )}
+        {product.isSold &&(
+          <div className="absolute left-0 top-0 m-3 w-16 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
+          Sold
+        </div>
+        )}
       </div>
-
+      
       <Link href={`/products/${product.id}`} className="">
         <div className="pt-2  pb-1 flex flex-row   items-center font-lexed justify-between">
           <div className="w-[85%] ">

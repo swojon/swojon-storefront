@@ -6,7 +6,6 @@ import { useAddFollowMutation, useRemoveFollowMutation } from '@/apollograph/gen
 import Link from 'next/link'
 
 export const FollowUserCard = ({follower}: {follower:any}) => {
-  console.log("follower", follower)
   const dispatch = useDispatch()
   const authState = useSelector((state: any) => state.auth)
   const [Unfollow, {data: unfollowData, loading: unfollowLoading, error: unfollowError}] = useRemoveFollowMutation()

@@ -16,7 +16,7 @@ mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
           slug
         }
       }
-    
+    datePublished
       dateCreated
       description
       id

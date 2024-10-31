@@ -16,34 +16,16 @@ import "./resNavbar.css";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import NotificationContent from "../Notification/NotificationContent";
+import ResNavbarCategoryPanel from "./ResNavbarCategoryPanel";
 
 const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
   const isNavOpen = useSelector((state: any) => state.nav.open);
   const { data, loading, error } = useListCategoriesQuery();
-  const categories = data?.listCategories.items;
-  const parentCategories = categories?.filter(
-    (item) => item.parentCategory == null
-  );
 
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [openPanel, setOpenPanel] = useState<any>(null);
   // const [subCategories, setSubCategories] = useState<any>([]);
-  // const [visibleCategories, setVisibleCategories] = useState(4);
-
-  const handleMouseEnter = (category: any) => {
-    console.log("category hovered", category);
-    setCurrentCategory(category);
-  };
-
-  // if (currentCategory === null && !!parentCategories) {
-  //   console.log("Setting initial selected categtory");
-  //   setCurrentCategory(parentCategories[0]);
-  // }
-
-  // const handleArrowClick = () => {
-  //   setVisibleCategories((prevVisibleCategories) => prevVisibleCategories + 5);
-  // };
 
   return (
     <div
@@ -66,7 +48,20 @@ const ResNavbarDrawer = () => {
         </button>
         <div className="relative h-full">
           <div className="flex flex-wrap  border-b px-5 py-4 items-center justify-between font-semibold  gap-3">
-            <Image
+           {currentCategory ?
+           <div className="flex pt-3 items-center gap-3 w-full">
+            <span
+              onClick={() => setCurrentCategory(null)}
+              className="absolute left-5 text-base text-primaryColor font-lexed font-medium cursor-pointer"
+            >
+              <MdArrowBackIos />
+            </span>
+            <span className="w-full text-center text-base text-primaryColor font-lexed font-medium">
+              {currentCategory?.name}
+            </span>
+          </div>
+          :<>
+           <Image
               src="/assets/SWlogi.svg"
               alt="logo"
               width={100}
@@ -82,35 +77,15 @@ const ResNavbarDrawer = () => {
                 List Item
               </button>
             </Link>
+          </>}
           </div>
 
-          <div className="h-[77dvh] custom-scroll overflow-y-auto pb-5">
-            {parentCategories?.map((item) => (
-              <div
-                className="flex justify-between items-center lg:px-8 md:px-4 px-3 my-4  cursor-pointer "
-                key={item.id}
-                onClick={() => handleMouseEnter(item)}
-              >
-                <div className="grid grid-cols-3 items-center  w-[90%] ">
-                  <div className="lg:h-16 lg:w-16 md:h-12 md:w-12 h-12 w-12 rounded-full border ">
-                    <Image
-                      src={item.banner ?? ""}
-                      height={300}
-                      width={300}
-                      alt="banner"
-                      className="w-full h-full object-cover rounded-full "
-                    />
-                  </div>
-                  <span
-                    className={` py-2 text-secondColor  capitalize font-lexed rounded-sm lg:text-lg md:text-base sm:text-sm text-sm font-medium  col-span-2`}
-                  >
-                    {item.name}
-                  </span>
-                </div>
-
-                <MdKeyboardArrowRight className="text-lg text-gray-400" />
-              </div>
-            ))}
+          <div className="h-[77dvh] custom-scroll overflow-y-auto pb-5 px-5">
+            {data?.listCategories.items && <ResNavbarCategoryPanel 
+            categories={data.listCategories.items}
+            currentCategory={currentCategory}
+            setCurrentCategory={setCurrentCategory}/>
+            }
           </div>
 
           <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
@@ -140,7 +115,7 @@ const ResNavbarDrawer = () => {
           </footer>
         </div>
 
-        <div
+        {/* <div
           className={`absolute h-full w-full bg-white right-0 top-0 transition  duration-100 ease-in-out ${
             openPanel !== null ? "translate-x-0   " : "-translate-x-full "
           }`}
@@ -160,74 +135,9 @@ const ResNavbarDrawer = () => {
           <div className="p-6 custom-scroll overflow-y-auto h-full">
             <NotificationContent />
           </div>
-        </div>
+        </div> */}
 
-        <div
-          className={`absolute h-full w-full bg-white right-0 top-0 transition  duration-100 ease-in-out ${
-            currentCategory !== null ? "translate-x-0   " : "-translate-x-full "
-          }`}
-        >
-          <div className="flex border-b px-5 py-4 items-center gap-3 w-full">
-            <span
-              onClick={() => setCurrentCategory(null)}
-              className="absolute left-5 text-base text-primaryColor font-lexed font-medium cursor-pointer"
-            >
-              <MdArrowBackIos />
-            </span>
-            <span className="w-full text-center text-base text-primaryColor font-lexed font-medium">
-              {currentCategory?.name}
-            </span>
-          </div>
-
-          <div className="md:p-6 p-2.5 custom-scroll overflow-y-auto h-full">
-            {/* second category */}
-            <h6 className="lg:text-lg md:text-base text-sm text-secondColor font-lexed flex  items-center">
-              <BsFillGrid3X3GapFill className="me-2" /> Shop by category
-            </h6>
-
-            {currentCategory && (
-              <div className="flex flex-wrap gap-5 pt-4 pb-6 ">
-                {/* View All card */}
-
-                <Link href={`/categories/${currentCategory.slug}`}>
-                  <div className=" w-[110px] rounded-lg relative   transition ease-in-out delay-150 duration-300">
-                    <div className="w-full h-[110px] overflow-hidden bg-gray-100 flex items-center justify-center relative hover:scale-105 rounded-md">
-                      <HiOutlineSquaresPlus className="text-2xl text-activeColor " />
-                    </div>
-                    <span className="pt-2 text-primaryColor text-xs font-medium  w-full flex justify-center items-center ">
-                      <span className="truncate pr-1">View All</span>
-                    </span>
-                  </div>
-                </Link>
-
-                {categories!
-                  .filter(
-                    (item) => item.parentCategory?.id === currentCategory.id
-                  )
-                  .map((item: any) => (
-                    <div key={`sub${item.id}`} className="  ">
-                      <div className="w-[110px]  rounded-md relative      ">
-                        <div className="w-full h-[110px] hover:scale-105 transition ease-in-out delay-150 duration-300 relative  rounded-md ">
-                          <Image
-                            src={item.banner ?? "https://picsum.photos/200/300"}
-                            height={300}
-                            width={300}
-                            alt="banner"
-                            className="w-full h-full object-cover rounded-md "
-                          />{" "}
-                          <span className="absolute left-0 top-0 w-full h-full  rounded-md opacity-bg "></span>
-                        </div>
-
-                        <span className="pt-2 text-primaryColor text-xs font-medium  w-full flex justify-center items-center ">
-                          <span className="truncate pr-1">{item.name}</span>
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
-        </div>
+      
       </div>
     </div>
   );

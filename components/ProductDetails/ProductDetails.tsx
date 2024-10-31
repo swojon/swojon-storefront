@@ -26,7 +26,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   });
   const product = data?.getListing;
 
-  console.log("pro", product);
+
   if (!loading && !data ){
     return (
       <NotFound 

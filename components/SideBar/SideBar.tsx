@@ -17,7 +17,7 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 
 import toast from "react-hot-toast";
 import { deleteCookie } from "cookies-next";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -64,16 +64,10 @@ const data = [
 const SideBar = () => {
   
   const pathname = usePathname();
-  const {data: session} = useSession();
   const isMobile = useIsMobile();
  
   const handleSignOut = () => {
-    console.log("signing out");
-    toast.loading("signing you out", { id: "signInToast" });
-    // dispatch(setUserLogout(true));
-    deleteCookie("authorization");
-    toast.success("Signed out", { id: "signInToast" });
-    window.location.reload();
+    signOut()
   };
   
   return (

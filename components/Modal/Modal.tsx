@@ -20,7 +20,9 @@ const DynamicAdditionalDetail = dynamic(()=> import("./AdditionalDetail"), {ssr:
 const DynamicFilterModal = dynamic(()=> import("./FilterModal"), {ssr: false})
 const DynamicUploadAvatarModal = dynamic(()=> import("./UploadAvatarModal"), {ssr: false})
 const DynamicSendSellerMessage = dynamic(()=> import("./SendSellerMessage"), {ssr: false})
+const DynamicRemoveProductModal = dynamic(()=>import("./RemoveProductModal"), {ssr: false})
 
+const REMOVEPRODUCTMODAL = "removeProductModal";
 const SENDOFFERMODAL = "sendOfferModal";
 const CHATMODAL = "chatModal";
 const SENDSELLERCHAT = "sendSellerModal"
@@ -108,6 +110,12 @@ export default function Modal() {
                   {modalStack[modalStack.length - 1]?.body ===
                     UPLOADIMAGEMODAL && (
                     <DynamicUploadAvatarModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                   {modalStack[modalStack.length - 1]?.body ===
+                    REMOVEPRODUCTMODAL && (
+                    <DynamicRemoveProductModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

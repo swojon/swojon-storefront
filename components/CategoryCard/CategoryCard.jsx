@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ImArrowRight2 } from "react-icons/im";
 
 const CategoryCard = () => {
+   
   return (
     <div className="custom-container grid grid-cols-5 gap-5">
       {categoryData.data.listCategories.items.map((item) => (

@@ -19,7 +19,10 @@ const AdditionalDetail = ({ props }: { props: any }) => {
         </button>
       </div>
 
-      <pre className="font-lexed text-base text-justify text-primaryColor py-2.5  ">
+      <pre style={{
+        whiteSpace: "pre-wrap",
+        wordBreak: "keep-all"
+      }} className="font-lexed text-base text-justify text-primaryColor py-2.5  ">
         {props?.description}
       </pre>
     </section>

@@ -1,7 +1,6 @@
-query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: String, $startingAfter: String, $orderBy: String) {
-  listListings(filters: $filters, limit: $limit, ending_before: $endingBefore, starting_after: $startingAfter, orderBy: $orderBy) {
-    items {
-      brand {
+mutation RemoveListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
+  updateListing(listingData: $listingData, listingId: $listingId) {
+    brand {
         id
         name
         logo
@@ -59,10 +58,4 @@ query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: S
       favoriteStatus
       
     }
-    hasMore
-    count
-    beforeCursor
-    afterCursor
-   
-  }
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import "./CategoryCard.css";
 
 const CategoryCard2 = ({ item }) => {
+
   return (
     <Link
       href={`/categories/${item.slug}`}

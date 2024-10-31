@@ -31,7 +31,7 @@ const Footer = () => {
             />
           </Link>
           <p className="text-sm text-secondColor">
-            Download our mobile app. Get all <br /> service at a glance.
+          "Stay connected with us! Follow our social media channels for updates and the latest news."
           </p>
 
           {/* <div className="flex space-x-2">
@@ -49,20 +49,20 @@ const Footer = () => {
 
           <div className="flex space-x-2">
             <Link
-              href="/"
+              href="https://x.com/WeAreSwojon"
               className="p-2 border  border-gray-200 rounded-full hover:bg-activeColor hover:text-whiteColor"
             >
               <BiLogoTwitter />
             </Link>
             <Link
-              href="https://www.facebook.com/groups/396774799601040/?ref=share_group_link"
+              href="https://www.facebook.com/WeAreSwojon/"
               className="p-2 border border-gray-200 rounded-full hover:bg-activeColor hover:text-whiteColor"
               target="_blank"
             >
               <BiLogoFacebook />
             </Link>
             <Link
-              href="/"
+              href="https://www.instagram.com/weareswojon/"
               className="p-2 border border-gray-200 rounded-full hover:bg-activeColor hover:text-whiteColor"
             >
               <BiLogoInstagram />

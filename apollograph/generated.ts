@@ -902,6 +902,7 @@ export const CreateListingDocument = gql`
         slug
       }
     }
+    datePublished
     dateCreated
     description
     id
@@ -991,6 +992,7 @@ export const ListFavoriteListingDocument = gql`
         }
       }
       dateCreated
+      datePublished
       description
       id
       isApproved
@@ -1087,6 +1089,7 @@ export const ListListingsDocument = gql`
           slug
         }
       }
+      datePublished
       dateCreated
       description
       id
@@ -1185,6 +1188,7 @@ export const GetListingDocument = gql`
         slug
       }
     }
+    datePublished
     dateCreated
     description
     id
@@ -1256,6 +1260,95 @@ export function useGetListingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetListingQueryHookResult = ReturnType<typeof useGetListingQuery>;
 export type GetListingLazyQueryHookResult = ReturnType<typeof useGetListingLazyQuery>;
 export type GetListingQueryResult = Apollo.QueryResult<GetListingQuery, GetListingQueryVariables>;
+export const RemoveListingDocument = gql`
+    mutation RemoveListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
+  updateListing(listingData: $listingData, listingId: $listingId) {
+    brand {
+      id
+      name
+      logo
+    }
+    condition
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    datePublished
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+export type RemoveListingMutationFn = Apollo.MutationFunction<RemoveListingMutation, RemoveListingMutationVariables>;
+
+/**
+ * __useRemoveListingMutation__
+ *
+ * To run a mutation, you first call `useRemoveListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeListingMutation, { data, loading, error }] = useRemoveListingMutation({
+ *   variables: {
+ *      listingData: // value for 'listingData'
+ *      listingId: // value for 'listingId'
+ *   },
+ * });
+ */
+export function useRemoveListingMutation(baseOptions?: Apollo.MutationHookOptions<RemoveListingMutation, RemoveListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveListingMutation, RemoveListingMutationVariables>(RemoveListingDocument, options);
+      }
+export type RemoveListingMutationHookResult = ReturnType<typeof useRemoveListingMutation>;
+export type RemoveListingMutationResult = Apollo.MutationResult<RemoveListingMutation>;
+export type RemoveListingMutationOptions = Apollo.BaseMutationOptions<RemoveListingMutation, RemoveListingMutationVariables>;
 export const SearchListingsDocument = gql`
     query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $limit: Float, $startingAfter: String, $endingBefore: String, $orderBy: String) {
   searchListings(
@@ -1283,6 +1376,7 @@ export const SearchListingsDocument = gql`
           slug
         }
       }
+      datePublished
       dateCreated
       description
       id
@@ -1359,6 +1453,98 @@ export function useSearchListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchListingsQueryHookResult = ReturnType<typeof useSearchListingsQuery>;
 export type SearchListingsLazyQueryHookResult = ReturnType<typeof useSearchListingsLazyQuery>;
 export type SearchListingsQueryResult = Apollo.QueryResult<SearchListingsQuery, SearchListingsQueryVariables>;
+export const SetListingAvailabilityDocument = gql`
+    mutation SetListingAvailability($listingData: MarkAsUnavailableDTO!, $setListingAvailabilityListingId2: Float!) {
+  setListingAvailability(
+    listingData: $listingData
+    listingId: $setListingAvailabilityListingId2
+  ) {
+    brand {
+      id
+      name
+      logo
+    }
+    condition
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    datePublished
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+    favoriteCount
+    favoriteStatus
+  }
+}
+    `;
+export type SetListingAvailabilityMutationFn = Apollo.MutationFunction<SetListingAvailabilityMutation, SetListingAvailabilityMutationVariables>;
+
+/**
+ * __useSetListingAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useSetListingAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetListingAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setListingAvailabilityMutation, { data, loading, error }] = useSetListingAvailabilityMutation({
+ *   variables: {
+ *      listingData: // value for 'listingData'
+ *      setListingAvailabilityListingId2: // value for 'setListingAvailabilityListingId2'
+ *   },
+ * });
+ */
+export function useSetListingAvailabilityMutation(baseOptions?: Apollo.MutationHookOptions<SetListingAvailabilityMutation, SetListingAvailabilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetListingAvailabilityMutation, SetListingAvailabilityMutationVariables>(SetListingAvailabilityDocument, options);
+      }
+export type SetListingAvailabilityMutationHookResult = ReturnType<typeof useSetListingAvailabilityMutation>;
+export type SetListingAvailabilityMutationResult = Apollo.MutationResult<SetListingAvailabilityMutation>;
+export type SetListingAvailabilityMutationOptions = Apollo.BaseMutationOptions<SetListingAvailabilityMutation, SetListingAvailabilityMutationVariables>;
 export const UpdateListingDocument = gql`
     mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
   updateListing(listingData: $listingData, listingId: $listingId) {
@@ -1378,6 +1564,7 @@ export const UpdateListingDocument = gql`
         slug
       }
     }
+    datePublished
     dateCreated
     description
     id
@@ -2046,6 +2233,14 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AdminListingUpdateDto = {
+  deleteReason?: InputMaybe<Scalars['String']['input']>;
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  rejectReason?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Brand = {
   __typename?: 'Brand';
   categories?: Maybe<Array<Category>>;
@@ -2347,12 +2542,15 @@ export type Listing = {
   communities: Array<Community>;
   condition?: Maybe<Scalars['String']['output']>;
   dateCreated?: Maybe<Scalars['DateTime']['output']>;
+  datePublished?: Maybe<Scalars['DateTime']['output']>;
   dealingMethod?: Maybe<Scalars['String']['output']>;
+  deleteReason?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   favoriteCount?: Maybe<Scalars['Float']['output']>;
   favoriteStatus?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Float']['output'];
   isApproved?: Maybe<Scalars['Boolean']['output']>;
+  isAvailable?: Maybe<Scalars['Boolean']['output']>;
   isDeleted?: Maybe<Scalars['Boolean']['output']>;
   isFeatured?: Maybe<Scalars['Boolean']['output']>;
   isLive?: Maybe<Scalars['Boolean']['output']>;
@@ -2406,11 +2604,15 @@ export type ListingUpdateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId?: InputMaybe<Scalars['Float']['input']>;
   condition?: InputMaybe<Scalars['String']['input']>;
+  deleteReason?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isSold?: InputMaybe<Scalars['Boolean']['input']>;
+  isSoldHere?: InputMaybe<Scalars['Boolean']['input']>;
   mediaUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   meetupLocations?: InputMaybe<Array<NominatimLocationInput>>;
   price?: InputMaybe<Scalars['Float']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2457,6 +2659,11 @@ export type LocationUpdateDto = {
 export type Locations = {
   __typename?: 'Locations';
   items: Array<Location>;
+};
+
+export type MarkAsUnavailableDto = {
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  isRelist?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type MemberCommunityList = {
@@ -2537,6 +2744,8 @@ export type Mutation = {
   resetRequest: ResetStatus;
   /** Send Chat Message */
   sendChatMessage: Chat;
+  /** Admin update listing */
+  setListingAvailability: Listing;
   /** User signup */
   signup: User;
   /** Deduct Point */
@@ -2551,6 +2760,8 @@ export type Mutation = {
   updateCommunityMember: CommunityMember;
   /** Update Listing */
   updateListing: Listing;
+  /** Only Admin will be able to update those information */
+  updateListingAdmin: Listing;
   /** Update Listing/Seller Review */
   updateListingReview: Review;
   /** Update Location */
@@ -2734,6 +2945,12 @@ export type MutationSendChatMessageArgs = {
 };
 
 
+export type MutationSetListingAvailabilityArgs = {
+  listingData: MarkAsUnavailableDto;
+  listingId: Scalars['Float']['input'];
+};
+
+
 export type MutationSignupArgs = {
   userData: CreateUserDto;
 };
@@ -2770,6 +2987,12 @@ export type MutationUpdateCommunityMemberArgs = {
 
 export type MutationUpdateListingArgs = {
   listingData: ListingUpdateDto;
+  listingId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateListingAdminArgs = {
+  adminlistingData: AdminListingUpdateDto;
   listingId: Scalars['Float']['input'];
 };
 
@@ -3501,14 +3724,14 @@ export type CreateListingMutationVariables = Exact<{
 }>;
 
 
-export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type ListFavoriteListingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, datePublished?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
@@ -3519,7 +3742,7 @@ export type ListListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
@@ -3527,7 +3750,15 @@ export type GetListingQueryVariables = Exact<{
 }>;
 
 
-export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+
+export type RemoveListingMutationVariables = Exact<{
+  listingData: ListingUpdateDto;
+  listingId: Scalars['Float']['input'];
+}>;
+
+
+export type RemoveListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
@@ -3539,7 +3770,15 @@ export type SearchListingsQueryVariables = Exact<{
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null }> } };
+
+export type SetListingAvailabilityMutationVariables = Exact<{
+  listingData: MarkAsUnavailableDto;
+  setListingAvailabilityListingId2: Scalars['Float']['input'];
+}>;
+
+
+export type SetListingAvailabilityMutation = { __typename?: 'Mutation', setListingAvailability: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type UpdateListingMutationVariables = Exact<{
   listingData: ListingUpdateDto;
@@ -3547,7 +3786,7 @@ export type UpdateListingMutationVariables = Exact<{
 }>;
 
 
-export type UpdateListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+export type UpdateListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
 
 export type SearchLocationQueryVariables = Exact<{
   nominatimQuery: NominatimSearchDto;

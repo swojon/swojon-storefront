@@ -2,12 +2,16 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { setModalOpen } from "@/app/redux/modalSlice";
+import { useDispatch } from "react-redux";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 const OtherInfo = ({listing}: {listing: any}) => {
+  const dispatch = useDispatch();
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -28,6 +32,7 @@ const OtherInfo = ({listing}: {listing: any}) => {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
+          
             <Menu.Item>
               {({ active }) => (
                 <Link
@@ -41,32 +46,29 @@ const OtherInfo = ({listing}: {listing: any}) => {
                 </Link>
               )}
             </Menu.Item>
-            {/* <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-1.5 text-sm"
-                  )}
-                >
-                  Remove
-                </a>
-              )}
-            </Menu.Item>
+            {!listing.isSold && 
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <button
+                onClick={() =>
+                  dispatch(
+                    setModalOpen({
+                      title: "this is a modal",
+                      body: "removeProductModal",
+                      props: { productId: listing.id, product: listing },
+                    })
+                  )
+                }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-1.5 text-sm"
+                    "block px-4 py-1.5 text-sm w-full text-start"
                   )}
                 >
-                  Marked as sold
-                </a>
+                  Change Status
+                </button>
               )}
-            </Menu.Item> */}
+            </Menu.Item>
+            }
           </div>
         </Menu.Items>
       </Transition>
