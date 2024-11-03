@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { LuUser2 } from "react-icons/lu";
 import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
+import NotificationBell from "./NotificationBell";
 
 const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {ssr: false});
 const DynamicResponsiveNavBar = dynamic(() => import( "./ResponsiveNavBar"), {ssr: false});
@@ -126,25 +127,7 @@ export default function Navbar({ border }: { border: any }) {
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
                 {status === "authenticated" && (
-                  // <NotificationDropDown border={border} />
-                  <div
-                    className="relative cursor-pointer"
-                    onClick={() => dispatch(setNotificationDrawerOpen())}
-                  >
-                    <FaRegBell
-                      className={`text-lg  ${
-                        border === "border"
-                          ? "text-primaryColor"
-                          : "text-primaryColor"
-                      }`}
-                    />
-                    {/* <div
-                      className="absolute -top-2 -right-1 bg-white border w-4
-                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
-                    >
-                      <small className="leading-none"> 10</small>
-                    </div> */}
-                  </div>
+                  <NotificationBell border={border} handleBellClick={() => dispatch(setNotificationDrawerOpen())} />
                 )}
                 {status === "authenticated" && (
                   <Link href="/chat">

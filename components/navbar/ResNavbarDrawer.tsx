@@ -17,6 +17,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import NotificationContent from "../Notification/NotificationContent";
 import ResNavbarCategoryPanel from "./ResNavbarCategoryPanel";
+import NotificationBell from "./NotificationBell";
 
 const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
@@ -96,18 +97,10 @@ const ResNavbarDrawer = () => {
               <FaRegHeart className="text-2xl" />
             </Link>
 
-            <button
-              className="relative cursor-pointer"
-              onClick={() => setOpenPanel(true)}
-            >
-              <FaRegBell className={`text-2xl  `} />
-              <div
-                className="absolute -top-2 -right-1 bg-white border w-4
-                    h-4 text-[8px] text-secondColor rounded-full flex items-center justify-center "
-              >
-                <small className="leading-none"> 10</small>
-              </div>
-            </button>
+            <NotificationBell
+              border={""} 
+              handleBellClick={() => setOpenPanel(true)}
+            />
 
             <Link href="/profile?sidebar=hide" onClick={() => dispatch(setNavClose())}>
               <FaRegUser className="text-2xl" />

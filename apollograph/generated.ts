@@ -1823,6 +1823,44 @@ export function useListNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ListNotificationsQueryHookResult = ReturnType<typeof useListNotificationsQuery>;
 export type ListNotificationsLazyQueryHookResult = ReturnType<typeof useListNotificationsLazyQuery>;
 export type ListNotificationsQueryResult = Apollo.QueryResult<ListNotificationsQuery, ListNotificationsQueryVariables>;
+export const NewNotificationDocument = gql`
+    subscription NewNotification {
+  newNotifaction {
+    content
+    context
+    dateCreated
+    read
+    type
+    id
+    user {
+      email
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useNewNotificationSubscription__
+ *
+ * To run a query within a React component, call `useNewNotificationSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewNotificationSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewNotificationSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewNotificationSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewNotificationSubscription, NewNotificationSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewNotificationSubscription, NewNotificationSubscriptionVariables>(NewNotificationDocument, options);
+      }
+export type NewNotificationSubscriptionHookResult = ReturnType<typeof useNewNotificationSubscription>;
+export type NewNotificationSubscriptionResult = Apollo.SubscriptionResult<NewNotificationSubscription>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {
   updateProfile(profileData: $profileData, profileId: $profileId) {
@@ -3900,6 +3938,11 @@ export type ListNotificationsQueryVariables = Exact<{
 
 
 export type ListNotificationsQuery = { __typename?: 'Query', listNotifications: { __typename?: 'Notifications', count: number, hasMore: boolean, items: Array<{ __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } }> } };
+
+export type NewNotificationSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewNotificationSubscription = { __typename?: 'Subscription', newNotifaction: { __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } } };
 
 export type UpdateProfileMutationVariables = Exact<{
   profileData: UpdateProfileDto;

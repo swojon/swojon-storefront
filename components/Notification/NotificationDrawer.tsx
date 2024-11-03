@@ -6,9 +6,9 @@ import NotificationToggle from "./NotificationToggle";
 import Image from "next/image";
 import { GoDotFill } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import { useListNotificationsQuery } from "@/apollograph/generated";
+import { NewNotificationDocument, useListNotificationsQuery } from "@/apollograph/generated";
 import { timeAgo } from "@/lib/helpers/timeAgo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NotificationDrawer = () => {
   const dispatch = useDispatch();
@@ -97,15 +97,68 @@ const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
     };
   }
 
-  const { data, loading, error } = useListNotificationsQuery({
+  const { data, loading, error, subscribeToMore, fetchMore } = useListNotificationsQuery({
     variables: unreadFilter,
   });
+  const SubscribeForMore = () => {
+    subscribeToMore({
+      document : NewNotificationDocument,
+      updateQuery: (
+        prev: any,
+        {subscriptionData} : any
+      ) => {
+        console.log("prev", prev)
+        if (!subscriptionData.data) return prev;
+        console.log(subscriptionData.data);
+        console.log("previous data", prev);
+        return Object.assign({}, prev, {
+          listNotifications: {
+            items: [subscriptionData.data, ...prev.listNotifications.items],
+          },
+        });
+      }
+    })
+  }
   const notifications = data?.listNotifications.items;
-
+ 
+    const handleLoadMore = () => {
+      fetchMore({
+        variables: {
+          variables: unreadFilter,
+          // endingBefore: listings![listings!.length - 1]?.id,
+          // startingAfter: data?.listNotifications.afterCursor
+        },
+        updateQuery: (
+          prev: any,
+          { fetchMoreResult }: any
+        ) => {
+          if (!fetchMoreResult.listNotifications.items)
+            return prev;
+          
+            // console.log("Fetch More Result", fetchMoreResult)  
+          return {
+            listNotifications: {
+              ...prev.listNotifications,
+              items: [
+                ...prev.listNotifications.items,
+                ...fetchMoreResult.listNotifications.items,
+              ],
+              hasMore:
+                fetchMoreResult.listNotifications.hasMore
+            },
+          };
+        },
+      });
+    }
+    
+  useEffect(() => {
+    SubscribeForMore();
+  }, [data?.listNotifications.items]);
+ 
   return (
     <>
-      {notifications &&
-        notifications.map((n) => (
+      {notifications && (<>
+        {notifications.map((n) => (
           <div
             key={n.id}
             className="flex justify-between items-start gap-3 border-b pb-2"
@@ -134,6 +187,16 @@ const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
             {!n.read && <GoDotFill className="text-activeColor" />}
           </div>
         ))}
+
+         {data?.listNotifications.hasMore && 
+          <div className="flex justify-center mt-7">
+            <button onClick={handleLoadMore} className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Load More
+            </button>
+          </div>
+          }
+      </>)}
+        
       {loading && <p>Loading</p>}
       {!loading && notifications?.length === 0 && (
         <p>No {unreadOnly && "unread"} notifications</p>

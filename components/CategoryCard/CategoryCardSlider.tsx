@@ -7,6 +7,7 @@ import "./SwiperSlider.css"
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import "./CategoryCard.css";
 
 const CategoryCardSlider = ({ categories}: { categories: any }) => {
   // console.log("I am rendered twice", categories)

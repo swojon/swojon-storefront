@@ -1,0 +1,14 @@
+subscription NewNotification {
+  newNotifaction {
+      content
+      context
+      dateCreated
+      read
+      type
+      id
+      user {
+        email
+        id
+      }
+  }
+}

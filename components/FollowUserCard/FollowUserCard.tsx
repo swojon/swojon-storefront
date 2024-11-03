@@ -4,10 +4,11 @@ import defaultAvatar from "@/public/userMale.png";
 import { useDispatch, useSelector } from 'react-redux'
 import { useAddFollowMutation, useRemoveFollowMutation } from '@/apollograph/generated'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react';
 
 export const FollowUserCard = ({follower}: {follower:any}) => {
-  const dispatch = useDispatch()
-  const authState = useSelector((state: any) => state.auth)
+  const {data:session, status } = useSession();
+
   const [Unfollow, {data: unfollowData, loading: unfollowLoading, error: unfollowError}] = useRemoveFollowMutation()
   const [addFollow, {data: followData, loading: followLoading, error: followError }] = useAddFollowMutation()
   const handleFollowAdd = (userId: number, followedUserId: number) => {
@@ -73,13 +74,13 @@ export const FollowUserCard = ({follower}: {follower:any}) => {
               {follower.user.username ?? follower.user.email}
             </h6>
             <div className="flex flex-col gap-2 pt-3 ">
-            {authState.isAuthenticated && authState.user.id !== follower.user.id && (
+            {status === "authenticated" && session?.user?.id !== follower.user.id && (
                 <>
                 
                 {follower.followStatus ? (
                <button
                onClick={() =>
-                handleFollowRemove( authState.user.id, follower.user.id)
+                handleFollowRemove( session?.user?.id!, follower.user.id)
               }
                className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
@@ -88,7 +89,7 @@ export const FollowUserCard = ({follower}: {follower:any}) => {
               ) : (
                 
                  <button 
-                 onClick={() => handleFollowAdd( authState.user.id, follower.user.id)}
+                 onClick={() => handleFollowAdd( session?.user?.id!, follower.user.id)}
                 className="border border-activeColor text-activeColor  rounded-md 
           py-2 text-center md:text-base  sm:text-sm text-xs hover:shadow-lg  cursor-pointer transition ease-in-out delay-150 duration-300 font-semibold">
                  Follow
