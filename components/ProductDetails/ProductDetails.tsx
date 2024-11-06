@@ -166,11 +166,11 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         <Review />
       </div> */}
 
-      <div className="flex lg:flex-row flex-col items-start gap-4">
+      {/* <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">
           <DynamicSafetyTips />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

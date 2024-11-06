@@ -85,7 +85,7 @@ const formSchema = Yup.object({
         })
     )
     .min(1, "Please upload at least one image to proceed"),
-  mediaUrls: Yup.array().of(Yup.string().required()).notRequired(),
+  mediaUrls: Yup.array().of(Yup.string().required()).required("MediaURls not loaded, If you uploaded an image, please remove and retry that again."),
 });
 
 const Uploads = ({ product }: { product: null | any }) => {

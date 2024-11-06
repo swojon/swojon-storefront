@@ -83,7 +83,7 @@ const NotificationDrawer = () => {
 };
 
 const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
-  let unreadFilter;
+  let unreadFilter:any;
 
   if (!unreadOnly) {
     unreadFilter = {

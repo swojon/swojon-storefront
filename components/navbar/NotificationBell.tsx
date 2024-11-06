@@ -14,12 +14,12 @@ export default function NotificationBell({border,  handleBellClick}:{border:any,
                           : "text-primaryColor"
                       }`}
                     />
-                    <div
+                    {/* <div
                       className="absolute -top-2 -right-1 bg-white border w-4
                     h-4 text-[16px] text-red-500 rounded-full flex items-center justify-center "
                     >
                       <small className="leading-none">*</small>
-                    </div>
+                    </div> */}
                   </button>
   )
 }
