@@ -26,16 +26,14 @@ const formSchema = Yup.object({
 
 const WriteReviewModal = ({props}: {props:any}) => {
   const {data:session, status} = useSession();
-
   const initialValues = {
     rating: 1,
     review: "",
-    sellerId: props.sellerIdOrUsername ?? null,
+    sellerId: props.sellerUsernameOrId ?? null,
     reviewerId: session?.user?.id ?? null,
     listingId: props.listingId ?? null
   };
-  console.log(props.sellerIdOrUsername,  "Seller Id From modal props")
- 
+
   const dispatch = useDispatch();
   const [hoverStar, setHoverStar] = useState<any>(null);
   const [clickedStar, setClickedStar] = useState<any>(null);
@@ -69,16 +67,20 @@ const WriteReviewModal = ({props}: {props:any}) => {
             reviewData: {
               rating: values.rating,
               review: values.review,
-              sellerIdOrUsername: props.sellerIdOrUsername ?? null,
+              sellerIdOrUsername: props.sellerUsernameOrId ?? null,
               reviewerId: session?.user?.id!,
               listingId: props.listingid ?? null
             }
           },
           refetchQueries: [ListSellerReviewsDocument, SummaryUserReviewDocument],
-          
+          onError: (e) => {
+            toast.error(e.message ?? "Failed to add review, Please Try again.")
+          },
+          onCompleted: () => {
+            toast.success("Review added successfully")
+          }
         });
-        if (createError) toast.error("Create Failed, Please Try again.");
-        if (createData) toast.success("Review Recorded Successfully");
+      
         dispatch(setModalClose(true)); //on update we won't close the modal
         action.resetForm()
       } 

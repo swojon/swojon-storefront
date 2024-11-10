@@ -68,8 +68,8 @@ const ExploreDetail = ({ params }: { params: any }) => {
               ...prev.listListings.items,
               ...fetchMoreResult.listListings.items,
             ],
-            hasMore:
-              fetchMoreResult.listListings.hasMore
+            hasMore: fetchMoreResult.listListings.hasMore,
+            afterCursor: fetchMoreResult.listListings.afterCursor
           },
         };
       },

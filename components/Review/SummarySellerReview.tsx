@@ -15,6 +15,7 @@ function SummarySellerReview({ sellerUsernameOrId }: { sellerUsernameOrId: strin
     },
   });
 
+
   return (
     <div className="flex items-center flex-wrap xl:justify-around  justify-center xl:gap-3 lg:gap-5 gap-8 ">
       <div className="md:space-y-5 space-y-3">
@@ -44,7 +45,7 @@ function SummarySellerReview({ sellerUsernameOrId }: { sellerUsernameOrId: strin
                setModalOpen({
                  title: "write review modal",
                  body: "writeReview",
-                 props: {sellerUsernameOrId: sellerUsernameOrId}
+                 props: { sellerUsernameOrId : sellerUsernameOrId}
                })
              )
            }
