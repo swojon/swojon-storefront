@@ -3,6 +3,7 @@ export const config = {
     matcher: [
         "/upload-product",
         "/chat",
+        "/chat/:path*",
         "/profile",
         "/profile/:path*",
         "/edit-product/:path*",

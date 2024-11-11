@@ -14,7 +14,7 @@ const NotificationList = () => {
     const router = useRouter();
     const [markNotificationasRead, {data:markData, error:markError, loading:markLoading}] = useMarkNotificationReadMutation();
 
-    let unreadFilter;
+    let unreadFilter:any;
 
     if (!unreadOnly) {
       unreadFilter = {

@@ -20,6 +20,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { useSession } from "next-auth/react";
+import { Console } from "console";
 
 const subscribeForMore = (subscribeToMore:any, activeChat:any) =>
   subscribeToMore({
@@ -32,8 +33,6 @@ const subscribeForMore = (subscribeToMore:any, activeChat:any) =>
       { subscriptionData }: any
     ) => {
       if (!subscriptionData.data) return prev;
-      // const { mutation, node } = subscriptionData.data.Message.node;
-      console.log("updating..", )
       if (prev.listChatMessages.items.find((item:any) => item.id == subscriptionData.data.newMessageAdded.id)){
         return prev
       }
@@ -65,7 +64,7 @@ const ChatMessage = ({
     useGetChatMessageQuery({
       variables: {
         chatRoomId: activeChat?.id,
-        limit: 20,
+        limit: 30,
       },
       skip: !activeChat,
     });
@@ -112,7 +111,6 @@ const MessageAreaData = ({
   activeChat: any;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  const dispatch = useDispatch();
   // const authState = useSelector((state: any) => state.auth);
   const {data: session} = useSession();
   // const activeChat = useSelector((state: any) => state.chat.activeChatRoom);
@@ -131,9 +129,10 @@ const MessageAreaData = ({
   useEffect(() => {
     subscribeForMore(subscribeToMore, activeChat);
     scrollToBottom();
-  }, [data.listChatMessages.items]);
+  }, [data?.listChatMessages?.items]);
 
   const messages = data?.listChatMessages?.items.slice().reverse();
+
   const handleInfoIconClick = () => {
     if (isMobile) {
       const params = new URLSearchParams(searchParams.toString());
@@ -151,10 +150,10 @@ const MessageAreaData = ({
         : router.push(pathname);
     }
   };
+
   const participants = activeChat?.members?.filter(
     (crm: any) => crm.userId !== session?.user?.id
   );
-
 
   return (
     <section className="h-full w-full relative border-l">
@@ -201,7 +200,7 @@ const MessageAreaData = ({
         </button>
       </div>
       {/* Related Product State */}
-      {activeChat.relatedListing && (
+      {activeChat?.relatedListing && (
         <div className="sticky h-24 border bg-[#F1F7FF] px-3 flex space-x-3 items-center">
           <div className="h-20 w-32 border rounded-md ">
             <Image
@@ -234,23 +233,22 @@ const MessageAreaData = ({
       )}
       <div
         className={` px-3 mb-3 flex items-end  w-full relative overflow-y-auto scroll-hover2 ${
-          activeChat.relatedListing ? "chatBox" : "chatBox2"
+          activeChat?.relatedListing ? "chatBox" : "chatBox2"
         }`}
         ref={chatContainerRef}
       >
         <div className="max-h-full w-full space-y-3 ">
-          {data.listChatMessages.hasMore && (
+          {data?.listChatMessages?.hasMore && (
             <Waypoint
               onEnter={() => {
-                console.log("Fetchin waypoint")
                 fetchMore({
                   variables: {
-                    limit: 20,
+                    limit: 30,
                     startingAfter: data?.listChatMessages.afterCursor,
                   },
                   updateQuery: (prev: any, { fetchMoreResult }: any) => {
                     if (!fetchMoreResult.listChatMessages.items) return prev;
-
+                    
                     return {
                       listChatMessages: {
                         ...prev.listChatMessages,
@@ -259,6 +257,8 @@ const MessageAreaData = ({
                           ...fetchMoreResult.listChatMessages.items,
                         ],
                         hasMore: fetchMoreResult.listChatMessages.hasMore,
+                        afterCursor : fetchMoreResult.listChatMessages.afterCursor,
+                        beforeCursor : fetchMoreResult.listChatMessages.beforeCursor
                       },
                     };
                   },
@@ -266,12 +266,10 @@ const MessageAreaData = ({
               }}
             />
           )}
-          {messages.map((msg) => (
+          {messages?.map((msg) => (
             <MessageDetail msg={msg} key={msg.id} />
           ))}
-          {/* <div className="w-full flex justify-end">
-            <AdStartConversation />
-          </div> */}
+         
         </div>
       </div>
 
@@ -279,6 +277,7 @@ const MessageAreaData = ({
     </section>
   );
 };
+
 const MessageDetail = ({ msg }: { msg: any }) => {
   const {data:session, status} = useSession();
   if (msg.sender.id === session?.user?.id)

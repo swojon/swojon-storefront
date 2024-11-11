@@ -29,18 +29,17 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
     variables: {
       chatRoomId: chatroomId,
     },
+    skip: !session?.user?.id || !chatroomId
   });
   const chatRoom = data?.getChatRoom;
   if (loading) return <ChatMessageLoader />;
-  console.log("isMobile", isMobile, expand);
   if (error) {
-    toast.error("Chatroom not found");
-    return router.push("/chat")
+    router.push("/chat")
   }
   
-  if (!chatRoom?.members?.some((crm) => crm.userId === session?.user?.id)){
-      return router.push("/chat")
-    }
+  if (chatRoom && !chatRoom?.members?.some((crm) => crm.userId === session?.user?.id)){
+     router.push("/chat")
+  }
   
   // useEffect(() => {
   //     let expand = searchParams.get("expand")

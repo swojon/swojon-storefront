@@ -21,7 +21,7 @@ const ChatLists = () => {
     },
     skip: !session?.user?.id,
   });
-
+  
   if (error) {
     return <div>error...</div>;
   }
@@ -32,7 +32,7 @@ const ChatLists = () => {
       </>
     );
   }
-  console.log("list chatrooms", data?.listChatRooms.items);
+  
   return (
     <section className="bg-[#F1F7FF] h-full w-full  space-y-2 lg:space-y-4 overflow-y-hidden relative pb-10">
       <div className="flex justify-between items-center px-3 pt-3">
@@ -118,12 +118,11 @@ const ChatLists = () => {
                       timeAgoNarrow(
                         chatroom.messages!.slice(-1)[0].dateSent
                       )}{" "}
-                    asss
                   </h6>
                   <div className="flex justify-end">
-                    <span className="xl:w-4 w-3 xl:h-4 h-3 rounded-full bg-green-400 xl:text-xs text-[9px] text-white flex justify-center items-center ">
+                    {/* <span className="xl:w-4 w-3 xl:h-4 h-3 rounded-full bg-green-400 xl:text-xs text-[9px] text-white flex justify-center items-center ">
                       2
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </div>
