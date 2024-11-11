@@ -1,14 +1,12 @@
 subscription NewNotification {
-  newNotifaction {
+  newNotification {
       content
-      context
+      listingId
+      chatRoomId
       dateCreated
       read
       type
       id
-      user {
-        email
-        id
-      }
+      relatedUserUsername
   }
 }

@@ -4,15 +4,13 @@ query ListNotifications($filters: NotificationFilterInput, $endingBefore: String
     hasMore
     items {
       content
-      context
+      chatRoomId
+      listingId
       dateCreated
+      relatedUserUsername
       read
       type
       id
-      user {
-        email
-        id
-      }
     }
   }
 }

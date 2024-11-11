@@ -18,6 +18,7 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import NotificationContent from "../Notification/NotificationContent";
 import ResNavbarCategoryPanel from "./ResNavbarCategoryPanel";
 import NotificationBell from "./NotificationBell";
+import NotificationList from "../Notification/NotificationList";
 
 const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const ResNavbarDrawer = () => {
   const { data, loading, error } = useListCategoriesQuery();
 
   const [currentCategory, setCurrentCategory] = useState<any>(null);
-  const [openPanel, setOpenPanel] = useState<any>(null);
+  const [notificationPanel, setNotificationPanel] = useState<any>(null);
   // const [subCategories, setSubCategories] = useState<any>([]);
 
   return (
@@ -49,44 +50,63 @@ const ResNavbarDrawer = () => {
         </button>
         <div className="relative h-full">
           <div className="flex flex-wrap  border-b px-5 py-4 items-center justify-between font-semibold  gap-3">
-           {currentCategory ?
-           <div className="flex pt-3 items-center gap-3 w-full">
-            <span
-              onClick={() => setCurrentCategory(null)}
-              className="absolute left-5 text-base text-primaryColor font-lexed font-medium cursor-pointer"
-            >
-              <MdArrowBackIos />
-            </span>
-            <span className="w-full text-center text-base text-primaryColor font-lexed font-medium">
-              {currentCategory?.name}
-            </span>
-          </div>
-          :<>
-           <Image
-              src="/assets/SWlogi.svg"
-              alt="logo"
-              width={100}
-              height={100}
-              className="h-4 w-8"
-            />
+            {notificationPanel ?<>
+              <div className="flex pt-3 items-center gap-3 w-full">
+                  <span
+                    onClick={() => setNotificationPanel(false)}
+                    className="absolute left-5 text-base text-primaryColor font-lexed font-medium cursor-pointer"
+                  >
+                    <MdArrowBackIos />
+                  </span>
+                  <span className="w-full text-center text-base text-primaryColor font-lexed font-medium">
+                    Notification
+                  </span>
+              </div>
+            </> : <>
+            
+                {currentCategory ?
+                <div className="flex pt-3 items-center gap-3 w-full">
+                  <span
+                    onClick={() => setCurrentCategory(null)}
+                    className="absolute left-5 text-base text-primaryColor font-lexed font-medium cursor-pointer"
+                  >
+                    <MdArrowBackIos />
+                  </span>
+                  <span className="w-full text-center text-base text-primaryColor font-lexed font-medium">
+                    {currentCategory?.name}
+                  </span>
+                </div>
+                :<>
+                <Image
+                    src="/assets/SWlogi.svg"
+                    alt="logo"
+                    width={100}
+                    height={100}
+                    className="h-4 w-8"
+                  />
 
-            <Link
-              href="/upload-product"
-              onClick={() => dispatch(setNavClose())}
-            >
-              <button className="py-2 px-5 bg-activeColor text-white rounded-md text-base">
-                List Item
-              </button>
-            </Link>
-          </>}
+                  <Link
+                    href="/upload-product"
+                    onClick={() => dispatch(setNavClose())}
+                  >
+                    <button className="py-2 px-5 bg-activeColor text-white rounded-md text-base">
+                      List Item
+                    </button>
+                  </Link>
+                </>}
+            </>}
           </div>
-
+          
           <div className="h-[77dvh] custom-scroll overflow-y-auto pb-5 px-5">
+           {notificationPanel ? <> 
+              <NotificationList />
+           </> : <>
             {data?.listCategories.items && <ResNavbarCategoryPanel 
             categories={data.listCategories.items}
             currentCategory={currentCategory}
             setCurrentCategory={setCurrentCategory}/>
             }
+           </>} 
           </div>
 
           <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
@@ -99,7 +119,7 @@ const ResNavbarDrawer = () => {
 
             <NotificationBell
               border={""} 
-              handleBellClick={() => setOpenPanel(true)}
+              handleBellClick={() => setNotificationPanel(!notificationPanel)}
             />
 
             <Link href="/profile?sidebar=hide" onClick={() => dispatch(setNavClose())}>

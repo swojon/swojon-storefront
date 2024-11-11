@@ -16,6 +16,8 @@ query getChatMessage($chatRoomId: Float!, $endingBefore: String, $limit: Float, 
         }
         count
         hasMore
+        beforeCursor
+        afterCursor
     }
 }
 

@@ -15,6 +15,7 @@ import Modal from "@/components/Modal/Modal";
 import { ApolloWrapperWithSession } from "@/lib/ApolloWrapperWithSession";
 import ResNavbar from "@/components/navbar/ResNavbarDrawer";
 import ResFilter from "@/components/FilterBar/ResFilter";
+import NotificationDrawerNew from "@/components/Notification/NotificationDrawerNew";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,7 +47,7 @@ export default async function RootLayout({ children }: Iprops) {
               <SpeedInsights />
               <Analytics />
               <Toaster />
-              <NotificationDrawer />
+              <NotificationDrawerNew />
               <ResNavbar />
               <ResFilter />
               <ImagePop />

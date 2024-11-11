@@ -18,9 +18,9 @@ export const FollowUserCard = ({follower}: {follower:any}) => {
         followedUserId
       },
       update(cache, {data}) {
-        console.log(cache)
+       
         const cId = cache.identify(follower)
-        console.log("cid", cId)
+     
         cache.modify({
           id: cId,
           fields: {

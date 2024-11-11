@@ -2,3 +2,35 @@
   height: calc(100vh - 70px);
   max-width: 400px;
 }
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.custom-scroll:hover {
+  overflow-y: auto;
+}
+.custom-scroll:hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+.resNav {
+  height: 100vh;
+  /* height: -webkit-fill-available; */
+  /* min-height: calc(
+    100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0)
+  ); */
+}
+
+/* @supports (-webkit-touch-callout: none) {
+  .resNav {
+    
+    height: -webkit-fill-available;
+  }
+} */
+@media (max-width: 1024px) {
+  .resNav {
+    height: 100dvh;
+  }
+}

@@ -1,0 +1,14 @@
+mutation MarkAllNotificationAsRead {
+  markAllNotificationAsRead {
+    items {
+      content
+      listingId
+      chatRoomId
+      dateCreated
+      read
+      relatedUserUsername
+      type
+      id
+    }
+  }
+}

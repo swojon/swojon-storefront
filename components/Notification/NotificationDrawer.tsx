@@ -19,13 +19,7 @@ const NotificationDrawer = () => {
   return (
     <> {isNotificationDrawerOpen ? 
       (<section
-        className={`fixed top-0 z-[1000]  w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end
-         ${
-           !isNotificationDrawerOpen
-             ? "translate-x-full origin-right hidden"
-             : "translate-x-0  right-0 block"
-         }
-        `}
+        className={`fixed top-0 z-[1000] right-0 w-full hidden   lg:flex  transition delay-200 duration-700 ease-in-out h-screen  justify-end`}
       >
         <div
           onClick={() => dispatch(setNotificationDrawerClose())}
@@ -69,7 +63,7 @@ const NotificationDrawer = () => {
             </span>
           </div> */}
   
-          <div className="space-y-3 overflow-auto">
+          <div className="space-y-3 custom-scroll overflow-y-auto">
             {/* <h6 className="text-base font-lexed text-secondColor">Today</h6> */}
   
             <NotificationList unreadOnly={unreadOnly} />
@@ -107,10 +101,7 @@ const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
         prev: any,
         {subscriptionData} : any
       ) => {
-        console.log("prev", prev)
         if (!subscriptionData.data) return prev;
-        console.log(subscriptionData.data);
-        console.log("previous data", prev);
         return Object.assign({}, prev, {
           listNotifications: {
             items: [subscriptionData.data, ...prev.listNotifications.items],
@@ -174,7 +165,7 @@ const NotificationList = ({ unreadOnly }: { unreadOnly: any }) => {
                 />
               </div>
               <div className="text-xs space-y-1.5">
-                <p>n.content </p>
+                <p>{n.content} </p>
 
                 {/* <div className="w-full py-1 px-2 border md:text-sm text-xs truncate rounded-md text-primaryColor">
                     this is great

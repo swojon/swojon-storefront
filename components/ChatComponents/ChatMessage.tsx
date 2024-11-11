@@ -21,6 +21,34 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { useSession } from "next-auth/react";
 
+const subscribeForMore = (subscribeToMore:any, activeChat:any) =>
+  subscribeToMore({
+    document: NewMessageAddedDocument,
+    variables: {
+      chatRoomId: activeChat?.id,
+    },
+    updateQuery: (
+      prev: any,
+      { subscriptionData }: any
+    ) => {
+      if (!subscriptionData.data) return prev;
+      // const { mutation, node } = subscriptionData.data.Message.node;
+      console.log("updating..", )
+      if (prev.listChatMessages.items.find((item:any) => item.id == subscriptionData.data.newMessageAdded.id)){
+        return prev
+      }
+      // console.log(node)
+      // if (mutation !== 'CREATED') return prev;
+      return Object.assign({}, prev, {
+        ...prev,
+        listChatMessages: {
+          ...prev.listChatMessages,
+          items: [subscriptionData.data.newMessageAdded, ...prev.listChatMessages.items],
+        },
+      });
+    },
+  });
+
 const ChatMessage = ({
   sideProfile,
   setSideProfile,
@@ -42,32 +70,7 @@ const ChatMessage = ({
       skip: !activeChat,
     });
 
-  const more = () =>
-    subscribeToMore({
-      document: NewMessageAddedDocument,
-      variables: {
-        chatRoomId: activeChat?.id,
-      },
-      updateQuery: (
-        prev: { listChatMessages: { items: any } },
-        { subscriptionData }: any
-      ) => {
-        if (!subscriptionData.data) return prev;
-        console.log(subscriptionData.data);
-        console.log("previous data", prev);
-
-        // const { mutation, node } = subscriptionData.data.Message.node;
-
-        // console.log(node)
-        // if (mutation !== 'CREATED') return prev;
-        return Object.assign({}, prev, {
-          listChatMessages: {
-            items: [subscriptionData.data, ...prev.listChatMessages.items],
-          },
-        });
-      },
-    });
-
+  
   // const chatMessages = activeChatWithMessages.find((chat) => chat.id === activeChat.id)
   // const messages = chatMessages?.messages;
   if (loading) {
@@ -87,7 +90,7 @@ const ChatMessage = ({
       fetchMore={fetchMore}
       setSideProfile={setSideProfile}
       data={data!}
-      subscribeToMore={more}
+      subscribeToMore={subscribeToMore}
       activeChat={activeChat}
     />
   );
@@ -126,7 +129,7 @@ const MessageAreaData = ({
     }
   };
   useEffect(() => {
-    subscribeToMore();
+    subscribeForMore(subscribeToMore, activeChat);
     scrollToBottom();
   }, [data.listChatMessages.items]);
 
@@ -239,10 +242,11 @@ const MessageAreaData = ({
           {data.listChatMessages.hasMore && (
             <Waypoint
               onEnter={() => {
+                console.log("Fetchin waypoint")
                 fetchMore({
                   variables: {
                     limit: 20,
-                    endingBefore: messages![messages!.length - 1].id,
+                    startingAfter: data?.listChatMessages.afterCursor,
                   },
                   updateQuery: (prev: any, { fetchMoreResult }: any) => {
                     if (!fetchMoreResult.listChatMessages.items) return prev;

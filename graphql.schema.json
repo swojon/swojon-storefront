@@ -1424,6 +1424,30 @@
         "description": null,
         "fields": [
           {
+            "name": "afterCursor",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "beforeCursor",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "count",
             "description": null,
             "args": [],
@@ -1440,9 +1464,13 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6555,6 +6583,18 @@
         "description": null,
         "fields": [
           {
+            "name": "chatRoomId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "args": [],
@@ -6566,18 +6606,6 @@
                 "name": "String",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "context",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6611,12 +6639,36 @@
             "deprecationReason": null
           },
           {
+            "name": "listingId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "read",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "relatedUserUsername",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -8370,7 +8422,7 @@
           },
           {
             "name": "listNotifications",
-            "description": "List All Notifications0",
+            "description": "List All Notifications",
             "args": [
               {
                 "name": "ending_before",
@@ -9715,7 +9767,7 @@
             "deprecationReason": null
           },
           {
-            "name": "newNotifaction",
+            "name": "newNotification",
             "description": null,
             "args": [],
             "type": {

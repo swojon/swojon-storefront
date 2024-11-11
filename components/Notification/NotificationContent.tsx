@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { GoDotFill } from "react-icons/go";
 
-const NotificationContent = () => {
+const NotificationContent = ({}) => {
   return (
     <>
       <div className="flex justify-between items-start gap-3 border-b pb-2">

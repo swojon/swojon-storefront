@@ -1,0 +1,12 @@
+mutation MarkNotificationRead($notificationId: Float!) {
+  markNotificationRead(notificationId: $notificationId) {
+      content
+      listingId
+      chatRoomId
+      dateCreated
+      read
+      type
+      relatedUserUsername
+      id
+  }
+}

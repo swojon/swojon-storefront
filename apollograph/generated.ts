@@ -282,6 +282,8 @@ export const GetChatMessageDocument = gql`
     }
     count
     hasMore
+    beforeCursor
+    afterCursor
   }
 }
     `;
@@ -1779,15 +1781,13 @@ export const ListNotificationsDocument = gql`
     hasMore
     items {
       content
-      context
+      chatRoomId
+      listingId
       dateCreated
+      relatedUserUsername
       read
       type
       id
-      user {
-        email
-        id
-      }
     }
   }
 }
@@ -1823,19 +1823,98 @@ export function useListNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ListNotificationsQueryHookResult = ReturnType<typeof useListNotificationsQuery>;
 export type ListNotificationsLazyQueryHookResult = ReturnType<typeof useListNotificationsLazyQuery>;
 export type ListNotificationsQueryResult = Apollo.QueryResult<ListNotificationsQuery, ListNotificationsQueryVariables>;
+export const MarkAllNotificationAsReadDocument = gql`
+    mutation MarkAllNotificationAsRead {
+  markAllNotificationAsRead {
+    items {
+      content
+      listingId
+      chatRoomId
+      dateCreated
+      read
+      relatedUserUsername
+      type
+      id
+    }
+  }
+}
+    `;
+export type MarkAllNotificationAsReadMutationFn = Apollo.MutationFunction<MarkAllNotificationAsReadMutation, MarkAllNotificationAsReadMutationVariables>;
+
+/**
+ * __useMarkAllNotificationAsReadMutation__
+ *
+ * To run a mutation, you first call `useMarkAllNotificationAsReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkAllNotificationAsReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markAllNotificationAsReadMutation, { data, loading, error }] = useMarkAllNotificationAsReadMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMarkAllNotificationAsReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkAllNotificationAsReadMutation, MarkAllNotificationAsReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkAllNotificationAsReadMutation, MarkAllNotificationAsReadMutationVariables>(MarkAllNotificationAsReadDocument, options);
+      }
+export type MarkAllNotificationAsReadMutationHookResult = ReturnType<typeof useMarkAllNotificationAsReadMutation>;
+export type MarkAllNotificationAsReadMutationResult = Apollo.MutationResult<MarkAllNotificationAsReadMutation>;
+export type MarkAllNotificationAsReadMutationOptions = Apollo.BaseMutationOptions<MarkAllNotificationAsReadMutation, MarkAllNotificationAsReadMutationVariables>;
+export const MarkNotificationReadDocument = gql`
+    mutation MarkNotificationRead($notificationId: Float!) {
+  markNotificationRead(notificationId: $notificationId) {
+    content
+    listingId
+    chatRoomId
+    dateCreated
+    read
+    type
+    relatedUserUsername
+    id
+  }
+}
+    `;
+export type MarkNotificationReadMutationFn = Apollo.MutationFunction<MarkNotificationReadMutation, MarkNotificationReadMutationVariables>;
+
+/**
+ * __useMarkNotificationReadMutation__
+ *
+ * To run a mutation, you first call `useMarkNotificationReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkNotificationReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markNotificationReadMutation, { data, loading, error }] = useMarkNotificationReadMutation({
+ *   variables: {
+ *      notificationId: // value for 'notificationId'
+ *   },
+ * });
+ */
+export function useMarkNotificationReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkNotificationReadMutation, MarkNotificationReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkNotificationReadMutation, MarkNotificationReadMutationVariables>(MarkNotificationReadDocument, options);
+      }
+export type MarkNotificationReadMutationHookResult = ReturnType<typeof useMarkNotificationReadMutation>;
+export type MarkNotificationReadMutationResult = Apollo.MutationResult<MarkNotificationReadMutation>;
+export type MarkNotificationReadMutationOptions = Apollo.BaseMutationOptions<MarkNotificationReadMutation, MarkNotificationReadMutationVariables>;
 export const NewNotificationDocument = gql`
     subscription NewNotification {
-  newNotifaction {
+  newNotification {
     content
-    context
+    listingId
+    chatRoomId
     dateCreated
     read
     type
     id
-    user {
-      email
-      id
-    }
+    relatedUserUsername
   }
 }
     `;
@@ -2509,8 +2588,10 @@ export type ChatRoomsWithMessage = {
 
 export type Chats = {
   __typename?: 'Chats';
+  afterCursor?: Maybe<Scalars['String']['output']>;
+  beforeCursor?: Maybe<Scalars['String']['output']>;
   count?: Maybe<Scalars['Float']['output']>;
-  hasMore?: Maybe<Scalars['Boolean']['output']>;
+  hasMore: Scalars['Boolean']['output'];
   items: Array<Chat>;
 };
 
@@ -3185,11 +3266,13 @@ export type NominatimSearchDto = {
 
 export type Notification = {
   __typename?: 'Notification';
+  chatRoomId?: Maybe<Scalars['Float']['output']>;
   content: Scalars['String']['output'];
-  context?: Maybe<Scalars['String']['output']>;
   dateCreated?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['Float']['output'];
+  listingId?: Maybe<Scalars['Float']['output']>;
   read?: Maybe<Scalars['Boolean']['output']>;
+  relatedUserUsername?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   user: User;
   userId?: Maybe<Scalars['Float']['output']>;
@@ -3313,7 +3396,7 @@ export type Query = {
   listListings: Listings;
   /** List All Locations */
   listLocations: Locations;
-  /** List All Notifications0 */
+  /** List All Notifications */
   listNotifications: Notifications;
   /** List All Point History */
   listPointsHistory: Points;
@@ -3624,7 +3707,7 @@ export enum Status {
 export type Subscription = {
   __typename?: 'Subscription';
   newMessageAdded: Chat;
-  newNotifaction: Notification;
+  newNotification: Notification;
 };
 
 
@@ -3765,7 +3848,7 @@ export type GetChatMessageQueryVariables = Exact<{
 }>;
 
 
-export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore?: boolean | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null } }> } };
+export type GetChatMessageQuery = { __typename?: 'Query', listChatMessages: { __typename?: 'Chats', count?: number | null, hasMore: boolean, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Chat', id: number, content?: string | null, dateSent?: any | null, sender: { __typename?: 'User', id: number, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null } }> } };
 
 export type GetChatRoomQueryVariables = Exact<{
   chatRoomId?: InputMaybe<Scalars['Float']['input']>;
@@ -3937,12 +4020,24 @@ export type ListNotificationsQueryVariables = Exact<{
 }>;
 
 
-export type ListNotificationsQuery = { __typename?: 'Query', listNotifications: { __typename?: 'Notifications', count: number, hasMore: boolean, items: Array<{ __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } }> } };
+export type ListNotificationsQuery = { __typename?: 'Query', listNotifications: { __typename?: 'Notifications', count: number, hasMore: boolean, items: Array<{ __typename?: 'Notification', content: string, chatRoomId?: number | null, listingId?: number | null, dateCreated?: any | null, relatedUserUsername?: string | null, read?: boolean | null, type?: string | null, id: number }> } };
+
+export type MarkAllNotificationAsReadMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MarkAllNotificationAsReadMutation = { __typename?: 'Mutation', markAllNotificationAsRead: { __typename?: 'Notifications', items: Array<{ __typename?: 'Notification', content: string, listingId?: number | null, chatRoomId?: number | null, dateCreated?: any | null, read?: boolean | null, relatedUserUsername?: string | null, type?: string | null, id: number }> } };
+
+export type MarkNotificationReadMutationVariables = Exact<{
+  notificationId: Scalars['Float']['input'];
+}>;
+
+
+export type MarkNotificationReadMutation = { __typename?: 'Mutation', markNotificationRead: { __typename?: 'Notification', content: string, listingId?: number | null, chatRoomId?: number | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, relatedUserUsername?: string | null, id: number } };
 
 export type NewNotificationSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NewNotificationSubscription = { __typename?: 'Subscription', newNotifaction: { __typename?: 'Notification', content: string, context?: string | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, user: { __typename?: 'User', email: string, id: number } } };
+export type NewNotificationSubscription = { __typename?: 'Subscription', newNotification: { __typename?: 'Notification', content: string, listingId?: number | null, chatRoomId?: number | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, relatedUserUsername?: string | null } };
 
 export type UpdateProfileMutationVariables = Exact<{
   profileData: UpdateProfileDto;
