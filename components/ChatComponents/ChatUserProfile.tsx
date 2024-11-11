@@ -82,13 +82,13 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
               Message
             </h6>
           </div> */}
-
+{/* 
           <div className="flex flex-col items-center">
             <div className="w-7 h-7 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
               <AiFillMinusCircle />
             </div>
             <h6 className="text-xs text-primaryColor pt-1 capitalize">Block</h6>
-          </div>
+          </div> */}
         </div>
       </div>
 
