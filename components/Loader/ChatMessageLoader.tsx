@@ -1,10 +1,11 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import { FiPaperclip } from "react-icons/fi";
 
 const ChatMessageLoader = () => {
   return (
-    <section className="h-full w-full relative border-l">
+    <div className="h-full w-full relative border-l">
       <div className="sticky top-0 left-0 h-14 px-3  w-full flex  items-center ">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-gray-300 animate-pulse"></div>
@@ -48,7 +49,6 @@ const ChatMessageLoader = () => {
         </div>
       </div>
 
-      <form>
         <div className="absolute  bottom-0 left-0 h-14 px-3 border-t w-full bg-[#F1F7FF] flex items-center space-x-2">
           <div className=" flex rounded-lg shadow-sm w-full">
             <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">
@@ -73,9 +73,9 @@ const ChatMessageLoader = () => {
             <Image src="/assets/Send.png" alt="plane" width={30} height={30} />
           </button>
         </div>
-      </form>
-    </section>
-  );
+ 
+    </div>
+  )
 };
 
 export default ChatMessageLoader;

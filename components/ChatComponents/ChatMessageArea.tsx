@@ -1,3 +1,4 @@
+'use client';
 import { GetChatMessageQuery, NewMessageAddedDocument, useGetChatMessageQuery } from "@/apollograph/generated";
 import useIsMobile from "@/lib/hooks/useIsMobile";
 import { useSession } from "next-auth/react";
@@ -62,7 +63,7 @@ const ChatMessageArea = ({
         chatRoomId: activeChat?.id,
         limit: 30,
       },
-      skip: !activeChat,
+      skip: !activeChat?.id ,
     });
 
     // Function to keep the chat scroll at the bottom
@@ -106,15 +107,14 @@ const ChatMessageArea = ({
     , [activeChat]) ;
     
     if (loading) {
-        return <ChatMessageLoader />;
-       
+        return (<ChatMessageLoader />); 
       }
-      if (error) {
-        return <div>{error.message}</div>;
-      }
+    if (error) {
+    return <div>{error.message}</div>;
+    }
     
     return (
-      <section className="h-full w-full relative border-l">
+      <div className="h-full w-full relative border-l">
         <div className="sticky top-0 left-0 h-14 px-3  w-full flex justify-between items-center gap-2 shadow-md mb-2">
           {isMobile && (
             <button
@@ -123,7 +123,8 @@ const ChatMessageArea = ({
             >
               <HiArrowLeft className="text-primaryColor" />
             </button>
-          )}{" "}
+          )}
+
           <div className="flex items-center gap-2 sm:w-auto w-[70%] ">
             <div className="sm:w-8 w-5 sm:h-8 rounded-full ">
               {participants?.map((m: any) => (
@@ -227,7 +228,7 @@ const ChatMessageArea = ({
         </div>
   
         <ChatInputSend activeChat={activeChat} />
-      </section>
+      </div>
     );
   };
 

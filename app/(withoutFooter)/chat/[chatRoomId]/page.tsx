@@ -7,12 +7,10 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 import { useSession } from "next-auth/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
+import React, { useEffect, useState } from "react";
 
 const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const router = useRouter();
   const {data: session} = useSession();
   let expand = searchParams.get("expand");
@@ -22,24 +20,29 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
   const isMobile = useIsMobile();
 
   const chatroomId = parseInt(params.chatRoomId, 10);
-  const [sideProfile, setSideProfile] = useState<string | null>(
-    expand === "info" ? "profile" : null
-  );
+  const [sideProfile, setSideProfile] = useState<string | null>(expand === "info" ? "profile" : null);
   const { data, loading, error } = useGetChatRoomQuery({
     variables: {
       chatRoomId: chatroomId,
     },
-    skip: !session?.user?.id || !chatroomId
+    skip: !chatroomId 
   });
   const chatRoom = data?.getChatRoom;
-  if (loading) return <ChatMessageLoader />;
-  if (error) {
-    router.push("/chat")
-  }
+ 
+  useEffect(() => {
+    if (error) {
+      router.push("/chat")
+    }
+  }, [error])
   
-  if (chatRoom && !chatRoom?.members?.some((crm) => crm.userId === session?.user?.id)){
-     router.push("/chat")
-  }
+  useEffect(() => {
+
+    if (session?.user?.id && chatRoom && !chatRoom?.members?.some((crm) => crm.userId === session?.user?.id)){
+      router.push("/chat")
+    }
+  }, [chatRoom, session?.user?.id])
+
+
   
   // useEffect(() => {
   //     let expand = searchParams.get("expand")
@@ -48,13 +51,15 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
   // }, [searchParams])
   return (
     <>
-      {(!isMobile || (expand !== "list" && expand !== "info")) && (
+      {loading && <ChatMessageLoader />}
+      {!loading && (!isMobile || (expand !== "list" && expand !== "info")) && (
         <div className={`w-full  h-full lg:block`}>
           <ChatMessageArea
             sideProfile={sideProfile}
             setSideProfile={setSideProfile}
             chatRoom={chatRoom}
           />
+
         </div>
       )}
 

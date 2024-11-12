@@ -93,14 +93,14 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
       </div>
 
       <div className="space-y-2 py-4 border-b">
-        <div>
+        {/* <div> */}
           {/* <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Phone
           </h6>
           <p className="xl:text-sm lg:text-xs text-secondColor">
             01515
           </p> */}
-        </div>
+        {/* </div> */}
         {/* <div>
           <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Email

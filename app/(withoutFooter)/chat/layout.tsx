@@ -11,17 +11,14 @@ const Chats = ({ children }: { children: any }) => {
   // sideProfile === chatlist:
   // sideProfile === user detail :
   // < button, Separate state: ChatList(Default),
-  const isMobile = useIsMobile();
   //the areas are: chatList, chatArea, chatInfo
   // we will add search params section in the mobile.
   //?expand=""
+  const isMobile = useIsMobile();
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const expand = searchParams.get("expand");
-
-  const [activeArea, setActiveArea] = useState("chatList");
-  const [backArea, setBackArea] = useState<null | string>(null);
   return (
     <section>
       <div className="custom-container pt-6 sticky w-full h-[87dvh] ">
@@ -32,6 +29,7 @@ const Chats = ({ children }: { children: any }) => {
               <ChatLists />
             </div>
           )}
+          
           <div
             className={` lg:w-[75%] md:w-[75%]  w-full h-full md:flex ${
               (!isMobile || expand === "list" || pathname === "/chat") &&
@@ -40,6 +38,7 @@ const Chats = ({ children }: { children: any }) => {
           >
             {children}
           </div>
+
         </div>
       </div>
     </section>

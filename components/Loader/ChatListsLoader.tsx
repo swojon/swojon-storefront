@@ -2,12 +2,7 @@ import React from "react";
 
 const ChatListsLoader = () => {
   return (
-    <section className="bg-[#F1F7FF] h-full w-full p-3 space-y-2 lg:space-y-4 ">
-      <div className="flex items-center">
-        <h5 className="lg:text-lg text-base text-primaryColor font-lexed font-medium">
-          Chat List
-        </h5>
-      </div>
+    
       <div className="space-y-2.5">
         <div className="xl:p-2 lg:p-1 p-2 w-full flex items-center bg-white rounded-md animate-pulse ">
           <div className="lg:w-[18%] w-[12%] ">
@@ -52,7 +47,7 @@ const ChatListsLoader = () => {
           </div>
         </div>
       </div>
-    </section>
+
   );
 };
 
