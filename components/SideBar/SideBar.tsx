@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { HiOutlineInbox } from "react-icons/hi";
 import {
@@ -18,6 +18,8 @@ import useIsMobile from "@/lib/hooks/useIsMobile";
 import toast from "react-hot-toast";
 import { deleteCookie } from "cookies-next";
 import { signOut, useSession } from "next-auth/react";
+import { useApolloClient } from "@apollo/client";
+import { Router } from "next/router";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
@@ -65,9 +67,12 @@ const SideBar = () => {
   
   const pathname = usePathname();
   const isMobile = useIsMobile();
- 
+
+  
   const handleSignOut = () => {
     signOut()
+    // location.reload()
+
   };
   
   return (

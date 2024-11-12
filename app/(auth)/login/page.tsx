@@ -15,6 +15,7 @@ import {
 import { BiLoaderCircle } from "react-icons/bi";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useApolloClient } from "@apollo/client";
 // import { setCookie } from "cookies-next" ;
 
 interface Props {}
@@ -31,12 +32,12 @@ const SignIn: NextPage = (): JSX.Element => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [googleError, setGoogleError] = useState<string|null>(null);
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const errorParams = searchParams.get("error")  
-
+  const callbackUrl = searchParams.get("callbackUrl") 
   const next_url = searchParams.get("next");
   if (next_url) setCookie("next", next_url, { maxAge: 60 * 5 });
 
@@ -48,14 +49,19 @@ const SignIn: NextPage = (): JSX.Element => {
       email : userInfo.email,
       password: userInfo.password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: callbackUrl ?? "/",
     });
     if (res?.ok){
       setFormUploading(false);
       toast.success("Successfully Logged in")
-      if (res?.url){
-        router.push(res.url)
+      console.log("res.url", res.url)
+      if (!!res?.url){
+        console.log("replacing url", res.url)
+        location.replace(res.url)
+      }else{
+        location.reload();
       }
+
     }else{
       setFormUploading(false);
       setError(res?.error ?? "")
@@ -65,14 +71,13 @@ const SignIn: NextPage = (): JSX.Element => {
   const handleGoogleClick = async () => {
     setGoogleLoading(true);
     setGoogleError(null);
-
     const res = await signIn("google", { callbackUrl: "/", redirect: true });
-   
+    
     if (res?.ok){
       setGoogleLoading(false);
       toast.success("Successfully Logged in")
       if (res?.url){
-        router.push(res.url)
+        location.replace(res.url)
       }
     }else{
       setGoogleLoading(false);

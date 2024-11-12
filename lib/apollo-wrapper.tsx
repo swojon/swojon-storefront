@@ -21,10 +21,6 @@ function makeSuspenseCache() {
 }
 
 export function ApolloWrapper({ children, session }: any) {
-
-  // const {data:session} = useSession();
-  // console.log("apollo 24session", session)
-  useEffect(() => {}, [session]);
   function makeClient() {
     const httpLink = new HttpLink({
       uri: GRAPHQL_ENDPOINT,
@@ -37,8 +33,6 @@ export function ApolloWrapper({ children, session }: any) {
         connected: (socket) => (console.log("Connected to ws")),
       },
       connectionParams: () => {
-        // ${getCookie('authorization')
-        console.log("passing headers",`Bearer ${session?.user?.token}`)
         return {
           headers: {
             // authorization: `Bearer ${cookies().get('authorization')?.value}`,
@@ -75,11 +69,7 @@ export function ApolloWrapper({ children, session }: any) {
 
 
     const authLink = setContext((_, context, ) => {
-      console.log("Access Token", context)
-      // const { accessToken } = context;
-      console.log("authoriztion", getCookie('authorization'))
-      // const lstoken = typeof window !== 'undefined'? localStorage.getItem('token') : "";
-      // console.log("context headers", context.headers.cookie)
+      console.log("setting token", session?.user?.token)
       return {
         headers: {
           ...context.headers,

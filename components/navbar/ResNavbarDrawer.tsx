@@ -13,12 +13,12 @@ import { MdKeyboardArrowRight, MdArrowBackIos } from "react-icons/md";
 import { FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
 import { GrHomeRounded } from "react-icons/gr";
 import "./resNavbar.css";
-import { HiOutlineSquaresPlus } from "react-icons/hi2";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import NotificationContent from "../Notification/NotificationContent";
 import ResNavbarCategoryPanel from "./ResNavbarCategoryPanel";
-import NotificationBell from "./NotificationBell";
-import NotificationList from "../Notification/NotificationList";
+import dynamic from "next/dynamic";
+
+const DynamicNotificationBell = dynamic(() => import("./NotificationBell"), {ssr: false});
+const DynamicNotificationList = dynamic(() => import("../Notification/NotificationList"), {ssr: false});
+
 
 const ResNavbarDrawer = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,6 @@ const ResNavbarDrawer = () => {
 
   const [currentCategory, setCurrentCategory] = useState<any>(null);
   const [notificationPanel, setNotificationPanel] = useState<any>(null);
-  // const [subCategories, setSubCategories] = useState<any>([]);
 
   return (
     <div
@@ -99,7 +98,7 @@ const ResNavbarDrawer = () => {
           
           <div className="h-[77dvh] custom-scroll overflow-y-auto pb-5 px-5">
            {notificationPanel ? <> 
-              <NotificationList />
+              <DynamicNotificationList />
            </> : <>
             {data?.listCategories.items && <ResNavbarCategoryPanel 
             categories={data.listCategories.items}
@@ -117,7 +116,7 @@ const ResNavbarDrawer = () => {
               <FaRegHeart className="text-2xl" />
             </Link>
 
-            <NotificationBell
+            <DynamicNotificationBell
               border={""} 
               handleBellClick={() => setNotificationPanel(!notificationPanel)}
             />

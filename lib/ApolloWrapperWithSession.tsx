@@ -7,6 +7,7 @@ import { ApolloWrapper } from "./apollo-wrapper";
 export const ApolloWrapperWithSession = async ({ children }: { children: React.ReactNode }) => {
     // store.dispatch(setAuthState( session))
     const session = await getServerSession(options)
+    // console.log("server side session", session)
     return  (<ApolloWrapper session={session}>
         {children}
     </ApolloWrapper>)

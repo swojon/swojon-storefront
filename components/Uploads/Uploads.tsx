@@ -20,6 +20,7 @@ import PreviewProduct from "./PreviewProduct";
 import Price from "./Price";
 import ProductTitle from "./ProductTitle";
 import UploadImage from "./UploadImage";
+import { useSession } from "next-auth/react";
 
 // const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
 // const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
@@ -93,7 +94,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
   const dispatch = useDispatch();
-
+  const {data:session} = useSession();
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -105,7 +106,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [updateListing, {error:updateError, loading:updateLoading, data:updateData}] = useUpdateListingMutation();
 
   const [formUploading, setFormUploading] = useState(false);
-  
+  console.log("session", session?.user)
   const initialValues = {
     title: product ? product.title : "",
     description: product ? product.description : "",

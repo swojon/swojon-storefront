@@ -8,10 +8,13 @@ import NotificationToggle from './NotificationToggle';
 import { useRouter } from 'next/navigation';
 import NotMatched from '../NotMatched/NotMatched';
 import NotFound from '../NotMatched/NotFound';
+import { useSession } from 'next-auth/react';
 
 const NotificationList = () => {
+  console.log("I m nto renderd")
     const [unreadOnly, setUnreadOnly] = useState(true);
     const router = useRouter();
+    const {data:session} = useSession()
     const [markNotificationasRead, {data:markData, error:markError, loading:markLoading}] = useMarkNotificationReadMutation();
 
     let unreadFilter:any;
@@ -30,6 +33,7 @@ const NotificationList = () => {
   
     const { data, loading, error, subscribeToMore, fetchMore } = useListNotificationsQuery({
       variables: unreadFilter,
+      skip: !session?.user?.id
     });
 
     const notifications = data?.listNotifications.items;

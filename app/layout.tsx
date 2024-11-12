@@ -6,7 +6,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import NotificationDrawer from "@/components/Notification/NotificationDrawer";
 import ImagePop from "@/components/ImagePop/ImagePop";
 import { Analytics } from "@vercel/analytics/react";
 import { NextAuthProvider } from "./providers";

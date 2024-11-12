@@ -4,17 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Notification.css";
 import { AiOutlineClose } from "react-icons/ai";
 
-import { useState } from "react";
-
-import NotificationList from "./NotificationList";
-import NotificationToggle from "./NotificationToggle";
 import { ListNotificationsDocument, useMarkAllNotificationAsReadMutation } from "@/apollograph/generated";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
+import dynamic from "next/dynamic";
+
+const DynamicNotificationList = dynamic(() => import("../Notification/NotificationList"), {ssr: false});
 
 const NotificationDrawerNew = () => {
   const [markAllasRead, {data:markAllData, loading:markAllLoading, error:markAllError}] = useMarkAllNotificationAsReadMutation()
-
   const handleMarkAllAsRead = () => {
     markAllasRead({
       onError : (e) => {
@@ -54,7 +52,7 @@ const NotificationDrawerNew = () => {
             </div>
             
             <div className="h-[96dvh] custom-scroll overflow-y-auto p-5">
-                <NotificationList/>
+                <DynamicNotificationList/>
             </div>
             
             <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">

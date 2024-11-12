@@ -12,12 +12,12 @@ import toast from "react-hot-toast";
 import { LuUser2 } from "react-icons/lu";
 import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import NotificationBell from "./NotificationBell";
+import { useApolloClient } from "@apollo/client";
 
 const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {ssr: false});
 const DynamicResponsiveNavBar = dynamic(() => import( "./ResponsiveNavBar"), {ssr: false});
 const DynamicMegaMenu = dynamic(() => import("../MegaMenu/MegaMenu"), {ssr: false});
-
+const DynamicNotificationBell = dynamic(() => import("./NotificationBell"), {ssr: false});
 
 const handleSignOut = () => {
   // console.log("signing out");
@@ -50,7 +50,7 @@ export default function Navbar({ border }: { border: any }) {
           <div className=" ">
             <div className="w-full lg:hidden">
               {/* mobile navbar */}
-              <DynamicResponsiveNavBar border={border} handleSignOut={handleSignOut} />
+              <DynamicResponsiveNavBar border={border} handleSignOut={ handleSignOut} />
             </div>
             <div className="lg:flex h-16 justify-between gap-2 items-center hidden">
               <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center z-10">
@@ -127,7 +127,7 @@ export default function Navbar({ border }: { border: any }) {
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
                 {status === "authenticated" && (
-                  <NotificationBell border={border} handleBellClick={() => dispatch(setNotificationDrawerOpen())} />
+                  <DynamicNotificationBell border={border} handleBellClick={() => dispatch(setNotificationDrawerOpen())} />
                 )}
                 {status === "authenticated" && (
                   <Link href="/chat">

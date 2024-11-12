@@ -1,11 +1,11 @@
 import { NewNotificationDocument, useListNotificationsQuery } from '@/apollograph/generated';
+import { useSession } from 'next-auth/react';
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast';
 import { FaRegBell } from 'react-icons/fa6';
 
 
 const SubscribeForMore = (subscribeToMore:any) => {
-    
   subscribeToMore({
     document : NewNotificationDocument,
     updateQuery: (
@@ -31,6 +31,8 @@ const SubscribeForMore = (subscribeToMore:any) => {
   })
 }
 export default function NotificationBell({border,  handleBellClick}:{border:any, handleBellClick:any} ) {
+  const {data:session} = useSession();
+
   const unreadFilter = {
     filters: {
       unreadOnly: [true],
@@ -38,6 +40,7 @@ export default function NotificationBell({border,  handleBellClick}:{border:any,
   };
   const { data, loading, error, subscribeToMore, fetchMore } = useListNotificationsQuery({
     variables: unreadFilter,
+    skip: !session?.user?.id
   });
   
  
