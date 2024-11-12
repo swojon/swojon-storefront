@@ -1,6 +1,6 @@
 "use client";
 import { useGetChatRoomQuery } from "@/apollograph/generated";
-import ChatMessage from "@/components/ChatComponents/ChatMessage";
+import ChatMessageArea from "@/components/ChatComponents/ChatMessageArea";
 import ChatUserProfile from "@/components/ChatComponents/ChatUserProfile";
 import ChatMessageLoader from "@/components/Loader/ChatMessageLoader";
 import useIsMobile from "@/lib/hooks/useIsMobile";
@@ -50,7 +50,7 @@ const ChatAreaPage = ({ params }: { params: { chatRoomId: string } }) => {
     <>
       {(!isMobile || (expand !== "list" && expand !== "info")) && (
         <div className={`w-full  h-full lg:block`}>
-          <ChatMessage
+          <ChatMessageArea
             sideProfile={sideProfile}
             setSideProfile={setSideProfile}
             chatRoom={chatRoom}

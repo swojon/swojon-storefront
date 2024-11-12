@@ -1,28 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+
+const MOBILE_BREAKPOINT = 768;
 
 const useIsMobile = () => {
-  const [width, setWidth] = useState(0);
-  const handleWindowSizeChange = () => {
-    setWidth(window.innerWidth);
-  };
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth <= MOBILE_BREAKPOINT : false
+  );
 
-  useEffect(() => {
-    handleWindowSizeChange();
-
-    /* Inside of a "useEffect" hook add  
-           an event listener that updates 
-           the "width" state variable when  
-           the window size changes */
-    window.addEventListener("resize", handleWindowSizeChange);
-
-    // Return a function from the effect
-    // that removes the event listener
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
+  const handleWindowSizeChange = useCallback(() => {
+    setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
   }, []);
 
-  return width <= 768;
+  useEffect(() => {
+    // Skip effect on SSR
+    if (typeof window === 'undefined') return;
+
+    // Throttle the resize event
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
+    const throttledHandler = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleWindowSizeChange, 150);
+    };
+
+    window.addEventListener('resize', throttledHandler);
+    
+    return () => {
+      window.removeEventListener('resize', throttledHandler);
+      clearTimeout(timeoutId);
+    };
+  }, [handleWindowSizeChange]);
+
+  return isMobile;
 };
 
 export default useIsMobile;

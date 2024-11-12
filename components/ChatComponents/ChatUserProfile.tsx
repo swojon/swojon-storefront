@@ -66,7 +66,7 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
         </h5>
         <div className="flex items-center gap-5	">
         {participants?.map((m: any ) =>
-          (<Link key={m.user.id} href={`/seller/${m.user.id}`} className="flex flex-col items-center">
+          (<Link key={m.user.id} href={`/seller/${m.user.username}`} className="flex flex-col items-center">
             <div className="w-7 h-7 flex  justify-center items-center rounded-full bg-[#fceced] text-activeColor">
               <RxAvatar />
             </div>
@@ -101,14 +101,14 @@ const ChatUserProfile = ({ setSideProfile, chatRoom }: { setSideProfile: any; ch
             01515
           </p> */}
         </div>
-        <div>
+        {/* <div>
           <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Email
           </h6>
           <p className="xl:text-sm lg:text-xs text-secondColor">
             {participants?.map((m:any) => m.user.email)}
           </p>
-        </div>
+        </div> */}
         <div>
           <h6 className="xl:text-base lg:text-sm font-lexed text-primaryColor">
             Member Since

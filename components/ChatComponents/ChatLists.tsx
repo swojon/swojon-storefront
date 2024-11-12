@@ -9,6 +9,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { useSession } from "next-auth/react";
+import NotFound from "../NotMatched/NotFound";
+import NotMatched from "../NotMatched/NotMatched";
 
 const ChatLists = () => {
   // const authState = useSelector((state: any) => state.auth);
@@ -65,8 +67,8 @@ const ChatLists = () => {
       </div>
 
       <div className="space-y-3 h-[70dvh] overflow-y-auto px-3 scroll-hover pb-10">
-        {data?.listChatRooms.items &&
-          data.listChatRooms.items.map((chatroom) => (
+        {data?.listChatRooms?.items?.length! > 0 ?
+          data?.listChatRooms.items.map((chatroom) => (
             <Link
               href={`/chat/${chatroom.id}`}
               key={`chatroom${chatroom.id}`}
@@ -127,7 +129,9 @@ const ChatLists = () => {
                 </div>
               </div>
             </Link>
-          ))}
+          )) :
+          <NotMatched title={"Looks like there aren't any chats yet!"} />
+          }
       </div>
     </section>
   );
