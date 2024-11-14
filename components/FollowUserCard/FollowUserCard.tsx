@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 
 export const FollowUserCard = ({follower}: {follower:any}) => {
   const {data:session, status } = useSession();
-
+  console.log("follower", follower)
   const [Unfollow, {data: unfollowData, loading: unfollowLoading, error: unfollowError}] = useRemoveFollowMutation()
   const [addFollow, {data: followData, loading: followLoading, error: followError }] = useAddFollowMutation()
   const handleFollowAdd = (userId: number, followedUserId: number) => {

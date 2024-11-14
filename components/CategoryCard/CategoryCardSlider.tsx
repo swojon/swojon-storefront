@@ -1,7 +1,7 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Mousewheel, Keyboard } from "swiper/modules";
-// import "swiper/css"
+import "swiper/css"
 import "./SwiperSlider.css"
 // import 'swiper/modules/navigation';
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import "./CategoryCard.css";
 
 const CategoryCardSlider = ({ categories}: { categories: any }) => {
-  // console.log("I am rendered twice", categories)
+  console.log("I am rendered twice", categories)
   return (
     <>
       <Swiper
@@ -34,8 +34,12 @@ const CategoryCardSlider = ({ categories}: { categories: any }) => {
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper "
+        onInit={()=> {
+          console.log("I am initited");
+        }}
+        onSwiper={(swiper) => swiper.update()}
         observer={true}
-        observeParents={true}
+        // observeParents={true}
         
         // style={{
         //   height: "230px",
