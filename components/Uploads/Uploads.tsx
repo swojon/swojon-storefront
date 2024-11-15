@@ -2,7 +2,7 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useEffect, useRef, useState  } from "react";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { ErrorMessage, useFormik } from "formik";
 import "./Upload.css";
 import { useCreateListingMutation, useUpdateListingMutation } from "@/apollograph/generated";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,8 @@ import Price from "./Price";
 import ProductTitle from "./ProductTitle";
 import UploadImage from "./UploadImage";
 import { useSession } from "next-auth/react";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 // const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
 // const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
@@ -93,8 +95,11 @@ const Uploads = ({ product }: { product: null | any }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [progress, setProgress] = useState(0);
   const formRef = useRef<any>(null);
+  const router = useRouter()
   const dispatch = useDispatch();
   const {data:session} = useSession();
+  const titleStatus = useRef("")
+
   const [uploading, setUploading] = useState(false);
   const [uploadDone, setUploadDone] = useState(false);
   const [uploadError, setUploadError] = useState(false);
@@ -241,6 +246,7 @@ const Uploads = ({ product }: { product: null | any }) => {
             setFormUploading(false);
             toast.success("Product updated successfully");
             action.resetForm();
+            titleStatus.current = "Post uploaded successfully"
             dispatch(
               setModalOpen({
                 title: "this is a modal",
@@ -251,7 +257,7 @@ const Uploads = ({ product }: { product: null | any }) => {
           },
           onError: () => {
             setFormUploading(false);
-            console.log("Failed to update listing", createError);
+            titleStatus.current = "Failed to update listing"
             toast.error("Failed to update listing");
           },
         })
@@ -327,6 +333,10 @@ const Uploads = ({ product }: { product: null | any }) => {
   };
 
   const handlePostButtonClick = () => {
+    if (errors) {
+      titleStatus.current = "Please fill up all the necessary fields."
+      setTimeout(() => {titleStatus.current = ""}, 30 * 1000)
+    }
     handleSubmit();
   };
   
@@ -396,7 +406,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               </div>
 
               <div className="flex-1 flex items-center justify-end gap-4 ">
-                <button className="py-2 w-24 rounded-md bg-secondColor text-white text-sm hover:shadow-lg">
+                <button onClick={() => router.back()} className="py-2 w-24 rounded-md bg-secondColor text-white text-sm hover:shadow-lg">
                   Cancel
                 </button>
                 <button
@@ -415,26 +425,16 @@ const Uploads = ({ product }: { product: null | any }) => {
 
             <div className="flex md:flex-row flex-col md:items-center justify-between gap-2 custom-container">
               <div className=" md:w-[50%] w-full">
+                {}
                 {/* {uploading && (
                   <h6 className="text-base text-secondColor font-medium block">
                     Image Uploading...
                   </h6>
-                )} */}
-                {formUploading && (
+                  )} */}
                   <h6 className="text-base text-secondColor font-medium block">
-                    Info sending...
-                  </h6>
-                )}
-                {progress === 0 ? (
-                  <span className="text-base text-secondColor font-medium block">
-                    Let&apos;s complete{" "}
-                  </span>
-                ) : (
-                  <span className="text-base text-secondColor font-medium">
-                    {progress}% complete
-                  </span>
-                )}
-
+                    {titleStatus.current != "" ? <span className="text-red-400">{titleStatus.current}</span> : progress === 0 ? "Let's Complete" : `${progress}% complete`  }
+                    </h6>
+              
                 <CompleteStatusBar bar={progress} />
               </div>
 
@@ -450,9 +450,7 @@ const Uploads = ({ product }: { product: null | any }) => {
       </div>
 
       <div className=" custom-container">
-        {previewBtn === "preview" ? (
-          <PreviewProduct values={values} />
-        ) : (
+        
           <form
             className="md:space-y-5 space-y-3"
             ref={formRef}
@@ -564,7 +562,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               />
             </div>
           </form>
-        )}
+        
       </div>
     </section>
   );

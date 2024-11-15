@@ -64,12 +64,12 @@ const ProductCard = ({ product }: { product: any }) => {
           </div> */}
         </div>
 
-        <div className="pb-1  flex items-center  text-secondColor ">
+        {/* <div className="pb-1  flex items-center  text-secondColor ">
           <IoMdTime className="text-sm md:text-base" />
           <span className="text-sm md:text-base ps-1">
             {timeAgo(product.dateCreated)}
           </span>
-        </div>
+        </div> */}
 
         <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-sm md:text-base" />

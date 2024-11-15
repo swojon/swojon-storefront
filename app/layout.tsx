@@ -21,11 +21,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.swojon.com"),
   title: {
-    default: "Swojon | Your Personal Shop, Our trusted Marketplace",
+    default: "Swojon.com | The marketplace you trust",
     template: "%s | Swojon",
   },
   description:
-    "Turn Your Items into Income, Without the Hassle",
+    "Discover Swojon.com - Your trusted marketplace for quality pre-owned items. Buy and sell personal products with confidence. Find amazing deals on verified items from reliable personal sellers. Join our community for sustainable shopping and smart savings.",
+  twitter: {
+    card: "summary_large_image",
+    description: "Swojon.com: Your trusted marketplace for pre-owned items. Buy and sell personal products with confidence. Find amazing deals from verified sellers."
+  }
 };
 
 interface Iprops {

@@ -8,6 +8,7 @@ query ListFollowing($usernameOrId: String!) {
         facebookId
         isApproved
         isStaff
+        username
         profile {
           name
           avatar

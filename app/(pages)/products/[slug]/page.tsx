@@ -20,17 +20,28 @@ export async function generateMetadata  ({ params }: { params: { slug: string } 
   } catch (error) {
     console.log(post)
   }
-  return {
-    // @ts-ignore
-    title: post?.getListing?.title ?? "Not Found",
-    // @ts-ignore
-    description: post?.getListing?.description ?? "The post not found",
+  // @ts-ignore
+  const listing = post?.getListing;
+
+  const opengraph:Metadata = {
+    title: listing.title ?? "Not Found",
+    description: listing.description ?? "The post not found",
     alternates: {
       canonical: `/products/${productId}`,
-      
-    }
+    },
+    openGraph: {
+      title: listing.title ?? "Not Found",
+      description: listing.description ?? "The post not found",
+      images: listing.media[0].url
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: listing.title,
+      description: listing.description,
+      images: listing.media[0].url ,
+    },  
   }
-
+  return opengraph
 }
 const ProductDetailsPage = ({ params }: { params: { slug: string } }) => {
   const productId = parseInt(params.slug, 10);

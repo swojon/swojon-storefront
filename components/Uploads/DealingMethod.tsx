@@ -11,7 +11,7 @@ const DynamicMeetup = dynamic(() => import("./MeetUp"), {ssr: false})
 
 const method = [
   { id: 188, title: "Meet-up", slug: "meetup" },
-  // { id: 14, title: "Courier Delivery", slug: "courier" },
+  { id: 14, title: "Courier Delivery", slug: "courier" },
 ];
 
 const DealingMethod = ({

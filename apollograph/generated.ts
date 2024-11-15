@@ -149,47 +149,6 @@ export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
 export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
 export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
-export const AddFollowDocument = gql`
-    mutation AddFollow($userId: Float!, $followedUserId: Float!) {
-  addFollow(userId: $userId, followedUserId: $followedUserId) {
-    id
-    followedUser {
-      id
-    }
-    user {
-      id
-    }
-    dateFollowed
-  }
-}
-    `;
-export type AddFollowMutationFn = Apollo.MutationFunction<AddFollowMutation, AddFollowMutationVariables>;
-
-/**
- * __useAddFollowMutation__
- *
- * To run a mutation, you first call `useAddFollowMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddFollowMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addFollowMutation, { data, loading, error }] = useAddFollowMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *      followedUserId: // value for 'followedUserId'
- *   },
- * });
- */
-export function useAddFollowMutation(baseOptions?: Apollo.MutationHookOptions<AddFollowMutation, AddFollowMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddFollowMutation, AddFollowMutationVariables>(AddFollowDocument, options);
-      }
-export type AddFollowMutationHookResult = ReturnType<typeof useAddFollowMutation>;
-export type AddFollowMutationResult = Apollo.MutationResult<AddFollowMutation>;
-export type AddFollowMutationOptions = Apollo.BaseMutationOptions<AddFollowMutation, AddFollowMutationVariables>;
 export const ListChatsDocument = gql`
     query listChats($userId: Float) {
   listChatRooms(userId: $userId) {
@@ -601,105 +560,6 @@ export function useListCommunitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type ListCommunitiesQueryHookResult = ReturnType<typeof useListCommunitiesQuery>;
 export type ListCommunitiesLazyQueryHookResult = ReturnType<typeof useListCommunitiesLazyQuery>;
 export type ListCommunitiesQueryResult = Apollo.QueryResult<ListCommunitiesQuery, ListCommunitiesQueryVariables>;
-export const ListFollowersDocument = gql`
-    query ListFollowers($usernameOrId: String!) {
-  listFollowers(usernameOrId: $usernameOrId) {
-    items {
-      id
-      user {
-        id
-        email
-        facebookId
-        isApproved
-        username
-        isStaff
-        profile {
-          name
-          avatar
-        }
-      }
-      followStatus
-    }
-  }
-}
-    `;
-
-/**
- * __useListFollowersQuery__
- *
- * To run a query within a React component, call `useListFollowersQuery` and pass it any options that fit your needs.
- * When your component renders, `useListFollowersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListFollowersQuery({
- *   variables: {
- *      usernameOrId: // value for 'usernameOrId'
- *   },
- * });
- */
-export function useListFollowersQuery(baseOptions: Apollo.QueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
-      }
-export function useListFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
-        }
-export type ListFollowersQueryHookResult = ReturnType<typeof useListFollowersQuery>;
-export type ListFollowersLazyQueryHookResult = ReturnType<typeof useListFollowersLazyQuery>;
-export type ListFollowersQueryResult = Apollo.QueryResult<ListFollowersQuery, ListFollowersQueryVariables>;
-export const ListFollowingDocument = gql`
-    query ListFollowing($usernameOrId: String!) {
-  listFollowing(usernameOrId: $usernameOrId) {
-    items {
-      id
-      user {
-        id
-        email
-        facebookId
-        isApproved
-        isStaff
-        profile {
-          name
-          avatar
-        }
-      }
-      followStatus
-    }
-  }
-}
-    `;
-
-/**
- * __useListFollowingQuery__
- *
- * To run a query within a React component, call `useListFollowingQuery` and pass it any options that fit your needs.
- * When your component renders, `useListFollowingQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListFollowingQuery({
- *   variables: {
- *      usernameOrId: // value for 'usernameOrId'
- *   },
- * });
- */
-export function useListFollowingQuery(baseOptions: Apollo.QueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
-      }
-export function useListFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
-        }
-export type ListFollowingQueryHookResult = ReturnType<typeof useListFollowingQuery>;
-export type ListFollowingLazyQueryHookResult = ReturnType<typeof useListFollowingLazyQuery>;
-export type ListFollowingQueryResult = Apollo.QueryResult<ListFollowingQuery, ListFollowingQueryVariables>;
 export const ListLocationsDocument = gql`
     query ListLocations {
   listLocations {
@@ -813,6 +673,238 @@ export function useGetUserByIdOrUsernameLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetUserByIdOrUsernameQueryHookResult = ReturnType<typeof useGetUserByIdOrUsernameQuery>;
 export type GetUserByIdOrUsernameLazyQueryHookResult = ReturnType<typeof useGetUserByIdOrUsernameLazyQuery>;
 export type GetUserByIdOrUsernameQueryResult = Apollo.QueryResult<GetUserByIdOrUsernameQuery, GetUserByIdOrUsernameQueryVariables>;
+export const AddFollowDocument = gql`
+    mutation AddFollow($userId: Float!, $followedUserId: Float!) {
+  addFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}
+    `;
+export type AddFollowMutationFn = Apollo.MutationFunction<AddFollowMutation, AddFollowMutationVariables>;
+
+/**
+ * __useAddFollowMutation__
+ *
+ * To run a mutation, you first call `useAddFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFollowMutation, { data, loading, error }] = useAddFollowMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      followedUserId: // value for 'followedUserId'
+ *   },
+ * });
+ */
+export function useAddFollowMutation(baseOptions?: Apollo.MutationHookOptions<AddFollowMutation, AddFollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFollowMutation, AddFollowMutationVariables>(AddFollowDocument, options);
+      }
+export type AddFollowMutationHookResult = ReturnType<typeof useAddFollowMutation>;
+export type AddFollowMutationResult = Apollo.MutationResult<AddFollowMutation>;
+export type AddFollowMutationOptions = Apollo.BaseMutationOptions<AddFollowMutation, AddFollowMutationVariables>;
+export const ListFollowersDocument = gql`
+    query ListFollowers($usernameOrId: String!) {
+  listFollowers(usernameOrId: $usernameOrId) {
+    items {
+      id
+      user {
+        id
+        email
+        facebookId
+        isApproved
+        username
+        isStaff
+        profile {
+          name
+          avatar
+        }
+      }
+      followStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowersQuery__
+ *
+ * To run a query within a React component, call `useListFollowersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowersQuery({
+ *   variables: {
+ *      usernameOrId: // value for 'usernameOrId'
+ *   },
+ * });
+ */
+export function useListFollowersQuery(baseOptions: Apollo.QueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+      }
+export function useListFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowersQuery, ListFollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowersQuery, ListFollowersQueryVariables>(ListFollowersDocument, options);
+        }
+export type ListFollowersQueryHookResult = ReturnType<typeof useListFollowersQuery>;
+export type ListFollowersLazyQueryHookResult = ReturnType<typeof useListFollowersLazyQuery>;
+export type ListFollowersQueryResult = Apollo.QueryResult<ListFollowersQuery, ListFollowersQueryVariables>;
+export const ListFollowingDocument = gql`
+    query ListFollowing($usernameOrId: String!) {
+  listFollowing(usernameOrId: $usernameOrId) {
+    items {
+      id
+      user {
+        id
+        email
+        facebookId
+        isApproved
+        isStaff
+        username
+        profile {
+          name
+          avatar
+        }
+      }
+      followStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useListFollowingQuery__
+ *
+ * To run a query within a React component, call `useListFollowingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListFollowingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListFollowingQuery({
+ *   variables: {
+ *      usernameOrId: // value for 'usernameOrId'
+ *   },
+ * });
+ */
+export function useListFollowingQuery(baseOptions: Apollo.QueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+      }
+export function useListFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListFollowingQuery, ListFollowingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListFollowingQuery, ListFollowingQueryVariables>(ListFollowingDocument, options);
+        }
+export type ListFollowingQueryHookResult = ReturnType<typeof useListFollowingQuery>;
+export type ListFollowingLazyQueryHookResult = ReturnType<typeof useListFollowingLazyQuery>;
+export type ListFollowingQueryResult = Apollo.QueryResult<ListFollowingQuery, ListFollowingQueryVariables>;
+export const RemoveFollowDocument = gql`
+    mutation RemoveFollow($userId: Float!, $followedUserId: Float!) {
+  removeFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}
+    `;
+export type RemoveFollowMutationFn = Apollo.MutationFunction<RemoveFollowMutation, RemoveFollowMutationVariables>;
+
+/**
+ * __useRemoveFollowMutation__
+ *
+ * To run a mutation, you first call `useRemoveFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFollowMutation, { data, loading, error }] = useRemoveFollowMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      followedUserId: // value for 'followedUserId'
+ *   },
+ * });
+ */
+export function useRemoveFollowMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFollowMutation, RemoveFollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFollowMutation, RemoveFollowMutationVariables>(RemoveFollowDocument, options);
+      }
+export type RemoveFollowMutationHookResult = ReturnType<typeof useRemoveFollowMutation>;
+export type RemoveFollowMutationResult = Apollo.MutationResult<RemoveFollowMutation>;
+export type RemoveFollowMutationOptions = Apollo.BaseMutationOptions<RemoveFollowMutation, RemoveFollowMutationVariables>;
+export const GetCategoryDocument = gql`
+    query GetCategory($getCategoryId: Float, $name: String, $slug: String) {
+  getCategory(id: $getCategoryId, name: $name, slug: $slug) {
+    id
+    name
+    slug
+    icon
+    banner
+    description
+    status
+    isSponsored
+    isFeatured
+    parentCategory {
+      id
+      name
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoryQuery({
+ *   variables: {
+ *      getCategoryId: // value for 'getCategoryId'
+ *      name: // value for 'name'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetCategoryQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options);
+      }
+export function useGetCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options);
+        }
+export type GetCategoryQueryHookResult = ReturnType<typeof useGetCategoryQuery>;
+export type GetCategoryLazyQueryHookResult = ReturnType<typeof useGetCategoryLazyQuery>;
+export type GetCategoryQueryResult = Apollo.QueryResult<GetCategoryQuery, GetCategoryQueryVariables>;
 export const GetSearchHistoryDocument = gql`
     query GetSearchHistory {
   getSearchHistory {
@@ -2345,47 +2437,123 @@ export function useListSellerReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ListSellerReviewsQueryHookResult = ReturnType<typeof useListSellerReviewsQuery>;
 export type ListSellerReviewsLazyQueryHookResult = ReturnType<typeof useListSellerReviewsLazyQuery>;
 export type ListSellerReviewsQueryResult = Apollo.QueryResult<ListSellerReviewsQuery, ListSellerReviewsQueryVariables>;
-export const RemoveFollowDocument = gql`
-    mutation RemoveFollow($userId: Float!, $followedUserId: Float!) {
-  removeFollow(userId: $userId, followedUserId: $followedUserId) {
-    id
-    followedUser {
-      id
+export const GenerateCategoriesSitemapDocument = gql`
+    query GenerateCategoriesSitemap {
+  generateCategoriesSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
     }
-    user {
-      id
-    }
-    dateFollowed
   }
 }
     `;
-export type RemoveFollowMutationFn = Apollo.MutationFunction<RemoveFollowMutation, RemoveFollowMutationVariables>;
 
 /**
- * __useRemoveFollowMutation__
+ * __useGenerateCategoriesSitemapQuery__
  *
- * To run a mutation, you first call `useRemoveFollowMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveFollowMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useGenerateCategoriesSitemapQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenerateCategoriesSitemapQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [removeFollowMutation, { data, loading, error }] = useRemoveFollowMutation({
+ * const { data, loading, error } = useGenerateCategoriesSitemapQuery({
  *   variables: {
- *      userId: // value for 'userId'
- *      followedUserId: // value for 'followedUserId'
  *   },
  * });
  */
-export function useRemoveFollowMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFollowMutation, RemoveFollowMutationVariables>) {
+export function useGenerateCategoriesSitemapQuery(baseOptions?: Apollo.QueryHookOptions<GenerateCategoriesSitemapQuery, GenerateCategoriesSitemapQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveFollowMutation, RemoveFollowMutationVariables>(RemoveFollowDocument, options);
+        return Apollo.useQuery<GenerateCategoriesSitemapQuery, GenerateCategoriesSitemapQueryVariables>(GenerateCategoriesSitemapDocument, options);
       }
-export type RemoveFollowMutationHookResult = ReturnType<typeof useRemoveFollowMutation>;
-export type RemoveFollowMutationResult = Apollo.MutationResult<RemoveFollowMutation>;
-export type RemoveFollowMutationOptions = Apollo.BaseMutationOptions<RemoveFollowMutation, RemoveFollowMutationVariables>;
+export function useGenerateCategoriesSitemapLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenerateCategoriesSitemapQuery, GenerateCategoriesSitemapQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenerateCategoriesSitemapQuery, GenerateCategoriesSitemapQueryVariables>(GenerateCategoriesSitemapDocument, options);
+        }
+export type GenerateCategoriesSitemapQueryHookResult = ReturnType<typeof useGenerateCategoriesSitemapQuery>;
+export type GenerateCategoriesSitemapLazyQueryHookResult = ReturnType<typeof useGenerateCategoriesSitemapLazyQuery>;
+export type GenerateCategoriesSitemapQueryResult = Apollo.QueryResult<GenerateCategoriesSitemapQuery, GenerateCategoriesSitemapQueryVariables>;
+export const GenerateListingsSitemapDocument = gql`
+    query GenerateListingsSitemap {
+  generateListingsSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGenerateListingsSitemapQuery__
+ *
+ * To run a query within a React component, call `useGenerateListingsSitemapQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenerateListingsSitemapQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGenerateListingsSitemapQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGenerateListingsSitemapQuery(baseOptions?: Apollo.QueryHookOptions<GenerateListingsSitemapQuery, GenerateListingsSitemapQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenerateListingsSitemapQuery, GenerateListingsSitemapQueryVariables>(GenerateListingsSitemapDocument, options);
+      }
+export function useGenerateListingsSitemapLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenerateListingsSitemapQuery, GenerateListingsSitemapQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenerateListingsSitemapQuery, GenerateListingsSitemapQueryVariables>(GenerateListingsSitemapDocument, options);
+        }
+export type GenerateListingsSitemapQueryHookResult = ReturnType<typeof useGenerateListingsSitemapQuery>;
+export type GenerateListingsSitemapLazyQueryHookResult = ReturnType<typeof useGenerateListingsSitemapLazyQuery>;
+export type GenerateListingsSitemapQueryResult = Apollo.QueryResult<GenerateListingsSitemapQuery, GenerateListingsSitemapQueryVariables>;
+export const GenerateSellersSitemapDocument = gql`
+    query GenerateSellersSitemap {
+  generateSellersSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGenerateSellersSitemapQuery__
+ *
+ * To run a query within a React component, call `useGenerateSellersSitemapQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenerateSellersSitemapQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGenerateSellersSitemapQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGenerateSellersSitemapQuery(baseOptions?: Apollo.QueryHookOptions<GenerateSellersSitemapQuery, GenerateSellersSitemapQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenerateSellersSitemapQuery, GenerateSellersSitemapQueryVariables>(GenerateSellersSitemapDocument, options);
+      }
+export function useGenerateSellersSitemapLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenerateSellersSitemapQuery, GenerateSellersSitemapQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenerateSellersSitemapQuery, GenerateSellersSitemapQueryVariables>(GenerateSellersSitemapDocument, options);
+        }
+export type GenerateSellersSitemapQueryHookResult = ReturnType<typeof useGenerateSellersSitemapQuery>;
+export type GenerateSellersSitemapLazyQueryHookResult = ReturnType<typeof useGenerateSellersSitemapLazyQuery>;
+export type GenerateSellersSitemapQueryResult = Apollo.QueryResult<GenerateSellersSitemapQuery, GenerateSellersSitemapQueryVariables>;
 export const SignupDocument = gql`
     mutation Signup($userData: CreateUserDto!) {
   signup(userData: $userData) {
@@ -3348,6 +3516,12 @@ export type Query = {
   checkUsernameAvailability: ResetStatus;
   /** Find Community by Id */
   findCommunityById: Community;
+  /** Get all categories sitemap */
+  generateCategoriesSitemap: SitemapLists;
+  /** Get User by Id */
+  generateListingsSitemap: SitemapLists;
+  /** Get all sellers sitemap */
+  generateSellersSitemap: SitemapLists;
   /** Get Category by Id, slug or name */
   getCategory: Category;
   /** Get ChatRoom by id */
@@ -3697,6 +3871,19 @@ export type SerachInputDto = {
   search: Scalars['String']['input'];
 };
 
+export type Sitemap = {
+  __typename?: 'Sitemap';
+  changefreq?: Maybe<Scalars['String']['output']>;
+  lastmod?: Maybe<Scalars['DateTime']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
+  url: Scalars['String']['output'];
+};
+
+export type SitemapLists = {
+  __typename?: 'SitemapLists';
+  items: Array<Sitemap>;
+};
+
 /** ENUM for Category Status */
 export enum Status {
   Approved = 'APPROVED',
@@ -3825,14 +4012,6 @@ export type AddFavoriteMutationVariables = Exact<{
 
 export type AddFavoriteMutation = { __typename?: 'Mutation', addFavorite: { __typename?: 'Favorite', dateCreated: any, id: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, user?: { __typename?: 'User', email: string, id: number, username?: string | null } | null } };
 
-export type AddFollowMutationVariables = Exact<{
-  userId: Scalars['Float']['input'];
-  followedUserId: Scalars['Float']['input'];
-}>;
-
-
-export type AddFollowMutation = { __typename?: 'Mutation', addFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
-
 export type ListChatsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['Float']['input']>;
 }>;
@@ -3892,6 +4071,26 @@ export type ListCommunitiesQueryVariables = Exact<{
 
 export type ListCommunitiesQuery = { __typename?: 'Query', listCommunities: { __typename?: 'Communities', items: Array<{ __typename?: 'Community', slug?: string | null, banner?: string | null, isFeatured: boolean, id: number, description?: string | null, memberCount?: number | null, name?: string | null, members?: Array<{ __typename?: 'CommunityMember', id: number, role?: string | null }> | null, location?: { __typename?: 'Location', id: number, name: string } | null }> } };
 
+export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null }> } };
+
+export type GetUserByIdOrUsernameQueryVariables = Exact<{
+  usernameOrId: Scalars['String']['input'];
+}>;
+
+
+export type GetUserByIdOrUsernameQuery = { __typename?: 'Query', getUserByIdOrUsername: { __typename?: 'UserWithMeta', createdAt?: any | null, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, followingStatus?: boolean | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+
+export type AddFollowMutationVariables = Exact<{
+  userId: Scalars['Float']['input'];
+  followedUserId: Scalars['Float']['input'];
+}>;
+
+
+export type AddFollowMutation = { __typename?: 'Mutation', addFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
+
 export type ListFollowersQueryVariables = Exact<{
   usernameOrId: Scalars['String']['input'];
 }>;
@@ -3904,19 +4103,24 @@ export type ListFollowingQueryVariables = Exact<{
 }>;
 
 
-export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
+export type ListFollowingQuery = { __typename?: 'Query', listFollowing: { __typename?: 'Followers', items: Array<{ __typename?: 'Follower', id: number, followStatus: boolean, user: { __typename?: 'User', id: number, email: string, facebookId?: string | null, isApproved: boolean, isStaff: boolean, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
-export type ListLocationsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ListLocationsQuery = { __typename?: 'Query', listLocations: { __typename?: 'Locations', items: Array<{ __typename?: 'Location', banner?: string | null, description?: string | null, id: number, isDeleted?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, name: string, slug?: string | null }> } };
-
-export type GetUserByIdOrUsernameQueryVariables = Exact<{
-  usernameOrId: Scalars['String']['input'];
+export type RemoveFollowMutationVariables = Exact<{
+  userId: Scalars['Float']['input'];
+  followedUserId: Scalars['Float']['input'];
 }>;
 
 
-export type GetUserByIdOrUsernameQuery = { __typename?: 'Query', getUserByIdOrUsername: { __typename?: 'UserWithMeta', createdAt?: any | null, email: string, facebookId?: string | null, followerCount?: number | null, followingCount?: number | null, followingStatus?: boolean | null, id: number, isEmailVerified: boolean, isStaff: boolean, listingCount?: number | null, isApproved: boolean, pointBalance?: number | null, username?: string | null, profile?: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } | null, roles?: Array<{ __typename?: 'Role', id: number, name: string, description: string }> | null } };
+export type RemoveFollowMutation = { __typename?: 'Mutation', removeFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
+
+export type GetCategoryQueryVariables = Exact<{
+  getCategoryId?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetCategoryQuery = { __typename?: 'Query', getCategory: { __typename?: 'Category', id: number, name: string, slug?: string | null, icon?: string | null, banner?: string | null, description?: string | null, status?: Status | null, isSponsored?: boolean | null, isFeatured?: boolean | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } };
 
 export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4108,13 +4312,20 @@ export type ListSellerReviewsQueryVariables = Exact<{
 
 export type ListSellerReviewsQuery = { __typename?: 'Query', listSellerReviews: { __typename?: 'Reviews', count: number, items: Array<{ __typename?: 'Review', review?: string | null, rating: number, dateCreated: any, id: number, reviewer: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, seller: { __typename?: 'User', id: number, email: string, username?: string | null, profile?: { __typename?: 'Profile', avatar?: string | null, name?: string | null } | null }, listing?: { __typename?: 'Listing', id: number, title: string } | null }> } };
 
-export type RemoveFollowMutationVariables = Exact<{
-  userId: Scalars['Float']['input'];
-  followedUserId: Scalars['Float']['input'];
-}>;
+export type GenerateCategoriesSitemapQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RemoveFollowMutation = { __typename?: 'Mutation', removeFollow: { __typename?: 'Follow', id: number, dateFollowed: any, followedUser?: { __typename?: 'User', id: number } | null, user?: { __typename?: 'User', id: number } | null } };
+export type GenerateCategoriesSitemapQuery = { __typename?: 'Query', generateCategoriesSitemap: { __typename?: 'SitemapLists', items: Array<{ __typename?: 'Sitemap', changefreq?: string | null, lastmod?: any | null, priority?: number | null, url: string }> } };
+
+export type GenerateListingsSitemapQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GenerateListingsSitemapQuery = { __typename?: 'Query', generateListingsSitemap: { __typename?: 'SitemapLists', items: Array<{ __typename?: 'Sitemap', changefreq?: string | null, lastmod?: any | null, priority?: number | null, url: string }> } };
+
+export type GenerateSellersSitemapQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GenerateSellersSitemapQuery = { __typename?: 'Query', generateSellersSitemap: { __typename?: 'SitemapLists', items: Array<{ __typename?: 'Sitemap', changefreq?: string | null, lastmod?: any | null, priority?: number | null, url: string }> } };
 
 export type SignupMutationVariables = Exact<{
   userData: CreateUserDto;

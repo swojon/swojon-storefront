@@ -1,0 +1,10 @@
+query GenerateCategoriesSitemap {
+  generateCategoriesSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
+    }
+  }
+}
