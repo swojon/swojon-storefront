@@ -45,6 +45,7 @@ mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
         email
         id
         username
+        isVerified
         profile{
           name
           avatar

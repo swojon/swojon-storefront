@@ -46,6 +46,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
         email
         id
         username
+        isVerified
         profile{
           name
           avatar

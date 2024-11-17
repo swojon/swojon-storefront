@@ -45,6 +45,7 @@ query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: S
       user {
         email
         id
+        isVerified
         username
         profile{
           name

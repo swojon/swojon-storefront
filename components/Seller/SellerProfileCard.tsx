@@ -68,9 +68,11 @@ const SellerProfileCard = ({ seller }: { seller: any }) => {
             alt="user"
             className="w-full h-full object-cover rounded-full"
           />
-          <span className="absolute text-[#08B66D] right-1 bottom-0">
+          {seller?.isVerified && (
+          <span className="absolute text-activeColor right-1 bottom-0">
             <MdVerifiedUser className="text-2xl" />
           </span>
+          )}
         </div>
         <div className="py-3 border-b space-y-1">
           <h6 className="md:text-lg text-base font-lexed font-bold text-primaryColor">

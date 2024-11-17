@@ -10,6 +10,7 @@ import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
+import { MdVerifiedUser } from "react-icons/md";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
@@ -36,10 +37,13 @@ const ProductInfo = ({ product }: { product: any }) => {
 
           <div className="  md:space-y-2 space-y-1">
             <Link href={`/seller/${ product?.user?.username ?? product?.user?.id}`}>
-              <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor">
+              <h6 className="lg:text-base text-sm font-lexed font-medium text-primaryColor flex items-center gap-1">
                 {product?.user?.profile?.name ??
                   product?.user?.username ??
                   product?.user?.email.split('@')[0]}
+                  {product?.user?.isVerified && (
+                      <MdVerifiedUser className="text-activeColor text-sm md:text-base "  />
+                  )}
               </h6>
             </Link>
 

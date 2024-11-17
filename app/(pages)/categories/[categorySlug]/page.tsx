@@ -18,7 +18,10 @@ export async function generateMetadata  ({ params }: { params: { categorySlug: s
       }
     })
   } catch (error) {
-    console.log(post)
+    return {
+      title: "Sorry, we couldn't find this category.",
+      description: "It may have been removed or is no longer available. Browse our other categories to find what you're looking for.",
+    }
   }
   // @ts-ignore
   const category = post?.getCategory;

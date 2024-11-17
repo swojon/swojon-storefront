@@ -9,6 +9,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import FavoriteProduct from "./FavoriteProduct";
 import { useSession } from "next-auth/react";
 import OtherInfo from "./OtherInfo";
+import { MdVerifiedUser } from "react-icons/md";
 
 const ProductCard = ({ product }: { product: any }) => {
   const {data:session, status } = useSession();
@@ -73,11 +74,16 @@ const ProductCard = ({ product }: { product: any }) => {
 
         <div className=" pb-1 flex items-center   text-secondColor">
           <AiOutlineUser className="text-sm md:text-base" />
-          <span className="text-sm md:text-base ps-1">
+          <div className="flex items-center gap-1 text-sm md:text-base ps-1">
             {product.user.username ??
               product.user.profile?.name ??
               product.user.email.split("@")[0]}
-          </span>
+              {product.user?.isVerified && (
+                <span className="">
+                  <MdVerifiedUser className="text-activeColor text-sm md:text-base "  />
+                </span>
+              )}
+          </div>
         </div>
 
         <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">

@@ -47,6 +47,7 @@ query ListFavoriteListing($userId: Float!) {
         email
         id
         username
+        isVerified
         profile{
           name
           avatar

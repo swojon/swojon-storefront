@@ -1,7 +1,7 @@
-"use client";
+'use client'
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useGetUserByIdOrUsernameQuery } from "@/apollograph/generated";
+import { GenerateSellersSitemapDocument, useGetUserByIdOrUsernameQuery } from "@/apollograph/generated";
 import SellerProfileCard from "@/components/Seller/SellerProfileCard";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

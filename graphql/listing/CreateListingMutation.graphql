@@ -46,6 +46,7 @@ mutation CreateListing($listingData: ListingCreateDTO!) {
         email
         id
         username
+        isVerified
         profile{
           name
           avatar

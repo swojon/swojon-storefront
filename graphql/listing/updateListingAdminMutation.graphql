@@ -43,6 +43,7 @@ mutation UpdateListingAdmin($adminlistingData: AdminListingUpdateDTO!, $listingI
         email
         id
         username
+        isVerified
         profile{
           name
           avatar
