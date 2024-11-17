@@ -141,19 +141,7 @@ export default function Navbar({ border }: { border: any }) {
                   </Link>
                 )}
 
-                {status !== "authenticated" ? (
-                  <Link href="/signup">
-                    <button
-                      className={`py-1.5  leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
-                        border === "border"
-                          ? "text-primaryColor"
-                          : "text-primaryColor"
-                      }`}
-                    >
-                      sign up
-                    </button>
-                  </Link>
-                ) : (
+                {status === "authenticated" && (
                   <Menu
                     as="div"
                     className="relative  flex-shrink-0 font-lexed font-medium "
@@ -294,11 +282,12 @@ export default function Navbar({ border }: { border: any }) {
                           : "text-primaryColor"
                       }`}
                     >
-                      login
+                      Login
                     </button>
                   </Link>
                 )}
 
+              {status === "authenticated" ? (
                 <Link href="/upload-product">
                   <button
                     // onClick={() =>
@@ -314,6 +303,9 @@ export default function Navbar({ border }: { border: any }) {
                     Sell Product
                   </button>
                 </Link>
+              ) : <Link href="/signup" className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   ">
+                Create Account
+              </Link>}
               </div>
             </div>
           </div>
