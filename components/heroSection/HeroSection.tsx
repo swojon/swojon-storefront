@@ -15,7 +15,8 @@ const HeroSection = () => {
       <Image
         src="/assets/Swojon_Cover_photo.png"
         fill={true}
-        sizes="100vw"
+        sizes="(max-width: 768px) 400vw, (max-width: 1200px) 100vw, 100vw"
+        quality={100}
         className="object-center object-cover pointer-events-none z-0 "
         alt="cover"
       />
@@ -23,14 +24,14 @@ const HeroSection = () => {
       <Navbar border="none" />
 
       <div className="flex hero-height justify-center items-center  hero-custom-container   relative  bg-gradient-to-t from-slate-900">
-        <div className="md:text-center text-center space-y-2 md:space-y-4 ">
+        <div className="md:text-center text-center space-y-3 md:space-y-4 ">
           <h1 className="lg:text-5xl font-lexed md:text-5xl text-4xl font-bold flex flex-col space-y-2 animate text-white slideInLeft ">
           Helping you Become Everyone&apos;s Trusted Choice
           </h1>
           <p className=" text-white xl:text-xl lg:text-lg md:text-base text-sm  sm:flex sm:flex-col   animate--delay-1s slideInLeft2   font-medium">
             <span className="md:block pe-2">
             {/* Join a marketplace that fights scams that ruin your day */}
-            Buy and sell with confidence on a marketplace that fights scams every step of the way.
+            Buy and sell with confidence on a marketplace that battles scams.
             </span>
             {/* <span>
               Where every purchase tells a story of style and savings.
