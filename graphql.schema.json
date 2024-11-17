@@ -3065,6 +3065,18 @@
             "deprecationReason": null
           },
           {
+            "name": "courierDetails",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dateCreated",
             "description": null,
             "args": [],
@@ -3413,6 +3425,18 @@
             "deprecationReason": null
           },
           {
+            "name": "courierDetails",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dealingMethod",
             "description": null,
             "type": {
@@ -3421,18 +3445,6 @@
               "ofType": null
             },
             "defaultValue": "\"meetup\"",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "deliveryCharge",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -3823,6 +3835,18 @@
           },
           {
             "name": "condition",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "courierDetails",
             "description": null,
             "type": {
               "kind": "SCALAR",

@@ -150,20 +150,20 @@ const ProductInfo = ({ product }: { product: any }) => {
 
           <div className="flex gap-2 justify-between items-center">
             <h6 className=" truncate text-base font-bold text-primaryColor ">
-              150 Tk
+              {product?.courierDetails} 
             </h6>
           </div>
 
-          <div className="border-b border-[#F1F1F1]" />
+          {/* <div className="border-b border-[#F1F1F1]" /> */}
 
-          <div className="flex gap-2 justify-between items-center">
+          {/* <div className="flex gap-2 justify-between items-center">
             <div className="w-[75%]">
               <p className=" truncate text-base font-medium text-primaryColor ">
                 User can request delivery options
               </p>
             </div>
             <button className="text-activeColor font-medium">See more</button>
-          </div>
+          </div> */}
         </div>
       )}
 

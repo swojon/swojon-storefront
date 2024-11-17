@@ -39,6 +39,7 @@ query GetListing($id: Float, $name: String) {
       quantity
       slug
       dealingMethod
+      courierDetails
       price
       title
       user {

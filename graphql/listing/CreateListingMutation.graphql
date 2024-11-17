@@ -40,6 +40,7 @@ mutation CreateListing($listingData: ListingCreateDTO!) {
       quantity
       slug
       dealingMethod
+      courierDetails
       price
       title
       user {

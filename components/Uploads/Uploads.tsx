@@ -44,7 +44,7 @@ const formSchema = Yup.object({
   price: Yup.number().integer().required("Min price needed").test("PRICE_TEST", "Price can't be negative", (price) => price >= 0),
   condition: Yup.string().required("Item condition is required"),
   dealingMethod: Yup.string().required("Dealing Method is required"),
-  deliveryCharge: Yup.number().notRequired(),
+  courierDetails: Yup.string().notRequired(),
   meetupLocations: Yup.array(
     Yup.object({
       city: Yup.string().notRequired(),
@@ -116,8 +116,8 @@ const Uploads = ({ product }: { product: null | any }) => {
     title: product ? product.title : "",
     description: product ? product.description : "",
     images: [],
-    condition: product ? product.condition : "used",
-    slug: product ? product.slug : "",
+    condition: product ? product.condition : "",
+    // slug: product ? product.slug : "",
     // parentCategoryId: product?.parentCategory?.id,
     brandId: product ? product?.brand?.id : null,
     categoryId: product ? product?.category?.id : null,
@@ -125,7 +125,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     price: product ? product?.price : null,
     quantity: product ? product?.quantity : 1,
     dealingMethod: product ? product?.dealingMethod : "",
-    // deliveryCharge: product ? product.deliveryCharge : 0,
+    courierDetails: product ? product.courierDetails : "",
     meetupLocations: product ? product?.meetupLocations.map(({__typename, ...rest}:any) => rest ) : [],
     mediaUrls: product ? product.media : [],
   };
@@ -138,8 +138,7 @@ const Uploads = ({ product }: { product: null | any }) => {
     // "brandId",
     "categoryId",
     "price",
-    "dealingMethod",
-    "meetupLocations",
+    "dealingMethod"
   ];
   
 
@@ -237,8 +236,8 @@ const Uploads = ({ product }: { product: null | any }) => {
               brandId: listingData.brandId,
               mediaUrls: listingData.mediaUrls,
               meetupLocations: listingData.meetupLocations,
-              condition : listingData.condition 
-              
+              condition : listingData.condition,
+              courierDetails: listingData.courierDetails
               //@todo here
             }
           },
@@ -334,12 +333,13 @@ const Uploads = ({ product }: { product: null | any }) => {
 
   const handlePostButtonClick = () => {
     if (errors) {
+      console.log("errors", errors)
       titleStatus.current = "Please fill up all the necessary fields."
       setTimeout(() => {titleStatus.current = ""}, 30 * 1000)
     }
     handleSubmit();
   };
-  
+  console.log("values", values)
   return (
     <section className="space-y-5">
       <div className={` ${previewBtn === "preview" && "border-b pb-5"}`}>

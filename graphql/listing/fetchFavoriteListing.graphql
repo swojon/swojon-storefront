@@ -40,7 +40,8 @@ query ListFavoriteListing($userId: Float!) {
       }
       quantity
       slug
-      dealingMethod
+      dealingMethod 
+      courierDetails
       price
       title
       user {

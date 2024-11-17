@@ -39,6 +39,7 @@ mutation RemoveListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
       quantity
       slug
       dealingMethod
+      courierDetails
       price
       title
       user {

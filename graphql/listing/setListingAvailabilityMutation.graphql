@@ -39,7 +39,8 @@ mutation SetListingAvailability($listingData: MarkAsUnavailableDTO!, $setListing
       }
       quantity
       slug
-      dealingMethod
+      dealingMethod 
+      courierDetails
       price
       title
       user {

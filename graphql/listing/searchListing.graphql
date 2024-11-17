@@ -40,6 +40,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
       quantity
       slug
       dealingMethod
+      courierDetails
       price
       title
       user {

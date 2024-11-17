@@ -40,6 +40,7 @@ query ListListings($filters: ListingFilterInput, $limit: Float, $endingBefore: S
       quantity
       slug
       dealingMethod
+      courierDetails
       price
       title
       user {

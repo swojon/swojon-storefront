@@ -36,7 +36,8 @@ mutation UpdateListingAdmin($adminlistingData: AdminListingUpdateDTO!, $listingI
       }
       quantity
       slug
-      dealingMethod
+      dealingMethod 
+      courierDetails
       price
       title
       user {

@@ -90,7 +90,7 @@ const DealingMethod = ({
         {selectMethod && selectMethod?.title === "Meet-up" ? (
           <DynamicMeetup  setFieldValue={setFieldValue} values={values} errors={errors} touched={touched} handleBlur={handleBlur}  />
         ) : (
-          selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} />
+          selectMethod?.title === "Courier Delivery" && <Courier setFieldValue={setFieldValue} values={values} handleChange={handleChange} />
         )}
       </div>
     </section>
