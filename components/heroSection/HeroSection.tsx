@@ -25,13 +25,13 @@ const HeroSection = () => {
 
       <div className="flex hero-height justify-center items-center  hero-custom-container   relative  bg-gradient-to-t from-slate-900">
         <div className="md:text-center text-center space-y-3 md:space-y-4 ">
-          <h1 className="lg:text-5xl font-lexed md:text-5xl text-4xl font-bold flex flex-col space-y-2 animate text-white slideInLeft ">
+          <h1 className="lg:text-5xl font-lexed md:text-5xl text-3xl font-bold flex flex-col space-y-2 animate text-white slideInLeft ">
           Helping you Become Everyone&apos;s Trusted Choice
           </h1>
           <p className=" text-white xl:text-xl lg:text-lg md:text-base text-sm  sm:flex sm:flex-col   animate--delay-1s slideInLeft2   font-medium">
             <span className="md:block pe-2">
             {/* Join a marketplace that fights scams that ruin your day */}
-            Buy and sell with confidence on a marketplace that battles scams.
+            Buy & sell with confidence on a marketplace that battles scams.
             </span>
             {/* <span>
               Where every purchase tells a story of style and savings.
@@ -48,13 +48,13 @@ const HeroSection = () => {
 
 <>
             <Link href="/explore">
-                <button className="py-3.5 px-9 border border-whiteColor rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-xl lg:text-lg md:text-base  font-lexed font-medium  whitespace-nowrap shadow-2xl shadow-gray-800 w-full md:w-auto hover:shadow-lg hover:-translate-y-1">
-                  Explore Products
+                <button className="py-3.5 px-9  xs:px-3  border border-whiteColor rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-xl lg:text-lg md:text-base sm:text-xs font-lexed font-medium  whitespace-nowrap shadow-2xl shadow-gray-800 w-full md:w-auto hover:shadow-lg hover:-translate-y-1">
+                  Explore All
                 </button>
               </Link>
               <Link href="/upload-product">
-                <button className="py-3.5 px-9 bg-activeColor  rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-xl lg:text-lg md:text-base  font-lexed font-medium  whitespace-nowrap shadow-2xl shadow-gray-800 w-full md:w-auto hover:shadow-lg hover:-translate-y-1">
-                  List your product
+                <button className="py-3.5 px-9  xs:px-3  bg-activeColor  rounded-md text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-xl lg:text-lg md:text-base sm:text-xs font-lexed font-medium  whitespace-nowrap shadow-2xl shadow-gray-800 w-full md:w-auto  hover:shadow-lg hover:-translate-y-1">
+                  List Product
                 </button>
               </Link>
             </>
