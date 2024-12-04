@@ -16,15 +16,14 @@ const Chats = () => {
       <div className=" chatDefault flex flex-col justify-center items-center">
         <div className="w-[75%] h-[60%] flex  justify-center items-center">
           <Image
-            src="/assets/conversation.svg"
+            src="/stickers/Message.svg"
             alt="message"
             width={500}
-            height={500}
-            className="w-full h-full "
+            height={375}
           />
         </div>
-        <p className="text-base text-secondColor font-lexed font-medium pt-4">
-          Select chat to start a conversation
+        <p className="text-xl text-secondColor font-lexed font-medium pt-4">
+        Select a chat from the left to start viewing your conversations
         </p>
       </div>
     </div>}

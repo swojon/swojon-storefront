@@ -152,7 +152,7 @@ const NotificationList = () => {
           
         {loading && <p>Loading</p>}
         {!loading && notifications?.length === 0 && (
-          <NotFound title={"You are all caught up"}/>
+          <NotFound title={"You are all caught up"} imagePath={"/stickers/Notification.svg"}/>
         )}
       </>
     );

@@ -64,7 +64,7 @@ const UploadImage = ({
         let updatedImageCount = [];
         for (let i = uploadedUrls.length ; i < imageCount.length; i++) {
           //uploads only the new file uploaded. don't repeat
-          console.log("uploaded url", imageCount[i])
+          // console.log("uploaded url", imageCount[i])
           if (imageCount[i].url.includes("res.cloudinary.com")){
             //it is already an url, no need to reupload
             updatedImageCount.push({

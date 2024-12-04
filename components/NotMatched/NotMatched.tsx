@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const NotMatched = ({ title, subtitle, cta }: { title: any, subtitle? : any, cta?: {text : any, link: any} }) => {
+const NotMatched = ({ title, subtitle, cta, imagePath }: { title: any, subtitle? : any, cta?: {text : any, link: any}, imagePath?: string }) => {
   return (
     <section className="flex flex-col justify-center items-center custom-container ">
       <Image
-        src="/assets/notfound.svg"
+        src={imagePath ?? "/stickers/NotFound.svg"}
         className="w-full h-[200px]"
         width={700}
         height={900}

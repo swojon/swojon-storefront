@@ -8,13 +8,14 @@ interface Props {
   cta?: {
     text: string, 
     link: string
-  }
+  },
+  imagePath?:string
 }
 
-const NotFound = ({title, subtitle, cta}: Props) => {
+const NotFound = ({title, subtitle, cta, imagePath}: Props) => {
   return (
     <section className="flex flex-col justify-center items-center custom-container page-height">
-      <NotMatched title={title} subtitle={subtitle} cta={cta}/>
+      <NotMatched title={title} subtitle={subtitle} cta={cta} imagePath={imagePath}/>
     </section>
   );
 };

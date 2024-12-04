@@ -9,7 +9,7 @@ const AuthLayout = ({ children }: { children: any }) => {
       <div className="  w-full h-full flex items-center custom-container">
         <div className="lg:w-[50%] w-[35%] h-full md:flex   min-h-screen  items-center   hidden">
           <div className="lg:w-2/3  lg:h-2/3 h-full m-auto">
-            <Image src={signin} alt="" className="w-full  h-full" />
+            <Image src={"/stickers/Welcome.svg"} height={500} width={375} alt="" className="w-full  h-full" />
           </div>
           {/* <div className="absolute left-0 bottom-0 ">
             <Image

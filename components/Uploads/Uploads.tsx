@@ -63,15 +63,15 @@ const formSchema = Yup.object({
     .of(
       Yup.mixed()
         .nullable()
-        .test(
-          "FILE_SIZE",
-          "Too big!!",
-          (file: any) => {
-            console.log("File and type of file", file, typeof file);
-            if (typeof file === "string") return true;
-            return file ? file && file.size < 20 * 1024 * 1024 : true;
-          } //20MB
-        )
+        // .test(
+        //   "FILE_SIZE",
+        //   "Too big!!",
+        //   (file: any) => {
+        //     console.log("File and type of file", file, typeof file);
+        //     if (typeof file === "string") return true;
+        //     return file ? file && file.size < 20 * 1024 * 1024 : true;
+        //   } //20MB
+        // )
         .test("FILE_TYPE", "INVALID", (file: any) => {
           console.log("file", file, file.type);
           if (typeof file === "string") return true;
@@ -432,7 +432,7 @@ const Uploads = ({ product }: { product: null | any }) => {
                   </h6>
                   )} */}
                   <h6 className="text-base text-secondColor font-medium block">
-                    {titleStatus.current != "" ? <span className="text-red-400">{titleStatus.current}</span> : progress === 0 ? "Let's Complete" : `${progress}% complete`  }
+                    { progress === 0 ? "Let's Complete" : `${progress}% complete`  }
                     </h6>
               
                 <CompleteStatusBar bar={progress} />

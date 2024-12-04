@@ -83,7 +83,7 @@ const SearchPage = ({ params }: { params: any }) => {
           </div>
           {!loading && (!results || results.length <= 0) && (
             <div className=" pt-16">
-              <NotMatched title={"Sorry! We didn't Find Any Product"} />
+              <NotMatched title={"Sorry! We didn't Find Any Product"} imagePath="/stickers/SearchNotFound.svg" />
             </div>
           )}
         </div>

@@ -10,11 +10,11 @@ const SellBuyArea = () => {
       <h2 className="lg:text-4xl text-2xl font-lexed text-center text-primaryColor font-bold">
         Experience the Difference
       </h2>
-      <div className="pt-7 lg:w-[80%] w-full mx-auto flex flex-wrap justify-center items-center gap-3">
-        <div className=" p-3 space-y-3  w-64 h-48  flex flex-col justify-center items-center text-center">
-          <div className=" relative  w-16 h-16 bg-[#ffebeb] rounded-full flex justify-center items-center">
-            <Image src={trolly} alt="" />
-            <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#ffebeb] rounded-full"></div>
+      <div className="pt-7  w-full mx-auto flex flex-wrap justify-center items-center gap-6">
+        <div className=" p-3 space-y-3 lg:w-96 w-64 h-48  flex flex-col justify-center items-center text-center">
+          <div className=" relative  w-32 h-32 flex justify-center items-center">
+            <Image src={"/stickers/Browse.svg"} width={500} height={375} alt="" />
+            {/* <div className="absolute  w-16 h-16 left-0 "></div> */}
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
           Browse
@@ -24,10 +24,10 @@ const SellBuyArea = () => {
           </span>
         </div>
 
-        <div className=" p-3 space-y-3  w-64 h-48 flex flex-col justify-center items-center text-center">
-          <div className=" relative  w-16 h-16 bg-[#fff8dd] rounded-full flex justify-center items-center">
-            <Image src={substract} alt="" />
-            <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#fff8dd] rounded-full 	"></div>
+        <div className=" p-3 space-y-3  w-64 lg:w-96 h-48 flex flex-col justify-center items-center text-center">
+        <div className=" relative  w-32 h-32 flex justify-center items-center">
+            <Image src={"/stickers/Thrive.svg"} width={500} height={375} alt="" />
+            {/* <div className="absolute  w-16 h-16 left-0 "></div> */}
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
           Thrive
@@ -37,10 +37,10 @@ const SellBuyArea = () => {
           </span>
         </div>
 
-        <div className=" p-3 space-y-3 w-64 h-48 flex flex-col justify-center items-center text-center">
-          <div className=" relative  w-16 h-16 bg-[#e8ffed] rounded-full flex justify-center items-center">
-            <Image src={layers} alt="" />
-            <div className="absolute animate-ping w-16 h-16 left-0 border bg-[#e8ffed] rounded-full"></div>
+        <div className=" p-3 space-y-3 w-64 lg:w-96 h-48 flex flex-col justify-center items-center text-center">
+          <div className=" relative  w-32 h-32 flex justify-center items-center">
+            <Image src={"/stickers/Grow.svg"} width={500} height={375} alt="" />
+            {/* <div className="absolute  w-16 h-16 left-0 "></div> */}
           </div>
           <h6 className="text-lg md:text-2xl font-lexed font-semibold text-primaryColor">
           Grow

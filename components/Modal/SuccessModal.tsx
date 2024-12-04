@@ -21,19 +21,13 @@ const SuccessModal = ({}: any) => {
       </button>
       <div className="flex justify-center">
         <Image
-          src="/assets/check.png"
+          src="/stickers/PostSuccessfull.svg"
           alt="success"
           width={200}
           height={200}
-          className="w-10"
+          className="w-48"
         />
       </div>
-
-      <h6 className="text-2xl font-lexed font-bold text-primaryColor text-center">
-        Congratulations
-      </h6>
-
-      <div className="border-b" />
 
       <p className="text-base font-medium text-secondColor text-center ">
         Your product is submitted and pending approval.
