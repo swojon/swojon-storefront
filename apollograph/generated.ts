@@ -2163,6 +2163,41 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const CheckPasswordResetTokenDocument = gql`
+    query CheckPasswordResetToken($token: String!) {
+  checkPasswordResetToken(token: $token) {
+    success
+  }
+}
+    `;
+
+/**
+ * __useCheckPasswordResetTokenQuery__
+ *
+ * To run a query within a React component, call `useCheckPasswordResetTokenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckPasswordResetTokenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckPasswordResetTokenQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useCheckPasswordResetTokenQuery(baseOptions: Apollo.QueryHookOptions<CheckPasswordResetTokenQuery, CheckPasswordResetTokenQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckPasswordResetTokenQuery, CheckPasswordResetTokenQueryVariables>(CheckPasswordResetTokenDocument, options);
+      }
+export function useCheckPasswordResetTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckPasswordResetTokenQuery, CheckPasswordResetTokenQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckPasswordResetTokenQuery, CheckPasswordResetTokenQueryVariables>(CheckPasswordResetTokenDocument, options);
+        }
+export type CheckPasswordResetTokenQueryHookResult = ReturnType<typeof useCheckPasswordResetTokenQuery>;
+export type CheckPasswordResetTokenLazyQueryHookResult = ReturnType<typeof useCheckPasswordResetTokenLazyQuery>;
+export type CheckPasswordResetTokenQueryResult = Apollo.QueryResult<CheckPasswordResetTokenQuery, CheckPasswordResetTokenQueryVariables>;
 export const ResetRequestDocument = gql`
     mutation ResetRequest($email: String!) {
   resetRequest(email: $email) {
@@ -3642,6 +3677,8 @@ export type Query = {
   checkEmailAvailability: ResetStatus;
   /** Search for order Ratio */
   checkOrderRatio: OrderRatio;
+  /** Check if token valid or not */
+  checkPasswordResetToken: ResetStatus;
   /** Check if a username is available or not */
   checkUsernameAvailability: ResetStatus;
   /** Find Community by Id */
@@ -3730,6 +3767,11 @@ export type QueryCheckEmailAvailabilityArgs = {
 
 export type QueryCheckOrderRatioArgs = {
   orderRatioQuery: OrderRatioCheckDto;
+};
+
+
+export type QueryCheckPasswordResetTokenArgs = {
+  token: Scalars['String']['input'];
 };
 
 
@@ -4399,6 +4441,13 @@ export type UpdateProfileMutationVariables = Exact<{
 
 
 export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'Profile', address?: string | null, avatar?: string | null, country?: string | null, city?: string | null, avatarThumbnail?: string | null, facebookHandle?: string | null, googleHandle?: string | null, id: number, name?: string | null, instagramHandle?: string | null, isPhoneNumberVerified?: boolean | null, linkedinHandle?: string | null, phoneNumber?: string | null, twitterHandle?: string | null, zipCode?: string | null, state?: string | null } };
+
+export type CheckPasswordResetTokenQueryVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CheckPasswordResetTokenQuery = { __typename?: 'Query', checkPasswordResetToken: { __typename?: 'ResetStatus', success?: boolean | null } };
 
 export type ResetRequestMutationVariables = Exact<{
   email: Scalars['String']['input'];
