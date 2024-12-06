@@ -174,3 +174,7 @@ a {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: masonry;
 }
+
+.page-height {
+  height: calc(80vh - 4rem);
+}

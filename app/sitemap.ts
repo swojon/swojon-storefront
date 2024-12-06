@@ -29,7 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap>{
     console.log("Generating sitemap")
     const baseUrl = "https://www.swojon.com"
     var sitemapEntries: MetadataRoute.Sitemap = [
-        {url: baseUrl}
+        {url: baseUrl},
+        {url: `${baseUrl}/courier-shield`}
     ]
 
     try {

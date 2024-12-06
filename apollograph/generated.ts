@@ -105,6 +105,69 @@ export function useListFeaturedCategoriesLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ListFeaturedCategoriesQueryHookResult = ReturnType<typeof useListFeaturedCategoriesQuery>;
 export type ListFeaturedCategoriesLazyQueryHookResult = ReturnType<typeof useListFeaturedCategoriesLazyQuery>;
 export type ListFeaturedCategoriesQueryResult = Apollo.QueryResult<ListFeaturedCategoriesQuery, ListFeaturedCategoriesQueryVariables>;
+export const CheckOrderRatioDocument = gql`
+    query CheckOrderRatio($orderRatioQuery: OrderRatioCheckDTO!) {
+  checkOrderRatio(orderRatioQuery: $orderRatioQuery) {
+    total_parcel
+    success_ratio
+    success_parcel
+    steadfast {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    redx {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    cancelled_parcel
+    success
+    pathao {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    paperfly {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+  }
+}
+    `;
+
+/**
+ * __useCheckOrderRatioQuery__
+ *
+ * To run a query within a React component, call `useCheckOrderRatioQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckOrderRatioQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckOrderRatioQuery({
+ *   variables: {
+ *      orderRatioQuery: // value for 'orderRatioQuery'
+ *   },
+ * });
+ */
+export function useCheckOrderRatioQuery(baseOptions: Apollo.QueryHookOptions<CheckOrderRatioQuery, CheckOrderRatioQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckOrderRatioQuery, CheckOrderRatioQueryVariables>(CheckOrderRatioDocument, options);
+      }
+export function useCheckOrderRatioLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckOrderRatioQuery, CheckOrderRatioQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckOrderRatioQuery, CheckOrderRatioQueryVariables>(CheckOrderRatioDocument, options);
+        }
+export type CheckOrderRatioQueryHookResult = ReturnType<typeof useCheckOrderRatioQuery>;
+export type CheckOrderRatioLazyQueryHookResult = ReturnType<typeof useCheckOrderRatioLazyQuery>;
+export type CheckOrderRatioQueryResult = Apollo.QueryResult<CheckOrderRatioQuery, CheckOrderRatioQueryVariables>;
 export const AddFavoriteDocument = gql`
     mutation AddFavorite($listingId: Float!, $userId: Float!) {
   addFavorite(listingId: $listingId, userId: $userId) {
@@ -2640,6 +2703,7 @@ export type AdminUpdateUserDto = {
   isSuperAdmin?: InputMaybe<Scalars['Boolean']['input']>;
   isSuspended?: InputMaybe<Scalars['Boolean']['input']>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Brand = {
@@ -2872,6 +2936,14 @@ export type CommunityUpdateDto = {
   longitude?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CourierData = {
+  __typename?: 'CourierData';
+  cancelled_parcel?: Maybe<Scalars['Float']['output']>;
+  success_parcel?: Maybe<Scalars['Float']['output']>;
+  success_ratio?: Maybe<Scalars['Float']['output']>;
+  total_parcel?: Maybe<Scalars['Float']['output']>;
 };
 
 export type CreateMessageDto = {
@@ -3496,6 +3568,23 @@ export type Notifications = {
   items: Array<Notification>;
 };
 
+export type OrderRatio = {
+  __typename?: 'OrderRatio';
+  cancelled_parcel?: Maybe<Scalars['Float']['output']>;
+  paperfly?: Maybe<CourierData>;
+  pathao?: Maybe<CourierData>;
+  redx?: Maybe<CourierData>;
+  steadfast?: Maybe<CourierData>;
+  success: Scalars['Boolean']['output'];
+  success_parcel?: Maybe<Scalars['Float']['output']>;
+  success_ratio?: Maybe<Scalars['Float']['output']>;
+  total_parcel?: Maybe<Scalars['Float']['output']>;
+};
+
+export type OrderRatioCheckDto = {
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Point = {
   __typename?: 'Point';
   amount: Scalars['Float']['output'];
@@ -3551,6 +3640,8 @@ export type Query = {
   __typename?: 'Query';
   /** Check if an email is available or not */
   checkEmailAvailability: ResetStatus;
+  /** Search for order Ratio */
+  checkOrderRatio: OrderRatio;
   /** Check if a username is available or not */
   checkUsernameAvailability: ResetStatus;
   /** Find Community by Id */
@@ -3634,6 +3725,11 @@ export type Query = {
 
 export type QueryCheckEmailAvailabilityArgs = {
   email: Scalars['String']['input'];
+};
+
+
+export type QueryCheckOrderRatioArgs = {
+  orderRatioQuery: OrderRatioCheckDto;
 };
 
 
@@ -4000,6 +4096,7 @@ export type User = {
   isBanned: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
   isLocked: Scalars['Boolean']['output'];
+  isModerator: Scalars['Boolean']['output'];
   isStaff: Scalars['Boolean']['output'];
   isSuspended: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
@@ -4021,6 +4118,7 @@ export type UserWithMeta = {
   isBanned: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
   isLocked: Scalars['Boolean']['output'];
+  isModerator: Scalars['Boolean']['output'];
   isStaff: Scalars['Boolean']['output'];
   isSuspended: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
@@ -4047,6 +4145,13 @@ export type ListFeaturedCategoriesQueryVariables = Exact<{
 
 
 export type ListFeaturedCategoriesQuery = { __typename?: 'Query', listCategories: { __typename?: 'Categories', hasMore?: boolean | null, count?: number | null, items: Array<{ __typename?: 'Category', id: number, name: string, isFeatured?: boolean | null }> } };
+
+export type CheckOrderRatioQueryVariables = Exact<{
+  orderRatioQuery: OrderRatioCheckDto;
+}>;
+
+
+export type CheckOrderRatioQuery = { __typename?: 'Query', checkOrderRatio: { __typename?: 'OrderRatio', total_parcel?: number | null, success_ratio?: number | null, success_parcel?: number | null, cancelled_parcel?: number | null, success: boolean, steadfast?: { __typename?: 'CourierData', cancelled_parcel?: number | null, success_parcel?: number | null, success_ratio?: number | null, total_parcel?: number | null } | null, redx?: { __typename?: 'CourierData', cancelled_parcel?: number | null, success_parcel?: number | null, success_ratio?: number | null, total_parcel?: number | null } | null, pathao?: { __typename?: 'CourierData', cancelled_parcel?: number | null, success_parcel?: number | null, success_ratio?: number | null, total_parcel?: number | null } | null, paperfly?: { __typename?: 'CourierData', cancelled_parcel?: number | null, success_parcel?: number | null, success_ratio?: number | null, total_parcel?: number | null } | null } };
 
 export type AddFavoriteMutationVariables = Exact<{
   listingId: Scalars['Float']['input'];

@@ -100,14 +100,28 @@ const ResNavbarDrawer = () => {
            {notificationPanel ? <> 
               <DynamicNotificationList />
            </> : <>
-            {data?.listCategories.items && <ResNavbarCategoryPanel 
+            {data?.listCategories.items && <>
+              <ResNavbarCategoryPanel 
             categories={data.listCategories.items}
             currentCategory={currentCategory}
             setCurrentCategory={setCurrentCategory}/>
+            
+            </>
             }
            </>} 
           </div>
-
+          {notificationPanel ? <></> : <div className="px-5 border-t flex items-center absolute text-center py-5 md:px-14 sm:px-10  bottom-[-20] left-0 w-full h-15 ">
+            
+            <Link
+                href="/courier-shield"
+                onClick={() => dispatch(setNavClose())}
+              >
+                <button className="text-base text-gray">
+                  Courier History Shield
+                </button>
+              </Link>
+          </div>}
+          
           <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
