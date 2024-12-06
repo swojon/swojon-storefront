@@ -110,7 +110,10 @@ const ResNavbarDrawer = () => {
             }
            </>} 
           </div>
-          {notificationPanel ? <></> : <div className="px-5 border-t flex items-center absolute text-center py-5 md:px-14 sm:px-10  bottom-[-20] left-0 w-full h-15 ">
+          
+          
+          <footer className="absolute bg-white bottom-0 left-0 w-full h-30  text-primaryColor">
+         <div className="px-5 border-t flex items-center  text-center py-5  md:px-14 sm:px-10   left-0 w-full ">
             
             <Link
                 href="/courier-shield"
@@ -120,9 +123,8 @@ const ResNavbarDrawer = () => {
                   Courier History Shield
                 </button>
               </Link>
-          </div>}
-          
-          <footer className="absolute py-5 md:px-14 sm:px-10 px-3 bg-white bottom-0 left-0 w-full h-20 border-t flex justify-between items-center text-primaryColor">
+          </div>
+            <div className=" flex justify-between items-center border-t  py-5 md:px-14 sm:px-10 px-3">
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
             </Link>
@@ -138,6 +140,8 @@ const ResNavbarDrawer = () => {
             <Link href="/profile?sidebar=hide" onClick={() => dispatch(setNavClose())}>
               <FaRegUser className="text-2xl" />
             </Link>
+            </div>
+            
           </footer>
         </div>
 
