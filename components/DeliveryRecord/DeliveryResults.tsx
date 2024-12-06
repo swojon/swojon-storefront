@@ -1,9 +1,10 @@
 import { useCheckOrderRatioQuery } from '@/apollograph/generated'
 import React, { useEffect } from 'react'
-import CourierCard from './CourierCard'
-import DeliveryPieChart from './DeliveryPieChart'
-import NotFound from '../NotMatched/NotFound'
 import NotMatched from '../NotMatched/NotMatched'
+import dynamic from 'next/dynamic'
+import CourierCard from './CourierCard';
+
+const DynamicDeliveryPieChart = dynamic(() => import('./DeliveryPieChart'), {ssr: false});
 
 function DeliveryResults({setLoading, phone}: {
     setLoading: any,
@@ -33,7 +34,7 @@ function DeliveryResults({setLoading, phone}: {
         <div className="p-6 flex flex-col md:flex-row items-center justify-between">
           <div className="w-full md:w-1/2 mb-6 md:mb-0">
             {data?.checkOrderRatio.total_parcel! > 0  ?
-            <DeliveryPieChart data={{
+            <DynamicDeliveryPieChart data={{
                 successful: data?.checkOrderRatio.success_parcel ?? 0,
                 cancelled: data?.checkOrderRatio.cancelled_parcel ?? 0,
             }} /> : 
@@ -51,7 +52,7 @@ function DeliveryResults({setLoading, phone}: {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <CourierCard key="pathao" data={ {name: "pathao", ...data?.checkOrderRatio.pathao}} />
+          <CourierCard key="Pathao" data={ {name: "pathao", ...data?.checkOrderRatio.pathao}} />
           <CourierCard key="redX" data={ {name: "RedX", ...data?.checkOrderRatio.redx}} />
           <CourierCard key="SteadFast" data={ {name: "SteadFast", ...data?.checkOrderRatio.steadfast}} />
           <CourierCard key="Paperfly" data={ {name: "PaperFly", ...data?.checkOrderRatio.paperfly}} />

@@ -14,11 +14,11 @@ const BannerCTA = () => {
      
               {/* Content Section */}
               <div className="space-y-6 pr-4">
-          <h2 className="text-3xl md:text-3xl font-semibold text-gray-800 leading-tight">
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 leading-tight">
           Boost Your Sales, Expand Your Reach - It&apos;s free
           </h2>
           
-          <p className="text-xl text-gray-600 leading-relaxed">
+          <p className="text-base md:text-xl text-gray-600 leading-relaxed">
           List your products on swojon and unlock instant visibility to thousands of potential customers. Get a free store, increased product exposure.
           </p>
           

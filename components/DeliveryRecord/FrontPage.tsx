@@ -5,9 +5,8 @@ import React, { useState } from 'react'
 import { BiLoaderCircle } from 'react-icons/bi';
 import * as Yup from "yup";
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
+import DeliveryResults from './DeliveryResults';
 
-const DynamicDeliveryResults = dynamic(() => import("./DeliveryResults"), {ssr: false});
 const bangladeshiPhoneValidation = Yup.string()
 .transform(value => value.replace(/[\s-]/g, ''))
   .test(
@@ -22,13 +21,11 @@ const bangladeshiPhoneValidation = Yup.string()
   );
 
 // Example Schema
-const schema = Yup.object().shape({
-});
 const formSchema = Yup.object({
     phone: bangladeshiPhoneValidation.required('Phone number is required'),
 })
+
 function FrontPage() {
-  const params = usePathname()
   const searchParams = useSearchParams()
   const [phone, setPhone] = useState(searchParams.get("phone") ?? "");
   const initialValues = {
@@ -135,7 +132,7 @@ function FrontPage() {
        {touched.phone && errors.phone && <p className='pt-1 text-sm text-red-500'>{errors.phone}</p>}
      </div>
         <div className="mb-8">
-          <DynamicDeliveryResults phone={phone} setLoading={setLoading}   />
+          <DeliveryResults phone={phone} setLoading={setLoading}   />
         </div>
             </div>
         }

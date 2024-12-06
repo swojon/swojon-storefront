@@ -14,8 +14,8 @@ const COLORS = ["#3b51a4", '#f59e0b']
 
 const renderActiveShape = (props: any) => {
   const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props
-  const sin = Math.sin(-midAngle * Math.PI / 180)
-  const cos = Math.cos(-midAngle * Math.PI / 180)
+  const sin = Math.sin(-midAngle * Math.PI / 270)
+  const cos = Math.cos(-midAngle * Math.PI / 270)
   const sx = cx + (outerRadius + 10) * cos
   const sy = cy + (outerRadius + 10) * sin
   const mx = cx + (outerRadius + 30) * cos
