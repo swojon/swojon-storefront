@@ -87,16 +87,19 @@ function FrontPage() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-activeColor focus:border-transparent"
                 />
                 {touched.phone && errors.phone && <p className='text-sm text-red-500'>{errors.phone}</p>}
-                <button
+            
+                  
+                  <button
                 type="submit"
                 onClick={() => handleSubmit()}
-                className="text-center w-full bg-activeColor text-white font-semibold py-2 px-4 rounded-md hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 transition duration-200"
+                className="flex justify-center w-full bg-activeColor text-white font-semibold py-2 px-4 rounded-md hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 transition duration-200"
                 >
-                {loading ? <BiLoaderCircle className=" text-xl animate-spin" /> : 
+                {loading ? <BiLoaderCircle className='text-base animate-spin' />   : 
                 "Check Records"
                 }
                 </button>
-            </div>
+            
+                  </div>
             </div>
         </div>
     </div>
@@ -104,7 +107,7 @@ function FrontPage() {
      :  
 
      <div className="container mx-auto p-4">
-     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
        
        <h1 className="text-2xl font-bold mb-4">Courier History Shield</h1>
        <div className="flex flex-col sm:flex-row gap-4">
@@ -116,18 +119,20 @@ function FrontPage() {
            name="phone"
            onBlur={handleBlur}
            required
-           className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+           className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-activeColor"
          />
+         <div>
          <button
-                type="submit"
-                onClick={() => handleSubmit()}
-                className="text-center w-full sm:w-auto  hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-2 bg-activeColor text-white font-semibold py-2 px-4 rounded-md hover:shadow-lg hover:-translate-y-1 transition duration-200"
-                >
-                {loading ? <BiLoaderCircle className=" text-xl animate-spin" /> : 
-                "Check Records"
-                }
-                </button>
-                
+            
+            onClick={() => handleSubmit()}
+            className="flex justify-center w-full sm:w-auto  bg-activeColor text-white font-semibold py-2 px-4 rounded-md hover:shadow-lg hover:-translate-y-1 transition duration-200"
+            >
+              
+            {loading ? <BiLoaderCircle className='text-base animate-spin' /> :"Check Records"}
+            </button>
+             
+         </div>
+              
        </div>
        {touched.phone && errors.phone && <p className='pt-1 text-sm text-red-500'>{errors.phone}</p>}
      </div>
