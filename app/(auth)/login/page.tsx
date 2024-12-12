@@ -71,13 +71,15 @@ const SignIn: NextPage = (): JSX.Element => {
   const handleGoogleClick = async () => {
     setGoogleLoading(true);
     setGoogleError(null);
-    const res = await signIn("google", { callbackUrl: "/", redirect: true });
+    const res = await signIn("google", { callbackUrl: "/", redirect: false });
     
     if (res?.ok){
       setGoogleLoading(false);
       toast.success("Successfully Logged in")
       if (res?.url){
         location.replace(res.url)
+      }else{
+        location.reload();
       }
     }else{
       setGoogleLoading(false);

@@ -97,7 +97,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   const formRef = useRef<any>(null);
   const router = useRouter()
   const dispatch = useDispatch();
-  const {data:session} = useSession();
+  const {data:session, status} = useSession();
   const titleStatus = useRef("")
 
   const [uploading, setUploading] = useState(false);
@@ -144,6 +144,7 @@ const Uploads = ({ product }: { product: null | any }) => {
 
   //to always keep post button up.
   useEffect(() => {
+    console.log("auth", status, session)
     if (typeof window === "undefined") {
     } else {
       const handleStickyPanel = () => {
