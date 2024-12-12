@@ -26,7 +26,7 @@ export function ApolloWrapper({ children, session }: any) {
       uri: GRAPHQL_ENDPOINT,
       credentials: 'include'
     });
-  
+    // console.log("Setting Token", session?.user?.token)
     const wsLink = new GraphQLWsLink(createClient({
       url:  GRAPHQL_WS_ENDPOINT || "",
       on: {

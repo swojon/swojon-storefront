@@ -23,6 +23,8 @@ import UploadImage from "./UploadImage";
 import { useSession } from "next-auth/react";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
+import { client } from "@/lib/graphql";
+import { useApolloClient } from "@apollo/client";
 
 // const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
 // const DynamicUploadImage = dynamic(()=> import("./UploadImage"), {ssr: false});
@@ -98,6 +100,8 @@ const Uploads = ({ product }: { product: null | any }) => {
   const router = useRouter()
   const dispatch = useDispatch();
   const {data:session, status} = useSession();
+  const client = useApolloClient();
+
   const titleStatus = useRef("")
 
   const [uploading, setUploading] = useState(false);
@@ -140,7 +144,13 @@ const Uploads = ({ product }: { product: null | any }) => {
     "price",
     "dealingMethod"
   ];
-  
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      //  console.log("resetting apollo store")
+        client.resetStore(); // Clear cache and reinitialize
+    }
+  }, [status, client]);
 
   //to always keep post button up.
   useEffect(() => {
