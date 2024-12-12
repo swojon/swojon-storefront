@@ -57,9 +57,9 @@ const SignIn: NextPage = (): JSX.Element => {
       console.log("res.url", res.url)
       if (!!res?.url){
         console.log("replacing url", res.url)
-        location.replace(res.url)
+        window ? window.location.replace(res.url) : location.replace(res.url);
       }else{
-        location.reload();
+        window ? window.location.reload() : location.reload()
       }
 
     }else{
@@ -77,9 +77,9 @@ const SignIn: NextPage = (): JSX.Element => {
       setGoogleLoading(false);
       toast.success("Successfully Logged in")
       if (res?.url){
-        location.replace(res.url)
+        window ? window.location.replace(res.url) : location.replace(res.url);
       }else{
-        location.reload();
+        window ? window.location.reload() : location.reload()
       }
     }else{
       setGoogleLoading(false);

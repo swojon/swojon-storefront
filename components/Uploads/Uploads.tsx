@@ -333,6 +333,7 @@ const Uploads = ({ product }: { product: null | any }) => {
   };
 
   const handlePostButtonClick = () => {
+    console.log("I am clicked")
     if (errors) {
       console.log("errors", errors)
       titleStatus.current = "Please fill up all the necessary fields."

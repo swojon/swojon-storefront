@@ -133,11 +133,15 @@ const Brand = ({
           Need to add more details?
         </span>
 
-        <p className="md:text-base text-sm text-secondColor ">
+      {touched?.description && errors?.description ? (
+        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
+          {errors.description}
+        </p>
+      ) : <p className="md:text-base text-sm text-secondColor ">
           Adding additional details help your customers know more about the
           product results less query for you
         </p>
-
+      }
         <textarea
           id="text"
           rows={4}
