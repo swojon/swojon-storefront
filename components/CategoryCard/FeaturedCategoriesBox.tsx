@@ -26,7 +26,9 @@ const FeaturedCategoriesBox = () => {
   const featuredCategories = useMemo(() => data?.listCategories.items , [data])
 
   return (
-    <div className="md:mt-20 mt-12  custom-container space-y-10">
+    // <div className="md:mt-20 mt-12  custom-container space-y-10">
+    <div className="mt-10 custom-container space-y-10">
+      
       <div className="flex  justify-between items-center gap-2">
         <h2 className="lg:text-4xl text-2xl font-semibold text-primaryColor capitalize truncate">
           Explore Categories
