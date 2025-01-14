@@ -22,7 +22,12 @@ const DynamicNotificationBell = dynamic(() => import("./NotificationBell"), {ssr
 const handleSignOut = () => {
   // console.log("signing out");
   toast.loading("signing you out", { id: "signInToast" });
-  signOut();
+  signOut(
+    {
+      redirect: true,
+      callbackUrl : "/"
+    }
+  );
   // dispatch(setUserLogout(true));
   // deleteCookie("authorization");
   toast.success("Signed out", { id: "signInToast" });

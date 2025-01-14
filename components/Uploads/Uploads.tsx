@@ -2,28 +2,24 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useEffect, useRef, useState  } from "react";
 import * as Yup from "yup";
-import { ErrorMessage, useFormik } from "formik";
+import {  useFormik } from "formik";
 import "./Upload.css";
 import { useCreateListingMutation, useUpdateListingMutation } from "@/apollograph/generated";
 import { useDispatch } from "react-redux";
 import { setModalOpen } from "@/app/redux/modalSlice";
 import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
-import dynamic from "next/dynamic";
-import { Listing } from "@/gql/graphql";
 import Brand from "./Brand";
 import Category from "./Category";
 import CompleteStatusBar from "./CompleteStatusBar";
 import Condition from "./Condition";
 import DealingMethod from "./DealingMethod";
-import PreviewProduct from "./PreviewProduct";
 import Price from "./Price";
 import ProductTitle from "./ProductTitle";
 import UploadImage from "./UploadImage";
 import { useSession } from "next-auth/react";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
-import { client } from "@/lib/graphql";
+
 import { useApolloClient } from "@apollo/client";
 
 // const DynamicCompleteStatusBar = dynamic(()=> import("./CompleteStatusBar"), {ssr: false});
@@ -494,7 +490,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               className={`${
                 values.categoryId && !errors.categoryId
                   ? "opacity-100 "
-                  : "opacity-50 pointer-events-none"
+                  : "opacity-10 pointer-events-none"
               }`}
             >
               <ProductTitle
@@ -510,7 +506,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               className={`${
                 values.title && !errors.title
                   ? "opacity-100 "
-                  : "opacity-50 pointer-events-none"
+                  : "opacity-10 pointer-events-none"
               }`}
             >
               <Condition
@@ -526,7 +522,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               className={`${
                 values.title && !errors.title
                   ? "opacity-100 "
-                  : "opacity-50 pointer-events-none"
+                  : "opacity-10 pointer-events-none"
               }`}
             >
               <Price
@@ -543,7 +539,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               className={`${
                 values.price >= 0 && !errors.price
                   ? "opacity-100 "
-                  : "opacity-50 pointer-events-none"
+                  : "opacity-10 pointer-events-none"
               }`}
             >
               <Brand
@@ -561,7 +557,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               className={`${
                 values.price && !errors.price
                   ? "opacity-100 "
-                  : "opacity-50 pointer-events-none"
+                  : "opacity-10 pointer-events-none"
               }`}
             >
               <DealingMethod

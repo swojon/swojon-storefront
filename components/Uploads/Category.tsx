@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
 import { useListCategoriesQuery } from "@/apollograph/generated";
-import { getCategoryTree } from "@/lib/helpers/nestify";
 import CategoryLoader from "./CategoryLoader";
-import Image from "next/image";
+// import CategoryOptionLoader from "./CategoryOptionLoader";
+import dynamic from "next/dynamic";
+
+const DynamicCategoryOptionLoader = dynamic(()=> import("./CategoryOptionLoader"), {ssr: false});
 
 const Category = ({
   handleBlur,
@@ -33,19 +35,10 @@ const Category = ({
       limit: 1000,
     },
   });
+ 
   const categories = categoriesData?.listCategories.items;
   const [selectCategory, setSelectCategory] = useState<any>(initialCategory?? null);
-  const [selectSubCategory, setSelectSubCategory] = useState<any>(null);
-
   const [query, setQuery] = useState("");
-
-
-  const categoryTree = categories ? getCategoryTree(categories, null) : [];
-  const filteredCategories = !!query
-    ? categories?.filter((ca) =>
-        ca.name?.toLowerCase().includes(query.toLowerCase())
-      )
-    : categoryTree;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -53,13 +46,15 @@ const Category = ({
   };
 
   useEffect(() => {
-    if (!selectCategory && !selectSubCategory )
+    if (!selectCategory ){
       setFieldValue("categoryId", null);
-    if (!!selectSubCategory) setFieldValue("categoryId", selectSubCategory.id);
-    console.log("selectCategory", selectCategory);
-    if (!selectCategory?.children || selectCategory?.children?.length === 0)
+    }else{
       setFieldValue("categoryId", selectCategory?.id);
-  }, [selectCategory, selectSubCategory]);
+      console.log("selectCategory", selectCategory);
+    }
+    console.log("values", values)
+  
+  }, [selectCategory]);
 
   console.log("Selected Category", selectCategory)
   return (
@@ -109,71 +104,22 @@ const Category = ({
             )}
           </span>
         </div>
-        {
+        
+        {loading &&
           <div className="md:p-6 p-2.5  flex items-center  gap-4 overflow-x-auto ">
-            {loading && <CategoryLoader />}
+             <CategoryLoader />
           </div>
         }
-        {(selectCategory === null || selectCategory.parentCategory != null) && (
-          <div className="md:p-6 p-2.5 md:grid lg:grid-cols-5 md:grid-cols-4  flex items-center  gap-4 overflow-x-auto ">
-            {filteredCategories?.map((category) => (
-              <div
-                key={category.id}
-                className={`flex flex-col justify-center items-center text-center  p-2 border flex-none w-[190px] md:w-auto  rounded-md cursor-pointer md:space-y-2.5 space-y-1 h-[128px] ${
-                  category?.id === selectCategory?.id
-                    ? "border-activeColor"
-                    : "border-gray-200 hover:border-gray-300"
-                }`}
-                onClick={() => setSelectCategory(category)}
-              >
-                {category.icon ? (
-                  <Image
-                    src={category.icon}
-                    alt="categoryIcon"
-                    width={30}
-                    height={30}
-                    className="w-6 h-6"
-                  />
-                ) : (
-                  <BiSelection className="text-lg" />
-                )}
-                <span className="md:text-base text-sm text-primaryColor font-lexed font-medium capitalize">
-                  {category.name}
-                </span>
-                <span className="text-xs text-secondColor">
-                  {category.children &&
-                    `${category.children.length} sub-category`}
-                </span>
-              </div>
-            ))}
-          </div>
+        
+        {categories && (
+          <DynamicCategoryOptionLoader 
+            categories={categories}
+            selectCategory={selectCategory}
+            setSelectCategory={setSelectCategory}
+            query={query}
+          />
         )}
-        {selectCategory &&
-          categoryTree.find((cat) => cat.id === selectCategory.id)?.children
-            ?.length > 0 && (
-            <div className="md:p-6 p-2.5 sm:grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-5 flex items-center  gap-4 overflow-x-auto ">
-              {loading && <CategoryLoader />}
-              {categoryTree
-                .find((cat) => cat.id === selectCategory.id)
-                .children.map((item: any) => (
-                  <div
-                    key={item.id}
-                    className={`flex flex-col justify-center items-center gap-2 p-4 border  rounded-md cursor-pointer space-y-3 text-center flex-none w-[190px] h-[128px]  ${
-                      item?.id === selectSubCategory?.id
-                        ? " border-activeColor "
-                        : "border-gray-200 hover:border-gray-300 "
-                    }`}
-                    onClick={() => setSelectSubCategory(item)}
-                  >
-                    <BiSelection className="text-primaryColor" />
-
-                    <span className="text-base text-primaryColor font-lexed font-medium capitalize">
-                      {item.name}
-                    </span>
-                  </div>
-                ))}
-            </div>
-          )}
+        
         {/* <NoResultFound /> */}
       </div>
     </section>

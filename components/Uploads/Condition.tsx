@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { BiSelection } from "react-icons/bi";
+import { BsStarFill, BsStarHalf, BsStars } from "react-icons/bs";
 
 const condition = [
   {
     id: 188,
     slug: "brand-new",
     title: "Brand New",
+    icon: <BsStars className="text-primaryColor h-5 w-5" />,
     description:
       "The product is in its original, unopened condition, never used. Includes all original accessories and packaging.",
   },
   {
     id: 14,
     slug: "like-new",
+    icon: <BsStarFill className="text-primaryColor h-5 w-5" />,
     title: "Like New",
     description:
       "Excellent condition with minimal signs of use. Almost new appearance and functions perfectly.",
@@ -20,6 +23,7 @@ const condition = [
     id: 15,
     slug: "used",
     title: "Used",
+    icon: <BsStarHalf className="text-primaryColor h-5 w-5" />,
     description:
       "Previously owned, Please refer to the item's listing for specific details on its condition.",
   },
@@ -66,12 +70,12 @@ const Condition = ({
             key={item.id}
             className={`flex flex-col justify-center items-center gap-2 py-5 px-3 border  rounded-md cursor-pointer md:space-y-2.5 text-center ${
               item?.id === selectCondition?.id
-                ? "border border-activeColor "
+                ? "border border-activeColor bg-activeColor bg-opacity-5"
                 : "border-gray-200 hover:border-gray-500"
             }`}
             onClick={() => setSelectCondition(item)}
           >
-            <BiSelection className="text-primaryColor" />
+            {item.icon}
 
             <span className="text-base text-primaryColor font-lexed font-medium capitalize">
               {item.title}

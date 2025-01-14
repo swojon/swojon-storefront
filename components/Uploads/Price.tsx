@@ -26,7 +26,7 @@ const Price = ({
   return (
     <section className="md:space-y-4 space-y-2 pt-4">
       <h6 className="md:text-2xl text-lg text-primaryColor font-bold  leading-9">
-        Price <span className="text-red-500">*</span>
+        Price? <span className="text-red-500">*</span>
       </h6>
       {(touched?.price && errors?.price) ?
        <p className="md:text-base text-sm text-red-500 font-medium leading-6">
@@ -47,7 +47,7 @@ const Price = ({
             onBlur={handleBlur}
             value={values.price ?? ""}
             onChange={handleChange}
-            className="block w-full rounded-md border border-gray-300 md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
+            className="money block w-full rounded-md border border-gray-300 md:py-4 py-3 pl-4 pr-20 text-primaryColor font-medium placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm sm:leading-6"
           />
           <div className="absolute inset-y-0 right-1 flex items-center border-l border-gray-300">
             <label htmlFor="currency" className="sr-only">
@@ -58,7 +58,7 @@ const Price = ({
               name="currency"
               className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-3 text-gray-500 focus:outline-none focus:ring-1 focus:ring-activeColor text-sm"
             >
-              <option>Bangladeshi Taka</option>
+              <option>BDT</option>
               {/* <option>CAD</option> */}
               {/* <option>EUR</option> */}
             </select>

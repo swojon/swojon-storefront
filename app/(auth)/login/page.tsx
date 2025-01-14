@@ -51,13 +51,14 @@ const SignIn: NextPage = (): JSX.Element => {
       redirect: false,
       callbackUrl: callbackUrl ?? "/",
     });
+    console.log("response from site", res)
     if (res?.ok){
       setFormUploading(false);
       toast.success("Successfully Logged in")
       console.log("res.url", res.url)
       if (!!res?.url){
-        console.log("replacing url", res.url)
-        window ? window.location.replace(res.url) : location.replace(res.url);
+       
+        window ? window.location.replace(`/${res.url.split("/").at(-1)}`) : location.replace(`/${res.url.split("/").at(-1)}`);
       }else{
         window ? window.location.reload() : location.reload()
       }
@@ -77,7 +78,8 @@ const SignIn: NextPage = (): JSX.Element => {
       setGoogleLoading(false);
       toast.success("Successfully Logged in")
       if (res?.url){
-        window ? window.location.replace(res.url) : location.replace(res.url);
+        console.log("res.url", res.url)
+        window ? window.location.replace(`/${res.url.split("/").at(-1)}`) : location.replace(`/${res.url.split("/").at(-1)}`);
       }else{
         window ? window.location.reload() : location.reload()
       }

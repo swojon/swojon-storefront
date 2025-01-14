@@ -104,7 +104,7 @@ const Brand = ({
               key={item.id}
               className={`flex flex-col justify-center  items-center flex-none w-[220px] h-[128px]  text-center pt-5  pb-4 px-4 border  rounded-md cursor-pointer space-y-3  ${
                 item?.id === selectBrand?.id
-                  ? " border-activeColor "
+                  ? " border-activeColor bg-activeColor bg-opacity-5"
                   : "border-gray-200 hover:border-gray-500"
               }`}
               onClick={() => setSelectBrand(item)}
@@ -130,7 +130,7 @@ const Brand = ({
 
       <div className="space-y-4 ">
         <span className="md:text-2xl text-lg text-primaryColor font-lexed font-bold block ">
-          Need to add more details?
+          Description?
         </span>
 
       {touched?.description && errors?.description ? (
