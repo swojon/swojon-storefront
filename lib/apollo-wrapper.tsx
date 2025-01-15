@@ -4,7 +4,7 @@ import {ApolloNextAppProvider, NextSSRApolloClient, NextSSRInMemoryCache, SSRMul
 import { getToken } from "next-auth/jwt";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from '@apollo/client/link/context';
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { request } from "http";
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
@@ -68,13 +68,15 @@ export function ApolloWrapper({ children, session }: any) {
     });
 
 
-    const authLink = setContext((_, context, ) => {
-      console.log("setting token", session?.user?.token)
+    const authLink = setContext(async (_, context, ) => {
+      const session = await getSession();
+      // console.log("setting token", session?.user?.token)
+      // console.log("got session", session)
       return {
         headers: {
           ...context.headers,
           // authorization: `Bearer ${cookies().get('authorization')?.value}`,
-          Authorization: `Bearer ${session?.user?.token}`,
+          Authorization: session?.user?.token ? `Bearer ${session.user.token}` : '',
           // cookies: typeof window !== 'undefined'? document.cookie : "",
         },
       };
