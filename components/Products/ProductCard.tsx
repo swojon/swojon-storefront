@@ -72,7 +72,7 @@ const ProductCard = ({ product }: { product: any }) => {
 
         <div className=" pb-1 flex items-center   text-secondColor">
         <div className="w-[85%] ">
-            <h6 className="md:text-base text-primaryColor capitalize truncate">
+            <h6 className="md:text-base text-primaryColor capitalize line-clamp-2">
               {product.title}
             </h6>
           </div>

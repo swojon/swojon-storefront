@@ -23,30 +23,30 @@ import { Router } from "next/router";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
-  {
-    id: 2,
-    title: "My products",
-    icon: <HiOutlineInbox />,
-    url: "/profile/my-ads",
-  },
+  // {
+  //   id: 2,
+  //   title: "My products",
+  //   icon: <HiOutlineInbox />,
+  //   url: "/profile/my-ads",
+  // },
   {
     id: 3,
     title: "My favorites",
     icon: <HiOutlineHeart />,
     url: "/profile/wishlists",
   },
-  {
-    id: 35,
-    title: "followers",
-    icon: <HiOutlineUsers />,
-    url: "/profile/followers",
-  },
-  {
-    id: 75,
-    title: "People you follow",
-    icon: <RiUserFollowLine />,
-    url: "/profile/following",
-  },
+  // {
+  //   id: 35,
+  //   title: "followers",
+  //   icon: <HiOutlineUsers />,
+  //   url: "/profile/followers",
+  // },
+  // {
+  //   id: 75,
+  //   title: "People you follow",
+  //   icon: <RiUserFollowLine />,
+  //   url: "/profile/following",
+  // },
 
   {
     id: 8,
