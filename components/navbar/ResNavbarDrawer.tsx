@@ -76,22 +76,24 @@ const ResNavbarDrawer = () => {
                   </span>
                 </div>
                 :<>
-                <Image
+              
+                  <div className="py-2">
+                  <Image
                     src="/assets/SWlogi.svg"
                     alt="logo"
                     width={100}
                     height={100}
                     className="h-4 w-8"
                   />
-
-                  <Link
+                  </div>
+                  {/* <Link
                     href="/upload-product"
                     onClick={() => dispatch(setNavClose())}
                   >
                     <button className="py-2 px-5 bg-activeColor text-white rounded-md text-base">
                       List Item
                     </button>
-                  </Link>
+                  </Link> */}
                 </>}
             </>}
           </div>

@@ -13,15 +13,15 @@ const Home: NextPage = () => {
   return (
     <main className="">
       {/* <HeroSection /> */}
-      {/* <Navbar border="border" /> */}
-      {/* <FeaturedCategoriesBox /> */}
-      {/* <Products /> */}
+      <Navbar border="border" />
+      <FeaturedCategoriesBox />
+      <Products />
       {/* <Community /> */}
       {/* <ActionBanner /> */}
       {/* <SellBuyArea /> */}
       {/* <AppDownloadCTA />  */}
-      {/* <Footer /> */}
-      <NotFound title="✨ We're making our site even better! ✨" subtitle="Exciting updates are on the way—check back soon! 🚀 " cta={{link: "/courier-shield", text: "Visit Courier Shield"}} />
+      <Footer />
+      {/* <NotFound title="✨ We're making our site even better! ✨" subtitle="Exciting updates are on the way—check back soon! 🚀 " cta={{link: "/courier-shield", text: "Visit Courier Shield"}} /> */}
     </main>
   );
 };

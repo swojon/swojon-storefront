@@ -150,7 +150,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
               <ProductThumbnailSlider images={product?.media} />
             )}
           </div>
-          <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full   shadow-xl rounded-md">
+          <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full  rounded-md">
             {loading ? (
               <ProductInfoLoader />
             ) : (

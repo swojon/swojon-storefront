@@ -114,7 +114,7 @@ export default function Navbar({ border }: { border: any }) {
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
-                    All Ads
+                    All Products
                   </Link>
                   <Link
                     href="/courier-shield"
@@ -301,21 +301,21 @@ export default function Navbar({ border }: { border: any }) {
                 )}
 
               {status === "authenticated" ? (
-                <Link href="/upload-product">
-                  <button
-                    // onClick={() =>
-                    //   dispatch(
-                    //     setModalOpen({
-                    //       title: "this is a modal",
-                    //       body: "sellProduct",
-                    //     })
-                    //   )
-                    // }
-                    className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
-                  >
-                    Sell Product
-                  </button>
-                </Link>
+               <></> // <Link href="/upload-product">
+                //   <button
+                //     // onClick={() =>
+                //     //   dispatch(
+                //     //     setModalOpen({
+                //     //       title: "this is a modal",
+                //     //       body: "sellProduct",
+                //     //     })
+                //     //   )
+                //     // }
+                //     className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
+                //   >
+                //     Sell Product
+                //   </button>
+                // </Link>
               ) : <Link href="/signup" className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   ">
                 Create Account
               </Link>}

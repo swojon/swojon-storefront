@@ -54,11 +54,9 @@ const ProductCard = ({ product }: { product: any }) => {
       
       <Link href={`/products/${product.id}`} className="">
         <div className="pt-2  pb-1 flex flex-row   items-center font-lexed justify-between">
-          <div className="w-[85%] ">
-            <h6 className="md:text-xl text-lg font-semibold text-primaryColor capitalize truncate">
-              {product.title}
-            </h6>
-          </div>
+        <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
+          <span className="text-sm pe-0.5">Tk </span> {product.price}
+        </span>
           {/* <div className="flex gap-1  items-center">
             <CiStar className="text-secondColor text-sm" />{" "}
             <span className="text-secondColor text-sm">4.4</span>
@@ -73,7 +71,12 @@ const ProductCard = ({ product }: { product: any }) => {
         </div> */}
 
         <div className=" pb-1 flex items-center   text-secondColor">
-          <AiOutlineUser className="text-sm md:text-base" />
+        <div className="w-[85%] ">
+            <h6 className="md:text-base text-primaryColor capitalize truncate">
+              {product.title}
+            </h6>
+          </div>
+          {/* <AiOutlineUser className="text-sm md:text-base" />
           <div className="flex items-center gap-1 text-sm md:text-base ps-1">
             {product.user.username ??
               product.user.profile?.name ??
@@ -83,12 +86,10 @@ const ProductCard = ({ product }: { product: any }) => {
                   <MdVerifiedUser className="text-activeColor text-sm md:text-base "  />
                 </span>
               )}
-          </div>
+          </div> */}
         </div>
 
-        <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
-          <span className="text-sm pe-0.5">Tk </span> {product.price}
-        </span>
+        
       </Link>
 
       {/* {authState.isAuthenticated ? (
