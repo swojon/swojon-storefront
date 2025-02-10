@@ -9,17 +9,40 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { setImagePopUpOpen } from "@/app/redux/ImagePopSlice";
 // import ModalImage from "react-modal-image";
+import Lightbox from "yet-another-react-lightbox";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Video from "yet-another-react-lightbox/plugins/video";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/captions.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const dispatch = useDispatch();
 
   const handleExpandImage = (imageUrl: any) => {
     dispatch(setImagePopUpOpen(imageUrl));
   };
-
+  console.log("Images", images)
+  const slides = images.map((im: any) => ({ src: im.url }));
+  console.log("slides", slides)
   return (
     <section className="lg:h-[577px]  space-y-4">
+       <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={slides}
+        plugins={[ Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
+        controller={{closeOnBackdropClick: true, closeOnPullDown: true}}
+      />
+
       <div className="w-full">
         <Swiper
           loop={true}
@@ -44,7 +67,7 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
               />
 
               <div
-                onClick={() => handleExpandImage(im.url)}
+                onClick={() => setLightboxOpen(true)}
                 className="absolute w-[40px] h-[40px] bg-white rounded-full flex justify-center items-center right-3 top-3"
               >
                 <div className="w-4 h-4">

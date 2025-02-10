@@ -150,7 +150,7 @@ const ProductInfo = ({ product }: { product: any }) => {
 
       <div className="border-b border-[#F1F1F1]" />
       <span className="text-lg font-lexed font-bold  block">
-      How you'll get this item:
+      How you&apos;ll get this item:
       </span>
       <div className="grid grid-cols-2 gap-x-4">
         <div className={`px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative h-[98px] ${

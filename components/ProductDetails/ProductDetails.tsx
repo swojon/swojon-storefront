@@ -13,8 +13,9 @@ import ProductInfo from "./ProductInfo";
 import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import NotFound from "../NotMatched/NotFound";
 
-const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
+// const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(() => import("../Products/FavoriteProduct"), {ssr: false});
+const DynamicThumbnailSlider = dynamic(()=> import('./ProductThumbnailSlider'), {ssr:false})
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const {data:session, status} = useSession();
@@ -145,7 +146,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             {loading ? (
               <ThumbnailLoader />
             ) : (
-              <ProductThumbnailSlider images={product?.media} />
+              <DynamicThumbnailSlider images={product?.media} />
             )}
           </div>
           <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full  rounded-md">
