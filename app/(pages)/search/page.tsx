@@ -73,7 +73,7 @@ const SearchPage = ({ params }: { params: any }) => {
           <FilterBar />
         </div> */}
         <div className="w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-2 w-full">
             {/* // results && results.length > 0 ? */}
             {results?.map((card) => (
               <ProductCard product={card} key={card.id} />

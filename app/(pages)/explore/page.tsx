@@ -82,12 +82,12 @@ const ExploreDetail = ({ params }: { params: any }) => {
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
           <Link href="/" className="">Home</Link>
           <MdKeyboardArrowRight />
-          <h6 className="">All Ads</h6>
+          <h6 className="">All Products</h6>
         </div>
       </div>
       <div className="flex sm:flex-row flex-col justify-between sm:items-center pt-4  gap-3">
-        <h3 className="text text-lg">All Ads</h3>
-        <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[75%] w-full">
+        <h3 className="text text-lg">All Products</h3>
+        <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[65%] w-full">
           <AppliedFilter />
         </div>
         <div className=" flex justify-between items-center gap-3 ">
@@ -113,7 +113,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
       <div className="flex  gap-3 pt-5">
         
         <div className=" w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-2 w-full">
             {listings?.map((card) => (
               <ProductCard product={card} key={card.id} />
             ))}
