@@ -22,7 +22,7 @@ const Products = () => {
   const featuredProduct = data?.listListings.items;
 
   return (
-    <section className="md:mt-20 mt-12   bg-[#f9f9f9]">
+    <section className="md:mt-20 mt-12  ">
       <div className="py-14 custom-container">
         <div className="flex  justify-between items-center gap-2">
           <h2 className="lg:text-4xl text-2xl font-semibold text-primaryColor capitalize truncate">
@@ -35,7 +35,7 @@ const Products = () => {
           </Link>
         </div>
 
-        <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-8 gap-5 ">
+        <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-8 gap-3 ">
           {featuredProduct?.map((product) => (
             <DynamicProductCard key={product.id} product={product} />
           ))}

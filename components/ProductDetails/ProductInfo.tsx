@@ -11,9 +11,13 @@ import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import defaultAvatar from "@/public/assets/defaultAvatar.svg";
 import { MdVerifiedUser } from "react-icons/md";
+import { FaShippingFast, FaStoreAlt, FaTruckPickup } from "react-icons/fa";
+import { BiStore } from "react-icons/bi";
+import { FaStore } from "react-icons/fa6";
 
 const ProductInfo = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
+  const [shippingMethod, setShippingMethod] = useState<"delivery"|"pickup">("delivery");
   return (
     <section className="space-y-4 p-4 lg:min-h-[577px] border border-gray-50 rounded-md">
     
@@ -55,9 +59,10 @@ const ProductInfo = ({ product }: { product: any }) => {
       </div> */}
 
       <div className="flex   gap-3 items-center justify-between ">
-        <span className="lg:text-lg text-lg font-lexed font-medium text-primaryColor">
-          {product.title}
-        </span>
+      <h4 className="text-primaryColor text-2xl	font-bold ">
+            {product?.title}
+          </h4>
+        
         {/* <span className="lg:text-base text-sm font-lexed font-medium text-secondColor">
           Listed {timeAgo(product?.dateCreated)}
         </span> */}
@@ -66,6 +71,7 @@ const ProductInfo = ({ product }: { product: any }) => {
       <span className="lg:text-2xl text-lg font-lexed font-bold text-activeColor block">
         Tk {product?.price} 
       </span>
+      
 
       {product?.quantity > 1 && (
         <div className=" px-3 py-2 bg-[#F1F1F1] rounded-md">
@@ -120,30 +126,70 @@ const ProductInfo = ({ product }: { product: any }) => {
 
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <div className="w-[75%]">
-            <p className="line-clamp-8 text-base font-bold text-primaryColor ">
-              {product?.description}
+            <p className="truncate text-base font-bold text-primaryColor ">
+              {product?.description} 
             </p>
           </div>
-          {/* <button
+          <button
             onClick={() =>
               dispatch(
                 setModalOpen({
                   title: "this is a modal",
                   body: "additionalDetails",
-                  props: { description: product?.description },
+                  props: { description: product?.description, title: product?.title },
                 })
               )
             }
             className="text-activeColor font-medium whitespace-nowrap"
           >
             See more
-          </button> */}
+          </button>
         </div>
       </div>
 
 
       <div className="border-b border-[#F1F1F1]" />
+      <span className="text-lg font-lexed font-bold  block">
+      How you'll get this item:
+      </span>
+      <div className="grid grid-cols-2 gap-x-4">
+        <div className={`px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative h-[98px] ${
+  shippingMethod === "delivery"
+    ? " border-activeColor bg-activeColor bg-opacity-5"
+    : "border-gray-200 hover:border-gray-500"
+}`
+        }
+        onClick={() => setShippingMethod("delivery")}
+        >
+        <FaShippingFast width={100} height={100} className="w-auto h-[19.15px] mx-auto max-w-[65%]" />
 
+          <span className="block text-base font-bold text-primaryColor text-center">
+            Home Delivery
+          </span>
+          
+        </div>
+       
+        <div className={`px-3 py-5 flex flex-col justify-between border border-[#F1F1F1] rounded-md space-y-4 relative h-[98px] ${
+  shippingMethod === "pickup"
+    ? " border-activeColor bg-activeColor bg-opacity-5"
+    : "border-gray-200 hover:border-gray-500"
+}`
+        }
+        onClick={() => setShippingMethod("pickup")}
+        >  <FaStoreAlt width={80} height={80} className="w-auto h-[19.15px] mx-auto max-w-[65%]" />
+          {/* <Image
+            src={product?.brand?.logo ?? "/assets/samsungIcon.png"}
+            width={80}
+            height={80}
+            className="w-auto h-[19.15px] mx-auto max-w-[65%]"
+            alt="icon"
+          /> */}
+          <span className="block text-base font-bold text-primaryColor text-center">
+            Pickup
+          </span>
+        </div>
+        
+      </div>
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
         {/* <button
           onClick={() =>
@@ -160,18 +206,18 @@ const ProductInfo = ({ product }: { product: any }) => {
           Make Offer
         </button> */}
         <button
-          onClick={() =>
-            dispatch(
-              setModalOpen({
-                title: "this is a modal",
-                body: "chatModal",
-                props: { productId: product.id, product: product },
-              })
-            )
-          }
+          // onClick={() =>
+          //   dispatch(
+          //     setModalOpen({
+          //       title: "this is a modal",
+          //       body: "chatModal",
+          //       props: { productId: product.id, product: product },
+          //     })
+          //   )
+          // }
           className="py-[13px] text-center bg-activeColor text-white text-base rounded-md"
         >
-          Chat with Seller
+          Add To Cart
         </button>
       </div>
     </section>

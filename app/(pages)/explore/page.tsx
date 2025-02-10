@@ -113,7 +113,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
       <div className="flex  gap-3 pt-5">
         
         <div className=" w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-2 w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-3 w-full">
             {listings?.map((card) => (
               <ProductCard product={card} key={card.id} />
             ))}

@@ -121,9 +121,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
 
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2 justify-between items-center">
-          <h4 className="text-primaryColor text-2xl	font-bold ">
-            {product?.title}
-          </h4>
+         
           <div className="flex items-center gap-3">
             {status === "authenticated" && product?.user.id === session?.user?.id && 
             <Link href={`/edit-product/${product?.id}`} className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
