@@ -47,7 +47,7 @@ const Categories = () => {
           <h1 className="text-base">Categories</h1>
         </div>
         <h5 className="text-3xl  font-medium text-primaryColor">
-          Browse All Category
+          Browse All Categories
         </h5>
       </div>
       {loading && (
