@@ -24,8 +24,8 @@ const ProductCard = ({ product }: { product: any }) => {
                 ? product.media[0].url
                 : "/assets/pro1.png"
             }
-            width={500}
-            height={500}
+            width={250}
+            height={250}
             alt="product banner"
             className="h-full w-full object-cover rounded-lg  hover:scale-110 transition ease-in-out delay-150 duration-300 "
           />

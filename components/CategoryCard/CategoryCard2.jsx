@@ -18,9 +18,9 @@ const CategoryCard2 = ({ item }) => {
         className="w-full h-full object-cover rounded-lg hover:scale-110 transition ease-in-out delay-150 duration-300"
       />
       <div className="absolute top-0 md:p-4 w-full h-full p-2 text-whiteColor leading-3 category-bg">
-        <h6 className="md:text-lg sm:text-base text-sm capitalize font-lexed font-semibold">
+        {/* <h6 className="md:text-lg sm:text-base text-sm capitalize font-lexed font-semibold">
           {item?.name}
-        </h6>
+        </h6> */}
         {/* <span className="md:text-sm text-xs">100 post</span> */}
       </div>
     </Link>
