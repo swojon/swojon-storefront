@@ -62,14 +62,9 @@ const CategoryCardSlider = ({ categories}: { categories: any }) => {
                 alt="category image"
                 width={500}
                 height={500}
-                className="w-full h-full object-cover rounded-lg hover:scale-110 transition ease-in-out delay-150 duration-300"
+                className="w-full h-full object-cover rounded-lg transition ease-in-out delay-150 duration-300"
               />
-              <div className="absolute top-0 left-0 md:p-4 w-full h-full p-1 py-2 text-whiteColor leading-3 category-bg">
-                <h6 className="md:text-lg sm:text-sm text-sm capitalize font-lexed font-semibold">
-                  {category?.name}
-                </h6>
-                {/* <span className="md:text-sm text-xs">100 post</span> */}
-              </div>
+              
             </Link>
           </SwiperSlide>
         ))}
