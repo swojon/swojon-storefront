@@ -22,10 +22,10 @@ const ExploreDetail = ({ params }: { params: any }) => {
   const communityFilter = searchParams.get("community")?.split(",");
   const categoryFilter = searchParams.get("category")?.split(",");
   const orderBy = searchParams.get("sort") ?? "default";
-   
+
   var filters = {};
   // if (conditionFilter && conditionFilter.length > 0 ) filters = {...filters, condition: conditionFilter}
-  filters = {...filters, status: 'approved'}
+  filters = { ...filters, status: "approved" };
   if (brandFilter && brandFilter.length > 0)
     filters = { ...filters, brandSlug: brandFilter };
   if (communityFilter && communityFilter.length > 0)
@@ -44,7 +44,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
   const listings = data?.listListings?.items;
   console.log("Got Listings", listings);
   const dispatch = useDispatch();
-  
+
   const handleLoadMore = () => {
     fetchMore({
       variables: {
@@ -52,16 +52,12 @@ const ExploreDetail = ({ params }: { params: any }) => {
         orderBy: orderBy,
         limit: 36,
         // endingBefore: listings![listings!.length - 1]?.id,
-        startingAfter: data?.listListings.afterCursor
+        startingAfter: data?.listListings.afterCursor,
       },
-      updateQuery: (
-        prev: any,
-        { fetchMoreResult }: any
-      ) => {
-        if (!fetchMoreResult.listListings.items)
-          return prev;
-        
-          // console.log("Fetch More Result", fetchMoreResult)  
+      updateQuery: (prev: any, { fetchMoreResult }: any) => {
+        if (!fetchMoreResult.listListings.items) return prev;
+
+        // console.log("Fetch More Result", fetchMoreResult)
         return {
           listListings: {
             ...prev.listListings,
@@ -69,26 +65,27 @@ const ExploreDetail = ({ params }: { params: any }) => {
               ...prev.listListings.items,
               ...fetchMoreResult.listListings.items,
             ],
-            hasMore:
-              fetchMoreResult.listListings.hasMore
+            hasMore: fetchMoreResult.listListings.hasMore,
           },
         };
       },
     });
-  }
+  };
 
   return (
     <section className="custom-container py-10">
       <div className="flex md:flex-row flex-col gap-2 md:items-center md:justify-between">
         <div className="flex items-center space-x-1 justify-center text-sm text-secondColor">
-          <Link href="/" className="">Home</Link>
+          <Link href="/" className="">
+            Home
+          </Link>
           <MdKeyboardArrowRight />
           <h6 className="">All Ads</h6>
         </div>
       </div>
       <div className="flex sm:flex-row flex-col justify-between sm:items-center pt-4  gap-3">
-        <h3 className="text text-lg">All Ads</h3>
-        <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[75%] w-full">
+        {/* <h3 className="text-lg border text-primaryColor">All Ads</h3> */}
+        <div className="flex  md:flex-row flex-col gap-3 md:items-center  md:w-[75%] w-full ">
           <AppliedFilter />
         </div>
         <div className=" flex justify-between items-center gap-3 ">
@@ -134,19 +131,22 @@ const ExploreDetail = ({ params }: { params: any }) => {
           <FilterBar />
         </div> */}
         <div className=" w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+          <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
             {listings?.map((card) => (
               <ProductCard card={card} key={card.id} />
             ))}
             {loading && <ProductLoader />}
           </div>
-          {data?.listListings.hasMore && 
-          <div className="flex justify-center mt-7">
-            <button onClick={handleLoadMore} className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-              Load More
-            </button>
-          </div>
-          }
+          {data?.listListings.hasMore && (
+            <div className="flex justify-center mt-7">
+              <button
+                onClick={handleLoadMore}
+                className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Load More
+              </button>
+            </div>
+          )}
 
           {!loading && (!listings || listings.length <= 0) && (
             <div className=" pt-16">

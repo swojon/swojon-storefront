@@ -19,7 +19,7 @@ const NavbarModal = () => {
 
   const cancelButtonRef = useRef(null);
   return (
-    <div className="border border-red-100 min-h-screen   	 p-4 text-center  sm:p-0 ">
+    <div className="border border-red-100 min-h-screen	 p-4 text-center  sm:p-0 ">
       <Transition.Child
         as={Fragment}
         enter="ease-out duration-300"
