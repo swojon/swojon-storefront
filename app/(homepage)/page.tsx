@@ -1,4 +1,3 @@
-
 import type { NextPage } from "next";
 import HeroSection from "@/components/heroSection/HeroSection";
 import Products from "@/components/Products/Products";
@@ -8,12 +7,14 @@ import SellBuyArea from "@/components/SellBuyArea/SellBuyArea";
 import Navbar from "@/components/navbar/Navbar";
 import NotFoundPage from "../(pages)/404/page";
 import NotFound from "@/components/NotMatched/NotFound";
+import HeroSectionMasonry from "@/components/heroSection/HeroSectionMasonry";
 
 const Home: NextPage = () => {
   return (
     <main className="">
       {/* <HeroSection /> */}
       <Navbar border="border" />
+      <HeroSectionMasonry />
       <FeaturedCategoriesBox />
       <Products />
       {/* <Community /> */}
