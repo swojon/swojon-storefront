@@ -12,13 +12,20 @@ import ThumbnailLoader from "../Loader/ThumbnailLoader";
 import ProductInfo from "./ProductInfo";
 import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import NotFound from "../NotMatched/NotFound";
+import Review from "../Review/Review";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
-const DynamicFavoriteProduct = dynamic(() => import("../Products/FavoriteProduct"), {ssr: false});
-const DynamicThumbnailSlider = dynamic(()=> import('./ProductThumbnailSlider'), {ssr:false})
+const DynamicFavoriteProduct = dynamic(
+  () => import("../Products/FavoriteProduct"),
+  { ssr: false }
+);
+const DynamicThumbnailSlider = dynamic(
+  () => import("./ProductThumbnailSlider"),
+  { ssr: false }
+);
 
 const ProductDetails = ({ productId }: { productId: number }) => {
-  const {data:session, status} = useSession();
+  const { data: session, status } = useSession();
   const { data, error, loading } = useGetListingQuery({
     variables: {
       id: productId,
@@ -27,17 +34,17 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   });
   const product = data?.getListing;
 
-
-  if (!loading && !data ){
+  if (!loading && !data) {
     return (
-      <NotFound 
-      title="Oops! We can’t seem to find that product" 
-      subtitle="It might have been moved, or maybe the link is broken."
-      cta={{
-        text: "Explore Products",
-        link: "/explore"
-      }}/>
-    )
+      <NotFound
+        title="Oops! We can’t seem to find that product"
+        subtitle="It might have been moved, or maybe the link is broken."
+        cta={{
+          text: "Explore Products",
+          link: "/explore",
+        }}
+      />
+    );
   }
   return (
     <section className="custom-container py-6 space-y-6 ">
@@ -122,18 +129,22 @@ const ProductDetails = ({ productId }: { productId: number }) => {
 
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2 justify-between items-center">
-         
           <div className="flex items-center gap-3">
-            {status === "authenticated" && product?.user.id === session?.user?.id && 
-            <Link href={`/edit-product/${product?.id}`} className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
-              <FiEdit className="text-lg text-primaryColor" />
-            </Link>
-            }
-            {status === "authenticated" && product?.user.id != session?.user?.id && 
-            <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
-              <DynamicFavoriteProduct listing={product!} />
-            </button>
-            }
+            {status === "authenticated" &&
+              product?.user.id === session?.user?.id && (
+                <Link
+                  href={`/edit-product/${product?.id}`}
+                  className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center"
+                >
+                  <FiEdit className="text-lg text-primaryColor" />
+                </Link>
+              )}
+            {status === "authenticated" &&
+              product?.user.id != session?.user?.id && (
+                <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
+                  <DynamicFavoriteProduct listing={product!} />
+                </button>
+              )}
 
             {/* <button className="w-12	h-12 border border-[#F5F5F5] rounded-full flex justify-center items-center">
               <FiShare className="text-lg text-primaryColor"/>
@@ -161,9 +172,9 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         </div>
       </div>
 
-      {/* <div className="w-full  ">
+      <div className="w-full  ">
         <Review />
-      </div> */}
+      </div>
 
       {/* <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">
