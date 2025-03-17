@@ -12,7 +12,7 @@ import OtherInfo from "./OtherInfo";
 import { MdVerifiedUser } from "react-icons/md";
 
 const ProductCard = ({ product }: { product: any }) => {
-  const {data:session, status } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div className="rounded-2xl border border-gray-50  cursor-pointer transition ease-in-out delay-150 duration-300">
@@ -35,28 +35,30 @@ const ProductCard = ({ product }: { product: any }) => {
             <FavoriteProduct listing={product} />
           </div>
         )}
-        {status === "authenticated" && session?.user?.id === product.user.id &&  !product.isSold && (
-          <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
-            <OtherInfo listing={product}/>
-          </div>
-        )}
+        {status === "authenticated" &&
+          session?.user?.id === product.user.id &&
+          !product.isSold && (
+            <div className="absolute right-0 top-0 m-3 w-7 h-7 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
+              <OtherInfo listing={product} />
+            </div>
+          )}
         {/* {!product.isAvailable  && !product.isSold &&(
           <div className="absolute left-0 top-0 m-3 w-24 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
             Unavailable
           </div>
         )} */}
-        {product.isSold &&(
+        {product.isSold && (
           <div className="absolute left-0 top-0 m-3 w-16 h-8 flex justify-center items-center border border-[#EFEFEF] rounded-full bg-whiteColor  transition ease-in-out delay-150 duration-300 text-primaryColor">
-          Sold
-        </div>
+            Sold
+          </div>
         )}
       </div>
-      
+
       <Link href={`/products/${product.id}`} className="">
         <div className="pt-2  pb-1 flex flex-row   items-center font-lexed justify-between">
-        <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
-          <span className="text-sm pe-0.5">Tk </span> {product.price}
-        </span>
+          <span className="text-primaryColor md:text-xl text-lg mt-1.5 font-semibold">
+            <span className="text-sm pe-0.5">Tk </span> {product.price}
+          </span>
           {/* <div className="flex gap-1  items-center">
             <CiStar className="text-secondColor text-sm" />{" "}
             <span className="text-secondColor text-sm">4.4</span>
@@ -71,7 +73,7 @@ const ProductCard = ({ product }: { product: any }) => {
         </div> */}
 
         <div className=" pb-1 flex items-center   text-secondColor">
-        <div className="w-[85%] ">
+          <div className="w-[85%] ">
             <h6 className="md:text-base text-primaryColor capitalize line-clamp-2">
               {product.title}
             </h6>
@@ -88,8 +90,6 @@ const ProductCard = ({ product }: { product: any }) => {
               )}
           </div> */}
         </div>
-
-        
       </Link>
 
       {/* {authState.isAuthenticated ? (

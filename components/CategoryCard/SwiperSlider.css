@@ -1,18 +1,17 @@
 .swiper-button-next,
 .swiper-button-prev {
-    --swiper-navigation-size: 8px;
-    --swiper-navigation-color: black;
-    font-size: 12px;
-    padding: 12px 12px;
-    background-color: rgb(255, 255, 255);
-    color: #212121;
-    border-radius: 50%;
-    box-shadow: 1px 1px 5px #5c5c5c;
+  --swiper-navigation-size: 12px;
+  --swiper-navigation-color: black;
+  font-size: 14px;
+  padding: 17px 17px;
+  background-color: rgb(255, 255, 255);
+  color: #212121;
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px #5c5c5c;
 }
 
-
-.swiper-pagination-bullet{
-width: 40px;
-height: 40px;
-background-color: red;
+.swiper-pagination-bullet {
+  width: 40px;
+  height: 40px;
+  background-color: red;
 }

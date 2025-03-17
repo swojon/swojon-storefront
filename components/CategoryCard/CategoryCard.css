@@ -14,9 +14,6 @@
   backdrop-filter: blur(6px);
   transition: transform 0.5s ease;
   overflow: hidden;
-  /* h2 {
-      -webkit-text-stroke: 0.2px rgb(5, 5, 5);
-    } */
 }
 
 .category-bg {

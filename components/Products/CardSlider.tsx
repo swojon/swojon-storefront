@@ -2,14 +2,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Mousewheel, Keyboard } from "swiper/modules";
 import "swiper/css";
-import "./SwiperSlider.css";
+import "@/components/CategoryCard/SwiperSlider.css";
 // import 'swiper/modules/navigation';
 import Image from "next/image";
 import Link from "next/link";
-import "./CategoryCard.css";
+import ProductCard2 from "./ProductCard2";
+// import "./CategoryCard.css";
 
-const CategoryCardSlider = ({ categories }: { categories: any }) => {
-  console.log("I am rendered twice", categories);
+const CardSlider = ({ products }: { products: any }) => {
   return (
     <>
       <Swiper
@@ -23,10 +23,12 @@ const CategoryCardSlider = ({ categories }: { categories: any }) => {
           768: {
             slidesPerView: 4,
           },
+          1024: { slidesPerView: 5 },
+          1400: { slidesPerView: 6 },
         }}
-        spaceBetween={15}
-        slidesPerView={2}
-        // cssMode={true}
+        spaceBetween={20}
+        slidesPerView={6}
+        cssMode={true}
         navigation={true}
         pagination={false}
         mousewheel={true}
@@ -45,24 +47,13 @@ const CategoryCardSlider = ({ categories }: { categories: any }) => {
         //   //  "--swiper-navigation-size": "25px"
         // }}
       >
-        {categories.map((category: any) => (
+        {products.map((product: any) => (
           <SwiperSlide
-            key={category.id}
-            style={{ height: "170px" }}
-            className="relative rounded-lg overflow-hidden"
+            key={product.id}
+            // style={{ height: "170px" }}
+            className="relative h-auto overflow-hidden"
           >
-            <Link
-              href={`/categories/${category.slug}`}
-              className=" h-full  rounded-lg  w-full   overflow-hidden hover:shadow-2xl transition ease-in-out delay-150 duration-300"
-            >
-              <Image
-                src={category?.banner ? category.banner : "/assets/cat6.png"}
-                alt="category image"
-                width={500}
-                height={500}
-                className="w-full h-full object-cover rounded-lg transition ease-in-out delay-150 duration-300"
-              />
-            </Link>
+            <ProductCard2 product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -70,4 +61,4 @@ const CategoryCardSlider = ({ categories }: { categories: any }) => {
   );
 };
 
-export default CategoryCardSlider;
+export default CardSlider;
