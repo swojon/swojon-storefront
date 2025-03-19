@@ -14,7 +14,7 @@ const CardSlider = ({ products }: { products: any }) => {
     <>
       <Swiper
         breakpoints={{
-          375: {
+          320: {
             slidesPerView: 2,
           },
           640: {
@@ -24,7 +24,7 @@ const CardSlider = ({ products }: { products: any }) => {
             slidesPerView: 4,
           },
           1024: { slidesPerView: 5 },
-          1400: { slidesPerView: 6 },
+          1300: { slidesPerView: 6 },
         }}
         spaceBetween={20}
         slidesPerView={6}
@@ -40,12 +40,6 @@ const CardSlider = ({ products }: { products: any }) => {
         }}
         onSwiper={(swiper) => swiper.update()}
         observer={true}
-        // observeParents={true}
-        // style={{
-        //   height: "230px",
-        //   top: "38%",
-        //   //  "--swiper-navigation-size": "25px"
-        // }}
       >
         {products.map((product: any) => (
           <SwiperSlide

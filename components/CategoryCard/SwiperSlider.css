@@ -15,3 +15,8 @@
   height: 40px;
   background-color: red;
 }
+
+.swiper-button-disabled {
+  opacity: 0 !important;
+  cursor: none;
+}

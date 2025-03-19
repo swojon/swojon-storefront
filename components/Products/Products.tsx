@@ -126,8 +126,8 @@ const Products = () => {
   const featuredProduct = data?.listListings.items;
 
   return (
-    <section className="md:mt-20 mt-12  ">
-      <div className="py-14 custom-container2">
+    <section className="md:mt-10 mt-12">
+      <div className=" custom-container2">
         <div className="flex  justify-between items-center gap-2">
           <h2 className="lg:text-3xl text-2xl font-semibold text-primaryColor capitalize truncate">
             New Arrivals
@@ -147,7 +147,7 @@ const Products = () => {
           {loading && <DynamicProductLoader />}
         </div> */}
 
-        <div className="my-8  ">
+        <div className="mt-10  ">
           {/* {DUMMYDATA?.map((product) => (
             <DynamicProductCard key={product.id} product={product} />
           ))} */}
