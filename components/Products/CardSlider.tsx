@@ -4,10 +4,7 @@ import { Pagination, Navigation, Mousewheel, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "@/components/CategoryCard/SwiperSlider.css";
 // import 'swiper/modules/navigation';
-import Image from "next/image";
-import Link from "next/link";
 import ProductCard2 from "./ProductCard2";
-// import "./CategoryCard.css";
 
 const CardSlider = ({ products }: { products: any }) => {
   return (
