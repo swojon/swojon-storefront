@@ -66,7 +66,7 @@ const ReelSection = () => {
           1024: { slidesPerView: 4 },
           //   1300: { slidesPerView: 4 },
         }}
-        spaceBetween={20}
+        spaceBetween={1 / 20}
         slidesPerView={4}
         cssMode={true}
         navigation={true}

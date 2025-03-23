@@ -13,6 +13,8 @@ import ProductInfo from "./ProductInfo";
 import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import NotFound from "../NotMatched/NotFound";
 import Review from "../Review/Review";
+import ProductInfo2 from "./ProductInfo2";
+import AboutItem from "./AboutItem";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -152,20 +154,20 @@ const ProductDetails = ({ productId }: { productId: number }) => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-5 gap-2  ">
-          <div className="xl:w-[64%] lg:w-[57%]  md:w-[50%] w-full h-full  space-y-6 ">
+        <div className="flex flex-col md:flex-row md:gap-10 gap-2  ">
+          <div className="xl:w-[60%] lg:w-[57%]  md:w-[50%] w-full h-full space-y-6 ">
             {loading ? (
               <ThumbnailLoader />
             ) : (
               <DynamicThumbnailSlider images={product?.media} />
             )}
           </div>
-          <div className="xl:w-[36%] lg:w-[43%]  md:w-[50%] w-full  rounded-md">
+          <div className="xl:w-[40%] lg:w-[43%]  md:w-[50%] w-full  rounded-md">
             {loading ? (
               <ProductInfoLoader />
             ) : (
               <div className=" w-full h-full">
-                <ProductInfo product={product ?? null} />
+                <ProductInfo2 product={product ?? null} />
               </div>
             )}
           </div>
@@ -173,7 +175,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
       </div>
 
       <div className="w-full  ">
-        <Review />
+        {/* <Review /> */}
+        <AboutItem />
       </div>
 
       {/* <div className="flex lg:flex-row flex-col items-start gap-4">
