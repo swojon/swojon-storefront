@@ -4,8 +4,8 @@ import React from "react";
 import { useListListingsQuery } from "@/apollograph/generated";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import dImg from "@/public/assets/Dd (1).jpg";
-import dImg2 from "@/public/assets/Dd (2).jpg";
+import dImg from "@/public/assets/Dd-1.jpg";
+import dImg2 from "@/public/assets/Dd-2.jpg";
 import CardSlider from "./CardSlider";
 
 const DynamicProductCard = dynamic(

@@ -21,7 +21,6 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-
 const ProductThumbnailSlider = ({ images }: { images: any }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
@@ -30,17 +29,17 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
   const handleExpandImage = (imageUrl: any) => {
     dispatch(setImagePopUpOpen(imageUrl));
   };
-  console.log("Images", images)
+  console.log("Images", images);
   const slides = images.map((im: any) => ({ src: im.url }));
-  console.log("slides", slides)
+  console.log("slides", slides);
   return (
     <section className="lg:h-[577px]  space-y-4">
-       <Lightbox
+      <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
         slides={slides}
-        plugins={[ Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
-        controller={{closeOnBackdropClick: true, closeOnPullDown: true}}
+        plugins={[Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
+        controller={{ closeOnBackdropClick: true, closeOnPullDown: true }}
       />
 
       <div className="w-full">

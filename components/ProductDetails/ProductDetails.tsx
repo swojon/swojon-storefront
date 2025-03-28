@@ -17,6 +17,9 @@ import Review from "../Review/Review";
 import ProductInfo2 from "./ProductInfo2";
 import AboutItem from "./AboutItem";
 import StickyCard from "./StickyCard";
+import FeaturesSection from "./FeaturesSection";
+import { useSelector } from "react-redux";
+import { AppState } from "@/app/redux/store";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -30,6 +33,10 @@ const DynamicThumbnailSlider = dynamic(
 
 const ProductDetails = ({ productId }: { productId: number }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const filteredImages = useSelector(
+    (state: AppState) => state.filterImages.filteredImages
+  );
+
   const productInfoRef = useRef<HTMLDivElement | null>(null);
   const { data: session, status } = useSession();
   const { data, error, loading } = useGetListingQuery({
@@ -39,6 +46,9 @@ const ProductDetails = ({ productId }: { productId: number }) => {
     skip: !productId,
   });
   const product = data?.getListing;
+
+  const imagesToShow =
+    filteredImages.length > 0 ? filteredImages : product?.media;
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -201,7 +211,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
               {loading ? (
                 <ThumbnailLoader />
               ) : (
-                <DynamicThumbnailSlider images={product?.media} />
+                <DynamicThumbnailSlider images={imagesToShow} />
               )}
             </div>
             <div
@@ -222,6 +232,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         <div className="w-full  ">
           {/* <Review /> */}
           <AboutItem />
+          <FeaturesSection />
         </div>
 
         {/* <div className="flex lg:flex-row flex-col items-start gap-4">

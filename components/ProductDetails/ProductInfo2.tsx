@@ -4,6 +4,9 @@ import { RiShoppingBag2Line } from "react-icons/ri";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import ResponsiveSelectOptions from "../SelectOptions/ResponsiveSelectOptions";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
+import { useDispatch } from "react-redux";
+import { setFilteredImages } from "@/app/redux/filterImagesSlice";
+import img1 from "@/public/hero/red1-min.jpg";
 
 const DELIVERYMETHOD = [
   {
@@ -32,11 +35,43 @@ const DELIVERYMETHOD = [
   },
 ];
 
+// const COLOR = [
+//   { id: 11, color: "bg-red-500", price: 400, colorName: "red" },
+//   { id: 12, color: "bg-purple-500", colorName: "purple" },
+//   { id: 13, color: "bg-green-600", colorName: "green" },
+//   { id: 14, color: "bg-sky-700", price: 400, colorName: "sky" },
+// ];
+
 const COLOR = [
-  { id: 11, color: "bg-red-500", price: 400, colorName: "red" },
-  { id: 12, color: "bg-purple-500", colorName: "purple" },
-  { id: 13, color: "bg-green-600", colorName: "green" },
-  { id: 14, color: "bg-sky-700", price: 400, colorName: "sky" },
+  {
+    id: 11,
+    color: "bg-red-500",
+    price: 400,
+    colorName: "red",
+    images: [{ url: "/hero/red1-min.jpg" }, { url: "/hero/red2-min.jpg" }],
+  },
+  {
+    id: 12,
+    color: "bg-purple-500",
+    colorName: "purple",
+    images: [
+      { url: "/hero/purple1-min.jpg" },
+      { url: "/hero/purple12-min.jpg" },
+    ],
+  },
+  {
+    id: 13,
+    color: "bg-green-600",
+    colorName: "green",
+    images: [{ url: "/hero/green1-min.jpg" }, { url: "/hero/green2-min.jpg" }],
+  },
+  {
+    id: 14,
+    color: "bg-sky-700",
+    price: 400,
+    colorName: "sky",
+    images: [{ url: "/hero/red1-min.jpg" }, { url: "/hero/red1-min.jpg" }],
+  },
 ];
 
 const SIZES = [
@@ -47,9 +82,18 @@ const SIZES = [
 ];
 
 const ProductInfo2 = ({ product }: { product: any }) => {
+  const dispatch = useDispatch();
   const [activeMethod, setActiveMethod] = useState(DELIVERYMETHOD[0]);
   const [activeColor, setActiveColor] = useState(COLOR[0]);
+  const [filteredImages, setSelectedFilteredImages] = useState(COLOR[0].images);
   const [activeSize, setActiveSize] = useState(SIZES[0]);
+
+  const handleColorChange = (color: any) => {
+    setActiveColor(color);
+    setSelectedFilteredImages(color.images);
+
+    dispatch(setFilteredImages(color.images));
+  };
 
   return (
     <div>
@@ -72,7 +116,7 @@ const ProductInfo2 = ({ product }: { product: any }) => {
             {COLOR.map((item) => (
               <div key={item.id} className="space-y-1">
                 <div
-                  onClick={() => setActiveColor(item)}
+                  onClick={() => handleColorChange(item)}
                   className={`${
                     item.id === activeColor.id
                       ? "border-activeColor"
