@@ -1,29 +1,29 @@
 import Image from "next/image";
 import React from "react";
-import beauty from "@/public/hero/beauty.jpg";
-import fashion from "@/public/hero/fashion.jpg";
-import decor from "@/public/hero/decor.jpg";
-import youth from "@/public/hero/youth.jpg";
-import model from "@/public/hero/model.jpg";
-import scooty from "@/public/hero/scooty.jpg";
-import banner from "@/public/hero/banner.jpg";
-import homeApp from "@/public/hero/homeApp.png";
-import furniture from "@/public/hero/pro3.png";
-import shoes from "@/public/hero/shoes.jpg";
+import beauty from "@/public/assets/small_banner/Schooling.png";
+import fashion from "@/public/assets/long_banner/Kids Fashion.png";
+import decor from "@/public/assets/small_banner/Baby Food.png";
+import all_kids from "@/public/assets/main_banner/All Kids Item.png";
+import model from "@/public/assets/small_banner/New Moms Essentials.png";
+import scooty from "@/public/assets/small_banner/Stroller & Carrier.png";
+import banner from "@/public/assets/main_banner/2nd.png";
+import homeApp from "@/public/assets/small_banner/Baby Accessories.png";
+import furniture from "@/public/assets/small_banner/Toys And Fun.png";
+import shoes from "@/public/assets/long_banner/Gift Items.png";
 import Link from "next/link";
 
 const RESDATA = [
   {
     id: 1,
     title: "Beauty, in bloom",
-    image: youth,
+    image: all_kids,
     colSpan: "col-span-2",
     rowSpan: "1",
   },
 
   {
     id: 2,
-    title: "Time for a reset",
+    title: "New Mom Essentials",
     image: model,
     colSpan: "col-span-1",
     rowSpan: "1",
@@ -90,7 +90,7 @@ const COLUMN1 = [
   },
 ];
 const COLUMN2 = [
-  { id: 1, title: "Beauty, in bloom", image: youth, colSpan: "col-span-2" },
+  { id: 1, title: "Beauty, in bloom", image: all_kids, colSpan: "col-span-2" },
   {
     id: 2,
     title: "Time for a reset",
@@ -139,7 +139,7 @@ const MasonryColumn = ({
       {column.map((item) => (
         <div key={item.id} className={`${item.colSpan} `}>
           <Image
-            className="h-full w-full rounded-lg shadow-md"
+            className="h-full w-full object-cover rounded-lg shadow-md"
             src={item.image}
             alt={item.title}
           />
