@@ -96,7 +96,7 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   }
 
   return (
-    <section>
+    <section className="">
       {/* <StickyCard product={product ?? null} />{" "} */}
 
       <StickyCard product={product ?? null} isVisible={isVisible} />

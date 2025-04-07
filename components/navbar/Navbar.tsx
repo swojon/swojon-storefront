@@ -14,20 +14,26 @@ import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useApolloClient } from "@apollo/client";
 
-const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {ssr: false});
-const DynamicResponsiveNavBar = dynamic(() => import( "./ResponsiveNavBar"), {ssr: false});
-const DynamicMegaMenu = dynamic(() => import("../MegaMenu/MegaMenu"), {ssr: false});
-const DynamicNotificationBell = dynamic(() => import("./NotificationBell"), {ssr: false});
+const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {
+  ssr: false,
+});
+const DynamicResponsiveNavBar = dynamic(() => import("./ResponsiveNavBar"), {
+  ssr: false,
+});
+const DynamicMegaMenu = dynamic(() => import("../MegaMenu/MegaMenu"), {
+  ssr: false,
+});
+const DynamicNotificationBell = dynamic(() => import("./NotificationBell"), {
+  ssr: false,
+});
 
 const handleSignOut = () => {
   // console.log("signing out");
   toast.loading("signing you out", { id: "signInToast" });
-  signOut(
-    {
-      redirect: true,
-      callbackUrl : "/"
-    }
-  );
+  signOut({
+    redirect: true,
+    callbackUrl: "/",
+  });
   // dispatch(setUserLogout(true));
   // deleteCookie("authorization");
   toast.success("Signed out", { id: "signInToast" });
@@ -35,8 +41,7 @@ const handleSignOut = () => {
 };
 
 export default function Navbar({ border }: { border: any }) {
-
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
   console.log("status", status);
 
   const dispatch = useDispatch();
@@ -55,13 +60,16 @@ export default function Navbar({ border }: { border: any }) {
           <div className=" ">
             <div className="w-full lg:hidden">
               {/* mobile navbar */}
-              <DynamicResponsiveNavBar border={border} handleSignOut={ handleSignOut} />
+              <DynamicResponsiveNavBar
+                border={border}
+                handleSignOut={handleSignOut}
+              />
             </div>
             <div className="lg:flex h-16 justify-between gap-2 items-center hidden">
               <div className="xl:w-[28%] lg:w-[28%] md:w-[15%] w-[10%]  flex  gap-x-1 lg:px-0  items-center z-10">
                 <Link
                   href="/"
-                  className={`  lg:w-[85px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
+                  className={`  lg:w-[90px] md:w-20 w-16 pb-0.5 lg:flex items-center lg:mr-1 xl:mr-3.5 hidden `}
                 >
                   {border === "border" ? (
                     <Image
@@ -135,12 +143,17 @@ export default function Navbar({ border }: { border: any }) {
                 </div>
               </div>
               <div className={`xl:w-[47%] lg:w-[45%] hidden lg:block  w-full `}>
-                <DynamicSearchField  setShowSearchBar={null}/>
+                <DynamicSearchField setShowSearchBar={null} />
               </div>
 
               <div className="xl:w-[25%] lg:w-[27%] hidden   lg:flex lg:items-center justify-end gap-4  z-10">
                 {status === "authenticated" && (
-                  <DynamicNotificationBell border={border} handleBellClick={() => dispatch(setNotificationDrawerOpen())} />
+                  <DynamicNotificationBell
+                    border={border}
+                    handleBellClick={() =>
+                      dispatch(setNotificationDrawerOpen())
+                    }
+                  />
                 )}
                 {status === "authenticated" && (
                   <Link href="/chat">
@@ -300,25 +313,30 @@ export default function Navbar({ border }: { border: any }) {
                   </Link>
                 )}
 
-              {status === "authenticated" ? (
-               <></> // <Link href="/upload-product">
-                //   <button
-                //     // onClick={() =>
-                //     //   dispatch(
-                //     //     setModalOpen({
-                //     //       title: "this is a modal",
-                //     //       body: "sellProduct",
-                //     //     })
-                //     //   )
-                //     // }
-                //     className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
-                //   >
-                //     Sell Product
-                //   </button>
-                // </Link>
-              ) : <Link href="/signup" className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   ">
-                Create Account
-              </Link>}
+                {status === "authenticated" ? (
+                  <></> // <Link href="/upload-product">
+                ) : (
+                  //   <button
+                  //     // onClick={() =>
+                  //     //   dispatch(
+                  //     //     setModalOpen({
+                  //     //       title: "this is a modal",
+                  //     //       body: "sellProduct",
+                  //     //     })
+                  //     //   )
+                  //     // }
+                  //     className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
+                  //   >
+                  //     Sell Product
+                  //   </button>
+                  // </Link>
+                  <Link
+                    href="/signup"
+                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   "
+                  >
+                    Create Account
+                  </Link>
+                )}
               </div>
             </div>
           </div>

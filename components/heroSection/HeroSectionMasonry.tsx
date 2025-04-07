@@ -12,137 +12,212 @@ import furniture from "@/public/assets/small_banner/Toys And Fun.png";
 import shoes from "@/public/assets/long_banner/Gift Items.png";
 import Link from "next/link";
 
-const RESDATA = [
-  {
-    id: 1,
-    title: "Beauty, in bloom",
-    image: all_kids,
-    colSpan: "col-span-2",
-    rowSpan: "1",
-  },
+// const RESDATA = [
+//   {
+//     id: 1,
+//     title: "Beauty, in bloom",
+//     image: all_kids,
+//     colSpan: "col-span-2",
+//     rowSpan: "1",
+//   },
 
+//   {
+//     id: 2,
+//     title: "New Mom Essentials",
+//     image: model,
+//     colSpan: "col-span-1",
+//     rowSpan: "1",
+//   },
+//   {
+//     id: 24,
+//     title: "Time for a reset",
+//     image: fashion,
+//     colSpan: "col-span-1",
+//     rowSpan: "2",
+//   },
+//   {
+//     id: 3,
+//     title: "Popular kitchen picks",
+//     image: scooty,
+//     colSpan: "col-span-1",
+//     rowSpan: "1",
+//   },
+
+//   {
+//     id: 4,
+//     title: "Popular kitchen picks",
+//     image: banner,
+//     colSpan: "col-span-2",
+//     rowSpan: "1",
+//   },
+//   {
+//     id: 36,
+//     title: "Popular kitchen picks",
+//     image: shoes,
+//     colSpan: "col-span-1",
+//     rowSpan: "2",
+//   },
+//   {
+//     id: 12,
+//     title: "Beauty, in bloom",
+//     image: homeApp,
+//     colSpan: "col-span-1",
+//     rowSpan: "1",
+//   },
+
+//   {
+//     id: 25,
+//     title: "Time for a reset",
+//     image: furniture,
+//     colSpan: "col-span-1",
+//     rowSpan: "1",
+//   },
+// ];
+
+const MASONRY_DATA = [
+  // COLUMN2 (middle - col-span-2)
+  { id: 4, title: "Beauty, in bloom", image: all_kids, col: 2, colSpan: 2 },
+  { id: 5, title: "New Mom Essentials", image: model, col: 2, colSpan: 1 },
   {
-    id: 2,
-    title: "New Mom Essentials",
-    image: model,
-    colSpan: "col-span-1",
-    rowSpan: "1",
-  },
-  {
-    id: 24,
-    title: "Time for a reset",
-    image: fashion,
-    colSpan: "col-span-1",
-    rowSpan: "2",
-  },
-  {
-    id: 3,
+    id: 6,
     title: "Popular kitchen picks",
     image: scooty,
-    colSpan: "col-span-1",
-    rowSpan: "1",
+    col: 2,
+    colSpan: 1,
+    // rowSpan: 2,
   },
+  { id: 7, title: "Popular kitchen picks", image: banner, col: 2, colSpan: 2 },
 
+  // COLUMN1 (left)
+  { id: 1, title: "Beauty, in bloom", image: beauty, col: 1, colSpan: 1 },
   {
-    id: 4,
-    title: "Popular kitchen picks",
-    image: banner,
-    colSpan: "col-span-2",
-    rowSpan: "1",
+    id: 2,
+    title: "Time for a reset",
+    image: fashion,
+    col: 1,
+    colSpan: 1,
+    rowSpan: 2,
   },
+  { id: 3, title: "Popular kitchen picks", image: decor, col: 1, colSpan: 1 },
+
+  // COLUMN3 (right)
   {
-    id: 36,
+    id: 10,
     title: "Popular kitchen picks",
     image: shoes,
-    colSpan: "col-span-1",
-    rowSpan: "2",
+    col: 3,
+    colSpan: 1,
+    rowSpan: 2,
   },
   {
-    id: 12,
+    id: 8,
     title: "Beauty, in bloom",
     image: homeApp,
-    colSpan: "col-span-1",
-    rowSpan: "1",
+    col: 3,
+    colSpan: 1,
   },
-
   {
-    id: 25,
+    id: 9,
     title: "Time for a reset",
     image: furniture,
-    colSpan: "col-span-1",
-    rowSpan: "1",
+    col: 3,
+    colSpan: 1,
   },
 ];
 
-const COLUMN1 = [
-  { id: 1, title: "Beauty, in bloom", image: beauty, colSpan: "col-span-1" },
-  {
-    id: 2,
-    title: "Time for a reset",
-    image: fashion,
-    colSpan: "col-span-1",
-  },
-  {
-    id: 3,
-    title: "Popular kitchen picks",
-    image: decor,
-    colSpan: "col-span-1",
-  },
-];
-const COLUMN2 = [
-  { id: 1, title: "Beauty, in bloom", image: all_kids, colSpan: "col-span-2" },
-  {
-    id: 2,
-    title: "Time for a reset",
-    image: model,
-    colSpan: "col-span-1",
-  },
-  {
-    id: 3,
-    title: "Popular kitchen picks",
-    image: scooty,
-    colSpan: "col-span-1",
-  },
-  {
-    id: 4,
-    title: "Popular kitchen picks",
-    image: banner,
-    colSpan: "col-span-2",
-  },
-];
+// const COLUMN1 = [
+//   { id: 1, title: "Beauty, in bloom", image: beauty, colSpan: "col-span-1" },
+//   {
+//     id: 2,
+//     title: "Time for a reset",
+//     image: fashion,
+//     colSpan: "col-span-1",
+//   },
+//   {
+//     id: 3,
+//     title: "Popular kitchen picks",
+//     image: decor,
+//     colSpan: "col-span-1",
+//   },
+// ];
+// const COLUMN2 = [
+//   { id: 1, title: "Beauty, in bloom", image: all_kids, colSpan: "col-span-2" },
+//   {
+//     id: 2,
+//     title: "Time for a reset",
+//     image: model,
+//     colSpan: "col-span-1",
+//   },
+//   {
+//     id: 3,
+//     title: "Popular kitchen picks",
+//     image: scooty,
+//     colSpan: "col-span-1",
+//   },
+//   {
+//     id: 4,
+//     title: "Popular kitchen picks",
+//     image: banner,
+//     colSpan: "col-span-2",
+//   },
+// ];
 
-const COLUMN3 = [
-  { id: 1, title: "Beauty, in bloom", image: homeApp, colSpan: "col-span-1" },
-  {
-    id: 2,
-    title: "Time for a reset",
-    image: furniture,
-    colSpan: "col-span-1",
-  },
-  {
-    id: 3,
-    title: "Popular kitchen picks",
-    image: shoes,
-    colSpan: "col-span-1",
-  },
-];
+// const COLUMN3 = [
+//   { id: 1, title: "Beauty, in bloom", image: homeApp, colSpan: "col-span-1" },
+//   {
+//     id: 2,
+//     title: "Time for a reset",
+//     image: furniture,
+//     colSpan: "col-span-1",
+//   },
+//   {
+//     id: 3,
+//     title: "Popular kitchen picks",
+//     image: shoes,
+//     colSpan: "col-span-1",
+//   },
+// ];
+
+const COLUMN1 = MASONRY_DATA.filter((item) => item.col === 1);
+const COLUMN2 = MASONRY_DATA.filter((item) => item.col === 2);
+const COLUMN3 = MASONRY_DATA.filter((item) => item.col === 3).sort((a, b) =>
+  a.id === 10 ? 1 : b.id === 10 ? -1 : 0
+);
 
 const MasonryColumn = ({
   colSpan,
   column,
 }: {
   colSpan: string;
-  column: { id: number; title: string; image: any; colSpan: string }[];
+  column: { id: number; title: string; image: any; colSpan: number }[];
 }) => {
   return (
     <div className={`${colSpan}  grid gap-5 `}>
       {column.map((item) => (
-        <div key={item.id} className={`${item.colSpan} `}>
+        <div
+          key={item.id}
+          className={`${
+            item.colSpan === 2 ? "col-span-2" : "col-span-1"
+          } shadow-md  rounded-lg relative cursor-pointer`}
+        >
           <Image
             className="h-full w-full object-cover rounded-lg shadow-md"
             src={item.image}
             alt={item.title}
           />
+          <div className="absolute inset-0 text-blue-950">
+            <div className="p-2.5 space-y-1">
+              <h5 className="text-[1.1rem ] lg:text-xl font-bold truncate">
+                {item.title}
+              </h5>
+              <Link
+                href="/"
+                className="underline underline-offset-3 text-sm lg:text-base inline-block"
+              >
+                Shop now
+              </Link>
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -159,12 +234,14 @@ const HeroSectionMasonry = () => {
       </div>
 
       <div className="grid grid-cols-[auto_auto] gap-5 sm:hidden ">
-        {RESDATA.map((banner) => (
+        {MASONRY_DATA.map((banner) => (
           <div
             key={banner.id}
             className={` relative ${
-              banner.colSpan === "col-span-2" && "col-span-2"
-            } ${banner.rowSpan === "2" && "row-span-2"}  shadow-md`}
+              banner.colSpan === 2 ? "col-span-2" : "col-span-1"
+            } ${
+              banner.rowSpan === 2 ? "row-span-2" : "row-span-1"
+            }  shadow-md  rounded-lg overflow-hidden cursor-pointer`}
           >
             <Image
               className="w-full h-full object-cover  rounded-lg"

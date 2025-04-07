@@ -12,7 +12,7 @@ const StickyCard = ({
 }) => {
   return (
     <div
-      className={`fixed w-full top-0 z-[1000] h-[120px] border-b bg-white shadow-md custom-container2 flex items-center transition-transform duration-300 ${
+      className={`fixed w-full top-0 left-0 right-0 z-[1000] h-[120px] border-b bg-white shadow-md  px-[2vw] flex items-center transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
