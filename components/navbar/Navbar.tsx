@@ -13,6 +13,7 @@ import { LuUser2 } from "react-icons/lu";
 import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useApolloClient } from "@apollo/client";
+import { PiShoppingCart } from "react-icons/pi";
 
 const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {
   ssr: false,
@@ -299,10 +300,28 @@ export default function Navbar({ border }: { border: any }) {
                   </Menu>
                 )}
 
+                <Link href="/cart" className="relative">
+                  <button
+                    className={`py-1.5  leading-0 font-lexed font-semibold  md:text-2xl xl:text-3xl text-sm   transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
+                      border === "border"
+                        ? "text-primaryColor"
+                        : "text-primaryColor"
+                    }`}
+                  >
+                    <PiShoppingCart />
+                  </button>
+
+                  <div className="absolute -right-[2px] top-0  h-[18px] lg:h-[18px] xl:h-[20px] w-[18px] lg:w-[18px] xl:w-[20px] rounded-full  flex items-center justify-center bg-activeColor text-center ">
+                    <span className="font-semibold   text-white text-[8px] xl:text-[10px] block  p-0 leading-none">
+                      10
+                    </span>
+                  </div>
+                </Link>
+
                 {status != "authenticated" && (
                   <Link href="/login">
                     <button
-                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-1 transition ease-in-out delay-150 duration-300 before:content-[''] before:w-full before:h-1 before:bg-red-400 before:left-0 before:bottom-0 whitespace-nowrap ${
+                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
                         border === "border"
                           ? "text-primaryColor"
                           : "text-primaryColor"

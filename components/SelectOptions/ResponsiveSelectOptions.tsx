@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
@@ -9,7 +11,13 @@ const options = [
   { id: 4, label: "4" },
 ];
 
-const ResponsiveSelectOptions = () => {
+const ResponsiveSelectOptions = ({
+  padding,
+  title,
+}: {
+  padding?: string;
+  title: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState<"top" | "bottom">("bottom");
   const [selected, setSelected] = useState(options[0]); // Default selection
@@ -33,12 +41,14 @@ const ResponsiveSelectOptions = () => {
     <div className="relative inline-block">
       {/* Selected Option (Trigger) */}
       <div
-        className="p-3 w-[100px] border border-secondColor rounded-2xl cursor-pointer bg-white flex justify-between items-center gap-3"
+        className={`${
+          padding ? `${padding}` : "p-3"
+        }  w-[100px] border border-secondColor rounded-2xl cursor-pointer bg-white flex justify-between items-center gap-3`}
         onClick={toggleDropdown}
         ref={dropdownRef}
       >
-        <span>
-          Qty <span className="font-semibold">{selected.label}</span>
+        <span className="capitalize">
+          {title} <span className="font-semibold">{selected.label}</span>
         </span>
         <span className="text-gray-500">
           {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}

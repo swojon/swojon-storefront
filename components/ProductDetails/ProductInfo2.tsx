@@ -205,7 +205,7 @@ const ProductInfo2 = ({ product }: { product: any }) => {
         </div>
         <div className="space-y-3">
           <div className="flex items-center gap-4">
-            <ResponsiveSelectOptions />{" "}
+            <ResponsiveSelectOptions title="Qty" />{" "}
             <div className="w-full flex-1 ">
               <button className="p-3 w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold">
                 Add to cart

@@ -41,7 +41,7 @@ const StickyCard = ({
 
         <div className="flex items-center gap-5 ">
           <span className="block font-semibold ">৳{product?.price}</span>
-          <ResponsiveSelectOptions />{" "}
+          <ResponsiveSelectOptions title="Qty" />{" "}
           <button className="p-3 w-[120px] bg-activeColor border border-activeColor rounded-2xl text-white font-semibold ">
             Add to cart
           </button>
