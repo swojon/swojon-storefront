@@ -187,12 +187,14 @@ a {
     padding-right: 5vw;
   }
 } */
-.masonry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: masonry;
-}
 
 .page-height {
   height: calc(80vh - 4rem);
+}
+
+.hidden-scroll::-webkit-scrollbar {
+  opacity: 0;
+}
+.hidden-scroll::-webkit-scrollbar-thumb {
+  opacity: 0;
 }
