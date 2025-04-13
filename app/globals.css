@@ -27,12 +27,18 @@ body {
   color: #000000;
   scroll-behavior: smooth;
 }
+
 html {
   height: -webkit-fill-available;
 }
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
 }
 /* Avoid Chrome to see Safari hack */
 @supports (-webkit-touch-callout: none) {

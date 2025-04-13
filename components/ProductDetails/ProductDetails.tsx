@@ -50,19 +50,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const imagesToShow =
     filteredImages.length > 0 ? filteredImages : product?.media;
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 600) {
-  //       setIsVisible(true);
-  //     } else {
-  //       setIsVisible(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {

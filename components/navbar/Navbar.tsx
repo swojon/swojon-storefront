@@ -14,6 +14,7 @@ import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useApolloClient } from "@apollo/client";
 import { PiShoppingCart } from "react-icons/pi";
+import { setCartDrawerOpen } from "@/app/redux/cartDrawerSlice";
 
 const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {
   ssr: false,
@@ -300,7 +301,10 @@ export default function Navbar({ border }: { border: any }) {
                   </Menu>
                 )}
 
-                <Link href="/cart" className="relative">
+                <div
+                  className="relative "
+                  onClick={() => dispatch(setCartDrawerOpen())}
+                >
                   <button
                     className={`py-1.5  leading-0 font-lexed font-semibold  md:text-2xl xl:text-3xl text-sm   transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
                       border === "border"
@@ -316,7 +320,7 @@ export default function Navbar({ border }: { border: any }) {
                       10
                     </span>
                   </div>
-                </Link>
+                </div>
 
                 {status != "authenticated" && (
                   <Link href="/login">

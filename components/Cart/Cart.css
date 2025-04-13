@@ -1,0 +1,9 @@
+.cart-drawer {
+  height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .cart-drawer {
+    height: 100dvh;
+  }
+}

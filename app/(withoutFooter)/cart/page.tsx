@@ -7,14 +7,14 @@ import { BsTruck } from "react-icons/bs";
 
 const Cart = () => {
   return (
-    <section className=" py-10 space-y-6 text-primaryColor relative scroll-smooth hidden-scroll">
+    <section className=" pt-10 space-y-6 text-primaryColor relative scroll-smooth hidden-scroll">
       <h5 className="text-2xl font-bold px-20">
         Cart{" "}
         <span className="font-normal text-secondColor text-xl">(4 items)</span>
       </h5>
 
-      <div className="flex items-start max-h-[90vh]  gap-10 px-20 overflow-auto hidden-scroll transition ease-in delay-300">
-        <div className="w-[60%] ">
+      <div className="flex items-start max-h-[70vh] overflow-auto  gap-10 px-20   transition ease-in delay-300">
+        <div className="w-[54%]  ">
           <div className="flex items-start justify-between py-4 gap-6 border-b border-gray-100">
             <div className="flex items-start gap-5">
               <Image
@@ -162,7 +162,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div className="w-[40%] sticky top-0 ">
+        <div className="w-[34%] fixed top-32 right-20">
           <div className="sticky  top-20 p-6 border rounded-md space-y-4 bg-white shadow">
             <h6 className="text-xl font-semibold">Summary</h6>
             <div className="flex items-start justify-between border-b border-gray-300 pb-4">

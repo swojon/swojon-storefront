@@ -14,8 +14,10 @@ const options = [
 const ResponsiveSelectOptions = ({
   padding,
   title,
+  fontSize,
 }: {
   padding?: string;
+  fontSize?: string;
   title: string;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,9 +43,9 @@ const ResponsiveSelectOptions = ({
     <div className="relative inline-block">
       {/* Selected Option (Trigger) */}
       <div
-        className={`${
-          padding ? `${padding}` : "p-3"
-        }  w-[100px] border border-secondColor rounded-2xl cursor-pointer bg-white flex justify-between items-center gap-3`}
+        className={`${padding ? `${padding}` : "p-3"} ${
+          fontSize ? `${fontSize}` : "text-base"
+        } w-[100px] border border-secondColor rounded-2xl cursor-pointer bg-white flex justify-between items-center gap-3 `}
         onClick={toggleDropdown}
         ref={dropdownRef}
       >
@@ -59,13 +61,13 @@ const ResponsiveSelectOptions = ({
       {isOpen && (
         <ul
           className={`absolute left-0 w-full bg-white border border-gray-300 rounded-md shadow-md z-10 transition-all ${
-            position === "bottom" ? "top-full mt-1" : "bottom-full mb-1"
-          }`}
+            fontSize ? `${fontSize}` : "text-base"
+          } ${position === "bottom" ? "top-full mt-1" : "bottom-full mb-1"}`}
         >
           {options.map((option) => (
             <li
               key={option.id}
-              className="p-3 hover:bg-gray-200 cursor-pointer flex items-center justify-between"
+              className={`p-3 hover:bg-gray-200 cursor-pointer flex items-center justify-between`}
               onClick={() => {
                 setSelected(option);
                 setIsOpen(false);
