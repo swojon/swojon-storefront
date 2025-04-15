@@ -18,6 +18,7 @@ import { ImagePopUpSlice } from "./ImagePopSlice";
 import { unreadNotificationSlice } from "./unreadNotificationSlice";
 import { filterImagesSlice } from "./filterImagesSlice";
 import { cartDrawerSlice } from "./cartDrawerSlice";
+import { productCartSlice } from "./cartSlice";
 // import { persistReducer, persistStore } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   [unreadNotificationSlice.name]: unreadNotificationSlice.reducer,
   [filterImagesSlice.name]: filterImagesSlice.reducer,
   [cartDrawerSlice.name]: cartDrawerSlice.reducer,
+  [productCartSlice.name]: productCartSlice.reducer,
 });
 
 export const store = configureStore({

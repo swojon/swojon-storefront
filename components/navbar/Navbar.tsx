@@ -15,6 +15,7 @@ import dynamic from "next/dynamic";
 import { useApolloClient } from "@apollo/client";
 import { PiShoppingCart } from "react-icons/pi";
 import { setCartDrawerOpen } from "@/app/redux/cartDrawerSlice";
+import { Product } from "@/app/redux/cartSlice";
 
 const DynamicSearchField = dynamic(() => import("../SearchField/SearchField"), {
   ssr: false,
@@ -49,7 +50,13 @@ export default function Navbar({ border }: { border: any }) {
   const dispatch = useDispatch();
   const authState = useSelector((state: any) => state.auth);
 
-  // console.log("session", user);
+  const cartItems = useSelector((state: any) => state.productCart.items);
+
+  const totalQuantity = cartItems.reduce(
+    (total: any, item: Product) => total + (item.quantity || 1),
+    0
+  );
+
   return (
     <Disclosure
       as="nav"
@@ -317,7 +324,7 @@ export default function Navbar({ border }: { border: any }) {
 
                   <div className="absolute -right-[2px] top-0  h-[18px] lg:h-[18px] xl:h-[20px] w-[18px] lg:w-[18px] xl:w-[20px] rounded-full  flex items-center justify-center bg-activeColor text-center ">
                     <span className="font-semibold   text-white text-[8px] xl:text-[10px] block  p-0 leading-none">
-                      10
+                      {totalQuantity}
                     </span>
                   </div>
                 </div>
