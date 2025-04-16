@@ -19,8 +19,18 @@ import { unreadNotificationSlice } from "./unreadNotificationSlice";
 import { filterImagesSlice } from "./filterImagesSlice";
 import { cartDrawerSlice } from "./cartDrawerSlice";
 import { productCartSlice } from "./cartSlice";
-// import { persistReducer, persistStore } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
+
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   // [authSlice.name]: authSlice.reducer,
@@ -38,10 +48,26 @@ const rootReducer = combineReducers({
   [productCartSlice.name]: productCartSlice.reducer,
 });
 
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["productCart"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
   devTools: true,
 });
+
+export const persistor = persistStore(store);
 
 // export type AppStore = typeof store;
 // export type AppState = ReturnType<AppStore["getState"]>;

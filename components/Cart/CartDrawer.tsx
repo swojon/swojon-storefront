@@ -6,9 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Product, removeFromCart } from "@/app/redux/cartSlice";
 import img from "@/public/pd.png";
 import Image from "next/image";
-import ResponsiveSelectOptions from "../SelectOptions/ResponsiveSelectOptions";
 import { AiOutlineDelete } from "react-icons/ai";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 
