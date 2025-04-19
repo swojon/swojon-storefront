@@ -9,9 +9,11 @@ import { BsTruck } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Product, removeFromCart } from "@/app/redux/cartSlice";
 import UpdateQuantity from "@/components/SelectOptions/UpdateQuantity";
+import { IoMdClose } from "react-icons/io";
 
 const Cart = () => {
   const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [popup, setPopup] = useState(false);
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state: any) => state.productCart.items);
@@ -21,14 +23,16 @@ const Cart = () => {
   };
 
   return (
-    <section className=" pt-5 space-y-4 text-primaryColor relative scroll-smooth hidden-scroll">
-      <h5 className="text-2xl font-bold px-20">
+    <section className="lg:pt-5 pt-3 lg:space-y-4 space-y-2 text-primaryColor relative scroll-smooth hidden-scroll">
+      <h5 className="lg:text-2xl text-lg font-bold xl:px-20 px-5 lg:px-10">
         Cart{" "}
-        <span className="font-normal text-secondColor text-xl">(4 items)</span>
+        <span className="font-normal text-secondColor lg:text-xl text-base">
+          (4 items)
+        </span>
       </h5>
 
-      <div className="flex items-start max-h-[70vh] overflow-auto  gap-10 px-20   transition ease-in delay-300">
-        <div className="w-[54%]  ">
+      <div className="flex items-start lg:max-h-[calc(100vh-150px)] max-h-[calc(100vh-250px)] overflow-auto  lg:gap-10 xl:px-20 px-5 lg:px-10  transition ease-in delay-300 ">
+        <div className="lg:w-[calc(100vw-650px)]  w-full ">
           {cartItems.map((item: Product) => (
             <div
               key={item?.id}
@@ -37,24 +41,28 @@ const Cart = () => {
               <div className="flex items-start gap-5">
                 <Image
                   src={item.image}
-                  className="max-w-[150px] max-h-[150px] object-cover aspect-square"
+                  className="xl:max-w-[150px] lg:max-w-[100px] max-w-[70px] xl:max-h-[150px] lg:max-h-[100px] max-h-[70px] object-cover aspect-square"
                   alt="product"
                 />
 
-                <div className="space-y-1  text-secondColor text-base">
-                  <h6 className="text-base font-semibold text-primaryColor">
+                <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">
+                  <h6 className=" font-semibold text-primaryColor">
                     {item.title}
                   </h6>
                   <span className="block ">Baby&apos;s Food</span>
-                  <p className="line-clamp-1 pe-5">{item.description}</p>
+                  <p className="line-clamp-1 pe-5 ">{item.description}</p>
 
-                  <div className="flex gap-5  pt-4 pe-5">
+                  <div className="flex gap-5  xl:pt-4 pt-3 xl:pe-5 pe-3">
                     <div className="flex gap-4">
                       <ResponsiveSelectOptions
                         title="size"
-                        padding="px-2 py-1"
+                        padding="xl:px-2 px-1.5 xl:py-1 py-x"
+                        fontSize="xl:text-base text-sm"
                       />
-                      <UpdateQuantity item={item} />
+                      <UpdateQuantity
+                        item={item}
+                        padding="xl:px-2 px-1.5 xl:py-1 py-x"
+                      />
                     </div>
 
                     <button
@@ -67,178 +75,187 @@ const Cart = () => {
                 </div>
               </div>
 
-              <div className="ps-5 font-bold">
+              <div className="ps-5 font-bold text-right lg:text-base text-sm">
                 {item.discountPrice ? (
                   <div className="flex  gap-2">
                     <span className="text-lime-700">৳{item.discountPrice}</span>
-                    <span className="   inline-block line-through">
+                    <span className="inline-block line-through">
                       ৳{item.price}
                     </span>
                   </div>
                 ) : (
-                  <>৳{item.price}</>
+                  <span>৳{item.price}</span>
                 )}
               </div>
             </div>
           ))}
         </div>
-        <div className="w-[32%] fixed top-20 right-20">
-          <div className="flex flex-col gap-4">
-            <div className=" px-6 py-2 border rounded-md space-y-2 bg-white shadow">
-              {/* <h6 className="text-xl font-semibold">Shipping to</h6> */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="">
-                  <label className="text-base font-semibold text-secondColor">
-                    Name
-                  </label>
-
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="John doe"
-                    className="block   p-2 text-base text-gray-900 placeholder:text-secondColor focus:outline-none sm:text-base border border-gray-400 w-full rounded-md"
-                  />
-                </div>
-
-                <div className="">
-                  <label className="text-base font-semibold text-secondColor">
-                    Phone Number
-                  </label>
-
-                  <input
-                    id="name"
-                    name="number"
-                    type="phone"
-                    placeholder="0157xxxxxxx"
-                    className="block   p-2 text-base text-gray-900 placeholder:text-secondColor focus:outline-none sm:text-base border border-gray-400 w-full rounded-md"
-                  />
-                </div>
-              </div>
-
-              <div className="pb-2">
-                <label className="text-base font-semibold text-secondColor">
-                  Address
-                </label>
-
-                <textarea
-                  id="address"
-                  name="address"
-                  placeholder="1/a mohammadpur, dhaka"
-                  rows={3}
-                  className="block p-2 text-base text-gray-900 placeholder:text-secondColor focus:outline-none sm:text-base border border-gray-400 w-full rounded-md"
-                ></textarea>
-              </div>
-            </div>
-            <div className=" px-6 py-2 border rounded-md space-y-2 bg-white shadow">
-              {/* <h6 className="text-xl font-semibold">Payment Method</h6>{" "} */}
-              {/* <h6 className="text-xl font-semibold">Summary</h6>
-              <div className="flex items-start justify-between border-b border-gray-300 ">
-                <span className="block text-base font-medium">
-                  Subtotal (3 items)
-                </span>
-
-                <div className="text-right">
-                  <span className="block text-base font-semibold">৳ 1000</span>
-                  <span className="text-sm text-secondColor">
-                    (Inclusive of VAT)
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-start justify-between  border-gray-300 ">
-                <span className="block text-base font-medium">Total</span>
-
-                <div className="text-right">
-                  <span className="block text-base font-semibold">৳ 1000</span>
-                </div>
-              </div>
-              <div className="text-sm text-secondColor flex items-center gap-4">
-                <BsTruck className="text-2xl" />
-                <p>
-                  Delivery fee (if applicable) will be calculated at checkout.
-                </p>
-              </div> */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <button
-                  onClick={() => setPaymentMethod("cash")}
-                  className={`${
-                    paymentMethod === "cash"
-                      ? "border-activeColor text-primaryColor"
-                      : "border-secondColor text-secondColor"
-                  } border-2  hover:opacity-80  w-full px-3 py-4 rounded-md font-bold text-lg `}
-                >
-                  Cash on Delivery
-                </button>
-
-                <button
-                  onClick={() => setPaymentMethod("online")}
-                  className={`${
-                    paymentMethod === "online"
-                      ? "border-activeColor text-primaryColor"
-                      : "border-secondColor text-secondColor"
-                  } border-2  hover:opacity-80 text-primaryColor w-full px-3 py-4 rounded-md font-bold text-lg `}
-                >
-                  Payment Now
-                </button>
-              </div>
-              <div className="space-y-2 py-2">
-                <span className="text-base font-semibold">
-                  Do you have a promo code?
-                </span>
-
-                <input
-                  id="promo"
-                  name="promo"
-                  type="text"
-                  placeholder="Enter Promo Code"
-                  className="block   p-3 text-base text-gray-900 placeholder:text-secondColor focus:outline-none sm:text-base border border-gray-400 w-full rounded-md"
-                />
-              </div>
-              {/* <div className="pt-4">
-              <button className="bg-activeColor hover:opacity-80 text-white w-full p-3 rounded-md font-bold text-lg ">
-                Checkout
-              </button>
-            </div> */}
-            </div>
-          </div>
+        <div className="xl:max-w-[500px] max-w-[400px] hidden lg:block lg:fixed top-20 xl:right-20 lg:right-10 right-5 ">
+          <CheckoutInfo
+            setPaymentMethod={setPaymentMethod}
+            paymentMethod={paymentMethod}
+            cartItems={cartItems}
+          />
         </div>
       </div>
 
-      <footer className="fixed min-h-[50px] w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 px-20 flex items-center justify-between gap-5">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center  gap-2">
-            <div className="flex items-center">
-              <input
-                id="comments"
-                aria-describedby="comments-description"
-                name="comments"
-                type="checkbox"
-                className="md:h-4 h-2.5 md:w-4 w-2.5 rounded border-gray-300 text-activeColor focus:ring-activeColor custom-checkedInput"
-              />
-            </div>
-            <span className="block">All</span>
+      <footer className="fixed lg:hidden min-h-[50px] w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10 ">
+        <div className="space-y-5 text-primaryColor font-medium">
+          <div className="flex items-center justify-between text-base">
+            <p className="">Payment Methods</p>
+
+            <span
+              onClick={() => setPopup(true)}
+              className="block text-right text-secondColor/50 cursor-pointer"
+            >
+              +Add Now
+            </span>
           </div>
-          <span className="font-semibold text-lg block">
-            Total: ৳
-            {cartItems.reduce(
-              (total: any, item: Product) =>
-                total +
-                (item.discountPrice || item.price) * (item.quantity || 1),
-              0
-            )}
-          </span>
-        </div>
-        <div className="flex items-center gap-5">
-          <button className="border border-primaryColor hover:opacity-80 text-secondColor w-[200px] px-6 py-2 rounded-md font-bold text-lg ">
-            Back to shopping
-          </button>
-          <button className="bg-activeColor border border-activeColor hover:opacity-80 text-white w-[200px] px-6 py-2 rounded-md font-bold text-lg ">
-            Checkout
+          <button className="bg-activeColor border border-activeColor opacity-70 text-white px-3 py-2 w-full rounded-md font-bold text-base ">
+            <span>
+              Pay ৳
+              {cartItems.reduce(
+                (total: any, item: Product) =>
+                  total +
+                  (item.discountPrice || item.price) * (item.quantity || 1),
+                0
+              )}
+            </span>
           </button>
         </div>
       </footer>
+
+      {/* mobile pop up */}
+      <div
+        className={`${
+          popup ? "translate-y-0 " : "translate-y-full "
+        } fixed lg:hidden h-full w-full bottom-0   py-4 xl:px-20 px-5 lg:px-10 z-[1000] transition delay-200 duration-700 ease-in-out`}
+      >
+        <div
+          onClick={() => setPopup(false)}
+          className="w-full h-full bg-white/70 absolute left-0 top-0 z-100 "
+        ></div>
+        <div className="absolute bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10">
+          <button
+            onClick={() => setPopup(false)}
+            className="px-1 cursor-pointer py-1 border rounded-full inline-block"
+          >
+            <IoMdClose />
+          </button>
+          <CheckoutInfo
+            setPaymentMethod={setPaymentMethod}
+            paymentMethod={paymentMethod}
+            cartItems={cartItems}
+          />
+        </div>
+      </div>
     </section>
   );
 };
 
 export default Cart;
+
+const CheckoutInfo = ({
+  setPaymentMethod,
+  paymentMethod,
+  cartItems,
+}: {
+  setPaymentMethod: any;
+  paymentMethod: any;
+  cartItems: any;
+}) => {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="lg:px-6 md:px-5 px-3 py-2 lg:border rounded-md space-y-2 bg-white lg:shadow">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="md:text-base text-sm">
+            <label className=" font-semibold ">Name</label>
+
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="John doe"
+              className="block  xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none  border border-gray-400 w-full rounded-md"
+            />
+          </div>
+
+          <div className="md:text-base text-sm">
+            <label className=" font-semibold ">Phone Number</label>
+
+            <input
+              id="name"
+              name="number"
+              type="phone"
+              placeholder="0157xxxxxxx"
+              className="block xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none  border border-gray-400 w-full rounded-md"
+            />
+          </div>
+        </div>
+
+        <div className="lg:pb-2 md:text-base text-sm">
+          <label className=" font-semibold ">Address</label>
+
+          <textarea
+            id="address"
+            name="address"
+            placeholder="1/a mohammadpur, dhaka"
+            rows={3}
+            className="block xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none text-base border border-gray-400 w-full rounded-md"
+          ></textarea>
+        </div>
+      </div>
+      <div className=" lg:px-6 md:px-5 px-3 py-2 lg:border rounded-md space-y-2 bg-white lg:shadow">
+        <div className="grid grid-cols-2 gap-3 lg:pt-2">
+          <button
+            onClick={() => setPaymentMethod("cash")}
+            className={`${
+              paymentMethod === "cash"
+                ? "border-activeColor text-primaryColor"
+                : "border-secondColor text-secondColor"
+            } border-2  hover:opacity-80  w-full xl:px-2 px-1 xl:py-4 py-2 rounded-md font-bold xl:text-lg lg:text-base text-sm`}
+          >
+            Cash on Delivery
+          </button>
+
+          <button
+            onClick={() => setPaymentMethod("online")}
+            className={`${
+              paymentMethod === "online"
+                ? "border-activeColor text-primaryColor"
+                : "border-secondColor text-secondColor"
+            } border-2  hover:opacity-80 text-primaryColor w-full xl:px-2 px-1 xl:py-4 py-2 rounded-md font-bold xl:text-lg lg:text-base text-sm `}
+          >
+            Payment Now
+          </button>
+        </div>
+        <div className="md:space-y-2 space-y-1 lg:py-2">
+          <span className="lg:text-base text-sm font-semibold">
+            Do you have a promo code?
+          </span>
+
+          <input
+            id="promo"
+            name="promo"
+            type="text"
+            placeholder="Enter Promo Code"
+            className="block  xl:p-2 lg:p-1 p-1 md:text-base text-gray-900 placeholder:text-secondColor focus:outline-none text-sm border border-gray-400 w-full rounded-md"
+          />
+        </div>
+        <div className="lg:pt-4 pt-2">
+          <button className="bg-activeColor hover:opacity-80 text-white w-full lg:p-3 p-2 rounded-md font-bold lg:text-lg text-base">
+            <span>
+              Pay ৳
+              {cartItems.reduce(
+                (total: any, item: Product) =>
+                  total +
+                  (item.discountPrice || item.price) * (item.quantity || 1),
+                0
+              )}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
