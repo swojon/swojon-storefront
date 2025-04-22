@@ -57,7 +57,8 @@ const ReelCard = ({
         <video
           ref={videoRef}
           src={videoSrc}
-          className="w-full h-[500px] object-cover"
+          className="w-full lg:h-[500px] 
+          md:h-[350px] h-[280px] object-cover"
           loop
           muted={isMuted}
         />
@@ -75,19 +76,22 @@ const ReelCard = ({
           {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
         </button>
       </div>
-      <div className="flex gap-3 p-4">
+      <div className="flex gap-3 lg:p-4 p-2">
         <div className="h-[70px]">
           <Image
             src="/assets/cat11.png"
             alt=""
-            className="h-[70px] w-auto"
+            className="lg:h-[70px] md:h-[40px] h-[30px] 
+            md:w-[50px] w-[20px] object-cover "
             width={400}
             height={400}
           />
         </div>
         <div>
-          <h6 className="text-lg font-bold">৳125</h6>
-          <p className="line-clamp-3 text-sm">{description}</p>
+          <h6 className="lg:text-lg md:text-base text-sm font-bold">৳125</h6>
+          <p className="md:line-clamp-3 line-clamp-2 lg:text-sm text-xs">
+            {description}
+          </p>
         </div>
       </div>
     </div>

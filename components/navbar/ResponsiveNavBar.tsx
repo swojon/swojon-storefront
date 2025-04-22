@@ -12,6 +12,9 @@ import defaultAvatar from "@/public/assets/avatar.svg";
 import { LuUser2 } from "react-icons/lu";
 import SearchField from "../SearchField/SearchField";
 import { useSession } from "next-auth/react";
+import { PiShoppingCart } from "react-icons/pi";
+import { setCartDrawerOpen } from "@/app/redux/cartDrawerSlice";
+import { Product } from "@/app/redux/cartSlice";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -25,8 +28,15 @@ const ResponsiveNavBar = ({
   handleSignOut: any;
 }) => {
   const dispatch = useDispatch();
+  const cartItems = useSelector((state: any) => state.productCart.items);
+
+  const totalQuantity = cartItems.reduce(
+    (total: any, item: Product) => total + (item.quantity || 1),
+    0
+  );
+
   // const authState = useSelector((state: any) => state.auth);
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <div className="h-16  z-10">
@@ -177,14 +187,36 @@ const ResponsiveNavBar = ({
           </Transition>
         </Menu> */}
             {/* {status === "authenticated" && ( */}
-              <IoSearchOutline
-                onClick={() => setShowSearchBar(true)}
-                className={`text-xl font-bold ${
+            <IoSearchOutline
+              onClick={() => setShowSearchBar(true)}
+              className={`lg:text-xl md:text-lg text-base font-bold ${
+                border === "border"
+                  ? "  text-primaryColor"
+                  : "text-primaryColor "
+              } `}
+            />
+
+            <div
+              className="relative "
+              onClick={() => dispatch(setCartDrawerOpen())}
+            >
+              <button
+                className={`py-1.5  leading-0 font-lexed font-semibold  md:text-2xl xl:text-3xl text-base transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
                   border === "border"
-                    ? "  text-primaryColor"
-                    : "text-primaryColor "
-                } `}
-              />
+                    ? "text-primaryColor"
+                    : "text-primaryColor"
+                }`}
+              >
+                <PiShoppingCart />
+              </button>
+
+              <div className="absolute md:-right-[2px] right-0 top-0  h-[18px] lg:h-[18px] xl:h-[20px] w-[18px] lg:w-[18px] xl:w-[20px] rounded-full  flex items-center justify-center bg-activeColor text-center ">
+                <span className="font-semibold text-white text-[8px] xl:text-[10px] block  p-0 leading-none">
+                  {totalQuantity}
+                </span>
+              </div>
+            </div>
+
             {/* )} */}
 
             {status === "authenticated" && (
@@ -321,13 +353,13 @@ const ResponsiveNavBar = ({
                         alt="user"
                       />
                     ) : ( */}
-                      <LuUser2
-                        className={`text-[22px] font-semiBold  ${
-                          border === "border"
-                            ? "text-primaryColor"
-                            : "text-primaryColor"
-                        }`}
-                      />
+                    <LuUser2
+                      className={`text-[22px] font-semiBold  ${
+                        border === "border"
+                          ? "text-primaryColor"
+                          : "text-primaryColor"
+                      }`}
+                    />
                     {/* )} */}
                   </Menu.Button>
                 </div>

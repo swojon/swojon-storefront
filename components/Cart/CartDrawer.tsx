@@ -54,9 +54,9 @@ const CartDrawer = () => {
         className="w-full h-full  absolute left-0 top-0 z-100 "
       ></div>
       <div
-        className={`lg:w-[28%] md:w-[45%] w-[76%] sm:w-[65%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 ms-auto`}
+        className={`lg:w-[28%] md:w-[45%] sm:w-[65%] w-[80%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 ms-auto border-l border-secondColor/20`}
       >
-        <div className="p-4 space-y-4 h-[calc(100vh-110px)] overflow-y-auto ">
+        <div className="xl:px-4 px-2 xl:py-4 py-2 space-y-4 h-[calc(100vh-110px)] overflow-y-auto ">
           <h6 className="text-base font-semibold">Cart Items</h6>
           <div className="space-y-4">
             {cartItems.length === 0 ? (
@@ -76,21 +76,21 @@ const CartDrawer = () => {
                     />
                   </div>
 
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start xl:gap-4 lg:gap-2 gap-2">
                     <Image
                       src={item.image}
                       alt="product"
-                      className="w-[80px] h-[80px] "
+                      className="xl:w-[80px] w-[60px] xl:h-[80px] h-[60px]"
                     />
 
                     <div className="space-y-1">
-                      <h6 className="text-[15px] line-clamp-1 text-primaryColor">
+                      <h6 className="xl:text-[15px] lg:text-[13px] text-[12px] line-clamp-1 text-primaryColor">
                         {item.description}
                       </h6>
                       <div className="flex justify-between gap-2">
-                        <div className="text-sm text-secondColor ">
+                        <div className="xl:text-sm text-xs text-secondColor ">
                           {item.discountPrice ? (
-                            <div className="flex flex-wrap gap-1.5">
+                            <div className="flex flex-wrap gap-1.5 ">
                               <span className="text-lime-700">
                                 ৳{item.discountPrice}
                               </span>
@@ -102,13 +102,20 @@ const CartDrawer = () => {
                             <>৳{item.price}</>
                           )}
                         </div>
-                        <UpdateQuantity item={item} />
+
+                        <div className="">
+                          <UpdateQuantity
+                            item={item}
+                            padding="xl:px-2 px-1.5 xl:py-1 py-x"
+                            fontSize="xl:text-base text-xs "
+                          />
+                        </div>
                       </div>
 
                       <div className="pt-2 ">
                         <button
                           onClick={() => handleRemove(item.id)}
-                          className="text-xl font-semibold  text-primaryColor float-right"
+                          className="xl:text-xl text-lg font-semibold  text-primaryColor float-right"
                         >
                           <AiOutlineDelete />
                         </button>
@@ -121,9 +128,9 @@ const CartDrawer = () => {
           </div>
         </div>
 
-        <footer className="absolute bg-white bottom-0 left-0 w-full min-h-[100px]  text-primaryColor  px-4 py-3 space-y-2 border-t">
+        <footer className="absolute bg-white bottom-0 left-0 w-full min-h-[100px]  text-primaryColor  xl:px-4 px-2 py-3 space-y-2 border-t">
           <div className="flex items-end justify-between gap-3">
-            <div className="flex items-center  gap-2">
+            <div className="flex items-center  gap-2 xl:text-base text-sm">
               <div className="flex items-center">
                 <input
                   id="comments"
@@ -137,7 +144,7 @@ const CartDrawer = () => {
             </div>
 
             <div>
-              <span className="font-semibold text-base">
+              <span className="font-semibold  xl:text-base text-sm">
                 Total: ৳
                 {cartItems.reduce(
                   (total: any, item: Product) =>
@@ -151,7 +158,7 @@ const CartDrawer = () => {
 
           <button
             onClick={handleCheckout}
-            className="bg-activeColor p-3 rounded-md text-white w-full hover:opacity-80 transition ease-in-out delay-150 duration-300"
+            className="bg-activeColor xl:text-base text-sm xl:p-3 p-2 rounded-md text-white w-full hover:opacity-80 transition ease-in-out delay-150 duration-300"
           >
             Checkout to proceed
           </button>

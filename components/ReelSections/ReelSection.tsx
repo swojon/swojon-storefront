@@ -58,11 +58,11 @@ const ReelSection = () => {
             slidesPerView: 2,
           },
           640: {
-            slidesPerView: 4,
+            slidesPerView: 3,
           },
-          768: {
-            slidesPerView: 4,
-          },
+          // 768: {
+          //   slidesPerView: 3,
+          // },
           1024: { slidesPerView: 4 },
           //   1300: { slidesPerView: 4 },
         }}

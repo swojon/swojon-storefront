@@ -4,15 +4,11 @@ import "./Footer.scss";
 // import logo from "@/public/assets/swojon_Logo_-01-cropped.svg";
 // import appStoreImg from "@/public/assets/appStore.png";
 import Image from "next/image";
-import {
-  BiLogoFacebook,
-  BiLogoInstagram,
-  BiLogoTwitter,
-} from "react-icons/bi";
+import { BiLogoFacebook, BiLogoInstagram, BiLogoTwitter } from "react-icons/bi";
 import Link from "next/link";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-[#ffffff] custom-container py-5">
@@ -27,11 +23,12 @@ const Footer = () => {
               width={100}
               height={500}
               alt="logo"
-              className=" lg:w-[35%] md:w-[25%] w-[45%] "
+              className=" lg:w-[35%] md:w-[25%] sm:w-[45%] w-[30%]"
             />
           </Link>
           <p className="text-sm text-secondColor">
-          Stay connected with us! Follow our social media channels for updates and the latest news.
+            Stay connected with us! Follow our social media channels for updates
+            and the latest news.
           </p>
 
           {/* <div className="flex space-x-2">

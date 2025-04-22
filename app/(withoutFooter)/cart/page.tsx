@@ -18,6 +18,11 @@ const Cart = () => {
 
   const cartItems = useSelector((state: any) => state.productCart.items);
 
+  const totalQuantity = cartItems.reduce(
+    (total: any, item: Product) => total + (item.quantity || 1),
+    0
+  );
+
   const handleRemove = (id: string) => {
     dispatch(removeFromCart(id));
   };
@@ -27,70 +32,82 @@ const Cart = () => {
       <h5 className="lg:text-2xl text-lg font-bold xl:px-20 px-5 lg:px-10">
         Cart{" "}
         <span className="font-normal text-secondColor lg:text-xl text-base">
-          (4 items)
+          ( {totalQuantity} items )
         </span>
       </h5>
 
       <div className="flex items-start lg:max-h-[calc(100vh-150px)] max-h-[calc(100vh-250px)] overflow-auto  lg:gap-10 xl:px-20 px-5 lg:px-10  transition ease-in delay-300 ">
         <div className="lg:w-[calc(100vw-650px)]  w-full ">
-          {cartItems.map((item: Product) => (
-            <div
-              key={item?.id}
-              className="flex items-start justify-between py-4 gap-6 border-b border-gray-100"
-            >
-              <div className="flex items-start gap-5">
-                <Image
-                  src={item.image}
-                  className="xl:max-w-[150px] lg:max-w-[100px] max-w-[70px] xl:max-h-[150px] lg:max-h-[100px] max-h-[70px] object-cover aspect-square"
-                  alt="product"
-                />
+          {cartItems.length === 0 ? (
+            <p className="text-center text-lg text-secondColor">
+              No product added
+            </p>
+          ) : (
+            cartItems.map((item: Product) => (
+              <div
+                key={item?.id}
+                className="flex items-start justify-between py-4 gap-6 border-b border-gray-100"
+              >
+                <div className="flex items-start gap-5">
+                  <Image
+                    src={item.image}
+                    className="xl:max-w-[150px] lg:max-w-[100px] max-w-[70px] xl:max-h-[150px] lg:max-h-[100px] max-h-[70px] object-cover aspect-square"
+                    alt="product"
+                  />
 
-                <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">
-                  <h6 className=" font-semibold text-primaryColor">
-                    {item.title}
-                  </h6>
-                  <span className="block ">Baby&apos;s Food</span>
-                  <p className="line-clamp-1 pe-5 ">{item.description}</p>
+                  <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">
+                    <h6 className=" font-semibold text-primaryColor">
+                      {item.title}
+                    </h6>
+                    <span className="block ">Baby&apos;s Food</span>
+                    <p className="line-clamp-1 pe-5 ">{item.description}</p>
 
-                  <div className="flex gap-5  xl:pt-4 pt-3 xl:pe-5 pe-3">
-                    <div className="flex gap-4">
-                      <ResponsiveSelectOptions
-                        title="size"
-                        padding="xl:px-2 px-1.5 xl:py-1 py-x"
-                        fontSize="xl:text-base text-sm"
-                      />
-                      <UpdateQuantity
-                        item={item}
-                        padding="xl:px-2 px-1.5 xl:py-1 py-x"
-                      />
+                    <div className="flex gap-5  xl:pt-4 pt-3 xl:pe-5 pe-3">
+                      <div className="flex gap-4">
+                        <ResponsiveSelectOptions
+                          title="size"
+                          padding="xl:px-2 px-1.5 xl:py-1 py-x"
+                          fontSize="xl:text-base text-sm"
+                        />
+                        <UpdateQuantity
+                          item={item}
+                          padding="xl:px-2 px-1.5 xl:py-1 py-x"
+                          fontSize="xl:text-base text-sm"
+                        />
+                      </div>
+
+                      <button
+                        onClick={() => handleRemove(item.id)}
+                        className="text-xl font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
+                      >
+                        <AiOutlineDelete />
+                      </button>
                     </div>
-
-                    <button
-                      onClick={() => handleRemove(item.id)}
-                      className="text-xl font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
-                    >
-                      <AiOutlineDelete />
-                    </button>
                   </div>
                 </div>
-              </div>
 
-              <div className="ps-5 font-bold text-right lg:text-base text-sm">
-                {item.discountPrice ? (
-                  <div className="flex  gap-2">
-                    <span className="text-lime-700">৳{item.discountPrice}</span>
-                    <span className="inline-block line-through">
-                      ৳{item.price}
-                    </span>
-                  </div>
-                ) : (
-                  <span>৳{item.price}</span>
-                )}
+                <div className="ps-5 font-bold text-right lg:text-base text-sm">
+                  {item.discountPrice ? (
+                    <div className="flex  gap-2">
+                      <span className="text-lime-700">
+                        ৳{item.discountPrice}
+                      </span>
+                      <span className="inline-block line-through">
+                        ৳{item.price}
+                      </span>
+                    </div>
+                  ) : (
+                    <span>৳{item.price}</span>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
-        <div className="xl:max-w-[500px] max-w-[400px] hidden lg:block lg:fixed top-20 xl:right-20 lg:right-10 right-5 ">
+        <div
+          className={`xl:max-w-[500px] max-w-[400px] hidden lg:block lg:fixed top-20 xl:right-20 lg:right-10 right-5
+    ${cartItems.length === 0 ? "opacity-60 pointer-events-none" : ""}`}
+        >
           <CheckoutInfo
             setPaymentMethod={setPaymentMethod}
             paymentMethod={paymentMethod}
@@ -99,7 +116,11 @@ const Cart = () => {
         </div>
       </div>
 
-      <footer className="fixed lg:hidden min-h-[50px] w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10 ">
+      <footer
+        className={`fixed lg:hidden min-h-[50px] w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10   ${
+          cartItems.length === 0 ? "opacity-60 pointer-events-none" : ""
+        }`}
+      >
         <div className="space-y-5 text-primaryColor font-medium">
           <div className="flex items-center justify-between text-base">
             <p className="">Payment Methods</p>

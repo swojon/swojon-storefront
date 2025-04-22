@@ -62,25 +62,19 @@ const MasonryBoxes = () => {
               alt={box.title}
             />
 
-            <div className="absolute inset-0 md:p-3 p-1 md:space-y-2 space-y-1 text-blue-950">
+            <div className="absolute inset-0  p-2 md:p-3 lg:p-6 md:space-y-2.5 space-y-1 text-blue-950">
               <span
                 className={`${
                   box.bb
-                    ? "lg:text-4xl md:text-3xl text-2xl"
-                    : "lg:text-xl md:text-lg sm:text-base text-sm"
-                } font-bold block text-wrap 
+                    ? "lg:text-4xl md:text-3xl text-xl"
+                    : "lg:text-[1.3rem] md:text-lg sm:text-base text-[0.8rem]"
+                } font-extrabold block line-clamp-2 text-wrap me-10
 `}
               >
                 {box.title}
               </span>
 
-              <button
-                className={`underline underline-offset-2  ${
-                  box.bb
-                    ? "md:text-lg text-base"
-                    : "md:text-base sm:text-sm text-xs"
-                }`}
-              >
+              <button className={`underline underline-offset-2  text-xs `}>
                 Shop Now
               </button>
             </div>
