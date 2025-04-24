@@ -151,7 +151,7 @@ const Products = () => {
           {/* {DUMMYDATA?.map((product) => (
             <DynamicProductCard key={product.id} product={product} />
           ))} */}
-          <CardSlider products={DUMMYDATA} />
+          {featuredProduct && <CardSlider products={featuredProduct} /> }
 
           {loading && <DynamicProductLoader />}
         </div>
