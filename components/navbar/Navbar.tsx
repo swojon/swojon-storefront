@@ -127,7 +127,7 @@ export default function Navbar({ border }: { border: any }) {
                   </div>
                   <Link
                     href="/explore"
-                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-bold font-lexed hover:border-activeColor  leading-none ${
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-bold  hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
@@ -135,7 +135,7 @@ export default function Navbar({ border }: { border: any }) {
                   </Link>
                   <Link
                     href="/courier-shield"
-                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-bold font-lexed hover:border-activeColor  leading-none ${
+                    className={`whitespace-nowrap	 inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-bold  hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
@@ -143,7 +143,7 @@ export default function Navbar({ border }: { border: any }) {
                   </Link>
                   {/* <Link
                     href="/communities"
-                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium font-lexed hover:border-activeColor  leading-none ${
+                    className={`whitespace-nowrap inline-flex items-center border-b-2 border-transparent px-1  xl:text-sm text-xs font-medium  hover:border-activeColor  leading-none ${
                       border === "border" ? "  text-primaryColor" : "text-white"
                     }`}
                   >
@@ -179,7 +179,7 @@ export default function Navbar({ border }: { border: any }) {
                 {status === "authenticated" && (
                   <Menu
                     as="div"
-                    className="relative  flex-shrink-0 font-lexed font-medium "
+                    className="relative  flex-shrink-0  font-medium "
                   >
                     <div>
                       <Menu.Button className="flex items-center  xl:text-sm text-xs focus:outline-none ">
@@ -308,12 +308,18 @@ export default function Navbar({ border }: { border: any }) {
                   </Menu>
                 )}
 
+                <Link href="/profile?sidebar=hide">
+                  <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
+                    My Profile
+                  </div>
+                </Link>
+
                 <div
                   className="relative "
                   onClick={() => dispatch(setCartDrawerOpen())}
                 >
                   <button
-                    className={`py-1.5  leading-0 font-lexed font-semibold  md:text-2xl xl:text-3xl text-sm   transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
+                    className={`py-1.5  leading-0  font-semibold  md:text-2xl xl:text-3xl text-sm   transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
                       border === "border"
                         ? "text-primaryColor"
                         : "text-primaryColor"
@@ -332,7 +338,7 @@ export default function Navbar({ border }: { border: any }) {
                 {status != "authenticated" && (
                   <Link href="/login">
                     <button
-                      className={`py-1.5 px-1 leading-0 font-lexed font-medium  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
+                      className={`py-1.5 px-1 leading-0  font-medium  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap font-bold ${
                         border === "border"
                           ? "text-primaryColor"
                           : "text-primaryColor"
@@ -355,14 +361,14 @@ export default function Navbar({ border }: { border: any }) {
                   //     //     })
                   //     //   )
                   //     // }
-                  //     className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   `}
+                  //     className={`whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1  font-medium shadow-md   `}
                   //   >
                   //     Sell Product
                   //   </button>
                   // </Link>
                   <Link
                     href="/signup"
-                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1 font-lexed font-medium shadow-md   "
+                    className="whitespace-nowrap border border-activeColor py-1.5 px-2 rounded bg-activeColor text-whiteColor relative  transition ease-in-out delay-150 duration-300 xl:text-sm text-xs hover:shadow-lg hover:-translate-y-1  font-medium shadow-md   "
                   >
                     Create Account
                   </Link>

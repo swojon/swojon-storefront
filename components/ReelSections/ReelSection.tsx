@@ -10,37 +10,37 @@ import "@/components/CategoryCard/SwiperSlider.css";
 const reelsData = [
   {
     id: 1,
-    video: "/reels/reels (2).mp4",
+    video: "https://www.youtube.com/shorts/yzGOTaBneUc?feature=share",
     user: "@walmartfinds",
     description: "Trending fashion picks for summer!",
   },
   {
     id: 2,
-    video: "/reels/reels (3).mp4",
+    video: "https://www.youtube.com/shorts/SGCxSpcBWew?feature=share",
     user: "@joyfullygreen",
     description: "Home decor ideas to transform your space.",
   },
   {
     id: 3,
-    video: "/reels/reels (2).mp4",
+    video: "https://www.youtube.com/shorts/N27BTAUtTio?feature=share",
     user: "@maketodayahollyday",
     description: "Affordable outfits you won't believe!",
   },
   {
     id: 4,
-    video: "/reels/reels (3).mp4",
+    video: "https://www.youtube.com/shorts/N27BTAUtTio?feature=share",
     user: "@pickyourperfect",
     description: "Luxury handbags on a budget.",
   },
   {
     id: 44,
-    video: "/reels/reels (3).mp4",
+    video: "https://www.youtube.com/shorts/N27BTAUtTio?feature=share",
     user: "@pickyourperfect",
     description: "Luxury handbags on a budget.",
   },
   {
     id: 45,
-    video: "/reels/reels (3).mp4",
+    video: "https://www.youtube.com/shorts/N27BTAUtTio?feature=share",
     user: "@pickyourperfect",
     description: "Luxury handbags on a budget.",
   },

@@ -53,28 +53,37 @@ const ReelCard = ({
         className="relative rounded-t-lg overflow-hidden"
         onMouseEnter={handleMouseEnter}
       >
-        {/* Video */}
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          className="w-full lg:h-[500px] 
-          md:h-[350px] h-[280px] object-cover"
-          loop
-          muted={isMuted}
-        />
+        {videoSrc.includes("youtube.com") ? (
+          <iframe
+            className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
+            src={videoSrc.replace("/shorts/", "/embed/").split("?")[0]}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
+            loop
+            muted={isMuted}
+          />
+        )}
 
         {/* User Tag */}
-        <div className="absolute bottom-3 left-3 text-white bg-black/50 px-2 py-1 text-sm rounded-md">
+        {/* <div className="absolute bottom-3 left-3 text-white bg-black/50 px-2 py-1 text-sm rounded-md">
           {user}
-        </div>
+        </div> */}
 
         {/* Mute Button */}
-        <button
+        {/* <button
           className="absolute bottom-3 right-3 text-white bg-black/50 p-2 rounded-full"
           onClick={toggleMute}
         >
           {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
-        </button>
+        </button> */}
       </div>
       <div className="flex gap-3 lg:p-4 p-2">
         <div className="h-[70px]">

@@ -12,13 +12,18 @@ import ProfileLoader from "@/components/Loader/ProfileLoader";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 
-
-const DynamicEditUserName = dynamic(() => import("@/components/Profile/EditUserName"), {ssr:false})
-const DynamicEditUserUsername = dynamic(() => import("@/components/Profile/EditUserUsername"), {ssr:false})
+const DynamicEditUserName = dynamic(
+  () => import("@/components/Profile/EditUserName"),
+  { ssr: false }
+);
+const DynamicEditUserUsername = dynamic(
+  () => import("@/components/Profile/EditUserUsername"),
+  { ssr: false }
+);
 
 const Profile = () => {
   // const authState = useSelector((state: any) => state.auth);
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   const { data, loading, error } = useGetUserByIdOrUsernameQuery({
     variables: {
@@ -32,7 +37,7 @@ const Profile = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="">
+    <section className="text-primaryColor">
       {loading ? (
         <ProfileLoader />
       ) : (
@@ -140,7 +145,7 @@ const Profile = () => {
                   </button> */}
                 </div>
               </div>
-{/* 
+              {/* 
               <div className="pb-2 border-b border-gray-200 space-y-2">
                 <span className="text-base text-primaryColor font-lexed font-medium block">
                   Phone number

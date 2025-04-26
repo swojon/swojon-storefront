@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       {/* <HeroSection /> */}
       <Navbar border="border" />
       <HeroSectionMasonry />
-      <FeaturedCategoriesBox />
+      {/* <FeaturedCategoriesBox /> */}
       <Products />
       <MasonryBoxes />
       <ReelSection />

@@ -2,12 +2,10 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import { FiShoppingBag } from "react-icons/fi";
+
 import { HiOutlineInbox } from "react-icons/hi";
-import {
-  HiLockClosed,
-  HiMiniUser,
-  HiOutlineHeart,
-} from "react-icons/hi2";
+import { HiLockClosed, HiMiniUser, HiOutlineHeart } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 import { RiUserFollowLine } from "react-icons/ri";
@@ -23,6 +21,12 @@ import { Router } from "next/router";
 
 const data = [
   { id: 1, title: "profile", icon: <HiMiniUser />, url: "/profile" },
+  {
+    id: 145,
+    title: "my orders",
+    icon: <FiShoppingBag />,
+    url: "/profile/my-orders",
+  },
   // {
   //   id: 2,
   //   title: "My products",
@@ -64,17 +68,14 @@ const data = [
 ];
 
 const SideBar = () => {
-  
   const pathname = usePathname();
   const isMobile = useIsMobile();
 
-  
   const handleSignOut = () => {
-    signOut()
+    signOut();
     // location.reload()
-
   };
-  
+
   return (
     <section className="sticky top-0  rounded-md min-h-[87dvh] h-full pb-4 md:px-0 sm:px-[6vw]">
       {/* <div className="border-b  pb-3 sm:px-3 px-1 leading-none">
@@ -129,12 +130,14 @@ const SideBar = () => {
                   : item.url
               }
               className={`flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 ${
-                pathname.split('/')[2] === item.url.split('/')[2] ? "text-primaryColor" : "text-secondColor"
+                pathname.split("/")[2] === item.url.split("/")[2]
+                  ? "text-primaryColor"
+                  : "text-secondColor"
               }`}
             >
               <span
-                className={`text-2xl ${
-                  pathname.split('/')[2] === item.url.split('/')[2]
+                className={`text-2xl block  leading-none ${
+                  pathname.split("/")[2] === item.url.split("/")[2]
                     ? "text-activeColor"
                     : "text-secondColor"
                 }`}
@@ -145,37 +148,35 @@ const SideBar = () => {
                 {item.title}
               </span>
             </Link>
-            
           </motion.div>
         ))}
-       
-       <motion.div
-            initial={{
-              opacity: 0,
-              // translateX: i % 2 === 0 ? -50 : 50,
-              // translateY: -50,
-            }}
-            animate={{
-              opacity: 1,
-              //  translateX: 0, translateY: 0
-            }}
-            transition={{ duration: 0.1, delay: data.length * 0.01 }}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            // translateX: i % 2 === 0 ? -50 : 50,
+            // translateY: -50,
+          }}
+          animate={{
+            opacity: 1,
+            //  translateX: 0, translateY: 0
+          }}
+          transition={{ duration: 0.1, delay: data.length * 0.01 }}
+        >
+          <button
+            onClick={handleSignOut}
+            className={
+              "flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 text-secondColor"
+            }
           >
-            <button
-              onClick={handleSignOut}
-              className={"flex  items-center   py-2.5 lg:pe-3 md:pe-2  text-lg font-bold gap-x-5 gap-y-3 text-secondColor"}
-            >
-              <span
-                className={"text-2xl text-secondColor"}
-              >
-                <LiaSignOutAltSolid />
-              </span>{" "}
-              <span className="capitalize  inline-block leading-snug truncate">
-                Signout
-              </span>
-            </button>
-            
-          </motion.div>
+            <span className={"text-2xl text-secondColor"}>
+              <LiaSignOutAltSolid />
+            </span>{" "}
+            <span className="capitalize  inline-block leading-snug truncate">
+              Signout
+            </span>
+          </button>
+        </motion.div>
 
         {/* <Link
           href="/followers"
