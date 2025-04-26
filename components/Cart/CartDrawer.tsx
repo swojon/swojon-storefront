@@ -64,7 +64,7 @@ const CartDrawer = () => {
                 No product added
               </p>
             ) : (
-              cartItems.map((item: Product) => (
+              cartItems.map((item: any) => (
                 <div className="flex items-center gap-5" key={item.id}>
                   <div className="">
                     <input
@@ -76,14 +76,16 @@ const CartDrawer = () => {
                     />
                   </div>
 
-                  <div className="flex items-start xl:gap-4 lg:gap-2 gap-2">
+                  <div className="flex items-start xl:gap-4 lg:gap-2 gap-2 relative w-full">
                     <Image
-                      src={item.image}
+                      src={item.media?.length > 0 ? item.media[0].url : img}
                       alt="product"
+                      width={400}
+                      height={400}
                       className="xl:w-[80px] w-[60px] xl:h-[80px] h-[60px]"
                     />
 
-                    <div className="space-y-1">
+                    <div className="space-y-1 flex-1 w-full">
                       <h6 className="xl:text-[15px] lg:text-[13px] text-[12px] line-clamp-1 text-primaryColor">
                         {item.description}
                       </h6>

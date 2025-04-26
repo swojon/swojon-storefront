@@ -17,7 +17,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
       <Link href={`/products/${product.id}`} className=" block">
         <div className="xl:h-[200px] max-h-[200px] max-w-[200px] relative aspect-[5/5]">
           <Image
-             src={
+            src={
               product.media?.length > 0
                 ? product.media[0].url
                 : "/assets/pro1.png"
@@ -35,7 +35,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
         </div>
 
         <div className="my-5 space-y-2 text-left">
-          <h6 className="md:text-[17px] text-sm font-light text-gray-800 overflow-hidden line-clamp-2">
+          <h6 className="md:text-[17px] text-sm font-light text-gray-800 overflow-hidden line-clamp-1 ">
             {product.description}
           </h6>
 
