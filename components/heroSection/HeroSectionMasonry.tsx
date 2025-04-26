@@ -12,75 +12,14 @@ import furniture from "@/public/hero/hero-2.jpeg";
 import shoes from "@/public/assets/long_banner/Gift Items.png";
 import Link from "next/link";
 
-// const RESDATA = [
-//   {
-//     id: 1,
-//     title: "Beauty, in bloom",
-//     image: all_kids,
-//     colSpan: "col-span-2",
-//     rowSpan: "1",
-//   },
-
-//   {
-//     id: 2,
-//     title: "New Mom Essentials",
-//     image: model,
-//     colSpan: "col-span-1",
-//     rowSpan: "1",
-//   },
-//   {
-//     id: 24,
-//     title: "Time for a reset",
-//     image: fashion,
-//     colSpan: "col-span-1",
-//     rowSpan: "2",
-//   },
-//   {
-//     id: 3,
-//     title: "Popular kitchen picks",
-//     image: scooty,
-//     colSpan: "col-span-1",
-//     rowSpan: "1",
-//   },
-
-//   {
-//     id: 4,
-//     title: "Popular kitchen picks",
-//     image: banner,
-//     colSpan: "col-span-2",
-//     rowSpan: "1",
-//   },
-//   {
-//     id: 36,
-//     title: "Popular kitchen picks",
-//     image: shoes,
-//     colSpan: "col-span-1",
-//     rowSpan: "2",
-//   },
-//   {
-//     id: 12,
-//     title: "Beauty, in bloom",
-//     image: homeApp,
-//     colSpan: "col-span-1",
-//     rowSpan: "1",
-//   },
-
-//   {
-//     id: 25,
-//     title: "Time for a reset",
-//     image: furniture,
-//     colSpan: "col-span-1",
-//     rowSpan: "1",
-//   },
-// ];
 
 const MASONRY_DATA = [
   // COLUMN2 (middle - col-span-2)
   {
     id: 4,
-    title: "Beauty, in bloom",
+    title: "Explore all kids Item",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330986/2nd_avqh5o.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745471749/All_Kids_Item_1_svl1ov.png",
     col: 2,
     colSpan: 2,
     cover: true,
@@ -95,7 +34,7 @@ const MASONRY_DATA = [
   },
   {
     id: 6,
-    title: "Popular kitchen picks",
+    title: "Feeder Bottles",
     image:
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330336/Feeder_Bottles_gecssm.png",
     col: 2,
@@ -107,7 +46,7 @@ const MASONRY_DATA = [
   // COLUMN1 (left)
   {
     id: 1,
-    title: "Beauty, in bloom",
+    title: "Accessories for little ones",
     image:
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330325/Baby_Accessories_vtgdsy.png",
     col: 1,
@@ -115,7 +54,7 @@ const MASONRY_DATA = [
   },
   {
     id: 2,
-    title: "Time for a reset",
+    title: "Kids! Looks good",
     image:
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745334906/Kids_Fashion_1_oddic7.png",
     col: 1,
@@ -127,7 +66,7 @@ const MASONRY_DATA = [
   // COLUMN3 (right)
   {
     id: 10,
-    title: "Popular kitchen picks",
+    title: "Make it Memorable",
     image:
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745334116/Gift_Items_di9cil.png",
     col: 3,
@@ -143,7 +82,7 @@ const MASONRY_DATA = [
   // },
   {
     id: 9,
-    title: "Time for a reset",
+    title: "Toys & Fun",
     image:
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330346/Toys_And_Fun_dwb1z6.png",
     col: 3,

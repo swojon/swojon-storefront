@@ -17,7 +17,11 @@ const ProductCard2 = ({ product }: { product: any }) => {
       <Link href={`/products/${product.id}`} className=" block">
         <div className="xl:h-[200px] max-h-[200px] max-w-[200px] relative aspect-[5/5]">
           <Image
-            src={product.image}
+             src={
+              product.media?.length > 0
+                ? product.media[0].url
+                : "/assets/pro1.png"
+            }
             width={550}
             height={550}
             alt="product banner"

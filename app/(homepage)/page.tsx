@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       <HeroSectionMasonry />
       {/* <FeaturedCategoriesBox /> */}
       <Products />
-      <MasonryBoxes />
+      {/* <MasonryBoxes /> */}
       <ReelSection />
       {/* <Community /> */}
       {/* <ActionBanner /> */}
