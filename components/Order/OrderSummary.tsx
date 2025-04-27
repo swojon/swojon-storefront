@@ -52,7 +52,7 @@ const OrderSummary = () => {
         ))}
       </div>
 
-      <div className="flex items-start justify-between pt-3">
+      <div className="flex flex-wrap gap-2 items-start justify-between pt-3">
         <div className=" space-y-1">
           <div className="lg:text-base md:text-sm text-xs">
             <span className="font-semibold">Tracking: </span>{" "}
@@ -75,17 +75,17 @@ const OrderSummary = () => {
         <div className="text-end space-y-1">
           <div className="lg:text-base md:text-sm text-xs">
             <span className="font-semibold">Order SubTotal: </span>{" "}
-            <span className=" text-secondColor">4512</span>
+            <span className=" text-secondColor">৳4512</span>
           </div>
 
           <div className="lg:text-base md:text-sm text-xs">
             <span className="font-semibold">Shipping: </span>{" "}
-            <span className=" text-secondColor">80</span>
+            <span className=" text-secondColor">৳80</span>
           </div>
 
           <div className="lg:text-base md:text-sm text-xs">
-            <span className="font-semibold">Total: </span>{" "}
-            <span className=" text-primaryColor">4500</span>
+            <span className="font-semibold">Order Total: </span>{" "}
+            <span className=" text-primaryColor font-bold">৳4500</span>
           </div>
         </div>
       </div>
