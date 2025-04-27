@@ -1,0 +1,15 @@
+.step-item:not(:first-child):before {
+  @apply content-[''] bg-slate-200 absolute w-full h-[3px] right-2/4 top-1/2 -translate-y-1/2;
+}
+
+.active-step .step {
+  @apply w-[17px] h-[17px] shadow-sm bg-[#3b51a4];
+}
+.complete .step {
+  @apply bg-[#3b51a4];
+}
+
+.complete:not(:first-child):before,
+.active:not(:first-child):before {
+  @apply bg-[#3b51a4] shadow-2xl;
+}

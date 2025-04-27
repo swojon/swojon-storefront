@@ -3,7 +3,9 @@ import React from "react";
 
 const MyOrders = () => {
   return (
-    <div>
+    <div className="space-y-5">
+      <OrderHistory />
+      <OrderHistory />
       <OrderHistory />
     </div>
   );

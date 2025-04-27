@@ -7,7 +7,6 @@ const Accordion = ({ title, content }: { title: string; content: any }) => {
 
   return (
     <div className="border-b border-gray-300 py-2">
-      {/* Accordion Header */}
       <button
         className="w-full flex justify-between items-center p-4 text-left text-xl font-bold text-gray-800 focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
@@ -20,7 +19,6 @@ const Accordion = ({ title, content }: { title: string; content: any }) => {
         />
       </button>
 
-      {/* Accordion Content with Smooth Transition */}
       <div
         ref={contentRef}
         className="overflow-hidden transition-all duration-300 ease-in-out"
