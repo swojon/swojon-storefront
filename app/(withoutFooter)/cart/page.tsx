@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Product, removeFromCart } from "@/app/redux/cartSlice";
 import UpdateQuantity from "@/components/SelectOptions/UpdateQuantity";
 import { IoMdClose } from "react-icons/io";
+import img from "@/public/pd.png";
+import { LuTrash2 } from "react-icons/lu";
 
 const Cart = () => {
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -28,96 +30,103 @@ const Cart = () => {
   };
 
   return (
-    <section className="lg:pt-5 pt-3 lg:space-y-4 space-y-2 text-primaryColor relative scroll-smooth hidden-scroll">
-      <h5 className="lg:text-2xl text-lg font-bold xl:px-20 px-5 lg:px-10">
-        Cart{" "}
-        <span className="font-normal text-secondColor lg:text-xl text-base">
-          ( {totalQuantity} items )
-        </span>
-      </h5>
+    <section className="lg:pt-5 pt-3 lg:space-y-4 space-y-2 text-primaryColor relative scroll-smooth hidden-scroll bg-gray-100/90 w-full min-h-[calc(100vh-65px)]">
+      <div className="lg:space-y-4 space-y-2">
+        <h5 className="lg:text-2xl text-lg font-bold xl:px-20 px-5 lg:px-10">
+          Cart{" "}
+          <span className="font-normal text-secondColor lg:text-xl text-base">
+            ( {totalQuantity} items )
+          </span>
+        </h5>
 
-      <div className="flex items-start lg:max-h-[calc(100vh-150px)] max-h-[calc(100vh-250px)] overflow-auto  lg:gap-10 xl:px-20 px-5 lg:px-10  transition ease-in delay-300 ">
-        <div className="lg:w-[calc(100vw-650px)]  w-full ">
-          {cartItems.length === 0 ? (
-            <p className="text-center text-lg text-secondColor">
-              No product added
-            </p>
-          ) : (
-            cartItems.map((item: Product) => (
-              <div
-                key={item?.id}
-                className="flex items-start justify-between py-4 gap-6 border-b border-gray-100"
-              >
-                <div className="flex items-start gap-5">
-                  <Image
-                    src={item.image}
-                    className="xl:max-w-[150px] lg:max-w-[100px] max-w-[70px] xl:max-h-[150px] lg:max-h-[100px] max-h-[70px] object-cover aspect-square"
-                    alt="product"
-                  />
+        <div className="flex items-start lg:max-h-[calc(100vh-150px)] max-h-[calc(100vh-250px)] overflow-auto  rounded-md lg:gap-10 xl:px-20 sm:px-5 px-3 lg:px-10  transition ease-in delay-300 ">
+          <div className="lg:w-[calc(100vw-620px)] rounded-md xl:p-8 lg:p-4 p-3 bg-white xl:min-w-[calc(100vw-600px)] md:min-w-[calc(100vw-500px)] w-full ">
+            {cartItems.length === 0 ? (
+              <p className="text-center text-lg text-secondColor">
+                No product added
+              </p>
+            ) : (
+              cartItems.map((item: any) => (
+                <div
+                  key={item?.id}
+                  className="flex sm:flex-row flex-col sm:items-center justify-between py-5 gap-6 border-b last:border-b-0 border-gray-300"
+                >
+                  <div className="flex items-center xl:gap-6  2xl:gap-5 md:gap-3 gap-3">
+                    <Image
+                      src={item.media?.length > 0 ? item.media[0].url : img}
+                      alt="product"
+                      width={400}
+                      height={600}
+                      className="xl:w-[120px] lg:w-[80px] w-[60px] xl:h-[160px] lg:h-[100px] h-[90px] object-cover rounded-md border"
+                    />
 
-                  <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">
-                    <h6 className=" font-semibold text-primaryColor">
-                      {item.title}
-                    </h6>
-                    <span className="block ">Baby&apos;s Food</span>
-                    <p className="line-clamp-1 pe-5 ">{item.description}</p>
-
-                    <div className="flex gap-5  xl:pt-4 pt-3 xl:pe-5 pe-3">
-                      <div className="flex gap-4">
-                        <ResponsiveSelectOptions
-                          title="size"
-                          padding="xl:px-2 px-1.5 xl:py-1 py-x"
-                          fontSize="xl:text-base text-sm"
-                        />
-                        <UpdateQuantity
-                          item={item}
-                          padding="xl:px-2 px-1.5 xl:py-1 py-x"
-                          fontSize="xl:text-base text-sm"
-                        />
-                      </div>
-
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="text-xl font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
-                      >
-                        <AiOutlineDelete />
-                      </button>
+                    <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">
+                      <h6 className="xl:text-xl lg:text-lg text-base line-clamp-1 font-bold text-primaryColor pb-1">
+                        {item.title}
+                      </h6>
+                      <span className="block xl:text-base text-sm">
+                        Baby&apos;s Food
+                      </span>
+                      <span className="block xl:text-base text-sm">
+                        Size: 2
+                      </span>
+                      {/* <p className="line-clamp-1 pe-5 ">{item.description}</p> */}
                     </div>
                   </div>
-                </div>
 
-                <div className="ps-5 font-bold text-right lg:text-base text-sm">
-                  {item.discountPrice ? (
-                    <div className="flex  gap-2">
-                      <span className="text-lime-700">
-                        ৳{item.discountPrice}
-                      </span>
-                      <span className="inline-block line-through">
-                        ৳{item.price}
-                      </span>
+                  <div className="flex items-center gap-10 font-bold text-right xl:text-xl lg:text-lg text-base ">
+                    <div className="flex gap-4">
+                      <UpdateQuantity
+                        item={item}
+                        padding="xl:px-2  xl:py-1 py-x"
+                        fontSize="xl:text-xl lg:text-lg text-base"
+                      />
                     </div>
-                  ) : (
-                    <span>৳{item.price}</span>
-                  )}
+
+                    <div className="2xl:w-[200px] xl:w-[80px] line-clamp-1">
+                      {" "}
+                      {item.discountPrice ? (
+                        <div className="flex flex-wrap  gap-2 text-activeColor">
+                          <span className="text-lime-700">
+                            ৳{item.discountPrice}
+                          </span>
+                          <span className="inline-block line-through">
+                            ৳{item.price}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-activeColor">৳{item.price}</span>
+                      )}
+                    </div>
+
+                    <button
+                      onClick={() => handleRemove(item.id)}
+                      className="text-xl font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
+                    >
+                      <LuTrash2 />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div
-          className={`xl:max-w-[500px] max-w-[400px] hidden lg:block lg:fixed top-20 xl:right-20 lg:right-10 right-5
-    ${cartItems.length === 0 ? "opacity-60 pointer-events-none" : ""}`}
-        >
-          <CheckoutInfo
-            setPaymentMethod={setPaymentMethod}
-            paymentMethod={paymentMethod}
-            cartItems={cartItems}
-          />
+              ))
+            )}
+          </div>
+          <div
+            className={`xl:max-w-[420px] max-w-[400px] hidden lg:block lg:fixed top-20 xl:right-20 lg:right-10 right-5 h-[calc(100vh-90px)] bg-white rounded-md transition ease-in delay-300
+         ${cartItems.length === 0 ? "opacity-60 pointer-events-none" : ""}`}
+          >
+            <CheckoutInfo
+              setPaymentMethod={setPaymentMethod}
+              paymentMethod={paymentMethod}
+              cartItems={cartItems}
+            />
+          </div>
         </div>
       </div>
 
-      <footer
-        className={`fixed lg:hidden min-h-[50px] w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10   ${
+      {/* Mobile ver */}
+
+      <div
+        className={`fixed lg:hidden min-h-[50px]  w-full bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10   ${
           cartItems.length === 0 ? "opacity-60 pointer-events-none" : ""
         }`}
       >
@@ -144,7 +153,7 @@ const Cart = () => {
             </span>
           </button>
         </div>
-      </footer>
+      </div>
 
       {/* mobile pop up */}
       <div
@@ -156,7 +165,7 @@ const Cart = () => {
           onClick={() => setPopup(false)}
           className="w-full h-full bg-white/70 absolute left-0 top-0 z-100 "
         ></div>
-        <div className="absolute bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-5 lg:px-10">
+        <div className="absolute bottom-0 left-0 right-0 border border-gray-300/50 bg-white py-4 xl:px-20 px-3 lg:px-10">
           <button
             onClick={() => setPopup(false)}
             className="px-1 cursor-pointer py-1 border rounded-full inline-block"
@@ -186,96 +195,121 @@ const CheckoutInfo = ({
   cartItems: any;
 }) => {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="lg:px-6 md:px-5 px-3 py-2 lg:border rounded-md space-y-2 bg-white lg:shadow">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="md:text-base text-sm">
-            <label className=" font-semibold ">Name</label>
+    <div className="flex flex-col gap-2 2xl:pt-5 xl:pt-4 pt-3 lg:px-6 md:px-5 px-2 2xl:space-y-5 xl:space-y-4 space-y-3 h-full  relative  ">
+      <div className="scroll-smooth overflow-y-auto lg:h-[calc(100vh-180px)] hidden-scroll 2xl:space-y-5 xl:space-y-4 space-y-3">
+        <div className="rounded-md 2xl:space-y-4 xl:space-y-3 md:space-y-3 space-y-2">
+          <h6 className="lg:text-lg md:text-base text-sm font-semibold text-primaryColor">
+            Shipping To
+          </h6>
 
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="John doe"
-              className="block  xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none  border border-gray-400 w-full rounded-md"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="md:text-base text-sm">
+              {/* <label className=" font-semibold ">Name</label> */}
+
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="block  xl:p-2  p-2  text-gray-900 placeholder:text-primaryColor focus:outline-none  border border-gray-400 w-full rounded-xl bg-gray-100/90 "
+              />
+            </div>
+
+            <div className="md:text-base text-sm">
+              {/* <label className=" font-semibold ">Phone Number</label> */}
+
+              <input
+                id="name"
+                name="number"
+                type="phone"
+                placeholder="Phone Number"
+                className="block xl:p-2 lg:p-2 p-2  text-gray-900 placeholder:text-primaryColor focus:outline-none  border border-gray-400 w-full rounded-xl bg-gray-100/90"
+              />
+            </div>
           </div>
 
-          <div className="md:text-base text-sm">
-            <label className=" font-semibold ">Phone Number</label>
+          <div className=" md:text-base text-sm">
+            {/* <label className=" font-semibold ">Address</label> */}
 
-            <input
-              id="name"
-              name="number"
-              type="phone"
-              placeholder="0157xxxxxxx"
-              className="block xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none  border border-gray-400 w-full rounded-md"
-            />
+            <textarea
+              id="address"
+              name="address"
+              placeholder="Address"
+              rows={2}
+              className="block xl:p-2 p-2  text-gray-900 placeholder:text-primaryColor focus:outline-none  border border-gray-400 w-full rounded-xl bg-gray-100/90"
+            ></textarea>
           </div>
         </div>
 
-        <div className="lg:pb-2 md:text-base text-sm">
-          <label className=" font-semibold ">Address</label>
+        <div className="border-b border-secondColor " />
 
-          <textarea
-            id="address"
-            name="address"
-            placeholder="1/a mohammadpur, dhaka"
-            rows={3}
-            className="block xl:p-2 lg:p-1 p-1  text-gray-900 placeholder:text-secondColor focus:outline-none text-base border border-gray-400 w-full rounded-md"
-          ></textarea>
+        <div className=" 2xl:space-y-6 xl:space-y-4  space-y-3">
+          <div className="md:space-y-2 space-y-1 2xl:pb-4">
+            <label className="lg:text-lg md:text-base text-sm font-semibold block leading-none  p-0">
+              Do you have a promo code?
+            </label>
+
+            <input
+              id="promo"
+              name="promo"
+              type="text"
+              placeholder="Enter Promo Code"
+              className="block  xl:p-2 p-2 md:text-base text-gray-900 placeholder:text-primaryColor focus:outline-none  border border-gray-400 w-full rounded-xl bg-gray-100/90"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 rounded-lg bg-activeColor/10 px-5 xl:py-6 py-4">
+            <button
+              onClick={() => setPaymentMethod("cash")}
+              className={`${
+                paymentMethod === "cash"
+                  ? "border-activeColor text-primaryColor"
+                  : "border-secondColor text-secondColor"
+              } border-2  flex flex-col gap-1 items-center hover:opacity-80  w-full xl:px-2 px-1 xl:py-4 py-2 rounded-lg font-bold xl:text-base lg:text-base text-sm bg-white`}
+            >
+              <Image
+                src="/money.png"
+                alt=""
+                width={200}
+                height={200}
+                className="xl:w-[40px] w-[30px]"
+              />
+              <span className="block"> Cash on Delivery</span>
+            </button>
+
+            <button
+              onClick={() => setPaymentMethod("online")}
+              className={`${
+                paymentMethod === "online"
+                  ? "border-activeColor text-primaryColor"
+                  : "border-secondColor text-secondColor"
+              } border-2  flex flex-col gap-1 items-center  hover:opacity-80 text-primaryColor w-full xl:px-2 px-1 xl:py-4 py-2 rounded-lg font-bold xl:text-base lg:text-base text-sm bg-white`}
+            >
+              <Image
+                src="/payment-method.png"
+                alt=""
+                width={200}
+                height={200}
+                className="xl:w-[40px] w-[30px]"
+              />{" "}
+              <span className="block"> Payment Now</span>
+            </button>
+          </div>
         </div>
       </div>
-      <div className=" lg:px-6 md:px-5 px-3 py-2 lg:border rounded-md space-y-2 bg-white lg:shadow">
-        <div className="grid grid-cols-2 gap-3 lg:pt-2">
-          <button
-            onClick={() => setPaymentMethod("cash")}
-            className={`${
-              paymentMethod === "cash"
-                ? "border-activeColor text-primaryColor"
-                : "border-secondColor text-secondColor"
-            } border-2  hover:opacity-80  w-full xl:px-2 px-1 xl:py-4 py-2 rounded-md font-bold xl:text-lg lg:text-base text-sm`}
-          >
-            Cash on Delivery
-          </button>
 
-          <button
-            onClick={() => setPaymentMethod("online")}
-            className={`${
-              paymentMethod === "online"
-                ? "border-activeColor text-primaryColor"
-                : "border-secondColor text-secondColor"
-            } border-2  hover:opacity-80 text-primaryColor w-full xl:px-2 px-1 xl:py-4 py-2 rounded-md font-bold xl:text-lg lg:text-base text-sm `}
-          >
-            Payment Now
-          </button>
-        </div>
-        <div className="md:space-y-2 space-y-1 lg:py-2">
-          <span className="lg:text-base text-sm font-semibold">
-            Do you have a promo code?
+      <div className="lg:pt-4 pt-2 lg:absolute relative bottom-0 pb-3 w-full left-0 right-0 lg:px-6 ">
+        <button className="bg-activeColor hover:opacity-80 text-white w-full lg:p-3 p-2 rounded-lg font-bold lg:text-lg text-base">
+          <span>
+            Pay ৳
+            {cartItems.reduce(
+              (total: any, item: Product) =>
+                total +
+                (item.discountPrice || item.price) * (item.quantity || 1),
+              0
+            )}
           </span>
-
-          <input
-            id="promo"
-            name="promo"
-            type="text"
-            placeholder="Enter Promo Code"
-            className="block  xl:p-2 lg:p-1 p-1 md:text-base text-gray-900 placeholder:text-secondColor focus:outline-none text-sm border border-gray-400 w-full rounded-md"
-          />
-        </div>
-        <div className="lg:pt-4 pt-2">
-          <button className="bg-activeColor hover:opacity-80 text-white w-full lg:p-3 p-2 rounded-md font-bold lg:text-lg text-base">
-            <span>
-              Pay ৳
-              {cartItems.reduce(
-                (total: any, item: Product) =>
-                  total +
-                  (item.discountPrice || item.price) * (item.quantity || 1),
-                0
-              )}
-            </span>
-          </button>
-        </div>
+        </button>
       </div>
     </div>
   );

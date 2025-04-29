@@ -13,9 +13,9 @@ const ProductCard2 = ({ product }: { product: any }) => {
     dispatch(addToCart(product));
   };
   return (
-    <>
+    <div className="">
       <Link href={`/products/${product.id}`} className=" block">
-        <div className="xl:h-[200px] max-h-[200px] max-w-[200px] relative aspect-[5/5]">
+        <div className=" relative aspect-[5/5] ">
           <Image
             src={
               product.media?.length > 0
@@ -25,7 +25,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
             width={550}
             height={550}
             alt="product banner"
-            className="h-full w-full object-cover rounded-sm   transition ease-in-out delay-150 duration-300 "
+            className="h-full w-full object-cover  transition ease-in-out delay-150 duration-300 rounded-md"
           />
           {product.discountPrice && (
             <div className="bg-activeColor p-1 absolute top-0 left-1  text-white text-xs font-bold px-2 py-1 rounded-sm">
@@ -63,7 +63,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
       <div className="flex justify-center">
         <button
           onClick={handleAddToCart}
-          className="py-1.5 px-4 border border-primaryColor rounded-md md:text-[16px] font-semibold text-sm flex items-center gap-1 group transition  duration-700 ease-in-out relative mb-8 w-[95%] text-center justify-center"
+          className="py-1.5 px-4 border border-primaryColor rounded-md md:text-[16px] font-semibold text-sm flex items-center gap-1 group transition  duration-700 ease-in-out relative mb-8 w-[90%] text-center justify-center"
         >
           <div className="w-full h-full absolute inset-0 rounded-md group-hover:border-[1.5px] border-primaryColor transition duration-700 ease-in-out space-x-2"></div>
           {/* <FiPlus className="font-semibold" /> */}
@@ -72,7 +72,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
           <BiCartAdd className="font-semibold block" />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

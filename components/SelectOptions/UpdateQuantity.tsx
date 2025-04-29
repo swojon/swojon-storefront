@@ -19,15 +19,23 @@ const UpdateQuantity = ({
   const dispatch = useDispatch();
   return (
     <div
-      className={`flex items-center gap-2 border border-secondColor ${
+      className={`flex items-center gap-4  border-secondColor ${
         padding ? `${padding}` : "px-2 py-x"
-      }  ${fontSize ? `${fontSize}` : "text-sm"} text-secondColor rounded-3xl `}
+      }  ${
+        fontSize ? `${fontSize}` : "text-sm"
+      } text-primaryColor rounded-3xl `}
     >
-      <button onClick={() => dispatch(decrementQuantity(item.id))}>
+      <button
+        onClick={() => dispatch(decrementQuantity(item.id))}
+        className="border border-secondColor rounded-md p-1"
+      >
         <FaMinus />
       </button>{" "}
       <span className="font-semibold">{item.quantity}</span>
-      <button onClick={() => dispatch(incrementQuantity(item.id))}>
+      <button
+        onClick={() => dispatch(incrementQuantity(item.id))}
+        className="border border-secondColor rounded-md p-1"
+      >
         <FaPlus />
       </button>
     </div>

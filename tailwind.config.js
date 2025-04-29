@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "480px", // custom breakpoint
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -24,8 +27,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('tailwind-scrollbar')
-  ],
+  plugins: [require("@tailwindcss/typography"), require("tailwind-scrollbar")],
 };
