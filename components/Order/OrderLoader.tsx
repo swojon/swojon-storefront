@@ -23,24 +23,20 @@ const steps = [
 ];
 
 const OrderLoader = () => {
-  const [currentStep, setCurrentStep] = useState(2);
   return (
-    <div className="border rounded-md p-3 text-primaryColor">
+    <div className="border rounded-md p-3 text-primaryColor animate-pulse">
       <div className="flex items-start justify-between cursor-pointer">
         <div className="space-y-1.5">
-          <h6 className="lg:text-xl md:text-lg text-base font-bold">
-            Order #12460154
+          <h6 className="lg:text-xl md:text-lg text-base font-bold flex items-center gap-1">
+            <span className="block">Order</span>
+            <span className="w-24 h-5 rounded-md bg-gray-300 block"></span>
           </h6>
 
-          <span className="block lg:text-base md:text-sm text-xs text-secondColor">
-            November 27, 2025
-          </span>
+          <span className="w-32 h-3 rounded-md bg-gray-300 block"></span>
         </div>
 
         <div className="space-y-1.5">
-          <span className="block lg:text-base md:text-sm text-xs text-secondColor font-semibold">
-            ৳4521
-          </span>
+          <span className="block w-20 h-5 rounded-md bg-gray-300"></span>
         </div>
       </div>
       <div className="pt-5 lg:pb-5 md:pb-3 pb-2 space-y-3">
@@ -53,57 +49,49 @@ const OrderLoader = () => {
           {steps.map((step, i) => (
             <div
               key={i}
-              className={`relative flex flex-col justify-center items-center lg:w-[200px] w-[30%] step-item  ${
-                currentStep === i + 1 && "active-step"
-              } ${i < currentStep && "complete"}  `}
+              className={`relative flex flex-col justify-center items-center lg:w-[200px] w-[30%] step-item  `}
             >
-              <div className="w-[17px] h-[17px] rounded-full bg-gray-200 z-10 step"></div>
+              <div className="w-[17px] h-[17px] rounded-full bg-gray-300 z-10 step"></div>
 
-              <span
-                className={`pt-6 absolute top-0 left-1/2 -translate-x-1/2 block lg:text-base md:text-sm text-xs  font-semibold text-center ${
-                  currentStep === i + 1 ? "text-primaryColor" : "text-gray-400"
-                } ${i < currentStep ? "text-primaryColor" : "text-gray-400"} `}
-              >
-                {step.title}
-              </span>
+              <div className={`pt-7 absolute top-0 left-1/2 -translate-x-1/2`}>
+                <div className=" md:w-20 w-14 bg-gray-300 h-3 rounded-md"></div>
+              </div>
             </div>
           ))}
         </div>
 
         <div className="flex flex-wrap gap-2 items-start justify-between pt-3">
           <div className=" space-y-1">
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Tracking: </span>{" "}
-              <span className="underline underline-offset-1 text-secondColor">
-                4512
-              </span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Tracking: </span>
+              <span className="w-24 h-3 rounded-md bg-gray-300 block"></span>
             </div>
 
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Delivery Method: </span>{" "}
-              <span className=" text-secondColor">Redx</span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Delivery Method: </span>{" "}
+              <span className=" w-24 h-3 rounded-md bg-gray-300 block"></span>
             </div>
 
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Shipping to: </span>{" "}
-              <span className=" text-secondColor">1/2, Dhaka</span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Shipping to: </span>{" "}
+              <span className=" w-24 h-3 rounded-md bg-gray-300 block "></span>
             </div>
           </div>
 
           <div className="text-end space-y-1">
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Order SubTotal: </span>{" "}
-              <span className=" text-secondColor">৳4512</span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Order SubTotal: </span>{" "}
+              <span className=" w-24 h-3 rounded-md bg-gray-300 block"></span>
             </div>
 
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Shipping: </span>{" "}
-              <span className=" text-secondColor">৳80</span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Shipping: </span>{" "}
+              <span className=" w-24 h-3 rounded-md bg-gray-300 block"></span>
             </div>
 
-            <div className="lg:text-base md:text-sm text-xs">
-              <span className="font-semibold">Order Total: </span>{" "}
-              <span className=" text-primaryColor font-bold">৳4500</span>
+            <div className="lg:text-base md:text-sm text-xs flex items-center gap-1">
+              <span className="font-semibold block">Order Total: </span>{" "}
+              <span className=" w-24 h-3 rounded-md bg-gray-300 block"></span>
             </div>
           </div>
         </div>
