@@ -57,7 +57,7 @@ const Cart = () => {
                       alt="product"
                       width={400}
                       height={600}
-                      className="xl:w-[120px] lg:w-[80px] w-[60px] xl:h-[160px] lg:h-[100px] h-[90px] object-cover rounded-md border"
+                      className="xl:w-[120px] lg:w-[80px] w-[60px] xl:h-[160px] lg:h-[100px] h-[90px] object-cover rounded-md "
                     />
 
                     <div className="lg:space-y-1  text-secondColor lg:text-base text-sm">

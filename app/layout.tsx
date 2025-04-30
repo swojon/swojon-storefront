@@ -17,6 +17,7 @@ import ResFilter from "@/components/FilterBar/ResFilter";
 import NotificationDrawerNew from "@/components/Notification/NotificationDrawerNew";
 import FacebookPixel from "@/components/FacebookPixel";
 import CartDrawer from "@/components/Cart/CartDrawer";
+import FloatingCart from "@/components/Cart/CartIcon";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }: Iprops) {
                 <FacebookPixel />
                 <Analytics />
                 <CartDrawer />
+                <FloatingCart />
                 <Toaster />
                 <NotificationDrawerNew />
                 <ResNavbar />

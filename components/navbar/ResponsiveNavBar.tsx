@@ -196,7 +196,7 @@ const ResponsiveNavBar = ({
               } `}
             />
 
-            <div
+            {/* <div
               className="relative "
               onClick={() => dispatch(setCartDrawerOpen())}
             >
@@ -215,7 +215,7 @@ const ResponsiveNavBar = ({
                   {totalQuantity}
                 </span>
               </div>
-            </div>
+            </div> */}
 
             {/* )} */}
 

@@ -314,7 +314,7 @@ export default function Navbar({ border }: { border: any }) {
                   </div>
                 </Link>
 
-                <div
+                {/* <div
                   className="relative "
                   onClick={() => dispatch(setCartDrawerOpen())}
                 >
@@ -333,7 +333,7 @@ export default function Navbar({ border }: { border: any }) {
                       {totalQuantity}
                     </span>
                   </div>
-                </div>
+                </div> */}
 
                 {status != "authenticated" && (
                   <Link href="/login">

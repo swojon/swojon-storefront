@@ -54,9 +54,20 @@ const ReelCard = ({
         onMouseEnter={handleMouseEnter}
       >
         {videoSrc.includes("youtube.com") ? (
+          // <iframe
+          //   className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
+          //   src={videoSrc.replace("/shorts/", "/embed/").split("?")[0]}
+          //   title="YouTube video player"
+          //   frameBorder="0"
+          //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          //   allowFullScreen
+          // />
           <iframe
             className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
-            src={videoSrc.replace("/shorts/", "/embed/").split("?")[0]}
+            src={
+              videoSrc.replace("/shorts/", "/embed/").split("?")[0] +
+              "?controls=0&modestbranding=1&rel=0&showinfo=0"
+            }
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

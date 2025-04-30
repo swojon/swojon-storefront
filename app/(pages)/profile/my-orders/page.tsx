@@ -1,4 +1,5 @@
 import OrderHistory from "@/components/Order/OrderHistory";
+import OrderLoader from "@/components/Order/OrderLoader";
 import React from "react";
 
 const MyOrders = () => {
@@ -7,6 +8,7 @@ const MyOrders = () => {
       <OrderHistory />
       <OrderHistory />
       <OrderHistory />
+      <OrderLoader />
     </div>
   );
 };

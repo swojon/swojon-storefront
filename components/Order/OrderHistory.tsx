@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import OrderSummary from "./OrderSummary";
 import "./Order.css";
+import OrderLoader from "./OrderLoader";
 
 const OrderHistory = () => {
   const [isOpen, setIsOpen] = useState(true);

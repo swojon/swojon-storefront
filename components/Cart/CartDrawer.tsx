@@ -10,6 +10,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 import { useRouter } from "next/navigation";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
+import { LuTrash2 } from "react-icons/lu";
 
 const CartDrawer = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const CartDrawer = () => {
 
   return (
     <section
-      className={`fixed top-0 z-[1000]  w-full  h-screen lg:h-screen max-lg:[height:100dvh]   transition delay-200 duration-700 ease-in-out text-primaryColor ${
+      className={`fixed top-0 z-[10000]  w-full  h-screen lg:h-screen max-lg:[height:100dvh]   transition delay-200 duration-700 ease-in-out text-primaryColor ${
         isDrawerOpen ? "translate-x-0 " : "translate-x-full "
       }`}
     >
@@ -54,7 +55,7 @@ const CartDrawer = () => {
         className="w-full h-full  absolute left-0 top-0 z-100 "
       ></div>
       <div
-        className={`lg:w-[28%] md:w-[45%] sm:w-[65%] w-[80%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 ms-auto border-l border-secondColor/20`}
+        className={`2xl:w-[30%] xl:w-[35%] lg:w-[45%] md:w-[55%] sm:w-[65%] w-[80%] bg-white resNav opacity-100   relative transition duration-700 ease-in-out delay-200 ms-auto border-l border-secondColor/20`}
       >
         <div className="xl:px-4 px-2 xl:py-4 py-2 space-y-4 h-[calc(100vh-110px)] overflow-y-auto ">
           <h6 className="text-base font-semibold">Cart Items</h6>
@@ -65,7 +66,10 @@ const CartDrawer = () => {
               </p>
             ) : (
               cartItems.map((item: any) => (
-                <div className="flex items-center gap-5" key={item.id}>
+                <div
+                  className="flex items-center gap-3 border-b last:border-b-0 border-gray-300"
+                  key={item.id}
+                >
                   <div className="">
                     <input
                       id="comments"
@@ -76,52 +80,58 @@ const CartDrawer = () => {
                     />
                   </div>
 
-                  <div className="flex items-start xl:gap-4 lg:gap-2 gap-2 relative w-full">
-                    <Image
-                      src={item.media?.length > 0 ? item.media[0].url : img}
-                      alt="product"
-                      width={400}
-                      height={400}
-                      className="xl:w-[80px] w-[60px] xl:h-[80px] h-[60px]"
-                    />
+                  <div className="flex md:flex-row flex-col md::items-center xl:gap-2 lg:gap-2 gap-2 relative w-full pb-3 sm:pb-0">
+                    <div className="flex items-center md:justify-between py-5 gap-3 ">
+                      <Image
+                        src={item.media?.length > 0 ? item.media[0].url : img}
+                        alt="product"
+                        width={400}
+                        height={600}
+                        className=" w-[60px]  h-[90px] object-cover rounded-md "
+                      />
 
-                    <div className="space-y-1 flex-1 w-full">
-                      <h6 className="xl:text-[15px] lg:text-[13px] text-[12px] line-clamp-1 text-primaryColor">
-                        {item.description}
-                      </h6>
-                      <div className="flex justify-between gap-2">
-                        <div className="xl:text-sm text-xs text-secondColor ">
-                          {item.discountPrice ? (
-                            <div className="flex flex-wrap gap-1.5 ">
-                              <span className="text-lime-700">
-                                ৳{item.discountPrice}
-                              </span>
-                              <span className="   inline-block line-through">
-                                ৳{item.price}
-                              </span>
-                            </div>
-                          ) : (
-                            <>৳{item.price}</>
-                          )}
-                        </div>
+                      <div className="  text-secondColor lg:text-base text-sm">
+                        <h6 className="xl:text-base lg:text-base text-base line-clamp-1 font-bold text-primaryColor pb-1">
+                          {item.title}
+                        </h6>
+                        <span className="block  text-sm">Baby&apos;s Food</span>
+                        <span className="block text-sm">Size: 2</span>
+                        {/* <p className="line-clamp-1 pe-5 ">{item.description}</p> */}
+                      </div>
+                    </div>
 
-                        <div className="">
-                          <UpdateQuantity
-                            item={item}
-                            padding="xl:px-2 px-1.5 xl:py-1 py-x"
-                            fontSize="xl:text-base text-xs "
-                          />
-                        </div>
+                    <div className="flex items-center gap-5 font-bold md:text-right xl:text-xl lg:text-lg text-base ">
+                      <div className="">
+                        <UpdateQuantity
+                          item={item}
+                          padding="py-x"
+                          fontSize="text-sm"
+                        />
                       </div>
 
-                      <div className="pt-2 ">
-                        <button
-                          onClick={() => handleRemove(item.id)}
-                          className="xl:text-xl text-lg font-semibold  text-primaryColor float-right"
-                        >
-                          <AiOutlineDelete />
-                        </button>
+                      <div className="xl:min-w-[50px]  line-clamp-1 text-sm">
+                        {item.discountPrice ? (
+                          <div className="flex flex-wrap  gap-2 text-activeColor">
+                            <span className="text-lime-700">
+                              ৳{item.discountPrice}
+                            </span>
+                            <span className="inline-block line-through">
+                              ৳{item.price}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-activeColor">
+                            ৳{item.price}
+                          </span>
+                        )}
                       </div>
+
+                      <button
+                        onClick={() => handleRemove(item.id)}
+                        className="text-sm font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
+                      >
+                        <LuTrash2 />
+                      </button>
                     </div>
                   </div>
                 </div>
