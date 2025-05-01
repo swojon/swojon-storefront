@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import ResponsiveSelectOptions from "../SelectOptions/ResponsiveSelectOptions";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
+import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 
 const StickyCard = ({
   product,
@@ -30,10 +31,7 @@ const StickyCard = ({
             <h6 className="line-clamp-1 text-base font-semibold">
               John Timberland Outdoor Post Light Veranda Bronze 102 4-Light
               Street Lantern Champagne Hammered Glass for hafgds Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Officiis tenetur
-              pariatur iure quos cumque beatae minima incidunt debitis quas
-              animi, id eius quaerat laboriosam unde sed inventore doloribus
-              fuga possimus.
+              dolor sit amet consectetur
             </h6>{" "}
             <SellerReviewDropdown sellerId={product?.id} />
           </div>
@@ -41,7 +39,11 @@ const StickyCard = ({
 
         <div className="flex items-center gap-5 ">
           <span className="block font-semibold ">৳{product?.price}</span>
-          <ResponsiveSelectOptions title="Qty" />{" "}
+          <UpdateQuantity
+            item={product}
+            padding="xl:px-2  xl:py-1 py-x"
+            fontSize="xl:text-xl lg:text-lg text-base"
+          />{" "}
           <button className="p-3 w-[120px] bg-activeColor border border-activeColor rounded-2xl text-white font-semibold ">
             Add to cart
           </button>

@@ -53,7 +53,7 @@ const ReelCard = ({
         className="relative rounded-t-lg overflow-hidden"
         onMouseEnter={handleMouseEnter}
       >
-        {videoSrc.includes("youtube.com") ? (
+        {/* {videoSrc.includes("youtube.com") ? (
           // <iframe
           //   className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
           //   src={videoSrc.replace("/shorts/", "/embed/").split("?")[0]}
@@ -63,6 +63,7 @@ const ReelCard = ({
           //   allowFullScreen
           // />
           <iframe
+            width="100%"
             className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover"
             src={
               videoSrc.replace("/shorts/", "/embed/").split("?")[0] +
@@ -81,7 +82,21 @@ const ReelCard = ({
             loop
             muted={isMuted}
           />
-        )}
+        )} */}
+
+        <div className="w-full lg:h-[500px] md:h-[350px] h-[280px] object-cover">
+          <iframe
+            width="100%"
+            height="100%"
+            src={
+              videoSrc.replace("/shorts/", "/embed/").split("?")[0] +
+              "?controls=0&modestbranding=1&rel=0&showinfo=0"
+            }
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
 
         {/* User Tag */}
         {/* <div className="absolute bottom-3 left-3 text-white bg-black/50 px-2 py-1 text-sm rounded-md">

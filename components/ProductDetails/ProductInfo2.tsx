@@ -7,6 +7,7 @@ import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import { useDispatch } from "react-redux";
 import { setFilteredImages } from "@/app/redux/filterImagesSlice";
 import img1 from "@/public/hero/red1-min.jpg";
+import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 
 const DELIVERYMETHOD = [
   {
@@ -205,7 +206,12 @@ const ProductInfo2 = ({ product }: { product: any }) => {
         </div>
         <div className="space-y-3">
           <div className="flex items-center gap-4">
-            <ResponsiveSelectOptions title="Qty" />{" "}
+            <UpdateQuantity
+              item={product}
+              padding="xl:px-2  xl:py-1 py-x"
+              fontSize="xl:text-xl lg:text-lg text-base"
+            />
+
             <div className="w-full flex-1 ">
               <button className="p-3 w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold">
                 Add to cart
