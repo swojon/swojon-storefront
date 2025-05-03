@@ -28,11 +28,16 @@ export const productCartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       if (existing) {
-        existing.quantity = (existing.quantity || 1) + 1;
+        existing.quantity =
+          (existing.quantity || 1) + (action.payload.quantity || 1);
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push({
+          ...action.payload,
+          quantity: action.payload.quantity || 1,
+        });
       }
     },
+
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
