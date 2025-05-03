@@ -50,25 +50,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const imagesToShow =
     filteredImages.length > 0 ? filteredImages : product?.media;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(!entry.isIntersecting);
-      },
-      { root: null, threshold: 0 }
-    );
-
-    if (productInfoRef.current) {
-      observer.observe(productInfoRef.current);
-    }
-
-    return () => {
-      if (productInfoRef.current) {
-        observer.unobserve(productInfoRef.current);
-      }
-    };
-  }, []);
-
   if (!loading && !data) {
     return (
       <NotFound
@@ -85,8 +66,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   return (
     <section className="">
       {/* <StickyCard product={product ?? null} />{" "} */}
-
-      <StickyCard product={product ?? null} isVisible={isVisible} />
 
       <div className="custom-container2 py-6 space-y-6 ">
         <div className="flex md:flex-row flex-col items-center justify-between gap-2">

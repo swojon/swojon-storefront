@@ -11,12 +11,34 @@ const UpdateQuantity = ({
   item,
   padding,
   fontSize,
+  localQuantity,
+  setLocalQuantity,
 }: {
-  item: Product;
+  item: any;
   padding?: string;
   fontSize?: string;
+  localQuantity?: number;
+  setLocalQuantity?: (value: any) => void;
 }) => {
   const dispatch = useDispatch();
+
+  const handleIncrement = () => {
+    if (setLocalQuantity) {
+      setLocalQuantity((prev: any) => prev + 1);
+    } else {
+      dispatch(incrementQuantity(item.id));
+    }
+  };
+
+  const handleDecrement = () => {
+    if (setLocalQuantity) {
+      setLocalQuantity((prev: any) => (prev > 1 ? prev - 1 : 1));
+    } else {
+      dispatch(decrementQuantity(item.id));
+    }
+  };
+
+  const quantity = localQuantity ?? item?.quantity ?? 1;
   return (
     <div
       className={`flex items-center gap-4  border-secondColor ${
@@ -26,14 +48,14 @@ const UpdateQuantity = ({
       } text-primaryColor rounded-3xl `}
     >
       <button
-        onClick={() => dispatch(decrementQuantity(item.id))}
+        onClick={handleDecrement}
         className="border border-secondColor rounded-md p-1"
       >
         <FaMinus />
-      </button>{" "}
-      <span className="font-semibold">{item?.quantity || 1}</span>
+      </button>
+      <span className="font-semibold">{quantity}</span>
       <button
-        onClick={() => dispatch(incrementQuantity(item.id))}
+        onClick={handleIncrement}
         className="border border-secondColor rounded-md p-1"
       >
         <FaPlus />
