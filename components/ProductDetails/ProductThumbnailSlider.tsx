@@ -81,6 +81,15 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
               </div>
             </SwiperSlide>
           ))}
+
+          <SwiperSlide className="w-full h-full">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+              className="rounded-lg"
+            ></iframe>
+          </SwiperSlide>
         </Swiper>
       </div>
       <div className="w-full">
@@ -110,6 +119,36 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
               />
             </SwiperSlide>
           ))}
+
+          <SwiperSlide className="cursor-pointer z-0  h-full relative">
+            {/* <div className="pointer-events-none rounded-lg">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                className="rounded-lg"
+              ></iframe>
+            </div> */}
+
+            <Image
+              src={images[0].url}
+              width={500}
+              height={700}
+              priority
+              className="w-full h-full object-cover rounded-lg z-0"
+              alt="listing Image "
+            />
+
+            <div className="absolute inset-0 bg-gray-200/50 flex items-center justify-center">
+              <Image
+                src="/play-button.png"
+                alt="play"
+                width={100}
+                height={100}
+                className="!w-[50px] !h-[50px] invert opacity-90 "
+              />
+            </div>
+          </SwiperSlide>
         </Swiper>
       </div>
     </section>

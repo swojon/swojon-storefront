@@ -201,13 +201,13 @@ const ProductDetails = ({ productId }: { productId: number }) => {
                 <DynamicThumbnailSlider images={imagesToShow} />
               )}
 
-              <div className="pt-5 2xl:h-[450px] xl:h-[400px] lg:h-[350px] md:h-[300px] h-[300px] w-full">
+              {/* <div className="pt-5 2xl:h-[450px] xl:h-[400px] lg:h-[350px] md:h-[300px] h-[300px] w-full">
                 <iframe
                   width="100%"
                   height="100%"
                   src="https://www.youtube.com/embed/tgbNymZ7vqY"
                 ></iframe>
-              </div>
+              </div> */}
             </div>
 
             <div
