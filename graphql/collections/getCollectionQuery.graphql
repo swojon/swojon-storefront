@@ -1,0 +1,10 @@
+query GetCollection($getCollectionId: Float, $name: String, $slug: String) {
+  getCollection(id: $getCollectionId, name: $name, slug: $slug) {
+    id
+    name
+    slug
+    banner
+    description
+    isFeatured
+    } 
+}

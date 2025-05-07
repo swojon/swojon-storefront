@@ -473,6 +473,705 @@ export function useNewMessageAddedSubscription(baseOptions: Apollo.SubscriptionH
       }
 export type NewMessageAddedSubscriptionHookResult = ReturnType<typeof useNewMessageAddedSubscription>;
 export type NewMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewMessageAddedSubscription>;
+export const AddCollectionListingDocument = gql`
+    mutation AddCollectionListing($inputData: CollectionListingInput!) {
+  addCollectionListing(inputData: $inputData) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      brand {
+        id
+        name
+        logo
+      }
+      condition
+      category {
+        id
+        name
+        slug
+        parentCategory {
+          id
+          name
+          slug
+        }
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      status
+      isLive
+      isSold
+      meetupLocations {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+    }
+  }
+}
+    `;
+export type AddCollectionListingMutationFn = Apollo.MutationFunction<AddCollectionListingMutation, AddCollectionListingMutationVariables>;
+
+/**
+ * __useAddCollectionListingMutation__
+ *
+ * To run a mutation, you first call `useAddCollectionListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCollectionListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCollectionListingMutation, { data, loading, error }] = useAddCollectionListingMutation({
+ *   variables: {
+ *      inputData: // value for 'inputData'
+ *   },
+ * });
+ */
+export function useAddCollectionListingMutation(baseOptions?: Apollo.MutationHookOptions<AddCollectionListingMutation, AddCollectionListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCollectionListingMutation, AddCollectionListingMutationVariables>(AddCollectionListingDocument, options);
+      }
+export type AddCollectionListingMutationHookResult = ReturnType<typeof useAddCollectionListingMutation>;
+export type AddCollectionListingMutationResult = Apollo.MutationResult<AddCollectionListingMutation>;
+export type AddCollectionListingMutationOptions = Apollo.BaseMutationOptions<AddCollectionListingMutation, AddCollectionListingMutationVariables>;
+export const AddListingCollectionDocument = gql`
+    mutation AddListingCollection($inputData: ListingCollectionInput!) {
+  addListingCollection(inputData: $inputData) {
+    brand {
+      id
+      name
+      logo
+    }
+    condition
+    collections {
+      id
+      name
+      slug
+      isFeatured
+      isActive
+      description
+      banner
+    }
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    status
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+  }
+}
+    `;
+export type AddListingCollectionMutationFn = Apollo.MutationFunction<AddListingCollectionMutation, AddListingCollectionMutationVariables>;
+
+/**
+ * __useAddListingCollectionMutation__
+ *
+ * To run a mutation, you first call `useAddListingCollectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddListingCollectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addListingCollectionMutation, { data, loading, error }] = useAddListingCollectionMutation({
+ *   variables: {
+ *      inputData: // value for 'inputData'
+ *   },
+ * });
+ */
+export function useAddListingCollectionMutation(baseOptions?: Apollo.MutationHookOptions<AddListingCollectionMutation, AddListingCollectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddListingCollectionMutation, AddListingCollectionMutationVariables>(AddListingCollectionDocument, options);
+      }
+export type AddListingCollectionMutationHookResult = ReturnType<typeof useAddListingCollectionMutation>;
+export type AddListingCollectionMutationResult = Apollo.MutationResult<AddListingCollectionMutation>;
+export type AddListingCollectionMutationOptions = Apollo.BaseMutationOptions<AddListingCollectionMutation, AddListingCollectionMutationVariables>;
+export const CreateCollectionDocument = gql`
+    mutation CreateCollection($collectionData: CollectionCreateDTO!) {
+  createCollection(collectionData: $collectionData) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      brand {
+        id
+        name
+        logo
+      }
+      condition
+      category {
+        id
+        name
+        slug
+        parentCategory {
+          id
+          name
+          slug
+        }
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      status
+      isLive
+      isSold
+      meetupLocations {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+    }
+  }
+}
+    `;
+export type CreateCollectionMutationFn = Apollo.MutationFunction<CreateCollectionMutation, CreateCollectionMutationVariables>;
+
+/**
+ * __useCreateCollectionMutation__
+ *
+ * To run a mutation, you first call `useCreateCollectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCollectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCollectionMutation, { data, loading, error }] = useCreateCollectionMutation({
+ *   variables: {
+ *      collectionData: // value for 'collectionData'
+ *   },
+ * });
+ */
+export function useCreateCollectionMutation(baseOptions?: Apollo.MutationHookOptions<CreateCollectionMutation, CreateCollectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCollectionMutation, CreateCollectionMutationVariables>(CreateCollectionDocument, options);
+      }
+export type CreateCollectionMutationHookResult = ReturnType<typeof useCreateCollectionMutation>;
+export type CreateCollectionMutationResult = Apollo.MutationResult<CreateCollectionMutation>;
+export type CreateCollectionMutationOptions = Apollo.BaseMutationOptions<CreateCollectionMutation, CreateCollectionMutationVariables>;
+export const GetCollectionDocument = gql`
+    query GetCollection($getCollectionId: Float, $name: String, $slug: String) {
+  getCollection(id: $getCollectionId, name: $name, slug: $slug) {
+    id
+    name
+    slug
+    banner
+    description
+    isFeatured
+  }
+}
+    `;
+
+/**
+ * __useGetCollectionQuery__
+ *
+ * To run a query within a React component, call `useGetCollectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCollectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCollectionQuery({
+ *   variables: {
+ *      getCollectionId: // value for 'getCollectionId'
+ *      name: // value for 'name'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetCollectionQuery(baseOptions?: Apollo.QueryHookOptions<GetCollectionQuery, GetCollectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCollectionQuery, GetCollectionQueryVariables>(GetCollectionDocument, options);
+      }
+export function useGetCollectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionQuery, GetCollectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCollectionQuery, GetCollectionQueryVariables>(GetCollectionDocument, options);
+        }
+export type GetCollectionQueryHookResult = ReturnType<typeof useGetCollectionQuery>;
+export type GetCollectionLazyQueryHookResult = ReturnType<typeof useGetCollectionLazyQuery>;
+export type GetCollectionQueryResult = Apollo.QueryResult<GetCollectionQuery, GetCollectionQueryVariables>;
+export const ListCollectionsDocument = gql`
+    query ListCollections($endingBefore: String, $startingAfter: String, $limit: Float, $orderBy: String) {
+  listCollections(
+    ending_before: $endingBefore
+    starting_after: $startingAfter
+    limit: $limit
+    orderBy: $orderBy
+  ) {
+    count
+    items {
+      id
+      banner
+      name
+      description
+      listings {
+        id
+        title
+      }
+      slug
+      isFeatured
+      isActive
+    }
+  }
+}
+    `;
+
+/**
+ * __useListCollectionsQuery__
+ *
+ * To run a query within a React component, call `useListCollectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListCollectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListCollectionsQuery({
+ *   variables: {
+ *      endingBefore: // value for 'endingBefore'
+ *      startingAfter: // value for 'startingAfter'
+ *      limit: // value for 'limit'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useListCollectionsQuery(baseOptions?: Apollo.QueryHookOptions<ListCollectionsQuery, ListCollectionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListCollectionsQuery, ListCollectionsQueryVariables>(ListCollectionsDocument, options);
+      }
+export function useListCollectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListCollectionsQuery, ListCollectionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListCollectionsQuery, ListCollectionsQueryVariables>(ListCollectionsDocument, options);
+        }
+export type ListCollectionsQueryHookResult = ReturnType<typeof useListCollectionsQuery>;
+export type ListCollectionsLazyQueryHookResult = ReturnType<typeof useListCollectionsLazyQuery>;
+export type ListCollectionsQueryResult = Apollo.QueryResult<ListCollectionsQuery, ListCollectionsQueryVariables>;
+export const RemoveCollectionListingDocument = gql`
+    mutation RemoveCollectionListing($inputData: CollectionListingInput!) {
+  removeCollectionListing(inputData: $inputData) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      brand {
+        id
+        name
+        logo
+      }
+      condition
+      category {
+        id
+        name
+        slug
+        parentCategory {
+          id
+          name
+          slug
+        }
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      status
+      isLive
+      isSold
+      meetupLocations {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+    }
+  }
+}
+    `;
+export type RemoveCollectionListingMutationFn = Apollo.MutationFunction<RemoveCollectionListingMutation, RemoveCollectionListingMutationVariables>;
+
+/**
+ * __useRemoveCollectionListingMutation__
+ *
+ * To run a mutation, you first call `useRemoveCollectionListingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveCollectionListingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeCollectionListingMutation, { data, loading, error }] = useRemoveCollectionListingMutation({
+ *   variables: {
+ *      inputData: // value for 'inputData'
+ *   },
+ * });
+ */
+export function useRemoveCollectionListingMutation(baseOptions?: Apollo.MutationHookOptions<RemoveCollectionListingMutation, RemoveCollectionListingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveCollectionListingMutation, RemoveCollectionListingMutationVariables>(RemoveCollectionListingDocument, options);
+      }
+export type RemoveCollectionListingMutationHookResult = ReturnType<typeof useRemoveCollectionListingMutation>;
+export type RemoveCollectionListingMutationResult = Apollo.MutationResult<RemoveCollectionListingMutation>;
+export type RemoveCollectionListingMutationOptions = Apollo.BaseMutationOptions<RemoveCollectionListingMutation, RemoveCollectionListingMutationVariables>;
+export const RemoveCollectionDocument = gql`
+    mutation RemoveCollection($collectionId: Float!) {
+  removeCollection(collectionId: $collectionId) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      brand {
+        id
+        name
+        logo
+      }
+      condition
+      category {
+        id
+        name
+        slug
+        parentCategory {
+          id
+          name
+          slug
+        }
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      status
+      isLive
+      isSold
+      meetupLocations {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+    }
+  }
+}
+    `;
+export type RemoveCollectionMutationFn = Apollo.MutationFunction<RemoveCollectionMutation, RemoveCollectionMutationVariables>;
+
+/**
+ * __useRemoveCollectionMutation__
+ *
+ * To run a mutation, you first call `useRemoveCollectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveCollectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeCollectionMutation, { data, loading, error }] = useRemoveCollectionMutation({
+ *   variables: {
+ *      collectionId: // value for 'collectionId'
+ *   },
+ * });
+ */
+export function useRemoveCollectionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveCollectionMutation, RemoveCollectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveCollectionMutation, RemoveCollectionMutationVariables>(RemoveCollectionDocument, options);
+      }
+export type RemoveCollectionMutationHookResult = ReturnType<typeof useRemoveCollectionMutation>;
+export type RemoveCollectionMutationResult = Apollo.MutationResult<RemoveCollectionMutation>;
+export type RemoveCollectionMutationOptions = Apollo.BaseMutationOptions<RemoveCollectionMutation, RemoveCollectionMutationVariables>;
+export const RemoveListingCollectionDocument = gql`
+    mutation RemoveListingCollection($inputData: ListingCollectionInput!) {
+  removeListingCollection(inputData: $inputData) {
+    brand {
+      id
+      name
+      logo
+    }
+    condition
+    collections {
+      id
+      name
+      slug
+      isFeatured
+      isActive
+      description
+      banner
+    }
+    category {
+      id
+      name
+      slug
+      parentCategory {
+        id
+        name
+        slug
+      }
+    }
+    dateCreated
+    description
+    id
+    isApproved
+    isFeatured
+    status
+    isLive
+    isSold
+    meetupLocations {
+      city
+      country
+      displayName
+      lat
+      locality
+      lon
+      placeId
+      postCode
+      state
+      stateDistrict
+    }
+    quantity
+    slug
+    dealingMethod
+    price
+    title
+    user {
+      email
+      id
+      username
+      profile {
+        name
+        avatar
+      }
+    }
+    media {
+      url
+      isPrimary
+    }
+  }
+}
+    `;
+export type RemoveListingCollectionMutationFn = Apollo.MutationFunction<RemoveListingCollectionMutation, RemoveListingCollectionMutationVariables>;
+
+/**
+ * __useRemoveListingCollectionMutation__
+ *
+ * To run a mutation, you first call `useRemoveListingCollectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveListingCollectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeListingCollectionMutation, { data, loading, error }] = useRemoveListingCollectionMutation({
+ *   variables: {
+ *      inputData: // value for 'inputData'
+ *   },
+ * });
+ */
+export function useRemoveListingCollectionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveListingCollectionMutation, RemoveListingCollectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveListingCollectionMutation, RemoveListingCollectionMutationVariables>(RemoveListingCollectionDocument, options);
+      }
+export type RemoveListingCollectionMutationHookResult = ReturnType<typeof useRemoveListingCollectionMutation>;
+export type RemoveListingCollectionMutationResult = Apollo.MutationResult<RemoveListingCollectionMutation>;
+export type RemoveListingCollectionMutationOptions = Apollo.BaseMutationOptions<RemoveListingCollectionMutation, RemoveListingCollectionMutationVariables>;
+export const UpdateCollectionDocument = gql`
+    mutation UpdateCollection($collectionData: CollectionUpdateDTO!, $collectionId: Float!) {
+  updateCollection(collectionData: $collectionData, collectionId: $collectionId) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      brand {
+        id
+        name
+        logo
+      }
+      condition
+      category {
+        id
+        name
+        slug
+        parentCategory {
+          id
+          name
+          slug
+        }
+      }
+      dateCreated
+      description
+      id
+      isApproved
+      isFeatured
+      status
+      isLive
+      isSold
+      meetupLocations {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+      quantity
+      slug
+      dealingMethod
+      price
+      title
+    }
+  }
+}
+    `;
+export type UpdateCollectionMutationFn = Apollo.MutationFunction<UpdateCollectionMutation, UpdateCollectionMutationVariables>;
+
+/**
+ * __useUpdateCollectionMutation__
+ *
+ * To run a mutation, you first call `useUpdateCollectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCollectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCollectionMutation, { data, loading, error }] = useUpdateCollectionMutation({
+ *   variables: {
+ *      collectionData: // value for 'collectionData'
+ *      collectionId: // value for 'collectionId'
+ *   },
+ * });
+ */
+export function useUpdateCollectionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCollectionMutation, UpdateCollectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCollectionMutation, UpdateCollectionMutationVariables>(UpdateCollectionDocument, options);
+      }
+export type UpdateCollectionMutationHookResult = ReturnType<typeof useUpdateCollectionMutation>;
+export type UpdateCollectionMutationResult = Apollo.MutationResult<UpdateCollectionMutation>;
+export type UpdateCollectionMutationOptions = Apollo.BaseMutationOptions<UpdateCollectionMutation, UpdateCollectionMutationVariables>;
 export const ListBrandsDocument = gql`
     query ListBrands {
   listBrands {
@@ -2891,6 +3590,47 @@ export type Chats = {
   items: Array<Chat>;
 };
 
+export type Collection = {
+  __typename?: 'Collection';
+  banner?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  listings?: Maybe<Array<Listing>>;
+  name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type CollectionCreateDto = {
+  banner?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+};
+
+export type CollectionListingInput = {
+  collectionId: Scalars['Float']['input'];
+  listingIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
+export type CollectionUpdateDto = {
+  banner?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+  isApproved?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Collections = {
+  __typename?: 'Collections';
+  count?: Maybe<Scalars['Float']['output']>;
+  items: Array<Collection>;
+};
+
 export type Communities = {
   __typename?: 'Communities';
   count?: Maybe<Scalars['Float']['output']>;
@@ -3049,6 +3789,7 @@ export type Listing = {
   __typename?: 'Listing';
   brand?: Maybe<Brand>;
   category?: Maybe<Category>;
+  collections?: Maybe<Array<Collection>>;
   communities: Array<Community>;
   condition?: Maybe<Scalars['String']['output']>;
   courierDetails?: Maybe<Scalars['String']['output']>;
@@ -3076,6 +3817,11 @@ export type Listing = {
   user: User;
 };
 
+export type ListingCollectionInput = {
+  collectionIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  listingId: Scalars['Float']['input'];
+};
+
 export type ListingCreateDto = {
   brandId?: InputMaybe<Scalars['Float']['input']>;
   categoryId: Scalars['Float']['input'];
@@ -3096,10 +3842,11 @@ export type ListingFilterInput = {
   brandSlug?: InputMaybe<Scalars['String']['input']>;
   categoryIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   categorySlug?: InputMaybe<Array<Scalars['String']['input']>>;
+  collectionIds?: InputMaybe<Array<Scalars['Float']['input']>>;
+  collectionSlug?: InputMaybe<Array<Scalars['String']['input']>>;
   communityIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   communitySlug?: InputMaybe<Scalars['String']['input']>;
   isFeatured?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  locationId?: InputMaybe<Scalars['Float']['input']>;
   locationIds?: InputMaybe<Array<Scalars['Float']['input']>>;
   status?: InputMaybe<Scalars['String']['input']>;
   userIds?: InputMaybe<Array<Scalars['Float']['input']>>;
@@ -3188,10 +3935,14 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Add category of brand */
   addBrandCategory: Brand;
+  /** Add category of brand */
+  addCollectionListing: Collection;
   /** Add Favorite to Listing */
   addFavorite: Favorite;
   /** Follow user */
   addFollow: Follow;
+  /** Add collection to listing */
+  addListingCollection: Listing;
   /** Add Point */
   addPoint: Point;
   /** User update role */
@@ -3202,6 +3953,8 @@ export type Mutation = {
   createBrand: Brand;
   /** Create Category */
   createCategory: Category;
+  /** Create Collection */
+  createCollection: Collection;
   /** Create Community */
   createCommunity: Community;
   /** Create Listing */
@@ -3234,12 +3987,18 @@ export type Mutation = {
   removeCategories: Categories;
   /** Remove Category */
   removeCategory: Category;
+  /** Remove Collection */
+  removeCollection: Collection;
+  /** Remove category of brand */
+  removeCollectionListing: Collection;
   /** Remove Favorite From Listing */
   removeFavorite: Favorite;
   /** Unfollow user */
   removeFollow: Follow;
   /** Remove Listing */
   removeListing: Listing;
+  /** Remove collection to listing */
+  removeListingCollection: Listing;
   /** Remove Listing/Seller Review */
   removeListingReview: Review;
   /** Remove Location */
@@ -3266,6 +4025,8 @@ export type Mutation = {
   updateBrand: Brand;
   /** Update Category */
   updateCategory: Category;
+  /** Update Collection */
+  updateCollection: Collection;
   /** Update Community */
   updateCommunity: Community;
   /** Update Community Member */
@@ -3292,6 +4053,11 @@ export type MutationAddBrandCategoryArgs = {
 };
 
 
+export type MutationAddCollectionListingArgs = {
+  inputData: CollectionListingInput;
+};
+
+
 export type MutationAddFavoriteArgs = {
   listingId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
@@ -3301,6 +4067,11 @@ export type MutationAddFavoriteArgs = {
 export type MutationAddFollowArgs = {
   followedUserId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
+};
+
+
+export type MutationAddListingCollectionArgs = {
+  inputData: ListingCollectionInput;
 };
 
 
@@ -3327,6 +4098,11 @@ export type MutationCreateBrandArgs = {
 
 export type MutationCreateCategoryArgs = {
   categoryData: CategoryCreateDto;
+};
+
+
+export type MutationCreateCollectionArgs = {
+  collectionData: CollectionCreateDto;
 };
 
 
@@ -3406,6 +4182,16 @@ export type MutationRemoveCategoryArgs = {
 };
 
 
+export type MutationRemoveCollectionArgs = {
+  collectionId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveCollectionListingArgs = {
+  inputData: CollectionListingInput;
+};
+
+
 export type MutationRemoveFavoriteArgs = {
   listingId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
@@ -3420,6 +4206,11 @@ export type MutationRemoveFollowArgs = {
 
 export type MutationRemoveListingArgs = {
   listingId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveListingCollectionArgs = {
+  inputData: ListingCollectionInput;
 };
 
 
@@ -3484,6 +4275,12 @@ export type MutationUpdateBrandArgs = {
 export type MutationUpdateCategoryArgs = {
   categoryData: CategoryUpdateDto;
   categoryId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateCollectionArgs = {
+  collectionData: CollectionUpdateDto;
+  collectionId: Scalars['Float']['input'];
 };
 
 
@@ -3693,9 +4490,11 @@ export type Query = {
   getCategory: Category;
   /** Get ChatRoom by id */
   getChatRoom: ChatRoom;
+  /** Get Collection by Id, slug or name */
+  getCollection: Collection;
   /** Get Community by Id, slug or name */
   getCommunity: Community;
-  /** Get Category by Id, slug or name */
+  /** Get listing by Id, slug or name */
   getListing: Listing;
   /** Get Location by Id, slug or name */
   getLocation: Location;
@@ -3721,6 +4520,8 @@ export type Query = {
   listChatRooms: ChatRoomsWithMessage;
   /** List All Chat Rooms of a User with message */
   listChatRoomsAdmin: ChatRoomsWithMessage;
+  /** List All Collections */
+  listCollections: Collections;
   /** List All Communities */
   listCommunities: Communities;
   /** List All Favorited Listing of User */
@@ -3798,6 +4599,13 @@ export type QueryGetChatRoomArgs = {
 };
 
 
+export type QueryGetCollectionArgs = {
+  id?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryGetCommunityArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -3863,6 +4671,14 @@ export type QueryListChatMessagesArgs = {
 export type QueryListChatRoomsArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryListCollectionsArgs = {
+  ending_before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -4240,6 +5056,75 @@ export type NewMessageAddedSubscriptionVariables = Exact<{
 
 
 export type NewMessageAddedSubscription = { __typename?: 'Subscription', newMessageAdded: { __typename?: 'Chat', content?: string | null, dateSent?: any | null, id: number, sender: { __typename?: 'User', email: string, id: number } } };
+
+export type AddCollectionListingMutationVariables = Exact<{
+  inputData: CollectionListingInput;
+}>;
+
+
+export type AddCollectionListingMutation = { __typename?: 'Mutation', addCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null }> | null } };
+
+export type AddListingCollectionMutationVariables = Exact<{
+  inputData: ListingCollectionInput;
+}>;
+
+
+export type AddListingCollectionMutation = { __typename?: 'Mutation', addListingCollection: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, collections?: Array<{ __typename?: 'Collection', id: number, name?: string | null, slug?: string | null, isFeatured?: boolean | null, isActive?: boolean | null, description?: string | null, banner?: string | null }> | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+
+export type CreateCollectionMutationVariables = Exact<{
+  collectionData: CollectionCreateDto;
+}>;
+
+
+export type CreateCollectionMutation = { __typename?: 'Mutation', createCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null }> | null } };
+
+export type GetCollectionQueryVariables = Exact<{
+  getCollectionId?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetCollectionQuery = { __typename?: 'Query', getCollection: { __typename?: 'Collection', id: number, name?: string | null, slug?: string | null, banner?: string | null, description?: string | null, isFeatured?: boolean | null } };
+
+export type ListCollectionsQueryVariables = Exact<{
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ListCollectionsQuery = { __typename?: 'Query', listCollections: { __typename?: 'Collections', count?: number | null, items: Array<{ __typename?: 'Collection', id: number, banner?: string | null, name?: string | null, description?: string | null, slug?: string | null, isFeatured?: boolean | null, isActive?: boolean | null, listings?: Array<{ __typename?: 'Listing', id: number, title: string }> | null }> } };
+
+export type RemoveCollectionListingMutationVariables = Exact<{
+  inputData: CollectionListingInput;
+}>;
+
+
+export type RemoveCollectionListingMutation = { __typename?: 'Mutation', removeCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null }> | null } };
+
+export type RemoveCollectionMutationVariables = Exact<{
+  collectionId: Scalars['Float']['input'];
+}>;
+
+
+export type RemoveCollectionMutation = { __typename?: 'Mutation', removeCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null }> | null } };
+
+export type RemoveListingCollectionMutationVariables = Exact<{
+  inputData: ListingCollectionInput;
+}>;
+
+
+export type RemoveListingCollectionMutation = { __typename?: 'Mutation', removeListingCollection: { __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, collections?: Array<{ __typename?: 'Collection', id: number, name?: string | null, slug?: string | null, isFeatured?: boolean | null, isActive?: boolean | null, description?: string | null, banner?: string | null }> | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null }, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } };
+
+export type UpdateCollectionMutationVariables = Exact<{
+  collectionData: CollectionUpdateDto;
+  collectionId: Scalars['Float']['input'];
+}>;
+
+
+export type UpdateCollectionMutation = { __typename?: 'Mutation', updateCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, dateCreated?: any | null, description?: string | null, id: number, isApproved?: boolean | null, isFeatured?: boolean | null, status?: string | null, isLive?: boolean | null, isSold?: boolean | null, quantity?: number | null, slug?: string | null, dealingMethod?: string | null, price: number, title: string, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, meetupLocations?: Array<{ __typename?: 'NominatimLocation', city?: string | null, country?: string | null, displayName?: string | null, lat?: string | null, locality?: string | null, lon?: string | null, placeId?: string | null, postCode?: string | null, state?: string | null, stateDistrict?: string | null }> | null }> | null } };
 
 export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -31,7 +31,7 @@ const UpdateQuantity = ({
       >
         <FaMinus />
       </button>{" "}
-      <span className="font-semibold">{item.quantity}</span>
+      <span className="font-semibold">{item?.quantity}</span>
       <button
         onClick={() => dispatch(incrementQuantity(item.id))}
         className="border border-secondColor rounded-md p-1"
