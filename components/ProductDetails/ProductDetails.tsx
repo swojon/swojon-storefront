@@ -50,25 +50,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const imagesToShow =
     filteredImages.length > 0 ? filteredImages : product?.media;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(!entry.isIntersecting);
-      },
-      { root: null, threshold: 0 }
-    );
-
-    if (productInfoRef.current) {
-      observer.observe(productInfoRef.current);
-    }
-
-    return () => {
-      if (productInfoRef.current) {
-        observer.unobserve(productInfoRef.current);
-      }
-    };
-  }, []);
-
   if (!loading && !data) {
     return (
       <NotFound
@@ -85,8 +66,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   return (
     <section className="">
       {/* <StickyCard product={product ?? null} />{" "} */}
-
-      <StickyCard product={product ?? null} isVisible={isVisible} />
 
       <div className="custom-container2 py-6 space-y-6 ">
         <div className="flex md:flex-row flex-col items-center justify-between gap-2">
@@ -201,13 +180,13 @@ const ProductDetails = ({ productId }: { productId: number }) => {
                 <DynamicThumbnailSlider images={imagesToShow} />
               )}
 
-              <div className="pt-5 2xl:h-[450px] xl:h-[400px] lg:h-[350px] md:h-[300px] h-[300px] w-full">
+              {/* <div className="pt-5 2xl:h-[450px] xl:h-[400px] lg:h-[350px] md:h-[300px] h-[300px] w-full">
                 <iframe
                   width="100%"
                   height="100%"
                   src="https://www.youtube.com/embed/tgbNymZ7vqY"
                 ></iframe>
-              </div>
+              </div> */}
             </div>
 
             <div

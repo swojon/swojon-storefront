@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoStorefrontOutline } from "react-icons/io5";
 import { RiShoppingBag2Line } from "react-icons/ri";
 import { LiaShippingFastSolid } from "react-icons/lia";
@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { setFilteredImages } from "@/app/redux/filterImagesSlice";
 import img1 from "@/public/hero/red1-min.jpg";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
+import { addToCart } from "@/app/redux/cartSlice";
+import StickyCard from "./StickyCard";
 
 const DELIVERYMETHOD = [
   {
@@ -88,6 +90,8 @@ const ProductInfo2 = ({ product }: { product: any }) => {
   const [activeColor, setActiveColor] = useState(COLOR[0]);
   const [filteredImages, setSelectedFilteredImages] = useState(COLOR[0].images);
   const [activeSize, setActiveSize] = useState(SIZES[0]);
+  const [localQuantity, setLocalQuantity] = useState<number>(1);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleColorChange = (color: any) => {
     setActiveColor(color);
@@ -96,9 +100,41 @@ const ProductInfo2 = ({ product }: { product: any }) => {
     dispatch(setFilteredImages(color.images));
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity: localQuantity }));
+  };
+  const productInfoRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(!entry.isIntersecting);
+      },
+      { root: null, threshold: 0 }
+    );
+
+    if (productInfoRef.current) {
+      observer.observe(productInfoRef.current);
+    }
+
+    return () => {
+      if (productInfoRef.current) {
+        observer.unobserve(productInfoRef.current);
+      }
+    };
+  }, []);
+
+  console.log("product ghadjsfhdkjshf", product);
+
   return (
     <div>
-      <div className="space-y-5 text-primaryColor">
+      <StickyCard
+        product={product ?? null}
+        isVisible={isVisible}
+        localQuantity={localQuantity}
+        setLocalQuantity={setLocalQuantity}
+      />
+      <div className="space-y-5 text-primaryColor" ref={productInfoRef}>
         <div className="space-y-2">
           <h2 className="text-2xl font-bold ">{product?.title}</h2>
           <SellerReviewDropdown sellerId={product?.id} />
@@ -208,12 +244,17 @@ const ProductInfo2 = ({ product }: { product: any }) => {
           <div className="flex items-center gap-4">
             <UpdateQuantity
               item={product}
+              localQuantity={localQuantity}
+              setLocalQuantity={setLocalQuantity}
               padding="xl:px-2  xl:py-1 py-x"
               fontSize="xl:text-xl lg:text-lg text-base"
             />
 
             <div className="w-full flex-1 ">
-              <button className="p-3 w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold">
+              <button
+                onClick={handleAddToCart}
+                className="p-3 w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold"
+              >
                 Add to cart
               </button>
             </div>

@@ -18,7 +18,7 @@ const CartDrawer = () => {
 
   const cartItems = useSelector((state: any) => state.productCart.items);
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
   };
 
@@ -80,7 +80,7 @@ const CartDrawer = () => {
                     />
                   </div>
 
-                  <div className="flex md:flex-row flex-col md::items-center xl:gap-2 lg:gap-2 gap-2 relative w-full pb-3 sm:pb-0">
+                  <div className="flex md:flex-row flex-col md::items-center xl:gap-2 lg:gap-2 gap-2 relative w-full pb-3 md:pb-0">
                     <div className="flex items-center md:justify-between py-5 gap-3 ">
                       <Image
                         src={item.media?.length > 0 ? item.media[0].url : img}
