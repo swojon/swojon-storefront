@@ -17,7 +17,7 @@ const SignInSuccess: NextPage = (): JSX.Element => {
       secure: true,
       maxAge: 60 * 60 * 24 * 7,
     });
-    router.push("/login/success?redirect=1", { shallow: true });
+    router.push("/login/success?redirect=1");
     // window.location.reload()
     router.refresh();
   }
