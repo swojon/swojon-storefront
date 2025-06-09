@@ -17,7 +17,7 @@ const DELIVERYMETHOD = [
     icon: <IoStorefrontOutline />,
     title: "Pickup",
     desc: "Ready within 2 hours",
-    destination: "Cedar Rapids South",
+    destination: "Nasirabad, Muradpur, Chittagong",
     pl: "Pick up at",
   },
   {
@@ -84,24 +84,63 @@ const SIZES = [
   { id: 14, size: 10 },
 ];
 
-const ProductInfo2 = ({ product }: { product: any }) => {
+function findMatchingVariant(variants:any, selectedOptions:any) {
+  return variants.find((variant:any) => {
+    return variant.optionValues.every((ov:any) => {
+      const optionName = ov.optionName;
+      return selectedOptions[optionName] === ov.value;
+    });
+  });
+}
+
+const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { product: any, selectedVariant:any, setSelectedVariant:any }) => {
   const dispatch = useDispatch();
   const [activeMethod, setActiveMethod] = useState(DELIVERYMETHOD[0]);
-  const [activeColor, setActiveColor] = useState(COLOR[0]);
+  const [selectedOptions, setSelectedOptions] = useState<any>({});
+  // const [activeOption, setActiveOption] = useState<string>("Select Option");
+  const [activeColor, setActiveColor] = useState<string>("Select Color");
   const [filteredImages, setSelectedFilteredImages] = useState(COLOR[0].images);
   const [activeSize, setActiveSize] = useState(SIZES[0]);
   const [localQuantity, setLocalQuantity] = useState<number>(1);
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleColorChange = (color: any) => {
-    setActiveColor(color);
-    setSelectedFilteredImages(color.images);
+  useEffect(() => {
+    if (selectedVariant){
+      console.log("selected variant fro", selectedVariant);
+      selectedVariant?.optionValues?.forEach((option: { optionName: string, value: string }) => {
+        setSelectedOptions((prev: any) => ({
+          ...prev,
+          [option.optionName]: option.value,
+        }));
+        }
+      );
+      
+    }
+  }, [selectedVariant]);
 
-    dispatch(setFilteredImages(color.images));
+  
+  useEffect(() => {
+    // if (product.variants.length == 1) {
+    //   setSelectedVariant(product.variants[0])
+    // } else {
+      const variant = findMatchingVariant(product.variants, selectedOptions);
+
+      setSelectedVariant(variant);
+    // }
+  }, [selectedOptions]);
+
+  const handleOptionChange = (option:string, color: string) => {
+    setSelectedOptions((prev: any) => ({
+      ...prev,
+      [option]: color,
+    }));
+    
+    // setSelectedFilteredImages(color.images);
+    // dispatch(setFilteredImages(color.images));
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...product, quantity: localQuantity }));
+    dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
   };
   const productInfoRef = useRef<HTMLDivElement | null>(null);
 
@@ -130,6 +169,7 @@ const ProductInfo2 = ({ product }: { product: any }) => {
     <div>
       <StickyCard
         product={product ?? null}
+        variant={selectedVariant}
         isVisible={isVisible}
         localQuantity={localQuantity}
         setLocalQuantity={setLocalQuantity}
@@ -138,42 +178,60 @@ const ProductInfo2 = ({ product }: { product: any }) => {
         <div className="space-y-2">
           <h2 className="text-2xl font-bold ">{product?.title}</h2>
           <SellerReviewDropdown sellerId={product?.id} />
-          <span className="lg:text-2xl text-lg font-lexed font-bold  block">
-            ৳{product?.price}
-          </span>
+
+          
+          <div className="flex flex-wrap gap-1.5">
+                <span className="lg:text-2xl text-lg  font-bold  inline-block text-activeColor">
+                  ৳{selectedVariant?.salePrice ?? product?.price }
+                </span>
+                {selectedVariant?.salePrice != selectedVariant?.price && (
+
+                  <span className="lg:text-2xl text-lg  text-gray-700   inline-block line-through">
+                  ৳{selectedVariant.price}
+                </span>
+                )}
+              </div>
         </div>
-        <div className="space-y-2">
+        
+        
+        {product.options && product.options.map( (option: {name: string, values: any, id: any})=> (
+
+        
+        <div className="space-y-2" key={option.id}>
           <span className="text-primaryColor font-semibold text-lg">
-            Color:{" "}
+            {option.name}:{" "}
             <span className="text-secondColor font-medium capitalize text-base">
-              {activeColor.colorName}
+              {selectedOptions[option.name] || "Select Option"}
             </span>
           </span>
           <div className="flex items-start gap-3">
-            {COLOR.map((item) => (
-              <div key={item.id} className="space-y-1">
+            {option.values.map((val : any) => (
+              <div key={val} className="space-y-1">
                 <div
-                  onClick={() => handleColorChange(item)}
+                  onClick={() => handleOptionChange(option.name, val)}
                   className={`${
-                    item.id === activeColor.id
+                    selectedOptions[option.name] === val
                       ? "border-activeColor"
                       : "border-gray-300"
                   } border-2  rounded-md cursor-pointer`}
                 >
                   <span
-                    className={`${item.color} w-[40px] h-[40px] rounded-md border-2 border-white block`}
+                    className={` w-[40px] h-[40px] rounded-md border-2 border-white block`}
+                    style={{ backgroundColor: val }}
                   ></span>
                 </div>
-                {item.price && (
+                {/* {item.price && (
                   <span className="text-sm text-center block font-semibold text-activeColor">
                     ৳{item.price}
                   </span>
-                )}
+                )} */}
               </div>
             ))}
           </div>
         </div>
-        <div className="space-y-2">
+        ))}
+        
+        {/* <div className="space-y-2">
           <span className="text-primaryColor font-semibold text-lg">
             Size:{" "}
             <span className="text-secondColor font-medium capitalize text-base">
@@ -196,8 +254,8 @@ const ProductInfo2 = ({ product }: { product: any }) => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="flex flex-wrap gap-3 ">
+        </div> */}
+        {/* <div className="flex flex-wrap gap-3 ">
           {DELIVERYMETHOD.map((method) => (
             <div
               onClick={() => setActiveMethod(method)}
@@ -227,9 +285,9 @@ const ProductInfo2 = ({ product }: { product: any }) => {
               </span>
             </div>
           ))}
-        </div>
+        </div> */}
         <div className="space-y-2 ">
-          <div className="flex gap-1">
+          {/* <div className="flex gap-1">
             <span className="text-primaryColor font-semibold text-lg">
               {activeMethod.pl}
             </span>
@@ -237,19 +295,27 @@ const ProductInfo2 = ({ product }: { product: any }) => {
               {activeMethod.destination}
             </span>
           </div>
-
-          <span className="text-orange-400 ">Only 4 left</span>
+           */}
+          {selectedVariant?.stock < 10 && selectedVariant.stock > 0 && (
+            <span className="text-red-500 pt-2">
+              Only {selectedVariant.stock} left
+            </span>
+          )}
+          {/* <span className="text-orange-400 ">Only 4 left</span> */}
         </div>
+        {selectedVariant && selectedVariant?.stock > 0 ? (
         <div className="space-y-3">
           <div className="flex items-center gap-4">
             <UpdateQuantity
               item={product}
+              variantId={selectedVariant?.id}
               localQuantity={localQuantity}
               setLocalQuantity={setLocalQuantity}
               padding="xl:px-2  xl:py-1 py-x"
               fontSize="xl:text-xl lg:text-lg text-base"
             />
 
+            
             <div className="w-full flex-1 ">
               <button
                 onClick={handleAddToCart}
@@ -258,11 +324,24 @@ const ProductInfo2 = ({ product }: { product: any }) => {
                 Add to cart
               </button>
             </div>
+            
+          </div>
+          {/* <button className="p-3 w-full  border border-secondColor rounded-2xl text-primaryColor ">
+            Sign in to buy now
+          </button> */}
+        </div>
+        ) : (
+          <>
+          
+          <div className="text-center">
+            <span className="text-red-500">Sorry! we are temporarily out of stock</span>
           </div>
           <button className="p-3 w-full  border border-secondColor rounded-2xl text-primaryColor ">
-            Sign in to buy now
+            Notify me when available
           </button>
-        </div>{" "}
+          </>
+
+        )}
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import ProductLoader from "@/components/Loader/ProductLoader";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import { setModalOpen } from "@/app/redux/modalSlice";
+import ProductCard2 from "@/components/Products/ProductCard2";
 
 const ExploreDetail = ({ params }: { params: any }) => {
 
@@ -110,15 +111,19 @@ const ExploreDetail = ({ params }: { params: any }) => {
         </div>
       </div>
    
-      <div className="flex  gap-3 pt-5">
+      <div className="pt-3">
+
         
-        <div className=" w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-3 w-full">
+          <div className="grid h-auto overflow-hidden xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-3">
             {listings?.map((card) => (
-              <ProductCard product={card} key={card.id} />
+              <div className="relative" key={card.id}>
+                <ProductCard2 product={card} />
+              </div>
             ))}
-            {loading && <ProductLoader />}
+
+           
           </div>
+           {loading && <ProductLoader />}
           {data?.listListings.hasMore && 
           <div className="flex justify-center mt-7">
             <button onClick={handleLoadMore} className=" w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -132,7 +137,7 @@ const ExploreDetail = ({ params }: { params: any }) => {
               <NotMatched title={"Sorry! We didn't Find Any Product"} />
             </div>
           )}
-        </div>
+       
       </div>
     </section>
   );

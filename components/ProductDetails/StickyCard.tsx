@@ -7,11 +7,13 @@ import { addToCart } from "@/app/redux/cartSlice";
 import { useDispatch } from "react-redux";
 
 const StickyCard = ({
+  variant,
   product,
   isVisible,
   localQuantity,
   setLocalQuantity,
 }: {
+  variant?: any;
   product: any;
   isVisible: any;
   localQuantity?: number;
@@ -39,35 +41,56 @@ const StickyCard = ({
 
           <div className="flex flex-col gap-2">
             <h6 className="line-clamp-1 text-base font-semibold">
-              John Timberland Outdoor Post Light Veranda Bronze 102 4-Light
-              Street Lantern Champagne Hammered Glass for hafgds Lorem ipsum
-              dolor sit amet consectetur
+              {product?.title}
             </h6>{" "}
-            <SellerReviewDropdown sellerId={product?.id} />
+            <span className="text-sm text-secondColor">
+              {variant?.optionValues?.map((option: any) => (
+                <span key={option.id} className="capitalize">
+                  {option.optionName} : {option.value}
+                </span>
+              ))}
+            </span>
+            {/* <SellerReviewDropdown sellerId={product?.id} /> */}
           </div>
         </div>
 
         <div className="flex items-center md:justify-normal justify-between gap-5 md:w-auto w-full">
-          <span className="md:block font-semibold hidden">
-            ৳{product?.price}
-          </span>
+           <span className="lg:text-2xl text-lg  font-bold  inline-block text-activeColor">
+                  ৳{variant?.salePrice ?? product?.price }
+                </span>
+                {variant?.salePrice != variant?.price && (
 
+                  <span className="lg:text-2xl text-lg  text-gray-700   inline-block line-through">
+                  ৳{variant.price}
+                </span>
+                )}
+            
+          
           <div className="hidden md:block">
             <UpdateQuantity
               item={product}
+              variantId={variant?.id}
               localQuantity={localQuantity}
               setLocalQuantity={setLocalQuantity}
               padding="xl:px-2  xl:py-1 py-x"
               fontSize="xl:text-xl lg:text-lg text-base"
             />
           </div>
-
-          <button
-            onClick={handleAddToCart}
-            className="p-3 md:w-[120px] w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold "
-          >
-            Add to cart
-          </button>
+          {variant?.stock > 0 ? (  
+            <button
+              onClick={handleAddToCart}
+              className="p-3 md:w-[120px] w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold "
+            >
+              Add to cart
+            </button> 
+          ) : (
+            <button
+              disabled
+              className="p-3 md:w-[120px] w-full bg-gray-300 border border-gray-300 rounded-2xl text-white font-semibold cursor-not-allowed"
+            >
+              Out of Stock
+            </button>
+          )}
         </div>
       </div>
     </div>

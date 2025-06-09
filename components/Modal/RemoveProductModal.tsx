@@ -90,37 +90,39 @@ function RemoveProductModal({ props: { product} }: { props: {product: any} }) {
       // console.log("You must be logged in to perform the action");
     } else {
       setDisabled(true);
-      updateListing({
-        variables: {
-            listingId : product.id,
-            listingData : {
-              isSold : true,
-              // isAvailable: false,
-              isSoldHere: selectedOption === "sold_marketplace"
-            }
-        },
-        onCompleted: () => {
-          toast.success("post marked as sold");
-          setDisabled(true);
-          dispatch(setModalClose(true)); 
-        },
-        onError: () => {
-          toast.error("Something went wrong");
-          setDisabled(false);
-        },
-        update(cache, {data}){
-          console.log(cache)
-          const cId = cache.identify(product);
-          cache.modify({
-            id: cId,
-            fields: {
-              isSold(prev) {
-                return true; 
-              },
-            }
-          })
-        }
-      });
+    //   updateListing({
+    //     variables: {
+    //         listingId : product.id,
+    //         listingData : {
+           
+    //           // isAvailable: false,
+    //          isAvailable: false,
+             
+    //         }
+    //     },
+    //     onCompleted: () => {
+    //       toast.success("post marked as sold");
+    //       setDisabled(true);
+    //       dispatch(setModalClose(true)); 
+    //     },
+    //     onError: () => {
+    //       toast.error("Something went wrong");
+    //       setDisabled(false);
+    //     },
+    //     update(cache, {data}){
+    //       console.log(cache)
+    //       const cId = cache.identify(product);
+    //       cache.modify({
+    //         id: cId,
+    //         fields: {
+    //           isSold(prev) {
+    //             return true; 
+    //           },
+    //         }
+    //       })
+    //     }
+    //   }
+    // );
     }
     
   };
@@ -129,36 +131,37 @@ function RemoveProductModal({ props: { product} }: { props: {product: any} }) {
       // console.log("You must be logged in to perform the action");
     } else {
       setDisabled(true);
-      removeListing({
-        variables: {
-            listingId : product.id,
-            listingData : {
-              isAvailable: false,
-              // isSold: false,
-            }
-        },
-        onCompleted: () => {
-          toast.success("post marked as unavailable");
-          setDisabled(true);
-          dispatch(setModalClose(true)); 
-        },
-        onError: () => {
-          toast.error("Something went wrong");
-          setDisabled(false);
-        },
-        update(cache, {data}){
-          console.log(cache)
-          const cId = cache.identify(product);
-          cache.modify({
-            id: cId,
-            fields: {
-              isAvailable(prev) {
-                return true; 
-              },
-            }
-          })
-        }
-      });
+    //   removeListing({
+    //     variables: {
+    //         listingId : product.id,
+    //         listingData : {
+    //           isAvailable: false,
+    //           // isSold: false,
+    //         }
+    //     },
+    //     onCompleted: () => {
+    //       toast.success("post marked as unavailable");
+    //       setDisabled(true);
+    //       dispatch(setModalClose(true)); 
+    //     },
+    //     onError: () => {
+    //       toast.error("Something went wrong");
+    //       setDisabled(false);
+    //     },
+    //     update(cache, {data}){
+    //       console.log(cache)
+    //       const cId = cache.identify(product);
+    //       cache.modify({
+    //         id: cId,
+    //         fields: {
+    //           isAvailable(prev) {
+    //             return true; 
+    //           },
+    //         }
+    //       })
+    //     }
+    //   }
+    // );
     }
     
   };
@@ -168,30 +171,31 @@ function RemoveProductModal({ props: { product} }: { props: {product: any} }) {
       console.log("Please login before sending the message");
     } else {
       setDisabled(true);
-      removeListing({
-        variables: {
-            listingId : product.id,
-            listingData : {
-              isDeleted : true
-            }
-        },
-        onCompleted: () => {
-          toast.success("post deleted");
-          setDisabled(true);
-          dispatch(setModalClose(true)); 
-        },
-        onError: () => {
-          toast.error("failed to remove product");
-          setDisabled(false);
-        },
-        update(cache, {data}){
-          console.log(cache)
-          const cId = cache.identify(product);
-          cache.evict({ id: cId });
-          // Clean up any remaining references (garbage collection)
-          cache.gc();
-        }
-      });
+    //   removeListing({
+    //     variables: {
+    //         listingId : product.id,
+    //         listingData : {
+    //           isDeleted : true
+    //         }
+    //     },
+    //     onCompleted: () => {
+    //       toast.success("post deleted");
+    //       setDisabled(true);
+    //       dispatch(setModalClose(true)); 
+    //     },
+    //     onError: () => {
+    //       toast.error("failed to remove product");
+    //       setDisabled(false);
+    //     },
+    //     update(cache, {data}){
+    //       console.log(cache)
+    //       const cId = cache.identify(product);
+    //       cache.evict({ id: cId });
+    //       // Clean up any remaining references (garbage collection)
+    //       cache.gc();
+    //     }
+    //   }
+    // );
     }
     
   };

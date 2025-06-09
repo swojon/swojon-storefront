@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { setCartDrawerClose } from "@/app/redux/cartDrawerSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { Product, removeFromCart } from "@/app/redux/cartSlice";
+import { CartItem, Product, removeFromCart } from "@/app/redux/cartSlice";
 import img from "@/public/pd.png";
 import Image from "next/image";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { LuTrash2 } from "react-icons/lu";
+import NotMatched from "../NotMatched/NotMatched";
 
 const CartDrawer = () => {
   const dispatch = useDispatch();
@@ -18,8 +19,8 @@ const CartDrawer = () => {
 
   const cartItems = useSelector((state: any) => state.productCart.items);
 
-  const handleRemove = (id: number) => {
-    dispatch(removeFromCart(id));
+  const handleRemove = ({itemId, variantId}: CartItem) => {
+    dispatch(removeFromCart({itemId, variantId}));
   };
 
   const handleCheckout = () => {
@@ -61,11 +62,19 @@ const CartDrawer = () => {
           <h6 className="text-base font-semibold">Cart Items</h6>
           <div className="space-y-4">
             {cartItems.length === 0 ? (
-              <p className="text-center text-lg text-secondColor">
-                No product added
-              </p>
+              // <p className="text-center text-lg text-secondColor">
+              //   No product added
+              // </p>
+              <div className="flex items-center justify-center h-full">
+
+                <NotMatched title={"So clean. So empty. So lonely."} />
+              </div>
             ) : (
-              cartItems.map((item: any) => (
+              cartItems.map((item: any) => {
+                const selectedVariant = item.variants?.find(
+                  (variant: any) => variant.id === item.variantId
+                );
+                return (
                 <div
                   className="flex items-center gap-3 border-b last:border-b-0 border-gray-300"
                   key={item.id}
@@ -83,7 +92,7 @@ const CartDrawer = () => {
                   <div className="flex md:flex-row flex-col md::items-center xl:gap-2 lg:gap-2 gap-2 relative w-full pb-3 md:pb-0">
                     <div className="flex items-center md:justify-between py-5 gap-3 ">
                       <Image
-                        src={item.media?.length > 0 ? item.media[0].url : img}
+                        src={selectedVariant?.media?.length > 0 ? selectedVariant.media[0].url : img}
                         alt="product"
                         width={400}
                         height={600}
@@ -95,7 +104,11 @@ const CartDrawer = () => {
                           {item.title}
                         </h6>
                         <span className="block  text-sm">Baby&apos;s Food</span>
-                        <span className="block text-sm">Size: 2</span>
+                        <span className="block text-sm">{selectedVariant.optionValues.map((option: any) => (
+                          <span key={option.optionName} className="inline-block mr-1">
+                            {option.optionName} : {option.value}
+                          </span>
+                        ))}</span>
                         {/* <p className="line-clamp-1 pe-5 ">{item.description}</p> */}
                       </div>
                     </div>
@@ -104,6 +117,7 @@ const CartDrawer = () => {
                       <div className="">
                         <UpdateQuantity
                           item={item}
+                          variantId={item.variantId}
                           padding="py-x"
                           fontSize="text-sm"
                         />
@@ -116,18 +130,18 @@ const CartDrawer = () => {
                               ৳{item.discountPrice}
                             </span>
                             <span className="inline-block line-through">
-                              ৳{item.price}
+                              ৳{selectedVariant.price}
                             </span>
                           </div>
                         ) : (
                           <span className="text-activeColor">
-                            ৳{item.price}
+                            ৳{selectedVariant.price}
                           </span>
                         )}
                       </div>
 
                       <button
-                        onClick={() => handleRemove(item.id)}
+                        onClick={() => handleRemove({itemId: item.id, variantId: item.variantId})}
                         className="text-sm font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
                       >
                         <LuTrash2 />
@@ -135,7 +149,9 @@ const CartDrawer = () => {
                     </div>
                   </div>
                 </div>
-              ))
+              )
+            }
+          )
             )}
           </div>
         </div>
@@ -160,8 +176,8 @@ const CartDrawer = () => {
                 Total: ৳
                 {cartItems.reduce(
                   (total: any, item: Product) =>
-                    total +
-                    (item.discountPrice || item.price) * (item.quantity || 1),
+                    total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.price || item.price) * (item.quantity || 1),
+                    // (item.discountPrice || item.price) * (item.quantity || 1),
                   0
                 )}
               </span>
@@ -172,7 +188,7 @@ const CartDrawer = () => {
             onClick={handleCheckout}
             className="bg-activeColor xl:text-base text-sm xl:p-3 p-2 rounded-md text-white w-full hover:opacity-80 transition ease-in-out delay-150 duration-300"
           >
-            Checkout to proceed
+          Checkout
           </button>
         </footer>
       </div>

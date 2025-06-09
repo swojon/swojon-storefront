@@ -1,63 +1,6 @@
+
 mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
   updateListing(listingData: $listingData, listingId: $listingId) {
-    brand {
-        id
-        name
-        logo
-      }
-      condition
-      category {
-        id
-        name
-        slug
-        parentCategory{
-          id
-          name
-          slug
-        }
-      }
-    datePublished
-      dateCreated
-      description
-      id
-      isApproved
-      isFeatured
-      isLive
-      isSold
-      meetupLocations{
-        city
-        country
-        displayName
-        lat
-        locality
-        lon
-        placeId
-        postCode
-        state
-        stateDistrict
-      }
-      quantity
-      slug
-      dealingMethod 
-      courierDetails
-      price
-      title
-      user {
-        email
-        id
-        username
-        isVerified
-        profile{
-          name
-          avatar
-        }
-      }
-      media{
-        url
-        isPrimary
-      }
-      favoriteCount
-      favoriteStatus
-      
-    }
+   ...ListingFields
+  }
 }

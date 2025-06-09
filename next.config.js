@@ -23,6 +23,14 @@ const nextConfig = {
             {
                 hostname: 'lh3.googleusercontent.com',
                 pathname: "**"
+            },
+            {
+                hostname: "youtu.be",
+                pathname: "**"
+            },
+            {
+                hostname: "youtube.com",
+                pathname: "**"
             }
         ]
     }

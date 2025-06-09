@@ -21,12 +21,13 @@ const Cart = () => {
   const cartItems = useSelector((state: any) => state.productCart.items);
 
   const totalQuantity = cartItems.reduce(
-    (total: any, item: Product) => total + (item.quantity || 1),
+    (total: number, item: Product) => 
+      total + (item.quantity || 1),
     0
   );
 
-  const handleRemove = (id: number) => {
-    dispatch(removeFromCart(id));
+  const handleRemove = ({id, variantId}: {id: number, variantId: number}) => {
+    dispatch(removeFromCart({itemId: id, variantId: variantId}));
   };
 
   return (
@@ -46,17 +47,22 @@ const Cart = () => {
                 No product added
               </p>
             ) : (
-              cartItems.map((item: any) => (
-                <div
-                  key={item?.id}
-                  className="flex sm:flex-row flex-col sm:items-center justify-between py-5 gap-6 border-b last:border-b-0 border-gray-300"
-                >
-                  <div className="flex items-center xl:gap-6  2xl:gap-5 md:gap-3 gap-3">
-                    <Image
-                      src={item.media?.length > 0 ? item.media[0].url : img}
-                      alt="product"
-                      width={400}
-                      height={600}
+              cartItems.map((item: any) => {
+                const selectedVariant = item.variants?.find(
+                  (variant: any) => variant.id === item.variantId
+                );
+                
+                return (
+                  <div
+                    key={item?.id}
+                    className="flex sm:flex-row flex-col sm:items-center justify-between py-5 gap-6 border-b last:border-b-0 border-gray-300"
+                  >
+                    <div className="flex items-center xl:gap-6  2xl:gap-5 md:gap-3 gap-3">
+                      <Image
+                        src={selectedVariant?.media?.length > 0 ? selectedVariant.media[0].url : img}
+                        alt="product"
+                        width={400}
+                        height={600}
                       className="xl:w-[120px] lg:w-[80px] w-[60px] xl:h-[160px] lg:h-[100px] h-[90px] object-cover rounded-md "
                     />
 
@@ -64,12 +70,12 @@ const Cart = () => {
                       <h6 className="xl:text-xl lg:text-lg text-base line-clamp-1 font-bold text-primaryColor pb-1">
                         {item.title}
                       </h6>
-                      <span className="block xl:text-base text-sm">
-                        Baby&apos;s Food
-                      </span>
-                      <span className="block xl:text-base text-sm">
-                        Size: 2
-                      </span>
+                     
+                       <span className="block text-sm">{selectedVariant.optionValues.map((option: any) => (
+                          <span key={option.optionName} className="inline-block mr-1">
+                            {option.optionName} : {option.value}
+                          </span>
+                        ))}</span>
                       {/* <p className="line-clamp-1 pe-5 ">{item.description}</p> */}
                     </div>
                   </div>
@@ -78,6 +84,7 @@ const Cart = () => {
                     <div className="flex gap-4">
                       <UpdateQuantity
                         item={item}
+                        variantId={item.variantId}
                         padding="xl:px-2  xl:py-1 py-x"
                         fontSize="xl:text-xl lg:text-lg text-base"
                       />
@@ -91,23 +98,23 @@ const Cart = () => {
                             ৳{item.discountPrice}
                           </span>
                           <span className="inline-block line-through">
-                            ৳{item.price}
+                            ৳{selectedVariant.price}
                           </span>
                         </div>
                       ) : (
-                        <span className="text-activeColor">৳{item.price}</span>
+                        <span className="text-activeColor">৳{selectedVariant.price}</span>
                       )}
                     </div>
 
                     <button
-                      onClick={() => handleRemove(item.id)}
+                      onClick={() => handleRemove({id: item.id, variantId: item.variantId})}
                       className="text-xl font-semibold text-primaryColor hover:bg-gray-100 px-2 transition duration-300 ease-in"
                     >
                       <LuTrash2 />
                     </button>
                   </div>
                 </div>
-              ))
+              )})
             )}
           </div>
           <div
@@ -144,11 +151,11 @@ const Cart = () => {
           <button className="bg-activeColor border border-activeColor opacity-70 text-white px-3 py-2 w-full rounded-md font-bold text-base ">
             <span>
               Pay ৳
-              {cartItems.reduce(
-                (total: any, item: Product) =>
-                  total +
-                  (item.discountPrice || item.price) * (item.quantity || 1),
-                0
+             {cartItems.reduce(
+              (total: any, item: Product) =>
+                total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.price || item.price) * (item.quantity || 1),
+                // (item.discountPrice || item.price) * (item.quantity || 1),
+              0
               )}
             </span>
           </button>
@@ -302,12 +309,12 @@ const CheckoutInfo = ({
         <button className="bg-activeColor hover:opacity-80 text-white w-full lg:p-3 p-2 rounded-lg font-bold lg:text-lg text-base">
           <span>
             Pay ৳
-            {cartItems.reduce(
-              (total: any, item: Product) =>
-                total +
-                (item.discountPrice || item.price) * (item.quantity || 1),
-              0
-            )}
+             {cartItems.reduce(
+                              (total: any, item: Product) =>
+                                total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.price || item.price) * (item.itemCount || 1),
+                                // (item.discountPrice || item.price) * (item.quantity || 1),
+                              0
+                            )}
           </span>
         </button>
       </div>

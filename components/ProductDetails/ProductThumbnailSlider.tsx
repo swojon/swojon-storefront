@@ -21,7 +21,7 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-const ProductThumbnailSlider = ({ images }: { images: any }) => {
+const ProductThumbnailSlider = ({ images, videoUrl }: { images: any, videoUrl?: string }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const dispatch = useDispatch();
@@ -81,15 +81,17 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
               </div>
             </SwiperSlide>
           ))}
+          {videoUrl && (
 
-          <SwiperSlide className="w-full h-full">
+            <SwiperSlide className="w-full h-full">
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+              src={videoUrl}
               className="rounded-lg"
-            ></iframe>
+              ></iframe>
           </SwiperSlide>
+            )}
         </Swiper>
       </div>
       <div className="w-full">
@@ -120,6 +122,9 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
             </SwiperSlide>
           ))}
 
+          {videoUrl && (
+
+          
           <SwiperSlide className="cursor-pointer z-0  h-full relative">
             {/* <div className="pointer-events-none rounded-lg">
               <iframe
@@ -131,12 +136,12 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
             </div> */}
 
             <Image
-              src={images[0].url}
+              src={images[0]?.url}
               width={500}
               height={700}
               priority
               className="w-full h-full object-cover rounded-lg z-0"
-              alt="listing Image "
+              alt="listing video "
             />
 
             <div className="absolute inset-0 bg-gray-200/50 flex items-center justify-center">
@@ -149,6 +154,7 @@ const ProductThumbnailSlider = ({ images }: { images: any }) => {
               />
             </div>
           </SwiperSlide>
+          )}
         </Swiper>
       </div>
     </section>

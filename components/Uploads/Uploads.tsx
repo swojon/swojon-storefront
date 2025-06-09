@@ -242,9 +242,7 @@ const Uploads = ({ product }: { product: null | any }) => {
               categoryId: listingData.categoryId,
               brandId: listingData.brandId,
               mediaUrls: listingData.mediaUrls,
-              meetupLocations: listingData.meetupLocations,
               condition : listingData.condition,
-              courierDetails: listingData.courierDetails
               //@todo here
             }
           },

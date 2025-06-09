@@ -35,13 +35,13 @@ export async function generateMetadata  ({ params }: { params: { slug: string } 
     openGraph: {
       title: listing.title ?? "Not Found",
       description: listing.description ?? "The post not found",
-      images: listing.media[0].url
+      images: listing.media.length > 0 ? listing.media[0].url : null
     },
     twitter: {
       card: "summary_large_image",
       title: listing.title,
       description: listing.description,
-      images: listing.media[0].url ,
+      images: listing.media.length > 0 ? listing.media[0].url : null,
     },  
   }
   return opengraph

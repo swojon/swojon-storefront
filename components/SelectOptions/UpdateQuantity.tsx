@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa6";
 import { Product } from "@/app/redux/cartSlice";
 import { incrementQuantity, decrementQuantity } from "@/app/redux/cartSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const UpdateQuantity = ({
   item,
@@ -13,20 +14,40 @@ const UpdateQuantity = ({
   fontSize,
   localQuantity,
   setLocalQuantity,
+  variantId
 }: {
   item: any;
   padding?: string;
   fontSize?: string;
   localQuantity?: number;
+  variantId?: number;
   setLocalQuantity?: (value: any) => void;
 }) => {
+  console.log("item variant id", item.variantId);
   const dispatch = useDispatch();
-
+  let maximumItemCount = item?.variants?.find(
+    (variant: any) => variant.id === variantId
+  )?.stock ?? 5;
+  console.log("Maximum item count:", maximumItemCount);
+ 
   const handleIncrement = () => {
     if (setLocalQuantity) {
+      // Check if the local quantity is less than the maximum item count
+      if (localQuantity && localQuantity >= maximumItemCount) {
+        toast.error(
+          `Can't add more than ${maximumItemCount} items of this product.`
+        );
+        return; // Prevent incrementing beyond the maximum item count  
+      }
       setLocalQuantity((prev: any) => prev + 1);
     } else {
-      dispatch(incrementQuantity(item.id));
+       if (item.itemCount && item.itemCount >= maximumItemCount) {
+        toast.error(
+          `Can't add more than ${maximumItemCount} items of this product.`
+        );
+        return; // Prevent incrementing beyond the maximum item count  
+      }
+      dispatch(incrementQuantity({ itemId: item.id, variantId: item.variantId }));
     }
   };
 
@@ -34,11 +55,11 @@ const UpdateQuantity = ({
     if (setLocalQuantity) {
       setLocalQuantity((prev: any) => (prev > 1 ? prev - 1 : 1));
     } else {
-      dispatch(decrementQuantity(item.id));
+      dispatch(decrementQuantity({ itemId: item.id, variantId: item.variantId }));
     }
   };
 
-  const quantity = localQuantity ?? item?.quantity ?? 1;
+  const itemCount = localQuantity ?? item?.itemCount ?? 1;
   return (
     <div
       className={`flex items-center gap-4  border-secondColor ${
@@ -53,7 +74,7 @@ const UpdateQuantity = ({
       >
         <FaMinus />
       </button>
-      <span className="font-semibold">{quantity}</span>
+      <span className="font-semibold">{itemCount}</span>
       <button
         onClick={handleIncrement}
         className="border border-secondColor rounded-md p-1"

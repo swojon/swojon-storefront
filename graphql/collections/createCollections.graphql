@@ -8,48 +8,7 @@ mutation CreateCollection($collectionData: CollectionCreateDTO!) {
     name
     slug
     listings {
-    brand {
-        id
-        name
-        logo
-      }
-      condition
-      category {
-        id
-        name
-        slug
-        parentCategory{
-          id
-          name
-          slug
-        }
-      }
-    
-      dateCreated
-      description
-      id
-      isApproved
-      isFeatured
-      status
-      isLive
-      isSold
-      meetupLocations{
-        city
-        country
-        displayName
-        lat
-        locality
-        lon
-        placeId
-        postCode
-        state
-        stateDistrict
-      }
-      quantity
-      slug
-      dealingMethod
-      price
-      title
-    }
+      ...ListingFields
+     }
   }
 }

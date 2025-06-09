@@ -3,18 +3,17 @@ import Accordion from "./Accordion";
 import Specifications from "./Specifications";
 import ShippingReturn from "./ShippingReturn";
 
-const ITEMS = [
-  {
-    title: "Description",
-    content:
-      "Add a touch of fun to your little one's outfit with the Girls' Easter Bunny Paper Straw Crossbody Bag - Cat & Jack™️ Off-White. This adorable bag features a cute bunny face and ears, perfect for carrying small treasures. Made from durable paper straw, it's lightweight and easy to carry, making it ideal for Easter egg hunts or everyday adventures.",
-  },
-  { title: "Specifications", content: <Specifications /> },
-  { title: "Shipping & Returns", content: <ShippingReturn /> },
-  //   { title: "Shipping & Returns", content: "Shipping details..." },
-];
 
-const AboutItem = () => {
+const AboutItem = ({product}: {product: any}) => {
+  const ITEMS = [
+    {
+      title: "Description",
+      content: product?.description || "",
+    },
+    // { title: "Specifications", content: <Specifications /> },
+    { title: "Return Policy", content: <ShippingReturn /> },
+    //   { title: "Shipping & Returns", content: "Shipping details..." },
+  ];
   return (
     <div className="py-5 space-y-5">
       <h5 className="lg:text-2xl md:text-lg text-base text-primaryColor font-lexed font-semibold text-center ">

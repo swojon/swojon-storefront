@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetListingQuery } from "@/apollograph/generated";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -11,6 +12,7 @@ const ReelCard = ({
   user,
   description,
   isPlaying,
+  productId,
   setPlayingVideoId,
 }: {
   videoSrc: string;
@@ -18,10 +20,20 @@ const ReelCard = ({
   user: string;
   description: string;
   isPlaying: boolean;
+  productId: number;
   setPlayingVideoId: (id: number) => void;
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
+
+  const { data, error, loading } = useGetListingQuery({
+      variables: {
+        id: productId,
+      },
+      skip: !productId,
+    });
+    const product = data?.getListing;
+  
 
   useEffect(() => {
     if (videoRef.current) {
@@ -112,9 +124,9 @@ const ReelCard = ({
         </button> */}
       </div>
       <div className="flex gap-3 lg:p-4 p-2">
-        <div className="h-[70px]">
+        <div className="h-[70px] w-[60px]">
           <Image
-            src="/assets/cat11.png"
+            src={product ? product?.media?.length! > 0 ? product.media![0].url : '/assets/pro1.png' : '/assets/pro1.png'}
             alt=""
             className="lg:h-[70px] md:h-[40px] h-[30px] 
             md:w-[50px] w-[20px] object-cover "
@@ -122,10 +134,11 @@ const ReelCard = ({
             height={400}
           />
         </div>
-        <div>
-          <h6 className="lg:text-lg md:text-base text-sm font-bold">৳125</h6>
+        <div className="text-start">
+          <h6 className="lg:text-lg md:text-base text-sm font-bold">৳{product ? product.price : "Loading..."}</h6>
           <p className="md:line-clamp-3 line-clamp-2 lg:text-sm text-xs">
-            {description}
+            {product?.title || "Loading..."}
+            
           </p>
         </div>
       </div>

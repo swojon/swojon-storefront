@@ -13,44 +13,52 @@ const reelsData = [
     video: "https://youtube.com/shorts/ppa0UrT17cU?feature=share",
     user: "@swojon",
     description: "Trending fashion picks for summer!",
+    productId: 41
   },
   {
     id: 2,
     video: "https://youtube.com/shorts/hNc7heFwBzI?feature=share",
     user: "@swojon",
     description: "Home decor ideas to transform your space.",
+    productId: 40
   },
   {
     id: 3,
     video: "https://youtube.com/shorts/b-m15vi4dTc?feature=share",
     user: "@swojon",
     description: "Affordable outfits you won't believe!",
+    productId: 39
   },
   {
     id: 4,
     video: "https://youtube.com/shorts/l9FLhWnFuXw?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
+    productId: 38 
   },
   {
     id: 44,
     video: "https://youtube.com/shorts/oFKUM0lj26g?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
+    productId: 60
   },
   {
     id: 45,
     video: "https://youtube.com/shorts/-bPD-cgIRjQ?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
+    productId: 41
   },
 ];
 
 const ReelSection = () => {
   const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
   return (
-    <div className=" custom-container2 py-5">
-      <h2 className="text-xl font-bold  mb-3">Reels</h2>
+    <div className=" custom-container2 mt-10">
+       <h2 className="lg:text-3xl text-2xl font-semibold text-primaryColor capitalize truncate">
+            Reels
+        </h2>
 
       <Swiper
         breakpoints={{
@@ -74,10 +82,8 @@ const ReelSection = () => {
         mousewheel={true}
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-        className="mySwiper "
-        onInit={() => {
-          console.log("I am initited");
-        }}
+        className="mySwiper mt-10 "
+      
         onSwiper={(swiper) => swiper.update()}
         observer={true}
       >
@@ -91,6 +97,7 @@ const ReelSection = () => {
               user={reel.user}
               videoId={reel.id}
               description={reel.description}
+              productId={reel.productId}
               isPlaying={playingVideoId === reel.id}
               setPlayingVideoId={setPlayingVideoId}
             />

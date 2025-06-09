@@ -3,8 +3,8 @@ import React from "react";
 
 const ProductLoader = () => {
   return (
-    <>
-      <div className="animate-pulse   transition ease-in-out delay-150 duration-300 space-y-3">
+    <div className="flex justify-between gap-2 ">
+      <div className="animate-pulse  w-1/4 transition ease-in-out delay-150 duration-300 space-y-3">
         <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg bg-gray-100 flex justify-center items-center">
           <Image
             src="/assets/image.png"
@@ -21,7 +21,7 @@ const ProductLoader = () => {
         <div className=" w-[30%] h-3 bg-gray-300 rounded-md" />
       </div>
 
-      <div className="animate-pulse   transition ease-in-out delay-150 duration-300 space-y-3">
+      <div className="animate-pulse w-1/4   transition ease-in-out delay-150 duration-300 space-y-3">
         <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg bg-gray-100 flex justify-center items-center">
           <Image
             src="/assets/image.png"
@@ -38,7 +38,7 @@ const ProductLoader = () => {
         <div className=" w-[30%] h-3 bg-gray-300 rounded-md" />
       </div>
 
-      <div className="animate-pulse   transition ease-in-out delay-150 duration-300 space-y-3">
+      <div className="animate-pulse w-1/4  transition ease-in-out delay-150 duration-300 space-y-3">
         <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg bg-gray-100 flex justify-center items-center">
           <Image
             src="/assets/image.png"
@@ -55,7 +55,7 @@ const ProductLoader = () => {
         <div className=" w-[30%] h-3 bg-gray-300 rounded-md" />
       </div>
 
-      <div className="animate-pulse   transition ease-in-out delay-150 duration-300 space-y-3">
+      <div className="animate-pulse w-1/4  transition ease-in-out delay-150 duration-300 space-y-3">
         <div className="md:h-[270px] h-[275px] relative overflow-hidden  rounded-lg bg-gray-100 flex justify-center items-center">
           <Image
             src="/assets/image.png"
@@ -71,7 +71,7 @@ const ProductLoader = () => {
         <div className=" w-[45%] h-2 bg-gray-300 rounded-md" />
         <div className=" w-[30%] h-3 bg-gray-300 rounded-md" />
       </div>
-    </>
+    </div>
   );
 };
 

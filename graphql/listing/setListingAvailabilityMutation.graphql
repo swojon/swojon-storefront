@@ -1,64 +1,7 @@
 
 mutation SetListingAvailability($listingData: MarkAsUnavailableDTO!, $setListingAvailabilityListingId2: Float!) {
   setListingAvailability(listingData: $listingData, listingId: $setListingAvailabilityListingId2) {
-         brand {
-        id
-        name
-        logo
-      }
-      condition
-      category {
-        id
-        name
-        slug
-        parentCategory{
-          id
-          name
-          slug
-        }
-      }
-      datePublished
-      dateCreated
-      description
-      id
-      isApproved
-      isFeatured
-      isLive
-      isSold
-      meetupLocations{
-        city
-        country
-        displayName
-        lat
-        locality
-        lon
-        placeId
-        postCode
-        state
-        stateDistrict
-      }
-      quantity
-      slug
-      dealingMethod 
-      courierDetails
-      price
-      title
-      user {
-        email
-        id
-        username
-        isVerified
-        profile{
-          name
-          avatar
-        }
-      }
-      media{
-        url
-        isPrimary
-      }
-      favoriteCount
-      favoriteStatus
+         ...ListingFields
       
     }
   }

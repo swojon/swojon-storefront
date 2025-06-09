@@ -10,6 +10,7 @@ import NotFound from "@/components/NotMatched/NotFound";
 import HeroSectionMasonry from "@/components/heroSection/HeroSectionMasonry";
 import MasonryBoxes from "@/components/CategoryCard/MasonryBoxes";
 import ReelSection from "@/components/ReelSections/ReelSection";
+import FlashSale from "@/components/Products/FlashSale";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
       {/* <HeroSection /> */}
       <Navbar border="border" />
       <HeroSectionMasonry />
-      {/* <FeaturedCategoriesBox /> */}
+      <FlashSale />
       <Products />
       {/* <MasonryBoxes /> */}
       <ReelSection />

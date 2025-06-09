@@ -3,62 +3,7 @@ query SearchListings($query: SerachInputDTO!, $filters: ListingFilterInput, $lim
     hasMore
     count
     items{
-     brand {
-        id
-        name
-      }
-      category {
-        id
-        name
-        slug
-        parentCategory{
-          id
-          name
-          slug
-        }
-      }
-    datePublished
-      dateCreated
-      description
-      id
-      isApproved
-      isFeatured
-      isLive
-      isSold
-      meetupLocations{
-        city
-        country
-        displayName
-        lat
-        locality
-        lon
-        placeId
-        postCode
-        state
-        stateDistrict
-      }
-      quantity
-      slug
-      dealingMethod
-      courierDetails
-      price
-      title
-      user {
-        email
-        id
-        username
-        isVerified
-        profile{
-          name
-          avatar
-        }
-      }
-      media{
-        url
-        isPrimary
-      }
-      favoriteCount
-      favoriteStatus
+      ...ListingFields
       
     }
   }

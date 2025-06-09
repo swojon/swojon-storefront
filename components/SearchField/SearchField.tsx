@@ -7,12 +7,15 @@ import PreviousHistory from "./PreviousHistory";
 import TrendingSearches from "./TrendingSearches";
 import "./SearchField.css";
 import { useSession } from "next-auth/react";
+import { useSearchListingsLazyQuery, useSearchListingsQuery } from "@/apollograph/generated";
+import SearchSuggestionsProductCard from "./SearchSuggestionsProductCard";
 
 const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchSuggestions, setSearchSuggestions] = useState<any[]>([])
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   // const { user } = useSelector((state: any) => state.auth);
   const {data: session} = useSession();
@@ -20,6 +23,7 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
   const inputRef = useRef<HTMLInputElement>(null); // Use type assertion here
   const suggestionsRef = useRef<HTMLDivElement>(null); // Add a ref for the suggestion panel
   const formRef = useRef<HTMLFormElement>(null);
+  const [searchListings, { data, loading, error }] = useSearchListingsLazyQuery();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -59,6 +63,8 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    console.log("search value", value)
+
     setSearchTerm(value);
 
     if (value && !showSuggestions) {
@@ -68,6 +74,27 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
     }
   };
 
+    useEffect(() => {
+    if (searchTerm.length > 3) {
+      searchListings({
+        variables: {
+          query: {
+            search: searchTerm,
+          },
+          limit: 5,
+        },
+      });
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (data?.searchListings?.items) {
+      setSearchSuggestions(data.searchListings.items);
+    }
+  }, [data]);
+
+  console.log("search suggestions", searchSuggestions);
+  
   const handleSuggestionClick = (term: string) => {
     setSearchTerm(term);
     setShowSuggestions(false);
@@ -155,13 +182,16 @@ const SearchField = ({ setShowSearchBar }: { setShowSearchBar: any }) => {
               // <div className="p-3 text-sm text-primaryColor">No matched</div>
               <></>
             )}
-
+            {searchSuggestions?.map((prod:any) => (
+                <SearchSuggestionsProductCard product={prod} key={prod.id}/>
+            )
+            )}
             {/* Render the "Previous History" section only if there are no filtered suggestions */}
             {filteredSuggestions.length === 0 && (
               <>
-                {!!session?.user?.id && (
+                {/* {!!session?.user?.id && (
                   <PreviousHistory handleClick={handleSuggestionClick} />
-                )}
+                )} */}
                 <TrendingSearches handleClick={handleSuggestionClick} />
               </>
             )}

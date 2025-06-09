@@ -20,7 +20,6 @@ import StickyCard from "./StickyCard";
 import FeaturesSection from "./FeaturesSection";
 import { useSelector } from "react-redux";
 import { AppState } from "@/app/redux/store";
-import ProductDetailsLoaded from "./ProductDetailLoaded";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -32,60 +31,68 @@ const DynamicThumbnailSlider = dynamic(
   { ssr: false }
 );
 
-const ProductDetails = ({ productId }: { productId: number }) => {
+const ProductDetailsLoaded = ({ product }: { product: any }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState<any>({});
-  const filteredImages = useSelector(
-    (state: AppState) => state.filterImages.filteredImages
-  );
+  const [selectedVariant, setSelectedVariant] = useState<any>(product?.variants ? product.variants[0] : {});
+  //add all images from product media and variants media
+  let images = [];
+
+  if (product?.media) {
+    images.push(...product.media);
+  }
+
+  if (product?.variants) {
+    product.variants.forEach((variant: any) => {
+      if (variant.media) {
+        images.push(...variant.media);
+      }
+    });
+  }
+
+  // const images = product?.media + product.variants?.map((variant: any) => variant.media) || [];
+  console.log("images", images);
+  // const filteredImages = useSelector(
+  //   (state: AppState) => state.filterImages.filteredImages
+  // );
 
   const productInfoRef = useRef<HTMLDivElement | null>(null);
   const { data: session, status } = useSession();
-  const { data, error, loading } = useGetListingQuery({
-    variables: {
-      id: productId,
-    },
-    skip: !productId,
-  });
-  const product = data?.getListing;
-
-  const imagesToShow =
-    filteredImages?.length > 0 ? filteredImages : product?.media;
-
-  useEffect(() => {
-    console.log("product from effect variant", product);
-    if (product) {
-      const variant = product.variants ? product.variants[0] : {};
-      setSelectedVariant(variant);
-      console.log("setting selected variant")
-    }
-  }, [product]);
-
   
-  if (!loading && !data) {
-    return (
-      <NotFound
-        title="Oops! We can’t seem to find that product"
-        subtitle="It might have been moved, or maybe the link is broken."
-        cta={{
-          text: "Explore Products",
-          link: "/explore",
-        }}
-      />
-    );
-  }
+
+  const imagesToShow = selectedVariant?.media?.length > 0 ? selectedVariant.media : images
+
 
   return (
     <section className="">
       {/* <StickyCard product={product ?? null} />{" "} */}
-      {product && (
-          <ProductDetailsLoaded product={product} />
-      )}
-      
-      {loading && (
+
       <div className="custom-container2 py-6 space-y-6 ">
         <div className="flex md:flex-row flex-col items-center justify-between gap-2">
-            <BreadCrumbsLoader />
+            <div className="flex flex-wrap items-center gap-2 justify-center text-base text-secondColor">
+              <Link href="/">
+                <h6 className="">Home</h6>
+              </Link>
+              <MdKeyboardArrowRight />
+              {product?.category?.parentCategory && (
+                <>
+                  <Link
+                    href={`/categories/${product?.category?.parentCategory?.slug}`}
+                  >
+                    <h6 className="text-activeColor font-medium">
+                      {product.category.parentCategory.name}
+                    </h6>
+                  </Link>
+                  <MdKeyboardArrowRight />
+                </>
+              )}
+
+              <Link href={`/categories/${product?.category?.slug}`}>
+                <h6 className="">{product?.category?.name}</h6>
+              </Link>
+              <MdKeyboardArrowRight />
+              <h6 className="text-primaryColor capitalize">{product?.title}</h6>
+            </div>
+      
           {/* <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">
             <Image src={shareIcon} alt="share icon" />
@@ -163,8 +170,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
           <div className="flex flex-col md:flex-row md:gap-10 gap-2  ">
             <div className="xl:w-[60%] lg:w-[57%]  md:w-[50%] w-full h-full space-y-6 ">
               
-                <ThumbnailLoader />
-              
+                <DynamicThumbnailSlider images={imagesToShow} videoUrl={product.videoUrl} />
+            
 
               {/* <div className="pt-5 2xl:h-[450px] xl:h-[400px] lg:h-[350px] md:h-[300px] h-[300px] w-full">
                 <iframe
@@ -179,14 +186,23 @@ const ProductDetails = ({ productId }: { productId: number }) => {
               className="xl:w-[40%] lg:w-[43%]  md:w-[50%] w-full  rounded-md"
               ref={productInfoRef}
             >
-              
-                <ProductInfoLoader />
-              
+             
+                <div className=" w-full h-full">
+                  <ProductInfo2 product={product ?? null} 
+                  selectedVariant={selectedVariant} 
+                  setSelectedVariant={setSelectedVariant} 
+                  />
+                </div>
+             
             </div>
           </div>
         </div>
 
-       
+        <div className="w-full  ">
+          {/* <Review /> */}
+          <AboutItem product={product} />
+          <FeaturesSection />
+        </div>
 
         {/* <div className="flex lg:flex-row flex-col items-start gap-4">
         <div className="lg:w-[100%] w-full">
@@ -194,9 +210,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
         </div>
       </div> */}
       </div>
-      )}
     </section>
   );
 };
 
-export default ProductDetails;
+export default ProductDetailsLoaded;
