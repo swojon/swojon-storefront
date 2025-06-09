@@ -13,42 +13,42 @@ const reelsData = [
     video: "https://youtube.com/shorts/ppa0UrT17cU?feature=share",
     user: "@swojon",
     description: "Trending fashion picks for summer!",
-    productId: 41
+    productId: 67
   },
   {
     id: 2,
     video: "https://youtube.com/shorts/hNc7heFwBzI?feature=share",
     user: "@swojon",
     description: "Home decor ideas to transform your space.",
-    productId: 40
+    productId: 81
   },
   {
     id: 3,
     video: "https://youtube.com/shorts/b-m15vi4dTc?feature=share",
     user: "@swojon",
     description: "Affordable outfits you won't believe!",
-    productId: 39
+    productId: 89
   },
   {
     id: 4,
     video: "https://youtube.com/shorts/l9FLhWnFuXw?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
-    productId: 38 
+    productId: 41
   },
   {
     id: 44,
     video: "https://youtube.com/shorts/oFKUM0lj26g?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
-    productId: 60
+    productId: 87
   },
   {
     id: 45,
     video: "https://youtube.com/shorts/-bPD-cgIRjQ?feature=share",
     user: "@swojon",
     description: "Luxury handbags on a budget.",
-    productId: 41
+    productId: 7
   },
 ];
 

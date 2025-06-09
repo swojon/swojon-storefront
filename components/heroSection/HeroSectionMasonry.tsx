@@ -23,6 +23,7 @@ const MASONRY_DATA = [
     col: 2,
     colSpan: 2,
     cover: true,
+    link: "/explore"
   },
   {
     id: 5,
@@ -31,6 +32,7 @@ const MASONRY_DATA = [
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330342/New_Mom_Essentials_ukzeir.png",
     col: 2,
     colSpan: 1,
+    link: "/collections/new-moms-essentials"
   },
   {
     id: 6,
@@ -39,6 +41,7 @@ const MASONRY_DATA = [
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330336/Feeder_Bottles_gecssm.png",
     col: 2,
     colSpan: 1,
+    link: "/collections/baby-feeder"
     // rowSpan: 2,
   },
   // { id: 7, title: "Popular kitchen picks", image: banner, col: 2, colSpan: 2 },
@@ -51,6 +54,7 @@ const MASONRY_DATA = [
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330325/Baby_Accessories_vtgdsy.png",
     col: 1,
     colSpan: 1,
+    link: "/collections/baby-accessories"
   },
   {
     id: 2,
@@ -60,6 +64,7 @@ const MASONRY_DATA = [
     col: 1,
     colSpan: 1,
     rowSpan: 2,
+    link: "/collections/baby-dress"
   },
   // { id: 3, title: "Popular kitchen picks", image: decor, col: 1, colSpan: 1 },
 
@@ -72,6 +77,7 @@ const MASONRY_DATA = [
     col: 3,
     colSpan: 1,
     rowSpan: 2,
+    link: "/collections/baby-function-decoration"
   },
   // {
   //   id: 8,
@@ -87,6 +93,7 @@ const MASONRY_DATA = [
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330346/Toys_And_Fun_dwb1z6.png",
     col: 3,
     colSpan: 1,
+    link: 'collections/toys-and-fun'
   },
 ];
 
@@ -107,6 +114,7 @@ const MasonryColumn = ({
     title: string;
     image: any;
     colSpan: number;
+    link: string;
   }[];
 }) => {
   return (
@@ -118,6 +126,9 @@ const MasonryColumn = ({
             item.colSpan === 2 ? "col-span-2" : "col-span-1"
           } shadow-md  rounded-lg relative cursor-pointer`}
         >
+          <Link href={item.link} >
+          
+          
           <Image
             className="h-full w-full object-cover rounded-lg shadow-md"
             width={1000}
@@ -137,13 +148,14 @@ const MasonryColumn = ({
                 {item.title}
               </h5>
               <Link
-                href="/"
+                href={item.link}
                 className="underline underline-offset-3 text-xs lg:text-base inline-block text-blue-950/75"
               >
                 Shop now
               </Link>
             </div>
           </div>
+          </Link>
         </div>
       ))}
     </div>
