@@ -13,6 +13,7 @@ import ProductLoader from "@/components/Loader/ProductLoader";
 import NotMatched from "@/components/NotMatched/NotMatched";
 import AppliedFilter from "@/components/FilterBar/AppliedFilter";
 import { setModalOpen } from "@/app/redux/modalSlice";
+import ProductCard2 from "@/components/Products/ProductCard2";
 
 const SearchPage = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -73,10 +74,12 @@ const SearchPage = ({ params }: { params: any }) => {
           <FilterBar />
         </div> */}
         <div className="w-full">
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-2 w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-4 gap-2 w-full">
             {/* // results && results.length > 0 ? */}
             {results?.map((card) => (
-              <ProductCard product={card} key={card.id} />
+              <div className="relative" key={card.id}>
+                <ProductCard2 product={card} key={card.id} />
+              </div>
             ))}
             
           </div>

@@ -10,8 +10,8 @@ import { useDispatch } from 'react-redux';
 import AppliedFilter from '../FilterBar/AppliedFilter';
 import ProductLoader from '../Loader/ProductLoader';
 import NotMatched from '../NotMatched/NotMatched';
-import ProductCard from '../Products/ProductCard';
 import SortDropDown from '../SortDropDown/SortDropDown';
+import ProductCard2 from '../Products/ProductCard2';
 
 
 const CollectionDetails = ({ slug }: { slug: any }) => {
@@ -90,9 +90,11 @@ const CollectionDetails = ({ slug }: { slug: any }) => {
             <FilterBar />
           </div> */}
           <div className=" w-full">
-            <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-4 gap-2 w-full">
+            <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-4 gap-2 w-full">
               {listings?.map((card) => (
-                <ProductCard product={card} key={card.id} />
+                <div className="relative" key={card.id}>
+                  <ProductCard2 product={card} />
+                </div>
               ))}
             </div>
             {loading && <ProductLoader />}
