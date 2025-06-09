@@ -181,6 +181,8 @@ const HeroSectionMasonry = () => {
               banner.rowSpan === 2 ? "row-span-2" : "row-span-1"
             }  shadow-md  rounded-lg overflow-hidden cursor-pointer`}
           >
+            <Link href={banner.link}>
+            
             <Image
               className="w-full h-full object-cover  rounded-lg"
               width={1000}
@@ -199,13 +201,14 @@ const HeroSectionMasonry = () => {
                   {banner.title}
                 </h5>
                 <Link
-                  href="/"
+                  href={banner.link}
                   className="underline underline-offset-3 text-xs inline-block"
                 >
                   Shop now
                 </Link>
               </div>
             </div>
+            </Link>
           </div>
         ))}
       </div>
