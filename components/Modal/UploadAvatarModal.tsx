@@ -4,7 +4,7 @@ import {
   getCroppedImg
 } from "@/components/CropImage/cropImage";
 import Cropper from "react-easy-crop";
-import Slider from "@material-ui/core/Slider";
+
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalClose } from "@/app/redux/modalSlice";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { GetUserByIdOrUsernameDocument, useUpdateProfileMutation } from "@/apollograph/generated";
 import { BiLoaderCircle } from "react-icons/bi";
 import { uploadFile } from "@/lib/helpers/uploadFile";
+import { Slider } from "@mui/material";
 
 
 
