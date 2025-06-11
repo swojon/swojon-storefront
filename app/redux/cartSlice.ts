@@ -6,16 +6,19 @@ export interface Product {
   id: number;
   description: string;
   title: string;
-  price: number;
-  discountPrice?: number;
-  image: string;
-  quantity?: number;
+  price?: number;
+  salePrice?: number;
+  media?: {
+    url : string
+  };
+  stock?: number;
   itemCount: number; // Optional, used for products with multiple items
   variantId?: number; // Optional variant ID for products with variants
   variants?: {  
     id: number;
     optionValues: { id: number; value: string; optionName: string }[];
     price: number;
+    salePrice: number;
     stock?: number;
     media?: { url: string }[];
   }[];

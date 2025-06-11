@@ -2060,6 +2060,132 @@ export function useNewNotificationSubscription(baseOptions?: Apollo.Subscription
       }
 export type NewNotificationSubscriptionHookResult = ReturnType<typeof useNewNotificationSubscription>;
 export type NewNotificationSubscriptionResult = Apollo.SubscriptionResult<NewNotificationSubscription>;
+export const CreateOrderDocument = gql`
+    mutation CreateOrder($orderData: OrderCreateDTO!) {
+  createOrder(orderData: $orderData) {
+    items {
+      listing {
+        id
+        title
+      }
+      price
+      quantity
+      variant {
+        id
+        price
+        salePrice
+      }
+    }
+  }
+}
+    `;
+export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      orderData: // value for 'orderData'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
+export const ListOrdersDocument = gql`
+    query ListOrders($endingBefore: String, $startingAfter: String, $limit: Float, $orderBy: String) {
+  listOrders(
+    ending_before: $endingBefore
+    starting_after: $startingAfter
+    limit: $limit
+    orderBy: $orderBy
+  ) {
+    items {
+      createdAt
+      id
+      status
+      couponCode
+      shippingAddress
+      totalAmount
+      finalAmount
+      shipping
+      items {
+        listing {
+          id
+          title
+          slug
+          media {
+            url
+          }
+        }
+        price
+        quantity
+        variant {
+          id
+          price
+          salePrice
+          optionValues {
+            optionName
+            value
+          }
+          media {
+            url
+          }
+          sku
+        }
+      }
+    }
+    hasMore
+    count
+    afterCursor
+    beforeCursor
+  }
+}
+    `;
+
+/**
+ * __useListOrdersQuery__
+ *
+ * To run a query within a React component, call `useListOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListOrdersQuery({
+ *   variables: {
+ *      endingBefore: // value for 'endingBefore'
+ *      startingAfter: // value for 'startingAfter'
+ *      limit: // value for 'limit'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useListOrdersQuery(baseOptions?: Apollo.QueryHookOptions<ListOrdersQuery, ListOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListOrdersQuery, ListOrdersQueryVariables>(ListOrdersDocument, options);
+      }
+export function useListOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListOrdersQuery, ListOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListOrdersQuery, ListOrdersQueryVariables>(ListOrdersDocument, options);
+        }
+export type ListOrdersQueryHookResult = ReturnType<typeof useListOrdersQuery>;
+export type ListOrdersLazyQueryHookResult = ReturnType<typeof useListOrdersLazyQuery>;
+export type ListOrdersQueryResult = Apollo.QueryResult<ListOrdersQuery, ListOrdersQueryVariables>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($profileData: UpdateProfileDto!, $profileId: Float!) {
   updateProfile(profileData: $profileData, profileId: $profileId) {
@@ -2666,6 +2792,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  JSONObject: { input: any; output: any; }
 };
 
 export type AdminListingUpdateDto = {
@@ -2960,6 +3087,48 @@ export type CommunityUpdateDto = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Coupon = {
+  __typename?: 'Coupon';
+  code?: Maybe<Scalars['String']['output']>;
+  discountAmount?: Maybe<Scalars['Float']['output']>;
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['Float']['output'];
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  isPercantage?: Maybe<Scalars['Boolean']['output']>;
+  minimumPurchaseAmount?: Maybe<Scalars['Float']['output']>;
+  orders?: Maybe<Array<Order>>;
+  usages?: Maybe<Array<Usages>>;
+};
+
+export type CouponCreateDto = {
+  code: Scalars['String']['input'];
+  discountAmount: Scalars['Float']['input'];
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  isPercantage?: InputMaybe<Scalars['Boolean']['input']>;
+  maxUses?: InputMaybe<Scalars['Float']['input']>;
+  maxUsesPerUser?: InputMaybe<Scalars['Float']['input']>;
+  minimumPurchaseAmount?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type CouponUpdateDto = {
+  discountAmount: Scalars['Float']['input'];
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  isPercantage?: InputMaybe<Scalars['Boolean']['input']>;
+  maxUses?: InputMaybe<Scalars['Float']['input']>;
+  maxUsesPerUser?: InputMaybe<Scalars['Float']['input']>;
+  minimumPurchaseAmount?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type Coupons = {
+  __typename?: 'Coupons';
+  afterCursor?: Maybe<Scalars['String']['output']>;
+  beforeCursor?: Maybe<Scalars['String']['output']>;
+  count?: Maybe<Scalars['Float']['output']>;
+  hasMore: Scalars['Boolean']['output'];
+  items: Array<Coupon>;
+};
+
 export type CourierData = {
   __typename?: 'CourierData';
   cancelled_parcel?: Maybe<Scalars['Float']['output']>;
@@ -3214,12 +3383,16 @@ export type Mutation = {
   createCollection: Collection;
   /** Create Community */
   createCommunity: Community;
+  /** Create Coupon */
+  createCoupon: Coupon;
   /** Create Listing */
   createListing: Listing;
   /** Add Review to a listing */
   createListingReview: Review;
   /** Create Location */
   createLocation: Location;
+  /** Create Order */
+  createOrder: Order;
   /** Profile create */
   createProfile: Profile;
   /** Role Create */
@@ -3248,6 +3421,8 @@ export type Mutation = {
   removeCollection: Collection;
   /** Remove category of brand */
   removeCollectionListing: Collection;
+  /** Remove Coupn */
+  removeCoupon: Coupon;
   /** Remove Favorite From Listing */
   removeFavorite: Favorite;
   /** Unfollow user */
@@ -3260,6 +3435,8 @@ export type Mutation = {
   removeListingReview: Review;
   /** Remove Location */
   removeLocation: Location;
+  /** Remove Order */
+  removeOrder: Order;
   /** Remove all search history of a user */
   removeSearchHistory: Searches;
   /** Remove user from community */
@@ -3288,6 +3465,8 @@ export type Mutation = {
   updateCommunity: Community;
   /** Update Community Member */
   updateCommunityMember: CommunityMember;
+  /** Update Order */
+  updateCoupon: Coupon;
   /** Update Listing */
   updateListing: Listing;
   /** Only Admin will be able to update those information */
@@ -3296,6 +3475,8 @@ export type Mutation = {
   updateListingReview: Review;
   /** Update Location */
   updateLocation: Location;
+  /** Update Order */
+  updateOrder: Order;
   /** Profiile update */
   updateProfile: Profile;
   /** User update */
@@ -3368,6 +3549,11 @@ export type MutationCreateCommunityArgs = {
 };
 
 
+export type MutationCreateCouponArgs = {
+  couponData: CouponCreateDto;
+};
+
+
 export type MutationCreateListingArgs = {
   listingData: ListingCreateDto;
 };
@@ -3380,6 +3566,11 @@ export type MutationCreateListingReviewArgs = {
 
 export type MutationCreateLocationArgs = {
   locationData: LocationCreateDto;
+};
+
+
+export type MutationCreateOrderArgs = {
+  orderData: OrderCreateDto;
 };
 
 
@@ -3449,6 +3640,11 @@ export type MutationRemoveCollectionListingArgs = {
 };
 
 
+export type MutationRemoveCouponArgs = {
+  couponId: Scalars['Float']['input'];
+};
+
+
 export type MutationRemoveFavoriteArgs = {
   listingId: Scalars['Float']['input'];
   userId: Scalars['Float']['input'];
@@ -3478,6 +3674,11 @@ export type MutationRemoveListingReviewArgs = {
 
 export type MutationRemoveLocationArgs = {
   locationId: Scalars['Float']['input'];
+};
+
+
+export type MutationRemoveOrderArgs = {
+  orderId: Scalars['Float']['input'];
 };
 
 
@@ -3553,6 +3754,12 @@ export type MutationUpdateCommunityMemberArgs = {
 };
 
 
+export type MutationUpdateCouponArgs = {
+  couponData: CouponUpdateDto;
+  couponId: Scalars['Float']['input'];
+};
+
+
 export type MutationUpdateListingArgs = {
   listingData: ListingUpdateDto;
   listingId: Scalars['Float']['input'];
@@ -3574,6 +3781,12 @@ export type MutationUpdateListingReviewArgs = {
 export type MutationUpdateLocationArgs = {
   locationData: LocationUpdateDto;
   locationId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateOrderArgs = {
+  orderData: OrderUpdateDto;
+  orderId: Scalars['Float']['input'];
 };
 
 
@@ -3644,6 +3857,44 @@ export type Notifications = {
   items: Array<Notification>;
 };
 
+export type Order = {
+  __typename?: 'Order';
+  couponCode?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  finalAmount: Scalars['Float']['output'];
+  id: Scalars['Int']['output'];
+  items: Array<OrderItem>;
+  shipping: Scalars['Float']['output'];
+  shippingAddress: Scalars['JSONObject']['output'];
+  status: Scalars['String']['output'];
+  totalAmount: Scalars['Float']['output'];
+};
+
+export type OrderCreateDto = {
+  address: Scalars['String']['input'];
+  couponCode?: InputMaybe<Scalars['String']['input']>;
+  district: Scalars['String']['input'];
+  items: Array<OrderItemDto>;
+  name: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
+  policeStation: Scalars['String']['input'];
+  shipping: Scalars['Float']['input'];
+};
+
+export type OrderItem = {
+  __typename?: 'OrderItem';
+  listing?: Maybe<Listing>;
+  price: Scalars['Float']['output'];
+  quantity: Scalars['Int']['output'];
+  variant?: Maybe<ProductVariant>;
+};
+
+export type OrderItemDto = {
+  price: Scalars['Float']['input'];
+  quantity: Scalars['Int']['input'];
+  variantId: Scalars['Int']['input'];
+};
+
 export type OrderRatio = {
   __typename?: 'OrderRatio';
   cancelled_parcel?: Maybe<Scalars['Float']['output']>;
@@ -3660,6 +3911,40 @@ export type OrderRatio = {
 export type OrderRatioCheckDto = {
   phone?: InputMaybe<Scalars['String']['input']>;
 };
+
+/** ENUM for Order status */
+export enum OrderStatus {
+  Cancelled = 'CANCELLED',
+  Delivered = 'DELIVERED',
+  Packed = 'PACKED',
+  Pending = 'PENDING',
+  Processing = 'PROCESSING',
+  Shipped = 'SHIPPED'
+}
+
+export type OrderUpdateDto = {
+  notes?: InputMaybe<Scalars['String']['input']>;
+  paymentStatus?: InputMaybe<PaymentStatus>;
+  status?: InputMaybe<OrderStatus>;
+  trackingNumber?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Orders = {
+  __typename?: 'Orders';
+  afterCursor?: Maybe<Scalars['String']['output']>;
+  beforeCursor?: Maybe<Scalars['String']['output']>;
+  count?: Maybe<Scalars['Float']['output']>;
+  hasMore: Scalars['Boolean']['output'];
+  items: Array<Order>;
+};
+
+/** ENUM for Category Status */
+export enum PaymentStatus {
+  Failed = 'FAILED',
+  Paid = 'PAID',
+  Pending = 'PENDING',
+  Refunded = 'REFUNDED'
+}
 
 export type Point = {
   __typename?: 'Point';
@@ -3719,7 +4004,7 @@ export type ProductVariant = {
   __typename?: 'ProductVariant';
   id: Scalars['Float']['output'];
   media?: Maybe<Array<ListingMedia>>;
-  optionValues: Array<ProductOptionValue>;
+  optionValues?: Maybe<Array<ProductOptionValue>>;
   price: Scalars['Float']['output'];
   salePrice?: Maybe<Scalars['Float']['output']>;
   sku?: Maybe<Scalars['String']['output']>;
@@ -3781,10 +4066,14 @@ export type Query = {
   getCollection: Collection;
   /** Get Community by Id, slug or name */
   getCommunity: Community;
+  /** Get Coupon by code */
+  getCoupon: Coupon;
   /** Get listing by Id, slug or name */
   getListing: Listing;
   /** Get Location by Id, slug or name */
   getLocation: Location;
+  /** Get Order by Id, staus */
+  getOrder: Order;
   /** Profile find by id */
   getProfileById: Profile;
   /** List All Role */
@@ -3811,6 +4100,8 @@ export type Query = {
   listCollections: Collections;
   /** List All Communities */
   listCommunities: Communities;
+  /** List All Coupons */
+  listCoupons: Coupons;
   /** List All Favorited Listing of User */
   listFavoriteListing: FavoriteListings;
   /** List All Favorited Listing of User */
@@ -3827,6 +4118,10 @@ export type Query = {
   listLocations: Locations;
   /** List All Notifications */
   listNotifications: Notifications;
+  /** List All Listings */
+  listOrders: Orders;
+  /** List All Listings */
+  listOrdersAdmin: Orders;
   /** List All Point History */
   listPointsHistory: Points;
   /** List All Reviews of a seller */
@@ -3900,6 +4195,11 @@ export type QueryGetCommunityArgs = {
 };
 
 
+export type QueryGetCouponArgs = {
+  code: Scalars['String']['input'];
+};
+
+
 export type QueryGetListingArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -3911,6 +4211,12 @@ export type QueryGetLocationArgs = {
   id?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetOrderArgs = {
+  id?: InputMaybe<Scalars['Float']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -3974,6 +4280,14 @@ export type QueryListCommunitiesArgs = {
 };
 
 
+export type QueryListCouponsArgs = {
+  ending_before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryListFavoriteListingArgs = {
   userId: Scalars['Float']['input'];
 };
@@ -4011,6 +4325,22 @@ export type QueryListListingsArgs = {
 export type QueryListNotificationsArgs = {
   ending_before?: InputMaybe<Scalars['String']['input']>;
   filters?: InputMaybe<NotificationFilterInput>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListOrdersArgs = {
+  ending_before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  starting_after?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListOrdersAdminArgs = {
+  ending_before?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Float']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
   starting_after?: InputMaybe<Scalars['String']['input']>;
@@ -4231,6 +4561,13 @@ export type UpdateUserDto = {
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Usages = {
+  __typename?: 'Usages';
+  id: Scalars['Float']['output'];
+  usedAt?: Maybe<Scalars['DateTime']['output']>;
+  user?: Maybe<User>;
+};
+
 export type User = {
   __typename?: 'User';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4349,21 +4686,21 @@ export type AddCollectionListingMutationVariables = Exact<{
 }>;
 
 
-export type AddCollectionListingMutation = { __typename?: 'Mutation', addCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
+export type AddCollectionListingMutation = { __typename?: 'Mutation', addCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
 
 export type AddListingCollectionMutationVariables = Exact<{
   inputData: ListingCollectionInput;
 }>;
 
 
-export type AddListingCollectionMutation = { __typename?: 'Mutation', addListingCollection: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type AddListingCollectionMutation = { __typename?: 'Mutation', addListingCollection: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type CreateCollectionMutationVariables = Exact<{
   collectionData: CollectionCreateDto;
 }>;
 
 
-export type CreateCollectionMutation = { __typename?: 'Mutation', createCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
+export type CreateCollectionMutation = { __typename?: 'Mutation', createCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
 
 export type GetCollectionQueryVariables = Exact<{
   getCollectionId?: InputMaybe<Scalars['Float']['input']>;
@@ -4389,21 +4726,21 @@ export type RemoveCollectionListingMutationVariables = Exact<{
 }>;
 
 
-export type RemoveCollectionListingMutation = { __typename?: 'Mutation', removeCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
+export type RemoveCollectionListingMutation = { __typename?: 'Mutation', removeCollectionListing: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
 
 export type RemoveCollectionMutationVariables = Exact<{
   collectionId: Scalars['Float']['input'];
 }>;
 
 
-export type RemoveCollectionMutation = { __typename?: 'Mutation', removeCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
+export type RemoveCollectionMutation = { __typename?: 'Mutation', removeCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
 
 export type RemoveListingCollectionMutationVariables = Exact<{
   inputData: ListingCollectionInput;
 }>;
 
 
-export type RemoveListingCollectionMutation = { __typename?: 'Mutation', removeListingCollection: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type RemoveListingCollectionMutation = { __typename?: 'Mutation', removeListingCollection: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type UpdateCollectionMutationVariables = Exact<{
   collectionData: CollectionUpdateDto;
@@ -4411,7 +4748,7 @@ export type UpdateCollectionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCollectionMutation = { __typename?: 'Mutation', updateCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
+export type UpdateCollectionMutation = { __typename?: 'Mutation', updateCollection: { __typename?: 'Collection', banner?: string | null, description?: string | null, id: number, isActive?: boolean | null, isFeatured?: boolean | null, name?: string | null, slug?: string | null, listings?: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> | null } };
 
 export type ListBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4500,16 +4837,16 @@ export type CreateListingMutationVariables = Exact<{
 }>;
 
 
-export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type CreateListingMutation = { __typename?: 'Mutation', createListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
-export type ListingFieldsFragment = { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } };
+export type ListingFieldsFragment = { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } };
 
 export type ListFavoriteListingQueryVariables = Exact<{
   userId: Scalars['Float']['input'];
 }>;
 
 
-export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
+export type ListFavoriteListingQuery = { __typename?: 'Query', listFavoriteListing: { __typename?: 'FavoriteListings', items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type ListListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFilterInput>;
@@ -4520,7 +4857,7 @@ export type ListListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
+export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;
@@ -4528,7 +4865,7 @@ export type GetListingQueryVariables = Exact<{
 }>;
 
 
-export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type GetListingQuery = { __typename?: 'Query', getListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type RemoveListingMutationVariables = Exact<{
   listingData: ListingUpdateDto;
@@ -4536,7 +4873,7 @@ export type RemoveListingMutationVariables = Exact<{
 }>;
 
 
-export type RemoveListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type RemoveListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type SearchListingsQueryVariables = Exact<{
   query: SerachInputDto;
@@ -4548,7 +4885,7 @@ export type SearchListingsQueryVariables = Exact<{
 }>;
 
 
-export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
+export type SearchListingsQuery = { __typename?: 'Query', searchListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type SetListingAvailabilityMutationVariables = Exact<{
   listingData: MarkAsUnavailableDto;
@@ -4556,7 +4893,7 @@ export type SetListingAvailabilityMutationVariables = Exact<{
 }>;
 
 
-export type SetListingAvailabilityMutation = { __typename?: 'Mutation', setListingAvailability: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type SetListingAvailabilityMutation = { __typename?: 'Mutation', setListingAvailability: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type UpdateListingAdminMutationVariables = Exact<{
   adminlistingData: AdminListingUpdateDto;
@@ -4564,7 +4901,7 @@ export type UpdateListingAdminMutationVariables = Exact<{
 }>;
 
 
-export type UpdateListingAdminMutation = { __typename?: 'Mutation', updateListingAdmin: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type UpdateListingAdminMutation = { __typename?: 'Mutation', updateListingAdmin: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type UpdateListingMutationVariables = Exact<{
   listingData: ListingUpdateDto;
@@ -4572,7 +4909,7 @@ export type UpdateListingMutationVariables = Exact<{
 }>;
 
 
-export type UpdateListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }>, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
+export type UpdateListingMutation = { __typename?: 'Mutation', updateListing: { __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } } };
 
 export type SearchLocationQueryVariables = Exact<{
   nominatimQuery: NominatimSearchDto;
@@ -4607,6 +4944,23 @@ export type NewNotificationSubscriptionVariables = Exact<{ [key: string]: never;
 
 
 export type NewNotificationSubscription = { __typename?: 'Subscription', newNotification: { __typename?: 'Notification', content: string, listingId?: number | null, chatRoomId?: number | null, dateCreated?: any | null, read?: boolean | null, type?: string | null, id: number, relatedUserUsername?: string | null } };
+
+export type CreateOrderMutationVariables = Exact<{
+  orderData: OrderCreateDto;
+}>;
+
+
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null } | null }> } };
+
+export type ListOrdersQueryVariables = Exact<{
+  endingBefore?: InputMaybe<Scalars['String']['input']>;
+  startingAfter?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ListOrdersQuery = { __typename?: 'Query', listOrders: { __typename?: 'Orders', hasMore: boolean, count?: number | null, afterCursor?: string | null, beforeCursor?: string | null, items: Array<{ __typename?: 'Order', createdAt: any, id: number, status: string, couponCode?: string | null, shippingAddress: any, totalAmount: number, finalAmount: number, shipping: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string, slug?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null, sku?: string | null, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null }> }> } };
 
 export type UpdateProfileMutationVariables = Exact<{
   profileData: UpdateProfileDto;

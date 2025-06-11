@@ -1,0 +1,43 @@
+query ListOrders($endingBefore: String, $startingAfter: String, $limit: Float, $orderBy: String) {
+  listOrders(ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit, orderBy: $orderBy) {
+    items {
+        createdAt
+      id
+      status
+      couponCode
+      shippingAddress
+      totalAmount
+      finalAmount
+      shipping
+      items {
+        listing {
+          id
+          title    
+         slug     
+         media {
+          url
+         }
+        }
+        price
+        quantity
+        variant {
+          id
+          price
+          salePrice
+          optionValues {
+            optionName
+            value
+          }
+          media {
+            url
+          }
+          sku
+        }
+      }
+    }
+    hasMore
+    count
+    afterCursor
+    beforeCursor
+  }
+}

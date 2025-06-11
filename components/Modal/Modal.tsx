@@ -13,6 +13,8 @@ const DynamicStartChatModal = dynamic(()=> import("./StartChatModal"), {ssr: fal
 const DynamicLoginModal = dynamic(()=> import("./LoginModal"), {ssr: false})
 const DynamicSellProductModal = dynamic(()=> import("./SellProductModal"), {ssr: false})
 const DynamicSuccessModal = dynamic(()=> import("./SuccessModal"), {ssr: false})
+const DynamicOrderSuccessModal = dynamic(()=> import("./OrderSuccessModal"), {ssr: false})
+
 const DynamicWriteReviewModal = dynamic(()=> import("./WriteReviewModal"), {ssr: false})
 const DynamicEditEmailModal = dynamic(()=> import("./EditEmailModal"), {ssr: false})
 const DynamicVerificationCodeModal = dynamic(()=> import("./VerificationCodeModal"), {ssr: false})
@@ -35,7 +37,7 @@ const VERIFYCODE = "VerifyCode";
 const ADDITIONALDETAILS = "additionalDetails";
 const FILTERMODAL = "filterModal";
 const UPLOADIMAGEMODAL = "uploadImageModal";
-
+const ORDERSUCCESS = "order-create-success";
 
 export default function Modal() {
   const open = useSelector((state: any) => state.modal.open);
@@ -104,6 +106,11 @@ export default function Modal() {
                       </Dialog.Title> */}
                   {modalStack[modalStack.length - 1]?.body === FILTERMODAL && (
                     <DynamicFilterModal
+                      props={modalStack[modalStack.length - 1]?.props}
+                    />
+                  )}
+                  {modalStack[modalStack.length - 1]?.body === ORDERSUCCESS && (
+                    <DynamicOrderSuccessModal
                       props={modalStack[modalStack.length - 1]?.props}
                     />
                   )}

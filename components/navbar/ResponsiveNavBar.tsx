@@ -31,7 +31,7 @@ const ResponsiveNavBar = ({
   const cartItems = useSelector((state: any) => state.productCart.items);
 
   const totalQuantity = cartItems.reduce(
-    (total: any, item: Product) => total + (item.quantity || 1),
+    (total: any, item: Product) => total + (item.itemCount || 1),
     0
   );
 

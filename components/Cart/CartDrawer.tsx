@@ -26,7 +26,7 @@ const CartDrawer = () => {
   const handleCheckout = () => {
     dispatch(setCartDrawerClose());
     setTimeout(() => {
-      router.push("/cart");
+      router.push("/checkout");
     }, 300);
   };
   const isDrawerOpen = useSelector((state: any) => state.cart.open);
@@ -176,7 +176,7 @@ const CartDrawer = () => {
                 Total: ৳
                 {cartItems.reduce(
                   (total: any, item: Product) =>
-                    total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.price || item.price) * (item.quantity || 1),
+                    total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.salePrice! ?? item.salePrice) * (item.itemCount || 1),
                     // (item.discountPrice || item.price) * (item.quantity || 1),
                   0
                 )}

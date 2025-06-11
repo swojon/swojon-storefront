@@ -2,6 +2,7 @@
 
 import { useGetListingQuery } from "@/apollograph/generated";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
@@ -134,13 +135,15 @@ const ReelCard = ({
             height={400}
           />
         </div>
+        <Link href={`/products/${productId}`}>
         <div className="text-start">
-          <h6 className="lg:text-lg md:text-base text-sm font-bold">৳{product ? product.price : "Loading..."}</h6>
+          {/* @ts-ignore next-line */}
+          <h6 className="lg:text-lg md:text-base text-sm font-bold">৳{ product ?  product.variants.length > 0 ? product.variants[0].salePrice : product.price : "Loading..."}</h6>
           <p className="md:line-clamp-3 line-clamp-2 lg:text-sm text-xs">
             {product?.title || "Loading..."}
-            
           </p>
         </div>
+        </Link>
       </div>
     </div>
   );
