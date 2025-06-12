@@ -212,13 +212,20 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
                   className={`${
                     selectedOptions[option.name] === val
                       ? "border-activeColor"
-                      : "border-gray-300"
+                      : "border-gray-400"
                   } border-2  rounded-md cursor-pointer`}
                 >
-                  <span
-                    className={` w-[40px] h-[40px] rounded-md border-2 border-white block`}
-                    style={{ backgroundColor: val }}
-                  ></span>
+                  {option.name.toLowerCase() === "color" ? (
+                    <span
+                      className={` w-[40px] h-[40px] rounded-md border-2 border-white block`}
+                      style={{ backgroundColor: val }}
+                    ></span>
+                  ) : (
+                   
+                    <span className="px-2 py-2 text-sm transition-colors ">
+                      {val}
+                    </span>
+                  )}
                 </div>
                 {/* {item.price && (
                   <span className="text-sm text-center block font-semibold text-activeColor">
