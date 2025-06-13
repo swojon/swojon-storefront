@@ -10,7 +10,7 @@ function SearchSuggestionsProductCard({product} : {product:any}) {
     return (
         <Link href={`/products/${product.id}`}>
     <div className="flex my-2 items-center justify-between gap-5 w-full">
-        <div className="md:flex hidden items-center gap-6">
+        <div className="flex items-center gap-6">
           <Image
             src={variant ? variant.media[0]?.url : product?.media[0]?.url}
             width={700}
