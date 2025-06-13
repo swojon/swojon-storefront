@@ -27,20 +27,20 @@ export async function generateMetadata  ({ params }: { params: { slug: string } 
   const listing = post?.getListing;
 
   const opengraph:Metadata = {
-    title: listing.title ?? "Not Found",
-    description: listing.description ?? "The post not found",
+    title: listing.title ? `${listing.title} | Swojon official Store` :  "We couldn't find this product",
+    description: listing.description ?? "explore our other products to find what you're looking for.",
     alternates: {
       canonical: `/products/${productId}`,
     },
     openGraph: {
-      title: listing.title ?? "Not Found",
-      description: listing.description ?? "The post not found",
+      title: listing.title ? `${listing.title} | Swojon official Store` : "We couldn't find this product",
+      description: listing.description ? listing.description : "explore our other products to find what you're looking for.",
       images: listing.media.length > 0 ? listing.media[0].url : null
     },
     twitter: {
       card: "summary_large_image",
-      title: listing.title,
-      description: listing.description,
+      title: listing.title ? `${listing.title} | Swojon official Store` : "We couldn't find this product",
+      description: listing.description ? listing.description : "explore our other products to find what you're looking for.",
       images: listing.media.length > 0 ? listing.media[0].url : null,
     },  
   }

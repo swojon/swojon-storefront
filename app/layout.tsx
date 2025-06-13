@@ -23,15 +23,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.swojon.com"),
   title: {
-    default: "Swojon.com | The marketplace you trust",
-    template: "%s | Swojon",
+    default: "Shop for Kids & Moms with Love | Swojon Official Store",
+    template: "%s |  Swojon Official Store",
   },
   description:
-    "Discover Swojon.com - Your trusted marketplace for quality pre-owned items. Buy and sell personal products with confidence. Find amazing deals on verified items from reliable personal sellers. Join our community for sustainable shopping and smart savings.",
+    "Discover thoughtful essentials for moms and kids at Swojon — where you shop for your own people. Fast delivery, quality products, and heartfelt care.",
   twitter: {
     card: "summary_large_image",
     description:
-      "Swojon.com: Your trusted marketplace for pre-owned items. Buy and sell personal products with confidence. Find amazing deals from verified sellers.",
+      "Discover thoughtful essentials for moms and kids at Swojon — where you shop for your own people. Fast delivery, quality products, and heartfelt care.",
   },
 };
 

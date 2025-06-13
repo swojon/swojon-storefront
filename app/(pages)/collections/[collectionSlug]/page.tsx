@@ -20,27 +20,27 @@ export async function generateMetadata  ({ params }: { params: { collectionSlug:
   } catch (error) {
     console.log("Error fetching category",error)
     return {
-      title: "Sorry, we couldn't find this category.",
-      description: "It may have been removed or is no longer available. Browse our other categories to find what you're looking for.",
+      title: "Curated Collections for Kids & Moms",
+      description: "Explore curated picks for your loved ones — from babywear to mom care. Swojon brings heartfelt collections, quality products & fast, on-time delivery.",
     }
   }
   // @ts-ignore
   const collection = post?.getCollection;
   console.log("category",collection)
   const opengraph:Metadata = {
-    title: `Explore ${collection.name ?? "Collection"} | Buy and Sell on Marketplace`,
+    title: `Explore ${collection.name ?? "Collection"} | Swojon official Store`,
     description: collection.description,
     alternates: {
       canonical: `/collections/${collection.slug}`,
     },
     openGraph: {
-      title: `${collection.name ?? "Category"} | Buy and Sell on Marketplace`,
-      description: collection.description, 
+      title: `${collection.name ?? "Category"} | Swojon official Store`,
+      description: collection.description,
       images: collection.banner
     },
     twitter: {
       card: "summary_large_image",
-      title: `${collection.name ?? "Category"} | Buy and Sell on Marketplace`,
+      title: `${collection.name ?? "Category"} | Swojon official Store`,
       description: collection.description,
       images: collection.banner,
     },

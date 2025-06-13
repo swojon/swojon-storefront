@@ -6,9 +6,7 @@ import CategoryDetails from "@/components/CategoryCard/CategoryDetails";
 
 export async function generateMetadata  ({ params }: { params: { categorySlug: string } }) :Promise<Metadata>{
   let post ;
-  console.log("params",params)
   const categorySlug = params.categorySlug;
-  console.log("categorySlug",categorySlug)
   try {
     post = await request({
       url : process.env.NEXT_PUBLIC_GRAPHQL_URL!,
@@ -27,19 +25,19 @@ export async function generateMetadata  ({ params }: { params: { categorySlug: s
   const category = post?.getCategory;
   console.log("category",category)
   const opengraph:Metadata = {
-    title: `Explore ${category.name ?? "Category"} | Buy and Sell on Marketplace`,
+    title: `Explore ${category.name ?? "Category"} | Swojon official Store`,
     description: category.description,
     alternates: {
       canonical: `/categories/${category.slug}`,
     },
     openGraph: {
-      title: `${category.name ?? "Category"} | Buy and Sell on Marketplace`,
+      title: `${category.name ?? "Category"} | Swojon official Store`,
       description: category.description, 
       images: category.banner
     },
     twitter: {
       card: "summary_large_image",
-      title: `${category.name ?? "Category"} | Buy and Sell on Marketplace`,
+      title: `${category.name ?? "Category"} | Swojon official Store`,
       description: category.description,
       images: category.banner,
     },
