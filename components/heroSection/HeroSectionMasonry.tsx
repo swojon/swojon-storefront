@@ -58,13 +58,13 @@ const MASONRY_DATA = [
   },
   {
     id: 2,
-    title: "Kids! Looks good",
+    title: "SkinCare for babies",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745334906/Kids_Fashion_1_oddic7.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1760850657/Baby_Skincare_jyepno.png",
     col: 1,
     colSpan: 1,
     rowSpan: 2,
-    link: "/collections/baby-dress"
+    link: "/collections/baby-skincare"
   },
   // { id: 3, title: "Popular kitchen picks", image: decor, col: 1, colSpan: 1 },
 
