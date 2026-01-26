@@ -85,7 +85,7 @@ const SIZES = [
 ];
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
-  return variants.find((variant:any) => {
+  return variants?.find((variant:any) => {
     return variant.optionValues.every((ov:any) => {
       const optionName = ov.optionName;
       return selectedOptions[optionName] === ov.value;
@@ -138,7 +138,7 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
     // setSelectedFilteredImages(color.images);
     // dispatch(setFilteredImages(color.images));
   };
-
+  const stock = selectedVariant?.stock ?? 0;
   const handleAddToCart = () => {
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
   };
@@ -175,68 +175,75 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
         setLocalQuantity={setLocalQuantity}
       />
       <div className="space-y-5 text-primaryColor" ref={productInfoRef}>
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold ">{product?.title}</h2>
-          <SellerReviewDropdown sellerId={product?.id} />
+       <div className="space-y-2">
+            <h2 className="text-2xl font-bold leading-tight">
+              {product?.title}
+            </h2>
 
-          
-          <div className="flex flex-wrap gap-1.5">
-                <span className="lg:text-2xl text-lg  font-bold  inline-block text-activeColor">
-                  ৳{selectedVariant?.salePrice ?? product?.price }
+            <SellerReviewDropdown sellerId={product?.id} />
+
+            <div className="flex items-center gap-3 mt-2">
+              <span className="text-3xl font-bold text-activeColor">
+                ৳{selectedVariant?.salePrice ?? product?.price}
+              </span>
+
+              {selectedVariant?.salePrice !== selectedVariant?.price && (
+                <span className="text-lg text-gray-400 line-through">
+                  ৳{selectedVariant?.price}
                 </span>
-                {selectedVariant?.salePrice != selectedVariant?.price && (
+              )}
+            </div>
+            <div className="mt-2">
+  {stock > 10 && (
+    <span className="inline-block text-sm px-3 py-1 rounded-full bg-green-100 text-green-700">
+      In stock
+    </span>
+  )}
 
-                  <span className="lg:text-2xl text-lg  text-gray-700   inline-block line-through">
-                  ৳{selectedVariant.price}
-                </span>
-                )}
-              </div>
-        </div>
-        
-        
-        {product.options && product.options.map( (option: {name: string, values: any, id: any})=> (
+  {stock > 0 && stock <= 10 && (
+    <span className="inline-block text-sm px-3 py-1 rounded-full bg-orange-100 text-orange-700">
+      Only {stock} left
+    </span>
+  )}
+
+  {stock === 0 && (
+    <span className="inline-block text-sm px-3 py-1 rounded-full bg-red-100 text-red-700">
+      Out of stock
+    </span>
+  )}
+</div>
+      </div>
 
         
-        <div className="space-y-2" key={option.id}>
-          <span className="text-primaryColor font-semibold text-lg">
-            {option.name}:{" "}
-            <span className="text-secondColor font-medium capitalize text-base">
-              {selectedOptions[option.name] || "Select Option"}
-            </span>
-          </span>
-          <div className="flex items-start gap-3">
-            {option.values.map((val : any) => (
-              <div key={val} className="space-y-1">
-                <div
-                  onClick={() => handleOptionChange(option.name, val)}
-                  className={`${
-                    selectedOptions[option.name] === val
-                      ? "border-activeColor"
-                      : "border-gray-400"
-                  } border-2  rounded-md cursor-pointer`}
-                >
-                  {option.name.toLowerCase() === "color" ? (
-                    <span
-                      className={` w-[40px] h-[40px] rounded-md border-2 border-white block`}
-                      style={{ backgroundColor: val }}
-                    ></span>
-                  ) : (
-                   
-                    <span className="px-2 py-2 text-sm transition-colors ">
-                      {val}
-                    </span>
-                  )}
-                </div>
-                {/* {item.price && (
-                  <span className="text-sm text-center block font-semibold text-activeColor">
-                    ৳{item.price}
-                  </span>
-                )} */}
-              </div>
-            ))}
-          </div>
-        </div>
+       <div className="p-4 border rounded-xl space-y-4 bg-gray-50">
+  {product.options?.map((option: any) => (
+    <div key={option.id} className="space-y-2">
+      <span className="font-semibold">
+        {option.name}:
+        <span className="ml-1 text-gray-600 font-medium">
+          {selectedOptions[option.name] || "Select"}
+        </span>
+      </span>
+
+      <div className="flex flex-wrap gap-2">
+        {option.values.map((val: any) => (
+          <button
+            key={val}
+            onClick={() => handleOptionChange(option.name, val)}
+            className={`px-3 py-2 rounded-lg border transition
+              ${
+                selectedOptions[option.name] === val
+                  ? "border-activeColor bg-activeColor/10"
+                  : "border-gray-300 hover:border-gray-400"
+              }`}
+          >
+            {val}
+          </button>
         ))}
+      </div>
+    </div>
+  ))}
+</div>
         
         {/* <div className="space-y-2">
           <span className="text-primaryColor font-semibold text-lg">
@@ -293,64 +300,72 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
             </div>
           ))}
         </div> */}
-        <div className="space-y-2 ">
-          {/* <div className="flex gap-1">
-            <span className="text-primaryColor font-semibold text-lg">
-              {activeMethod.pl}
-            </span>
-            <span className="text-primaryColor font-semibold  text-lg underline">
-              {activeMethod.destination}
-            </span>
-          </div>
-           */}
-          {selectedVariant?.stock < 10 && selectedVariant.stock > 0 && (
-            <span className="text-red-500 pt-2">
-              Only {selectedVariant.stock} left
-            </span>
-          )}
-          {/* <span className="text-orange-400 ">Only 4 left</span> */}
-        </div>
-        {selectedVariant && selectedVariant?.stock > 0 ? (
-        <div className="space-y-3">
-          <div className="flex items-center gap-4">
-            <UpdateQuantity
-              item={product}
-              variantId={selectedVariant?.id}
-              localQuantity={localQuantity}
-              setLocalQuantity={setLocalQuantity}
-              padding="xl:px-2  xl:py-1 py-x"
-              fontSize="xl:text-xl lg:text-lg text-base"
-            />
+       
+  
+  {/* Stock */}
+  <div className="p-5 border rounded-2xl space-y-4 bg-white shadow-sm">
 
-            
-            <div className="w-full flex-1 ">
-              <button
-                onClick={handleAddToCart}
-                className="p-3 w-full bg-activeColor border border-activeColor rounded-2xl text-white font-semibold"
-              >
-                Add to cart
-              </button>
-            </div>
-            
-          </div>
-          {/* <button className="p-3 w-full  border border-secondColor rounded-2xl text-primaryColor ">
-            Sign in to buy now
-          </button> */}
-        </div>
-        ) : (
-          <>
-          
-          <div className="text-center">
-            <span className="text-red-500">Sorry! we are temporarily out of stock</span>
-          </div>
-          <button className="p-3 w-full  border border-secondColor rounded-2xl text-primaryColor ">
-            Notify me when available
-          </button>
-          </>
+  {/* OUT OF STOCK */}
+  {stock === 0 ? (
+    <>
+      <p className="text-center text-red-500 font-medium">
+        This variant is currently out of stock
+      </p>
 
-        )}
+      <button
+        disabled
+        className="w-full py-3 rounded-xl bg-gray-300 text-gray-600 cursor-not-allowed"
+      >
+        Out of Stock
+      </button>
+
+      <button
+        className="w-full py-3 rounded-xl border border-activeColor text-activeColor font-semibold hover:bg-activeColor/10 transition"
+      >
+        Notify me when available
+      </button>
+
+      <p className="text-sm text-gray-500 text-center">
+        Try selecting another color or size
+      </p>
+    </>
+  ) : (
+    <>
+      {/* LOW STOCK */}
+      {stock <= 10 && (
+        <p className="text-sm text-red-500 font-medium">
+          Hurry! Only {stock} left
+        </p>
+      )}
+
+      <div className="flex items-center gap-4">
+        <UpdateQuantity
+          item={product}
+          variantId={selectedVariant?.id}
+          localQuantity={localQuantity}
+          setLocalQuantity={setLocalQuantity}
+        />
+
+        <button
+          onClick={handleAddToCart}
+          className="flex-1 py-3 bg-activeColor rounded-xl text-white font-semibold text-lg hover:opacity-90 transition"
+        >
+          Add to Cart
+        </button>
       </div>
-    </div>
+    </>
+  )}
+
+  {/* Trust */}
+  <div className="text-sm text-gray-500 space-y-1">
+    <p>✔ Genuine product</p>
+    <p>✔ Easy returns</p>
+    <p>✔ Fast delivery</p>
+  </div>
+</div>
+     </div>
+      </div>
+  
   );
 };
 

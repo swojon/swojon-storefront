@@ -1,160 +1,196 @@
 "use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Thumbs } from "swiper/modules";
+import Lightbox from "yet-another-react-lightbox";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Video from "yet-another-react-lightbox/plugins/video";
+import type { Slide } from "yet-another-react-lightbox";
+
+import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { useState } from "react";
-import "./ProductDetail.css";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { setImagePopUpOpen } from "@/app/redux/ImagePopSlice";
-// import ModalImage from "react-modal-image";
-import Lightbox from "yet-another-react-lightbox";
-import Captions from "yet-another-react-lightbox/plugins/captions";
-import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
-import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import Video from "yet-another-react-lightbox/plugins/video";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-
 import "yet-another-react-lightbox/styles.css";
-import "yet-another-react-lightbox/plugins/captions.css";
-import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-const ProductThumbnailSlider = ({ images, videoUrl }: { images: any, videoUrl?: string }) => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+type ImageItem = {
+  url: string;
+};
+
+const ProductThumbnailSlider = ({
+  images,
+  videoUrl,
+}: {
+  images: ImageItem[];
+  videoUrl?: string;
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  const dispatch = useDispatch();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleExpandImage = (imageUrl: any) => {
-    dispatch(setImagePopUpOpen(imageUrl));
-  };
-  console.log("Images", images);
-  const slides = images.map((im: any) => ({ src: im.url }));
-  console.log("slides", slides);
+  const slides: Slide[] = [
+  ...images.map((im) => ({
+    src: im.url,
+  })),
+  ...(videoUrl
+    ? [
+        {
+          type: "video",
+          sources: [
+            {
+              src: videoUrl,
+              type: "video/mp4",
+            },
+          ],
+        } as Slide,
+      ]
+    : []),
+];
   return (
-    <section className="lg:h-[577px]  space-y-4">
+    <section className="w-full">
+
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
         slides={slides}
-        plugins={[Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
-        controller={{ closeOnBackdropClick: true, closeOnPullDown: true }}
+        index={activeIndex}
+        plugins={[Fullscreen, Zoom, Video]}
       />
 
-      <div className="w-full">
-        <Swiper
-          loop={true}
-          spaceBetween={10}
-          navigation={true}
-          thumbs={{ swiper: thumbsSwiper }}
-          modules={[FreeMode, Navigation, Thumbs]}
-          initialSlide={0}
-          freeMode={true}
-          // style={{ height: "441px" }}
-          className="mySwiper2 w-full  slider1"
-        >
-          {images?.map((im: any, index: number) => (
-            <SwiperSlide key={index} className="w-full">
-              <Image
-                src={im.url}
-                width={1000}
-                height={1000}
-                priority
-                className="w-full h-full object-cover rounded-lg"
-                alt="listing Image"
-              />
+      {/* ===== DESKTOP LAYOUT ===== */}
+      <div className="hidden lg:flex gap-4 h-[600px]">
 
-              <div
-                onClick={() => setLightboxOpen(true)}
-                className="absolute w-[40px] h-[40px] bg-white rounded-full flex justify-center items-center right-3 top-3"
-              >
-                <div className="w-4 h-4">
+        {/* Thumbnails (LEFT) */}
+        <div className="w-[110px] h-full">
+          <Swiper
+            direction="vertical"
+            slidesPerView={5}
+            spaceBetween={12}
+            freeMode
+            watchSlidesProgress
+            onSwiper={setThumbsSwiper}
+            observer={true}
+            observeParents={true}
+            modules={[FreeMode, Thumbs]}
+            className="h-full"
+          >
+            {images.map((im, i) => (
+              <SwiperSlide key={im.url}>
+                <Image
+                  src={im.url}
+                  width={200}
+                  height={200}
+                  alt="thumb"
+                  className={`w-full h-[90px] object-cover rounded-lg cursor-pointer border-2 ${
+                    activeIndex === i
+                      ? "border-blue-500"
+                      : "border-transparent"
+                  }`}
+                />
+              </SwiperSlide>
+            ))}
+
+            {videoUrl && (
+              <SwiperSlide>
+                <div className="relative h-[90px] cursor-pointer rounded-lg overflow-hidden border-2 border-transparent">
                   <Image
-                    src="/assets/expand.png"
-                    alt="expand"
-                    width={100}
-                    height={100}
-                    className="w-full h-full"
+                    src={images[0].url}
+                    fill
+                    alt="video"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <Image
+                      src="/play-button.png"
+                      width={40}
+                      height={40}
+                      alt="play"
+                      className="invert"
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+            )}
+          </Swiper>
+        </div>
+
+        {/* Main Image (RIGHT) */}
+        <div className="flex-1 w-full h-[600px] lg:h-[600px]">
+          <Swiper
+            thumbs={{ swiper: thumbsSwiper }}
+            onSlideChange={(s) => setActiveIndex(s.activeIndex)}
+            modules={[Thumbs]}
+            observer={true}
+            observeParents={true}
+            className="h-full"
+          >
+            {images.map((im, i) => (
+              <SwiperSlide key={i}>
+                <div
+                  className="relative w-full h-full cursor-zoom-in"
+                  onClick={() => setLightboxOpen(true)}
+                >
+                  <Image
+                    src={im.url}
+                    fill
+                    priority
+                    alt="product"
+                    className="object-cover rounded-lg"
                   />
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-          {videoUrl && (
+              </SwiperSlide>
+            ))}
 
-            <SwiperSlide className="w-full h-full">
-            <iframe
-              width="100%"
-              height="100%"
-              src={videoUrl}
-              className="rounded-lg"
-              ></iframe>
-          </SwiperSlide>
+            {videoUrl && (
+              <SwiperSlide>
+                <iframe
+                  src={videoUrl}
+                  className="w-full h-full rounded-lg"
+                  allowFullScreen
+                />
+              </SwiperSlide>
             )}
-        </Swiper>
+          </Swiper>
+        </div>
       </div>
-      <div className="w-full">
+
+      {/* ===== MOBILE LAYOUT ===== */}
+      <div className="lg:hidden space-y-3">
         <Swiper
-          onSwiper={(swiper) => {
-            setThumbsSwiper(swiper);
-          }}
-          loop={true}
-          spaceBetween={13}
-          slidesPerView={5}
-          freeMode={true}
-          watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper w-full slider2 "
-          initialSlide={0}
-          // style={{ zIndex: 1, height: "120px" }}
+          onSlideChange={(s) => setActiveIndex(s.activeIndex)}
+          className="w-full aspect-square"
         >
-          {images?.map((im: any) => (
-            <SwiperSlide key={im.url} className="cursor-pointer z-0  h-full">
+          {images.map((im, i) => (
+            <SwiperSlide key={i}>
               <Image
                 src={im.url}
-                width={500}
-                height={700}
-                priority
-                className="w-full h-full object-cover rounded-lg z-0"
-                alt="listing Image "
+                fill
+                alt="product"
+                className="object-cover rounded-lg"
+                onClick={() => setLightboxOpen(true)}
               />
             </SwiperSlide>
           ))}
+        </Swiper>
 
-          {videoUrl && (
-
-          
-          <SwiperSlide className="cursor-pointer z-0  h-full relative">
-            {/* <div className="pointer-events-none rounded-lg">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/tgbNymZ7vqY"
-                className="rounded-lg"
-              ></iframe>
-            </div> */}
-
-            <Image
-              src={images[0]?.url}
-              width={500}
-              height={700}
-              priority
-              className="w-full h-full object-cover rounded-lg z-0"
-              alt="listing video "
-            />
-
-            <div className="absolute inset-0 bg-gray-200/50 flex items-center justify-center">
+        <Swiper slidesPerView={4} spaceBetween={10}>
+          {images.map((im, i) => (
+            <SwiperSlide key={i}>
               <Image
-                src="/play-button.png"
-                alt="play"
-                width={100}
-                height={100}
-                className="!w-[50px] !h-[50px] invert opacity-90 "
+                src={im.url}
+                width={120}
+                height={120}
+                alt="thumb"
+                className={`rounded-lg border-2 ${
+                  activeIndex === i
+                    ? "border-blue-500"
+                    : "border-transparent"
+                }`}
               />
-            </div>
-          </SwiperSlide>
-          )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </section>

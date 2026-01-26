@@ -85,7 +85,7 @@ const ProductCard2 = ({ product }: { product: any }) => {
   const { data: session, status } = useSession();
   console.log("card ", product)
   const { minPrice, maxPrice, hasDiscountLabel, discountLabel } = getPricingSummary(product.variants);
-
+  const isOutOfStock = !product?.variants || product.variants.every((v: any) => v.stock <= 0);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
   const handleAddToCart = () => {
     dispatch(addToCart(product));
@@ -93,29 +93,37 @@ const ProductCard2 = ({ product }: { product: any }) => {
   return (
     <div className="">
       <Link href={`/products/${product.id}`} className=" block">
-        <div className=" relative aspect-[5/5] ">
-          <Image
-            src={
-              product.media?.length > 0
-                ? product.media[0].url
-                : "/assets/pro1.png"
-            }
-            width={550}
-            height={550}
-            alt="product banner"
-            className="h-full w-full object-cover  transition ease-in-out delay-150 duration-300 rounded-md"
-          />
-          {hasDiscountLabel && (
-            <div className="bg-activeColor p-1 absolute top-0 left-1  text-white text-xs font-bold px-2 py-1 rounded-sm">
-              {discountLabel }
-            </div>
-          )}
-        </div>
+       <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-50">
+  <Image
+    src={product.media?.[0]?.url || "/assets/pro1.png"}
+    fill
+    alt={product.title}
+    className={`object-cover transition
+      ${isOutOfStock ? "opacity-75" : "hover:scale-105"}`}
+  />
+
+  {/* Out of stock badge */}
+  {isOutOfStock && (
+    <span className="absolute top-2 right-2 text-[11px] font-medium
+      bg-gray-900/80 text-white px-2 py-1 rounded-full">
+      Out of stock
+    </span>
+  )}
+
+  {/* Discount badge */}
+  {hasDiscountLabel && !isOutOfStock && (
+    <span className="absolute top-2 left-2 text-[11px] font-semibold
+      bg-activeColor text-white px-2 py-1 rounded-full">
+      {discountLabel}
+    </span>
+  )}
+</div>
+
         
         <div className="mt-5 space-y-2 text-left">
-          <h6 className="md:text-[17px] text-sm font-light text-black overflow-hidden line-clamp-1 ">
-            {product.title}
-          </h6>
+       <h3 className="text-sm font-medium text-gray-900 line-clamp-2 leading-snug">
+  {product.title}
+</h3>
 
           <div>
             {product.variants?.length == 1 && hasDiscountLabel ? (
@@ -129,21 +137,28 @@ const ProductCard2 = ({ product }: { product: any }) => {
               </div>
             ) : (
               <>
-                <span className="md:text-lg text-[0.9rem] font-bold  inline-block text-primaryColor">
-                  ৳{minPrice} {minPrice != maxPrice  && `- ${maxPrice}`}
-                </span>{" "}
+               <span
+                className={`md:text-lg text-[0.9rem] font-bold inline-block
+                  ${isOutOfStock ? "text-gray-400" : "text-primaryColor"}`}
+                >
+                ৳{minPrice}
+                {minPrice != maxPrice && ` - ${maxPrice}`}
+              </span>
               </>
             )}
           </div>
+          {isOutOfStock && (
+  <p className="text-xs text-gray-500 mt-1">
+    Temporarily unavailable
+  </p>
+)}
+
           { product?.options?.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
               {product.options.map((option: any) => (
-                <span                
-                  key={option.id}
-                  className="text-xs bg-gray-100 px-2 py-1 rounded-md"
-                >
-                  {option.values.length} {option.name} 
-                </span>
+               <span key={option.name} className="text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                {option.values.length} {option.name}
+              </span>
               ))}
             </div>
           )}

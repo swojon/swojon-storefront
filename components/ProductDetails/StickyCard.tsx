@@ -21,6 +21,7 @@ const StickyCard = ({
 }) => {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
+    if (variant?.stock <= 0) return;
     dispatch(addToCart({ ...product, quantity: localQuantity }));
   };
   return (
@@ -71,6 +72,7 @@ const StickyCard = ({
               item={product}
               variantId={variant?.id}
               localQuantity={localQuantity}
+              
               setLocalQuantity={setLocalQuantity}
               padding="xl:px-2  xl:py-1 py-x"
               fontSize="xl:text-xl lg:text-lg text-base"
