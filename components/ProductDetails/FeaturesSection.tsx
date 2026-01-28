@@ -113,15 +113,12 @@ const FeaturesSection = ({listingId}: {listingId: number}) => {
       <h6 className="lg:text-2xl md:text-lg text-base font-semibold text-primaryColor capitalize truncate text-center">
         Related Products
       </h6>
+      <div className="mt-10  ">
       {loading && <ProductLoader />}
       {data && (
-        <div className="mt-10  ">
-          {/* {DUMMYDATA?.map((product) => (
-                    <DynamicProductCard key={product.id} product={product} />
-                  ))} */}
           <CardSlider products={data.relatedListing.items} />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
