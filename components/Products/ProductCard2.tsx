@@ -95,8 +95,9 @@ const ProductCard2 = ({ product }: { product: any }) => {
       <Link href={`/products/${product.id}`} className=" block">
        <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-50">
   <Image
-    src={product.media?.[0]?.url || "/assets/pro1.png"}
+    src={product.media?.[0]?.url.replace('/upload/', '/upload/w_600,q_auto,f_auto/') || "/assets/pro1.png"}
     fill
+    unoptimized
     alt={product.title}
     className={`object-cover transition
       ${isOutOfStock ? "opacity-75" : "hover:scale-105"}`}
