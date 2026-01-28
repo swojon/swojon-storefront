@@ -2,6 +2,8 @@ import React from "react";
 import CardSlider from "../Products/CardSlider";
 import dImg from "@/public/assets/Dd-1.jpg";
 import dImg2 from "@/public/assets/Dd-2.jpg";
+import { useRelatedListingQuery } from "@/apollograph/generated";
+import ProductLoader from "../Loader/ProductLoader";
 
 const DUMMYDATA = [
   {
@@ -100,19 +102,26 @@ const DUMMYDATA = [
   },
 ];
 
-const FeaturesSection = () => {
+const FeaturesSection = ({listingId}: {listingId: number}) => {
+  const {data, loading, error} =  useRelatedListingQuery({
+    variables: { listingId: listingId },
+  });
+  
+
   return (
     <div>
       <h6 className="lg:text-2xl md:text-lg text-base font-semibold text-primaryColor capitalize truncate text-center">
         Related Products
       </h6>
-
-      <div className="mt-10  ">
-        {/* {DUMMYDATA?.map((product) => (
-                  <DynamicProductCard key={product.id} product={product} />
-                ))} */}
-        <CardSlider products={DUMMYDATA} />
-      </div>
+      {loading && <ProductLoader />}
+      {data && (
+        <div className="mt-10  ">
+          {/* {DUMMYDATA?.map((product) => (
+                    <DynamicProductCard key={product.id} product={product} />
+                  ))} */}
+          <CardSlider products={data.relatedListing.items} />
+        </div>
+      )}
     </div>
   );
 };

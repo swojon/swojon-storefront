@@ -8,7 +8,9 @@ const AboutItem = ({product}: {product: any}) => {
   const ITEMS = [
     {
       title: "Description",
-      content: product?.description || "",
+      content: product?.description ? product?.description.split("\n").map((line:any, i:any) => (
+    <p key={i}>{line}</p>
+  )) || "" : "",
     },
     // { title: "Specifications", content: <Specifications /> },
     { title: "Return Policy", content: <ShippingReturn /> },

@@ -1617,6 +1617,43 @@ export function useListListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListListingsQueryHookResult = ReturnType<typeof useListListingsQuery>;
 export type ListListingsLazyQueryHookResult = ReturnType<typeof useListListingsLazyQuery>;
 export type ListListingsQueryResult = Apollo.QueryResult<ListListingsQuery, ListListingsQueryVariables>;
+export const RelatedListingDocument = gql`
+    query relatedListing($listingId: Float!) {
+  relatedListing(listingId: $listingId) {
+    items {
+      ...ListingFields
+    }
+  }
+}
+    ${ListingFieldsFragmentDoc}`;
+
+/**
+ * __useRelatedListingQuery__
+ *
+ * To run a query within a React component, call `useRelatedListingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRelatedListingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRelatedListingQuery({
+ *   variables: {
+ *      listingId: // value for 'listingId'
+ *   },
+ * });
+ */
+export function useRelatedListingQuery(baseOptions: Apollo.QueryHookOptions<RelatedListingQuery, RelatedListingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RelatedListingQuery, RelatedListingQueryVariables>(RelatedListingDocument, options);
+      }
+export function useRelatedListingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RelatedListingQuery, RelatedListingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RelatedListingQuery, RelatedListingQueryVariables>(RelatedListingDocument, options);
+        }
+export type RelatedListingQueryHookResult = ReturnType<typeof useRelatedListingQuery>;
+export type RelatedListingLazyQueryHookResult = ReturnType<typeof useRelatedListingLazyQuery>;
+export type RelatedListingQueryResult = Apollo.QueryResult<RelatedListingQuery, RelatedListingQueryVariables>;
 export const GetListingDocument = gql`
     query GetListing($id: Float, $name: String) {
   getListing(id: $id, name: $name) {
@@ -4134,6 +4171,8 @@ export type Query = {
   listUsers: Array<UserWithMeta>;
   /** User logout */
   logout: User;
+  /** Related Listings */
+  relatedListing: Listings;
   /** Search for listings */
   searchListings: Listings;
   /** Search for nominatim api */
@@ -4372,6 +4411,11 @@ export type QueryListUserCommunityArgs = {
 
 export type QueryListUserReviewsArgs = {
   usernameOrId: Scalars['String']['input'];
+};
+
+
+export type QueryRelatedListingArgs = {
+  listingId: Scalars['Float']['input'];
 };
 
 
@@ -4858,6 +4902,13 @@ export type ListListingsQueryVariables = Exact<{
 
 
 export type ListListingsQuery = { __typename?: 'Query', listListings: { __typename?: 'Listings', hasMore: boolean, count?: number | null, beforeCursor?: string | null, afterCursor?: string | null, items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
+
+export type RelatedListingQueryVariables = Exact<{
+  listingId: Scalars['Float']['input'];
+}>;
+
+
+export type RelatedListingQuery = { __typename?: 'Query', relatedListing: { __typename?: 'Listings', items: Array<{ __typename?: 'Listing', condition?: string | null, datePublished?: any | null, dateCreated?: any | null, description?: string | null, id: number, videoUrl?: string | null, isApproved?: boolean | null, isFeatured?: boolean | null, isLive?: boolean | null, isSold?: boolean | null, stock?: number | null, slug?: string | null, price: number, salePrice?: number | null, title: string, favoriteCount?: number | null, favoriteStatus?: boolean | null, brand?: { __typename?: 'Brand', id: number, name: string, logo?: string | null } | null, category?: { __typename?: 'Category', id: number, name: string, slug?: string | null, parentCategory?: { __typename?: 'Category', id: number, name: string, slug?: string | null } | null } | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null, collections?: Array<{ __typename?: 'Collection', name?: string | null, description?: string | null, id: number, slug?: string | null, banner?: string | null, isActive?: boolean | null }> | null, variants?: Array<{ __typename?: 'ProductVariant', sku?: string | null, price: number, salePrice?: number | null, stock?: number | null, id: number, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null }> | null, options?: Array<{ __typename?: 'ProductOption', name: string, values: Array<string>, id: number }> | null, user: { __typename?: 'User', email: string, id: number, username?: string | null, isVerified: boolean, profile?: { __typename?: 'Profile', name?: string | null, avatar?: string | null } | null } }> } };
 
 export type GetListingQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Float']['input']>;

@@ -201,7 +201,7 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
         <div className="w-full  ">
           {/* <Review /> */}
           <AboutItem product={product} />
-          <FeaturesSection />
+          <FeaturesSection listingId={product.id}/>
         </div>
 
         {/* <div className="flex lg:flex-row flex-col items-start gap-4">

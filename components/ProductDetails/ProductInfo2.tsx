@@ -214,8 +214,10 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
 </div>
       </div>
 
-        
-       <div className="p-4 border rounded-xl space-y-4 bg-gray-50">
+  {product.options && product.options.length > 0 && (
+    
+  
+  <div className="p-4 border rounded-xl space-y-4 bg-gray-50">
   {product.options?.map((option: any) => (
     <div key={option.id} className="space-y-2">
       <span className="font-semibold">
@@ -244,6 +246,7 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
     </div>
   ))}
 </div>
+  )}      
         
         {/* <div className="space-y-2">
           <span className="text-primaryColor font-semibold text-lg">
@@ -362,7 +365,34 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
     <p>✔ Easy returns</p>
     <p>✔ Fast delivery</p>
   </div>
+   {/* Delivery Box */}
+    <div className="border rounded-xl p-4 bg-gray-50 space-y-2">
+      <h3 className="font-semibold text-gray-900">
+        Delivery Information
+      </h3>
+
+      <p className="text-sm text-gray-600">
+        🚚 Dhaka / Chittagong: 1–2 working days
+      </p>
+      <p className="text-sm text-gray-600">
+        📦 Outside Dhaka: 2–3 working days
+      </p>
+
+      <p className="text-sm text-gray-500 pt-2 border-t">
+        Cash on Delivery available
+      </p>
+    </div>
+     <div className="border rounded-xl p-4 bg-white">
+            <p className="text-sm text-gray-600">
+              Need help ordering?
+            </p>
+            <p className="font-semibold text-blue-600">
+              📞 Call: 01974829429
+            </p>
+          </div>
+    
 </div>
+
      </div>
       </div>
   
