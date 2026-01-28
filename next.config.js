@@ -10,7 +10,7 @@ const nextConfig = {
         serverActions: true,
     },
     images: {
-        unoptimized: false,
+        unoptimized: true,
         remotePatterns: [
             {
                 hostname: 'localhost',
