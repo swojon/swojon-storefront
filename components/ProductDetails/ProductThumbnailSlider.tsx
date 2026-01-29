@@ -88,7 +88,8 @@ export default function ProductThumbnailSlider({
                 }`}
               >
                 <Image
-                  src={im.url}
+                  src={im.url.replace("/upload/", "/upload/w_110,q_auto,f_auto/") }
+                  unoptimized
                   width={110}
                   height={90}
                   alt="thumb"
@@ -145,7 +146,8 @@ export default function ProductThumbnailSlider({
                   onClick={() => setLightboxOpen(true)}
                 >
                   <Image
-                    src={im.url}
+                    src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
+                    unoptimized
                     fill
                     alt="product"
                     sizes="600px"
@@ -189,7 +191,8 @@ export default function ProductThumbnailSlider({
                 onClick={() => setLightboxOpen(true)}
               >
                 <Image
-                  src={im.url}
+                  src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
+                  unoptimized
                   fill
                   alt="product"
                   className="object-contain"
@@ -224,7 +227,8 @@ export default function ProductThumbnailSlider({
               }`}
             >
               <Image
-                src={im.url}
+                src={im.url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
+                unoptimized
                 width={80}
                 height={80}
                 alt="thumb"
@@ -244,7 +248,8 @@ export default function ProductThumbnailSlider({
               }`}
             >
               <Image
-                src={images[0].url}
+                src={images[0].url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
+                unoptimized
                 fill
                 alt="video-thumb"
                 className="object-cover"
