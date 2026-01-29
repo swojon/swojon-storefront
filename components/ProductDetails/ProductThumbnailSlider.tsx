@@ -5,11 +5,13 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
+
 import type { Slide } from "yet-another-react-lightbox";
 
 type ImageItem = {
@@ -23,27 +25,38 @@ export default function ProductThumbnailSlider({
   images: ImageItem[];
   videoUrl?: string;
 }) {
-  const mainSwiperRef = useRef<any>(null);
+  // ✅ Separate refs
+  const desktopSwiperRef = useRef<any>(null);
+  const mobileSwiperRef = useRef<any>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  // Lightbox slides (images + optional video)
-  const slides:Slide[] = [
+  // Lightbox slides
+  const slides: Slide[] = [
     ...images.map((im) => ({ src: im.url })),
     ...(videoUrl
       ? [
           {
             type: "video",
             sources: [{ src: videoUrl, type: "video/mp4" }],
-          } as Slide
+          } as Slide,
         ]
       : []),
   ];
 
-  // Thumbnail click → go to slide
+  // ✅ Thumbnail click handler
   const goToSlide = (index: number) => {
-    mainSwiperRef.current?.slideTo(index);
+    // Desktop swiper
+    if (desktopSwiperRef.current) {
+      desktopSwiperRef.current.slideTo(index);
+    }
+
+    // Mobile swiper
+    if (mobileSwiperRef.current) {
+      mobileSwiperRef.current.slideTo(index);
+    }
+
     setActiveIndex(index);
   };
 
@@ -79,7 +92,7 @@ export default function ProductThumbnailSlider({
                   width={110}
                   height={90}
                   alt="thumb"
-                  className="w-full h-[90px] object-cover"
+                  className="w-full h-[90px] object-contain"
                 />
               </button>
             ))}
@@ -88,14 +101,18 @@ export default function ProductThumbnailSlider({
             {videoUrl && (
               <button
                 onClick={() => goToSlide(images.length)}
-                className="relative h-[90px] rounded-lg overflow-hidden border-2 border-transparent"
+                className={`relative h-[90px] rounded-lg overflow-hidden border-2 ${
+                  activeIndex === images.length
+                    ? "border-blue-500"
+                    : "border-transparent"
+                }`}
               >
                 <Image
                   src={images[0].url}
                   width={110}
                   height={90}
                   alt="video-thumb"
-                  className="object-cover"
+                  className="object-contain"
                 />
 
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -115,7 +132,7 @@ export default function ProductThumbnailSlider({
         {/* ✅ DESKTOP MAIN SWIPER */}
         <div className="flex-1 h-full rounded-xl overflow-hidden">
           <Swiper
-            onSwiper={(s) => (mainSwiperRef.current = s)}
+            onSwiper={(s) => (desktopSwiperRef.current = s)}
             onSlideChange={(s) => setActiveIndex(s.activeIndex)}
             slidesPerView={1}
             className="h-full"
@@ -141,11 +158,14 @@ export default function ProductThumbnailSlider({
             {/* Video slide */}
             {videoUrl && (
               <SwiperSlide>
-                <iframe
-                  src={videoUrl}
-                  className="w-full h-full"
-                  allowFullScreen
-                />
+                <div className="w-full h-full bg-black">
+                  <video
+                    controls
+                    className="w-full h-full object-contain"
+                  >
+                    <source src={videoUrl} type="video/mp4" />
+                  </video>
+                </div>
               </SwiperSlide>
             )}
           </Swiper>
@@ -156,7 +176,7 @@ export default function ProductThumbnailSlider({
       <div className="lg:hidden space-y-3">
         {/* ✅ MOBILE MAIN SWIPER */}
         <Swiper
-          onSwiper={(s) => (mainSwiperRef.current = s)}
+          onSwiper={(s) => (mobileSwiperRef.current = s)}
           onSlideChange={(s) => setActiveIndex(s.activeIndex)}
           slidesPerView={1}
           className="w-full aspect-square rounded-xl overflow-hidden"
@@ -181,18 +201,18 @@ export default function ProductThumbnailSlider({
           {/* Video slide */}
           {videoUrl && (
             <SwiperSlide>
-              <iframe
-                src={videoUrl}
-                className="w-full h-full"
-                allowFullScreen
-              />
+              <video
+                controls
+                className="w-full h-full object-contain"
+              >
+                <source src={videoUrl} type="video/mp4" />
+              </video>
             </SwiperSlide>
           )}
         </Swiper>
 
         {/* ✅ MOBILE THUMB ROW */}
         <div className="flex gap-2 overflow-x-auto">
-          {/* Image thumbs */}
           {images.map((im, i) => (
             <button
               key={i}
@@ -217,7 +237,11 @@ export default function ProductThumbnailSlider({
           {videoUrl && (
             <button
               onClick={() => goToSlide(images.length)}
-              className="relative w-[80px] h-[80px] flex-shrink-0 rounded-lg overflow-hidden border-2 border-transparent"
+              className={`relative w-[80px] h-[80px] flex-shrink-0 rounded-lg overflow-hidden border-2 ${
+                activeIndex === images.length
+                  ? "border-blue-500"
+                  : "border-transparent"
+              }`}
             >
               <Image
                 src={images[0].url}

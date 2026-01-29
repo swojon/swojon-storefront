@@ -41,8 +41,6 @@ export function getPricingSummary(variants: any) {
   }
 // ✅ Multiple Variants Case
   const prices = variants.map((p:any) => p.salePrice ?? p.price)
-  console.log("var prices", prices)
-
   let minSale = Math.min(...prices);
   let maxSale = Math.max(...prices);
   if (prices.length == 0) {
@@ -83,7 +81,7 @@ export function getPricingSummary(variants: any) {
 const ProductCard2 = ({ product }: { product: any }) => {
   const dispatch = useDispatch();
   const { data: session, status } = useSession();
-  console.log("card ", product)
+
   const { minPrice, maxPrice, hasDiscountLabel, discountLabel } = getPricingSummary(product.variants);
   const isOutOfStock = !product?.variants || product.variants.every((v: any) => v.stock <= 0);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
