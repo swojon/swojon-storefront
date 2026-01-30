@@ -115,17 +115,7 @@ const ResNavbarDrawer = () => {
           
           
           <footer className="absolute bg-white bottom-0 left-0 w-full h-30  text-primaryColor">
-         <div className="px-5 border-t flex items-center  text-center py-5  md:px-14 sm:px-10   left-0 w-full ">
-            
-            <Link
-                href="/courier-shield"
-                onClick={() => dispatch(setNavClose())}
-              >
-                <button className="text-base text-gray">
-                  Courier History Shield
-                </button>
-              </Link>
-          </div>
+         
             <div className=" flex justify-between items-center border-t  py-5 md:px-14 sm:px-10 px-3">
             <Link href="/">
               <GrHomeRounded className="text-2xl" />
