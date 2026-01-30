@@ -54,7 +54,7 @@ const MASONRY_DATA = [
       "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330325/Baby_Accessories_vtgdsy.png",
     col: 1,
     colSpan: 1,
-    link: "/collections/baby-accessories"
+    link: "/collections/pacifiers-teethers"
   },
   {
     id: 2,
