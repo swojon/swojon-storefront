@@ -19,7 +19,7 @@ const MASONRY_DATA = [
     id: 4,
     title: "Explore all kids Item",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745471749/All_Kids_Item_1_svl1ov.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_1400,q_auto,f_auto/v1745471749/All_Kids_Item_1_svl1ov.png",
     col: 2,
     colSpan: 2,
     cover: true,
@@ -29,7 +29,7 @@ const MASONRY_DATA = [
     id: 5,
     title: "New Mom Essentials",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330342/New_Mom_Essentials_ukzeir.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330342/New_Mom_Essentials_ukzeir.png",
     col: 2,
     colSpan: 1,
     link: "/collections/new-moms-essentials"
@@ -38,7 +38,7 @@ const MASONRY_DATA = [
     id: 6,
     title: "Feeder Bottles",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330336/Feeder_Bottles_gecssm.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330336/Feeder_Bottles_gecssm.png",
     col: 2,
     colSpan: 1,
     link: "/collections/baby-feeder"
@@ -49,9 +49,9 @@ const MASONRY_DATA = [
   // COLUMN1 (left)
   {
     id: 1,
-    title: "Accessories for little ones",
+    title: "Pacifier & teethers",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330325/Baby_Accessories_vtgdsy.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330325/Baby_Accessories_vtgdsy.png",
     col: 1,
     colSpan: 1,
     link: "/collections/baby-accessories"
@@ -60,7 +60,7 @@ const MASONRY_DATA = [
     id: 2,
     title: "SkinCare for babies",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1760850657/Baby_Skincare_jyepno.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1760850657/Baby_Skincare_jyepno.png",
     col: 1,
     colSpan: 1,
     rowSpan: 2,
@@ -71,13 +71,13 @@ const MASONRY_DATA = [
   // COLUMN3 (right)
   {
     id: 10,
-    title: "Make it Memorable",
+    title: "Soft Bath Moments",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745334116/Gift_Items_di9cil.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1769753336/bath_zb6zuf.png",
     col: 3,
     colSpan: 1,
     rowSpan: 2,
-    link: "/collections/baby-function-decoration"
+    link: "/collections/bath-essentials"
   },
   // {
   //   id: 8,
@@ -88,12 +88,12 @@ const MASONRY_DATA = [
   // },
   {
     id: 9,
-    title: "Toys & Fun",
+    title: "Oral Care",
     image:
-      "https://res.cloudinary.com/dvqgrbz4r/image/upload/v1745330346/Toys_And_Fun_dwb1z6.png",
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1769754291/Oral_Care_vjujv0.png",
     col: 3,
     colSpan: 1,
-    link: 'collections/toys-and-fun'
+    link: '/collections/oral-care'
   },
 ];
 
@@ -133,6 +133,7 @@ const MasonryColumn = ({
             className="h-full w-full object-cover rounded-lg shadow-md"
             width={1000}
             height={1000}
+            unoptimized
             src={item?.image || fashion}
             alt={item.title}
           />
@@ -187,6 +188,7 @@ const HeroSectionMasonry = () => {
               className="w-full h-full object-cover  rounded-lg"
               width={1000}
               height={1000}
+              unoptimized
               src={banner.image}
               alt={banner.title}
             />

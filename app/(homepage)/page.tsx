@@ -11,6 +11,7 @@ import HeroSectionMasonry from "@/components/heroSection/HeroSectionMasonry";
 import MasonryBoxes from "@/components/CategoryCard/MasonryBoxes";
 import ReelSection from "@/components/ReelSections/ReelSection";
 import FlashSale from "@/components/Products/FlashSale";
+import ShopByCollection from "@/components/ReelSections/ShopByCollection";
 
 const Home: NextPage = () => {
   return (
@@ -18,9 +19,15 @@ const Home: NextPage = () => {
       {/* <HeroSection /> */}
       <Navbar border="border" />
       <HeroSectionMasonry />
-      <FlashSale />
+      {/* <FlashSale /> */}
       <Products />
       {/* <MasonryBoxes /> */}
+      <ShopByCollection title="Diapering & Hygiene" slug="diapering"/>
+      <ShopByCollection title="Newborn Must-Haves" slug="newborn-essentials"/>
+      <ShopByCollection title="Healthy feeding made easy" slug="feeding-days"/>
+      <ShopByCollection title="Smooth transition to solid food" slug="solid-starter"/>
+      <ShopByCollection title="Healthy mama, happy baby" slug="new-moms-essentials"/>
+
       <ReelSection />
       {/* <Community /> */}
       {/* <ActionBanner /> */}
