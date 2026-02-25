@@ -88,18 +88,34 @@ const ProductCard2 = ({ product }: { product: any }) => {
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
+
+  const getProductImage = (url:any) => {
+    if (!url) return "/assets/dots.png"
+    if (!url.includes("res.cloudinary.com")) return url
+    const secureUrl = url.replace("http://", "https://")
+    return secureUrl.replace(
+      "/upload/",
+      "/upload/w_600,q_auto,f_auto/"
+    )
+  }
+
   return (
     <div className="">
       <Link href={`/products/${product.id}`} className=" block">
        <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-50">
-  <Image
-    src={product.media?.[0]?.url.replace('/upload/', '/upload/w_600,q_auto,f_auto/') || "/assets/pro1.png"}
-    fill
-    unoptimized
-    alt={product.title}
-    className={`object-cover transition
-      ${isOutOfStock ? "opacity-75" : "hover:scale-105"}`}
-  />
+        <Image
+          src={getProductImage(product.media?.[0]?.url)}
+          fill
+          placeholder="blur"
+          sizes="(max-width: 768px) 100vw, 25vw"
+          alt={product.title}
+          blurDataURL="/assets/dots.png"
+          onError={(e) => {
+            e.currentTarget.src = "/assets/dots.png"
+          }}
+          className={`object-cover transition
+            ${isOutOfStock ? "opacity-75" : "hover:scale-105"}`}
+        />
 
   {/* Out of stock badge */}
   {isOutOfStock && (

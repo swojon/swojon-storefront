@@ -1,15 +1,10 @@
+'use client';
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import beauty from "@/public/hero/hero-3.jpeg";
 import fashion from "@/public/assets/long_banner/Kids Fashion.png";
-import decor from "@/public/assets/small_banner/Baby Food.png";
-import all_kids from "@/public/assets/main_banner/All Kids Item.png";
-import model from "@/public/hero/hero-4.jpeg";
-import scooty from "@/public/hero/hero-5.jpeg";
-import banner from "@/public/assets/main_banner/2nd.png";
-import homeApp from "@/public/assets/small_banner/Baby Accessories.png";
-import furniture from "@/public/hero/hero-2.jpeg";
-import shoes from "@/public/assets/long_banner/Gift Items.png";
+
 import Link from "next/link";
 
 
@@ -162,16 +157,30 @@ const MasonryColumn = ({
     </div>
   );
 };
+// Hook to detect mobile
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return isMobile;
+}
 const HeroSectionMasonry = () => {
+  const isMobile = useIsMobile()
   return (
     <section className="px-[2vw]  max-w-[1700px] mx-auto mt-5 ">
-      <div className="h-full sm:grid grid-cols-2 sm:grid-cols-4 gap-5 hidden">
+      {!isMobile ? (
+        <div className="h-full sm:grid grid-cols-2 sm:grid-cols-4 gap-5 hidden">
         <MasonryColumn colSpan="col-span-1" column={COLUMN1} />
         <MasonryColumn colSpan="col-span-2" column={COLUMN2} />
         <MasonryColumn colSpan="col-span-1" column={COLUMN3} />
       </div>
-
+      ): (
       <div className="grid grid-cols-[auto_auto] gap-5 sm:hidden ">
         {MASONRY_DATA.map((banner) => (
           <div
@@ -214,6 +223,7 @@ const HeroSectionMasonry = () => {
           </div>
         ))}
       </div>
+    )}
     </section>
   );
 };
