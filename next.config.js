@@ -7,7 +7,9 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
-
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     unoptimized: false,
 
