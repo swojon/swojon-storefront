@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { ReduxProviders } from "./redux/provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "swiper/css";
@@ -18,7 +18,12 @@ import NotificationDrawerNew from "@/components/Notification/NotificationDrawerN
 import FacebookPixel from "@/components/FacebookPixel";
 import CartDrawer from "@/components/Cart/CartDrawer";
 import FloatingCart from "@/components/Cart/CartIcon";
-const inter = Inter({ subsets: ["latin"] });
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.swojon.com"),
@@ -44,7 +49,7 @@ export default async function RootLayout({ children }: Iprops) {
   const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
 
   return (
-    <html lang="en">
+    <html lang="en" className={nunito.variable}>
       <head>
         {/* <noscript>
           <img
@@ -56,7 +61,7 @@ export default async function RootLayout({ children }: Iprops) {
           />
         </noscript> */}
       </head>
-      <body className={inter.className}>
+      <body>
         <ReduxProviders>
           <NextAuthProvider>
             <ApolloWrapperWithSession>

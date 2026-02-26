@@ -1,25 +1,14 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import { useGetListingQuery } from "@/apollograph/generated";
+import { useState, useRef } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
 import { FiEdit } from "react-icons/fi";
 import { useSession } from "next-auth/react";
-import BreadCrumbsLoader from "../Loader/BreadCrumbsLoader";
-import ProductInfoLoader from "../Loader/ProductInfoLoader";
-import ThumbnailLoader from "../Loader/ThumbnailLoader";
-import ProductInfo from "./ProductInfo";
-import ProductThumbnailSlider from "./ProductThumbnailSlider";
-import NotFound from "../NotMatched/NotFound";
-import Review from "../Review/Review";
 import ProductInfo2 from "./ProductInfo2";
 import AboutItem from "./AboutItem";
-import StickyCard from "./StickyCard";
 import FeaturesSection from "./FeaturesSection";
-import { useSelector } from "react-redux";
-import { AppState } from "@/app/redux/store";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(

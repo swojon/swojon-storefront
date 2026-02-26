@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { useGetListingQuery } from "@/apollograph/generated";
-import { MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -10,14 +9,7 @@ import { useSession } from "next-auth/react";
 import BreadCrumbsLoader from "../Loader/BreadCrumbsLoader";
 import ProductInfoLoader from "../Loader/ProductInfoLoader";
 import ThumbnailLoader from "../Loader/ThumbnailLoader";
-import ProductInfo from "./ProductInfo";
-import ProductThumbnailSlider from "./ProductThumbnailSlider";
 import NotFound from "../NotMatched/NotFound";
-import Review from "../Review/Review";
-import ProductInfo2 from "./ProductInfo2";
-import AboutItem from "./AboutItem";
-import StickyCard from "./StickyCard";
-import FeaturesSection from "./FeaturesSection";
 import { useSelector } from "react-redux";
 import { AppState } from "@/app/redux/store";
 import ProductDetailsLoaded from "./ProductDetailLoaded";
@@ -33,8 +25,6 @@ const DynamicThumbnailSlider = dynamic(
 );
 
 const ProductDetails = ({ productId }: { productId: number }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState<any>({});
   const filteredImages = useSelector(
     (state: AppState) => state.filterImages.filteredImages
   );
@@ -52,16 +42,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   const imagesToShow =
     filteredImages?.length > 0 ? filteredImages : product?.media;
 
-  useEffect(() => {
-    console.log("product from effect variant", product);
-    if (product) {
-      const variant = product.variants ? product.variants[0] : {};
-      setSelectedVariant(variant);
-      console.log("setting selected variant")
-    }
-  }, [product]);
-
-  
   if (!loading && !data) {
     return (
       <NotFound

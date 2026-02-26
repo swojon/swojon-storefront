@@ -87,12 +87,15 @@ export default function ProductThumbnailSlider({
                     : "border-transparent"
                 }`}
               >
-                <Image
-                  src={im.url.replace("/upload/", "/upload/w_110,q_auto,f_auto/") }
-                  unoptimized
+                <img
+                  src={im.url.replace("/upload/", "/upload/w_110,q_auto,f_auto/")}
                   width={110}
                   height={90}
                   alt="thumb"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
                   className="w-full h-[90px] object-contain"
                 />
               </button>
@@ -108,14 +111,13 @@ export default function ProductThumbnailSlider({
                     : "border-transparent"
                 }`}
               >
-                <Image
-                  src={images[0].url}
-                  width={110}
-                  height={90}
-                  alt="video-thumb"
-                  className="object-contain"
-                />
-
+                <img
+                src={images[0].url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
+                width={80}
+                height={80}
+                alt="video-thumb"
+                className="object-cover"
+              />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                   <Image
                     src="/play-button.png"
@@ -145,13 +147,14 @@ export default function ProductThumbnailSlider({
                   className="relative w-full h-full cursor-zoom-in bg-white"
                   onClick={() => setLightboxOpen(true)}
                 >
-                  <Image
+                  <img
                     src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
-                    unoptimized
-                    fill
                     alt="product"
-                    sizes="600px"
-                    className="object-contain"
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
+                    className="absolute inset-0 w-full h-full object-contain"
                   />
                 </div>
               </SwiperSlide>
@@ -190,13 +193,16 @@ export default function ProductThumbnailSlider({
                 className="relative w-full h-full bg-white"
                 onClick={() => setLightboxOpen(true)}
               >
-                <Image
+                <img
                   src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
-                  unoptimized
-                  fill
                   alt="product"
-                  className="object-contain"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
+                  className="object-contain w-full h-full"
                 />
+                
               </div>
             </SwiperSlide>
           ))}
@@ -226,12 +232,15 @@ export default function ProductThumbnailSlider({
                   : "border-transparent"
               }`}
             >
-              <Image
+              <img
                 src={im.url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
-                unoptimized
                 width={80}
                 height={80}
                 alt="thumb"
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
                 className="object-cover"
               />
             </button>
@@ -247,10 +256,10 @@ export default function ProductThumbnailSlider({
                   : "border-transparent"
               }`}
             >
-              <Image
+              <img
                 src={images[0].url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
-                unoptimized
-                fill
+                width={80}
+                height={80}
                 alt="video-thumb"
                 className="object-cover"
               />
@@ -268,6 +277,6 @@ export default function ProductThumbnailSlider({
           )}
         </div>
       </div>
-    </section>
+    </section> 
   );
 }

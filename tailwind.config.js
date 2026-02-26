@@ -22,8 +22,8 @@ module.exports = {
         whiteColor: "#FFFFFF",
       },
       fontFamily: {
-        sans: ["Satoshi", "sans"],
-        lexed: ["Satoshi", "sans"],
+        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        lexed: ["var(--font-nunito)", "system-ui", "sans-serif"],
       },
     },
   },
