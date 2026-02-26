@@ -9,6 +9,7 @@ const FeaturesSection = ({ listingId }: { listingId: number | string }) => {
   const { data, loading, error } = useRelatedListingQuery({
     variables: { listingId: numericId },
     skip: !numericId,
+    fetchPolicy: "cache-and-network",
   });
 
   const products = React.useMemo(() => {

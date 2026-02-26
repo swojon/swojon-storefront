@@ -1,7 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import ResponsiveSelectOptions from "../SelectOptions/ResponsiveSelectOptions";
-import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import { useDispatch } from "react-redux";
@@ -24,6 +21,22 @@ const StickyCard = ({
     if (variant?.stock <= 0) return;
     dispatch(addToCart({ ...product, quantity: localQuantity }));
   };
+  const getProductImage = (url:any, width?:number) => {
+    if (!url) return "/assets/dots.png"
+    if (!url.includes("res.cloudinary.com")) return url
+    const secureUrl = url.replace("http://", "https://")
+    if (width) {
+      return secureUrl.replace(
+        "/upload/",
+        `/upload/w_${width},q_auto,f_auto/`
+      )
+    }
+    return secureUrl.replace(
+      "/upload/",
+      "/upload/w_600,q_auto,f_auto/"
+    )
+  }
+
   return (
     <div
       className={`fixed w-full md:top-0 bottom-0 left-0 right-0 z-[1000] md:h-[120px] h-[100px] md:border-b border-t  bg-white shadow-md  px-[2vw] flex items-center transition-transform duration-300 ${
@@ -32,10 +45,10 @@ const StickyCard = ({
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <div className="md:flex hidden items-center gap-6">
-          <Image
-            src={product?.media[0]?.url}
-            width={700}
-            height={700}
+          <img
+            src={getProductImage(product?.media[0]?.url, 70)}
+            width={70}
+            height={80}
             alt={product?.title}
             className="h-[80px] w-[70px] object-cover"
           />
