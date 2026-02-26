@@ -44,6 +44,21 @@ export default function ProductThumbnailSlider({
         ]
       : []),
   ];
+  const getProductImage = (url:any, width?:number) => {
+    if (!url) return "/assets/dots.png"
+    if (!url.includes("res.cloudinary.com")) return url
+    const secureUrl = url.replace("http://", "https://")
+    if (width) {
+      return secureUrl.replace(
+        "/upload/",
+        `/upload/w_${width},q_auto,f_auto/`
+      )
+    }
+    return secureUrl.replace(
+      "/upload/",
+      "/upload/w_600,q_auto,f_auto/"
+    )
+  }
 
   // ✅ Thumbnail click handler
   const goToSlide = (index: number) => {
@@ -112,7 +127,7 @@ export default function ProductThumbnailSlider({
                 }`}
               >
                 <img
-                src={images[0].url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
+                src={getProductImage(images[0].url, 80)}
                 width={80}
                 height={80}
                 alt="video-thumb"
@@ -148,7 +163,7 @@ export default function ProductThumbnailSlider({
                   onClick={() => setLightboxOpen(true)}
                 >
                   <img
-                    src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
+                    src={getProductImage(im.url, 600)}
                     alt="product"
                     loading="lazy"
                     decoding="async"
@@ -194,7 +209,7 @@ export default function ProductThumbnailSlider({
                 onClick={() => setLightboxOpen(true)}
               >
                 <img
-                  src={im.url.replace("/upload/", "/upload/w_600,q_auto,f_auto/")}
+                  src={getProductImage(im.url, 600)}
                   alt="product"
                   loading="lazy"
                   decoding="async"
@@ -233,7 +248,7 @@ export default function ProductThumbnailSlider({
               }`}
             >
               <img
-                src={im.url.replace("/upload/", "/upload/w_80,q_auto,f_auto/")}
+                src={getProductImage(im.url, 80)}
                 width={80}
                 height={80}
                 alt="thumb"
@@ -241,7 +256,7 @@ export default function ProductThumbnailSlider({
                 decoding="async"
                 referrerPolicy="no-referrer"
                 crossOrigin="anonymous"
-                className="object-cover"
+                className="object-cover w-[80px] h-[80px]"
               />
             </button>
           ))}
@@ -261,7 +276,7 @@ export default function ProductThumbnailSlider({
                 width={80}
                 height={80}
                 alt="video-thumb"
-                className="object-cover"
+                className="object-cover w-[80px] h-[80px]"
               />
 
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">

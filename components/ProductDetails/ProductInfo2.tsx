@@ -1,8 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IoStorefrontOutline } from "react-icons/io5";
-import { RiShoppingBag2Line } from "react-icons/ri";
-import { LiaShippingFastSolid } from "react-icons/lia";
-import ResponsiveSelectOptions from "../SelectOptions/ResponsiveSelectOptions";
 import SellerReviewDropdown from "../Review/SellerReviewDropdown";
 import { useDispatch } from "react-redux";
 import { setFilteredImages } from "@/app/redux/filterImagesSlice";
@@ -11,78 +7,6 @@ import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import StickyCard from "./StickyCard";
 
-const DELIVERYMETHOD = [
-  {
-    id: 11,
-    icon: <IoStorefrontOutline />,
-    title: "Pickup",
-    desc: "Ready within 2 hours",
-    destination: "Nasirabad, Muradpur, Chittagong",
-    pl: "Pick up at",
-  },
-  {
-    id: 12,
-    icon: <RiShoppingBag2Line />,
-    title: "Delivery",
-    desc: "Check availability",
-    destination: "520101",
-    pl: "Same Day Delivery",
-  },
-  {
-    id: 13,
-    icon: <LiaShippingFastSolid />,
-    title: "Shipping",
-    desc: "Arrives by Wed, Mar 26",
-    destination: "52404",
-    pl: "Ship to",
-  },
-];
-
-// const COLOR = [
-//   { id: 11, color: "bg-red-500", price: 400, colorName: "red" },
-//   { id: 12, color: "bg-purple-500", colorName: "purple" },
-//   { id: 13, color: "bg-green-600", colorName: "green" },
-//   { id: 14, color: "bg-sky-700", price: 400, colorName: "sky" },
-// ];
-
-const COLOR = [
-  {
-    id: 11,
-    color: "bg-red-500",
-    price: 400,
-    colorName: "red",
-    images: [{ url: "/hero/red1-min.jpg" }, { url: "/hero/red2-min.jpg" }],
-  },
-  {
-    id: 12,
-    color: "bg-purple-500",
-    colorName: "purple",
-    images: [
-      { url: "/hero/purple1-min.jpg" },
-      { url: "/hero/purple12-min.jpg" },
-    ],
-  },
-  {
-    id: 13,
-    color: "bg-green-600",
-    colorName: "green",
-    images: [{ url: "/hero/green1-min.jpg" }, { url: "/hero/green2-min.jpg" }],
-  },
-  {
-    id: 14,
-    color: "bg-sky-700",
-    price: 400,
-    colorName: "sky",
-    images: [{ url: "/hero/red1-min.jpg" }, { url: "/hero/red1-min.jpg" }],
-  },
-];
-
-const SIZES = [
-  { id: 11, size: 4 },
-  { id: 12, size: 6 },
-  { id: 13, size: 8 },
-  { id: 14, size: 10 },
-];
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
   return variants?.find((variant:any) => {
@@ -95,12 +19,9 @@ function findMatchingVariant(variants:any, selectedOptions:any) {
 
 const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { product: any, selectedVariant:any, setSelectedVariant:any }) => {
   const dispatch = useDispatch();
-  const [activeMethod, setActiveMethod] = useState(DELIVERYMETHOD[0]);
+  
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   // const [activeOption, setActiveOption] = useState<string>("Select Option");
-  const [activeColor, setActiveColor] = useState<string>("Select Color");
-  const [filteredImages, setSelectedFilteredImages] = useState(COLOR[0].images);
-  const [activeSize, setActiveSize] = useState(SIZES[0]);
   const [localQuantity, setLocalQuantity] = useState<number>(1);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -179,9 +100,10 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
             <h2 className="text-2xl font-bold leading-tight">
               {product?.title}
             </h2>
-
-            <SellerReviewDropdown sellerId={product?.id} />
-
+            <div className="min-h-[28px]">
+              <SellerReviewDropdown sellerId={product?.id} />
+            </div>
+            
             <div className="flex items-center gap-3 mt-2">
               <span className="text-3xl font-bold text-activeColor">
                 ৳{selectedVariant?.salePrice ?? product?.price}
@@ -248,61 +170,7 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
 </div>
   )}      
         
-        {/* <div className="space-y-2">
-          <span className="text-primaryColor font-semibold text-lg">
-            Size:{" "}
-            <span className="text-secondColor font-medium capitalize text-base">
-              {activeSize.size}
-            </span>
-          </span>
-
-          <div className="grid grid-cols-4 gap-3 ">
-            {SIZES.map((item) => (
-              <div
-                onClick={() => setActiveSize(item)}
-                key={item.id}
-                className={`rounded-md border ${
-                  activeSize.id === item.id
-                    ? "border-secondColor"
-                    : "border-gray-200"
-                } p-1 text-sm text-center cursor-pointer`}
-              >
-                {item.size}
-              </div>
-            ))}
-          </div>
-        </div> */}
-        {/* <div className="flex flex-wrap gap-3 ">
-          {DELIVERYMETHOD.map((method) => (
-            <div
-              onClick={() => setActiveMethod(method)}
-              key={method.id}
-              className={`w-[120px] border ${
-                activeMethod.id === method.id
-                  ? "border-activeColor"
-                  : " border-secondColor"
-              }  rounded-md p-2.5 cursor-pointer space-y-2`}
-            >
-              <span
-                className={`text-xl ${
-                  activeMethod.id === method.id
-                    ? "text-activeColor"
-                    : " text-secondColor"
-                }`}
-              >
-                {method.icon}
-              </span>
-
-              <span className="block text-base  text-primaryColor font-medium">
-                {method.title}
-              </span>
-
-              <span className="block text-xs  text-primaryColor ">
-                {method.desc}
-              </span>
-            </div>
-          ))}
-        </div> */}
+   
        
   
   {/* Stock */}
