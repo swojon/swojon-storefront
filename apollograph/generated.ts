@@ -2100,6 +2100,8 @@ export type NewNotificationSubscriptionResult = Apollo.SubscriptionResult<NewNot
 export const CreateOrderDocument = gql`
     mutation CreateOrder($orderData: OrderCreateDTO!) {
   createOrder(orderData: $orderData) {
+    id
+    orderId
     items {
       listing {
         id
@@ -2142,6 +2144,68 @@ export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
 export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
 export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
+export const GetOrderDocument = gql`
+    query GetOrder($orderId: String) {
+  getOrder(orderId: $orderId) {
+    finalAmount
+    createdAt
+    guestId
+    id
+    orderId
+    status
+    items {
+      listing {
+        id
+        salePrice
+        title
+      }
+      price
+      quantity
+      variant {
+        id
+        price
+        sku
+        media {
+          url
+          isPrimary
+        }
+      }
+    }
+    shipping
+    shippingAddress
+    status
+    totalAmount
+  }
+}
+    `;
+
+/**
+ * __useGetOrderQuery__
+ *
+ * To run a query within a React component, call `useGetOrderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrderQuery({
+ *   variables: {
+ *      orderId: // value for 'orderId'
+ *   },
+ * });
+ */
+export function useGetOrderQuery(baseOptions?: Apollo.QueryHookOptions<GetOrderQuery, GetOrderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOrderQuery, GetOrderQueryVariables>(GetOrderDocument, options);
+      }
+export function useGetOrderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOrderQuery, GetOrderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOrderQuery, GetOrderQueryVariables>(GetOrderDocument, options);
+        }
+export type GetOrderQueryHookResult = ReturnType<typeof useGetOrderQuery>;
+export type GetOrderLazyQueryHookResult = ReturnType<typeof useGetOrderLazyQuery>;
+export type GetOrderQueryResult = Apollo.QueryResult<GetOrderQuery, GetOrderQueryVariables>;
 export const ListOrdersDocument = gql`
     query ListOrders($endingBefore: String, $startingAfter: String, $limit: Float, $orderBy: String) {
   listOrders(
@@ -2153,6 +2217,7 @@ export const ListOrdersDocument = gql`
     items {
       createdAt
       id
+      orderId
       status
       couponCode
       shippingAddress
@@ -3899,8 +3964,10 @@ export type Order = {
   couponCode?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   finalAmount: Scalars['Float']['output'];
+  guestId?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   items: Array<OrderItem>;
+  orderId?: Maybe<Scalars['String']['output']>;
   shipping: Scalars['Float']['output'];
   shippingAddress: Scalars['JSONObject']['output'];
   status: Scalars['String']['output'];
@@ -3911,6 +3978,7 @@ export type OrderCreateDto = {
   address: Scalars['String']['input'];
   couponCode?: InputMaybe<Scalars['String']['input']>;
   district: Scalars['String']['input'];
+  guestId?: InputMaybe<Scalars['String']['input']>;
   items: Array<OrderItemDto>;
   name: Scalars['String']['input'];
   phoneNumber: Scalars['String']['input'];
@@ -4254,7 +4322,7 @@ export type QueryGetLocationArgs = {
 
 
 export type QueryGetOrderArgs = {
-  id?: InputMaybe<Scalars['Float']['input']>;
+  orderId?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5001,7 +5069,14 @@ export type CreateOrderMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null } | null }> } };
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', id: number, orderId?: string | null, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null } | null }> } };
+
+export type GetOrderQueryVariables = Exact<{
+  orderId?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetOrderQuery = { __typename?: 'Query', getOrder: { __typename?: 'Order', finalAmount: number, createdAt: any, guestId?: string | null, id: number, orderId?: string | null, status: string, shipping: number, shippingAddress: any, totalAmount: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, salePrice?: number | null, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, sku?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } | null }> } };
 
 export type ListOrdersQueryVariables = Exact<{
   endingBefore?: InputMaybe<Scalars['String']['input']>;
@@ -5011,7 +5086,7 @@ export type ListOrdersQueryVariables = Exact<{
 }>;
 
 
-export type ListOrdersQuery = { __typename?: 'Query', listOrders: { __typename?: 'Orders', hasMore: boolean, count?: number | null, afterCursor?: string | null, beforeCursor?: string | null, items: Array<{ __typename?: 'Order', createdAt: any, id: number, status: string, couponCode?: string | null, shippingAddress: any, totalAmount: number, finalAmount: number, shipping: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string, slug?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null, sku?: string | null, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null }> }> } };
+export type ListOrdersQuery = { __typename?: 'Query', listOrders: { __typename?: 'Orders', hasMore: boolean, count?: number | null, afterCursor?: string | null, beforeCursor?: string | null, items: Array<{ __typename?: 'Order', createdAt: any, id: number, orderId?: string | null, status: string, couponCode?: string | null, shippingAddress: any, totalAmount: number, finalAmount: number, shipping: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string, slug?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null, sku?: string | null, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null }> }> } };
 
 export type UpdateProfileMutationVariables = Exact<{
   profileData: UpdateProfileDto;

@@ -14,7 +14,9 @@ import toast from "react-hot-toast"
 import { setModalOpen } from "@/app/redux/modalSlice"
 import { SearchableDropdown } from "@/components/Cart/SearchableDropdown"
 import rawDistrictData from "@/data/bd-districts.json";
-import policeStationData from "@/data/bd-upazilas.json"
+import { useSession } from "next-auth/react"
+import { useGuestId } from "@/lib/hooks/useGuestId"
+import { useGuestInfo } from "@/lib/hooks/useGuestInfo"
 // Calculate order summary values
 const calculateOrderSummary = (cartItems:any, shippingCharge: number) => {
     // const subtotalWithoutDiscount = cartItems.reduce((total: any, item: Product) =>
@@ -39,7 +41,7 @@ const total = subtotal + shippingCharge
 }
 
 // Define the validation schema using Yup
-const shippingSchema = yup.object({
+const shippingSchema = yup.object({ 
   name: yup.string().required("Name is required"),
   phoneNumber: yup
     .string()
@@ -47,9 +49,9 @@ const shippingSchema = yup.object({
     .matches(/^[0-9+\-\s]+$/, "Invalid phone number format"),
   address: yup.string().required("Address is required"),
   district: yup.string().required("District is required"),
-  policeStation: yup.string().required("Police station is required"),
+  policeStation: yup.string().notRequired(),
   couponCode: yup.string().notRequired(),
-  shipping: yup.number().default(110)
+  shipping: yup.number().default(110),
 })
 
 export default function CheckoutPage() {
@@ -60,9 +62,12 @@ export default function CheckoutPage() {
   const [createOrder, {data, loading, error}] = useCreateOrderMutation();
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [selectedDistrict, setSelectedDistrict] = useState<any>({})
-
+  const { data: session, status } = useSession();
   const districtData = rawDistrictData.districts;
+  const { guestId, isReady } = useGuestId();  
+  const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
 
+  console.log("guestId", guestId, "isReady", isReady)
   const initialValues = {
     name: "",
     phoneNumber: "",
@@ -70,10 +75,9 @@ export default function CheckoutPage() {
     district : "",
     policeStation : "",
     couponCode: "",
-    shipping: 110
+    shipping: 110,
    }
-  // Initialize form with react-hook-form and yup validation
- 
+  
    const {
      values,
      errors,
@@ -85,32 +89,43 @@ export default function CheckoutPage() {
      setFieldValue,
      handleReset
    } = useFormik({
+   
      initialValues,
      validationSchema: shippingSchema,
      onSubmit:  async (values, action) => {
         console.log("submitting values", values)
         const cartItem = cartItems.map((cI:any) => ({variantId: cI.variantId, quantity: cI.itemCount, price: cI.price}))
-        let payload = {...values, items: cartItem};
+        if (cartItem.length < 1) {
+          toast.error("Your cart is empty. Please add items to your cart before placing an order.");
+          return;
+        }
+
+        let payload = {...values, items: cartItem, guestId: guestId};
         createOrder({
           variables: {
             orderData: payload
           },
-          onCompleted: () => {
+          onCompleted: (data) => {
             setFormSubmitting(false);
-            toast.success("Product updated successfully");
+            toast.success("Congratulations! Your order has been placed successfully.");
+            saveGuestInfo(values);
             action.resetForm();
             dispatch(clearCart());
             dispatch(
               setModalOpen({
                 title: "this is a modal",
                 body: "order-create-success",
+                props: {
+                  orderId : data?.createOrder.orderId
+                }
               })
             );
-  
+            
           },
           onError: () => {
             setFormSubmitting(false);
-            toast.error("Failed to update listing");
+            saveGuestInfo(values);
+            toast.error("Something went wrong while placing your order. Please contact support or try again later.");
           },
         })
       }});
@@ -125,7 +140,8 @@ export default function CheckoutPage() {
       // Here you would handle the actual promo code application
     }, 1000)
   }
-
+  
+  
   useEffect(() => {
       if (["dhaka", "chattogram"].includes(selectedDistrict?.name?.toLowerCase())){
         setFieldValue("shipping", 70)
@@ -133,7 +149,16 @@ export default function CheckoutPage() {
         setFieldValue("shipping", 110)
       }
   }, [selectedDistrict])
-  
+ 
+ useEffect(() => {
+  if (guestInfo && isReady) {
+    (Object.keys(guestInfo) as (keyof typeof guestInfo)[]).forEach((key) => {
+      if (!values[key]) {
+        setFieldValue(key, guestInfo[key], false);
+      }
+    });
+  }
+}, [guestInfo, isReady]);
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state.productCart.items);
@@ -149,8 +174,24 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Checkout</h1>
-
+      {status !== "authenticated" && (
+          <div className="w-full">
+            <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-6">
+              <div className="p-6">
+                 <p>
+          You can place your order without creating an account.{" "}
+          <span className="font-medium">
+            <a href="/login" className="text-blue-500 hover:text-blue-700">
+              Log in
+            </a>
+             &nbsp; to save your details and better experience.
+          </span>
+        </p>
+                </div>
+          </div>
+        </div>)}
       <div className="flex flex-col lg:flex-row gap-6">
+        
         {/* Left Column - Cart Items (on desktop) */}
         <div className="w-full lg:w-1/2">
           <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-6">
@@ -212,7 +253,7 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
-
+            
           {/* Order Summary - Visible on both mobile and desktop */}
           <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-6">
             <div className="p-6">
@@ -283,9 +324,11 @@ export default function CheckoutPage() {
               <h2 className="text-lg font-medium text-gray-900 mb-4">Shipping Information</h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                
+                
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
+                    Name 
                   </label>
                   <input
                     id="name"
@@ -361,11 +404,11 @@ export default function CheckoutPage() {
                    
                    <div>
                   <label htmlFor="policeStation" className="block text-sm font-medium text-gray-700 mb-1">
-                    Police Station
+                    Thana (optional)
                   </label>
                   <input
                     id="policeStation"
-                    type="tel"
+                    type="text"
                     name="policeStation"
                     value={values.policeStation}
                     onChange={handleChange}

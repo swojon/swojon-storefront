@@ -301,37 +301,19 @@ export default function Navbar({ border }: { border: any }) {
                   </Menu>
                 )}
 
-                <Link href="/profile?sidebar=hide">
-                  <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
-                    My Profile
-                  </div>
+               
+
+                <Link href="/track"
+                  className="relative py-1.5 px-1 leading-0  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap "
+                >
+                    Track Order
+
                 </Link>
 
-                {/* <div
-                  className="relative "
-                  onClick={() => dispatch(setCartDrawerOpen())}
-                >
-                  <button
-                    className={`py-1.5  leading-0  font-semibold  md:text-2xl xl:text-3xl text-sm   transition ease-in-out delay-150 duration-300  whitespace-nowrap ${
-                      border === "border"
-                        ? "text-primaryColor"
-                        : "text-primaryColor"
-                    }`}
-                  >
-                    <PiShoppingCart />
-                  </button>
-
-                  <div className="absolute -right-[2px] top-0  h-[18px] lg:h-[18px] xl:h-[20px] w-[18px] lg:w-[18px] xl:w-[20px] rounded-full  flex items-center justify-center bg-activeColor text-center ">
-                    <span className="font-semibold   text-white text-[8px] xl:text-[10px] block  p-0 leading-none">
-                      {totalQuantity}
-                    </span>
-                  </div>
-                </div> */}
-
-                {status != "authenticated" && (
+                {status != "authenticated" ? (
                   <Link href="/login">
                     <button
-                      className={`py-1.5 px-1 leading-0  font-medium  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap font-bold ${
+                      className={`py-1.5 px-1 leading-0  md:text-base text-sm  hover:-translate-y-[2px] transition ease-in-out delay-150 duration-300  whitespace-nowrap font-bold ${
                         border === "border"
                           ? "text-primaryColor"
                           : "text-primaryColor"
@@ -340,6 +322,12 @@ export default function Navbar({ border }: { border: any }) {
                       Login
                     </button>
                   </Link>
+                ) : (
+<Link href="/profile?sidebar=hide">
+                  <div className="px-4 py-1 md:text-base text-sm text-primaryColor font-semibold hover:bg-gray-200 cursor-pointer  w-full">
+                    My Profile
+                  </div>
+              </Link>
                 )}
 
                 {status === "authenticated" ? (

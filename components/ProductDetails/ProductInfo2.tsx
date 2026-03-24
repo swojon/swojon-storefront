@@ -6,6 +6,7 @@ import img1 from "@/public/hero/red1-min.jpg";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import StickyCard from "./StickyCard";
+import { useRouter } from "next/navigation";
 
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
@@ -19,7 +20,7 @@ function findMatchingVariant(variants:any, selectedOptions:any) {
 
 const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { product: any, selectedVariant:any, setSelectedVariant:any }) => {
   const dispatch = useDispatch();
-  
+  const router = useRouter();
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   // const [activeOption, setActiveOption] = useState<string>("Select Option");
   const [localQuantity, setLocalQuantity] = useState<number>(1);
@@ -63,6 +64,12 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
   const handleAddToCart = () => {
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
   };
+
+  const handleOrderNow = () => {
+    dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
+    router.push("/checkout");
+  };
+
   const productInfoRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -209,21 +216,32 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
         </p>
       )}
 
-      <div className="flex items-center gap-4">
-        <UpdateQuantity
-          item={product}
-          variantId={selectedVariant?.id}
-          localQuantity={localQuantity}
-          setLocalQuantity={setLocalQuantity}
-        />
+       {/* Row: Quantity + Order Now */}
+  <div className="flex items-center gap-3">
+    <UpdateQuantity
+      item={product}
+      variantId={selectedVariant?.id}
+      localQuantity={localQuantity}
+      setLocalQuantity={setLocalQuantity}
+    />
 
-        <button
-          onClick={handleAddToCart}
-          className="flex-1 py-3 bg-activeColor rounded-xl text-white font-semibold text-lg hover:opacity-90 transition"
-        >
-          Add to Cart
-        </button>
-      </div>
+    <button
+      onClick={handleOrderNow}
+      className="flex-1 py-3 bg-activeColor rounded-xl text-white font-semibold text-lg hover:opacity-90 transition"
+    >
+      Order Now
+    </button>
+  </div>
+
+  {/* Secondary CTA */}
+  <button
+    onClick={handleAddToCart}
+    className="w-full py-3 border border-activeColor text-activeColor rounded-xl font-semibold hover:bg-activeColor/10 transition"
+  >
+    Add to Cart
+  </button>
+
+      
     </>
   )}
 

@@ -32,7 +32,7 @@ export function OrderCard({ order }: {order: any}) {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Order #{order.id}</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Order #{order.orderId ?? order.id}</h3>
               <p className="text-sm text-gray-500">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
             </div>
             {/* @ts-ignore  next-line*/}
@@ -104,9 +104,9 @@ export function OrderCard({ order }: {order: any}) {
             {order.items.slice(0, 3).map((item:any, index:number) => (
               <div key={item.id} className="relative">
                 <img
-                src={item.variant.media ? item.variant.media[0].url : item.listing.media ? item.listing.media[0].url :  "/placeholder.svg"}
+                src={item.variant.media ? item.variant.media[0]?.url : item.listing?.media ? item.listing.media[0].url :  "/placeholder.svg"}
 
-                  alt={item.listing.title}
+                  alt={item.listing?.title}
                   className="h-10 w-10 rounded-full border-2 border-white object-cover"
                 />
               </div>
@@ -125,7 +125,7 @@ export function OrderCard({ order }: {order: any}) {
             {order.items.map((item:any) => (
               <div key={item.id} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
                 <img
-                  src={item.variant.media ? item.variant.media[0].url : item.listing.media ? item.listing.media[0].url :  "/placeholder.svg"}
+                  src={item.variant.media ? item.variant.media[0]?.url : item.listing.media ? item.listing.media[0].url :  "/placeholder.svg"}
                   alt={item.listing.title}
                   className="h-16 w-16 rounded-lg object-cover border border-gray-200"
                 />

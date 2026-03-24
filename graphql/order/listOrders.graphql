@@ -3,6 +3,7 @@ query ListOrders($endingBefore: String, $startingAfter: String, $limit: Float, $
     items {
         createdAt
       id
+      orderId
       status
       couponCode
       shippingAddress

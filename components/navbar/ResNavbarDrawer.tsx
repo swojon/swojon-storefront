@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNavClose } from "@/app/redux/navSlice";
 import Link from "next/link";
 import { useListCategoriesQuery } from "@/apollograph/generated";
-import { MdKeyboardArrowRight, MdArrowBackIos } from "react-icons/md";
+import {  MdArrowBackIos } from "react-icons/md";
 
-import { FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
+import {  FaRegHeart, FaRegUser } from "react-icons/fa6";
 import { GrHomeRounded } from "react-icons/gr";
 import "./resNavbar.css";
 import ResNavbarCategoryPanel from "./ResNavbarCategoryPanel";
@@ -86,14 +86,14 @@ const ResNavbarDrawer = () => {
                     className="h-4 w-8"
                   />
                   </div>
-                  {/* <Link
-                    href="/upload-product"
+                  <Link
+                    href="/track"
                     onClick={() => dispatch(setNavClose())}
                   >
                     <button className="py-2 px-5 bg-activeColor text-white rounded-md text-base">
-                      List Item
+                      Track Order
                     </button>
-                  </Link> */}
+                  </Link>
                 </>}
             </>}
           </div>

@@ -4,7 +4,7 @@ import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-const OrderSuccessModal = ({}: any) => {
+const OrderSuccessModal = ({props}: any) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleButtonClick = (link: string) => {
@@ -30,15 +30,15 @@ const OrderSuccessModal = ({}: any) => {
       </div>
 
       <p className="text-base font-medium text-secondColor text-center ">
-         We recieved your order
+         We recieved your order. Order Id <strong>{props?.orderId ? `#${props.orderId}` : ""}</strong>
       </p>
 
       <div className="flex flex-col gap-3">
         <button
-          onClick={() => handleButtonClick("/profile/my-orders")}
+          onClick={() => handleButtonClick("/track?orderId=" + props?.orderId)}
           className="px-4 w-full py-3 text-base bg-activeColor text-white rounded-md "
         >
-          View Orders
+          View Details
         </button>
         <button
           onClick={() => handleButtonClick("/")}
