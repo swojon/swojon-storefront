@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import ProductInfo2 from "./ProductInfo2";
 import AboutItem from "./AboutItem";
 import FeaturesSection from "./FeaturesSection";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -25,7 +26,7 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
   const [selectedVariant, setSelectedVariant] = useState<any>(product?.variants ? product.variants[0] : {});
   //add all images from product media and variants media
   let images = [];
-
+  
   if (product?.media) {
     images.push(...product.media);
   }
@@ -37,6 +38,21 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
       }
     });
   }
+  pushToDataLayer({
+        event: "view_item",
+        ecommerce: {
+          value: product.salePrice ?? product.price,
+          currency: "BDT",
+          items: [
+            {
+              item_id: product?.id,
+              item_name: product?.title,
+              price: product?.salePrice ?? product?.price,
+              category: product?.category?.name ?? "Uncategorized",
+            },
+          ],
+        },
+  });
 
   // const images = product?.media + product.variants?.map((variant: any) => variant.media) || [];
   console.log("images", images);

@@ -55,27 +55,6 @@ const ProductDetails = ({ productId }: { productId: number }) => {
       />
     );
   }
-
-  useEffect(() => {
-    if (!product) return;
-
-    pushToDataLayer({
-        event: "view_item",
-        ecommerce: {
-          items: [
-            {
-              item_id: product?.id,
-              item_name: product?.title,
-              price: product?.salePrice ?? product?.price,
-              category: product?.category?.name ?? "Uncategorized",
-            },
-          ],
-        },
-    
-  })
-
-  }, [product]);
-
   return (
     <section className="">
       {/* <StickyCard product={product ?? null} />{" "} */}
