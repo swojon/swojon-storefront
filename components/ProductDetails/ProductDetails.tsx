@@ -57,7 +57,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
   }
 
   useEffect(() => {
-    if (product) {
+    if (!product) return;
+
     pushToDataLayer({
         event: "view_item",
         ecommerce: {
@@ -70,8 +71,8 @@ const ProductDetails = ({ productId }: { productId: number }) => {
             },
           ],
         },
-    });
-  }
+    
+  })
 
   }, [product]);
 
