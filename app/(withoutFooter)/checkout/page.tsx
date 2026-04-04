@@ -17,6 +17,7 @@ import rawDistrictData from "@/data/bd-districts.json";
 import { useSession } from "next-auth/react"
 import { useGuestId } from "@/lib/hooks/useGuestId"
 import { useGuestInfo } from "@/lib/hooks/useGuestInfo"
+import { pushToDataLayer } from "@/lib/helpers/datelayer"
 // Calculate order summary values
 const calculateOrderSummary = (cartItems:any, shippingCharge: number) => {
     // const subtotalWithoutDiscount = cartItems.reduce((total: any, item: Product) =>
@@ -111,6 +112,24 @@ export default function CheckoutPage() {
             saveGuestInfo(values);
             action.resetForm();
             dispatch(clearCart());
+            pushToDataLayer({
+              event: "purchase",
+              ecommerce: {
+                transaction_id: data.createOrder.orderId, // must be unique
+                affiliation: "Swojon",
+                value: orderSummary.total,
+                currency: "BDT",
+                shipping: orderSummary.shipping || 0,
+                tax: 0,
+                items: cartItems.map((item:any) => ({
+                  item_id: item.id,
+                  item_name: item.title,
+                  price: item.variants.salePrice ?? item.variants.price ?? item.salePrice ?? item.price,
+                  quantity: item.itemCount,
+                  item_category: item.category.name ?? "Uncategorized",
+                })),
+              },
+            });
             dispatch(
               setModalOpen({
                 title: "this is a modal",

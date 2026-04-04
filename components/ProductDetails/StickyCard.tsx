@@ -2,6 +2,7 @@ import React from "react";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 const StickyCard = ({
   variant,
@@ -19,6 +20,22 @@ const StickyCard = ({
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     if (variant?.stock <= 0) return;
+    pushToDataLayer({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "BDT",
+        value: (variant?.salePrice ?? variant?.price) * (localQuantity ? localQuantity : 1),
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            price: variant?.salePrice ?? variant?.price,
+            quantity: localQuantity ? localQuantity : 1,
+            item_category: product.category.name ?? "Uncategorized",
+          },
+        ],
+      },
+    });
     dispatch(addToCart({ ...product, quantity: localQuantity }));
   };
   const getProductImage = (url:any, width?:number) => {

@@ -8,6 +8,7 @@ import { BiCartAdd } from "react-icons/bi";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import FavoriteProduct from "./FavoriteProduct";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 export function getPricingSummary(variants: any) {
   if (!variants) return {
@@ -86,6 +87,21 @@ const ProductCard2 = ({ product }: { product: any }) => {
   const isOutOfStock = !product?.variants || product.variants.every((v: any) => v.stock <= 0);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
   const handleAddToCart = () => {
+    pushToDataLayer({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "BDT",
+        value: product.price * 1,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            price: product.salePrice,
+            quantity: 1,
+          },
+        ],
+      },
+    });
     dispatch(addToCart(product));
   };
 

@@ -7,6 +7,7 @@ import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import StickyCard from "./StickyCard";
 import { useRouter } from "next/navigation";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
@@ -62,11 +63,57 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
   };
   const stock = selectedVariant?.stock ?? 0;
   const handleAddToCart = () => {
+     pushToDataLayer({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "BDT",
+            value: (selectedVariant?.salePrice ?? selectedVariant?.price) * (localQuantity ? localQuantity : 1),
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.title,
+                price: selectedVariant?.salePrice ?? selectedVariant?.price,
+                quantity: localQuantity ? localQuantity : 1,
+                item_category: product.category.name ?? "Uncategorized",
+              },
+            ],
+          },
+        });
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
   };
 
   const handleOrderNow = () => {
+     pushToDataLayer({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "BDT",
+            value: (selectedVariant?.salePrice ?? selectedVariant?.price) * (localQuantity ? localQuantity : 1),
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.title,
+                price: selectedVariant?.salePrice ?? selectedVariant?.price,
+                quantity: localQuantity ? localQuantity : 1,
+                item_category: product.category.name ?? "Uncategorized",
+              },
+            ],
+          },
+        });
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
+    pushToDataLayer({
+      event: "begin_checkout",
+      ecommerce: {
+        currency: "BDT",
+        value: selectedVariant.salePrice ?? selectedVariant?.price,
+        items: [{
+          item_id: product.id,
+          item_name: product.title,
+          price: selectedVariant?.salePrice ?? selectedVariant?.price ?? product?.salePrice ?? product?.price,
+          quantity: localQuantity ? localQuantity : 1,
+          item_category: product.category.name ?? "Uncategorized",
+        }],
+      },
+    });
     router.push("/checkout");
   };
 
@@ -91,7 +138,6 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
     };
   }, []);
 
-  console.log("product ghadjsfhdkjshf", product);
 
   return (
     <div>

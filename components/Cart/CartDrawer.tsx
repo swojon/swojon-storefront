@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { LuTrash2 } from "react-icons/lu";
 import NotMatched from "../NotMatched/NotMatched";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 const CartDrawer = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,24 @@ const CartDrawer = () => {
 
   const handleCheckout = () => {
     dispatch(setCartDrawerClose());
+    pushToDataLayer({
+      event: "begin_checkout",
+      ecommerce: {
+        currency: "BDT",
+        value: cartItems.reduce(
+          (total: any, item: Product) =>
+            total + (item.variants?.find((variant: any) => variant.id === item.variantId)?.salePrice! ?? item.salePrice) * (item.itemCount || 1),
+          0
+        ),
+        items: cartItems.map((item:any) => ({
+          item_id: item.id,
+          item_name: item.title,
+          price: item.variants.salePrice ?? item.variants.price ?? item.salePrice ?? item.price,
+          quantity: item.itemCount,
+          item_category: item.category.name ?? "Uncategorized",
+        })),
+      },
+    });
     setTimeout(() => {
       router.push("/checkout");
     }, 300);

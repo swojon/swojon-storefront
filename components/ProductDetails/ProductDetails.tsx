@@ -13,6 +13,7 @@ import NotFound from "../NotMatched/NotFound";
 import { useSelector } from "react-redux";
 import { AppState } from "@/app/redux/store";
 import ProductDetailsLoaded from "./ProductDetailLoaded";
+import { pushToDataLayer } from "@/lib/helpers/datelayer";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -54,6 +55,25 @@ const ProductDetails = ({ productId }: { productId: number }) => {
       />
     );
   }
+
+  useEffect(() => {
+    if (product) {
+    pushToDataLayer({
+        event: "view_item",
+        ecommerce: {
+          items: [
+            {
+              item_id: product?.id,
+              item_name: product?.title,
+              price: product?.salePrice ?? product?.price,
+              category: product?.category?.name ?? "Uncategorized",
+            },
+          ],
+        },
+    });
+  }
+
+  }, [product]);
 
   return (
     <section className="">

@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 
 export interface Product {
   id: number;
+  category: {
+    name: string;
+  };
   description: string;
   title: string;
   price?: number;
