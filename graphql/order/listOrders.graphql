@@ -10,6 +10,9 @@ query ListOrders($endingBefore: String, $startingAfter: String, $limit: Float, $
       totalAmount
       finalAmount
       shipping
+      carrier
+      trackingNumber
+      
       items {
         listing {
           id

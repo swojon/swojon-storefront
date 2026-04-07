@@ -2152,6 +2152,8 @@ export const GetOrderDocument = gql`
     guestId
     id
     orderId
+    trackingNumber
+    carrier
     status
     items {
       listing {
@@ -2224,6 +2226,8 @@ export const ListOrdersDocument = gql`
       totalAmount
       finalAmount
       shipping
+      carrier
+      trackingNumber
       items {
         listing {
           id
@@ -3961,6 +3965,7 @@ export type Notifications = {
 
 export type Order = {
   __typename?: 'Order';
+  carrier?: Maybe<Scalars['String']['output']>;
   couponCode?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   finalAmount: Scalars['Float']['output'];
@@ -3968,10 +3973,12 @@ export type Order = {
   id: Scalars['Int']['output'];
   items: Array<OrderItem>;
   orderId?: Maybe<Scalars['String']['output']>;
-  shipping: Scalars['Float']['output'];
+  pos_invoice?: Maybe<Scalars['String']['output']>;
+  shipping?: Maybe<Scalars['Float']['output']>;
   shippingAddress: Scalars['JSONObject']['output'];
   status: Scalars['String']['output'];
   totalAmount: Scalars['Float']['output'];
+  trackingNumber?: Maybe<Scalars['String']['output']>;
 };
 
 export type OrderCreateDto = {
@@ -4028,8 +4035,10 @@ export enum OrderStatus {
 }
 
 export type OrderUpdateDto = {
+  carrier?: InputMaybe<Scalars['String']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
   paymentStatus?: InputMaybe<PaymentStatus>;
+  pos_invoice?: InputMaybe<OrderStatus>;
   status?: InputMaybe<OrderStatus>;
   trackingNumber?: InputMaybe<Scalars['String']['input']>;
 };
@@ -5076,7 +5085,7 @@ export type GetOrderQueryVariables = Exact<{
 }>;
 
 
-export type GetOrderQuery = { __typename?: 'Query', getOrder: { __typename?: 'Order', finalAmount: number, createdAt: any, guestId?: string | null, id: number, orderId?: string | null, status: string, shipping: number, shippingAddress: any, totalAmount: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, salePrice?: number | null, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, sku?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } | null }> } };
+export type GetOrderQuery = { __typename?: 'Query', getOrder: { __typename?: 'Order', finalAmount: number, createdAt: any, guestId?: string | null, id: number, orderId?: string | null, trackingNumber?: string | null, carrier?: string | null, status: string, shipping?: number | null, shippingAddress: any, totalAmount: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, salePrice?: number | null, title: string } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, sku?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string, isPrimary: boolean }> | null } | null }> } };
 
 export type ListOrdersQueryVariables = Exact<{
   endingBefore?: InputMaybe<Scalars['String']['input']>;
@@ -5086,7 +5095,7 @@ export type ListOrdersQueryVariables = Exact<{
 }>;
 
 
-export type ListOrdersQuery = { __typename?: 'Query', listOrders: { __typename?: 'Orders', hasMore: boolean, count?: number | null, afterCursor?: string | null, beforeCursor?: string | null, items: Array<{ __typename?: 'Order', createdAt: any, id: number, orderId?: string | null, status: string, couponCode?: string | null, shippingAddress: any, totalAmount: number, finalAmount: number, shipping: number, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string, slug?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null, sku?: string | null, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null }> }> } };
+export type ListOrdersQuery = { __typename?: 'Query', listOrders: { __typename?: 'Orders', hasMore: boolean, count?: number | null, afterCursor?: string | null, beforeCursor?: string | null, items: Array<{ __typename?: 'Order', createdAt: any, id: number, orderId?: string | null, status: string, couponCode?: string | null, shippingAddress: any, totalAmount: number, finalAmount: number, shipping?: number | null, carrier?: string | null, trackingNumber?: string | null, items: Array<{ __typename?: 'OrderItem', price: number, quantity: number, listing?: { __typename?: 'Listing', id: number, title: string, slug?: string | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null, variant?: { __typename?: 'ProductVariant', id: number, price: number, salePrice?: number | null, sku?: string | null, optionValues?: Array<{ __typename?: 'ProductOptionValue', optionName?: string | null, value?: string | null }> | null, media?: Array<{ __typename?: 'ListingMedia', url: string }> | null } | null }> }> } };
 
 export type UpdateProfileMutationVariables = Exact<{
   profileData: UpdateProfileDto;

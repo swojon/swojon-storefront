@@ -5,6 +5,8 @@ query GetOrder($orderId: String) {
     guestId
     id
     orderId
+    trackingNumber
+    carrier
     status
     items {
       listing {

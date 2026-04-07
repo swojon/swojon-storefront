@@ -11,18 +11,18 @@ const statusColors: Record<
   string,
   { bg: string; text: string; dot: string }
 > = {
-  pending: { bg: 'bg-yellow-50', text: 'text-yellow-700', dot: 'bg-yellow-500' },
-  processing: {
+  PENDING: { bg: 'bg-yellow-50', text: 'text-yellow-700', dot: 'bg-yellow-500' },
+  PROCESSING: {
     bg: 'bg-blue-50',
     text: 'text-blue-700',
     dot: 'bg-blue-500',
   },
-  shipped: {
+  SHIPPED: {
     bg: 'bg-purple-50',
     text: 'text-purple-700',
     dot: 'bg-purple-500',
   },
-  delivered: {
+  DELIVERED: {
     bg: 'bg-green-50',
     text: 'text-green-700',
     dot: 'bg-green-500',
@@ -135,11 +135,11 @@ export default function TrackOrderDisplay({ orderId }: OrderDisplayProps) {
 
         {/* Status Card */}
         <div
-          className={`mb-8 p-6 sm:p-8 border-2 rounded-lg ${statusColors[order.status].bg}`}
+          className={`mb-8 p-6 sm:p-8 border-2 rounded-lg ${statusColors[order.status]?.bg}`}
         >
           <div className="flex items-start gap-4">
             <div
-              className={`h-8 w-8 rounded-full ${statusColors[order.status].dot} flex items-center justify-center flex-shrink-0`}
+              className={`h-8 w-8 rounded-full ${statusColors[order.status]?.dot} flex items-center justify-center flex-shrink-0`}
             >
               {order.status === 'delivered' && (
                 <LuCheckCircle className="h-5 w-5 text-white" />
@@ -162,7 +162,8 @@ export default function TrackOrderDisplay({ orderId }: OrderDisplayProps) {
           <div className="p-4 sm:p-6 rounded-lg border border-gray-200 bg-white">
             <p className="text-sm font-medium text-slate-600 mb-1">Courier Information</p>
             <p className="text-lg font-semibold text-slate-900">
-              {order.courier ? order.courier : 'N/A'}
+              {order.carrier ? order.carrier : 'N/A'}
+              {order.trackingNumber ? ` - ${order.trackingNumber}` : ''}
             </p>
           </div>
 
