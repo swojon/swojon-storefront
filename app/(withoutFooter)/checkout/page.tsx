@@ -129,6 +129,11 @@ export default function CheckoutPage() {
                   item_category: item.category.name ?? "Uncategorized",
                 })),
               },
+              customer : {
+                name: values.name,
+                phone: values.phoneNumber,
+                address : values.address,
+              }
             });
             dispatch(
               setModalOpen({
