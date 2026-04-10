@@ -47,7 +47,6 @@ interface Iprops {
 }
 
 export default async function RootLayout({ children }: Iprops) {
-  const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
 
   return (
     <html lang="en" className={nunito.variable}>
@@ -66,15 +65,7 @@ export default async function RootLayout({ children }: Iprops) {
             `,
           }}
         />
-        {/* <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
-            alt="fb-pixel"
-          />
-        </noscript> */}
+       
       </head>
       <body>
         <noscript>
@@ -91,8 +82,8 @@ export default async function RootLayout({ children }: Iprops) {
             <ApolloWrapperWithSession>
               <div className="min-h-[30vh] relative ">
                 <SpeedInsights />
-                <FacebookPixel />
-                <Analytics />
+                {/* <FacebookPixel /> */}
+                {/* <Analytics /> */}
                 <CartDrawer />
                 <FloatingCart />
                 <Toaster />
