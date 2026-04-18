@@ -8,6 +8,7 @@ import { addToCart } from "@/app/redux/cartSlice";
 import StickyCard from "./StickyCard";
 import { useRouter } from "next/navigation";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
+import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
 
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
@@ -26,6 +27,7 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
   // const [activeOption, setActiveOption] = useState<string>("Select Option");
   const [localQuantity, setLocalQuantity] = useState<number>(1);
   const [isVisible, setIsVisible] = useState(false);
+const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
 
   useEffect(() => {
     if (selectedVariant){
@@ -78,6 +80,12 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
               },
             ],
           },
+          user_data: {
+            'email': guestInfo?.email || '', 
+            'phone': guestInfo?.phoneNumber || '',
+            'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+            'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+          } 
         });
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
   };
@@ -98,6 +106,12 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
               },
             ],
           },
+          user_data: {
+            'email': guestInfo?.email || '', 
+            'phone': guestInfo?.phoneNumber || '',
+            'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+            'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+          } 
         });
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
     pushToDataLayer({
@@ -113,6 +127,12 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
           item_category: product.category.name ?? "Uncategorized",
         }],
       },
+      user_data: {
+        'email': guestInfo?.email || '', 
+        'phone': guestInfo?.phoneNumber || '',
+        'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+        'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+      } 
     });
     router.push("/checkout");
   };

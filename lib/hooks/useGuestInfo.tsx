@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 const STORAGE_KEY = "guest_info";
 
 export type GuestInfo = {
+  email?: string;
   name: string;
   phoneNumber: string;
   address: string;

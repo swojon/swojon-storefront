@@ -10,6 +10,7 @@ import ProductInfo2 from "./ProductInfo2";
 import AboutItem from "./AboutItem";
 import FeaturesSection from "./FeaturesSection";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
+import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -25,6 +26,8 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<any>(product?.variants ? product.variants[0] : {});
   //add all images from product media and variants media
+  const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
+  
   let images = [];
   
   if (product?.media) {
@@ -52,6 +55,12 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
             },
           ],
         },
+        user_data: {
+          'email': guestInfo?.email || '', 
+          'phone': guestInfo?.phoneNumber || '',
+          'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+          'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+        } 
   });
 
   // const images = product?.media + product.variants?.map((variant: any) => variant.media) || [];
