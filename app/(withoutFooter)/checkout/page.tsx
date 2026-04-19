@@ -288,7 +288,7 @@ export default function CheckoutPage() {
 
               <div className="space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
+                  <span className="text-gray-600">Item Total</span>
                   <span className="text-gray-900 font-medium">৳{orderSummary.subtotal}</span>
                 </div>
 
@@ -298,13 +298,13 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Shipping</span>
+                  <span className="text-gray-600">Delivery Charge</span>
                   <span className="text-gray-900 font-medium">৳{orderSummary.shipping}</span>
                 </div>
 
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   <div className="flex justify-between">
-                    <span className="text-gray-900 font-medium">Grand Total</span>
+                    <span className="text-gray-900 font-medium">Total</span>
                     <span className="text-gray-900 font-bold">৳{orderSummary.total}</span>
                   </div>
                 </div>

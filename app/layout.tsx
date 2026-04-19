@@ -19,6 +19,7 @@ import FacebookPixel from "@/components/FacebookPixel";
 import CartDrawer from "@/components/Cart/CartDrawer";
 import FloatingCart from "@/components/Cart/CartIcon";
 import Script from "next/dist/client/script";
+import MessengerIcon from "@/components/Cart/MessengerIcon";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -85,6 +86,7 @@ export default async function RootLayout({ children }: Iprops) {
                 {/* <FacebookPixel /> */}
                 {/* <Analytics /> */}
                 <CartDrawer />
+                {/* <MessengerIcon /> */}
                 <FloatingCart />
                 <Toaster />
                 <NotificationDrawerNew />

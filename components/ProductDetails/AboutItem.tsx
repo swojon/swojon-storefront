@@ -11,9 +11,10 @@ const AboutItem = ({product}: {product: any}) => {
       content: product?.description ? product?.description.split("\n").map((line:any, i:any) => (
     <p key={i}>{line}</p>
   )) || "" : "",
+      isOpen : true,
     },
     // { title: "Specifications", content: <Specifications /> },
-    { title: "Return Policy", content: <ShippingReturn /> },
+    { title: "Return Policy", content: <ShippingReturn />, isOpen : false },
     //   { title: "Shipping & Returns", content: "Shipping details..." },
   ];
   return (
@@ -23,7 +24,7 @@ const AboutItem = ({product}: {product: any}) => {
       </h5>
       <div className="px-3 pb-2 bg-gray-50 rounded-sm">
         {ITEMS.map((item, index) => (
-          <Accordion key={index} title={item.title} content={item.content} />
+          <Accordion key={index} title={item.title} content={item.content} isOpen={item.isOpen} />
         ))}
       </div>
     </div>

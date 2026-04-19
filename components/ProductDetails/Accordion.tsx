@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-const Accordion = ({ title, content }: { title: string; content: any }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Accordion = ({ title, content, isOpen: initialIsOpen }: { title: string; content: any; isOpen?: boolean  }) => {
+  const [isOpen, setIsOpen] = useState(initialIsOpen || false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (

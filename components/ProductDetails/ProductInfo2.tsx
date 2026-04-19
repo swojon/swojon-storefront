@@ -9,6 +9,7 @@ import StickyCard from "./StickyCard";
 import { useRouter } from "next/navigation";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
 import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
+import { FaFacebookMessenger } from "react-icons/fa";
 
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
@@ -173,9 +174,9 @@ const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
             <h2 className="text-2xl font-bold leading-tight">
               {product?.title}
             </h2>
-            <div className="min-h-[28px]">
+            {/* <div className="min-h-[28px]">
               <SellerReviewDropdown sellerId={product?.id} />
-            </div>
+            </div> */}
             
             <div className="flex items-center gap-3 mt-2">
               <span className="text-3xl font-bold text-activeColor">
@@ -282,38 +283,48 @@ const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
         </p>
       )}
 
-       {/* Row: Quantity + Order Now */}
-  <div className="flex items-center gap-3">
-    <UpdateQuantity
-      item={product}
-      variantId={selectedVariant?.id}
-      localQuantity={localQuantity}
-      setLocalQuantity={setLocalQuantity}
-    />
+      {/* Row: Quantity + Order Now */}
+      <div className="flex items-center gap-3">
+        <UpdateQuantity
+          item={product}
+          variantId={selectedVariant?.id}
+          localQuantity={localQuantity}
+          setLocalQuantity={setLocalQuantity}
+        />
 
-    <button
-      onClick={handleOrderNow}
-      className="flex-1 py-3 bg-activeColor rounded-xl text-white font-semibold text-lg hover:opacity-90 transition"
-    >
-      Order Now
-    </button>
-  </div>
+        <button
+          onClick={handleOrderNow}
+          className="flex-1 py-3 bg-activeColor rounded-xl text-white font-semibold text-lg hover:opacity-90 transition shadow-md"
+        >
+          Order Now
+        </button>
+      </div>
 
-  {/* Secondary CTA */}
-  <button
-    onClick={handleAddToCart}
-    className="w-full py-3 border border-activeColor text-activeColor rounded-xl font-semibold hover:bg-activeColor/10 transition"
-  >
-    Add to Cart
-  </button>
+      {/* Secondary CTAs: Add to Cart + Chat in Messenger */}
+      <div className="grid grid-cols-2 gap-3">
+        <button
+          onClick={handleAddToCart}
+          className="py-3 border border-activeColor text-activeColor rounded-xl font-semibold hover:bg-activeColor/10 transition"
+        >
+          Add to Cart
+        </button>
 
-      
+        <a
+          href="https://m.me/weareswojon"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="py-3 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-md"
+        >
+          <FaFacebookMessenger/>
+          Chat in Messenger
+        </a>
+      </div>
     </>
   )}
 
   {/* Trust */}
   <div className="text-sm text-gray-500 space-y-1">
-    <p>✔ Genuine product</p>
+    <p>✔ Cash On Delivery</p>
     <p>✔ Easy returns</p>
     <p>✔ Fast delivery</p>
   </div>
