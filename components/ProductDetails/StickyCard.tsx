@@ -3,6 +3,8 @@ import UpdateQuantity from "../SelectOptions/UpdateQuantity";
 import { addToCart } from "@/app/redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
+import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
+import { useRouter } from "next/navigation";
 
 const StickyCard = ({
   variant,
@@ -17,43 +19,83 @@ const StickyCard = ({
   localQuantity?: number;
   setLocalQuantity?: (value: any) => void;
 }) => {
+   const router = useRouter();
   const dispatch = useDispatch();
+  const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
 
-  const quantity = localQuantity ? localQuantity : 1;
-  const price = variant?.salePrice ?? variant?.price;
-
-  const handleAddToCart = () => {
-    if (variant?.stock <= 0) return;
-
+ const handleOrderNow = () => {
+     pushToDataLayer({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "BDT",
+            value: (variant?.salePrice ?? variant?.price) * (localQuantity ? localQuantity : 1),
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.title,
+                price: variant?.salePrice ?? variant?.price,
+                quantity: localQuantity ? localQuantity : 1,
+                item_category: product.category.name ?? "Uncategorized",
+              },
+            ],
+          },
+          user_data: {
+            'email': guestInfo?.email || '', 
+            'phone': guestInfo?.phoneNumber || '',
+            'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+            'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+          } 
+        });
+    dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: variant?.id }));
     pushToDataLayer({
-      event: "add_to_cart",
+      event: "begin_checkout",
       ecommerce: {
         currency: "BDT",
-        value: price * quantity,
-        items: [
-          {
-            item_id: product.id,
-            item_name: product.title,
-            price,
-            quantity,
-            item_category: product.category?.name ?? "Uncategorized",
-          },
-        ],
+        value: variant.salePrice ?? variant?.price,
+        items: [{
+          item_id: product.id,
+          item_name: product.title,
+          price: variant?.salePrice ?? variant?.price ?? product?.salePrice ?? product?.price,
+          quantity: localQuantity ? localQuantity : 1,
+          item_category: product.category.name ?? "Uncategorized",
+        }],
       },
+      user_data: {
+        'email': guestInfo?.email || '', 
+        'phone': guestInfo?.phoneNumber || '',
+        'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+        'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+      } 
     });
-
-    dispatch(addToCart({ ...product, quantity }));
+    router.push("/checkout");
+  };
+ const handleAddToCart = () => {
+     pushToDataLayer({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "BDT",
+            value: (variant?.salePrice ?? variant?.price) * (localQuantity ? localQuantity : 1),
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.title,
+                price: variant?.salePrice ?? variant?.price,
+                quantity: localQuantity ? localQuantity : 1,
+                item_category: product.category.name ?? "Uncategorized",
+              },
+            ],
+          },
+          user_data: {
+            'email': guestInfo?.email || '', 
+            'phone': guestInfo?.phoneNumber || '',
+            'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+            'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+          } 
+        });
+    dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: variant?.id }));
   };
 
-  const handleOrderNow = () => {
-    if (variant?.stock <= 0) return;
-
-    // Treat Order as high-intent add to cart + checkout intent
-    handleAddToCart();
-
-    // Optional: you can redirect to checkout here if needed
-    // router.push("/checkout");
-  };
+  
 
   const getProductImage = (url: any, width?: number) => {
     if (!url) return "/assets/dots.png";
