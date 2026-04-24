@@ -22,10 +22,13 @@ const StickyCard = ({
    const router = useRouter();
   const dispatch = useDispatch();
   const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
+  const atc_event_id = `${product.id}_${variant?.id}_add_to_cart`;
+  const bc_event_id = `${product.id}_${variant?.id}_begin_checkout`;
 
  const handleOrderNow = () => {
      pushToDataLayer({
           event: "add_to_cart",
+          event_id: atc_event_id,
           ecommerce: {
             currency: "BDT",
             value: (variant?.salePrice ?? variant?.price) * (localQuantity ? localQuantity : 1),
@@ -49,6 +52,7 @@ const StickyCard = ({
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: variant?.id }));
     pushToDataLayer({
       event: "begin_checkout",
+      event_id: bc_event_id,
       ecommerce: {
         currency: "BDT",
         value: variant.salePrice ?? variant?.price,
@@ -72,6 +76,7 @@ const StickyCard = ({
  const handleAddToCart = () => {
      pushToDataLayer({
           event: "add_to_cart",
+          event_id: atc_event_id,
           ecommerce: {
             currency: "BDT",
             value: (variant?.salePrice ?? variant?.price) * (localQuantity ? localQuantity : 1),

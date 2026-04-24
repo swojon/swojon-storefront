@@ -11,6 +11,7 @@ import AboutItem from "./AboutItem";
 import FeaturesSection from "./FeaturesSection";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
 import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
+import { createEventId } from "@/lib/helpers/trackingId";
 
 // const DynamicSafetyTips = dynamic(() => import("../SafetyTips/SafetyTips"), {ssr: false});
 const DynamicFavoriteProduct = dynamic(
@@ -41,8 +42,10 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
       }
     });
   }
+  const eventId = createEventId("view_item", product.id);
   pushToDataLayer({
         event: "view_item",
+        event_id: eventId,
         ecommerce: {
           value: product.salePrice ?? product.price,
           currency: "BDT",

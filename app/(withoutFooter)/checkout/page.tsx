@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react"
 import { useGuestId } from "@/lib/hooks/useGuestId"
 import { useGuestInfo } from "@/lib/hooks/useGuestInfo"
 import { pushToDataLayer } from "@/lib/helpers/datelayer"
+import { createEventId } from "@/lib/helpers/trackingId"
 // Calculate order summary values
 const calculateOrderSummary = (cartItems:any, shippingCharge: number) => {
     // const subtotalWithoutDiscount = cartItems.reduce((total: any, item: Product) =>
@@ -68,7 +69,6 @@ export default function CheckoutPage() {
   const districtData = rawDistrictData.districts;
   const { guestId, isReady } = useGuestId();  
   const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
-
   console.log("guestId", guestId, "isReady", isReady)
   const initialValues = {
     email: "",
@@ -109,6 +109,8 @@ export default function CheckoutPage() {
             orderData: payload
           },
           onCompleted: (data) => {
+            const purchaseEventId = createEventId("purchase", data?.createOrder?.orderId ?? "");
+            
             setFormSubmitting(false);
             toast.success("Congratulations! Your order has been placed successfully.");
             saveGuestInfo(values);
@@ -116,6 +118,7 @@ export default function CheckoutPage() {
             dispatch(clearCart());
             pushToDataLayer({
               event: "purchase",
+              event_id: purchaseEventId,
               ecommerce: {
                 transaction_id: data.createOrder.orderId, // must be unique
                 affiliation: "Swojon",

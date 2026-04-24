@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { pushToDataLayer } from "@/lib/helpers/datelayer";
 import { useGuestInfo } from "@/lib/hooks/useGuestInfo";
 import { FaFacebookMessenger } from "react-icons/fa";
+import { createEventId } from "@/lib/helpers/trackingId";
 
 
 function findMatchingVariant(variants:any, selectedOptions:any) {
@@ -29,6 +30,8 @@ const ProductInfo2 = ({ product, selectedVariant, setSelectedVariant }: { produc
   const [localQuantity, setLocalQuantity] = useState<number>(1);
   const [isVisible, setIsVisible] = useState(false);
 const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
+  const atc_event_id = createEventId("add_to_cart");
+  const bc_event_id = createEventId("begin_checkout");
 
   useEffect(() => {
     if (selectedVariant){
@@ -68,6 +71,7 @@ const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
   const handleAddToCart = () => {
      pushToDataLayer({
           event: "add_to_cart",
+          event_id: atc_event_id,
           ecommerce: {
             currency: "BDT",
             value: (selectedVariant?.salePrice ?? selectedVariant?.price) * (localQuantity ? localQuantity : 1),
@@ -94,6 +98,7 @@ const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
   const handleOrderNow = () => {
      pushToDataLayer({
           event: "add_to_cart",
+          event_id: atc_event_id,
           ecommerce: {
             currency: "BDT",
             value: (selectedVariant?.salePrice ?? selectedVariant?.price) * (localQuantity ? localQuantity : 1),
@@ -117,6 +122,7 @@ const { guestInfo, isReady: guestInfoReady, saveGuestInfo } = useGuestInfo();
     dispatch(addToCart({ ...product, itemCount: localQuantity, variantId: selectedVariant?.id }));
     pushToDataLayer({
       event: "begin_checkout",
+      event_id: bc_event_id,
       ecommerce: {
         currency: "BDT",
         value: selectedVariant.salePrice ?? selectedVariant?.price,
