@@ -53,7 +53,7 @@ const shippingSchema = yup.object({
   district: yup.string().required("District is required"),
   policeStation: yup.string().notRequired(),
   couponCode: yup.string().notRequired(),
-  shipping: yup.number().default(110),
+  shipping: yup.number().default(120),
   email: yup.string().email("Invalid email format").notRequired(),
 })
 
@@ -78,7 +78,7 @@ export default function CheckoutPage() {
     district : "",
     policeStation : "",
     couponCode: "",
-    shipping: 110,
+    shipping: 120,
    }
   
    const {
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
       if (["dhaka", "chattogram"].includes(selectedDistrict?.name?.toLowerCase())){
         setFieldValue("shipping", 70)
       }else {
-        setFieldValue("shipping", 110)
+        setFieldValue("shipping", 120)
       }
   }, [selectedDistrict])
  

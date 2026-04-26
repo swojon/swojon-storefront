@@ -122,7 +122,7 @@ const CartDrawer = () => {
                         <h6 className="xl:text-base lg:text-base text-base line-clamp-1 font-bold text-primaryColor pb-1">
                           {item.title}
                         </h6>
-                        <span className="block  text-sm">Baby&apos;s Food</span>
+                        <span className="block  text-sm">{item.description}</span>
                         <span className="block text-sm">{selectedVariant.optionValues.map((option: any) => (
                           <span key={option.optionName} className="inline-block mr-1">
                             {option.optionName} : {option.value}
@@ -143,10 +143,10 @@ const CartDrawer = () => {
                       </div>
 
                       <div className="xl:min-w-[50px]  line-clamp-1 text-sm">
-                        {item.discountPrice ? (
+                        {selectedVariant.salePrice ? (
                           <div className="flex flex-wrap  gap-2 text-activeColor">
                             <span className="text-lime-700">
-                              ৳{item.discountPrice}
+                              ৳{selectedVariant.salePrice}
                             </span>
                             <span className="inline-block line-through">
                               ৳{selectedVariant.price}
