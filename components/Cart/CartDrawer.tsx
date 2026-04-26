@@ -122,7 +122,7 @@ const CartDrawer = () => {
                         <h6 className="xl:text-base lg:text-base text-base line-clamp-1 font-bold text-primaryColor pb-1">
                           {item.title}
                         </h6>
-                        <span className="block  text-sm">{item.description}</span>
+                        <span className="block  text-sm">{item.category?.name ?? "Kids Item"}</span>
                         <span className="block text-sm">{selectedVariant.optionValues.map((option: any) => (
                           <span key={option.optionName} className="inline-block mr-1">
                             {option.optionName} : {option.value}
