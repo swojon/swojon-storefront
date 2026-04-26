@@ -143,7 +143,7 @@ const CartDrawer = () => {
                       </div>
 
                       <div className="xl:min-w-[50px]  line-clamp-1 text-sm">
-                        {selectedVariant.salePrice ? (
+                        {selectedVariant.salePrice != selectedVariant.price ? (
                           <div className="flex flex-wrap  gap-2 text-activeColor">
                             <span className="text-lime-700">
                               ৳{selectedVariant.salePrice}
