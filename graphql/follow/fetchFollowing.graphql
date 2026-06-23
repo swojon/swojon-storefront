@@ -1,0 +1,20 @@
+query ListFollowing($usernameOrId: String!) {
+  listFollowing(usernameOrId: $usernameOrId) {
+    items {
+      id
+      user{
+        id
+        email
+        facebookId
+        isApproved
+        isStaff
+        username
+        profile {
+          name
+          avatar
+        }
+      }
+      followStatus
+    }
+  }
+}

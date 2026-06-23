@@ -1,0 +1,7 @@
+.clip-path-banner {
+  background: url("../../public/yellowBanner.png") no-repeat;
+  background-size: cover;
+  -webkit-clip-path: polygon(52% 0, 100% 0, 100% 100%, 43% 100%);
+  clip-path: polygon(52% 0, 100% 0, 100% 100%, 43% 100%);
+  background-color: #fff8df;
+}/*# sourceMappingURL=ActionBanner2.css.map */

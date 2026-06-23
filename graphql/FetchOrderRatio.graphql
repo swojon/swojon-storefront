@@ -1,0 +1,33 @@
+query CheckOrderRatio($orderRatioQuery: OrderRatioCheckDTO!) {
+  checkOrderRatio(orderRatioQuery: $orderRatioQuery) {
+    total_parcel
+    success_ratio
+    success_parcel
+    steadfast {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    redx {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    cancelled_parcel
+    success
+    pathao {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+    paperfly {
+      cancelled_parcel
+      success_parcel
+      success_ratio
+      total_parcel
+    }
+  }
+}

@@ -1,0 +1,16 @@
+query SearchLocation($nominatimQuery: NominatimSearchDTO!) {
+    searchLocation(nominatimQuery: $nominatimQuery) {
+      items {
+        city
+        country
+        displayName
+        lat
+        locality
+        lon
+        placeId
+        postCode
+        state
+        stateDistrict
+      }
+    }
+  }

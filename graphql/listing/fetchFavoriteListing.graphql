@@ -1,0 +1,8 @@
+query ListFavoriteListing($userId: Float!) {
+  listFavoriteListing(userId: $userId) {
+    items{
+      ...ListingFields
+      
+    }
+  }
+}

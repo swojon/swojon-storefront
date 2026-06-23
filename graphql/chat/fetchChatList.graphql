@@ -1,0 +1,39 @@
+query listChats ($userId: Float){
+  listChatRooms(userId: $userId) {
+    items {
+      chatName
+      id
+      isDeleted
+      relatedListing{
+        id
+        title
+        price
+        media {
+          url
+        }
+      }
+      members {
+        user {
+          createdAt
+          id
+          email
+          username
+          profile {
+            name
+            avatar
+          }
+        }
+        userId
+      }
+      messages{
+        id
+        content
+        dateSent
+        sender{
+            id
+            email
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation UpdateUser($userData: UpdateUserDto!, $userId: Float!) {
+  updateUser(userData: $userData, userId: $userId) {
+    email
+    id
+    isEmailVerified
+    isStaff
+    username
+  }
+}

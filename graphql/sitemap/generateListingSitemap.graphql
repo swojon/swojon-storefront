@@ -1,0 +1,11 @@
+
+query GenerateListingsSitemap {
+  generateListingsSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
+    }
+  }
+}

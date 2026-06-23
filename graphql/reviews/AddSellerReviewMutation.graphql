@@ -1,0 +1,30 @@
+mutation CreateSellerReview($reviewData: SellerReviewCreateDTO!) {
+  createSellerReview(reviewData: $reviewData) {
+     review
+      rating
+      reviewer {
+        id
+        email
+        username
+        profile {
+          avatar
+          name
+        }
+      }
+      seller {
+        id
+        email
+        username
+        profile {
+          avatar
+          name
+        }
+      }
+      dateCreated
+      id
+      listing {
+        id
+        title
+      }
+  }
+}

@@ -1,0 +1,7 @@
+
+mutation CreateListing($listingData: ListingCreateDTO!) {
+  createListing(listingData: $listingData) {
+      ...ListingFields
+      
+    }
+}

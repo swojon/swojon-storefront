@@ -1,0 +1,5 @@
+mutation AddListingCollection($inputData: ListingCollectionInput!) {
+  addListingCollection(inputData: $inputData) {
+       ...ListingFields
+  }
+}

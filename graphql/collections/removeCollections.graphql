@@ -1,0 +1,14 @@
+mutation RemoveCollection($collectionId: Float!) {
+  removeCollection(collectionId: $collectionId) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+    ...ListingFields 
+    }
+  }
+}

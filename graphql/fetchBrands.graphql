@@ -1,0 +1,17 @@
+query ListBrands {
+  listBrands {
+    items {
+      categories {
+        id
+        name
+        slug
+      }
+      description
+      name
+      logo
+      slug
+      isFeatured
+      id
+    }
+  }
+}

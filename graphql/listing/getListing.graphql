@@ -1,0 +1,6 @@
+query GetListing($id: Float, $name: String) {
+  getListing(id: $id, name: $name) {
+     ...ListingFields
+      
+    }
+}

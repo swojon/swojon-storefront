@@ -1,0 +1,20 @@
+query GetCommunity($id: Float, $name: String, $slug: String) {
+  getCommunity(id: $id, name: $name, slug: $slug) {
+      id
+      slug
+      banner
+      isFeatured
+      description
+      memberCount
+      members {
+        id
+        role
+      }
+      name
+      slug
+      location {
+        id
+        name  
+      }
+  }
+}

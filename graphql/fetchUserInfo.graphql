@@ -1,0 +1,41 @@
+query GetUserByIdOrUsername($usernameOrId: String!) {
+  getUserByIdOrUsername(usernameOrId: $usernameOrId) {
+    createdAt
+    email
+    facebookId
+    followerCount
+    followingCount
+    followingStatus
+    id
+    isEmailVerified
+    isStaff
+    listingCount
+    isApproved
+    isVerified
+    pointBalance
+    profile {
+      address
+      avatar
+      country
+      city
+      avatarThumbnail
+      facebookHandle
+      googleHandle
+      id
+      name
+      instagramHandle
+      isPhoneNumberVerified
+      linkedinHandle
+      phoneNumber
+      twitterHandle
+      zipCode
+      state
+    }
+    roles {
+      id
+      name
+      description
+    }
+    username
+  }
+}

@@ -1,0 +1,23 @@
+query getChatMessage($chatRoomId: Float!, $endingBefore: String, $limit: Float, $startingAfter: String){
+    listChatMessages(chatRoomId: $chatRoomId, ending_before: $endingBefore, limit: $limit, starting_after: $startingAfter){
+        items{
+            id
+            content
+            dateSent
+            sender {
+                id
+                username
+                profile {
+                    avatar
+                    name
+                }
+
+            }
+        }
+        count
+        hasMore
+        beforeCursor
+        afterCursor
+    }
+}
+

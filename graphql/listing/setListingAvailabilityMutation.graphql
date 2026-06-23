@@ -1,0 +1,7 @@
+
+mutation SetListingAvailability($listingData: MarkAsUnavailableDTO!, $setListingAvailabilityListingId2: Float!) {
+  setListingAvailability(listingData: $listingData, listingId: $setListingAvailabilityListingId2) {
+         ...ListingFields
+      
+    }
+  }

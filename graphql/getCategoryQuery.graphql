@@ -1,0 +1,18 @@
+query GetCategory($getCategoryId: Float, $name: String, $slug: String) {
+  getCategory(id: $getCategoryId, name: $name, slug: $slug) {
+    id
+    name
+    slug
+    icon
+    banner
+    description
+    status
+    isSponsored
+    isFeatured
+    parentCategory {
+    id
+    name
+    slug
+    }
+  } 
+}

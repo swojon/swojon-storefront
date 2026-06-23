@@ -1,0 +1,18 @@
+query ListCollections($endingBefore: String, $startingAfter: String, $limit: Float, $orderBy: String) {
+  listCollections(ending_before: $endingBefore, starting_after: $startingAfter, limit: $limit, orderBy: $orderBy) {
+    count
+    items {
+      id
+      banner
+      name
+      description
+      listings {
+        id
+        title
+      }
+      slug
+      isFeatured
+      isActive
+      }
+  } 
+}

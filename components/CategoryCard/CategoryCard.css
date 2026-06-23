@@ -1,0 +1,68 @@
+.category-item {
+  cursor: pointer;
+}
+.categoryCard {
+  /* //   background: rgba(255, 255, 255, 0.05);
+    //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    //   backdrop-filter: blur(10px); */
+  background: linear-gradient(
+    108.16deg,
+    rgba(255, 255, 255, 0.75) 3.4%,
+    rgba(255, 255, 255, 0.2) 97.55%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  transition: transform 0.5s ease;
+  overflow: hidden;
+}
+
+.category-bg {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0)
+  );
+}
+.swiper-pagination-bullet {
+  background-color: #3b51a4; /* Set your desired color */
+}
+
+swiper-container::part(button-prev).swiper-button-disabled,
+swiper-container::part(button-next).swiper-button-disabled {
+  display: none;
+}
+
+/* .swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  top: 45%;
+  width: 10px;
+  height: 10px;
+}
+.swiper-button-prev {
+  top: 45%;
+}
+
+.swiper-button-next {
+  top: 46%;
+} */
+.sample-slider [class^="swiper-button-"]::after {
+  font-size: 10px;
+}
+
+/* .swiper-button-prev,
+.swiper-button-next {
+  top: 38%;
+} */
+/* 
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  margin: 0 15px;
+  font-size: 12px;
+  padding: 12px 15px;
+  background-color: rgb(255, 255, 255);
+  color: #212121;
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px #5c5c5c;
+} */

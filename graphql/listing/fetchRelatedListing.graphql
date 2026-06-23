@@ -1,0 +1,7 @@
+query relatedListing($listingId: Float!) {
+  relatedListing(listingId: $listingId) {
+    items{
+      ...ListingFields
+    }
+  }
+}

@@ -1,0 +1,7 @@
+query GetTrendingSearches {
+  getTrendingSearches {
+    items {
+      searchQuery
+    }
+  }
+}

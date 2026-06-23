@@ -1,0 +1,17 @@
+mutation UpdateCollection($collectionData: CollectionUpdateDTO!, $collectionId: Float!) {
+  updateCollection(collectionData: $collectionData, collectionId: $collectionId) {
+    
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      ...ListingFields
+    
+
+  }
+}
+}

@@ -1,0 +1,12 @@
+subscription NewNotification {
+  newNotification {
+      content
+      listingId
+      chatRoomId
+      dateCreated
+      read
+      type
+      id
+      relatedUserUsername
+  }
+}

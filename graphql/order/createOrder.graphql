@@ -1,0 +1,20 @@
+mutation CreateOrder($orderData: OrderCreateDTO!) {
+  createOrder(orderData: $orderData) {
+    id
+    orderId
+    items {
+        listing {
+          id
+          title          
+        }
+        price
+        quantity
+        variant {
+          id
+          price
+          salePrice  
+        }
+      }
+    
+    }
+  }

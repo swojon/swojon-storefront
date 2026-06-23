@@ -1,0 +1,12 @@
+mutation AddFollow($userId: Float!, $followedUserId: Float!) {
+  addFollow(userId: $userId, followedUserId: $followedUserId) {
+    id
+    followedUser {
+      id
+    }
+    user {
+      id
+    }
+    dateFollowed
+  }
+}

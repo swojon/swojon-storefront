@@ -1,0 +1,34 @@
+query GetOrder($orderId: String) {
+  getOrder(orderId: $orderId) {
+    finalAmount
+    createdAt
+    guestId
+    id
+    orderId
+    trackingNumber
+    carrier
+    status
+    items {
+      listing {
+        id
+        salePrice
+        title
+      }
+      price
+      quantity
+      variant {
+        id
+        price
+        sku
+        media {
+          url
+          isPrimary
+        }
+      }
+    }
+    shipping
+    shippingAddress
+    status
+    totalAmount
+  }
+}

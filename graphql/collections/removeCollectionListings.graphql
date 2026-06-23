@@ -1,0 +1,14 @@
+mutation RemoveCollectionListing($inputData: CollectionListingInput!) {
+  removeCollectionListing(inputData: $inputData) {
+          banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      ...ListingFields
+    }
+  }
+}

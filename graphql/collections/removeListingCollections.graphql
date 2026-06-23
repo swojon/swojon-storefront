@@ -1,0 +1,5 @@
+mutation RemoveListingCollection($inputData: ListingCollectionInput!) {
+  removeListingCollection(inputData: $inputData) {
+       ...ListingFields
+  }
+}

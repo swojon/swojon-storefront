@@ -1,0 +1,6 @@
+
+mutation UpdateListing($listingData: ListingUpdateDTO!, $listingId: Float!) {
+  updateListing(listingData: $listingData, listingId: $listingId) {
+   ...ListingFields
+  }
+}

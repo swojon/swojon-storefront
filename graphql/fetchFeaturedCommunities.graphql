@@ -1,0 +1,22 @@
+query ListCommunities($filters: CommunityFilterInput) {
+  listCommunities(filters: $filters) {
+     items {
+      slug
+      banner
+      isFeatured
+      id
+      description
+      memberCount
+      members {
+        id
+        role
+      }
+      name
+      slug
+      location {
+        id
+        name  
+      }
+    }
+  }
+}

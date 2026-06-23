@@ -1,0 +1,28 @@
+query GetChatRoom($chatRoomId: Float) {
+  getChatRoom(id: $chatRoomId) {
+    chatName
+    id
+    isDeleted
+    relatedListing{
+    id
+    title
+    price
+    media {
+      url
+    }
+    }
+    members {
+      user {
+          createdAt
+          id
+          email
+          username
+          profile {
+            name
+            avatar
+          }
+      }
+      userId
+    }
+  }
+}

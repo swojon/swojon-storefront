@@ -1,0 +1,10 @@
+query GenerateSellersSitemap {
+  generateSellersSitemap {
+    items {
+      changefreq
+      lastmod
+      priority
+      url
+    }
+  }
+}

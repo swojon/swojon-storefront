@@ -1,0 +1,14 @@
+mutation CreateCollection($collectionData: CollectionCreateDTO!) {
+  createCollection(collectionData: $collectionData) {
+    banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      ...ListingFields
+     }
+  }
+}

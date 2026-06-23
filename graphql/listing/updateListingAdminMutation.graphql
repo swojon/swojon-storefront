@@ -1,0 +1,5 @@
+mutation UpdateListingAdmin($adminlistingData: AdminListingUpdateDTO!, $listingId: Float!) {
+  updateListingAdmin(adminlistingData: $adminlistingData, listingId: $listingId) {
+     ...ListingFields
+  }
+}

@@ -1,0 +1,231 @@
+'use client';
+
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import beauty from "@/public/hero/hero-3.jpeg";
+import fashion from "@/public/assets/long_banner/Kids Fashion.png";
+
+import Link from "next/link";
+
+
+const MASONRY_DATA = [
+  // COLUMN2 (middle - col-span-2)
+  {
+    id: 4,
+    title: "Explore all kids Item",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_1400,q_auto,f_auto/v1745471749/All_Kids_Item_1_svl1ov.png",
+    col: 2,
+    colSpan: 2,
+    cover: true,
+    link: "/explore"
+  },
+  {
+    id: 5,
+    title: "New Mom Essentials",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330342/New_Mom_Essentials_ukzeir.png",
+    col: 2,
+    colSpan: 1,
+    link: "/collections/new-moms-essentials"
+  },
+  {
+    id: 6,
+    title: "Feeder Bottles",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330336/Feeder_Bottles_gecssm.png",
+    col: 2,
+    colSpan: 1,
+    link: "/collections/baby-feeder"
+    // rowSpan: 2,
+  },
+  // { id: 7, title: "Popular kitchen picks", image: banner, col: 2, colSpan: 2 },
+
+  // COLUMN1 (left)
+  {
+    id: 1,
+    title: "Pacifier & teethers",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1745330325/Baby_Accessories_vtgdsy.png",
+    col: 1,
+    colSpan: 1,
+    link: "/collections/pacifiers-teethers"
+  },
+  {
+    id: 2,
+    title: "SkinCare for babies",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1760850657/Baby_Skincare_jyepno.png",
+    col: 1,
+    colSpan: 1,
+    rowSpan: 2,
+    link: "/collections/baby-skincare"
+  },
+  // { id: 3, title: "Popular kitchen picks", image: decor, col: 1, colSpan: 1 },
+
+  // COLUMN3 (right)
+  {
+    id: 10,
+    title: "Soft Bath Moments",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1769753336/bath_zb6zuf.png",
+    col: 3,
+    colSpan: 1,
+    rowSpan: 2,
+    link: "/collections/bath-essentials"
+  },
+  // {
+  //   id: 8,
+  //   title: "Beauty, in bloom",
+  //   image: homeApp,
+  //   col: 3,
+  //   colSpan: 1,
+  // },
+  {
+    id: 9,
+    title: "Oral Care",
+    image:
+      "https://res.cloudinary.com/dvqgrbz4r/image/upload/w_600,q_auto,f_auto/v1769754291/Oral_Care_vjujv0.png",
+    col: 3,
+    colSpan: 1,
+    link: '/collections/oral-care'
+  },
+];
+
+const COLUMN1 = MASONRY_DATA.filter((item) => item.col === 1);
+const COLUMN2 = MASONRY_DATA.filter((item) => item.col === 2);
+const COLUMN3 = MASONRY_DATA.filter((item) => item.col === 3).sort((a, b) =>
+  a.id === 10 ? 1 : b.id === 10 ? -1 : 0
+);
+
+const MasonryColumn = ({
+  colSpan,
+  column,
+}: {
+  colSpan: string;
+  column: {
+    id: number;
+    cover?: boolean;
+    title: string;
+    image: any;
+    colSpan: number;
+    link: string;
+  }[];
+}) => {
+  return (
+    <div className={`${colSpan}  grid gap-5 `}>
+      {column.map((item) => (
+        <div
+          key={item.id}
+          className={`${
+            item.colSpan === 2 ? "col-span-2" : "col-span-1"
+          } shadow-md  rounded-lg relative cursor-pointer`}
+        >
+          <Link href={item.link} >
+          
+          
+          <Image
+            className="h-full w-full object-cover rounded-lg shadow-md"
+            width={1000}
+            height={1000}
+            unoptimized
+            src={item?.image || fashion}
+            alt={item.title}
+          />
+          <div className="absolute inset-0 text-blue-950">
+            <div className="p-2 md:p-3 lg:p-6 space-y-1.5  ">
+              <h5
+                className={`${
+                  item.cover
+                    ? "text-[1.1rem] lg:text-4xl"
+                    : "text-[1.1rem] lg:text-[1.37rem]"
+                }  font-extrabold line-clamp-2 me-14 tracking-normal`}
+              >
+                {item.title}
+              </h5>
+              <Link
+                href={item.link}
+                className="underline underline-offset-3 text-xs lg:text-base inline-block text-blue-950/75"
+              >
+                Shop now
+              </Link>
+            </div>
+          </div>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+// Hook to detect mobile
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return isMobile;
+}
+const HeroSectionMasonry = () => {
+  const isMobile = useIsMobile()
+  return (
+    <section className="px-[2vw]  max-w-[1700px] mx-auto mt-5 ">
+      {!isMobile ? (
+        <div className="h-full sm:grid grid-cols-2 sm:grid-cols-4 gap-5 hidden">
+        <MasonryColumn colSpan="col-span-1" column={COLUMN1} />
+        <MasonryColumn colSpan="col-span-2" column={COLUMN2} />
+        <MasonryColumn colSpan="col-span-1" column={COLUMN3} />
+      </div>
+      ): (
+      <div className="grid grid-cols-[auto_auto] gap-5 sm:hidden ">
+        {MASONRY_DATA.map((banner) => (
+          <div
+            key={banner.id}
+            className={` relative ${
+              banner.colSpan === 2 ? "col-span-2" : "col-span-1"
+            } ${
+              banner.rowSpan === 2 ? "row-span-2" : "row-span-1"
+            }  shadow-md  rounded-lg overflow-hidden cursor-pointer`}
+          >
+            <Link href={banner.link}>
+            
+            <Image
+              className="w-full h-full object-cover  rounded-lg"
+              width={1000}
+              height={1000}
+              unoptimized
+              src={banner.image}
+              alt={banner.title}
+            />
+
+            <div className="absolute inset-0 text-blue-950">
+              <div className="p-2.5 ">
+                <h5
+                  className={`${
+                    banner.cover ? "text-xl" : "text-[0.8rem] "
+                  } font-extrabold line-clamp-2 me-4`}
+                >
+                  {banner.title}
+                </h5>
+                <Link
+                  href={banner.link}
+                  className="underline underline-offset-3 text-xs inline-block"
+                >
+                  Shop now
+                </Link>
+              </div>
+            </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+    )}
+    </section>
+  );
+};
+
+export default HeroSectionMasonry;

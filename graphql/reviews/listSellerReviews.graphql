@@ -1,0 +1,33 @@
+query ListSellerReviews($usernameOrId: String!, $orderBy: String, $limit: Float, $startingAfter: String, $endingBefore: String, $filters: ReviewFilterInput) {
+  listSellerReviews(usernameOrId: $usernameOrId, orderBy: $orderBy, limit: $limit, starting_after: $startingAfter, ending_before: $endingBefore, filters: $filters) {
+    count
+    items {
+      review
+      rating
+      reviewer {
+        id
+        email
+        username
+        profile {
+          avatar
+          name
+        }
+      }
+      seller {
+        id
+        email
+        username
+        profile {
+          avatar
+          name
+        }
+      }
+      dateCreated
+      id
+      listing {
+        id
+        title
+      }
+    }
+  }
+}

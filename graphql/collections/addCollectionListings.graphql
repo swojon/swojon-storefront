@@ -1,0 +1,14 @@
+mutation AddCollectionListing($inputData: CollectionListingInput!) {
+  addCollectionListing(inputData: $inputData) {
+          banner
+    description
+    id
+    isActive
+    isFeatured
+    name
+    slug
+    listings {
+      ...ListingFields
+    }
+  }
+}

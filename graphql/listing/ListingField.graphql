@@ -1,0 +1,82 @@
+fragment ListingFields on Listing {
+    brand {
+        id
+        name
+        logo
+      }
+    condition
+    category {
+        id
+        name
+        slug
+        parentCategory{
+            id
+            name
+            slug
+        }
+    }
+    datePublished
+    dateCreated
+    description
+    id
+    videoUrl
+    media {
+        url
+    }
+    isApproved
+    isFeatured
+    isLive
+    isSold
+    collections {
+        name
+        description
+        id
+        slug
+        banner
+        isActive
+      }
+       variants {
+        sku
+        price
+        salePrice
+        stock
+        optionValues {
+          optionName
+          value
+        }
+        sku
+        media {
+          url
+        }
+        id
+      }
+      options {
+        name
+        values
+        id
+      }
+
+    stock
+    slug
+    price
+    salePrice
+    title
+      user {
+        email
+        id
+        username
+        isVerified
+        profile{
+          name
+          avatar
+        }
+      }
+      media{
+        url
+        isPrimary
+      }
+      favoriteCount
+      favoriteStatus
+      
+    }
+

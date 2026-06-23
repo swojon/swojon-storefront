@@ -1,0 +1,15 @@
+mutation RemoveFavorite($listingId: Float!, $userId: Float!) {
+  removeFavorite(listingId: $listingId, userId: $userId) {
+    dateCreated
+    id
+    listing {
+      id
+      title
+    }
+    user {
+      email
+      id
+      username
+    }
+  }
+}
