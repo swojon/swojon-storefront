@@ -1,5 +1,9 @@
 "use client";
+<<<<<<< HEAD
 import { useState, useRef, useEffect } from "react";
+=======
+import { useState, useRef } from "react";
+>>>>>>> ac5ea7f69cf82fa6692078ffe65e3ae28cfca949
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -42,6 +46,7 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
       }
     });
   }
+<<<<<<< HEAD
 
   const eventId = createEventId("view_item", product.id);
   console.log("Not firing event yet")
@@ -94,6 +99,32 @@ const ProductDetailsLoaded = ({ product }: { product: any }) => {
         
   // });
   //   }
+=======
+  const eventId = createEventId("view_item", product.id);
+  pushToDataLayer({
+        event: "view_item",
+        event_id: eventId,
+        ecommerce: {
+          value: product.salePrice ?? product.price,
+          currency: "BDT",
+          items: [
+            {
+              item_id: product?.id,
+              item_name: product?.title,
+              price: product?.salePrice ?? product?.price,
+              category: product?.category?.name ?? "Uncategorized",
+            },
+          ],
+        },
+        user_data: {
+          'email': guestInfo?.email || '', 
+          'phone': guestInfo?.phoneNumber || '',
+          'first_name': guestInfo?.name ? guestInfo.name.split(' ')[0] : '',
+          'last_name': guestInfo?.name ? guestInfo.name.split(' ').slice(1).join(' ') : '',
+        } 
+  });
+
+>>>>>>> ac5ea7f69cf82fa6692078ffe65e3ae28cfca949
   // const images = product?.media + product.variants?.map((variant: any) => variant.media) || [];
   console.log("images", images);
   // const filteredImages = useSelector(

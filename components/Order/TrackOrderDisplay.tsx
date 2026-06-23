@@ -222,14 +222,21 @@ export default function TrackOrderDisplay({ orderId }: OrderDisplayProps) {
                 className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-b-0"
               >
                 <div>
+<<<<<<< HEAD
                   <p className="font-medium text-slate-900">{item.listing?.title} ({item.variant.sku})</p>
                   
+=======
+                  <p className="font-medium text-slate-900">{item.listing?.title}</p>
+>>>>>>> ac5ea7f69cf82fa6692078ffe65e3ae28cfca949
                   <p className="text-sm text-slate-600">Qty: {item.quantity}</p>
                 </div>
                 <p className="font-semibold text-slate-900">
                   ৳{(item.price * item.quantity).toFixed(2)}
                 </p>
+<<<<<<< HEAD
                 
+=======
+>>>>>>> ac5ea7f69cf82fa6692078ffe65e3ae28cfca949
               </div>
             ))}
             {/* shipping address */}
